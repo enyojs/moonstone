@@ -1,139 +1,288 @@
-/**
-	_moon.ExpandableIntegerPicker_, which extends
-	[moon.ExpandableListItem](#moon.ExpandableListItem), is a drop-down picker
-	menu that prompts the user to make a selection from a range of integer-based
-	options.
+(function (enyo, scope) {
+	/**
+	* Fires when the currently selected item changes.
+	*
+	* @event moon.ExpandableIntegerPicker#event:onChange
+	* @type {Object}
+	* @property {Number} value - The value of the currently selected item.
+	* @property {String} content -  The content of the currently selected item.
+	*
+	* @public
+	*/
 
-	The value of the currently selected item is available in the picker's _value_
-	property, while the content of the item is available in _content_.
+	/**
+	* _moon.ExpandableIntegerPicker_, which extends
+	* [moon.ExpandableListItem]{@link moon.ExpandableListItem}, is a drop-down picker
+	* menu that prompts the user to make a selection from a range of integer-based
+	* options.
+	*
+	* The value of the currently selected item is available in the picker's [value]{@link
+	* moon.ExpandableIntegerPicker.value} property, while the content of the item is available in
+	* {@link moon.ExpandableIntegerPicker#content}.
+	*
+	* When the picker is minimized, the content of the currently selected item is
+	* displayed as subtext below the picker label.
+	*
+	* @class moon.ExpandableIntegerPicker
+	* @extends moon.ExpandableListItem
+	* @ui
+	* @public
+	*/
+	enyo.kind(
+		/** @lends moon.ExpandableIntegerPicker.prototype */ {
 
-	When the picker is minimized, the content of the currently selected item is
-	displayed as subtext below the picker label.
-*/
-enyo.kind({
-	name: "moon.ExpandableIntegerPicker",
-	kind: "moon.ExpandableListItem",
-	//* @protected
-	classes: "moon-expandable-integer-picker",
-	//* @public
-	events: {
 		/**
-			Fires when the currently selected item changes.
-
-			_inEvent.value_ contains the value of the currently selected item.
-
-			_inEvent.content_ contains the content of the currently selected item.
+		* @private
 		*/
-		onChange: ""
-	},
-	published: {
-		//* Text to be displayed in the _currentValue_ control if no item is currently selected
-		noneText: "",
-		//* Initial value of the picker
-		value: -1,
-		//* Minimum value of the picker
-		min: 0,
-		//* Maximum value of the picker
-		max: 9,
-		//* Amount to increment/decrement by
-		step: 1,
-		//* Unit/label to be appended to the end of the number
-		unit: "sec"
-	},
-	//* @protected
-	lockBottom: true,
-	autoCollapse: true,
+		name: 'moon.ExpandableIntegerPicker',
 
-	handlers: {
-		requestScrollIntoView: "requestScrollIntoView",
-		onRebuilt: "requestPickerReflow"
-	},
-	components: [
-		{name: "headerWrapper", kind: "moon.Item", classes: "moon-expandable-picker-header-wrapper", onSpotlightFocus: "headerFocus", ontap: "expandContract", components: [
-			// headerContainer required to avoid bad scrollWidth returned in RTL for certain text widths (webkit bug)
-			{name: "headerContainer", classes: "moon-expandable-list-item-header moon-expandable-picker-header", components: [
-				{name: "header", kind: "moon.MarqueeText"}
+		/**
+		* @private
+		*/
+		kind: 'moon.ExpandableListItem',
+
+		/**
+		* @private
+		*/
+		classes: 'moon-expandable-integer-picker',
+
+		/**
+		* @private
+		*/
+		events: {
+
+			/**
+			* {@link moon.ExpandableIntegerPicker#event:onChange}
+			*/
+			onChange: ''
+		},
+
+		/**
+		* @private
+		*/
+		published: /** @lends moon.ExpandableIntegerPicker.prototype */ {
+
+			/**
+			* Text to be displayed in the _currentValue_ control if no item is currently selected
+			*
+			* @type {String}
+			* @default ''
+			* @public
+			*/
+			noneText: '',
+
+			/**
+			* Initial value of the picker
+			*
+			* @type {Number}
+			* @default -1
+			* @public
+			*/
+			value: -1,
+
+			/**
+			* Minimum value of the picker
+			*
+			* @type {Number}
+			* @default 0
+			* @public
+			*/
+			min: 0,
+
+			/**
+			* Maximum value of the picker
+			*
+			* @type {Number}
+			* @default 9
+			* @public
+			*/
+			max: 9,
+
+			/**
+			* Amount to increment/decrement by
+			*
+			* @type {Number}
+			* @default 1
+			* @public
+			*/
+			step: 1,
+
+			/**
+			* Unit/label to be appended to the end of the number
+			*
+			* @type {String}
+			* @default 'sec'
+			* @public
+			*/
+			unit: 'sec'
+		},
+
+		/**
+		* @private
+		*/
+		lockBottom: true,
+
+		/**
+		* @private
+		*/
+		autoCollapse: true,
+
+		/**
+		* @private
+		*/
+		handlers: {
+			requestScrollIntoView: 'requestScrollIntoView',
+			onRebuilt: 'requestPickerReflow'
+		},
+
+		/**
+		* @private
+		*/
+		components: [
+			{name: 'headerWrapper', kind: 'moon.Item', classes: 'moon-expandable-picker-header-wrapper', onSpotlightFocus: 'headerFocus', ontap: 'expandContract', components: [
+				// headerContainer required to avoid bad scrollWidth returned in RTL for certain text widths (webkit bug)
+				{name: 'headerContainer', classes: 'moon-expandable-list-item-header moon-expandable-picker-header', components: [
+					{name: 'header', kind: 'moon.MarqueeText'}
+				]},
+				{name: 'currentValue', kind: 'moon.MarqueeText', classes: 'moon-expandable-picker-current-value'}
 			]},
-			{name: "currentValue", kind: "moon.MarqueeText", classes: "moon-expandable-picker-current-value"}
-		]},
-		{name: "drawer", kind: "enyo.Drawer", resizeContainer:false, classes:"moon-expandable-list-item-client indented", components: [
-			{name: "picker", kind: "moon.SimpleIntegerPicker", deferInitialization: true, onSelect: "toggleActive", onActivate: "activated"}
-		]}
-	],
-	bindings: [
-		{from: ".min", to: ".$.picker.min"},
-		{from: ".max", to: ".$.picker.max"},
-		{from: ".step", to: ".$.picker.step"},
-		{from: ".unit", to: ".$.picker.unit"},
-		{from: ".value", to: ".$.picker.value", oneWay: false},
-		{from: ".showCurrentValue", to: ".$.currentValue.showing"},
-		{from: ".currentValueText", to: ".$.currentValue.content"},
-		{from: ".disabled", to: ".$.headerWrapper.disabled"}
-	],
-	computed: {
-		"showCurrentValue": ["open"],
-		"currentValueText": ["value", "unit", "noneText"]
-	},
+			{name: 'drawer', kind: 'enyo.Drawer', resizeContainer:false, classes:'moon-expandable-list-item-client indented', components: [
+				{name: 'picker', kind: 'moon.SimpleIntegerPicker', deferInitialization: true, onSelect: 'toggleActive', onActivate: 'activated'}
+			]}
+		],
 
-	create: function() {
-		this.inherited(arguments);
-		this.requestPickerReflow();
-	},
+		/**
+		* @private
+		*/
+		bindings: [
+			{from: '.min', to: '.$.picker.min'},
+			{from: '.max', to: '.$.picker.max'},
+			{from: '.step', to: '.$.picker.step'},
+			{from: '.unit', to: '.$.picker.unit'},
+			{from: '.value', to: '.$.picker.value', oneWay: false},
+			{from: '.showCurrentValue', to: '.$.currentValue.showing'},
+			{from: '.currentValueText', to: '.$.currentValue.content'},
+			{from: '.disabled', to: '.$.headerWrapper.disabled'}
+		],
 
-	requestPickerReflow: function() {
-		this._needsPickerReflow = true;
-	},
+		/**
+		* @private
+		*/
+		computed: {
+			'showCurrentValue': ['open'],
+			'currentValueText': ['value', 'unit', 'noneText']
+		},
 
-	// Change handlers
-	valueChanged: function(inOld) {
-		if (this.value < this.min || this.value > this.max) {
-			this.value = inOld;
-		}
-		this.fireChangeEvent();
-	},
-	openChanged: function() {
-		this.inherited(arguments);
-		this.setActive(this.getOpen());
-		if (this.open && this._needsPickerReflow) {
-			this.$.picker.reflow();
-			this._needsPickerReflow = false;
-		}
-	},
+		/**
+		* @private
+		*/
+		create: function () {
+			this.inherited(arguments);
+			this.requestPickerReflow();
+		},
 
-	// Computed props
-	showCurrentValue: function() {
-		return !this.open;
-	},
-	currentValueText: function() {
-		return (this.value === "") ? this.noneText : this.value + " " + this.unit;
-	},
+		/**
+		* @private
+		*/
+		requestPickerReflow: function () {
+			this._needsPickerReflow = true;
+		},
 
-	//* Sets _this.value_ to _this.$.clientInput.value_.
-	updateValue: function() {
-		this.setValue(this.$.picker.getValue());
-	},
-	//* If open, closes and spots header. If closed, opens and unspots.
-	toggleActive: function() {
-		if (this.getOpen()) {
-			this.setActive(false);
-			if (!enyo.Spotlight.getPointerMode()) {
-				enyo.Spotlight.spot(this.$.headerWrapper);
+		/**
+		* Change handler
+		*
+		* @private
+		*/
+		valueChanged: function (inOld) {
+			if (this.value < this.min || this.value > this.max) {
+				this.value = inOld;
 			}
-		} else {
-			this.setActive(true);
-		}
-	},
-	//* Kills any _onActivate_ events coming from buttons in the SimplePicker.
-	activated: function(inSender, inEvent) {
-		return true;
-	},
-	//* Fires an _onChange_ event.
-	fireChangeEvent: function() {
-		this.doChange({value: this.value, content: this.content});
-	},
-	spotlightDown: function(inSender, inEvent) {
-		if (this.getLockBottom() && (inEvent.originator === this.$.picker) && this.getOpen()) {
+			this.fireChangeEvent();
+		},
+
+		/**
+		* Change handler
+		*
+		* @private
+		*/
+		openChanged: function () {
+			this.inherited(arguments);
+			this.setActive(this.getOpen());
+			if (this.open && this._needsPickerReflow) {
+				this.$.picker.reflow();
+				this._needsPickerReflow = false;
+			}
+		},
+
+		/**
+		* Computed prop
+		*
+		* @private
+		*/
+		showCurrentValue: function () {
+			return !this.open;
+		},
+
+		/**
+		* Computed prop
+		*
+		* @private
+		*/
+		currentValueText: function () {
+			return (this.value === '') ? this.noneText : this.value + ' ' + this.unit;
+		},
+
+		/**
+		* Sets {@link @moon.ExpandableIntegerPicker#value} to _this.$.clientInput.value_.
+		*
+		* @private
+		*/
+		updateValue: function () {
+			this.setValue(this.$.picker.getValue());
+		},
+
+		/**
+		* If open, closes and spots header. If closed, opens and unspots.
+		*
+		* @private
+		*/
+		toggleActive: function () {
+			if (this.getOpen()) {
+				this.setActive(false);
+				if (!enyo.Spotlight.getPointerMode()) {
+					enyo.Spotlight.spot(this.$.headerWrapper);
+				}
+			} else {
+				this.setActive(true);
+			}
+		},
+
+		/**
+		* Kills any {@link moon.SimplePicker#event:onActivate} events coming from buttons in the
+		* SimplePicker.
+		*
+		* @private
+		*/
+		activated: function (inSender, inEvent) {
 			return true;
+		},
+
+		/**
+		* @fires moon.ExpandableIntegerPicker#event:onChange
+		* @private
+		*/
+		fireChangeEvent: function () {
+			this.doChange({value: this.value, content: this.content});
+		},
+
+		/**
+		* @private
+		*/
+		spotlightDown: function (inSender, inEvent) {
+			if (this.getLockBottom() && (inEvent.originator === this.$.picker) && this.getOpen()) {
+				return true;
+			}
 		}
-	}
-});
+	});
+
+})(enyo, this);

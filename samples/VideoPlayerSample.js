@@ -7,7 +7,11 @@ enyo.kind({
 		{
 			name: "player",
 			kind: "moon.VideoPlayer",
-			src: "http://media.w3.org/2010/05/bunny/movie.mp4",
+			sources: [
+				{src: "http://media.w3.org/2010/05/bunny/movie.mp4", type: "video/mp4"},
+				{src: "http://media.w3.org/2010/05/bunny/movie.ogg", type: "video/ogg"},
+				{src: "http://media.w3.org/2010/05/bunny/movie.webm", type: "video/webm"}
+			],
 			poster: "assets/video-poster.png",
 			autoplay:true,
 			onPlaybackControlsTapped: "controlsTapped",
@@ -47,20 +51,20 @@ enyo.kind({
 				{kind: "moon.Button", content:"Unload", ontap:"unload"},
 				{kind: "moon.Button", content:"Reload", ontap:"load"},
 				{kind: "moon.ToggleButton", content:"FF/Rewind", name:"ffrewToggleButton"},
-				{kind: "moon.TooltipDecorator", components: [
-					{kind: "moon.ContextualPopupDecorator", components: [
+				{kind: "moon.ContextualPopupDecorator", components: [
+					{kind: "moon.TooltipDecorator", components: [
 						{kind: "moon.Button", content: "Popup"},
-						{
-							kind: "moon.ContextualPopup",
-							classes: "moon-3h moon-6v",
-							components: [
-								{kind: "moon.Item", content:"Item 1"},
-								{kind: "moon.Item", content:"Item 2"},
-								{kind: "moon.Item", content:"Item 3"}
-							]
-						}
+						{kind: "moon.Tooltip", floating:true, content: "I'm a tooltip for a button."}
 					]},
-					{kind: "moon.Tooltip", floating:true, content: "I'm a tooltip for a button."}
+					{
+						kind: "moon.ContextualPopup",
+						classes: "moon-3h moon-6v",
+						components: [
+							{kind: "moon.Item", content:"Item 1"},
+							{kind: "moon.Item", content:"Item 2"},
+							{kind: "moon.Item", content:"Item 3"}
+						]
+					}
 				]},
 				{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
 				{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
@@ -86,6 +90,12 @@ enyo.kind({
 	},
 	load: function() {
 		this.$.player.unload();
-		this.$.player.setSrc("http://media.w3.org/2010/05/bunny/movie.mp4");
+		// We can set source by sources array
+		this.sources = [
+			{src: "http://media.w3.org/2010/05/bunny/movie.mp4", type: "video/mp4"},
+			{src: "http://media.w3.org/2010/05/bunny/movie.ogg", type: "video/ogg"},
+			{src: "http://media.w3.org/2010/05/bunny/movie.webm", type: "video/webm"}
+		];
+		this.$.player.setSources(this.sources);
 	}
 });
