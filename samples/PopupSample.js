@@ -16,7 +16,8 @@ enyo.kind({
 		]},
 
 		{name: "basicPopup", kind: "moon.Popup", content: "Popup..."},
-		{name: "directPopup", kind: "moon.Popup", components: [
+		// The directPopup is only works when we call showDirect or hideDirect. So, setting autoDismiss as false here.
+		{name: "directPopup", kind: "moon.Popup", autoDismiss: false, components: [
 			{content: "Direct Popup"},	
 			{kind: "moon.Button", content: "Hide Direct", ontap: "hidePopup", popup: "directPopup", direct: true}
 		]},
