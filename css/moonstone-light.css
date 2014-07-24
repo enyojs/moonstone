@@ -3579,10 +3579,10 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
+  color: #4b4b4b;
   width: 60px;
   line-height: 60px;
   border-radius: 9999px;
-  color: #4b4b4b;
   border: solid 10px transparent;
   display: inline-block;
 }
