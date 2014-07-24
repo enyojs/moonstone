@@ -1,13 +1,9 @@
 (function (enyo, scope) {
 	/**
-	* Fires when the SelectableItem is tapped.
+	* Fires when the SelectableItem is tapped. No event-specific data is sent with this event.
 	*
 	* @event moon.SelectableItem#event:onActivate
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently 
-	*	propagated the [event]{@glossary event}.
-	* @property {Object} event - An [object]{@glossary Object} containing 
-	*	[event]{@glossary event} information. 
 	* @public
 	*/
 
@@ -20,9 +16,9 @@
 	* If multiple _SelectableItems_ are used in a group, only one of them may be in
 	* the selected state at a given time.
 	*
-	* @ui
 	* @class moon.SelectableItem
 	* @extends moon.Item
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -76,8 +72,8 @@
 			/**
 			* For use with the Enyo Group API; `true` if this item is the selected item in the 
 			* group. Within this kind, [_selected_]{@link moon.SelectableItem#selected} and _active_
-			* appear to behave similarly; however, _active_ is meant to be used by _enyo.Group_, 
-			* while _selected_ is to be used for changing selection state.
+			* appear to behave similarly; however, _active_ is meant to be used by
+			* {@link enyo.Group}, while _selected_ is to be used for changing selection state.
 			*
 			* @type {Boolean}
 			* @default false

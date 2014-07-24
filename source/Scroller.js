@@ -1,13 +1,13 @@
 (function (enyo, scope) {
 	/**
-	* Fired when a control explicitly requests to be scrolled into view
+	* Fired when a control explicitly requests to be scrolled into view. Handled by the scroll
+	* strategy.
 	*
-	* @event enyo.Scroller#onRequestScrollIntoView
+	* @event enyo.Scroller#event:onRequestScrollIntoView
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
+	* @property {Boolean} scrollInPointerMode - `true` to scroll in pointer mode
+	* @property {Boolean} scrollFullPage - If defined, overrides the scrollers `scrollFullPage`
+	*	property.
 	* @public
 	*/
 
@@ -23,9 +23,9 @@
 	* For more information, see the documentation on
 	* [Scrollers](building-apps/layout/scrollers.html) in the Enyo Developer Guide.
 	*
-	* @ui
 	* @class moon.Scroller
 	* @extends enyo.Scroller
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -47,7 +47,7 @@
 		published: /** @lends moon.Scroller.prototype */ {
 
 			/**
-			* If true, when scrolling to focused child controls, the scroller will
+			* If `true`, when scrolling to focused child controls, the scroller will
 			* scroll as far as possible, until its edge meets the next item's edge
 			*
 			* @type {Boolean}
@@ -57,7 +57,7 @@
 			scrollFullPage: false,
 
 			/**
-			* If true, paging controls are focusable (in 5-way mode).  Normally, this
+			* If `true`, paging controls are focusable (in 5-way mode).  Normally, this
 			* is not required, since the scroller will automatically scroll to ensure
 			* most focusable items are in view.  It is intended to be used when the
 			* scroller contents have no spotlightable controls, such as the case of a
@@ -129,9 +129,9 @@
 			paginationScrollMultiplier: 8,
 
 			/**
-			* When true, the scroll wheel moves spotlight focus up/down through the
+			* When `true`, the scroll wheel moves spotlight focus up/down through the
 			* scroller when in 5-way mode. (In pointer mode, the scroll wheel always
-			* scrolls the viewport without modifying focus position.) When false, the
+			* scrolls the viewport without modifying focus position.) When `false`, the
 			* scroll wheel works the same in 5-way mode as in pointer mode, where the
 			* wheel moves the position of the scroller viewport.
 			*

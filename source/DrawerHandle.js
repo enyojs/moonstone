@@ -18,9 +18,9 @@
 	* 		}
 	* ```
 	*
-	* @ui
 	* @class moon.DrawerHandle
 	* @extends moon.Item
+	* @ui
 	* @public
 
 	*/

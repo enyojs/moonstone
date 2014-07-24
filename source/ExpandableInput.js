@@ -1,15 +1,10 @@
 (function (enyo, scope) {
 	/**
-	* Fires when the current text changes.
-	*
-	* _event.value_ contains the value of the input.
+	* Fires when the current text changes. This passes through {@link enyo.Input#event:onChange}.
 	*
 	* @event moon.ExpandableInput#event:onChange
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
+	* @property {String} value - The value of the input.
 	* @public
 	*/
 
@@ -18,9 +13,9 @@
 	* [moon.ExpandableListItem]{@link moon.ExpandableListItem}, is a drop-down input that
 	* prompts the user to enter text.
 	*
-	* @ui
 	* @class moon.ExpandableInput
 	* @extends moon.ExpandableListItem
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -189,13 +184,14 @@
 		},
 
 		/**
-		* value should submit if user clicks outside control. We check for 'down' to make sure not to
-		* contract on mousemove
+		* value should submit if user clicks outside control. We check for 'onSpotlightFocus' and  
+		* 'mouseover' to make sure not to contract on the event which is fired from itself.
 		*
 		* @private
 		*/
 		inputBlur: function (inSender, inEvent) {
-			if (this.$.clientInput.hasFocus() && enyo.Spotlight.getPointerMode() && enyo.Spotlight.getLastEvent().type === 'down') {
+			var eventType = enyo.Spotlight.getLastEvent().type;
+			if (enyo.Spotlight.getPointerMode() && eventType !== 'onSpotlightFocus' && eventType !== 'mouseover') {
 				this.toggleActive();
 			}
 		},
@@ -261,8 +257,8 @@
 		* @private
 		*/
 		drawerAnimationEnd: function () {
-			enyo.Spotlight.unfreeze();
 			if (this.getOpen()) {
+				enyo.Spotlight.unfreeze();
 				this.focusInput();
 			}
 			this.inherited(arguments);
@@ -278,9 +274,11 @@
 		* @private
 		*/
 		closeDrawerAndHighlightHeader: function () {
+			var mode = enyo.Spotlight.getPointerMode();
 			enyo.Spotlight.setPointerMode(false);
 			enyo.Spotlight.unfreeze();
 			enyo.Spotlight.spot(this.$.headerWrapper);
+			enyo.Spotlight.setPointerMode(mode);
 			this.toggleActive();
 		}
 	});

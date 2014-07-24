@@ -1,7 +1,6 @@
 (function (enyo, scope) {
 	/**
-	* The extended [event]{@glossary:event} [object]{@link glossary Object} that is provided when 
-	* the [onChange]{@link moon.SimplePicker#event:onChange} [event]{@glossary event} is fired.
+	* Fires when the currently selected item changes. The following shows the event-specific data:
 	*
 	* ```javascript
 	* {
@@ -11,22 +10,11 @@
 	* }
 	* ```
 	* 
-	* @typedef {Object} moon.SimplePicker~SelectionEventObject
+	* @event moon.SimplePicker#event:onChange
+	* @type {Object}
 	* @property {enyo.Control} selected - A reference to the currently selected item.
 	* @property {String} content - The content of the currently selected item.
 	* @property {Number} index - The index of the currently selected item.
-	* @public
-	*/
-
-	/**
-	* Fires when the currently selected item changes.
-	*
-	* @event moon.SimplePicker#event:onChange
-	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently 
-	*	propagated the [event]{@glossary event}.
-	* @property {moon.SimplePicker~SelectionEventObject} event - An [object]{@glossary Object} 
-	*	containing [event]{@glossary event} information.
 	* @public
 	*/
 

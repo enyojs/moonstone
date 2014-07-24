@@ -425,23 +425,23 @@
 .moon-superscript {
   font-size: 24px;
   vertical-align: top;
-  margin: 0px 0px 0px 2px;
-  padding: 0px;
+  margin: 0 0 0 2px;
+  padding: 0;
 }
 .moon-pre-text {
   font-size: 24px;
   vertical-align: top;
   height: 48px;
   line-height: 24px;
-  margin: 12px 2px 8px 0px;
+  margin: 12px 2px 8px 0;
   padding: 0px;
 }
 .moon-large-text {
   font-size: 48px;
   vertical-align: top;
   height: 48px;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
 }
 .moon-header-text {
   font-family: "Moonstone Miso";
@@ -1279,30 +1279,25 @@
   font-style: normal;
   letter-spacing: 0;
   color: #a6a6a6;
-  border-width: 0 0;
-  border-left-color: transparent;
-  border-left-style: solid;
   line-height: 1.2em;
   padding: 10px;
-  vertical-align: top;
   position: relative;
+}
+.moon-item.spotlight {
+  background-color: #cf0652;
+  color: #ffffff;
 }
 .moon-item.allow-wrap {
   white-space: normal !important;
+}
+.moon-item.disabled {
+  cursor: default;
+  opacity: 0.6;
 }
 .enyo-locale-non-latin .moon-item {
   font-family: "Moonstone LG Display";
   font-family: "Moonstone LG Display Bold";
   font-size: 30px;
-}
-.moon-item.disabled {
-  cursor: default;
-  opacity: 0.6;
-  filter: alpha(opacity=60);
-}
-.moon-item.spotlight {
-  background-color: #cf0652;
-  color: #ffffff;
 }
 /* SelectableItem.css */
 .moon-selectable-item-indicator {
@@ -1573,15 +1568,14 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
+  color: #a6a6a6;
   display: inline-block;
   border-width: 0px;
   background-color: transparent;
-  letter-spacing: normal;
   white-space: nowrap;
   overflow: hidden;
   cursor: pointer;
   line-height: normal;
-  color: #a6a6a6;
   margin: 0px 37px 33px 0px;
   padding: 3px 0px 2px 0px;
   text-transform: none;
@@ -1958,17 +1952,9 @@
 	This way, you can minify your application, and just remove the "source" folder for production
 */
 .moon-gridlist-imageitem {
-  width: 100%;
-  height: 100%;
+  display: inline-block;
   overflow: hidden;
-  background-clip: padding-box;
   border: 5px solid transparent;
-}
-.moon-gridlist-imageitem .caption,
-.moon-gridlist-imageitem .sub-caption {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
 }
 .moon-gridlist-imageitem .caption {
   font-family: "MuseoSans 700";
@@ -1984,11 +1970,8 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
-  line-height: 32px;
   color: #a6a6a6;
-  line-height: 1.25em;
-  height: 1.25em;
-  vertical-align: bottom;
+  line-height: 32px;
 }
 .moon-gridlist-imageitem .sub-caption a:link {
   color: #cf0652;
@@ -2010,14 +1993,12 @@
   border: 5px solid #404040;
   background-color: #404040;
 }
-.moon-gridlist-imageitem.selected .caption,
-.moon-gridlist-imageitem.selected .sub-caption {
-  color: #ffffff;
-}
 .moon-gridlist-imageitem.spotlight {
   border: 5px solid #cf0652;
   background-color: #cf0652;
 }
+.moon-gridlist-imageitem.selected .caption,
+.moon-gridlist-imageitem.selected .sub-caption,
 .moon-gridlist-imageitem.spotlight .caption,
 .moon-gridlist-imageitem.spotlight .sub-caption {
   color: #ffffff;
@@ -4577,7 +4558,6 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
-  color: #a6a6a6;
   color: #ffffff;
   margin-bottom: 22px;
   white-space: nowrap;
@@ -4710,7 +4690,6 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
-  color: #a6a6a6;
   color: #ffffff;
   margin-bottom: 22px;
   white-space: nowrap;
@@ -4720,14 +4699,12 @@
 }
 .moon-video-player-info-icon {
   font-family: "MuseoSans 700";
-  font-size: 30px;
+  font-size: 20px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
-  color: #a6a6a6;
-  font-size: 20px;
-  background-color: #ffffff;
   color: #000000;
+  background-color: #ffffff;
   border-radius: 5px;
   text-align: center;
   white-space: nowrap;
@@ -5077,43 +5054,25 @@
 .moon-formcheckbox-item.spotlight .moon-checkbox-item-label-wrapper {
   color: #a6a6a6;
 }
-.selection-enabled .moon-selection-overlay-support.spotlight .moon-selection-overlay-support-scrim,
-.selection-enabled .moon-selection-overlay-support .spotlight.selected .moon-selection-overlay-support-scrim,
 .selection-enabled .moon-selection-overlay-support.selected .moon-selection-overlay-support-scrim {
   display: block;
-  visibility: hidden;
+  text-align: center;
 }
-.selection-enabled .moon-selection-overlay-support.selected .moon-icon-button {
-  color: #a6a6a6;
-  background-color: #404040;
-  background-position: center 0;
-  border-color: #cf0652;
+.selection-enabled .moon-selection-overlay-support.selected .moon-selection-overlay-support-scrim .moon-icon-button {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  line-height: 50px;
+  font-size: 72px;
+  color: #cf0652;
+  margin: -30px 0 0 -30px;
   background-color: #ffffff;
   border-color: #ffffff;
-  background-position: 0 -50px;
-  visibility: visible;
-}
-.selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button,
-.selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.active,
-.selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button:active,
-.selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.pressed,
-.selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.spotlight.pressed,
-.selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.spotlight:active {
-  background-color: #ffffff;
-  border-color: #ffffff;
+  background-size: 50px 50px;
 }
 .moon-selection-overlay-support-scrim {
   display: none;
-  z-index: 100000;
-}
-.moon-selection-overlay-support-scrim .moon-selection-overlay-support-checkbox {
-  position: absolute;
-  margin-top: -30px;
-  margin-left: -30px;
-}
-.enyo-locale-right-to-left .moon-selection-overlay-support-scrim .moon-selection-overlay-support-checkbox {
-  margin-left: initial;
-  margin-right: -30px;
+  z-index: 1000;
 }
 .moon-thumb {
   -webkit-transform-origin: 0px 0px;

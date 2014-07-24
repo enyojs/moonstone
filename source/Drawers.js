@@ -2,28 +2,18 @@
 	/**
 	* Handler for initial rendering event
 	*
-	* event.drawersHeight contains the height of the drawer
-	*
 	* @event moon.Drawers#event:onDrawersRendered
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
+	* @property {number} drawersHeight - The height of the drawer
 	* @public
 	*/
 
 	/**
 	* Handler for initial resizing event to size drawers to full screen
 	*
-	* event.drawersHeight contains the height of the drawer
-	*
 	* @event moon.Drawers#event:onDrawersResized
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
+	* @property {number} drawersHeight - The height of the drawer
 	* @public
 	*/
 
@@ -32,7 +22,7 @@
 	* _moon.Drawers_ is a container kind designed to hold a set of
 	* {@link moon.Drawer} objects and client content. The {@link moon.Drawers#drawers} property
 	* accepts an array of {@link moon.Drawer} controls. The associated
-	* {@link moon.DrawerHandle) are positioned in their own small drawer,
+	* [handlers]{@link moon.DrawerHandle) are positioned in their own small drawer,
 	* centered at the top of the 'dresser'--the region containing the array of
 	* Drawer controls and the activator nub.
 	*
@@ -64,6 +54,7 @@
 	*
 	* @class moon.Drawers
 	* @extends enyo.Control
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -90,9 +81,9 @@
 		published: /** @lends moon.Drawers.prototype */ {
 
 			/**
-			* Populate with an array of {@link moon.Drawer} components
+			* Populate with an array of {@link moon.Drawer} component definitions
 			*
-			* @type {object}
+			* @type {Array}
 			* @default null
 			* @public
 			*/

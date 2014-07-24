@@ -1,25 +1,19 @@
 (function (enyo, scope) {
 	/**
-	* Fires when either the main drawer or the control drawer is activated.
+	* Fires when either the main drawer or the control drawer is activated. No event-specific
+	* data is sent with this event.
 	*
 	* @event moon.Drawer#event:onActivate
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
 	* @public
 	*/
 
 	/**
-	* Fires when either the main drawer or the control drawer is deactivated.
+	* Fires when either the main drawer or the control drawer is deactivated. No event-specific
+	* data is sent with this event.
 	*
 	* @event moon.Drawer#event:onDeactivate
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
 	* @public
 	*/
 
@@ -56,9 +50,9 @@
 	* 		}
 	* ```
 	*
-	* @ui
 	* @class moon.Drawer
 	* @extends enyo.Control
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -294,15 +288,16 @@
 
 		/**
 		* @private
+		* @lends moon.FullScreenDrawer.prototype
 		*/
 		published: {
 
 			/**
 			* An object that holds the client dimensions for the fullscreen drawer,
-			* e.g.: _drawer.setDrawerProps({height:100px});_.  This property is only
+			* e.g.: `drawer.setDrawerProps({height:100px});`.  This property is only
 			* intended to be used internally by {@link moon.Drawer}.
 			*
-			* @type {object}
+			* @type {Object}
 			* @default null
 			* @public
 			*/
