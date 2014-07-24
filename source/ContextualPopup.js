@@ -1,23 +1,23 @@
 (function (enyo, scope) {
 	/**
-	* _event.activator_ contains a reference to the activating object
-	*
 	* @event moon.ContextualPopup#event:onRequestShowPopup
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
+	* @property {Object} activator - contains a reference to the activating object
 	* @public
 	*/
 	
 	/**
 	* @event moon.ContextualPopup#event:onRequestHidePopup
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
+	* @public
+	*/
+	
+	/**
+	* Extends {@link enyo.Popup#event:onActivate}
+	*
+	* @event moon.ContextualPopup#event:onActivate
+	* @type {Object}
+	* @property {Object} sentFromPopup - contains a reference to the popup
 	* @public
 	*/
 	
@@ -26,9 +26,9 @@
 	* applied.  It extends {@link enyo.Popup) and is designed to be used with
 	* {@link moon.ContextualPopupDecorator}.
 	*
-	* @ui
 	* @class moon.ContextualPopup
 	* @extends enyo.Popup
+	* @ui
 	* @public
 	*/
 	enyo.kind(

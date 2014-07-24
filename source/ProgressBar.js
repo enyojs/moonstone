@@ -1,13 +1,10 @@
 (function (enyo, scope) {
 	/**
-	* Fires when progress bar finishes animating to a position.
+	* Fires when progress bar finishes animating to a position. No event-specific data is sent with
+	* this event.
 	*
-	* @event moon.ProgressBar#onAnimateProgressFinish
+	* @event moon.ProgressBar#event:onAnimateProgressFinish
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {enyo.Scroller~ScrollEvent} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
 	* @public
 	*/
 
@@ -36,9 +33,9 @@
 	* Indicators](building-apps/controls/progress-indicators.html) in the Enyo
 	* Developer Guide
 	*
-	* @ui
 	* @class moon.ProgressBar
 	* @extends enyo.Control
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -242,7 +239,7 @@
 		* @private
 		*/
 		progressAnimatorComplete: function (inSender) {
-			this.doAnimateProgressFinish(inSender);
+			this.doAnimateProgressFinish();
 			return true;
 		}
 	});

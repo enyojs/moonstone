@@ -7,15 +7,15 @@
 	* The selection overlay has three visual states: focused but not selected, focused and selected,
 	* and selected but not focused.
 	* 
-	* The item may define a _selectionScrimIcon_ URL to override the default icon.
+	* The item may define a `selectionScrimIcon` URL to override the default icon.
 	*
 	* ```javascript
-	* {name: "list", selection: true, kind: "moon.DataList", components: [
-	*	{mixins: ["moon.SelectionOverlaySupport"], selectionScrimIcon: "assets/my-icon.png",
-	*		kind: "moon.ImageItem", bindings: [
-	*			{from: ".model.title", to: ".label"},
-	*			{from: ".model.description", to: ".text"},
-	*			{from: ".model.coverSource", to: ".source"}
+	* {name: 'list', selection: true, kind: 'moon.DataList', components: [
+	*	{mixins: ['moon.SelectionOverlaySupport'], selectionScrimIcon: 'assets/my-icon.png',
+	*		kind: 'moon.ImageItem', bindings: [
+	*			{from: '.model.title', to: '.label'},
+	*			{from: '.model.description', to: '.text'},
+	*			{from: '.model.coverSource', to: '.source'}
 	*		]
 	*	}
 	* ]}
@@ -23,16 +23,16 @@
 	* 
 	* By default, the overlay icon is centered horizontally and vertically over the item, but you 
 	* can override the default by specifying percentage values for 
-	* _selectionOverlayHorizontalOffset_ and _selectionOverlayVerticalOffset_. Horizontal offset is 
+	* `selectionOverlayHorizontalOffset` and `selectionOverlayVerticalOffset`. Horizontal offset is 
 	* measured from the left in left-to-right locales, and from the right in right-to-left locales.
 	*
 	* ```javascript
-	* {name: "gridList", selection: true, kind: "moon.DataGridList", components: [
-	*	{mixins: ["moon.SelectionOverlaySupport"], kind: "moon.GridListImageItem",
+	* {name: 'gridList', selection: true, kind: 'moon.DataGridList', components: [
+	*	{mixins: ['moon.SelectionOverlaySupport'], kind: 'moon.GridListImageItem',
 	*		selectionOverlayVerticalOffset: 35, bindings: [
-	*			{from: ".model.text", to: ".caption"},
-	*			{from: ".model.subText", to: ".subCaption"},
-	*			{from: ".model.url", to: ".source"}
+	*			{from: '.model.text', to: '.caption'},
+	*			{from: '.model.subText', to: '.subCaption'},
+	*			{from: '.model.url', to: '.source'}
 	*		]
 	*	}
 	* ]}
@@ -66,7 +66,9 @@
 				this.selectionOverlayHorizontalOffsetChanged();
 				this.selectionOverlayVerticalOffsetChanged();
 				// Allow the icon to be modified by user
-				this.selectionScrimIcon = this.selectionScrimIcon || '$lib/moonstone/images/icon-selection.png';
+				if (this.selectionScrimIcon) {
+					this.$.selectionScrimIcon.removeClass('moon-icon-' + this.$.selectionScrimIcon.icon);
+				}
 			};
 		}),
 
@@ -82,21 +84,21 @@
 		*/
 		_selectionScrim: [
 			{classes: 'enyo-fit moon-selection-overlay-support-scrim', components: [
-				{name:'selectionScrimIcon', kind: 'moon.IconButton', classes: 'moon-selection-overlay-support-checkbox', spotlight: false}
+				{name:'selectionScrimIcon', kind: 'moon.IconButton', small: false, icon: "check", spotlight: false}
 			]}
 		],
 
 		/**
 		* @private
 		*/
-		selectionOverlayVerticalOffsetChanged: function() {
+		selectionOverlayVerticalOffsetChanged: function () {
 			this.$.selectionScrimIcon.applyStyle('top', this.selectionOverlayVerticalOffset + '%');
 		},
 
 		/**
 		* @private
 		*/
-		selectionOverlayHorizontalOffsetChanged: function() {
+		selectionOverlayHorizontalOffsetChanged: function () {
 			this.$.selectionScrimIcon.applyStyle((this.rtl ? 'right' : 'left'), this.selectionOverlayHorizontalOffset + '%');
 		}
 	};
