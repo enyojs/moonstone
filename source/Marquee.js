@@ -591,6 +591,20 @@
 		* @method
 		* @private
 		*/
+		rendered: enyo.inherit(function (sup) {
+			return function () {
+				sup.apply(this, arguments);
+				if (this._marquee_distance_to_animate) {
+					this._marquee_addAnimationStyles(this._marquee_distance_to_animate);
+					this._marquee_distance_to_animate = null;
+				}
+			};
+		}),
+
+		/**
+		* @method
+		* @private
+		*/
 		reflow: enyo.inherit(function (sup) {
 			return function () {
 				sup.apply(this, arguments);
@@ -654,12 +668,13 @@
 		* @private
 		*/
 		_marquee_startAnimation: function (inSender, inEvent) {
-			var distance = this._marquee_calcDistance();
+			var distance = this._marquee_distance_to_animate = this._marquee_calcDistance();
 
 			// If there is no need to animate, return early
 			if (!this._marquee_shouldAnimate(distance)) {
 				this._marquee_fits = true;
 				this.doMarqueeEnded();
+				this._marquee_distance_to_animate = null;
 				return;
 			}
 
@@ -668,7 +683,6 @@
 				this._marquee_createMarquee();
 			}
 
-			this._marquee_addAnimationStyles(distance);
 			return true;
 		},
 
@@ -710,7 +724,7 @@
 			}
 
 			this.startJob('stopMarquee', '_marquee_stopAnimation', this.marqueePause);
-	        return true;
+			return true;
 		},
 
 		/**
