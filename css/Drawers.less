@@ -25,29 +25,27 @@
 		text-align: center;
 	}
 
-	/* Activator is spotlight focused */
-	&.spotlight {
-	background-color: @moon-spotlight-color;
-
-		&:after,
-		&.open:after {
-			color: @moon-spotlight-text-color;
-			background-color: @moon-spotlight-color;
-		}
-	}
-
 	/* The activator & nub are white when a drawer is open */
 	&.open {
 		background-color: @moon-drawer-open-bg-color;
-
-		&.spotlight {
-			background-color: @moon-spotlight-color;
-		}
 
 		&:after {
 			color: @moon-drawer-activator-open-font-color;
 			content: @moon-icon-arrowsmallup;
 			background-color: @moon-drawer-open-bg-color;
+		}
+	}
+
+	// Cursor is hovering over the activator, but it hasn't moved yet.
+	// Prevents a blink-to-white on-click.
+	&.open:hover,
+	/* Activator is spotlight focused */
+	&.spotlight {
+		background-color: @moon-spotlight-color;
+
+		&:after {
+			color: @moon-spotlight-text-color;
+			background-color: @moon-spotlight-color;
 		}
 	}
 }

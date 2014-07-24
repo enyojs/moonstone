@@ -3739,7 +3739,6 @@
   font-family: "Moonstone Icons";
   font-size: 50px;
   line-height: 32px;
-  /* Activator is spotlight focused */
   /* The activator & nub are white when a drawer is open */
 }
 .moon-drawers-activator:after {
@@ -3753,24 +3752,22 @@
   color: #a6a6a6;
   text-align: center;
 }
-.moon-drawers-activator.spotlight {
-  background-color: #cf0652;
-}
-.moon-drawers-activator.spotlight:after,
-.moon-drawers-activator.spotlight.open:after {
-  color: #ffffff;
-  background-color: #cf0652;
-}
 .moon-drawers-activator.open {
   background-color: #ffffff;
-}
-.moon-drawers-activator.open.spotlight {
-  background-color: #cf0652;
 }
 .moon-drawers-activator.open:after {
   color: #4b4b4b;
   content: "\0F0005";
   background-color: #ffffff;
+}
+.moon-drawers-activator.open:hover,
+.moon-drawers-activator.spotlight {
+  background-color: #cf0652;
+}
+.moon-drawers-activator.open:hover:after,
+.moon-drawers-activator.spotlight:after {
+  color: #ffffff;
+  background-color: #cf0652;
 }
 /* Drawer Handles */
 .moon-drawers-handle-container {
