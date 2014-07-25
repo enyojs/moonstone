@@ -36,11 +36,6 @@
 		/**
 		* @private
 		*/
-		kind: 'moon.Button',
-
-		/**
-		* @private
-		*/
 		published: /** @lends moon.CalendarDate.prototype */ {
 
 			/**
@@ -59,7 +54,18 @@
 			* @default false
 			* @public
 			*/
-			color: false
+			color: false,
+
+			/**
+			* Used when the CalendarDate is part of an [enyo.Group]{@link enyo.Group}.
+			* A value of true indicates that this is the active button of the group;
+			* false, that it is not the active button.
+			*
+			* @type {Boolean}
+			* @default false
+			* @public
+			*/
+			active: false
 		},
 
 		/**
@@ -68,6 +74,11 @@
 		events: {
 			onDateSelected:''
 		},
+
+		/**
+		* @private
+		*/
+		spotlight: true,
 
 		/**
 		* @private
