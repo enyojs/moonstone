@@ -97,7 +97,34 @@
 			* @default false
 			* @public
 			*/
-			disabled: false
+			disabled: false,
+
+			/**
+			* When locked is true, cannot change the value of the checked property
+			*
+			* @type {Boolean}
+			* @default false
+			* @public
+			*/
+			locked: false,
+
+			/**
+			* Customize the appearance of the checkbox with an icon name. Consult moon.Icon for valid values
+			*
+			* @type {String}
+			* @default 'check'
+			* @public
+			*/
+			icon: 'check',
+
+			/**
+			* Customize the appearance of the checkbox with an image asset.
+			*
+			* @type {String}
+			* @default ''
+			* @public
+			*/
+			src: ''
 		},
 
 		/**
@@ -152,6 +179,7 @@
 			this.inherited(arguments);
 			this.disabledChanged();
 			this.checkboxOnRightChanged();
+			this.lockedChanged();
 		},
 
 		/**
@@ -159,6 +187,10 @@
 		*/
 		rendered: function () {
 			this.inherited(arguments);
+			if (this.src || this.icon) {
+				this.srcChanged();
+				this.iconChanged();
+			}
 			this.checkedChanged();
 		},
 
@@ -220,6 +252,27 @@
 		*/
 		contentChanged: function () {
 			this.$.client.setContent(this.getContent());
+		},
+
+		/**
+		* @private
+		*/
+		lockedChanged: function() {
+			this.$.input.setLocked(this.locked);
+		},
+
+		/**
+		* @private
+		*/
+		iconChanged: function() {
+			this.$.input.setIcon(this.icon);
+		},
+
+		/**
+		* @private
+		*/
+		srcChanged: function() {
+			this.$.input.setSrc(this.src);
 		}
 	});
 

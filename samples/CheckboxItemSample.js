@@ -11,7 +11,7 @@ enyo.kind({
 					{kind: "moon.CheckboxItem", content: "Option 2", onchange: "itemChanged"},
 					{kind: "moon.CheckboxItem", disabled: true, content: "Disabled", onchange: "itemChanged"},
 					{kind: "moon.CheckboxItem", content: "Option 4", checked: true, onchange: "itemChanged"},
-					{kind: "moon.CheckboxItem", content: "This is a verrry long option 5", onchange: "itemChanged"}
+					{kind: "moon.CheckboxItem", content: "This is a verrry long option 5 with a custom checkmark", icon: "", src: "assets/checkbox-trashcan.png", onchange: "itemChanged"}
 				]},
 				{components: [
 					{kind: "moon.Divider", content: "Right-Handed Checkbox Items"},
