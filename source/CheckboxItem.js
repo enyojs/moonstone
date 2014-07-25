@@ -112,10 +112,10 @@
 			* Customize the appearance of the checkbox with an icon name. Consult moon.Icon for valid values
 			*
 			* @type {String}
-			* @default ''
+			* @default 'check'
 			* @public
 			*/
-			icon: '',
+			icon: 'check',
 
 			/**
 			* Customize the appearance of the checkbox with an image asset.

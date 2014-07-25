@@ -45,10 +45,10 @@
 			* Customize the appearance of the checkbox with an icon name. Consult moon.Icon for valid values
 			*
 			* @type {String}
-			* @default ''
+			* @default 'check'
 			* @public
 			*/
-			icon: '',
+			icon: 'check',
 
 			/**
 			* Customize the appearance of the checkbox with an image asset.
@@ -86,8 +86,16 @@
 		* @private
 		*/
 		components: [
-			{name: "checkboxIcon", kind: "moon.Icon", icon: "check"}
+			{name: 'checkboxIcon', kind: 'moon.Icon', icon: 'check'}
 		],
+
+		/**
+		* @private
+		*/
+		rendered: function () {
+			this.iconChanged();
+			this.srcChanged();
+		},
 
 		/**
 		* @fires enyo.Checkbox#event:onChange
