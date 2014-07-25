@@ -1977,16 +1977,16 @@
   margin: 0;
 }
 .moon-icon-button.moon-paging-button.top {
-  top: 0px;
+  top: 0;
 }
 .moon-icon-button.moon-paging-button.right {
-  right: 0px;
+  right: 0;
 }
 .moon-icon-button.moon-paging-button.bottom {
-  bottom: 0px;
+  bottom: 0;
 }
 .moon-icon-button.moon-paging-button.left {
-  left: 0px;
+  left: 0;
 }
 .moon-neutral .moon-icon-button.moon-paging-button.disabled {
   color: #ffffff;
