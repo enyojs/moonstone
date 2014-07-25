@@ -94,7 +94,8 @@ enyo.kind({
 				{kind:"moon.Button", small:true, content:"Add Option to Category 2", ontap:"addToRepeater"},
 				{kind:"moon.Button", small:true, content:"Add Option to Category 3", ontap:"addToList"},
 				{classes:"moon-1v"},
-				{kind:"moon.Button", small:true, content:"Breadcrumb Panel", ontap:"toggleBreadcrumb"}
+				{kind:"moon.Button", small:true, content:"Breadcrumb Panel", ontap:"toggleBreadcrumb"},
+				{kind: "moon.ToggleButton", small: true, toggleOnLabel: "Header Type: Small", toggleOffLabel: "Header Type: Medium", ontap: "toggleHeaderSize"}
 			]},
 			{fit: true},
 			{kind: "moon.Divider", content: "List Action Event"},
@@ -140,6 +141,9 @@ enyo.kind({
 	},
 	toggleBreadcrumb: function() {
 		this.setIndex(this.getIndex() > 0 ? 0 : 1);
+	},
+	toggleHeaderSize: function() {
+		this.getActive().setHeaderType(this.getActive().getHeaderType() == "small" ? "medium": "small");
 	},
 	create: function() {
 		this.inherited(arguments);
