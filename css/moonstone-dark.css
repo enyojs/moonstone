@@ -3508,6 +3508,9 @@
   white-space: nowrap;
   display: inline-block;
 }
+.moon-calendar-picker .moon-calendar-picker-day.small {
+  font-size: 22px;
+}
 .moon-calendar-picker .moon-neutral .moon-calendar-picker-day-base {
   width: 60px;
   color: #a2a2a2;
