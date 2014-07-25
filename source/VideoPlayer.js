@@ -577,20 +577,18 @@
 						{name: 'leftPremiumPlaceHolder', classes: 'moon-video-player-premium-placeholder-left'},
 					
 						{name: 'controlsContainer', kind: 'Panels', arrangerKind: 'CarouselArranger', fit: true, draggable: false, classes: 'moon-video-player-controls-container', components: [
-							{name: 'trickPlay', ontap:'playbackControlsTapped', components: [
-								{name: 'playbackControls', classes: 'moon-video-player-control-buttons', components: [
-									{name: 'jumpBack',		kind: 'moon.IconButton', small: false, onholdpulse: 'onHoldPulseBackHandler', ontap: 'onjumpBackward'},
-									{name: 'rewind',		kind: 'moon.IconButton', small: false, ontap: 'rewind'},
-									{name: 'fsPlayPause',	kind: 'moon.IconButton', small: false, ontap: 'playPause'},
-									{name: 'fastForward',	kind: 'moon.IconButton', small: false, ontap: 'fastForward'},
-									{name: 'jumpForward',	kind: 'moon.IconButton', small: false, onholdpulse: 'onHoldPulseForwardHandler', ontap: 'onjumpForward'}
-								]}
+							{name: 'playbackControls', classes: 'moon-video-player-control-buttons', components: [
+								{name: 'jumpBack', kind: 'moon.Icon', small: false, onholdpulse: 'onHoldPulseBackHandler', ontap: 'onjumpBackward'},
+								{name: 'rewind', kind: 'moon.Icon', small: false, ontap: 'rewind'},
+								{name: 'fsPlayPause', kind: 'moon.Icon', small: false, ontap: 'playPause'},
+								{name: 'fastForward', kind: 'moon.Icon', small: false, ontap: 'fastForward'},
+								{name: 'jumpForward', kind: 'moon.Icon', small: false, onholdpulse: 'onHoldPulseForwardHandler', ontap: 'onjumpForward'}
 							]},
 							{name: 'client', classes: 'moon-video-player-more-controls'}
 						]},
 					
 						{name: 'rightPremiumPlaceHolder', classes: 'moon-video-player-premium-placeholder-right', components: [
-							{name: 'moreButton', kind: 'moon.IconButton', small: false, ontap: 'moreButtonTapped'}
+							{name: 'moreButton', kind: 'moon.Icon', small: false, ontap: 'moreButtonTapped'}
 						]}
 					]},
 				
@@ -720,7 +718,7 @@
 		* @private
 		*/
 		showPlaybackControlsChanged: function(was) {
-			this.$.trickPlay.set('showing', this.showPlaybackControls);
+			this.$.playbackControls.set('showing', this.showPlaybackControls);
 			this.$.moreButton.set('showing', this.showPlaybackControls && this.clientComponentsCount > 2);
 			this.toggleSpotlightForMoreControls(!this.showPlaybackControls);
 			this.$.client.addRemoveClass('moon-video-player-more-controls', this.showPlaybackControls);

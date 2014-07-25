@@ -66,9 +66,9 @@ enyo.kind({
 						]
 					}
 				]},
-				{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
-				{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
-				{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"}
+				{kind: "moon.Icon", classes:"moon-icon-video-round-controls-style"},
+				{kind: "moon.Icon", classes:"moon-icon-video-round-controls-style"},
+				{kind: "moon.Icon", classes:"moon-icon-video-round-controls-style"}
 			]
 		},
 		{kind:"moon.Dialog", name:"tapDialog", title:"The controls were tapped.", message:"Press OK to dismiss", components: [

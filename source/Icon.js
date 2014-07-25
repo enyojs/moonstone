@@ -137,6 +137,11 @@
 		/**
 		* @private
 		*/
+		spotlight: true,
+
+		/**
+		* @private
+		*/
 		create: function () {
 			this.inherited(arguments);
 			if (this.src) {
@@ -196,7 +201,7 @@
 				this.$.tapArea.destroy();
 			}
 
-			if (this.small) {
+			if (this.small && !this.parent.hasClass ("moon-video-player-feedback")) {
 				var ta = this.createComponent({name: 'tapArea', classes: 'small-icon-tap-area', isChrome: true});
 				if (this.generated) {
 					ta.render();
