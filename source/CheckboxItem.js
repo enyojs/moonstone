@@ -273,7 +273,7 @@
 		*/
 		srcChanged: function() {
 			this.$.input.setSrc(this.src);
-		},
+		}
 	});
 
 })(enyo, this);
