@@ -1,9 +1,8 @@
-.moon-sample-green {
-	background-color: green;
+.moon-sample-progress-bar-wrapper .moon-progress-bar {
+	margin: 50px 20px;
 }
-.moon-sample-red {
-	background-color: red;
+
+.moon-sample-progress-bar-wrapper .moon-sample-spaced-button {
+	margin: 0 10px;
 }
-.moon-sample-spaced-button {
-	margin: 0px 6px;
-}
+

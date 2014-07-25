@@ -1,6 +1,6 @@
 enyo.kind({
 	name: "moon.sample.ProgressSample",
-	classes: "moon enyo-unselectable enyo-fit",
+	classes: "moon enyo-unselectable enyo-fit moon-sample-progress-bar-wrapper",
 	components: [
 		{kind: "moon.Divider", content: "Progress Bars"},
 		{kind: "moon.ProgressBar", progress: 25},
@@ -8,7 +8,7 @@ enyo.kind({
 		{kind: "moon.ProgressBar", progress: 50, barClasses: "moon-sample-green"},
 		{kind: "moon.ProgressBar", progress: 50, barClasses: "moon-sample-red"},
 		{tag: "br"},
-		{kind: "moon.InputDecorator", style: "margin-right:10px;", components: [
+		{kind: "moon.InputDecorator", style: "margin-right:10px; position:relative; top: -5px", components: [
 			{kind: "moon.Input", placeholder: "Value"}
 		]},
 		{kind: "moon.Button", content:"Set", small:true, classes:"moon-sample-spaced-button", ontap: "changeValue"},

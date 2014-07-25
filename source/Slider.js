@@ -417,7 +417,8 @@
 		* @private
 		*/
 		updatePopupOffset: function() {
-			this.$.popup.applyStyle('top', -(this.getPopupHeight() + this.getPopupOffset()) + 'px');
+			this.$.popup.applyStyle('top', -(this.getPopupHeight() + this.getPopupOffset() + 5) + 'px');
+			console.log("updatePopOffset function is called");
 		},
 		
 		/** 

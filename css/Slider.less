@@ -1,110 +1,93 @@
+/* Slider Bar */
+.moon-slider {
+	&.spotlight > .moon-progress-bar-bar {
+		background-color: @moon-slider-spotlight-bar-color;
+	}
+
+	&.disabled {
+		cursor: default;
+		opacity: @moon-disabled-opacity;
+	}
+}
+
+/* Slider Knob */
+.moon-slider-knob,
+.moon-slider-knob.disabled:active {
+	position: absolute;
+	height: @moon-slider-knob-height;
+	width: @moon-slider-knob-width;
+	border-radius: @moon-slider-knob-width;
+	margin: -@moon-slider-knob-width / 2;
+	background-color: @moon-slider-knob-bg-color;
+	top: @moon-progress-bar-height / 2;
+	border: solid @moon-button-border-width transparent;
+	box-sizing: border-box;
+}
+
+.moon-slider-knob:not(.spotselect) {
+	&.active,
+	&.spotselect,
+	&:active {
+		width: @moon-slider-knob-spotlight-width;
+		height: @moon-slider-knob-spotlight-height;
+		border-radius: @moon-slider-knob-spotlight-width / 2;
+		margin: -@moon-slider-knob-spotlight-width / 2;
+		border: solid @moon-button-border-width transparent;
+		box-sizing: border-box;
+	}
+}
+
+
+.moon-slider.spotlight {
+	> .moon-slider-knob {
+		background-color: @moon-slider-spotlight-knob-color;
+
+		&.spotselect {
+			background-color: @moon-slider-knob-bg-color;
+			border: @moon-button-border-width solid @moon-spotlight-color;
+		}
+	}
+}
+
 .moon-slider-taparea {
 	position: absolute;
 	top: -14px;
-	height: 32px;
+	height: @moon-progress-bar-height * 3 + 2;
 	width: 100%;
 }
-.moon-slider-knob,
-.moon-slider-knob.disabled:active:hover {
-	.border-box;
-	position: absolute;
-	height:@moon-slider-knob-height;
-	width:@moon-slider-knob-width;
-	border-radius: @moon-slider-knob-width/2;
-	margin: -@moon-slider-knob-width/2;
-	background-color: @moon-slider-knob-bg-color;
-	top: 3px;
-}
-.moon-slider-knob.active,
-.moon-slider-knob.spotselect,
-.moon-slider-knob:active:hover {
-	height: 86px;
-	width: 86px;
-	border-radius: 43px;
-	margin: -43px;
-}
-.moon-slider.spotlight > .moon-progress-bar-bar {
-	background-color: @moon-slider-spotlight-bar-color;
-}
-.moon-slider.spotlight > .moon-slider-knob {
-	background-color: @moon-slider-spotlight-knob-color;
-}
-.moon-slider.spotlight > .moon-slider-knob.spotselect {
-	height: @moon-slider-knob-height;
-	width: @moon-slider-knob-width;
-	border-radius: @moon-slider-knob-width/2;
-	margin: -@moon-slider-knob-width/2;
-	background-color: @moon-slider-knob-bg-color;
-	border: @moon-button-border-width solid @moon-spotlight-color;
-}
-.moon-slider.disabled {
-	cursor: default;
-	opacity: @moon-disabled-opacity;
-	filter: alpha(opacity=@moon-disabled-opacity-ie);
-}
-.moon-progress-bar.moon-slider {
-	margin: 60px 45px !important;
-}
+
+/* Slider Popup */
 .moon-slider-popup {
-	position: absolute;
-	display: block;
 	white-space: nowrap;
-	z-index: 20;
 	left: 50%;
-	&.moon-slider-popup-flip-h {
-		left: auto;
-		right: 50%;
-	}
 	direction: ltr;
-}
-.moon-slider-popup-left {
-  position: relative;
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-}
-.moon-slider-popup-center {
-  position:relative;
-  display:inline-block;
-  vertical-align: top;
-  margin: 0px 0 0 0;
-  padding: 0;
-  z-index: 21;
 
-}
-.enyo-locale-right-to-left .moon-slider-popup-center {
-  direction: rtl;
-}
-.moon-slider-popup-right {
-  position:relative;
-  display:inline-block;
-  vertical-align: top;
-  margin:0;
-  padding:0;
+	> * {
+		display: inline-block;
+		vertical-align: top;
+	}
+
+	.moon-slider-popup-label {
+		.moon-large-button-text;
+		white-space: nowrap;
+		color: @moon-slider-popup-text-color;
+		text-align: center;
+	}
 }
 
-.moon-slider-popup-label {
-	.moon-large-button-text;
-	white-space: nowrap;
-	color: @moon-slider-popup-text-color;
-	text-align: center;
+&.moon-slider-popup-flip-h {
+	left: auto;
+	right: 50%;
+	transform: scaleX(-1);
+	-webkit-transform: scaleX(-1);
+	-moz-transform: scaleX(-1);
 }
+
 .enyo-locale-non-latin .moon-slider-popup-label {
 	.enyo-locale-non-latin .moon-large-button-text;
 	font-size: 30px;
 }
 
-.enyo-locale-non-latin .moon-slider-popup-label {
-	font-family: @moon-non-latin-font-family;
-}
-.moon-slider-popup-flip-h {
-	transform: scaleX(-1);
-	-webkit-transform: scaleX(-1);
-	-moz-transform: scaleX(-1);
-}
-.moon-slider-focus {
-	background-color: @moon-slider-focus-bg-color;
-}
-.moon-slider-nofocus {
-	background-color: @moon-slider-nofocus-bg-color;
+.enyo-locale-right-to-left .moon-slider-popup-center {
+	direction: rtl;
 }
