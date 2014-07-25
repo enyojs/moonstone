@@ -70,6 +70,8 @@
 /* ---------------------------------------*/
 /* Panel */
 /* ----------------------------------------*/
+/* Panels */
+/* ----------------------------------------*/
 /* Moonstone rules defined here */
 /* Import font styles */
 /* ----- SYSTEM FONT NAMES ------ */
@@ -3395,13 +3397,11 @@
   -moz-transition: opacity 0.5s linear;
   -webkit-transform: translateZ(0);
 }
-.moon-panels-background-scrim.visible {
+.moon-panels .moon-panels-background-scrim.visible {
   opacity: 0.2;
 }
 .moon-panels-panel-scrim {
   position: absolute;
-  left: 0;
-  width: 0;
   height: 100%;
 }
 .moon-panels.activity .moon-panels-panel-scrim {
@@ -3418,35 +3418,37 @@
   background-color: rgba(0, 0, 0, 0.75);
 }
 /* Show/Hide Handle */
-.moon-panels-handle-wrapper {
-  position: absolute;
-  height: 100%;
-  left: auto;
-  right: -130px;
-  width: 130px;
-  z-index: 100;
-}
 .moon-panels-handle {
   position: absolute;
-  left: -10px;
+  top: 0;
+  left: auto;
+  right: -120px;
   height: 100%;
-  width: 100%;
-  background-repeat: no-repeat;
-  background-position: center;
+  width: 130px;
+  z-index: 100;
   background-color: #4b4b4b;
-  background-image: url(../images/DarkTheme_Icons/carat-white-left.png);
   -webkit-transform: translate3d(0, 0, 0);
   transition: -webkit-transform 0.2s linear, opacity 0.2s linear;
   opacity: 1;
+  text-align: center;
 }
-.moon-panels-handle-wrapper.spotlight .moon-panels-handle {
+.moon-panels-handle:before {
+  position: absolute;
+  top: 50%;
+  margin: -72px 0 0 -15px;
+  font-family: "Moonstone Icons";
+  font-size: 144px;
+  content: "\0F0003";
+  color: #ffffff;
+}
+.moon-panels-handle.right:before {
+  content: "\0F0004";
+}
+.moon-panels-handle.spotlight {
   background-color: #cf0652;
   -webkit-transform: translate3d(-120px, 0, 0);
 }
-.moon-panels-handle.right {
-  background-image: url(../images/DarkTheme_Icons/caret-white-right.png);
-}
-.moon-panels-handle-wrapper.hidden {
+.moon-panels-handle.hidden {
   display: none;
 }
 .moon-panels-handle.stashed {

@@ -158,9 +158,7 @@
 				{name: 'scrim', classes: 'moon-panels-panel-scrim'},
 				{name: 'client', tag: null}
 			]},
-			{name: 'handleWrapper', kind: 'enyo.Control', classes: 'moon-panels-handle-wrapper hidden', canGenerate: false, ontap: 'handleTap', onSpotlightLeft: 'handleSpotLeft', onSpotlightRight: 'handleSpotRight', onSpotlightFocused: 'handleFocused', onSpotlightBlur: 'handleBlur', components: [
-				{name: 'showHideHandle', kind: 'enyo.Control', classes: 'moon-panels-handle'}
-			]},
+			{name: 'showHideHandle', kind: 'enyo.Control', classes: 'moon-panels-handle hidden', canGenerate: false, ontap: 'handleTap', onSpotlightLeft: 'handleSpotLeft', onSpotlightRight: 'handleSpotRight', onSpotlightFocused: 'handleFocused', onSpotlightBlur: 'handleBlur'},
 			{name: 'showHideAnimator', kind: 'enyo.StyleAnimator', onComplete: 'animationComplete'}
 		],
 
@@ -488,7 +486,7 @@
 			}
 			if (next && orig instanceof moon.Panel) {
 				if (this.useHandle === true && this.handleShowing && next.isOffscreen) {
-					enyo.Spotlight.spot(this.$.handleWrapper);
+					enyo.Spotlight.spot(this.$.showHideHandle);
 				}
 				else {
 					this.next();
@@ -616,8 +614,8 @@
 		handleShowingChanged: function () {
 			//* show handle only when useHandle is true
 			if (this.useHandle !== true) { return; }
-			this.$.handleWrapper.addRemoveClass('hidden', !this.handleShowing);
-			this.$.handleWrapper.spotlight = this.handleShowing;
+			this.$.showHideHandle.addRemoveClass('hidden', !this.handleShowing);
+			this.$.showHideHandle.spotlight = this.handleShowing;
 		},
 
 		/**
@@ -628,7 +626,7 @@
 		*/
 		onSpotlightPanelEnter: function () {
 			if (!this.showing && (this.useHandle === true) && this.handleShowing ) {
-				enyo.Spotlight.spot(this.$.handleWrapper);
+				enyo.Spotlight.spot(this.$.showHideHandle);
 				return true;
 			}
 		},
@@ -1049,8 +1047,8 @@
 		*/
 		initializeShowHideHandle: function () {
 			if (this.useHandle === true) {
-				this.$.handleWrapper.canGenerate = true;
-				this.$.handleWrapper.spotlight = true;
+				this.$.showHideHandle.canGenerate = true;
+				this.$.showHideHandle.spotlight = true;
 			}
 		},
 
@@ -1092,7 +1090,7 @@
 		_directShow: function () {
 			this.$.showHideHandle.addClass('right');
 			if (this.handleShowing) {
-				this.$.handleWrapper.removeClass('hidden');
+				this.$.showHideHandle.removeClass('hidden');
 			}
 			this.applyShowAnimation(true);
 		},
@@ -1103,7 +1101,7 @@
 		* @private
 		*/
 		_directHide: function () {
-			this.$.handleWrapper.addClass('hidden');
+			this.$.showHideHandle.addClass('hidden');
 			this.$.showHideHandle.removeClass('right');
 			this.applyHideAnimation(true);
 			this.hideAnimationComplete();
@@ -1153,7 +1151,7 @@
 		*/
 		showAnimationComplete: function () {
 			if (this.handleShowing) {
-				this.$.handleWrapper.removeClass('hidden');
+				this.$.showHideHandle.removeClass('hidden');
 			}
 		},
 
@@ -1162,7 +1160,7 @@
 		*/
 		hideAnimationComplete: function () {
 			if (this.handleShowing) {
-				this.$.handleWrapper.removeClass('hidden');
+				this.$.showHideHandle.removeClass('hidden');
 			}
 		},
 
