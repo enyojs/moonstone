@@ -752,7 +752,15 @@
 		* @private
 		*/
 		_marquee_createMarquee: function () {
-			this.createComponent({name:'marqueeTextWrapper', classes: 'moon-marquee-text-wrapper', components: [{name: 'marqueeText', classes: 'moon-marquee-text', allowHtml: this.allowHtml, content: this.content}]});
+			var marqueeText = {name: "marqueeText", classes: "moon-marquee-text", allowHtml: this.allowHtml, content: this.content},
+				highlightText = null;
+
+			if (this instanceof moon.HighlightText) {
+				enyo.dom.setInnerHtml(this.hasNode(), "");
+				highlightText = {renderDelegate: this.renderDelegate, highlightClasses: this.highlightClasses, search: this.search};
+				marqueeText = enyo.mixin(marqueeText, highlightText);
+			}
+			this.createComponent({name:"marqueeTextWrapper", classes: "moon-marquee-text-wrapper", components: [marqueeText]});
 			this.render();
 			return true;
 		},

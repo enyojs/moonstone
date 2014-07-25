@@ -21,12 +21,18 @@
 		HighlightTextDelegate = Object.create(HTMLStringDelegate);
 
 	HighlightTextDelegate.generateInnerHtml = function (control) {
-		if (control.search) {
-			return control.content.replace(control.search, control.bindSafely(function (s) {
-				return '<span style=\'pointer-events:none;\' class=\'' + this.highlightClasses + '\'>' + enyo.dom.escape(s) + '</span>';
-			}));
-		} else {
-			return enyo.dom.escape(control.get('content'));
+		// flow can alter the way that html content is rendered inside
+		// the container regardless of whether there are children.
+		control.flow();
+		if (control.children.length) { return this.generateChildHtml(control); }
+		else {
+			if (control.search) {
+				return control.content.replace(control.search, control.bindSafely(function (s) {
+					return '<span style=\'pointer-events:none;\' class=\'' + this.highlightClasses + '\'>' + enyo.dom.escape(s) + '</span>';
+				}));
+			} else {
+				return enyo.dom.escape(control.get('content'));
+			}
 		}
 	};
 
