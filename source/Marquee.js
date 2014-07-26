@@ -101,12 +101,20 @@ moon.MarqueeSupport = {
 		}
 	},
 	_marquee_enter: function(inSender, inEvent) {
+		// if (this.disabled) {
+			enyo.log("_marquee_enter");
+			enyo.log(this);
+		// }
 		this._marquee_isHovered = true;
 		if ((this.marqueeOnHover && !this.marqueeOnSpotlight) || (this.disabled && this.marqueeOnSpotlight)) {
 			this.startMarquee();
 		}
 	},
 	_marquee_leave: function(inSender, inEvent) {
+		// if (this.disabled) {
+		enyo.log("_marquee_leave");
+		enyo.log(this);
+	// }
 		this._marquee_isHovered = false;
 		if ((this.marqueeOnHover && !this.marqueeOnSpotlight) || (this.disabled && this.marqueeOnSpotlight)) {
 			this.stopMarquee();

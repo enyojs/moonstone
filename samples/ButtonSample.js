@@ -16,7 +16,7 @@ enyo.kind({
 					{kind: "moon.Tooltip", content:"minWidth: true"}
 				]},
 				{name: "button", kind: "moon.Button", content: "Button", contentUpperCase : false, ontap: "buttonTapped"},
-				{name: "disabledButton", kind: "moon.Button", disabled: true, content: "Disabled Button", ontap: "buttonTapped"},
+				{name: "disabledButton", kind: "moon.Button", disabled: true, content: "Disabled Button with long text to marquee with", ontap: "buttonTapped"},
 				{name: "longButton", kind: "moon.Button", content: "Looooooooooooooooong Button", ontap: "buttonTapped"},
 				{name: "spacesButton", kind: "moon.Button", content: "Button   with   extra   spaces", ontap: "buttonTapped"},
 				{tag: "br"},
