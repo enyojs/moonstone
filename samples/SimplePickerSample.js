@@ -57,7 +57,7 @@ enyo.kind({
 				{content:"Boston Airport Terminal Gate 2", active: true},
 				{content:"Tokyo Airport Terminal Gate 3"}
 			]},
-			{kind:"moon.Button", content:"Toggle Showing", small:true, ontap:"toggleShowing"},
+			{kind:"moon.Button", content:"Toggle Showing", small:true, ontap:"toggleShowing"}
 		]},
 		{classes:"moon-1v"},
 		{classes:"moon-hspacing", components: [
