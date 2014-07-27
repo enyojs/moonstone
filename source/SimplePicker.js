@@ -62,6 +62,11 @@
 		* @private
 		*/
 		name: 'moon.SimplePicker',
+
+		/**
+		* @private
+		*/
+		kind: 'enyo.Control',
 		
 		/**
 		* @private
@@ -159,8 +164,8 @@
 		*/
 		components: [
 			{name: 'buttonLeft',  kind: 'moon.IconButton', noBackground:true, classes: 'moon-simple-picker-button left', icon:'arrowlargeleft', onSpotlightKeyDown:'configureSpotlightHoldPulse', onSpotlightSelect: 'left', ondown: 'downLeft', onholdpulse:'left', defaultSpotlightDisappear: 'buttonRight'},
-			{name: 'clientWrapper', classes:'moon-simple-picker-client-wrapper', components: [
-				{name: 'client', classes: 'moon-simple-picker-client'}
+			{kind: 'enyo.Control', name: 'clientWrapper', classes:'moon-simple-picker-client-wrapper', components: [
+				{kind: 'enyo.Control', name: 'client', classes: 'moon-simple-picker-client'}
 			]},
 			{name: 'buttonRight', kind: 'moon.IconButton', noBackground:true, classes: 'moon-simple-picker-button right', icon:'arrowlargeright', onSpotlightKeyDown:'configureSpotlightHoldPulse', onSpotlightSelect: 'right', ondown: 'downRight', onholdpulse:'right', defaultSpotlightDisappear: 'buttonLeft'}
 		],
