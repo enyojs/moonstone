@@ -58,8 +58,8 @@ enyo.kind({
 				{content:"Tokyo Airport Terminal Gate 3"}
 			]},
 			{kind:"moon.Button", content:"Toggle Showing", small:true, ontap:"toggleShowing"},
-			{tag:"br"},{tag:"br"}
 		]},
+		{classes:"moon-1v"},
 		{classes:"moon-hspacing", components: [
 			{components: [
 				{kind:"moon.Divider", content:"Modify picker:"},

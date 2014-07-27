@@ -82,7 +82,7 @@
 		* @private
 		*/
 		events: {
-			onChange:''
+			onChange: ''
 		},
 
 		/**
@@ -164,8 +164,8 @@
 		*/
 		components: [
 			{name: 'buttonLeft',  kind: 'moon.IconButton', noBackground:true, classes: 'moon-simple-picker-button left', icon:'arrowlargeleft', onSpotlightKeyDown:'configureSpotlightHoldPulse', onSpotlightSelect: 'left', ondown: 'downLeft', onholdpulse:'left', defaultSpotlightDisappear: 'buttonRight'},
-			{kind: 'enyo.Control', name: 'clientWrapper', classes:'moon-simple-picker-client-wrapper', components: [
-				{kind: 'enyo.Control', name: 'client', classes: 'moon-simple-picker-client'}
+			{name: 'clientWrapper', classes:'moon-simple-picker-client-wrapper', components: [
+				{name: 'client', classes: 'moon-simple-picker-client'},
 			]},
 			{name: 'buttonRight', kind: 'moon.IconButton', noBackground:true, classes: 'moon-simple-picker-button right', icon:'arrowlargeright', onSpotlightKeyDown:'configureSpotlightHoldPulse', onSpotlightSelect: 'right', ondown: 'downRight', onholdpulse:'right', defaultSpotlightDisappear: 'buttonLeft'}
 		],
@@ -385,11 +385,13 @@
 		*/
 		updateMarqueeDisable: function() {
 			this.stopMarquee();
-			for (var c$=this.getClientControls(), i=0; i<c$.length; i++) {
+			var i,
+				c = this.getClientControls();
+			for (i=0; i<c.length; i++) {
 				if (i == this.selectedIndex) {
-					c$[i].disabled = false;
+					c[i].disabled = false;
 				} else {
-					c$[i].disabled = true;
+					c[i].disabled = true;
 				}
 			}
 		},
