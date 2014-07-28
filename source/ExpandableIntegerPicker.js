@@ -136,8 +136,7 @@
 		* @private
 		*/
 		handlers: {
-			requestScrollIntoView: 'requestScrollIntoView',
-			onRebuilt: 'requestPickerReflow'
+			requestScrollIntoView: 'requestScrollIntoView'
 		},
 
 		/**
@@ -152,7 +151,7 @@
 				{name: 'currentValue', kind: 'moon.MarqueeText', classes: 'moon-expandable-picker-current-value'}
 			]},
 			{name: 'drawer', kind: 'enyo.Drawer', resizeContainer:false, classes:'moon-expandable-list-item-client indented', components: [
-				{name: 'picker', kind: 'moon.SimpleIntegerPicker', deferInitialization: true, onSelect: 'toggleActive', onActivate: 'activated'}
+				{name: 'picker', kind: 'moon.SimpleIntegerPicker', deferInitialization: true, onSelect: 'toggleActive'}
 			]}
 		],
 
@@ -260,16 +259,6 @@
 			} else {
 				this.setActive(true);
 			}
-		},
-
-		/**
-		* Kills any {@link moon.SimplePicker#event:onActivate} events coming from buttons in the
-		* SimplePicker.
-		*
-		* @private
-		*/
-		activated: function (inSender, inEvent) {
-			return true;
 		},
 
 		/**
