@@ -116,12 +116,12 @@
 		* @private
 		*/
 		components: [
-			{kind: 'moon.MarqueeText', name: 'title', classes: 'moon-header-font moon-video-player-info-title'},
-			{name: 'subTitle', classes: 'moon-video-player-info-subtitle'},
-			{name: 'subSubTitle', classes: 'moon-video-player-info-subsubtitle'},
+			{kind: 'moon.MarqueeText', name: 'title', classes: 'moon-header-text moon-video-player-info-title'},
+			{name: 'subTitle', classes: 'moon-sub-header-text moon-video-player-info-subtitle'},
+			{name: 'subSubTitle', classes: 'moon-body-text moon-video-player-info-subsubtitle'},
 			{name: 'client', classes: 'moon-video-player-info-client'},
 			{components: [
-				{name: 'description', classes: 'moon-video-player-info-description'}
+				{name: 'description', classes: 'moon-body-text moon-video-player-info-description'}
 			]}
 		],
 
