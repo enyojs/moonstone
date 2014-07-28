@@ -20,7 +20,7 @@
 		/**
 		* @private
 		*/
-		kind: moon.Popup,
+		kind: 'moon.Popup',
 
 		/**
 		* @private
@@ -102,7 +102,7 @@
 				layoutKind: 'FittableColumnsLayout',
 				components: [
 					{fit: true, components: [
-						{name: 'title', kind: 'moon.MarqueeText', classes: 'moon-header-font moon-popup-header-text moon-dialog-title'},
+						{name: 'title', kind: 'moon.MarqueeText', classes: 'moon-popup-header-text moon-dialog-title'},
 						{name: 'subTitle', classes: 'moon-dialog-sub-title'}
 					]},
 					{name: 'client', classes: 'moon-dialog-client'}

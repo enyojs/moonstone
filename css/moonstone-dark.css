@@ -1073,7 +1073,7 @@
 }
 .moon-divider {
   border-bottom: 2px solid #a6a6a6;
-  margin: 0px 10px 20px 10px;
+  margin: 0 10px 20px 10px;
   text-transform: capitalize;
   padding-bottom: 3px;
 }
@@ -3767,15 +3767,15 @@
   font-size: 24px;
 }
 .moon-dialog-content {
-  margin: 0px 0px 0px;
+  margin: 0 0 0;
 }
 .moon-dialog-divider {
-  padding-bottom: 0px;
+  padding-bottom: 0;
   border-bottom-width: 2px;
-  margin: 20px 0px 20px;
+  margin: 20px 0 20px;
 }
 .moon-dialog-client {
-  padding: 36px 0px 0px;
+  padding: 36px 0 0;
 }
 .moon-dialog-client > * {
   margin-left: 20px;
