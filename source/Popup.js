@@ -13,37 +13,37 @@
 		/**
 		* @private
 		*/
-		name : 'moon.Popup',
+		name: 'moon.Popup',
 
 		/**
 		* @private
 		*/
-		kind : enyo.Popup,
+		kind: enyo.Popup,
 
 		/**
 		* @private
 		*/
-		modal     : true,
+		modal: true,
 
 		/**
 		* @private
 		*/
-		classes   : 'moon moon-neutral enyo-unselectable moon-popup',
+		classes: 'moon moon-neutral enyo-unselectable moon-popup',
 
 		/**
 		* @private
 		*/
-		floating  : true,
+		floating: true,
 
 		/**
 		* @private
 		*/
-		_bounds   : null,
+		_bounds: null,
 
 		/**
 		* @private
 		*/
-		spotlight : 'container',
+		spotlight: 'container',
 
 		/**
 		* @private
