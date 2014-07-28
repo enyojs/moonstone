@@ -897,14 +897,16 @@
 .moon-simple-picker-button {
   position: absolute;
   top: 0;
-  padding: 0;
   margin: 0;
 }
+.moon-simple-picker-button.left {
+  left: 0;
+}
+.moon-simple-picker-button.right {
+  right: 0;
+}
 .moon-simple-picker-client-wrapper {
-  width: 100%;
   overflow: hidden;
-  position: relative;
-  box-sizing: border-box;
 }
 .moon-simple-picker-client {
   white-space: nowrap;
@@ -915,33 +917,16 @@
 .moon-simple-picker-client.animated {
   -webkit-transition: -webkit-transform ease-out 0.3s;
   -moz-transition: -moz-transform ease-out 0.3s;
-  -o-transition: -o-transform ease-out 0.3s;
   transition: transform ease-out 0.3s;
 }
 .moon-simple-picker-client > * {
   display: inline-block;
-  vertical-align: middle;
   box-sizing: border-box;
   width: 100%;
   line-height: 60px;
-  height: 60px;
-  color: #4b4b4b;
-  white-space: nowrap;
-  text-align: center;
 }
-.moon-simple-picker-client.disabled,
-.moon-simple-picker-button[disabled] {
+.moon-simple-picker-client.disabled {
   opacity: 0.35;
-  filter: alpha(opacity=35);
-  background-color: transparent;
-}
-.moon-simple-picker-button.left {
-  left: 0;
-  margin-right: 10px;
-}
-.moon-simple-picker-button.right {
-  right: 0;
-  margin-left: 10px;
 }
 .moon-simple-integer-picker {
   font-family: "MuseoSans 700";
