@@ -1,24 +1,47 @@
 enyo.kind({
-	name: "moon.sample.TableSample",
-	classes: "moon enyo-unselectable enyo-fit",
+	name: 'moon.sample.TableSample',
+	classes: 'moon enyo-unselectable enyo-fit',
 	components: [
-		{name: "month", classes: "section"},
-		{kind: "moon.Table", components: [
-			{classes: "header", components: [
-				{content: "Sun"},
-				{content: "Mon"},
-				{content: "Tue"},
-				{content: "Wed"},
-				{content: "Thu"},
-				{content: "Fri"},
-				{content: "Sat"}
+		{kind: 'moon.Divider', content: 'Static Table'},
+		{kind: 'moon.Table', components: [
+			{classes: 'header', components: [
+				{content: 'Quesiton'},
+				{content: 'Agree'},
+				{content: 'Indifferent'},
+				{content: 'Disagree'}
+			]},
+			{classes: 'moon-body-text', components: [
+				{content: 'When should tables be used?'},
+				{content: 'Always'},
+				{content: 'Sometimes'},
+				{content: 'Never'}
+			]},
+			{classes: 'moon-body-text', components: [
+				{content: 'How cool are tables?'},
+				{content: 'Very'},
+				{content: 'A little'},
+				{content: 'Not at all'}
+			]}
+		]},
+		{tag: 'br'},
+		{kind: 'moon.Divider', content: 'Generated Table'},
+		{name: 'month', classes: 'section'},
+		{name: 'calendarTable', kind: 'moon.Table', components: [
+			{classes: 'header', components: [
+				{content: 'Sun'},
+				{content: 'Mon'},
+				{content: 'Tue'},
+				{content: 'Wed'},
+				{content: 'Thu'},
+				{content: 'Fri'},
+				{content: 'Sat'}
 			]}
 		]}
 	],
-	monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+	monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
 	create: function() {
 		this.inherited(arguments);
-		
+
 		var currentRow,
 			dateObj = new Date();
 
@@ -36,21 +59,21 @@ enyo.kind({
 		// the calendar to display a "full" table
 		for (var i=0; i<lastDate+offset+(((lastDate+offset)%7)?7-((lastDate+offset)%7):0); i++) {
 			if (i%7 === 0) {
-				currentRow = this.$.table.createComponent({});
+				currentRow = this.$.calendarTable.createComponent({});
 			}
 			if (i<offset || i>=lastDate+offset) {
 				currentRow.createComponent({});
 			} else {
 				var cellDay = {content: (i-offset+1)};
 				if ((i-offset+1) === currentDate) {
-					cellDay = enyo.mixin(cellDay, {classes: "current"});
+					cellDay = enyo.mixin(cellDay, {classes: 'current'});
 				}
 				currentRow.createComponent(cellDay);
 			}
 		}
 
 		// set month display
-		this.$.month.setContent(this.monthNames[dateObj.getMonth()] + " " + dateObj.getFullYear());
+		this.$.month.setContent(this.monthNames[dateObj.getMonth()] + ' ' + dateObj.getFullYear());
 	},
 	// adapted from http://stackoverflow.com/questions/1810984/number-of-days-in-any-month
 	getDaysInMonth: function(m, y) {
