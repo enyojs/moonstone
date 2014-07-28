@@ -5,10 +5,6 @@
 	*
 	* @event moon.Header#event:onInputHeaderInput
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
 	* @public
 	*/
 
@@ -18,10 +14,6 @@
 	*
 	* @event moon.Header#event:onInputHeaderChange
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
 	* @public
 	*/
 
@@ -29,10 +21,10 @@
 	* _moon.Header_ is a Moonstone-styled control with a large title and an area for
 	* additional controls.
 	*
-	* @ui
 	* @class moon.Header
 	* @extends enyo.Control
 	* @mixes moon.MarqueeSupport
+	* @ui
 	* @public
 	 */
 	enyo.kind(

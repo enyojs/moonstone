@@ -1,3 +1,12 @@
+// mixin classes for create the moontone text classes
+.moon-sub-header-text-base (@font-size, @font-color) {
+	font-family: @moon-sub-header-font-family;
+	font-size: @font-size;
+	font-weight: @moon-sub-header-font-weight;
+	font-style: @moon-sub-header-font-style;
+	letter-spacing: @moon-sub-header-letter-spacing;
+	color: @font-color;
+}
 /* Text definitions */
 
 .moon-header-font {
@@ -6,23 +15,23 @@
 .moon-superscript {
 	font-size: @moon-superscript-text-size;
 	vertical-align: top;
-	margin: 0px 0px 0px 2px;
-	padding: 0px;
+	margin: 0 0 0 2px;
+	padding: 0;
 }
 .moon-pre-text {
 	font-size: @moon-pre-text-size;
 	vertical-align: top;
 	height:  @moon-large-text-size;
 	line-height: @moon-pre-text-size;
-	margin: 12px 2px 8px 0px;
+	margin: 12px 2px 8px 0;
 	padding: 0px;
 }
 .moon-large-text {
 	font-size: @moon-large-text-size;
 	vertical-align: top;
 	height: @moon-large-text-size;
-	margin: 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 0;
 }
 .moon-header-text {
 	font-family: @moon-header-font-family;
@@ -33,12 +42,7 @@
 	-webkit-font-kerning: normal;
 }
 .moon-sub-header-text {
-	font-family: @moon-sub-header-font-family;
-	font-size: @moon-sub-header-font-size;
-	font-weight: @moon-sub-header-font-weight;
-	font-style: @moon-sub-header-font-style;
-	letter-spacing: @moon-sub-header-letter-spacing;
-	color: @moon-sub-header-text-color;
+	.moon-sub-header-text-base (@moon-sub-header-font-size, @moon-sub-header-text-color);
 }
 .moon-super-header-text {
 	font-family: @moon-super-header-font-family;

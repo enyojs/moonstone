@@ -1,216 +1,132 @@
 enyo.kind({
 	name: "moon.sample.DrawerSample",
 	classes: "moon enyo-unselectable enyo-fit",
-	style:"padding:0",
-	kind:"FittableColumns",
-	components: [{
-	//Drawer 1 : src is passed		
-			kind:"FittableRows",
-			style:"width:40%",
-			components:[{
-				name: "drawers",
-				kind: "moon.Drawers",
-				src:"assets/drawer_icon.png",
-				drawers:[
-					{
-						name: "partialDrawer",
-						open: false,
-						controlsOpen: false,
-						onActivate: "partialDrawerChanged1",
-						onDeactivate: "partialDrawerChanged1",
-						handle: {name: "handleButton", content: "Partial drawer with long text truncation"},
-						components: [
-								{kind: "moon.Panel", classes:"enyo-fit", title: "Partial Drawer", components: [
-									{kind: "moon.Item", content: "Item One"},
-									{kind: "moon.Item", content: "Item Two"}
-								]}
-							],
-							controlDrawerComponents: [
-								{classes:"moon-hspacing", components: [
-									{kind: "moon.Button", name: "openMoreButton", content: "Open More", ontap: "openMainDrawer"},
-									{kind: "moon.Button", content: "Close", ontap: "close"}
-								]}
-							]
-						},
-						{
-							name: "searchDrawer",
-							handle: {content: "Full drawer"},
-							components: [
-								{kind: "moon.Panel", classes:"enyo-fit", title: "Partial Drawer", components: [
-									{kind: "moon.Item", content: "Item One"},
-									{kind: "moon.Item", content: "Item Two"}
-								]}
-							]
-						}
-					],
-					components: [{
-						name: "panels",
-						kind: "moon.Panels",
-						pattern: "activity",
-						classes: "enyo-fit",
-						components: [
-							{title: "First", classes: "moon-7h", components: [
-								{kind: "moon.Item", content: "Item One", ontap: "next"},
-								{kind: "moon.Item", content: "Item Two", ontap: "next"},
-								{kind: "moon.Item", content: "Item Three", ontap: "next"},
-								{kind: "moon.Item", content: "Item Four", ontap: "next"},
-								{kind: "moon.Item", content: "Item Five", ontap: "next"}
-							]},
-							{title: "Second", classes: "moon-7h", components: [
-								{kind: "moon.Item", content: "Item One", ontap: "next"},
-								{kind: "moon.Item", content: "Item Two", ontap: "next"},
-								{kind: "moon.Item", content: "Item Three", ontap: "next"},
-								{kind: "moon.Item", content: "Item Four", ontap: "next"},
-								{kind: "moon.Item", content: "Item Five", ontap: "next"}
-							]},
-							{title: "Third", classes: "moon-7h", components: [
-								{kind: "moon.Item", content: "Item One", ontap: "next"},
-								{kind: "moon.Item", content: "Item Two", ontap: "next"},
-								{kind: "moon.Item", content: "Item Three", ontap: "next"},
-								{kind: "moon.Item", content: "Item Four", ontap: "next"},
-								{kind: "moon.Item", content: "Item Five", ontap: "next"}
-							]},
-							{title: "Fourth", classes: "moon-7h", components: [
-								{kind: "moon.Item", content: "Item One", ontap: "next"},
-								{kind: "moon.Item", content: "Item Two", ontap: "next"},
-								{kind: "moon.Item", content: "Item Three", ontap: "next"},
-								{kind: "moon.Item", content: "Item Four", ontap: "next"},
-								{kind: "moon.Item", content: "Item Five", ontap: "next"}
-							]},
-							{title: "Fifth", classes: "moon-7h", components: [
-								{kind: "moon.Item", content: "Item One", ontap: "next"},
-								{kind: "moon.Item", content: "Item Two", ontap: "next"},
-								{kind: "moon.Item", content: "Item Three", ontap: "next"},
-								{kind: "moon.Item", content: "Item Four", ontap: "next"},
-								{kind: "moon.Item", content: "Item Five", ontap: "next"}
-							]}
+	components: [
+		{
+			name: "drawers",
+			kind: "moon.Drawers",
+			drawers:[
+				{
+					name: "partialDrawer",
+					open: false,
+					controlsOpen: false,
+					onActivate: "partialDrawerChanged",
+					onDeactivate: "partialDrawerChanged",
+					handle: {name: "handleButton", content: "Partial drawer with long text truncation"},
+					components: [
+						{kind: "moon.Panel", classes:"enyo-fit", title: "Partial Drawer", components: [
+							{kind: "moon.Item", content: "Item One"},
+							{kind: "moon.Item", content: "Item Two"}
 						]}
-				]}
-			]},
-		//Drawer 2: default drawer will be used
-		{kind:"FittableRows", style:"width:30%",components:[{
-				name: "drawers2",
-				kind: "moon.Drawers",
-				drawers:[
-				],
-				components: [
-					{
-						name: "panels",
-						kind: "moon.Panels",
-						pattern: "activity",
-						classes: "enyo-fit",
-						components: [
-							{title: "First", classes: "moon-7h", components: [
-								{kind: "moon.Item", content: "Item One", ontap: "next"},
-								{kind: "moon.Item", content: "Item Two", ontap: "next"},
-								{kind: "moon.Item", content: "Item Three", ontap: "next"},
-								{kind: "moon.Item", content: "Item Four", ontap: "next"},
-								{kind: "moon.Item", content: "Item Five", ontap: "next"}
-							]},
-							{title: "Second", classes: "moon-7h", components: [
-								{kind: "moon.Item", content: "Item One", ontap: "next"},
-								{kind: "moon.Item", content: "Item Two", ontap: "next"},
-								{kind: "moon.Item", content: "Item Three", ontap: "next"},
-								{kind: "moon.Item", content: "Item Four", ontap: "next"},
-								{kind: "moon.Item", content: "Item Five", ontap: "next"}
-							]},
-							{title: "Third", classes: "moon-7h", components: [
-								{kind: "moon.Item", content: "Item One", ontap: "next"},
-								{kind: "moon.Item", content: "Item Two", ontap: "next"},
-								{kind: "moon.Item", content: "Item Three", ontap: "next"},
-								{kind: "moon.Item", content: "Item Four", ontap: "next"},
-								{kind: "moon.Item", content: "Item Five", ontap: "next"}
-							]},
-							{title: "Fourth", classes: "moon-7h", components: [
-								{kind: "moon.Item", content: "Item One", ontap: "next"},
-								{kind: "moon.Item", content: "Item Two", ontap: "next"},
-								{kind: "moon.Item", content: "Item Three", ontap: "next"},
-								{kind: "moon.Item", content: "Item Four", ontap: "next"},
-								{kind: "moon.Item", content: "Item Five", ontap: "next"}
-							]},
-							{title: "Fifth", classes: "moon-7h", components: [
-								{kind: "moon.Item", content: "Item One", ontap: "next"},
-								{kind: "moon.Item", content: "Item Two", ontap: "next"},
-								{kind: "moon.Item", content: "Item Three", ontap: "next"},
-								{kind: "moon.Item", content: "Item Four", ontap: "next"},
-								{kind: "moon.Item", content: "Item Five", ontap: "next"}
-							]}
-						]
-					}
-				]
-			}
-
-		]},
-		//Drawer 3 : src is passed 
-		{kind:"FittableRows", fit:true,components:[{
-				name: "drawers3",
-				kind: "moon.Drawers",
-				src: "assets/favicon.ico",
-				drawers:[
-				],
-				components: [
-					{
-						name: "panels",
-						kind: "moon.Panels",
-						pattern: "activity",
-						classes: "enyo-fit",
-						components: [
-							{title: "First", classes: "moon-7h", components: [
-								{kind: "moon.Item", content: "Item One", ontap: "next"},
-								{kind: "moon.Item", content: "Item Two", ontap: "next"},
-								{kind: "moon.Item", content: "Item Three", ontap: "next"},
-								{kind: "moon.Item", content: "Item Four", ontap: "next"},
-								{kind: "moon.Item", content: "Item Five", ontap: "next"}
-							]},
-							{title: "Second", classes: "moon-7h", components: [
-								{kind: "moon.Item", content: "Item One", ontap: "next"},
-								{kind: "moon.Item", content: "Item Two", ontap: "next"},
-								{kind: "moon.Item", content: "Item Three", ontap: "next"},
-								{kind: "moon.Item", content: "Item Four", ontap: "next"},
-								{kind: "moon.Item", content: "Item Five", ontap: "next"}
-							]},
-							{title: "Third", classes: "moon-7h", components: [
-								{kind: "moon.Item", content: "Item One", ontap: "next"},
-								{kind: "moon.Item", content: "Item Two", ontap: "next"},
-								{kind: "moon.Item", content: "Item Three", ontap: "next"},
-								{kind: "moon.Item", content: "Item Four", ontap: "next"},
-								{kind: "moon.Item", content: "Item Five", ontap: "next"}
-							]},
-							{title: "Fourth", classes: "moon-7h", components: [
-								{kind: "moon.Item", content: "Item One", ontap: "next"},
-								{kind: "moon.Item", content: "Item Two", ontap: "next"},
-								{kind: "moon.Item", content: "Item Three", ontap: "next"},
-								{kind: "moon.Item", content: "Item Four", ontap: "next"},
-								{kind: "moon.Item", content: "Item Five", ontap: "next"}
-							]},
-							{title: "Fifth", classes: "moon-7h", components: [
-								{kind: "moon.Item", content: "Item One", ontap: "next"},
-								{kind: "moon.Item", content: "Item Two", ontap: "next"},
-								{kind: "moon.Item", content: "Item Three", ontap: "next"},
-								{kind: "moon.Item", content: "Item Four", ontap: "next"},
-								{kind: "moon.Item", content: "Item Five", ontap: "next"}
-							]}
-						]
-					}
-				]
-			}
-			]}
-	],
-			next: function(inSender, inEvent) {
-				this.$.panels.next();
-				return true;
-			},
-			openMainDrawer: function() {
-				this.$.partialDrawer.setOpen(true);
-			},
-			close: function() {
-				if (this.$.partialDrawer.getOpen()) {
-					this.$.partialDrawer.setOpen(false);
-				} else {
-					this.$.partialDrawer.setControlsOpen(false);
+					],
+					controlDrawerComponents: [
+						{classes:"moon-hspacing", components: [
+							{kind: "moon.Button", name: "openMoreButton", content: "Open More", ontap: "openMainDrawer"},
+							{kind: "moon.Button", content: "Close", ontap: "close"}
+						]}
+					]
+				},
+				{
+					name: "searchDrawer",
+					handle: {content: "Full drawer"},
+					components: [
+						{kind: "moon.Panel", classes:"enyo-fit", title: "Full Drawer", components: [
+							{kind: "moon.Item", content: "Item One"},
+							{kind: "moon.Item", content: "Item Two"}
+						]}
+					]
 				}
-			},
-			partialDrawerChanged: function() {
-				this.$.openMoreButton.setShowing(!this.$.partialDrawer.getOpen());
+			],
+			components: [
+				{
+					name: "panels",
+					kind: "moon.Panels",
+					pattern: "activity",
+					classes: "enyo-fit",
+					components: [
+						{title: "First Panel", classes: "moon-7h", components: [
+							{kind: "moon.Scroller", horizontal: "hidden", classes: "enyo-fill", components: [
+									{kind: "moon.ExpandablePicker", onChange: "pickerChangedImg",content: "Select Image", allowHtml:true, components: [
+										{content: "Music",value:"assets/drawer_icon.png"},
+										{content: "LG", value:"assets/lg.png"},
+										{content: "HTML5", value:"assets/html5.png"},
+										{content: "CSS3", value:"assets/css3.png"},
+										{content: "Default",value:"",active:true}
+									]},
+									{kind: "moon.ExpandablePicker", onChange: "pickerChangedIcon",content: "Select Icon", allowHtml:true, components: [
+										{content: "Drawer",value:"drawer"},
+										{content: "FullScreen",value:"fullscreen"},
+										{content: "Circle",value:"circle"},
+										{content: "Stop",value:"stop"},
+										{content: "Play",value:"play"},
+										{content: "Pause",value:"pause"},
+										{content: "Forward",value:"forward"},
+										{content: "Default",value:"",active:true}
+									]}
+								]}
+
+
+
+							/*{kind: "moon.Item", content: "Item One", ontap: "next"},
+							{kind: "moon.Item", content: "Item Two", ontap: "next"},
+							{kind: "moon.Item", content: "Item Three", ontap: "next"},
+							{kind: "moon.Item", content: "Item Four", ontap: "next"},
+							{kind: "moon.Item", content: "Item Five", ontap: "next"}*/
+							]}
+						/*{title: "Second Panel", classes: "moon-7h", components: [
+							{kind: "moon.Item", content: "Item One", ontap: "next"},
+							{kind: "moon.Item", content: "Item Two", ontap: "next"},
+							{kind: "moon.Item", content: "Item Three", ontap: "next"},
+							{kind: "moon.Item", content: "Item Four", ontap: "next"},
+							{kind: "moon.Item", content: "Item Five", ontap: "next"}
+						]},
+						{title: "Third Panel", classes: "moon-7h", components: [
+							{kind: "moon.Item", content: "Item One", ontap: "next"},
+							{kind: "moon.Item", content: "Item Two", ontap: "next"},
+							{kind: "moon.Item", content: "Item Three", ontap: "next"},
+							{kind: "moon.Item", content: "Item Four", ontap: "next"},
+							{kind: "moon.Item", content: "Item Five", ontap: "next"}
+						]},
+						{title: "Fourth Panel", classes: "moon-7h", components: [
+							{kind: "moon.Item", content: "Item One", ontap: "next"},
+							{kind: "moon.Item", content: "Item Two", ontap: "next"},
+							{kind: "moon.Item", content: "Item Three", ontap: "next"},
+							{kind: "moon.Item", content: "Item Four", ontap: "next"},
+							{kind: "moon.Item", content: "Item Five", ontap: "next"}
+						]},
+						{title: "Fifth Panel", classes: "moon-7h", components: [
+							{kind: "moon.Item", content: "Item One", ontap: "next"},
+							{kind: "moon.Item", content: "Item Two", ontap: "next"},
+							{kind: "moon.Item", content: "Item Three", ontap: "next"},
+							{kind: "moon.Item", content: "Item Four", ontap: "next"},
+							{kind: "moon.Item", content: "Item Five", ontap: "next"}
+						]}*/
+						]
+					}
+				]
 			}
-		});
+		],
+		next: function(inSender, inEvent) {
+			this.$.panels.next();
+			return true;
+		},
+		openMainDrawer: function() {
+			this.$.partialDrawer.setOpen(true);
+		},
+		close: function() {
+			if (this.$.partialDrawer.getOpen()) {
+				this.$.partialDrawer.setOpen(false);
+			} else {
+				this.$.partialDrawer.setControlsOpen(false);
+			}
+		},
+		partialDrawerChanged: function() {
+			this.$.openMoreButton.setShowing(!this.$.partialDrawer.getOpen());
+		},
+		pickerChangedImg:function(inSender,inEvent){
+			this.$.drawers.set('src',inEvent.selected.value);
+		},
+		pickerChangedIcon:function(inSender,inEvent){
+			this.$.drawers.set('icon',inEvent.selected.value);
+		}
+	});

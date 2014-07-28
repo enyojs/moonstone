@@ -15,6 +15,7 @@ enyo.kind({
 		{kind: "moon.Panel", joinToPrev: true, title:"Data Grid List", headerComponents: [
 			{kind: "moon.ToggleButton", content:"Selection", name:"selectionToggle"},
 			{kind: "moon.ToggleButton", content:"MultiSelect", name:"multiSelectToggle"},
+			{kind: "moon.ToggleButton", content: "GroupSelect", name: "groupSelectToggle"},
 			{kind: "moon.Button", content:"Refresh", ontap:"refreshItems"},
 			{kind: "moon.ContextualPopupDecorator", components: [
 				{kind: "moon.ContextualPopupButton", content:"Popup List"},
@@ -36,8 +37,9 @@ enyo.kind({
 	bindings: [
 		{from: ".collection", to: ".$.dataList.collection"},
 		{from: ".collection", to: ".$.gridList.collection"},
-		{from: ".$.selectionToggle.value", to:".$.gridList.selection"},
-		{from: ".$.multiSelectToggle.value", to:".$.gridList.multipleSelection"}
+		{from: ".$.selectionToggle.value", to:".$.gridList.selection", oneWay: false},
+		{from: ".$.multiSelectToggle.value", to:".$.gridList.multipleSelection", oneWay: false},
+		{from: ".$.groupSelectToggle.value", to: ".$.gridList.groupSelection", oneWay: false}
 	],
 	create: function () {
 		this.inherited(arguments);

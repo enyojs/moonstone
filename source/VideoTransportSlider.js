@@ -9,47 +9,29 @@
 	*/
 
 	/**
-	* The extended [event]{@glossary:event} [object]{@link glossary Object} that is provided when 
-	* the [onSeek]{@link enyo.VideoTransportSlider#event:onSeek} [event]{@glossary event} is fired.
+	* Fires in response to dragging on the video position knob. No additional information is
+	* provided in this event.
 	*
-	* @typedef {Object} moon.VideoTransportSlider~OnSeekEventObject
+	* @event moon.VideoTransportSlider#event:onSeekStart
+	* @type {Object}
+	* @public
+	*/
+
+	/**
+	* Fires when user changes the video position.
+	*
+	* @event moon.VideoTransportSlider#event:onSeek
+	* @type {Object}
 	* @property {Number} value - The position to seek to.
 	* @public
 	*/
 
 	/**
-	* Fires in response to _dragstart_.
-	*
-	* @event moon.VideoTransportSlider#event:onSeekStart
-	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently 
-	*	propagated the [event]{@glossary:event}.
-	* @property {Object} event - An [object]{@glossary Object} containing 
-	*	[event]{@glossary:event} information. 
-	* @public
-	*/
-
-	/**
-	* Fires when user taps in _tapArea_.
-	*
-	* @event moon.VideoTransportSlider#event:onSeek
-	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently 
-	*	propagated the [event]{@glossary:event}.
-	* @property {moon.VideoTransportSlider~OnSeekEventObject} event - An [object]{@glossary Object} 
-	*	containing [event]{@glossary:event} information. 
-	* @public
-	*/
-
-	/**
-	* Fires in response to _dragfinish_.
+	* Fires in response to the user no longer dragging the video position knob.
 	*
 	* @event moon.VideoTransportSlider#event:onSeekFinish
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently 
-	*	propagated the [event]{@glossary:event}.
-	* @property {Object} event - An [object]{@glossary Object} containing 
-	*	[event]{@glossary:event} information. 
+	* @property {Number} value - The position to seek to.
 	* @public
 	*/
 
@@ -58,10 +40,6 @@
 	*
 	* @event moon.VideoTransportSlider#event:onEnterTapArea
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently 
-	*	propagated the [event]{@glossary:event}.
-	* @property {Object} event - An [object]{@glossary Object} containing 
-	*	[event]{@glossary:event} information. 
 	* @public
 	*/
 
@@ -70,10 +48,6 @@
 	*
 	* @event moon.VideoTransportSlider#event:onLeaveTapArea
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently 
-	*	propagated the [event]{@glossary:event}.
-	* @property {Object} event - An [object]{@glossary Object} containing 
-	*	[event]{@glossary:event} information. 
 	* @public
 	*/
 
@@ -84,14 +58,15 @@
 	* ```javascript
 	* {kind: 'moon.VideoTransportSlider', value: 30}
 	* ```
-	* 
-	* The [_onChanging_]{@link moon.Slider#event:onChanging} event is fired while the control knob 
-	* is being dragged, and the [_onChange_]{@link moon.Slider#event:onChange} event is fired when 
-	* the position is set, either by finishing a drag or by tapping the bar.
 	*
-	* @ui
+	* The [_onSeekStart_]{@link #event:onSeekStart} event is fired while the control knob 
+	* is being dragged, the [_onSeekEnd_]{@link #event:onSeekEnd} event is fired when the drag
+	* finishes, and the [_onSeek_]{@link #event:onSeek} event is fired when the position is set
+	* by tapping the bar.
+	*
 	* @class moon.VideoTransportSlider
 	* @extends moon.Slider
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -199,7 +174,7 @@
 			* When `true`, the progress may extend past the hour markers
 			*
 			* @type {Boolean}
-			* @default true
+			* @default false
 			* @public
 			*/
 			liveMode: false,

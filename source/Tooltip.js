@@ -13,15 +13,15 @@
 	 * ]}
 	 * ```
 	 *
-	 * You may force the tooltip to appear by calling its [show()](#show) method.
+	 * You may force the tooltip to appear by calling its [show()]{@link enyo.Control#show} method.
 	 *
 	 * @class moon.Tooltip
 	 * @extends enyo.Popup
-	 * @public
 	 * @ui
+	 * @public
 	 */
 	enyo.kind(
-		/** @lends  moon.Tooltip.prototype */ {
+		/** @lends moon.Tooltip.prototype */ {
 
 		/**
 		 * @private
@@ -41,34 +41,34 @@
 		/**
 		 * @private
 		 */
-		published: {
+		published: /** @lends moon.Tooltip.prototype */ {
 			/**
-			 * This value overrides the default value of [autoDismiss]{@link enyo.Popup#autoDismiss} inherited from [enyo.Popup]{@link enyo.Popup}. If true, the
-			 * Tooltip will hide when the user taps outside of it or presses ESC. Note that this property only
-			 * affects behavior when the Tooltip is used independently--not when it is used with TooltipDecorator.
+			 * This value overrides the default value of [autoDismiss]{@link enyo.Popup#autoDismiss}
+			 * inherited from [enyo.Popup]{@link enyo.Popup}. If `true`, the Tooltip will hide when
+			 * the user taps outside of it or presses ESC. Note that this property only
+			 * affects behavior when the Tooltip is used independently -- not when it is used with
+			 * TooltipDecorator.
 			 *
 			 * @type {Boolean}
 			 * @default false
-			 * @memberof moon.Tooltip.prototype
 			 * @public
 			 */
 			autoDismiss: false,
 			/**
-			 * Hovering over the decorator for this length of time (in milliseconds) causes the tooltip to appear
+			 * Hovering over the decorator for this length of time (in milliseconds) causes the
+			 * tooltip to appear.
 			 *
 			 * @type {Number}
 			 * @default 500
-			 * @memberof moon.Tooltip.prototype
 			 * @public
 			 */
 			showDelay: 500,
 			/**
-			 * Position of the tooltip with respect to the activating control. Valid values are 'above', 'below',
-			 * and 'auto'.
+			 * Position of the tooltip with respect to the activating control. Valid values are:
+			 * 'above', 'below', and 'auto'.
 			 *
 			 * @type {String}
 			 * @default 'auto'
-			 * @memberof moon.Tooltip.prototype
 			 * @public
 			 */
 			position: 'auto',
@@ -77,7 +77,6 @@
 			 *
 			 * @type {Number}
 			 * @default 0
-			 * @memberof moon.Tooltip.prototype
 			 * @public
 			 */
 			defaultLeft: 0,
@@ -86,7 +85,6 @@
 			 *
 			 * @type {Boolean}
 			 * @default true
-			 * @memberof moon.Tooltip.prototype
 			 * @public
 			 */
 			contentUpperCase: true

@@ -2,15 +2,9 @@
 	/**
 	* Fires when this control expands or collapses.
 	*
-	* _event.collapsed_ contains a boolean indicating whether the control is
-	* currently collapsed.
-	*
 	* @event moon.ExpandableText#event:onExpandCollapse
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
+	* @property {Boolean} collapsed - Indicates whether the control is currently collapsed.
 	* @public
 	*/
 
@@ -26,9 +20,9 @@
 	* The {@link moon.ExpandableText#event:onExpandCollapse} event is fired when the control is
 	* either expanded or collapsed.
 	*
-	* @ui
 	* @class moon.ExpandableText
 	* @extends enyo.Control
+	* @ui
 	* @public
 	*/
 
@@ -52,7 +46,7 @@
 		published: /** @lends moon.ExpandableText.prototype */ {
 
 			/**
-			* When true, content is collapsed
+			* When `true`, content is collapsed
 			*
 			* @type {Boolean}
 			* @default true
@@ -70,18 +64,17 @@
 			maxLines: 3,
 
 			/**
-			* Button text when content is collapsed
-			* i18n 'MORE' label in moon.ExpandableText widget
+			* Button text when content is collapsed (i.e. 'more' label). Default is locale aware.
 			*
-			* @type {Boolean}
+			* @type {String}
 			* @default 'more'
 			* @public
 			*/
 			moreContent: moon.$L('more'),
 
 			/**
-			* Button text when content is not collapsed
-			* i18n 'LESS' label in moon.ExpandableText widget
+			* Button text when content is not collapsed (i.e. 'less' label). Default is locale
+			* aware.
 			*
 			* @type {String}
 			* @default 'less'

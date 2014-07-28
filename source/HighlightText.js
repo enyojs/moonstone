@@ -4,22 +4,16 @@
 	*
 	* @event moon.HighlighText#event:onHighlight
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
+	* @property {String|RegExp} highlight - String or regular expression specifying the text or
+	*	pattern to highlight.
 	* @public
 	*/
 
 	/**
 	* event sent to {@link moon.HighlighText} to turn off highlight
 	*
-	* @event moon.HighlighText#event:offHighlight
+	* @event moon.HighlighText#event:onUnHighlight
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
 	* @public
 	*/
 
@@ -27,12 +21,18 @@
 		HighlightTextDelegate = Object.create(HTMLStringDelegate);
 
 	HighlightTextDelegate.generateInnerHtml = function (control) {
-		if (control.search) {
-			return control.content.replace(control.search, control.bindSafely(function (s) {
-				return '<span style=\'pointer-events:none;\' class=\'' + this.highlightClasses + '\'>' + enyo.dom.escape(s) + '</span>';
-			}));
-		} else {
-			return enyo.dom.escape(control.get('content'));
+		// flow can alter the way that html content is rendered inside
+		// the container regardless of whether there are children.
+		control.flow();
+		if (control.children.length) { return this.generateChildHtml(control); }
+		else {
+			if (control.search) {
+				return control.content.replace(control.search, control.bindSafely(function (s) {
+					return '<span style=\'pointer-events:none;\' class=\'' + this.highlightClasses + '\'>' + enyo.dom.escape(s) + '</span>';
+				}));
+			} else {
+				return enyo.dom.escape(control.get('content'));
+			}
 		}
 	};
 
@@ -60,11 +60,11 @@
 	*
 	* the word 'Hello' will be highlighted.
 	*
-	* The highlighting will be turned off when an {@link moon.HighlightText#event:offHighlight}
+	* The highlighting will be turned off when an {@link moon.HighlightText#event:onUnHighlight}
 	* event is received
 	*
 	* ```
-	* this.waterfall('offHighlight');
+	* this.waterfall('onUnHighlight');
 	* ```
 	* or when {@link moon.HighlightText#setHighlight} is passed a falsy value
 	*
@@ -74,7 +74,7 @@
 	*
 	* @ui
 	* @class moon.HighlightText
-	@ @extends enyo.Control
+	* @extends enyo.Control
 	* @public
 	*/
 	enyo.kind(
@@ -88,23 +88,29 @@
 		/**
 		* @private
 		*/
-		published: /** @lends  moon.HighlightText.prototype */ {
+		kind: 'enyo.Control',
+
+		/**
+		* @private
+		*/
+		published: /** @lends moon.HighlightText.prototype */ {
 
 			/**
 			* String or regular expression specifying the text or pattern to
 			* highlight. Setting this to an empty string, falsy value, or empty
 			* regex will disable highlighting.
 			*
-			* @type {String}
+			* @type {String|RegExp}
 			* @default ''
 			* @public
 			*/
 			highlight: '',
 
 			/**
-			* When true, only case-sensitive matches of the string to highlight will be highlighted.  This
-			* property will be ignored if the {@link moon.HighlightText#highlight} property is set to a
-			* regular expression (you may use the 'i' modifier to create a case-insensitive regex).
+			* When `true`, only case-sensitive matches of the string to highlight will be
+			* highlighted.  This property will be ignored if the
+			* {@link moon.HighlightText#highlight} property is set to a regular expression (you
+			* may use the 'i' modifier to create a case-insensitive regex).
 			*
 			* @type {Boolean}
 			* @default false
@@ -183,7 +189,7 @@
 		* @private
 		*/
 		unHighlightHandler: function (inSender, inEvent) {
-			this.setHighlight(false);
+			this.setHighlight('');
 			return true;
 		}
 	});

@@ -4,90 +4,84 @@
 	text-align: center;
 	width: (@moon-button-small-height * 7) + ((14 * 2) * 7);
 	background-color: @moon-neutral-bg-color;
-	border-radius: 16px;
-	margin: 0px 20px;
-	padding: 20px 0px;
+	border-radius: @moon-contextual-popup-border-radius;
+	margin: 0 20px;
+	padding: 20px 0;
+
+    > * {
+		display: inline-block;
+    }
+	.moon-simple-picker {
+		max-width: 250px;
+
+		.moon-simple-picker-client > * {
+			color: @moon-spotlight-text-color;
+		}
+	}
+
+	.moon-calendar-picker-month {
+		margin: 0 0 0 30px;
+		float: left;
+	}
+
+	.moon-calendar-picker-year {
+		margin: 0 30px 0 0;
+		float: right;
+	}
+
+	.moon-calendar-picker-day {
+		.moon-sub-header-text;
+		text-align: center;
+		vertical-align: middle;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		display: inline-block;
+
+		&.small {
+			font-size: (@moon-sub-header-font-size - 8);
+		}
+	}
+
+	// override the inherited class from .moon-neutral > * color #ffffff
+	.moon-neutral .moon-calendar-picker-day-base {
+		width: @moon-button-small-height;
+		color: @moon-calendar-picker-date-shadow-color;
+		margin: 10px;
+		border-color: @moon-calendar-picker-date-shadow-color;
+		display: inline-block;
+	}
 }
-.moon-calendar-picker .moon-simple-picker {
-	max-width: 250px;
-}
-.moon-calendar-picker-block {
-	display: inline-block;
-}
-.moon-neutral .moon-calendar-picker-day-base {
-	display: inline-block;
-	width: @moon-button-small-height;
-	color: @moon-calendar-picker-date-shadow-color;
-	margin: 10px;
-}
-.moon-calendar-picker-day {
-	.moon-sub-header-text;
-	text-align: center;
-	vertical-align: middle;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-.enyo-locale-non-latin .moon-calendar-picker-day {
-	.enyo-locale-non-latin .moon-sub-header-text;
-}
-.moon-calendar-picker-month {
-	float: left;
-	margin: 0px 0px 0px 30px;
-}
-.moon-calendar-picker-year {
-	float: right;
-	margin: 0px 30px 0px 0px;
-}
-.moon-calendar-picker-days {
-	display: inline-block;
-}
-.moon-calendar-picker-dates {
-	margin: 30px 0px 0px 0px;
-}
+
 .moon-calendar-picker-date {
-	.moon-sub-header-text;
+	.moon-sub-header-text-base (@moon-sub-header-font-size, @moon-calendar-picker-date-color);
 	width: @moon-button-small-height;
-	min-width: @moon-button-small-height;
 	line-height: @moon-picker-button-width;
-	border: 0px;
 	border-radius: @moon-button-border-radius;
-	background: inherit;
-	color: @moon-calendar-picker-date-color;
-	padding: 0px;
-	margin: 10px;
-	text-align: center;
-	vertical-align: middle;
+	border: solid 10px transparent;
+	display: inline-block;
+
+	&.spotlight,
+	&.active {
+		background-color: @moon-spotlight-background-color;
+		border: solid 10px @moon-neutral-bg-color;
+	}
+
+	&.moon-calendar-picker-date-shadow {
+		color: @moon-calendar-picker-date-shadow-color;
+
+		&.spotlight {
+			color: @moon-spotlight-text-color;
+		}
+	}
 }
-.enyo-locale-non-latin .moon-calendar-picker-date {
-	.enyo-locale-non-latin 	.moon-sub-header-text;
-}
-.moon-calendar-picker-date.moon-button.small {
-	.moon-sub-header-text;
-	color: @moon-spotlight-text-color;
-	padding: 0px;
-}
-.enyo-locale-non-latin .moon-calendar-picker-date.moon-button.small {
-	.enyo-locale-non-latin 	.moon-sub-header-text;
-}
-.moon-calendar-picker-date-shadow.moon-button.small {
-	color: @moon-calendar-picker-date-shadow-color;
-}
-.moon-calendar-picker-date-shadow.moon-button.small.spotlight {
-	color: @moon-spotlight-text-color;
-}
-.moon-calendar-picker .moon-simple-picker-item {
-	color: @moon-spotlight-text-color;
-}
-.moon-calendar-picker-date.moon-button.small.active,
-.moon-calendar-picker-date.moon-button.small.pressed,
-.moon-calendar-picker-date.moon-button.small.spotlight.pressed,
-.moon-calendar-picker-date.moon-button:active:hover:not([disabled])
- {
-	color: @moon-spotlight-text-color;
-	background-color: @moon-spotlight-background-color;
-	border: 0px;
-}
-.moon-calendar-picker .moon-simple-picker-client > * {
-	color: @moon-spotlight-text-color;	
+
+.enyo-locale-non-latin {
+	.moon-calendar-picker-day {
+		.enyo-locale-non-latin .moon-sub-header-text;
+	}
+
+	.moon-calendar-picker-date {
+		.enyo-locale-non-latin 	.moon-sub-header-text;
+	}
 }

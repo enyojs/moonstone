@@ -1,27 +1,18 @@
 (function (enyo, scope) {
 	/**
+	* Fired when a date is selected. No information is passed in this event.
 	*
 	* @event moon.CalendarDate#event:onDateSelected
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
 	* @public
 	*/
 
 	/**
-	*
-	* _event.name_ contains the name of this control.
-	*
-	* _event.value_ contains a standard JavaScript Date object representing
+	* Fired when the [value]{@link moon.Calendar#value} changes.
 	*
 	* @event moon.Calendar#event:onChange
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
+	* @property {Date} value - contains a standard JavaScript Date object
 	* @public
 	*/
 
@@ -29,9 +20,9 @@
 	* _moon.CalendarDate_ implements a control representing a single day, used by
 	* the monthly calendar kind {@link moon.Calendar}.
 	*
-	* @ui
 	* @class moon.CalendarDate
 	* @extends moon.Button
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -45,14 +36,10 @@
 		/**
 		* @private
 		*/
-		kind: 'moon.Button',
-
-		/**
-		* @private
-		*/
 		published: /** @lends moon.CalendarDate.prototype */ {
 
 			/**
+			* Date object
 			*
 			* @type {Object}
 			* @default null
@@ -61,12 +48,24 @@
 			value: null,
 
 			/**
+			* Whether to color the date differently
 			*
-			* @type {Number}
-			* @default 0
+			* @type {Boolean}
+			* @default false
 			* @public
 			*/
-			color: 0
+			color: false,
+
+			/**
+			* Used when the CalendarDate is part of an [enyo.Group]{@link enyo.Group}.
+			* A value of true indicates that this is the active button of the group;
+			* false, that it is not the active button.
+			*
+			* @type {Boolean}
+			* @default false
+			* @public
+			*/
+			active: false
 		},
 
 		/**
@@ -75,6 +74,11 @@
 		events: {
 			onDateSelected:''
 		},
+
+		/**
+		* @private
+		*/
+		spotlight: true,
 
 		/**
 		* @private
@@ -114,7 +118,7 @@
 		/**
 		* @private
 		*/
-		colorChanged: function (inOld) {
+		colorChanged: function () {
 			this.addRemoveClass('moon-calendar-picker-date-shadow', this.color);
 		},
 
@@ -154,6 +158,7 @@
 	* ```
 	*
 	* @class moon.Calendar
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -184,11 +189,9 @@
 
 			/**
 			*
-			* The current Date object. When a Date object is passed to _setValue()_,
-			* the control is updated to reflect the new value. _getValue()_ returns
-			* a Date object.
+			* The current Date object.
 			*
-			* @type {object}
+			* @type {Date}
 			* @default null
 			* @public
 			*/
@@ -232,7 +235,7 @@
 			* End value for range of years displayed in year picker
 			*
 			* @type {number}
-			* @default 1900
+			* @default 2200
 			* @public
 			*/
 			endYear: 2200,
@@ -529,7 +532,7 @@
 				var dates = this.$.dates.getControls();
 				for (var i = 0; i <= dayOfLastDate; i++) {
 					dates[i].setValue(new Date(thisYear, prevMonth, datesOfPrevMonth - dayOfLastDate + i));
-					dates[i].setColor(1);
+					dates[i].setColor(true);
 				}
 				return i;
 			}
@@ -552,7 +555,7 @@
 			var dates = this.$.dates.getControls();
 			for (var i = 0; i < this.$.dates.controls.length - startIndex; i++) {
 				dates[startIndex + i].setValue(new Date(thisYear, nextMonth, i + 1));
-				dates[startIndex + i].setColor(1);
+				dates[startIndex + i].setColor(true);
 			}
 		},
 
@@ -568,7 +571,7 @@
 			var dates = this.$.dates.getControls();
 			for (var i = 0; i < monthLength; i++) {
 				dates[datesOfPrevMonth + i].setValue(new Date(thisYear, thisMonth, i + 1));
-				dates[datesOfPrevMonth + i].setColor(0);
+				dates[datesOfPrevMonth + i].setColor(false);
 			}
 			this.$.dates.setActive(dates[datesOfPrevMonth - 1 + this.value.getDate()]);
 			this.updateNextMonth(datesOfPrevMonth + monthLength);

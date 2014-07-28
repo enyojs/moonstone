@@ -1,83 +1,75 @@
 /* Drawers.css */
-.moon-drawers-handles {
-	text-align: center;
-	padding: 45px 0 10px;
-}
-
-.moon-drawers-activator-wrapper {
-	position: absolute;
-	top: -10px;
-	left: 0;
-	right: 0;
-	height: 10px;	
-	z-index: 100;
-}	
 .moon-drawers-activator {
 	position: absolute;
-	top: 10px;
+	top: 0;
 	left: 0;
 	right: 0;
-	height: 22px;	
+	z-index: 100;
+	height: @moon-drawers-activator-bar-height;
 	background-color: @moon-drawer-bg-color;
 	z-index: 100;
+	font-family: @moon-icon-font-family;
+	font-size: 50px;
+	// adjust the caret to line-up with the bottom edge of the activator bar
+	line-height: @moon-icon-font-size / 2 - 4;
 
 	&:after {
-		content: @moon-icon-arrowsmalldown;
-		position: relative;
-		margin-left: auto;
-		margin-right: auto;
-		margin-top: -5px;
+		margin: 10px auto 0;
+		width: @moon-drawer-nub-width;
+		height: @moon-drawer-nub-height;
+		border-radius: 0 0 @moon-drawer-nub-height @moon-drawer-nub-height;
 		display: block;
-		border-bottom-left-radius: 36px;
-		border-bottom-right-radius: 36px;	
-		height: 36px;
-		width: 60px;
 		background-color: @moon-drawer-bg-color;
-		top: 10px;
+		content: @moon-icon-arrowsmalldown;
+		color: @moon-drawer-activator-font-color;
 		text-align: center;
-		font-family: @moon-icon-font-family;
-		font-size: 50px;
-		line-height: @moon-icon-font-size/2;
-		overflow: hidden;
 	}
-	&.open:after {
-		content: @moon-icon-arrowsmallup;
+
+	/* The activator & nub are white when a drawer is open */
+	&.open {
+		background-color: @moon-drawer-open-bg-color;
+
+		&:after {
+			color: @moon-drawer-activator-open-font-color;
+			content: @moon-icon-arrowsmallup;
+			background-color: @moon-drawer-open-bg-color;
+		}
 	}
-}
 
-/* The activator & nub are white when a drawer is open */
-.moon-drawers-activator.drawer-open {
-	background-color: @moon-drawer-open-bg-color;
-}
+	// Cursor is hovering over the activator, but it hasn't moved yet.
+	// Prevents a blink-to-white on-click.
+	&.open:hover,
+	/* Activator is spotlight focused */
+	&.spotlight {
+		background-color: @moon-spotlight-color;
 
-.drawer-open .moon-drawers-activator:after {
-	background-color: @moon-drawer-open-bg-color;
-}
-
-/* Activator is spotlight focused */
-.spotlight .moon-drawers-activator {
-	background-color: @moon-spotlight-border-color;
-
-	&:after,
-	&.open:after {
-		color: @moon-spotlight-text-color;
-		background-color: @moon-spotlight-border-color;
+		&:after {
+			color: @moon-spotlight-text-color;
+			background-color: @moon-spotlight-color;
+		}
 	}
 }
 
+/* Drawer Handles */
 .moon-drawers-handle-container {
 	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
+
+	.moon-drawers-handles {
+		text-align: center;
+		padding: 50px 0 10px;
+	}
+
+	.moon-drawers-handle {
+		display: inline-block;
+		text-align: start;
+		width: 250px;
+	}
 }
 
-.moon-drawers-handle {
-	display: inline-block;
-	vertical-align: top;
-}
-
-.moon-drawers-drawer-container {
+.moon-drawers-container {
 	position: relative;
 }
 
@@ -98,3 +90,34 @@
 .moon-drawers-client > * {
 	pointer-events: all;
 }
+
+.moon-drawer-icon-arrowlargeup:after      { content: @moon-icon-arrowlargeup; }
+.moon-drawer-icon-arrowlargedown:after    { content: @moon-icon-arrowlargedown }
+.moon-drawer-icon-arrowlargeleft:after    { content: @moon-icon-arrowlargeleft; }
+.moon-drawer-icon-arrowlargeright:after   { content: @moon-icon-arrowlargeright; }
+.moon-drawer-icon-arrowsmallup:after      { content: @moon-icon-arrowsmallup; }
+.moon-drawer-icon-arrowsmalldown:after    { content: @moon-icon-arrowsmalldown; }
+.moon-drawer-icon-arrowsmallleft:after    { content: @moon-icon-arrowsmallleft; }
+.moon-drawer-icon-arrowsmallright:after   { content: @moon-icon-arrowsmallright; }
+.moon-drawer-icon-closex:after            { content: @moon-icon-closex; }
+.moon-drawer-icon-check:after             { content: @moon-icon-check; }
+.moon-drawer-icon-search:after            { content: @moon-icon-search; }
+.moon-drawer-icon-drawer:after            { content: @moon-icon-drawer; }
+.moon-drawer-icon-fullscreen:after        { content: @moon-icon-fullscreen; }
+.moon-drawer-icon-circle:after            { content: @moon-icon-circle; }
+.moon-drawer-icon-stop:after              { content: @moon-icon-stop; }
+.moon-drawer-icon-play:after              { content: @moon-icon-play; }
+.moon-drawer-icon-pause:after             { content: @moon-icon-pause; }
+.moon-drawer-icon-forward:after           { content: @moon-icon-forward; }
+.moon-drawer-icon-backward:after          { content: @moon-icon-backward; }
+.moon-drawer-icon-skipforward:after       { content: @moon-icon-skipforward; }
+.moon-drawer-icon-skipbackward:after      { content: @moon-icon-skipbackward; }
+.moon-drawer-icon-pauseforward:after      { content: @moon-icon-pauseforward; }
+.moon-drawer-icon-pausebackward:after     { content: @moon-icon-pausebackward; }
+.moon-drawer-icon-pausejumpforward:after  { content: @moon-icon-pausejumpforward; }
+.moon-drawer-icon-pausejumpbackward:after { content: @moon-icon-pausejumpbackward; }
+.moon-drawer-icon-jumpforward:after       { content: @moon-icon-jumpforward; }
+.moon-drawer-icon-jumpbackward:after      { content: @moon-icon-jumpbackward; }
+.moon-drawer-icon-arrowextend:after       { content: @moon-icon-arrowextend; }
+.moon-drawer-icon-arrowshrink:after       { content: @moon-icon-arrowshrink; }
+.moon-drawer-icon-exitfullscreen:after    { content: @moon-icon-exitfullscreen; }

@@ -161,6 +161,16 @@
 		activator: null,
 
 		/**
+		* @private
+		*/
+		directShowHide: false,
+
+		/**
+		* @private
+		*/
+		initialDuration: null,
+
+		/**
 		* Creates chrome
 		*
 		* @private
@@ -176,6 +186,7 @@
 		create: function () {
 			this.inherited(arguments);
 			this.animateChanged();
+			this.initialDuration = this.getComputedStyleValue("-webkit-transition-duration", "0.4s");
 		},
 
 		/**
@@ -335,16 +346,26 @@
 			}
 
 			if (this.animate) {
+				var args = arguments;
 				if (this.showing) {
 					this.inherited(arguments);
 					this.animateShow();
+					this.animationEnd = this.bindSafely(function(inSender, inEvent) {
+						if (inEvent.originator === this) {
+							if (this.directShowHide) {
+								this.setDirectShowHide(false);
+							}
+						}
+					});
 				} else {
 					this.animateHide();
-					var args = arguments;
 					this.animationEnd = this.bindSafely(function(sender, event) {
 						if (event.originator === this) {
 							this.inherited(args);
 							this.isAnimatingHide = false;
+							if (this.directShowHide) {
+								this.setDirectShowHide(false);
+							}
 						}
 					});
 				}
@@ -381,6 +402,40 @@
 			} else {
 				return this.inherited(arguments);
 			}
+		},
+
+		/**
+		* Skips animation and jumps to the final shown state.
+		*
+		* @public
+		*/
+		showDirect: function() {
+			if (this.animate) {
+				this.setDirectShowHide(true);
+			}
+			this.show();
+		},
+
+		/**
+		* Skips animation and jumps to the final hidden state.
+		*
+		* @public
+		*/
+		hideDirect: function() {
+			if (this.animate) {
+				this.setDirectShowHide(true);
+			}
+			this.hide();
+		},
+
+		/**
+		* @private
+		*/
+		setDirectShowHide: function(value) {
+			this.directShowHide = value;
+			// setting duration to "0" does not work, nor does toggling animate property
+			var duration = (value) ? "0.0001s" : this.initialDuration;
+			this.applyStyle("-webkit-transition-duration", duration);
 		},
 
 		/**

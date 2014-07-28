@@ -97,9 +97,45 @@
 			* @public
 			*/
 			drawers: null,
-			//* icon src of drawer
-			src:""
+
+			/**
+			* When using a font-based icon, the name of the icon to be used.
+			* The following icon names are valid:
+			*
+			* 'drawer'
+			* 'arrowlargeup'
+			* 'arrowlargedown'
+			* 'arrowlargeleft'
+			* 'arrowlargeright'
+			* 'arrowsmallup'
+			* 'arrowsmalldown'
+			* 'arrowsmallleft'
+			* 'arrowsmallright'
+			* 'closex'
+			* 'check'
+			* 'search'
+			*
+			* @type {String}
+			* @default ''
+			* @public
+			*/
+			icon: '',
+
+			/**
+			* URL specifying path to icon image
+			*
+			* @type {String}
+			* @default ''
+			* @public
+			*/
+			src: ''
 		},
+
+		/**
+		* @private
+		* class name added at run time to override
+		*/
+		className:'',
 
 		/**
 		* @private
@@ -116,11 +152,9 @@
 		* @private
 		*/
 		components: [
-			{name:'activatorWrapper', classes:'moon-drawers-activator-wrapper', spotlight:true, ontap:'activatorHandler', components: [
-				{name:"activator", classes:"moon-drawers-activator",mixins: ["enyo.StylesheetSupport"],stylesheetContent:""}
-			]},
-			{name:'handleContainer', classes:'moon-drawers-handle-container', kind:'enyo.Drawer', resizeContainer:false, open:false, spotlightDisabled: true, onpostresize:'resizeHandleContainer', components:[
-				{name:'handles', classes:'moon-neutral moon-drawers-handles'}
+			{name:"activator", classes: "moon-drawers-activator", spotlight: true, ontap: "activatorHandler",mixins:['enyo.StylesheetSupport']},
+			{name:"handleContainer", classes:"moon-drawers-handle-container", kind:"enyo.Drawer", resizeContainer:false, open:false, spotlightDisabled: true, onpostresize:"resizeHandleContainer", components:[
+				{name:"handles", classes: "moon-neutral moon-drawers-handles"}
 			]},
 			{name: 'drawers', classes:'moon-drawers-drawer-container'},
 			{name: 'client', classes:'moon-drawers-client'}
@@ -142,8 +176,13 @@
 			this.inherited(arguments);
 			this.$.drawers.createComponents(this.drawers, {kind: 'moon.Drawer', owner:this.owner});
 			this.setupHandles();
-			if(this.src){
+			var id=this.$.activator.id;
+			this.className=id.replace(/[^a-zA-Z0-9]/g,'-');
+			if(this.src) {
 				this.srcChanged();
+			}
+			if(this.icon) {
+				this.iconChanged();
 			}
 		},
 
@@ -161,6 +200,37 @@
 		/**
 		* @private
 		*/
+		srcChanged: function(old) {
+			// Always change the src, even if its set to NULL because we want to be able to restore
+			// the initial behavior with `inherit`.
+			var src = this.src || 'inherit';
+			if (src != 'none' && src != 'inherit' && src != 'initial') {
+				src = 'url(\'' + enyo.path.rewrite(this.src) + '\')';
+				this.$.activator.addClass('moon-'+ this.className);
+				// Set the stylesheet to use custom rules
+				this.$.activator.set('stylesheetContent','.moon-'+ this.className +'.moon-drawers-activator:after{background-image:'+src+';content:"";background-repeat:no-repeat;background-position: center center}');
+			}
+			else{
+				//if src passed is null
+				this.$.activator.removeClass('moon-'+ this.className);
+			}
+		},
+
+		/**
+		* @private
+		*/
+		iconChanged: function(old) {
+			var icon = this.icon || null;
+			this.$.activator.removeClass('moon-drawer-icon-'+old);
+			if (icon !=null) {
+				this.$.activator.set('stylesheetContent','');
+				this.$.activator.addClass('moon-drawer-icon-'+icon);
+			}
+		},
+
+		/**
+		* @private
+		*/
 		setupHandles: function () {
 			var handles = []
 				, controls, index;
@@ -170,27 +240,12 @@
 				for (index = 0; index < this.drawers.length; ++index) {
 					handles.push(this.drawers[index].handle || {});
 				}
-				this.$.handles.createComponents(handles, {kind: 'moon.DrawerHandle', owner:this});
+				this.$.handles.createComponents(handles, {kind: 'moon.Item', owner:this});
 				controls = this.$.handles.getControls();
 				enyo.forEach(handles, function (handle, idx) {
 					controls[idx].addClass('moon-drawers-handle');
 					controls[idx].tap = this.bindSafely(this.handleTapped);
 				}, this);
-			}
-		},
-		//Callback if icon source is changed
-		srcChanged: function(num){
-			var src = this.src || null;
-			//for class rules in css, needs to replace any special character in icon name with _
-			var className=src.replace(/[^a-zA-Z0-9]/g,'_');
-			if (src) {
-				if (src != "none" && src != "inherit" && src != "initial") {
-					src = "url(" + enyo.path.rewrite(this.src) + ")";
-				}
-				//Overriding content of div if src is passed
-				this.$.activator.addClass('moon-'+ className + '-d');
-				this.$.activator.addStylesheetContent('.moon-'+ className +'-d.moon-drawers-activator:after{content:'+src+'}');
-				this.$.activator.addStylesheetContent('.moon-'+ className +'-d.moon-drawers-activator.open:after{content:url(../images/DarkTheme_Icons/drawer_up_spotlight.png)}');
 			}
 		},
 
@@ -343,6 +398,12 @@
 		* @private
 		*/
 		updateActivator: function (up) {
+			if(up){
+				this.$.activator.removeClass('moon-'+ this.className);
+			}
+			else{
+				this.$.activator.addClass('moon-'+ this.className);
+			}
 			this.$.activator.addRemoveClass('open', up);
 		},
 

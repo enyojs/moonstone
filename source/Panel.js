@@ -85,8 +85,8 @@
 			subTitleBelow: '',
 
 			/**
-			* If `true`, the header's {@link moon.Header#titleAbove} property is automatically populated with the panel
-			* index
+			* If `true`, the header's {@link moon.Header#titleAbove} property is automatically
+			* populated with the panel index.
 			*
 			* @type {Boolean}
 			* @default true
@@ -95,8 +95,8 @@
 			autoNumber: true,
 
 			/**
-			* Facade for the {@link moon.Header#type} of the embedded {@link moon.Header}. Valid values are:
-			* `large`, `small` and `mini`.
+			* Facade for the {@link moon.Header#type} of the embedded {@link moon.Header}. Valid
+			* values are: `large`, `medium` and `small`.
 			*
 			* @type {String}
 			* @default ''

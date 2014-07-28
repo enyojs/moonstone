@@ -11,7 +11,7 @@ enyo.kind({
 				{kind: "moon.Scroller", fit: true, components: [
 					{kind: "moon.Divider", content:"Standard highlight"},
 					{kind: "moon.Item", components: [
-						{kind: "moon.HighlightText", content:"Text to highlight", highlight:"text"}
+						{kind: "moon.HighlightText", content:"Very long text to see highlight with marquee", highlight:"text", mixins: ["moon.MarqueeItem"]}
 					]},
 					{kind: "moon.Item", components: [
 						{kind: "moon.HighlightText", content:"Text to highlight", highlight:"to"}

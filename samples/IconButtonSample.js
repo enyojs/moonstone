@@ -3,31 +3,33 @@ enyo.kind({
 	kind: "FittableRows",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
-		{fit:true, components: [
-			{kind: "moon.Divider", content: "Font-based Icon Buttons:"},
-			{kind: "moon.IconButton", icon: "drawer", small: false, ontap: "buttonTapped"},
-			{kind: "moon.IconButton", icon: "search", small: false, ontap: "buttonTapped"},
-			{kind: "moon.IconButton", icon: "drawer", ontap: "buttonTapped"},
-			{kind: "moon.IconButton", icon: "search", ontap: "buttonTapped"},
-			{classes:"moon-1v"},
-			{kind: "moon.Divider", content: "Image Asset Icon Buttons:"},
-			{kind: "moon.IconButton", src: "assets/icon-list.png", small: false, ontap: "buttonTapped"},
-			{kind: "moon.IconButton", src: "assets/icon-album.png", small: false, ontap: "buttonTapped"},
-			{kind: "moon.IconButton", src: "assets/icon-list.png", ontap: "buttonTapped"},
-			{kind: "moon.IconButton", src: "assets/icon-album.png", ontap: "buttonTapped"},
-			{classes:"moon-1v"},
-			{kind: "moon.Divider", content: "Disabled Icon Buttons:"},
-			{kind: "moon.IconButton", icon: "drawer", small: false, ontap: "buttonTapped", disabled: true},
-			{kind: "moon.IconButton", icon: "search", ontap: "buttonTapped", disabled: true},
-			{kind: "moon.IconButton", src: "assets/icon-list.png", small: false, ontap: "buttonTapped", disabled: true},
-			{kind: "moon.IconButton", src: "assets/icon-album.png", ontap: "buttonTapped", disabled: true},
-			{classes:"moon-1v"},
-			{kind: "moon.Divider", content: "Grouped Icon Buttons:"},
-			{kind: "enyo.Group", components: [
+		{kind: 'moon.Scroller', fit: true, components: [
+			{fit:true, components: [
+				{kind: "moon.Divider", content: "Font-based Icon Buttons:"},
+				{kind: "moon.IconButton", icon: "drawer", small: false, ontap: "buttonTapped"},
+				{kind: "moon.IconButton", icon: "search", small: false, ontap: "buttonTapped"},
 				{kind: "moon.IconButton", icon: "drawer", ontap: "buttonTapped"},
 				{kind: "moon.IconButton", icon: "search", ontap: "buttonTapped"},
+				{classes:"moon-1v"},
+				{kind: "moon.Divider", content: "Image Asset Icon Buttons:"},
+				{kind: "moon.IconButton", src: "assets/icon-list.png", small: false, ontap: "buttonTapped"},
+				{kind: "moon.IconButton", src: "assets/icon-album.png", small: false, ontap: "buttonTapped"},
 				{kind: "moon.IconButton", src: "assets/icon-list.png", ontap: "buttonTapped"},
-				{kind: "moon.IconButton", src: "assets/icon-album.png", ontap: "buttonTapped"}
+				{kind: "moon.IconButton", src: "assets/icon-album.png", ontap: "buttonTapped"},
+				{classes:"moon-1v"},
+				{kind: "moon.Divider", content: "Disabled Icon Buttons:"},
+				{kind: "moon.IconButton", icon: "drawer", small: false, ontap: "buttonTapped", disabled: true},
+				{kind: "moon.IconButton", icon: "search", ontap: "buttonTapped", disabled: true},
+				{kind: "moon.IconButton", src: "assets/icon-list.png", small: false, ontap: "buttonTapped", disabled: true},
+				{kind: "moon.IconButton", src: "assets/icon-album.png", ontap: "buttonTapped", disabled: true},
+				{classes:"moon-1v"},
+				{kind: "moon.Divider", content: "Grouped Icon Buttons:"},
+				{kind: "enyo.Group", components: [
+					{kind: "moon.IconButton", icon: "drawer", active: true, ontap: "buttonTapped"},
+					{kind: "moon.IconButton", icon: "search", ontap: "buttonTapped"},
+					{kind: "moon.IconButton", src: "assets/icon-list.png", ontap: "buttonTapped"},
+					{kind: "moon.IconButton", src: "assets/icon-album.png", ontap: "buttonTapped"}
+				]}
 			]}
 		]},
 		{kind: "moon.Divider", content: "Result"},
