@@ -98,7 +98,7 @@
 		/**
 		* @private
 		*/
-		classes: 'moon-calendar-picker-date enyo-unselectable',
+		classes: 'moon-sub-header-text moon-calendar-picker-date enyo-unselectable',
 
 		/**
 		* @private
@@ -343,7 +343,7 @@
 			for(i = 0; i < 7; i++) {
 				this.$.days.createComponent({
 					content: this.days[i],
-					classes: 'moon-calendar-picker-day-base ' + (this.dayOfWeekClasses || 'moon-calendar-picker-day'),
+					classes: 'moon-calendar-picker-day-base ' + (this.dayOfWeekClasses || 'moon-calendar-picker-day moon-sub-header-text'),
 					disabled: true
 				});
 			}

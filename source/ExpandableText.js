@@ -388,7 +388,7 @@
 		/**
 		* @private
 		*/
-		classes: 'moon-item moon-expandable-text-button',
+		classes: 'moon-item moon-body-text moon-expandable-text-button',
 
 		/**
 		* @private

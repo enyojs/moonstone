@@ -34,7 +34,7 @@
 		/**
 		 * @private
 		 */
-		classes: 'moon-richtext',
+		classes: 'moon-body-text moon-richtext',
 
 		/**
 		 * @private

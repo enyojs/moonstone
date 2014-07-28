@@ -35,7 +35,7 @@
 		/**
 		* @private
 		*/
-		classes: 'moon-input',
+		classes: 'moon-body-text moon-input',
 
 		/**
 		* 13==Enter, 16777221==KeypadEnter

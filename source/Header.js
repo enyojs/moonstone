@@ -279,11 +279,11 @@
 			}, {
 				name: 'titleBelow',
 				kind: 'moon.MarqueeText',
-				classes: 'moon-header-title-below'
+				classes: 'moon-sub-header-text moon-header-title-below'
 			}, {
 				name: 'subTitleBelow',
 				kind: 'moon.MarqueeText',
-				classes: 'moon-header-sub-title-below'
+				classes: 'moon-body-text moon-header-sub-title-below'
 			}]
 		}, {
 			name: 'client',

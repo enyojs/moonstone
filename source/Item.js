@@ -21,7 +21,7 @@
 	 	/**
 	 	* @private
 	 	*/
-		classes: 'moon-item',
+		classes: 'moon-sub-header-text moon-item',
 
   	 	/**
   	 	* @private

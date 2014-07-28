@@ -7,12 +7,19 @@
 	overflow: hidden;
 	border: 5px solid transparent;
 
+	// need to define font-size for .caption and .sub-caption as there is a very specific rule 
+	// .enyo-gridlist-imageitem.centered > .caption, .enyo-gridlist-imageitem.centered > .sub-caption
+	// defined the font-size to be 10pt
+	//the same rule also defined the color for .caption, need to overrided
+
 	.caption {
-		.moon-sub-header-text;
+		font-size: @moon-sub-header-font-size;
+		color: @moon-sub-header-text-color;
 	}
 
 	.sub-caption {
-		.moon-body-text;
+		font-size: @moon-body-font-size;
+		color: @moon-sub-header-text-color;
 	}
 
 	&.selected {
@@ -58,9 +65,11 @@
 
 .enyo-locale-non-latin .moon-gridlist-imageitem {
 	.caption {
-		.enyo-locale-non-latin .moon-sub-header-text;
+		font-size: @moon-non-latin-sub-header-font-size;
 	}
+
 	.sub-caption {
-		.enyo-locale-non-latin .moon-body-text;
+		font-size: @moon-non-latin-body-font-size;
+		line-height: @moon-non-latin-body-line-height;
 	}
 }
