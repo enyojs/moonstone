@@ -43,9 +43,9 @@
 		*/
 		kind: 'enyo.Control',
 
-		/**
-		* @private
-		*/
+	 	/**
+	 	* @private
+	 	*/
 		classes: 'moon-scroll-picker-container',
 
 		/**
@@ -55,7 +55,25 @@
 		published: {
 
 			/**
-			* Current value of the picker.
+			* When `true`, button is shown as disabled and does not generate tap events.
+			*
+			* @type {Boolean}
+			* @default false
+			* @public
+			*/
+			disabled: false,
+
+			/**
+			* When `true`, picker transitions animate left/right.
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
+			animate: true,
+
+			/**
+			* Current value of the picker
 			*
 			* @type {Number}
 			* @default null
@@ -80,6 +98,17 @@
 			* @public
 			*/
 			max: 9,
+
+			/**
+			* Amount to increment/decrement by when moving picker between
+			* [_min_]{@link moon.SimpleIntegerPicker#min} and
+			* [_max_]{@link moon.SimpleIntegerPicker#max}.
+			*
+			* @type {Number}
+			* @default 1
+			* @public
+			*/
+			step: 1,
 
 			/**
 			* If a number is specified, the picker value is displayed as this many
@@ -142,17 +171,19 @@
 		* @private
 		*/
 		components: [
-			{name:'topOverlay', ondown:'downNext', onholdpulse:'next', classes:'moon-scroll-picker-overlay-container top top-image', components:[
-				{classes:'moon-scroll-picker-overlay top'},
+			{name:'nextOverlay', ondown:'downNext', onholdpulse:'next', classes:'moon-scroll-picker-overlay-container next', components:[
+				{classes:'moon-scroll-picker-overlay next'},
 				{classes: 'moon-scroll-picker-taparea'}
 			]},
-			{kind: 'enyo.Scroller', thumb:false, touch:true, useMouseWheel: false, classes: 'moon-scroll-picker', components:[
-				{name:'repeater', kind:'enyo.FlyweightRepeater', ondragstart: 'dragstart', onSetupItem: 'setupItem', components: [
-					{name: 'item', classes:'moon-scroll-picker-item'}
+			// FIXME: TranslateScrollStrategy doesn't work with the current design of this component so
+			// we're forcing TouchScrollStrategy
+			{kind: 'enyo.Scroller', strategyKind: 'TouchScrollStrategy', thumb:false, touch:true, useMouseWheel: false, classes: 'moon-scroll-picker', components:[
+				{name:'repeater', kind:'enyo.FlyweightRepeater', classes: 'list', ondragstart: 'dragstart', onSetupItem: 'setupItem', noSelect: true, components: [
+					{name: 'item', classes: 'moon-scroll-picker-item'}
 				]}
 			]},
-			{name:'bottomOverlay', ondown:'downPrevious', onholdpulse:'previous', classes:'moon-scroll-picker-overlay-container bottom bottom-image', components:[
-				{classes:'moon-scroll-picker-overlay bottom'},
+			{name:'previousOverlay', ondown:'downPrevious', onholdpulse:'previous', classes:'moon-scroll-picker-overlay-container previous', components:[
+				{classes:'moon-scroll-picker-overlay previous'},
 				{classes: 'moon-scroll-picker-taparea'}
 			]}
 		],
@@ -182,17 +213,18 @@
 	 	/**
 	 	* @private
 	 	*/
-		create: function (){
+		create: function () {
 			this.inherited(arguments);
 			this.verifyValue();
 			this.updateOverlays();
 		},
 
-		/**
-		* @private
-		*/
-		rendered: function (){
+	 	/**
+	 	* @private
+	 	*/
+		rendered: function () {
 			this.inherited(arguments);
+			this.width = null;
 			this.rangeChanged();
 			this.scrollToValue();
 			this.$.scroller.getStrategy().setFixedTime(false);
@@ -218,11 +250,24 @@
 	 	*/
 		setupItem: function (inSender, inEvent) {
 			var index = inEvent.index;
-			var content = (index % this.range) + this.min;
-			if (this.digits) {
-				content = ('00000000000000000000' + content).slice(-this.digits);
-			}
+			var content = this.labelForValue(this.indexToValue(index % this.range));
 			this.$.item.setContent(content);
+		},
+
+		/**
+		* Formats `value` for display. If [`digits`]{@link moon.IntegerPicker#digits} is **truthy**,
+		* it prepends zeros to that many digits.
+		*
+		* @param  {Number} value - Value to format
+		* @return {String}       - Formatted value
+		* @private
+		*/
+		labelForValue: function(value) {
+			if (this.digits) {
+				value = ('00000000000000000000' + value).slice(-this.digits);
+			}
+
+			return value;
 		},
 
 		/**
@@ -230,7 +275,7 @@
 		*/
 		rangeChanged: function () {
 			this.verifyValue();
-			this.range = this.max - this.min + 1;
+			this.range = this.valueToIndex(this.max) - this.valueToIndex(this.min) + 1;
 		},
 
 		/**
@@ -240,6 +285,7 @@
 	 	* @private
 	 	*/
 		valueChanged: function (old) {
+			this.value -= (this.value-this.min)%this.step;
 			if (this.value < this.min) {
 				this.setMin(this.value);
 			} else if (this.value > this.max) {
@@ -251,7 +297,21 @@
 		},
 
 		/**
-		* Prevent scroller dragging.
+		* @private
+		*/
+		disabledChanged: function () {
+			this.addRemoveClass('disabled', this.disabled);
+		},
+
+		/**
+		* @private
+		*/
+		wrapChanged: function () {
+			this.updateOverlays();
+		},
+
+	 	/**
+		* Prevent scroller dragging
 		*
 		* @private
 		*/
@@ -277,16 +337,18 @@
 		* @private
 		*/
 		previous: function (inSender, inEvent) {
+			if(this.disabled) return;
+
 			this.direction = -1;
 
 			if (this.value > this.min) {
-				this.setValue(this.value - 1);
+				this.setValue(this.value - this.step);
 			} else if (this.wrap) {
 				this.setValue(this.max);
 			} else {
 				return;
 			}
-			this.$.bottomOverlay.addClass('selected');
+			this.$.previousOverlay.addClass('selected');
 			if (inEvent.originator != this.$.upArrow) {
 				this.startJob('hideBottomOverlay', 'hideBottomOverlay', 350);
 			}
@@ -300,16 +362,18 @@
 		* @private
 		*/
 		next: function (inSender, inEvent) {
+			if(this.disabled) return;
+
 			this.direction = 1;
 
 			if (this.value < this.max) {
-				this.setValue(this.value + 1);
+				this.setValue(this.value + this.step);
 			} else if (this.wrap) {
 				this.setValue(this.min);
 			} else {
 				return;
 			}
-			this.$.topOverlay.addClass('selected');
+			this.$.nextOverlay.addClass('selected');
 			if (inEvent.originator != this.$.downArrow) {
 				this.startJob('hideTopOverlay', 'hideTopOverlay', 350);
 			}
@@ -339,8 +403,8 @@
 		* @private
 		*/
 		updateOverlays: function () {
-			this.$.bottomOverlay.addRemoveClass('bottom-image', this.wrap || (this.value !== this.min));
-			this.$.topOverlay.addRemoveClass('top-image', this.wrap || (this.value !== this.max));
+			this.$.previousOverlay.applyStyle('visibility', (this.wrap || (this.value !== this.min)) ? 'visible' : 'hidden');
+			this.$.nextOverlay.applyStyle('visibility', (this.wrap || (this.value !== this.max)) ? 'visible' : 'hidden');
 		},
 
 		/**
@@ -370,8 +434,31 @@
 					this.$.scroller.scrollTo(node.offsetLeft, node.offsetTop);
 				} else {
 					this.$.scroller.setScrollTop(node.offsetTop);
+					this.$.scroller.setScrollLeft(node.offsetLeft);
 				}
 			}
+		},
+
+		/**
+		* Converts `value` to it's index in the repeater
+		*
+		* @param  {Number} value - Integer value
+		* @return {Number}       - Repeater index
+		* @private
+		*/
+		valueToIndex: function(value) {
+			return Math.floor((value - this.min) / this.step);
+		},
+
+		/**
+		* Converts a repeater `index` to its value
+		*
+		* @param  {Number} index - Repeater index
+		* @return {Number}       - Integer value
+		* @private
+		*/
+		indexToValue: function(index) {
+			return index * this.step + this.min;
 		},
 
 		/**
@@ -384,11 +471,11 @@
 		* @private
 		*/
 		scrollToValue: function(old) {
-			var newIndex = this.value - this.min;
+			var newIndex = this.valueToIndex(this.value);
 
-			if(old !== undefined) {
-				var delta = this.value - old;
-				var oldIndex = old - this.min;
+			if(this.animate && old !== undefined) {
+				var oldIndex = this.valueToIndex(old);
+				var delta = newIndex - oldIndex;
 
 				if(this.wrap && Math.abs(delta) >= this.range/2) {
 
@@ -413,7 +500,7 @@
 				this.updateRepeater(index, count);
 
 				this.scrollToIndex(oldIndex, false);
-				this.startJob("valueChanged-Scroller", this.bindSafely("scrollToIndex", newIndex, true), 16);
+				this.startJob('valueChanged-Scroller', this.bindSafely('scrollToIndex', newIndex, true), 16);
 			} else {
 				// if old isn't specified, setup the repeater with only this.value and jump to it
 				this.updateRepeater(newIndex);
@@ -425,14 +512,14 @@
 	 	* @private
 	 	*/
 		hideTopOverlay: function () {
-			this.$.topOverlay.removeClass('selected');
+			this.$.nextOverlay.removeClass('selected');
 		},
 
 		/**
 		* @private
 		*/
 		hideBottomOverlay: function () {
-			this.$.bottomOverlay.removeClass('selected');
+			this.$.previousOverlay.removeClass('selected');
 		},
 
 		/**
@@ -441,8 +528,9 @@
 		*/
 		fireChangeEvent: function () {
 			this.doChange({
-				name:this.name,
-				value:this.value
+				name: this.name,
+				value: this.value,
+				content: this.labelForValue(this.value)
 			});
 		},
 
