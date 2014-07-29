@@ -3720,28 +3720,18 @@
   padding-right: 70px;
 }
 .moon-popup-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  margin: 0;
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: 0 0;
   color: #ffffff;
-  position: absolute;
-  right: 10px;
-  width: 32px;
-  height: 32px;
-  top: 10px;
-  margin: 0;
 }
-.moon-popup-close.spotlight {
-  background-color: #cf0652;
-}
-.moon-icon.moon-popup-close {
-  position: absolute;
-}
-.moon-icon.moon-popup-close.active,
-.moon-icon.moon-popup-close.pressed,
-.moon-icon.moon-popup-close.spotlight.pressed,
-.moon-icon.moon-popup-close.spotlight:active {
-  background-color: #cf0652;
+.moon-popup-close.pressed,
+.moon-popup-close:active {
+  background-color: transparent;
   color: #ffffff;
 }
 .enyo-locale-right-to-left .moon-popup.reserve-close {
