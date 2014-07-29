@@ -211,7 +211,7 @@
 		rendered: enyo.inherit(function (sup) {
 			return function () {
 				sup.apply(this, arguments);
-				if (this.marqueeOnRender) {
+				if (this.marqueeOnRender && !this.disabled) {
 					this.startMarqueeCustomDelay(this.marqueeOnRenderDelay);
 				}
 			};
@@ -280,7 +280,8 @@
 		*/
 		_marquee_enter: function (inSender, inEvent) {
 			this._marquee_isHovered = true;
-			if (this.marqueeOnHover && !this.marqueeOnSpotlight) {
+			if ((this.marqueeOnHover && !this.marqueeOnSpotlight) || 
+			(this.disabled && this.marqueeOnSpotlight && this.kind != "moon.Button")) {
 				this.startMarquee();
 			}
 		},
@@ -290,7 +291,7 @@
 		*/
 		_marquee_leave: function (inSender, inEvent) {
 			this._marquee_isHovered = false;
-			if (this.marqueeOnHover && !this.marqueeOnSpotlight) {
+			if ((this.marqueeOnHover && !this.marqueeOnSpotlight) || (this.disabled && this.marqueeOnSpotlight)) {
 				this.stopMarquee();
 			}
 		},
@@ -522,7 +523,8 @@
 		*/
 		observers: {
 			_marquee_contentChanged: ['content'],
-			_marquee_centeredChanged: ['centered']
+			_marquee_centeredChanged: ['centered'],
+			_marquee_wrapInsteadOfMarqueeChanged: ["wrapInsteadOfMarquee"]
 		},
 
 		/**
@@ -584,6 +586,7 @@
 				sup.apply(this, arguments);
 				this.detectTextDirectionality();
 				this._marquee_centeredChanged();
+				this._marquee_wrapInsteadOfMarqueeChanged();
 			};
 		}),
 
@@ -637,7 +640,7 @@
 		* @private
 		*/
 		_marquee_requestMarquee: function (inSender, inEvent) {
-			if (!inEvent || this.disabled || !this.showing || !this._marquee_enabled || this._marquee_fits) {
+			if (!inEvent || !this.showing || this._marquee_fits) {
 				return;
 			}
 
@@ -829,6 +832,13 @@
 		*/
 		_marquee_centeredChanged: function () {
 			this.applyStyle('text-align', this.centered ? 'center' : null);
+		},
+
+		/**
+		* @private
+		*/
+		_marquee_wrapInsteadOfMarqueeChanged: function() {
+			this.addRemoveClass("allow-wrap", this.wrapInsteadOfMarquee);
 		}
 	};
 
@@ -929,7 +939,16 @@
 			* @default true
 			* @public
 			*/
-			centered: false
+			centered: false,
+
+			/**
+			* When true, element wraps instead of marqueeing
+			*
+			* @type {Boolean}
+			* @default false
+			* @public
+			*/
+			wrapInsteadOfMarquee: false
 		}
 	});
 
