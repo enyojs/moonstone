@@ -837,8 +837,13 @@
 		/**
 		* @private
 		*/
-		_marquee_wrapInsteadOfMarqueeChanged: function() {
-			this.addRemoveClass("allow-wrap", this.wrapInsteadOfMarquee);
+		_marquee_wrapInsteadOfMarqueeChanged: function(old) {
+			if (this.wrapInsteadOfMarquee) {
+				this.addClass("allow-wrap");
+			}
+			if (old && !this.wrapInsteadOfMarquee) {
+				this.removeClass("allow-wrap");
+			}
 		}
 	};
 
