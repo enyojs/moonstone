@@ -3750,7 +3750,7 @@
 }
 .moon-popup-close.pressed,
 .moon-popup-close:active {
-  background-color: #cf0652;
+  background-color: transparent;
   color: #ffffff;
 }
 .enyo-locale-right-to-left .moon-popup.reserve-close {
