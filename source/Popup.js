@@ -213,9 +213,17 @@
 			this.contentChanged();
 			this.inherited(arguments);
 		},
+
+		/**
+		* @private
+		*/
 		contentChanged: function() {
 			this.$.client.setContent(this.content);
 		},
+
+		/**
+		* @private
+		*/
 		allowHtmlChanged: function() {
 			this.$.client.setAllowHtml(this.allowHtml);
 		},
