@@ -56,11 +56,11 @@
 	*					]
 	*				}
 	*			],
-	*		components: [
+	*`		components: [
 	*				{content: 'Content Area'}
 	*			]
 	*		}
-	* ```
+	*```
 	*
 	* @class moon.Drawers
 	* @extends enyo.Control
@@ -207,8 +207,16 @@
 			if (src != 'none' && src != 'inherit' && src != 'initial') {
 				src = 'url(\'' + enyo.path.rewrite(this.src) + '\')';
 				this.$.activator.addClass('moon-'+ this.className);
-				// Set the stylesheet to use custom rules
-				this.$.activator.set('stylesheetContent','.moon-'+ this.className +'.moon-drawers-activator:after{background-image:'+src+';content:"";background-repeat:no-repeat;background-position: center center}');
+				// If icon exists, add image as background and inherit content
+				if(this.icon){
+					this.$.activator.set('stylesheetContent','.moon-'+ this.className +'.moon-drawers-activator:after{background-image:'+src+';background-repeat:no-repeat;background-position: center center}');
+
+				}
+				//Else no content, only image
+				else{
+					this.$.activator.set('stylesheetContent','.moon-'+ this.className +'.moon-drawers-activator:after{background-image:'+src+';content:"";background-repeat:no-repeat;background-position: center center}');
+				}
+				
 			}
 			else{
 				//if src passed is null
@@ -221,10 +229,13 @@
 		*/
 		iconChanged: function(old) {
 			var icon = this.icon || null;
-			this.$.activator.removeClass('moon-drawer-icon-'+old);
+			this.$.activator.removeClass('moon-icon-'+old);
 			if (icon !=null) {
-				this.$.activator.set('stylesheetContent','');
-				this.$.activator.addClass('moon-drawer-icon-'+icon);
+				this.$.activator.addClass('moon-icon-'+icon);
+				//If src exists, apply it as background along with icon
+				if(this.src){
+					this.$.activator.set('stylesheetContent','.moon-'+ this.className +'.moon-drawers-activator:after{background-image:url('+this.src+');background-repeat:no-repeat;background-position: center center}');	
+				}
 			}
 		},
 
@@ -398,13 +409,13 @@
 		* @private
 		*/
 		updateActivator: function (up) {
-			if(up){
+			this.$.activator.addRemoveClass('open', up);
+			if(up || !(this.src)){
 				this.$.activator.removeClass('moon-'+ this.className);
 			}
 			else{
 				this.$.activator.addClass('moon-'+ this.className);
 			}
-			this.$.activator.addRemoveClass('open', up);
 		},
 
 		/**
