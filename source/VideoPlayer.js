@@ -1,7 +1,7 @@
 (function (enyo, scope) {
 	/**
-	* Fires when [_disablePlaybackControls_]{@link enyo.VideoPlayer#disablePlaybackControls} 
-	* is `true` and the user taps one of the [controls]{@link enyo.Control}; may be handled to 
+	* Fires when [_disablePlaybackControls_]{@link enyo.VideoPlayer#disablePlaybackControls}
+	* is `true` and the user taps one of the [controls]{@link enyo.Control}; may be handled to
 	* re-enable the controls, if desired. No event-specific information is sent with this event.
 	*
 	* @event moon.VideoPlayer#event:onPlaybackControlsTapped
@@ -10,17 +10,17 @@
 	*/
 
 	/**
-	* _moon.VideoPlayer_ is an HTML5 [video]{@glossary video} player control.  It wraps an 
-	* {@link enyo.Video} [object]{@glossary Object} to provide Moonstone-styled standard transport 
-	* [controls]{@link enyo.Control}, optional app-specific controls, and an information bar for 
+	* _moon.VideoPlayer_ is an HTML5 [video]{@glossary video} player control.  It wraps an
+	* {@link enyo.Video} [object]{@glossary Object} to provide Moonstone-styled standard transport
+	* [controls]{@link enyo.Control}, optional app-specific controls, and an information bar for
 	* displaying video information and player feedback.
-	* 
+	*
 	* All of the standard HTML5 media [events]{@glossary event} bubbled from _enyo.Video_ will also
 	* bubble from this control.
-	* 
-	* Client [components]{@link enyo.Component} added to the _components_ block are rendered into 
-	* the video player's transport control area, and should generally be limited to instances of 
-	* {moon.IconButton}. If more than two client components are specified, they will be rendered 
+	*
+	* Client [components]{@link enyo.Component} added to the _components_ block are rendered into
+	* the video player's transport control area, and should generally be limited to instances of
+	* {moon.IconButton}. If more than two client components are specified, they will be rendered
 	* into an "overflow" screen, reached by activating a button to the right of the controls.
 	*
 	* ```javascript
@@ -53,7 +53,7 @@
 		* @private
 		*/
 		kind: 'enyo.Control',
-		
+
 		/**
 		* @private
 		*/
@@ -64,7 +64,7 @@
 		* @private
 		*/
 		classes: 'moon-video-player enyo-unselectable',
-		
+
 		/**
 		* @private
 		*/
@@ -75,10 +75,10 @@
 		/**
 		* @private
 		*/
-		published: 
+		published:
 			/** @lends moon.VideoPlayer.prototype */ {
-			
-			/** 
+
+			/**
 			* URL of HTML5 video
 			*
 			* @type {String}
@@ -86,8 +86,8 @@
 			* @public
 			*/
 			src: '',
-			
-			/** 
+
+			/**
 			* Array for setting multiple sources for the same video
 			*
 			* @type {Array}
@@ -95,11 +95,11 @@
 			* @public
 			*/
 			sources: null,
-			
+
 			/**
-			* When `true`, the video player is resized after metadata is loaded, based on the 
-			* [_aspectRatio_]{@link moon.VideoPlayer#aspectRatio} contained in the metadata. This 
-			* applies only to [inline]{@link moon.VideoPlayer#inline} mode--i.e., when 
+			* When `true`, the video player is resized after metadata is loaded, based on the
+			* [_aspectRatio_]{@link moon.VideoPlayer#aspectRatio} contained in the metadata. This
+			* applies only to [inline]{@link moon.VideoPlayer#inline} mode--i.e., when
 			* `inline: true`.
 			*
 			* @type {Boolean}
@@ -107,13 +107,13 @@
 			* @public
 			*/
 			autoResize: false,
-			
+
 			/**
-			* Video aspect ratio, specified as `width:height`, or `none`.  When an aspect ratio is 
-			* specified at render time, the player's height or width will be updated to respect the 
+			* Video aspect ratio, specified as `width:height`, or `none`.  When an aspect ratio is
+			* specified at render time, the player's height or width will be updated to respect the
 			* ratio, depending on whether [_fixedHeight_]{@link moon.VideoPlayer#fixedHeight} is
 			* `true` or `false`. If [_autoResize_]{@link moon.VideoPlayer#autoResize} is `true`, the
-			* _aspectRatio_ will be updated based on the metadata for the current video and the 
+			* _aspectRatio_ will be updated based on the metadata for the current video and the
 			* player will be resized accordingly. This applies only to inline mode.
 			*
 			* @type {String}
@@ -123,8 +123,8 @@
 			aspectRatio: '16:9',
 
 			/**
-			* When `true`, the width will be adjusted at render time based on the observed height 
-			* and the aspect ratio. When `false` (the default), the height will be adjusted at 
+			* When `true`, the width will be adjusted at render time based on the observed height
+			* and the aspect ratio. When `false` (the default), the height will be adjusted at
 			* render time based on the observed width and the aspect ratio. This property is ignored
 			* if [_aspectRatio_]{@link moon.VideoPlayer#aspectRatio} is `none` or a falsy value. In
 			* addition, this applies only to inline mode.
@@ -144,7 +144,7 @@
 			*/
 			autoCloseTimeout: 7000,
 
-			/** 
+			/**
 			* Duration of the video
 			*
 			* @type {Number}
@@ -152,8 +152,8 @@
 			* @public
 			*/
 			duration: 0,
-			
-			/** 
+
+			/**
 			* When `true`, playback starts automatically when video is loaded.
 			*
 			* @type {Boolean}
@@ -163,7 +163,7 @@
 			autoplay: false,
 
 			/**
-			* When `false`, fullscreen video control overlays (info or transport) are not shown or 
+			* When `false`, fullscreen video control overlays (info or transport) are not shown or
 			* hidden automatically in response to _up/down_ events.
 			*
 			* @type {Boolean}
@@ -183,7 +183,7 @@
 			shakeAndWake: false,
 
 			/**
-			* When `false`, the top _infoComponents_ are not automatically shown or hidden in 
+			* When `false`, the top _infoComponents_ are not automatically shown or hidden in
 			* response to _up_ events}.
 			*
 			* @type {Boolean}
@@ -193,7 +193,7 @@
 			autoShowInfo: true,
 
 			/**
-			* When `false`, the bottom slider/controls are not automatically shown or hidden in 
+			* When `false`, the bottom slider/controls are not automatically shown or hidden in
 			* response to _down_ events.
 			*
 			* @type {Boolean}
@@ -203,7 +203,7 @@
 			autoShowControls: true,
 
 			/**
-			* When `true`, the top _infoComponents_ are shown with no timeout; when `false`, they 
+			* When `true`, the top _infoComponents_ are shown with no timeout; when `false`, they
 			* are shown based on [_autoShow_]{@link moon.VideoPlayer#autoShow} property values.
 			*
 			* @type {Boolean}
@@ -213,7 +213,7 @@
 			showInfo: false,
 
 			/**
-			* When `false`, the player starts in fullscreen mode; when `true`, it starts in inline 
+			* When `false`, the player starts in fullscreen mode; when `true`, it starts in inline
 			* mode.
 			*
 			* @type {Boolean}
@@ -233,7 +233,7 @@
 			jumpSec: 30,
 
 			/**
-			* When `true`, the jump forward and jump back buttons jump to the start and end of the 
+			* When `true`, the jump forward and jump back buttons jump to the start and end of the
 			* video, respectively.
 			*
 			* @type {Boolean}
@@ -243,7 +243,7 @@
 			jumpStartEnd: false,
 
 			/**
-			* When `true`, popups opened from _VideoPlayer_ client controls are automatically 
+			* When `true`, popups opened from _VideoPlayer_ client controls are automatically
 			* hidden.
 			*
 			* @type {Boolean}
@@ -253,7 +253,7 @@
 			autoHidePopups: true,
 
 			/**
-			* When `false`, the progress bar is removed and any additional controls are moved 
+			* When `false`, the progress bar is removed and any additional controls are moved
 			* downward.
 			*
 			* @type {Boolean}
@@ -271,7 +271,7 @@
 			*/
 			showPlaybackControls: true,
 
-			/** 
+			/**
 			* When `true`, playback controls are hidden when the slider is hovered over.
 			*
 			* @type {Boolean}
@@ -281,7 +281,7 @@
 			hideButtonsOnSlider: true,
 
 			/**
-			* When `true`, the slider is disabled and will not be enabled when video data has 
+			* When `true`, the slider is disabled and will not be enabled when video data has
 			* loaded.
 			*
 			* @type {Boolean}
@@ -290,16 +290,16 @@
 			*/
 			disableSlider: false,
 
-			/** 
+			/**
 			* When `false`, the jump forward and jump back buttons are hidden.
 			*
 			* @type {Boolean}
 			* @default true
 			* @public
 			*/
-			showJumpControls: true, 
-			
-			/** 
+			showJumpControls: true,
+
+			/**
 			* When `true`, the fast-forward and rewind buttons are visible.
 			*
 			* @type {Boolean}
@@ -307,11 +307,11 @@
 			* @public
 			*/
 			showFFRewindControls: false,
-			
+
 			/**
-			* When `true`, the slider and playback controls are disabled. If the user taps the 
-			* controls, an 
-			* [_onPlaybackControlsTapped_]{@link enyo.VideoPlayer#event:onPlaybackControlsTapped} 
+			* When `true`, the slider and playback controls are disabled. If the user taps the
+			* controls, an
+			* [_onPlaybackControlsTapped_]{@link enyo.VideoPlayer#event:onPlaybackControlsTapped}
 			* event will be bubbled.
 			*
 			* @type {Boolean}
@@ -321,7 +321,7 @@
 			disablePlaybackControls: false,
 
 			/**
-			* When `true`, playback controls are only active when the video player has a valid 
+			* When `true`, playback controls are only active when the video player has a valid
 			* source URL and no errors occur during video loading.
 			*
 			* @type {Boolean}
@@ -330,7 +330,7 @@
 			*/
 			disablePlaybackControlsOnUnload: true,
 
-			/** 
+			/**
 			* When `false`, the Play/Pause control is hidden.
 			*
 			* @type {Boolean}
@@ -338,8 +338,8 @@
 			* @public
 			*/
 			showPlayPauseControl: true,
-			
-			/** 
+
+			/**
 			* When `false`, the video element is hidden.
 			*
 			* @type {Boolean}
@@ -377,91 +377,91 @@
 			*/
 			handleRemoteControlKey: true,
 
-			/** 
+			/**
 			* Base URL for icons
 			*
 			* @private
 			*/
 			iconPath: '$lib/moonstone/images/video-player/',
-			
-			/** 
+
+			/**
 			* Icon font or image files
 			*
 			* @private
 			*/
 			jumpBackIcon: 'skipbackward',
 
-			/** 
+			/**
 			* Icon font or image files
 			*
 			* @private
 			*/
 			rewindIcon: 'backward',
 
-			/** 
+			/**
 			* Icon font or image files
 			*
 			* @private
 			*/
 			playIcon: 'play',
 
-			/** 
+			/**
 			* Icon font or image files
 			*
 			* @private
 			*/
 			pauseIcon: 'pause',
 
-			/** 
+			/**
 			* Icon font or image files
 			*
 			* @private
 			*/
 			fastForwardIcon: 'forward',
 
-			/** 
+			/**
 			* Icon font or image files
 			*
 			* @private
 			*/
 			jumpForwardIcon: 'skipforward',
 
-			/** 
+			/**
 			* Icon font or image files
 			*
 			* @private
 			*/
 			moreControlsIcon: 'arrowextend',
 
-			/** 
+			/**
 			* Icon font or image files
 			*
 			* @private
 			*/
 			lessControlsIcon: 'arrowshrink',
 
-			/** 
+			/**
 			* Icon font or image files
 			*
 			* @private
 			*/
 			inlinePlayIcon: 'play',
 
-			/** 
+			/**
 			* Icon font or image files
 			*
 			* @private
 			*/
 			inlinePauseIcon: 'pause',
 
-			/** 
+			/**
 			* Icon font or image files
 			*
 			* @private
 			*/
 			inlineFullscreenIcon: 'fullscreen',
 
-			/** 
+			/**
 			* Default hash of playback states and their associated playback rates
 			* playbackRateHash: {
 			*	fastForward: ['2', '4', '8', '16'],
@@ -479,7 +479,7 @@
 				slowRewind: ['-1/2', '-1']
 			}
 		},
-		
+
 		/**
 		* @private
 		*/
@@ -494,7 +494,7 @@
 			onSpotlightRight: 'spotlightLeftRightFilter',
 			onresize: 'handleResize'
 		},
-		
+
 		/**
 		* @private
 		*/
@@ -526,7 +526,7 @@
 		observers: {
 			updateSource: ['src', 'sources']
 		},
-		
+
 		/**
 		* @private
 		*/
@@ -551,7 +551,7 @@
 		* @private
 		*/
 		_panelsShowing: false,
-		
+
 		/**
 		* @private
 		*/
@@ -568,14 +568,14 @@
 
 			//* Fullscreen controls
 			{name: 'fullscreenControl', classes: 'moon-video-fullscreen-control enyo-fit scrim', onmousemove: 'mousemove', components: [
-			
+
 				{name: 'videoInfoHeaderClient', showing: false, classes: 'moon-video-player-header'},
-				
+
 				{name: 'playerControl', classes: 'moon-video-player-bottom', showing: false, components: [
 					{name: 'controls', kind: 'FittableColumns', rtl:false, classes: 'moon-video-player-controls', ontap: 'resetAutoTimeout', components: [
-				
+
 						{name: 'leftPremiumPlaceHolder', classes: 'moon-video-player-premium-placeholder-left'},
-					
+
 						{name: 'controlsContainer', kind: 'Panels', arrangerKind: 'CarouselArranger', fit: true, draggable: false, classes: 'moon-video-player-controls-container', components: [
 							{name: 'trickPlay', ontap:'playbackControlsTapped', components: [
 								{name: 'playbackControls', classes: 'moon-video-player-control-buttons', components: [
@@ -588,14 +588,14 @@
 							]},
 							{name: 'client', classes: 'moon-video-player-more-controls'}
 						]},
-					
+
 						{name: 'rightPremiumPlaceHolder', classes: 'moon-video-player-premium-placeholder-right', components: [
 							{name: 'moreButton', kind: 'moon.IconButton', small: false, ontap: 'moreButtonTapped'}
 						]}
 					]},
-				
+
 					{name: 'sliderContainer', classes: 'moon-video-player-slider-container', components: [
-						{name: 'slider', kind: 'moon.VideoTransportSlider', rtl: false, disabled: true, onSeekStart: 'sliderSeekStart', onSeek: 'sliderSeek', onSeekFinish: 'sliderSeekFinish', 
+						{name: 'slider', kind: 'moon.VideoTransportSlider', rtl: false, disabled: true, onSeekStart: 'sliderSeekStart', onSeek: 'sliderSeek', onSeekFinish: 'sliderSeekFinish',
 							onEnterTapArea: 'onEnterSlider', onLeaveTapArea: 'onLeaveSlider', ontap:'playbackControlsTapped'
 						}
 					]}
@@ -677,8 +677,8 @@
 		* @private
 		*/
 		updatePlaybackControlState: function() {
-			var disabled = this.disablePlaybackControls || 
-				this._panelsShowing || 
+			var disabled = this.disablePlaybackControls ||
+				this._panelsShowing ||
 				(this.disablePlaybackControlsOnUnload && (this._errorCode || (!this.getSrc() && !this.getSources()) ));
 			this.updateSliderState();
 			this.$.playbackControls.addRemoveClass('disabled', disabled);
@@ -754,7 +754,7 @@
 			}
 		},
 
-		/** 
+		/**
 		* Returns the underlying _enyo.Video_ control (wrapping the HTML5 video node).
 		*
 		* @returns {enyo.Video} An {@link enyo.Video} control.
@@ -783,7 +783,7 @@
 				if (!comps || comps.length === 0) {
 					// No components - destroy more button
 					this.$.leftPremiumPlaceHolder.hide();
-					this.$.rightPremiumPlaceHolder.hide();		
+					this.$.rightPremiumPlaceHolder.hide();
 				} else if (comps.length <= 2) {
 					// One or two components - destroy more button and utilize left/right premium placeholders
 					this.$.leftPremiumPlaceHolder.createComponent(comps.shift(), {owner: this.getInstanceOwner()});
@@ -872,10 +872,10 @@
 		*/
 		updateSliderState: function() {
 			//* this should be be called on create because default slider status should be disabled.
-			var disabled = 
-				this.disableSlider || 
-				this.disablePlaybackControls || 
-				!this._loaded || 
+			var disabled =
+				this.disableSlider ||
+				this.disablePlaybackControls ||
+				!this._loaded ||
 				(this.disablePlaybackControlsOnUnload && (this._errorCode || (!this.getSrc() && !this.getSources()) ));
 			this.$.slider.setDisabled(disabled);
 		},
@@ -920,7 +920,7 @@
 		*/
 		showInfoChanged: function() {
 			this.$.videoInfoHeaderClient.setShowing(this.showInfo);
-			
+
 			if (this.showInfo) {
 				// Kick off any marquees in the video info header
 				this.$.videoInfoHeaderClient.waterfallDown('onRequestStartMarquee');
@@ -941,8 +941,8 @@
 			}
 			this.spotlight = !this.inline;
 		},
-		
-		/** 
+
+		/**
 		* Unloads the current video source, stopping all playback and buffering.
 		*
 		* @public
@@ -1096,7 +1096,7 @@
 		*/
 		_sentHold: false,
 
-		/** 
+		/**
 		* Returns true if any piece of the overlay is showing.
 		*
 		* @private
@@ -1105,7 +1105,7 @@
 			return this.$.videoInfoHeaderClient.getShowing() || this.$.playerControl.getShowing();
 		},
 
-		/** 
+		/**
 		* Resets the timeout, or wakes the overlay.
 		*
 		* @private
@@ -1144,10 +1144,10 @@
 					//* Fixed index
 					this.$.controlsContainer.setIndex(1);
 				}
-				
+
 				//* Initial spot
 				this.spotFSBottomControls();
-				
+
 				this.$.slider.showKnobStatus();
 				if (this.$.video.isPaused()) {
 					this.updateFullscreenPosition();
@@ -1169,7 +1169,7 @@
 								enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.controls));
 							}
 						}
-					}	
+					}
 				} else {
 					enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.controlsContainer.getActive()));
 				}
@@ -1179,14 +1179,14 @@
 			}
 		},
 
-		/** 
+		/**
 		* Sets _this.visible_ to false.
 		*
 		* @private
 		*
 		*/
 		hideFSBottomControls: function() {
-			// When controls are hidden, set as just a spotlight true component, 
+			// When controls are hidden, set as just a spotlight true component,
 			// so that it is spottable (since it won't have any spottable children),
 			// and then spot itself
 			this.set('spotlight', true);
@@ -1209,7 +1209,7 @@
 				this.resetAutoTimeout();
 				this.$.videoInfoHeaderClient.setShowing(true);
 				this.$.videoInfoHeaderClient.resize();
-				
+
 				// Kick off any marquees in the video info header
 				this.$.videoInfoHeaderClient.waterfallDown('onRequestStartMarquee');
 			}
@@ -1327,7 +1327,7 @@
 
 		////// Slider event handling //////
 
-		/** 
+		/**
 		* When seeking starts, pauses video.
 		*
 		* @private
@@ -1338,7 +1338,7 @@
 			return true;
 		},
 
-		/** 
+		/**
 		* When seeking completes, plays video.
 		*
 		* @private
@@ -1359,7 +1359,7 @@
 			return true;
 		},
 
-		/** 
+		/**
 		* When seeking, sets video time.
 		*
 		* @private
@@ -1369,7 +1369,7 @@
 			return true;
 		},
 
-		/** 
+		/**
 		* Programatically updates slider position to match _this.currentTime_/_this.duration_.
 		*
 		* @private
@@ -1387,14 +1387,14 @@
 		capture: function () {
 			enyo.dispatcher.capture(this, this.eventsToCapture);
 		},
-		
+
 		/**
 		* @private
 		*/
 		release: function () {
 			enyo.dispatcher.release(this);
 		},
-		
+
 		/**
 		* @private
 		*/
@@ -1423,7 +1423,7 @@
 			}
 		},
 
-		/** 
+		/**
 		* Toggles fullscreen state.
 		*
 		* @public
@@ -1435,7 +1435,7 @@
 				this.requestFullscreen();
 			}
 		},
-		
+
 		/**
 		* @private
 		*/
@@ -1464,7 +1464,7 @@
 			}
 		},
 
-		/** 
+		/**
 		* Facades _this.$.video.play()_.
 		*
 		* @public
@@ -1476,8 +1476,8 @@
 			this.updatePlayPauseButtons();
 			this.updateSpinner();
 		},
-		
-		/** 
+
+		/**
 		* Facades _this.$.video.pause()_.
 		*
 		* @public
@@ -1488,8 +1488,8 @@
 			this.updatePlayPauseButtons();
 			this.updateSpinner();
 		},
-		
-		/** 
+
+		/**
 		* Facades _this.$.video.rewind()_.
 		*
 		* @public
@@ -1501,19 +1501,21 @@
 			this.updateSpinner();
 		},
 
-		/** 
+		/**
 		* Facades _this.$.video.jumpToStart()_.
 		*
 		* @public
 		*/
 		jumpToStart: function() {
-			this._isPlaying = false;
 			this.$.video.jumpToStart();
 			this.updatePlayPauseButtons();
 			this.updateSpinner();
+			if(this._isPlaying){
+				this.$.video.play();
+			}
 		},
 
-		/** 
+		/**
 		* Facades _this.$.video.jumpBackward()_.
 		*
 		* @public
@@ -1524,7 +1526,7 @@
 			this.updateSpinner();
 		},
 
-		/** 
+		/**
 		* Facades _this.$.video.fastForward()_.
 		*
 		* @public
@@ -1536,7 +1538,7 @@
 			this.updateSpinner();
 		},
 
-		/** 
+		/**
 		* Facades _this.$.video.jumpToEnd()_.
 		*
 		* @public
@@ -1552,7 +1554,7 @@
 			this.updateSpinner();
 		},
 
-		/** 
+		/**
 		* Facades _this.$.video.jumpForward()_.
 		*
 		* @public
@@ -1563,7 +1565,7 @@
 			this.updateSpinner();
 		},
 
-		/** 
+		/**
 		* Facades _this.$.video.setCurrentTime()_.
 		*
 		* @param {Number} val The current time to set the video to, in seconds.
@@ -1573,7 +1575,7 @@
 			this.$.video.setCurrentTime(val);
 		},
 
-		/** 
+		/**
 		* Responds to _onRequestTimeChange_ event by setting current video time.
 		*
 		* @private
@@ -1582,7 +1584,7 @@
 			this.setCurrentTime(e.value);
 		},
 
-		/** 
+		/**
 		* Refreshes size of video player.
 		*
 		* @private
@@ -1591,7 +1593,7 @@
 			this.aspectRatioChanged();
 		},
 
-		/** 
+		/**
 		* Updates the height/width based on the video's aspect ratio.
 		*
 		* @private
@@ -1604,9 +1606,9 @@
 				width = this.getComputedStyleValue('width'),
 				height = this.getComputedStyleValue('height'),
 				ratio = 1;
-			
+
 			videoAspectRatio = this.aspectRatio.split(':');
-			
+
 			// If fixedHeight is true, update width based on aspect ratio
 			if (this.fixedHeight) {
 				// Case 2: Automatic resize based on video aspect ratio (fixed height):
@@ -1629,8 +1631,8 @@
 			this.updateFullscreenPosition();
 			this.updateInlinePosition();
 		},
-		
-		/** 
+
+		/**
 		* Properly formats time.
 		*
 		* @private
@@ -1650,7 +1652,7 @@
 			}
 		},
 
-		/** 
+		/**
 		* Format time helper
 		*
 		* @private
@@ -1659,7 +1661,7 @@
 			return (val) ? (String(val).length < 2) ? '0'+val : val : '00';
 		},
 
-		/** 
+		/**
 		* Switches play/pause buttons as appropriate.
 		*
 		* @private
@@ -1676,7 +1678,7 @@
 				this.retrieveIconsSrcOrFont(this.$.ilPlayPause, this.inlinePlayIcon, 'moon-video-inline-control-play-pause');
 			}
 		},
-		
+
 		/**
 		* Retrieve icons -- either through setSrc or setIcon depending on the iconType.
 		*
@@ -1701,7 +1703,7 @@
 			}
 		},
 
-		/** 
+		/**
 		* Turns spinner on or off, as appropriate.
 		*
 		* @private
@@ -1723,7 +1725,7 @@
 		},
 
 		/**
-		* When _moreButton_ is tapped, toggles visibility of player controls and extra 
+		* When _moreButton_ is tapped, toggles visibility of player controls and extra
 		* functionality.
 		*
 		* @private
@@ -1755,7 +1757,7 @@
 
 		///////// VIDEO EVENT HANDLERS /////////
 
-		/** 
+		/**
 		* Updates the video time.
 		*
 		* @private
@@ -1778,7 +1780,7 @@
 			this.waterfall('onTimeupdate', e);
 		},
 
-		/** 
+		/**
 		* Called when video successfully loads video metadata.
 		*
 		* @private
@@ -1831,11 +1833,11 @@
 				endPoint = 0,
 				i
 			;
-			
+
 			if (duration === 0 || isNaN(duration)) {
 				return {value: 0, percent: 0};
 			}
-			
+
 			// Find furthest along buffer end point and use that (only supporting one buffer range for now)
 			for (i = 0; i < numberOfBuffers; i++) {
 				endPoint = bufferData.end(i);
@@ -1844,7 +1846,7 @@
 			return {value: highestBufferPoint, percent: highestBufferPoint/duration*100};
 		},
 
-		/** 
+		/**
 		* We get this event while buffering is in progress.
 		*
 		* @private
@@ -1852,7 +1854,7 @@
 		_progress: function(sender, e) {
 			var buffered = this._getBufferedProgress(e.srcElement);
 			if (this.isFullscreen() || !this.getInline()) {
-				this.$.slider.setBgProgress(buffered.value); 
+				this.$.slider.setBgProgress(buffered.value);
 			} else {
 				this.$.bgProgressStatus.applyStyle('width', buffered.percent + '%');
 			}
