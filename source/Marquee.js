@@ -281,7 +281,7 @@
 		_marquee_enter: function (inSender, inEvent) {
 			this._marquee_isHovered = true;
 			if ((this.marqueeOnHover && !this.marqueeOnSpotlight) || 
-			(this.disabled && this.marqueeOnSpotlight && this.kind != "moon.Button")) {
+			(this.disabled && this.marqueeOnSpotlight && !this.hasNode().getAttribute('disabled'))) {
 				this.startMarquee();
 			}
 		},
