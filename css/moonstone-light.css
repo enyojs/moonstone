@@ -897,14 +897,16 @@
 .moon-simple-picker-button {
   position: absolute;
   top: 0;
-  padding: 0;
   margin: 0;
 }
+.moon-simple-picker-button.left {
+  left: 0;
+}
+.moon-simple-picker-button.right {
+  right: 0;
+}
 .moon-simple-picker-client-wrapper {
-  width: 100%;
   overflow: hidden;
-  position: relative;
-  box-sizing: border-box;
 }
 .moon-simple-picker-client {
   white-space: nowrap;
@@ -915,33 +917,16 @@
 .moon-simple-picker-client.animated {
   -webkit-transition: -webkit-transform ease-out 0.3s;
   -moz-transition: -moz-transform ease-out 0.3s;
-  -o-transition: -o-transform ease-out 0.3s;
   transition: transform ease-out 0.3s;
 }
 .moon-simple-picker-client > * {
   display: inline-block;
-  vertical-align: middle;
   box-sizing: border-box;
   width: 100%;
   line-height: 60px;
-  height: 60px;
-  color: #4b4b4b;
-  white-space: nowrap;
-  text-align: center;
 }
-.moon-simple-picker-client.disabled,
-.moon-simple-picker-button[disabled] {
+.moon-simple-picker-client.disabled {
   opacity: 0.35;
-  filter: alpha(opacity=35);
-  background-color: transparent;
-}
-.moon-simple-picker-button.left {
-  left: 0;
-  margin-right: 10px;
-}
-.moon-simple-picker-button.right {
-  right: 0;
-  margin-left: 10px;
 }
 .moon-simple-integer-picker {
   font-family: "MuseoSans 700";
@@ -1088,7 +1073,7 @@
 }
 .moon-divider {
   border-bottom: 2px solid #4b4b4b;
-  margin: 0px 10px 20px 10px;
+  margin: 0 10px 20px 10px;
   text-transform: capitalize;
   padding-bottom: 3px;
 }
@@ -1977,16 +1962,16 @@
   margin: 0;
 }
 .moon-icon-button.moon-paging-button.top {
-  top: 0px;
+  top: 0;
 }
 .moon-icon-button.moon-paging-button.right {
-  right: 0px;
+  right: 0;
 }
 .moon-icon-button.moon-paging-button.bottom {
-  bottom: 0px;
+  bottom: 0;
 }
 .moon-icon-button.moon-paging-button.left {
-  left: 0px;
+  left: 0;
 }
 .moon-neutral .moon-icon-button.moon-paging-button.disabled {
   color: #ffffff;
@@ -3551,16 +3536,12 @@
   font-size: 30px;
 }
 /* Table.css */
-/*.moon-table {
-	padding-right: 2em;
-	box-sizing: border-box;
-}*/
 .moon-table-row.spotlight {
   background-color: #cf0652;
+  color: #ffffff;
 }
-/* TODO: Support for disabled table rows? */
-.moon-table-cell {
-  padding-right: 2em;
+.moon-table-row .moon-table-cell {
+  padding: 10px;
   white-space: nowrap;
 }
 .moon-input-header-input-decorator {
@@ -3826,28 +3807,18 @@
   padding-right: 70px;
 }
 .moon-popup-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  margin: 0;
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: 0 0;
   color: #ffffff;
-  position: absolute;
-  right: 10px;
-  width: 32px;
-  height: 32px;
-  top: 10px;
-  margin: 0;
 }
-.moon-popup-close.spotlight {
-  background-color: #cf0652;
-}
-.moon-icon.moon-popup-close {
-  position: absolute;
-}
-.moon-icon.moon-popup-close.active,
-.moon-icon.moon-popup-close.pressed,
-.moon-icon.moon-popup-close.spotlight.pressed,
-.moon-icon.moon-popup-close.spotlight:active {
-  background-color: #cf0652;
+.moon-popup-close.pressed,
+.moon-popup-close:active {
+  background-color: transparent;
   color: #ffffff;
 }
 .enyo-locale-right-to-left .moon-popup.reserve-close {
@@ -3869,15 +3840,15 @@
   font-size: 24px;
 }
 .moon-dialog-content {
-  margin: 0px 0px 0px;
+  margin: 0 0 0;
 }
 .moon-dialog-divider {
-  padding-bottom: 0px;
+  padding-bottom: 0;
   border-bottom-width: 2px;
-  margin: 20px 0px 20px;
+  margin: 20px 0 20px;
 }
 .moon-dialog-client {
-  padding: 36px 0px 0px;
+  padding: 36px 0 0;
 }
 .moon-dialog-client > * {
   margin-left: 20px;
