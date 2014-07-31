@@ -133,12 +133,6 @@
 
 		/**
 		* @private
-		* class name added at run time to override
-		*/
-		className:'',
-
-		/**
-		* @private
 		*/
 		handlers: {
 			//* Handlers to update the activator when the state of the contained drawers changes
@@ -176,12 +170,10 @@
 			this.inherited(arguments);
 			this.$.drawers.createComponents(this.drawers, {kind: 'moon.Drawer', owner:this.owner});
 			this.setupHandles();
-			var id=this.$.activator.id;
-			this.className=id.replace(/[^a-zA-Z0-9]/g, '-');
-			if(this.src) {
+			if (this.src) {
 				this.srcChanged();
 			}
-			if(this.icon) {
+			if (this.icon) {
 				this.iconChanged();
 			}
 		},
@@ -203,20 +195,21 @@
 		srcChanged: function(old) {
 			// Always change the src, even if its set to NULL because we want to be able to restore
 			// the initial behavior with `inherit`.
-			var src = this.src || 'inherit';
-			if (src != 'none' && src != 'inherit' && src != 'initial') {
+			var src = this.src || 'inherit',
+				id = this.$.activator.id;
+
+			// If src passed is null|none|inherit|initial
+			if (src == 'none' || src == 'inherit' || src == 'initial') {
+				this.$.activator.set('stylesheetContent', '');
+			} else {
 				src = 'url(\'' + enyo.path.rewrite(this.src) + '\')';
-				this.$.activator.addClass('moon-'+ this.className);
 				// If icon exists, add image as background and inherit content
-				if(this.icon){
-					this.$.activator.set('stylesheetContent','.moon-' + this.className + '.moon-drawers-activator:after { background-image: ' + src + '; background-repeat: no-repeat; background-position: center center; }');
+				if (this.icon) {
+					this.$.activator.set('stylesheetContent', '#' + id + '.moon-drawers-activator:not(.open):after { background-image: ' + src + '; }');
 				} else {
 					// Else no content, only image
-					this.$.activator.set('stylesheetContent','.moon-' + this.className + '.moon-drawers-activator:after { background-image: ' + src + ';content: ""; background-repeat: no-repeat; background-position: center center; }');
+					this.$.activator.set('stylesheetContent', '#' + id + '.moon-drawers-activator:not(.open):after { background-image: ' + src + '; content: ""; }');
 				}
-			} else {
-				// If src passed is null
-				this.$.activator.removeClass('moon-' + this.className);
 			}
 		},
 
@@ -224,23 +217,22 @@
 		* @private
 		*/
 		iconChanged: function(old) {
-			var icon = this.icon || null;
-			this.$.activator.removeClass('moon-icon-' + old);
-			if (icon != null) {
-				this.$.activator.addClass('moon-icon-' + icon);
-				// If src exists, apply it as background along with icon
-				if (this.src) {
-					this.$.activator.set('stylesheetContent','.moon-' + this.className + '.moon-drawers-activator:after { background-image: url(' + this.src + '); background-repeat: no-repeat; background-position: center center; }');
-				}
+			if (old) {
+				this.$.activator.removeClass('moon-icon-' + old);
 			}
+			if (this.icon) {
+				this.$.activator.addClass('moon-icon-' + this.icon);
+			}
+			// Run srcChanged() which also does accounting for this.icon's presence.
+			this.srcChanged();
 		},
 
 		/**
 		* @private
 		*/
 		setupHandles: function () {
-			var handles = []
-				, controls, index;
+			var controls, index,
+				handles = [];
 
 			// cover the case where one is not defined
 			if (this.drawers) {
@@ -310,8 +302,7 @@
 		*/
 		openDrawer: function (drawer) {
 			var handles = this.$.handles.getControls();
-			for (var index = 0; index < handles.length; ++index)
-			{
+			for (var index = 0; index < handles.length; ++index) {
 				if (handles[index] == drawer || enyo.Spotlight.Util.isChild(handles[index],drawer)) {
 					drawer = this.$.drawers.getControls()[index];
 					drawer.toggleDrawer();
@@ -327,7 +318,7 @@
 		*/
 		drawerOpen: function () {
 			var drawers = this.$.drawers.getControls();
-			for (var index = 0; index < drawers.length; ++index){
+			for (var index = 0; index < drawers.length; ++index) {
 				if (drawers[index].getOpen() || drawers[index].getControlsOpen()) {
 					return true;
 				}
@@ -340,7 +331,7 @@
 		*/
 		closeDrawers: function () {
 			var drawers = this.$.drawers.getControls();
-			for (var index = 0; index < drawers.length; ++index){
+			for (var index = 0; index < drawers.length; ++index) {
 				var drawer = drawers[index];
 				if (drawer.getOpen() || drawer.getControlsOpen()) {
 					enyo.dispatcher.release(drawer);
@@ -406,12 +397,6 @@
 		*/
 		updateActivator: function (up) {
 			this.$.activator.addRemoveClass('open', up);
-			if(up || !(this.src)){
-				this.$.activator.removeClass('moon-'+ this.className);
-			}
-			else{
-				this.$.activator.addClass('moon-'+ this.className);
-			}
 		},
 
 		/**
@@ -432,7 +417,7 @@
 		* @private
 		*/
 		resizeHandleContainer: function (inSender, inEvent) {
-			enyo.asyncMethod(inEvent.delegate.bindSafely(function (){
+			enyo.asyncMethod(inEvent.delegate.bindSafely(function () {
 				if (!this.$.animator.isAnimating()) {
 					this.parent.$.activator.addRemoveClass('drawer-open', this.parent.drawerOpen() ? true : false);
 				}

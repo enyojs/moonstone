@@ -3551,6 +3551,8 @@
   border-radius: 0 0 36px 36px;
   display: block;
   background-color: #404040;
+  background-repeat: no-repeat;
+  background-position: center center;
   content: "\0F0006";
   color: #a6a6a6;
   text-align: center;
