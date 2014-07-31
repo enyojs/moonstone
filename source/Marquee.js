@@ -775,7 +775,7 @@
 			this.$.marqueeText.applyStyle('transition-duration', duration + 's');
 			this.$.marqueeText.applyStyle('-webkit-transition-duration', duration + 's');
 
-			enyo.dom.transform(this, {translateZ: -0.01});
+			enyo.dom.transform(this, {translateZ: '-0.1px'});
 
 			// Need this timeout for FF!
 			setTimeout(this.bindSafely(function () {
