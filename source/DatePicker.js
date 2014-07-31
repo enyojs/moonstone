@@ -176,14 +176,20 @@
 				return (this.noneText);
 			}
 			if (this._tf) {
+				var fmt = new ilib.DateFmt({template: 'EEEE'});
+				var date, weekDay;
 				switch (this._tf.getCalendar()) {
 				case 'gregorian':
-					return this._tf.format(new ilib.Date.GregDate({unixtime: this.value.getTime(), timezone:'UTC'}));
+					date = new ilib.Date.GregDate({unixtime: this.value.getTime(), timezone:'UTC'});
+					break;
 				case 'thaisolar':
-					return this._tf.format(new ilib.Date.ThaiSolarDate({unixtime: this.value.getTime(), timezone:'UTC'}));
+					date = new ilib.Date.ThaiSolarDate({unixtime: this.value.getTime(), timezone:'UTC'});
+					break;
 				}
+				weekDay = fmt.format(date);
+				return weekDay + ' ' + this._tf.format(date);
 			} else {
-				return this.getMonthName()[this.value.getMonth()] + ' ' + this.value.getDate() + ', ' + this.value.getFullYear();
+				return this.getWeekDay()[this.value.getDay()] + ' ' + this.getMonthName()[this.value.getMonth()] + ' ' + this.value.getDate() + ' ' + this.value.getFullYear();
 			}
 		},
 
@@ -236,6 +242,14 @@
 		getMonthName: function () {
 			// Only used when ilib is not loaded
 			return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+		},
+
+		/**
+		* @private
+		*/
+		getWeekDay: function() {
+			// Only used when ilib is not loaded
+			return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 		},
 
 		/**
