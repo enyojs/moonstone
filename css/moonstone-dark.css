@@ -1170,29 +1170,35 @@
   overflow: hidden;
   text-align: left;
 }
-.moon-checkbox.moon-toggle-switch:after {
+.moon-checkbox.moon-toggle-switch .moon-icon {
+  visibility: visible;
+  cursor: default;
+  background-color: transparent;
+  left: 0px;
+}
+.moon-checkbox.moon-toggle-switch .moon-icon:after {
   color: #a6a6a6;
-  content: "\0F0013";
-  margin-left: 5px;
 }
 .moon-checkbox.moon-toggle-switch[checked] {
   background-color: #ffffff;
 }
-.moon-checkbox.moon-toggle-switch[checked]:after {
+.moon-checkbox.moon-toggle-switch[checked] .moon-icon {
+  left: 32.5px;
+}
+.moon-checkbox.moon-toggle-switch[checked] .moon-icon:after {
   color: #cf0652;
-  margin-left: 37px;
 }
 .moon-checkbox.moon-toggle-switch[disabled] {
   background-color: #404040;
 }
-.moon-checkbox.moon-toggle-switch[disabled]:after {
+.moon-checkbox.moon-toggle-switch[disabled] .moon-icon:after {
   color: #a6a6a6;
 }
-.moon-checkbox.moon-toggle-switch.animated {
-  -webkit-transition: background-color 0.2s;
+.moon-checkbox.moon-toggle-switch.animated .moon-icon {
+  -webkit-transition: background-color 0.2s, left 0.2s;
 }
-.moon-checkbox.moon-toggle-switch.animated:after {
-  -webkit-transition: color 0.2s, margin-left 0.2s;
+.moon-checkbox.moon-toggle-switch.animated .moon-icon:after {
+  -webkit-transition: color 0.2s;
 }
 .moon-toggle-item {
   display: block;
@@ -1201,9 +1207,14 @@
 .moon-toggle-item .moon-checkbox.moon-toggle-switch {
   top: 11px;
   /* To override top:10px set by .moon-checkbox-item .moon-checkbox so the indicator vertically middle align */
+  right: 10px;
 }
 .moon-toggle-item .moon-toggle-item-label-wrapper {
   margin-right: 75px;
+}
+.enyo-locale-right-to-left .moon-toggle-item .moon-checkbox.moon-toggle-switch {
+  left: 10px;
+  right: auto;
 }
 .enyo-locale-right-to-left .moon-toggle-item .moon-toggle-item-label-wrapper {
   margin-left: 75px;
