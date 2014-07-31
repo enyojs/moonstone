@@ -327,6 +327,7 @@
 		* @private
 		*/
 		openChanged: function(){
+			this.$.drawer.set('spotlightDisabled', !this.getOpen());
 			this.setActive(this.getOpen());
 			this.doListActionOpenChanged({open: this.open});
 			// If opened, show drawer and resize it if needed

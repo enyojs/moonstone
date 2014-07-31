@@ -23,6 +23,11 @@
 		/**
 		 * @private
 		 */
+		icon: 'circle',
+
+		/**
+		 * @private
+		 */
 		classes: 'moon-toggle-item',
 
 		/**

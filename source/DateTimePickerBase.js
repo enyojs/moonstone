@@ -279,7 +279,6 @@
 			var open = this.$.drawer.get('open'),
 				pickers = this.pickers,
 				i, p;
-			this.$.currentValue.setShowing(!open);
 			if (pickers) {
 				for (i = 0; i < pickers.length; i++) {
 					p = pickers[i];
