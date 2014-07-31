@@ -30,7 +30,7 @@ enyo.kind({
 					name: "searchDrawer",
 					handle: {content: "Full drawer"},
 					components: [
-						{kind: "moon.Panel", classes:"enyo-fit", title: "Partial Drawer", components: [
+						{kind: "moon.Panel", classes:"enyo-fit", title: "Full Drawer", components: [
 							{kind: "moon.Item", content: "Item One"},
 							{kind: "moon.Item", content: "Item Two"}
 						]}
@@ -44,35 +44,35 @@ enyo.kind({
 					pattern: "activity",
 					classes: "enyo-fit",
 					components: [
-						{title: "First", classes: "moon-7h", components: [
+						{title: "First Panel", classes: "moon-7h", components: [
 							{kind: "moon.Item", content: "Item One", ontap: "next"},
 							{kind: "moon.Item", content: "Item Two", ontap: "next"},
 							{kind: "moon.Item", content: "Item Three", ontap: "next"},
 							{kind: "moon.Item", content: "Item Four", ontap: "next"},
 							{kind: "moon.Item", content: "Item Five", ontap: "next"}
 						]},
-						{title: "Second", classes: "moon-7h", components: [
+						{title: "Second Panel", classes: "moon-7h", components: [
 							{kind: "moon.Item", content: "Item One", ontap: "next"},
 							{kind: "moon.Item", content: "Item Two", ontap: "next"},
 							{kind: "moon.Item", content: "Item Three", ontap: "next"},
 							{kind: "moon.Item", content: "Item Four", ontap: "next"},
 							{kind: "moon.Item", content: "Item Five", ontap: "next"}
 						]},
-						{title: "Third", classes: "moon-7h", components: [
+						{title: "Third Panel", classes: "moon-7h", components: [
 							{kind: "moon.Item", content: "Item One", ontap: "next"},
 							{kind: "moon.Item", content: "Item Two", ontap: "next"},
 							{kind: "moon.Item", content: "Item Three", ontap: "next"},
 							{kind: "moon.Item", content: "Item Four", ontap: "next"},
 							{kind: "moon.Item", content: "Item Five", ontap: "next"}
 						]},
-						{title: "Fourth", classes: "moon-7h", components: [
+						{title: "Fourth Panel", classes: "moon-7h", components: [
 							{kind: "moon.Item", content: "Item One", ontap: "next"},
 							{kind: "moon.Item", content: "Item Two", ontap: "next"},
 							{kind: "moon.Item", content: "Item Three", ontap: "next"},
 							{kind: "moon.Item", content: "Item Four", ontap: "next"},
 							{kind: "moon.Item", content: "Item Five", ontap: "next"}
 						]},
-						{title: "Fifth", classes: "moon-7h", components: [
+						{title: "Fifth Panel", classes: "moon-7h", components: [
 							{kind: "moon.Item", content: "Item One", ontap: "next"},
 							{kind: "moon.Item", content: "Item Two", ontap: "next"},
 							{kind: "moon.Item", content: "Item Three", ontap: "next"},

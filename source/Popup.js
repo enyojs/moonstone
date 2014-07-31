@@ -13,37 +13,37 @@
 		/**
 		* @private
 		*/
-		name : 'moon.Popup',
+		name: 'moon.Popup',
 
 		/**
 		* @private
 		*/
-		kind : enyo.Popup,
+		kind: enyo.Popup,
 
 		/**
 		* @private
 		*/
-		modal     : true,
+		modal: true,
 
 		/**
 		* @private
 		*/
-		classes   : 'moon moon-neutral enyo-unselectable moon-popup',
+		classes: 'moon-neutral enyo-unselectable moon-popup',
 
 		/**
 		* @private
 		*/
-		floating  : true,
+		floating: true,
 
 		/**
 		* @private
 		*/
-		_bounds   : null,
+		_bounds: null,
 
 		/**
 		* @private
 		*/
-		spotlight : 'container',
+		spotlight: 'container',
 
 		/**
 		* @private
@@ -161,6 +161,16 @@
 		activator: null,
 
 		/**
+		* @private
+		*/
+		directShowHide: false,
+
+		/**
+		* @private
+		*/
+		initialDuration: null,
+
+		/**
 		* Creates chrome
 		*
 		* @private
@@ -176,6 +186,7 @@
 		create: function () {
 			this.inherited(arguments);
 			this.animateChanged();
+			this.initialDuration = this.getComputedStyleValue("-webkit-transition-duration", "0.4s");
 		},
 
 		/**
@@ -202,9 +213,17 @@
 			this.contentChanged();
 			this.inherited(arguments);
 		},
+
+		/**
+		* @private
+		*/
 		contentChanged: function() {
 			this.$.client.setContent(this.content);
 		},
+
+		/**
+		* @private
+		*/
 		allowHtmlChanged: function() {
 			this.$.client.setAllowHtml(this.allowHtml);
 		},
@@ -335,16 +354,26 @@
 			}
 
 			if (this.animate) {
+				var args = arguments;
 				if (this.showing) {
 					this.inherited(arguments);
 					this.animateShow();
+					this.animationEnd = this.bindSafely(function(inSender, inEvent) {
+						if (inEvent.originator === this) {
+							if (this.directShowHide) {
+								this.setDirectShowHide(false);
+							}
+						}
+					});
 				} else {
 					this.animateHide();
-					var args = arguments;
 					this.animationEnd = this.bindSafely(function(sender, event) {
 						if (event.originator === this) {
 							this.inherited(args);
 							this.isAnimatingHide = false;
+							if (this.directShowHide) {
+								this.setDirectShowHide(false);
+							}
 						}
 					});
 				}
@@ -381,6 +410,40 @@
 			} else {
 				return this.inherited(arguments);
 			}
+		},
+
+		/**
+		* Skips animation and jumps to the final shown state.
+		*
+		* @public
+		*/
+		showDirect: function() {
+			if (this.animate) {
+				this.setDirectShowHide(true);
+			}
+			this.show();
+		},
+
+		/**
+		* Skips animation and jumps to the final hidden state.
+		*
+		* @public
+		*/
+		hideDirect: function() {
+			if (this.animate) {
+				this.setDirectShowHide(true);
+			}
+			this.hide();
+		},
+
+		/**
+		* @private
+		*/
+		setDirectShowHide: function(value) {
+			this.directShowHide = value;
+			// setting duration to "0" does not work, nor does toggling animate property
+			var duration = (value) ? "0.0001s" : this.initialDuration;
+			this.applyStyle("-webkit-transition-duration", duration);
 		},
 
 		/**

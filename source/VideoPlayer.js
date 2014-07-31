@@ -494,12 +494,20 @@
 			onSpotlightRight: 'spotlightLeftRightFilter',
 			onresize: 'handleResize'
 		},
+		
+		/**
+		* @private
+		*/
+		eventsToCapture: {
+			onSpotlightFocus: 'capturedFocus'
+		},
 
 		/**
 		* @private
 		*/
 		bindings: [
-			{from: '.sourceComponents',			to:'.$.video.sourceComponents'},
+			{from: '.src',						to:'.$.video.src'},
+			{from: '.sources',					to:'.$.video.sourceComponents'},
 			{from: '.playbackRateHash',			to:'.$.video.playbackRateHash'},
 			{from: '.poster',					to:'.$.video.poster'},
 			{from: '.constrainToBgProgress',	to:'.$.slider.constrainToBgProgress'},
@@ -511,6 +519,13 @@
 			{from: '.showPlayPauseControl',		to:'.$.fsPlayPause.showing'},
 			{from: '.showVideo',				to:'.$.videoContainer.showing'}
 		],
+
+		/**
+		* @private
+		*/
+		observers: {
+			updateSource: ['src', 'sources']
+		},
 		
 		/**
 		* @private
@@ -604,7 +619,7 @@
 		*/
 		create: function() {
 			this.inherited(arguments);
-			this.srcChanged();
+			this.updateSource();
 			this.createInfoControls();
 			this.inlineChanged();
 			this.showInfoChanged();
@@ -664,7 +679,7 @@
 		updatePlaybackControlState: function() {
 			var disabled = this.disablePlaybackControls || 
 				this._panelsShowing || 
-				(this.disablePlaybackControlsOnUnload && (this._errorCode || !this.getSrc()));
+				(this.disablePlaybackControlsOnUnload && (this._errorCode || (!this.getSrc() && !this.getSources()) ));
 			this.updateSliderState();
 			this.$.playbackControls.addRemoveClass('disabled', disabled);
 			this.$.jumpBack.setDisabled(disabled);
@@ -717,20 +732,11 @@
 		showProgressBarChanged: function(was) {
 			this.$.sliderContainer.setShowing(this.showProgressBar);
 		},
-		
-		/** 
-		* Overrides default _enyo.Control_ behavior.
-		*
-		* @private
-		*/
-		getSrc: function() {
-			return this.src;
-		},
 
 		/**
 		* @private
 		*/
-		srcChanged: function() {
+		updateSource: function(old, value, source) {
 			this._canPlay = false;
 			this._isPlaying = this.autoplay;
 			this._errorCode = null;
@@ -738,7 +744,14 @@
 			this.updateSpinner();
 			this.updatePlaybackControlState();
 			this._resetTime();
-			this.$.video.setSrc(this.getSrc());
+
+			// since src and sources are mutually exclusive, clear the other property
+			// when one changes
+			if (source === 'src') {
+				this.sources = null;
+			} else if (source === 'sources') {
+				this.src = '';
+			}
 		},
 
 		/** 
@@ -863,7 +876,7 @@
 				this.disableSlider || 
 				this.disablePlaybackControls || 
 				!this._loaded || 
-				(this.disablePlaybackControlsOnUnload && (this._errorCode || !this.getSrc()));
+				(this.disablePlaybackControlsOnUnload && (this._errorCode || (!this.getSrc() && !this.getSources()) ));
 			this.$.slider.setDisabled(disabled);
 		},
 
@@ -941,7 +954,7 @@
 			this._isPlaying = false;
 			this._canPlay = false;
 			this._errorCode = null;
-			this.src = null;
+			this.src = '';
 			this.updatePlaybackControlState();
 			this.updateSpinner();
 		},
@@ -995,7 +1008,7 @@
 		panelsHandleFocused: function(sender, e) {
 			this._infoShowing = this.$.videoInfoHeaderClient.getShowing();
 			this._controlsShowing = this.$.playerControl.getShowing();
-			this.hideFSControls();
+			this.hideFSControls(true);
 		},
 
 		/**
@@ -1109,10 +1122,14 @@
 			this.showFSInfo();
 			this.showFSBottomControls();
 		},
-		hideFSControls: function() {
+		hideFSControls: function(spottingHandled) {
 			if (this.isOverlayShowing()) {
 				this.hideFSInfo();
 				this.hideFSBottomControls();
+			}
+			if (!spottingHandled) {
+				enyo.Spotlight.setPointerMode(false);
+				enyo.Spotlight.spot(this);
 			}
 			this.stopJob('autoHide');
 		},
@@ -1364,7 +1381,27 @@
 			this.$.slider.setValue(this._currentTime);
 		},
 
-
+		/**
+		* @private
+		*/
+		capture: function () {
+			enyo.dispatcher.capture(this, this.eventsToCapture);
+		},
+		
+		/**
+		* @private
+		*/
+		release: function () {
+			enyo.dispatcher.release(this);
+		},
+		
+		/**
+		* @private
+		*/
+		capturedFocus: function (sender, event) {
+			enyo.Spotlight.spot(this);
+			return true;
+		},
 
 		///// Inline controls /////
 
@@ -1414,7 +1451,9 @@
 				this.$.fullscreenControl.setShowing(true);
 				this.showFSControls();
 				this.$.controlsContainer.resize();
+				this.capture();
 			} else {
+				this.release();
 				this.stopJob('autoHide');
 				this.addClass('inline');
 				this.$.inlineControl.setShowing(true);
@@ -1468,10 +1507,12 @@
 		* @public
 		*/
 		jumpToStart: function() {
-			this._isPlaying = false;
 			this.$.video.jumpToStart();
 			this.updatePlayPauseButtons();
 			this.updateSpinner();
+			if(this._isPlaying){
+				this.$.video.play();
+			}
 		},
 
 		/** 

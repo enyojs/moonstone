@@ -7,7 +7,11 @@ enyo.kind({
 		{
 			name: "player",
 			kind: "moon.VideoPlayer",
-			src: "http://media.w3.org/2010/05/bunny/movie.mp4",
+			sources: [
+				{src: "http://media.w3.org/2010/05/bunny/movie.mp4", type: "video/mp4"},
+				{src: "http://media.w3.org/2010/05/bunny/movie.ogg", type: "video/ogg"},
+				{src: "http://media.w3.org/2010/05/bunny/movie.webm", type: "video/webm"}
+			],
 			poster: "assets/video-poster.png",
 			autoplay:true,
 			onPlaybackControlsTapped: "controlsTapped",
@@ -86,6 +90,12 @@ enyo.kind({
 	},
 	load: function() {
 		this.$.player.unload();
-		this.$.player.setSrc("http://media.w3.org/2010/05/bunny/movie.mp4");
+		// We can set source by sources array
+		this.sources = [
+			{src: "http://media.w3.org/2010/05/bunny/movie.mp4", type: "video/mp4"},
+			{src: "http://media.w3.org/2010/05/bunny/movie.ogg", type: "video/ogg"},
+			{src: "http://media.w3.org/2010/05/bunny/movie.webm", type: "video/webm"}
+		];
+		this.$.player.setSources(this.sources);
 	}
 });

@@ -46,14 +46,14 @@
 		/**
 		* @private
 		*/
-		classes: 'moon-gridlist-item moon-gridlist-imageitem',
+		classes: 'moon-gridlist-imageitem',
 
 		/**
 		* @private
 		*/
 		componentOverrides: {
-			caption: { kind:'moon.MarqueeText' },
-			subCaption: { kind:'moon.MarqueeText' }
+			caption: {kind:'moon.MarqueeText'},
+			subCaption: {kind:'moon.MarqueeText'}
 		},
 
 		/**

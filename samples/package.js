@@ -99,6 +99,7 @@ enyo.depends(
 	"SliderSample.js",
 	"SpinnerSample.css",
 	"SpinnerSample.js",
+	"TableSample.js",
 	"TimePickerSample.css",
 	"TimePickerSample.js",
 	"ToggleButtonSample.css",

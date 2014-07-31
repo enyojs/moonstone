@@ -71,7 +71,6 @@ enyo.depends(
 	'ChannelInfo.js',
 	'Clock.js',
 	'VideoInfoBackground.js',
-	'DrawerHandle.js',
 	'Drawer.js',
 	'Drawers.js',
 	'HighlightText.js',

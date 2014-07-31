@@ -220,7 +220,7 @@
 		*/
 		sync: function(val, origin, binding) {
 			if (this.values) {
-				return (origin === 'source') ? this.indices[val] : this.values[val];
+				return (origin === enyo.Binding.DIRTY_FROM) ? this.indices[val] : this.values[val];
 			}
 		},
 
