@@ -842,14 +842,12 @@
 				this.addClass("allow-wrap");
 				if (this.$.marqueeText) {
 					this.$.marqueeTextWrapper.destroy();
-					this._marquee_invalidateMetrics();
 					this.render();
 				}
 			}
 			if (old && !this.wrapInsteadOfMarquee) {
 				this.removeClass("allow-wrap");
-				this._marquee_invalidateMetrics();
-				this.render();
+				this._marquee_createMarquee();
 			}
 		}
 	};
