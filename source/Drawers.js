@@ -41,26 +41,26 @@
 	* The control's child components may be of any kind.
 	*
 	* ```
-	*		{
-	*			kind: 'moon.Drawers',
-	*			drawers: [
-	*				{
-	*					name: 'musicDrawer',
-	*					kind: 'moon.Drawer',
-	*					handle: {kind: 'moon.DrawerHandle', content: 'Handle'},
-	*					components: [
-	*						{content: 'Drawer Content'}
-	*					],
-	*					controlDrawerComponents: [
-	*						{content: 'Controls'}
-	*					]
-	*				}
-	*			],
-	*`		components: [
-	*				{content: 'Content Area'}
-	*			]
-	*		}
-	*```
+	* {
+	* 	kind: 'moon.Drawers',
+	* 	drawers: [
+	* 		{
+	* 			name: 'musicDrawer',
+	* 			kind: 'moon.Drawer',
+	* 			handle: {kind: 'moon.DrawerHandle', content: 'Handle'},
+	* 			components: [
+	* 				{content: 'Drawer Content'}
+	* 			],
+	* 			controlDrawerComponents: [
+	* 				{content: 'Controls'}
+	* 			]
+	* 		}
+	* 	],
+	* 	components: [
+	* 		{content: 'Content Area'}
+	* 	]
+	* }
+	* ```
 	*
 	* @class moon.Drawers
 	* @extends enyo.Control
@@ -152,9 +152,9 @@
 		* @private
 		*/
 		components: [
-			{name:"activator", classes: "moon-drawers-activator", spotlight: true, ontap: "activatorHandler",mixins:['enyo.StylesheetSupport']},
-			{name:"handleContainer", classes:"moon-drawers-handle-container", kind:"enyo.Drawer", resizeContainer:false, open:false, spotlightDisabled: true, onpostresize:"resizeHandleContainer", components:[
-				{name:"handles", classes: "moon-neutral moon-drawers-handles"}
+			{name: 'activator', classes: 'moon-drawers-activator', spotlight: true, ontap: 'activatorHandler', mixins: ['enyo.StylesheetSupport']},
+			{name: 'handleContainer', classes: 'moon-drawers-handle-container', kind: 'enyo.Drawer', resizeContainer: false, open: false, spotlightDisabled: true, onpostresize: 'resizeHandleContainer', components: [
+				{name:'handles', classes: 'moon-neutral moon-drawers-handles'}
 			]},
 			{name: 'drawers', classes:'moon-drawers-drawer-container'},
 			{name: 'client', classes:'moon-drawers-client'}
@@ -177,7 +177,7 @@
 			this.$.drawers.createComponents(this.drawers, {kind: 'moon.Drawer', owner:this.owner});
 			this.setupHandles();
 			var id=this.$.activator.id;
-			this.className=id.replace(/[^a-zA-Z0-9]/g,'-');
+			this.className=id.replace(/[^a-zA-Z0-9]/g, '-');
 			if(this.src) {
 				this.srcChanged();
 			}
@@ -209,18 +209,14 @@
 				this.$.activator.addClass('moon-'+ this.className);
 				// If icon exists, add image as background and inherit content
 				if(this.icon){
-					this.$.activator.set('stylesheetContent','.moon-'+ this.className +'.moon-drawers-activator:after{background-image:'+src+';background-repeat:no-repeat;background-position: center center}');
-
+					this.$.activator.set('stylesheetContent','.moon-' + this.className + '.moon-drawers-activator:after { background-image: ' + src + '; background-repeat: no-repeat; background-position: center center; }');
+				} else {
+					// Else no content, only image
+					this.$.activator.set('stylesheetContent','.moon-' + this.className + '.moon-drawers-activator:after { background-image: ' + src + ';content: ""; background-repeat: no-repeat; background-position: center center; }');
 				}
-				//Else no content, only image
-				else{
-					this.$.activator.set('stylesheetContent','.moon-'+ this.className +'.moon-drawers-activator:after{background-image:'+src+';content:"";background-repeat:no-repeat;background-position: center center}');
-				}
-				
-			}
-			else{
-				//if src passed is null
-				this.$.activator.removeClass('moon-'+ this.className);
+			} else {
+				// If src passed is null
+				this.$.activator.removeClass('moon-' + this.className);
 			}
 		},
 
@@ -229,12 +225,12 @@
 		*/
 		iconChanged: function(old) {
 			var icon = this.icon || null;
-			this.$.activator.removeClass('moon-icon-'+old);
-			if (icon !=null) {
-				this.$.activator.addClass('moon-icon-'+icon);
-				//If src exists, apply it as background along with icon
-				if(this.src){
-					this.$.activator.set('stylesheetContent','.moon-'+ this.className +'.moon-drawers-activator:after{background-image:url('+this.src+');background-repeat:no-repeat;background-position: center center}');	
+			this.$.activator.removeClass('moon-icon-' + old);
+			if (icon != null) {
+				this.$.activator.addClass('moon-icon-' + icon);
+				// If src exists, apply it as background along with icon
+				if (this.src) {
+					this.$.activator.set('stylesheetContent','.moon-' + this.className + '.moon-drawers-activator:after { background-image: url(' + this.src + '); background-repeat: no-repeat; background-position: center center; }');
 				}
 			}
 		},
