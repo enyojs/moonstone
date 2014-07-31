@@ -1,38 +1,37 @@
 /* Radio Item */
 .moon-radio-item {
 	display: inline-block;
-}
-.moon-radio-item .moon-selectable-item-client{
 	max-width: 250px;
-	padding: 0 10px 0 32px;
+	margin: 0 @moon-radio-item-gap 0 0;
+	padding: 10px @moon-spotlight-outset 10px @moon-item-indent + @moon-spotlight-outset;
+
+	&:before {
+		content: '';
+		position: absolute;
+		left: @moon-spotlight-outset;
+		top: 17px;
+		width: @moon-selectable-item-indicator-width - 2 * @moon-radio-item-indicator-border;
+		height: @moon-selectable-item-indicator-height - 2 * @moon-radio-item-indicator-border;
+		border: solid @moon-radio-item-indicator-border @moon-spotlight-text-color;
+		border-radius: @moon-selectable-item-indicator-width / 2;
+		background-color: @moon-button-disabled-text-color;
+	}
+
+	&.selected {
+		&:before {
+			background-color: @moon-accent;
+		}
+	}
 }
-.enyo-locale-right-to-left .moon-radio-item {
-	text-align: right;
-}
-/* Indicator */
-.moon-selectable-item-indicator.moon-radio-item-indicator {
-	display: inline-block;
-	background-color: #fff;
-	left: @moon-spotlight-outset;
-	top: 15px;
-}
-.enyo-locale-right-to-left .moon-selectable-item-indicator.moon-radio-item-indicator {
-	left: auto;
-	right: @moon-spotlight-outset;
-}
-.moon-selectable-item-indicator.moon-radio-item-indicator .moon-radio-item-indicator-center-dot {
-	position: absolute;
-	width: 16px;
-	height: 16px;
-	border-radius: 8px;
-	top: 2px;
-	left: 2px;
-	background-color: #4d4d4d;
-}
-.moon-selectable-item.selected .moon-selectable-item-indicator.moon-radio-item-indicator .moon-radio-item-indicator-center-dot {
-	background-color: @moon-accent;
-}
-.enyo-locale-right-to-left .moon-radio-item .moon-selectable-item-client,
-.enyo-locale-right-to-left .moon-radio-item.selected .moon-selectable-item-client {
-	padding: 0 32px 0 10px;
+
+.enyo-locale-right-to-left {
+	margin: 0 0 0 @moon-radio-item-gap;
+	.moon-radio-item {
+		padding: 10px @moon-item-indent + @moon-spotlight-outset 10px @moon-spotlight-outset;
+
+		&:before {
+			left: auto;
+			right: @moon-spotlight-outset;
+		}
+	}
 }

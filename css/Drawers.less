@@ -1,83 +1,80 @@
 /* Drawers.css */
-.moon-drawers-handles {
-	text-align: center;
-	padding: 45px 0 10px;
-}
-
-.moon-drawers-activator-wrapper {
-	position: absolute;
-	top: -10px;
-	left: 0;
-	right: 0;
-	height: 10px;	
-	z-index: 100;
-}	
 .moon-drawers-activator {
-	position: absolute;
-	top: 10px;
-	left: 0;
-	right: 0;
-	height: 22px;	
-	background-color: @moon-drawer-bg-color;
 	z-index: 100;
+	font-family: @moon-icon-font-family;
+	font-size: 50px;
+	// adjust the caret to line-up with the bottom edge of the activator bar
+	line-height: @moon-icon-font-size / 2 - 4;
+	// Height must be less than or equal to the distance from the edge of the screen to the content
+	// area inside the next container, for spotlight to be able to find this control.
+	height: 0px;
+	position: absolute;
+	width: 100%;
 
-	&:after {
-		content: @moon-icon-arrowsmalldown;
-		position: relative;
-		margin-left: auto;
-		margin-right: auto;
-		margin-top: -5px;
+	&:before {
+		content: '';
 		display: block;
-		border-bottom-left-radius: 36px;
-		border-bottom-right-radius: 36px;	
-		height: 36px;
-		width: 60px;
+		height: @moon-drawers-activator-bar-height;
 		background-color: @moon-drawer-bg-color;
-		top: 10px;
+	}
+	&:after {
+		margin: -12px auto 0;
+		width: @moon-drawer-nub-width;
+		height: @moon-drawer-nub-height;
+		border-radius: 0 0 @moon-drawer-nub-height @moon-drawer-nub-height;
+		display: block;
+		background-color: @moon-drawer-bg-color;
+		content: @moon-icon-arrowsmalldown;
+		color: @moon-drawer-activator-font-color;
 		text-align: center;
-		font-family: @moon-icon-font-family;
-		font-size: 50px;
-		line-height: @moon-icon-font-size/2;
-		overflow: hidden;
 	}
-	&.open:after {
-		content: @moon-icon-arrowsmallup;
+
+	/* The activator & nub are white when a drawer is open */
+	&.open {
+		&:before,
+		&:after {
+			color: @moon-drawer-activator-open-font-color;
+			background-color: @moon-drawer-open-bg-color;
+		}
+		&:after {
+			content: @moon-icon-arrowsmallup;
+		}
 	}
-}
 
-/* The activator & nub are white when a drawer is open */
-.moon-drawers-activator.drawer-open {
-	background-color: @moon-drawer-open-bg-color;
-}
+	// Cursor is hovering over the activator, but it hasn't moved yet.
+	// Prevents a blink-to-white on-click.
+	&.open:hover,
+	/* Activator is spotlight focused */
+	&.spotlight {
 
-.drawer-open .moon-drawers-activator:after {
-	background-color: @moon-drawer-open-bg-color;
-}
-
-/* Activator is spotlight focused */
-.spotlight .moon-drawers-activator {
-	background-color: @moon-spotlight-border-color;
-
-	&:after,
-	&.open:after {
-		color: @moon-spotlight-text-color;
-		background-color: @moon-spotlight-border-color;
+		&:before,
+		&:after {
+			color: @moon-spotlight-text-color;
+			background-color: @moon-spotlight-color;
+		}
 	}
 }
 
+/* Drawer Handles */
 .moon-drawers-handle-container {
 	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
+
+	.moon-drawers-handles {
+		text-align: center;
+		padding: 50px 0 10px;
+	}
+
+	.moon-drawers-handle {
+		display: inline-block;
+		text-align: start;
+		width: 250px;
+	}
 }
 
-.moon-drawers-handle {
-	display: inline-block;
-	vertical-align: top;
-}
-
-.moon-drawers-drawer-container {
+.moon-drawers-container {
 	position: relative;
 }
 

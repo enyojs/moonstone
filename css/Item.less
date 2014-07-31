@@ -1,28 +1,25 @@
 /* Item.css */
 .moon-item {
 	.moon-sub-header-text;
-	border-width: 0 0;
-	border-left-color: transparent;
-	border-left-style: solid;
 	line-height: @moon-item-line-height;
 	padding: @moon-spotlight-outset;
-	vertical-align: top;
 	position: relative;
-}
-.moon-item.allow-wrap {
-	white-space: normal !important;
+
+	&.spotlight {
+		background-color: @moon-accent;
+		color: @moon-white;
+	}
+
+	&.allow-wrap {
+		white-space: normal !important;
+	}
+
+	&.disabled {
+		cursor: default;
+		opacity: @moon-disabled-opacity;
+	}
 }
 
 .enyo-locale-non-latin .moon-item {
 	.enyo-locale-non-latin .moon-sub-header-text;
-}
-
-.moon-item.disabled {
-	cursor: default;
-	opacity: @moon-disabled-opacity;
-	filter: alpha(opacity=@moon-disabled-opacity-ie);
-}
-.moon-item.spotlight {
-	background-color: @moon-accent;
-	color: @moon-white;
 }

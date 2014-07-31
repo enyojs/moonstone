@@ -189,7 +189,7 @@
 				weekDay = fmt.format(date);
 				return weekDay + ' ' + this._tf.format(date);
 			} else {
-				return this.getWeekDay()[this.value.getDay()] + ' ' + this.getMonthName()[this.value.getMonth()] + " " + this.value.getDate() + " " + this.value.getFullYear();
+				return this.getWeekDay()[this.value.getDay()] + ' ' + this.getMonthName()[this.value.getMonth()] + ' ' + this.value.getDate() + ' ' + this.value.getFullYear();
 			}
 		},
 

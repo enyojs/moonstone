@@ -1,1 +1,4 @@
 /* Calendar.css */
+.moon-calendar-dow-lable-nodisplay {
+	display: none;
+}
