@@ -279,13 +279,9 @@
 		* @private
 		*/
 		_marquee_enter: function (inSender, inEvent) {
-			enyo.log("_marquee_enter");
-			enyo.log(this);
-			enyo.log(this.hasNode());
 			this._marquee_isHovered = true;
 			if ((this.marqueeOnHover && !this.marqueeOnSpotlight) || 
 			(this.disabled && this.marqueeOnSpotlight && !this.hasNode().getAttribute('disabled'))) {
-				enyo.log("starting marquee");
 				this.startMarquee();
 			}
 		},
@@ -294,8 +290,6 @@
 		* @private
 		*/
 		_marquee_leave: function (inSender, inEvent) {
-			enyo.log("_marquee_leave");
-			enyo.log(this);
 			this._marquee_isHovered = false;
 			if ((this.marqueeOnHover && !this.marqueeOnSpotlight) || (this.disabled && this.marqueeOnSpotlight)) {
 				this.stopMarquee();
@@ -771,8 +765,6 @@
 			}
 			this.createComponent({name:"marqueeTextWrapper", classes: "moon-marquee-text-wrapper", components: [marqueeText]});
 			this.render();
-			enyo.log("create Marquee");
-			enyo.log(this.getClientControls());
 			return true;
 		},
 
@@ -849,10 +841,7 @@
 			if (this.wrapInsteadOfMarquee) {
 				this.addClass("allow-wrap");
 				if (this.$.marqueeText) {
-					// this.$.marqueeTextWrapper.destroy();
-					enyo.log("time to hunt some marquee");
-
-					this.destroyClientControls();
+					this.$.marqueeTextWrapper.destroy();
 					this._marquee_invalidateMetrics();
 					this.render();
 				}
@@ -860,7 +849,6 @@
 			if (old && !this.wrapInsteadOfMarquee) {
 				this.removeClass("allow-wrap");
 				this._marquee_invalidateMetrics();
-				// this._marquee_createMarquee();
 			}
 		}
 	};
