@@ -849,6 +849,7 @@
 			if (old && !this.wrapInsteadOfMarquee) {
 				this.removeClass("allow-wrap");
 				this._marquee_invalidateMetrics();
+				this.render();
 			}
 		}
 	};
