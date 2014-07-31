@@ -3609,20 +3609,23 @@
 }
 /* Drawers.css */
 .moon-drawers-activator {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 22px;
-  background-color: #404040;
   z-index: 100;
   font-family: "Moonstone Icons";
   font-size: 50px;
   line-height: 32px;
+  height: 0px;
+  position: absolute;
+  width: 100%;
   /* The activator & nub are white when a drawer is open */
 }
+.moon-drawers-activator:before {
+  content: '';
+  display: block;
+  height: 22px;
+  background-color: #404040;
+}
 .moon-drawers-activator:after {
-  margin: 10px auto 0;
+  margin: -12px auto 0;
   width: 60px;
   height: 36px;
   border-radius: 0 0 36px 36px;
@@ -3632,18 +3635,16 @@
   color: #a6a6a6;
   text-align: center;
 }
-.moon-drawers-activator.open {
+.moon-drawers-activator.open:before,
+.moon-drawers-activator.open:after {
+  color: #4b4b4b;
   background-color: #ffffff;
 }
 .moon-drawers-activator.open:after {
-  color: #4b4b4b;
   content: "\0F0005";
-  background-color: #ffffff;
 }
-.moon-drawers-activator.open:hover,
-.moon-drawers-activator.spotlight {
-  background-color: #cf0652;
-}
+.moon-drawers-activator.open:hover:before,
+.moon-drawers-activator.spotlight:before,
 .moon-drawers-activator.open:hover:after,
 .moon-drawers-activator.spotlight:after {
   color: #ffffff;
