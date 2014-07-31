@@ -1507,10 +1507,12 @@
 		* @public
 		*/
 		jumpToStart: function() {
-			this._isPlaying = false;
 			this.$.video.jumpToStart();
 			this.updatePlayPauseButtons();
 			this.updateSpinner();
+			if(this._isPlaying){
+				this.$.video.play();
+			}
 		},
 
 		/** 
