@@ -164,7 +164,7 @@
 		/**
 		* @private
 		*/
-		requestShowTooltip: function(inSender, inEvent) {
+		requestShowTooltip: function (inSender, inEvent) {
 			if (this.autoShow && !enyo.Spotlight.isFrozen()) {
 				this.waterfallDown("onRequestShowTooltip", inEvent, inSender);
 			}
