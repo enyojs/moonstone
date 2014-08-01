@@ -5,41 +5,14 @@
 	transition: background-color 0.1s linear;
 	-webkit-transition: background-color 0.1s linear;
 	-moz-transition: background-color 0.1s linear;
-}
-.moon-video-fullscreen-control.scrim {
-	box-sizing: border-box;
-	background-color: fadeout(@moon-video-player-fullscreen-bg-color, 85%);
-}
 
-/* ---- Header info styling ---- */
-.moon-video-player-header {
-	width: 100%;
-	font-family: @moon-font-family;
-	font-size: @moon-sub-header-font-size;
-	letter-spacing: @moon-sub-header-letter-spacing;
-	color: #ffffff;
-	padding: 15px 0 0 0;
-	direction: ltr;
-
-	.moon-clock-hour,
-	.moon-clock-top,
-	.moon-clock-meridiem,
-	.moon-clock-bottom {
-		color: #ffffff;
-	}
-
-	.moon-clock-divider {
-		background-color: #ffffff;
+	&.scrim {
+		box-sizing: border-box;
+		background-color: fadeout(@moon-video-player-fullscreen-bg-color, 85%);
 	}
 }
-.moon-video-player-header.enyo-fittable-columns-layout > * {
-	margin: 0;
-}
-.moon-video-player-header.always {
-	display: block;
-}
 
-/* --- Fullscreen Player Controls --- */
+/* --- Fullscreen Player Controls Layout--- */
 .moon-video-player-bottom {
 	position: absolute;
 	bottom: 0;
@@ -52,103 +25,104 @@
 	height: @moon-icon-button-size;
 	margin-bottom: 30px;
 }
+// this rule must be kept otherwise there will be RTL problem
 .enyo-fittable-columns-layout.moon-video-player-controls {
 	direction: ltr;
 	text-align: left;
 }
+
 .moon-video-player-controls-container > * {
 	width: 100%;
 }
-.moon-video-player-more-controls {
-	border-left: 2px solid white;
-	padding-left: 5px;
+
+.moon-video-player-premium-placeholder-left, .moon-video-player-premium-placeholder-right {
+	width: @moon-video-player-premium-placeholder-padding + @moon-icon-button-size + 2 * @moon-spotlight-outset;
 }
-.moon-video-player-more-controls > * {
-	vertical-align: middle;
+
+.moon-video-player-premium-placeholder-left {
+	padding: 0 0 0 @moon-video-player-premium-placeholder-padding - 10;
+}
+
+.moon-video-player-premium-placeholder-right {
+	padding: 0 0 0 @moon-spotlight-outset;
 }
 
 .enyo-locale-right-to-left .moon-video-player-more-controls > * {
 	direction: rtl;
 }
-.moon-video-player-premium-placeholder-left {
-	width: 130 + (@moon-icon-button-small-size + 2 * @moon-spotlight-outset);
-	height: @moon-icon-button-size;
-	padding-left: 90px;
-}
-.moon-video-player-premium-placeholder-right {
-	width: 130 + (@moon-icon-button-small-size + 2 * @moon-spotlight-outset);
-	height: @moon-icon-button-size;
-	padding-left: 5px;
-}
 
-/* --- Buttons --- */
-.moon-video-fullscreen-control .moon-icon-button {
-	width: @moon-icon-button-size;
-	height: @moon-icon-button-size;
-	border-radius: 0;
-	border: 0px;
-	background-color: transparent;
-	background-position: 0px 0px;
-	background-size: @moon-icon-button-size (@moon-icon-button-size * 2);
-	color: @moon-icon-video-controls-font-color;
-	line-height: @moon-icon-button-size;
-}
-.moon-icon-playpause-font-style {
-  font-size: @moon-icon-playpause-font-size;
-}
-.moon-icon-video-main-control-font-style {
-  font-size: @moon-icon-main-control-font-size;
-}
+/* ---- Fullscreen player control buttons ---- */
+.moon-video-fullscreen-control {
+	.moon-video-player-control-buttons {
+		text-align: center;
 
-/* this style is used for the two side controls and placeholders */
-.moon-icon-button.moon-icon-video-round-controls-style {
-  color: @moon-icon-video-round-controls-font-color;
-  background-color: @moon-icon-video-round-controls-bg-color;
-  border-radius: @moon-button-border-radius;
-}
-.moon-icon-button.moon-icon-video-more-controls-font-style {
-  font-size: @moon-icon-arrowextendshrink-font-size;
-}
-.moon-video-fullscreen-control .moon-icon.moon-icon-button.active,
-.moon-video-fullscreen-control .moon-icon.moon-icon-button:active,
-.moon-video-fullscreen-control .moon-icon.moon-icon-button.pressed,
-.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight,
-.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight.pressed,
-.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight:active {
-	background-position: 0 -(@moon-icon-button-size);
-	border: 0px;
-	background-color: transparent;
-	color: @moon-accent;
-	&.moon-icon-video-round-controls-style {
-	  color: @moon-icon-video-round-controls-font-spotlight-color;
-	  background-color: @moon-accent;
+		> .moon-icon {
+			margin: 0 40px;
+		}
+
+		> :first-child {
+			margin-left: 0;
+		}
+
+		> :last-child {
+			margin-right: 0;
+		}
+
+		&.disabled > * {
+			pointer-events: none;
+		}
 	}
 }
 
-.moon-video-player-control-buttons.disabled > * {
-	pointer-events: none;
+/* --- Video Control Buttons --- */
+.moon-video-player-controls {
+	.moon-icon {
+		width: @moon-icon-button-size;
+		height: @moon-icon-button-size;
+		// need this to override the default margin of moon-icon -- 9px 14px
+		margin: 0 10px;
+		background-color: transparent;
+		background-position: 0 0;
+		background-size: @moon-icon-button-size (@moon-icon-button-size * 2);
+		color: @moon-icon-video-controls-font-color;
+		line-height: @moon-icon-button-size;
+
+		&.spotlight {
+			color: @moon-accent;
+			background-position: center -@moon-icon-sprite-size - 10;
+		}
+
+		&.moon-icon-playpause-font-style {
+			font-size: @moon-icon-playpause-font-size;
+		}
+
+		&.moon-icon-video-main-control-font-style {
+			font-size: @moon-icon-main-control-font-size;
+		}
+	}
+
+	.moon-icon-video-round-controls-style {
+		color: @moon-icon-video-round-controls-font-color;
+		background-color: @moon-icon-video-round-controls-bg-color;
+		border-radius: @moon-button-border-radius;
+
+		&.spotlight {
+			color: @moon-white;
+			background-color: @moon-accent;
+		}
+
+		&.moon-icon-video-more-controls-font-style {
+			font-size: @moon-icon-arrowextendshrink-font-size;
+		}
+	}
 }
 
-/* ---- Equal space margin on fullscreen player control buttons ---- */
-.moon-video-fullscreen-control  .moon-video-player-control-buttons {
-	white-space: nowrap;
-	text-align: center;
-}
-.moon-video-fullscreen-control  .moon-video-player-control-buttons > * {
-	margin: 0 40px;
-}
-.moon-video-fullscreen-control  .moon-video-player-control-buttons > :first-child {
-	margin-left: 0;
-}
-.moon-video-fullscreen-control  .moon-video-player-control-buttons > :last-child {
-	margin-right: 0;
-}
+/* Video Player More Control Buttons */
+.moon-video-player-more-controls {
+	border-left: 2px solid white;
+	padding: 0 0 0 @moon-spotlight-outset;
 
-/* ---- Slider container styling ---- */
-.moon-video-player-slider-container {
-	padding: 90px 0 0 0;
-	height: 80px;
-}
-.moon-video-player-slider-container .moon-slider {
-	margin: 0 0 0 !important;
+	> * {
+		vertical-align: middle;
+	}
 }

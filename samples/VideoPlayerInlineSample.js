@@ -38,15 +38,15 @@ enyo.kind({
 			],
 			components: [
 				{kind: "moon.VideoFullscreenToggleButton"},
-				{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
-				{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
-				{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
-				{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
-				{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
-				{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
-				{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
-				{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
-				{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"}
+				{kind: "moon.Icon", classes:"moon-icon-video-round-controls-style"},
+				{kind: "moon.Icon", classes:"moon-icon-video-round-controls-style"},
+				{kind: "moon.Icon", classes:"moon-icon-video-round-controls-style"},
+				{kind: "moon.Icon", classes:"moon-icon-video-round-controls-style"},
+				{kind: "moon.Icon", classes:"moon-icon-video-round-controls-style"},
+				{kind: "moon.Icon", classes:"moon-icon-video-round-controls-style"},
+				{kind: "moon.Icon", classes:"moon-icon-video-round-controls-style"},
+				{kind: "moon.Icon", classes:"moon-icon-video-round-controls-style"},
+				{kind: "moon.Icon", classes:"moon-icon-video-round-controls-style"}
 			]
 		}
 	]
