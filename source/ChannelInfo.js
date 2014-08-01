@@ -99,9 +99,9 @@
 		* @private
 		*/
 		components: [
-			{kind: 'moon.MarqueeText', name: 'channelNo', classes: 'moon-header-font moon-video-player-channel-info-no'},
-			{kind: 'moon.MarqueeText', name: 'channelName', classes: 'moon-video-player-channel-info-name'},
-			{kind: 'enyo.Control', name: 'client', classes: 'moon-video-player-channel-info-badges'}
+			{kind: 'moon.MarqueeText', name: 'channelNo', classes: 'moon-header-text moon-video-player-channel-info-no'},
+			{kind: 'moon.MarqueeText', name: 'channelName', classes: 'moon-sub-header-text moon-video-player-channel-info-name'},
+			{kind: 'enyo.Control', name: 'client', classes: 'moon-sub-header-text moon-video-player-channel-info-badges'}
 		],
 
 		/**
@@ -155,12 +155,7 @@
 		/**
 		* @private
 		*/
-		kind: 'enyo.Control',
-
-		/**
-		* @private
-		*/
-		classes: 'moon-video-badge-text moon-video-player-info-icon'
+		classes: 'moon-video-player-info-icon'
 	});
 
 })(enyo, this);
