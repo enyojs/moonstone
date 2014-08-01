@@ -609,7 +609,7 @@
 		*/
 		requestSetupBounds: function(sender, event) {
 			this.scrollBounds = this._getScrollBounds();
-			if (!(this.validBound(this.scrollBounds.clientHeight) && this.validBound(this.scrollBounds.clientWidth))) {
+			if (this.validBound(this.scrollBounds.clientHeight) && this.validBound(this.scrollBounds.clientWidth)) {
 				this.setupBounds();
 				this.scrollBounds = null;
 				if ((this.showVertical() && this.$.scrollMath.bottomBoundary) || (this.showHorizontal() && this.$.scrollMath.rightBoundary)) {
