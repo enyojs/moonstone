@@ -609,7 +609,7 @@
 		*/
 		requestSetupBounds: function(sender, event) {
 			this.scrollBounds = this._getScrollBounds();
-			if (this.validBound(this.scrollBounds.clientHeight) && this.validBound(this.scrollBounds.clientWidth)) {
+			if (this.scrollBounds.clientHeight && this.scrollBounds.clientWidth) {
 				this.setupBounds();
 				this.scrollBounds = null;
 				if ((this.showVertical() && this.$.scrollMath.bottomBoundary) || (this.showHorizontal() && this.$.scrollMath.rightBoundary)) {
@@ -617,13 +617,6 @@
 				}
 				return true;
 			}
-		},
-
-		/*
-		* @private
-		*/
-		validBound: function(value) {
-			return (!isNaN(value) && value != null);
 		},
 
 		/**
