@@ -954,7 +954,8 @@
 			this._isPlaying = false;
 			this._canPlay = false;
 			this._errorCode = null;
-			this.src = '';
+			this.src ='';
+			this.sources = null;
 			this.updatePlaybackControlState();
 			this.updateSpinner();
 		},
