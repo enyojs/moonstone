@@ -54,6 +54,11 @@
 		/**
 		* @private
 		*/
+		scrim: true,
+
+		/**
+		* @private
+		*/
 		handlers: {
 			onRequestScrollIntoView   : '_preventEventBubble',
 			ontransitionend           : 'animationEnd',
@@ -74,7 +79,7 @@
 		published: {
 			/**
 			* Determines whether a scrim will appear when the dialog is modal. If `true`,
-			* {@link moon.Scrim} provides a transparent (i.e., invisible) overlay that prevents
+			* {@link enyo.Scrim} provides a transparent (i.e., invisible) overlay that prevents
 			* propagation of tap events.
 			*
 			* @type {Boolean}
@@ -342,13 +347,13 @@
 					}
 				}
 				this.activator = enyo.Spotlight.getCurrent();
-				moon.Popup.count++;
-				this.applyZIndex();
+				//moon.Popup.count++;
+				//this.applyZIndex();
 			}
 			else {
-				if(moon.Popup.count > 0) {
-					moon.Popup.count--;
-				}
+				//if(moon.Popup.count > 0) {
+					//moon.Popup.count--;
+				//}
 				if (this.generated) {
 					this.respotActivator();
 				}
@@ -476,21 +481,9 @@
 		/**
 		* @private
 		*/
-		getScrim: function() {
-			// show a transparent scrim for modal popups if scrimWhenModal is true
-			// if scrim is true, then show a regular scrim.
-			if (this.modal && this.scrimWhenModal && !this.scrim) {
-				return moon.scrimTransparent.make();
-			}
-			return moon.scrim.make();
-		},
-
-		/**
-		* @private
-		*/
 		applyZIndex: function() {
 			// Adjust the zIndex so that popups will properly stack on each other.
-			this._zIndex = moon.Popup.count * 2 + this.findZIndex() + 1;
+			this._zIndex = enyo.Popup.count * 2 + this.findZIndex() + 1;
 			// leave room for scrim
 			this.applyStyle('z-index', this._zIndex);
 		},
