@@ -1344,7 +1344,7 @@
 		* @private
 		*/
 		sliderSeekFinish: function(sender, e) {
-			if (e.value < this._duration - 1) {
+			if (e.value < this.duration - 1) {
 				if (!this._isPausedBeforeDrag) {
 					this.play();
 				} else {
@@ -1409,9 +1409,9 @@
 		* @private
 		*/
 		updateInlinePosition: function() {
-			var percentComplete = this._duration ? Math.round(this._currentTime * 1000 / this._duration) / 10 : 0;
+			var percentComplete = this.duration ? Math.round(this._currentTime * 1000 / this.duration) / 10 : 0;
 			this.$.progressStatus.applyStyle('width', percentComplete + '%');
-			this.$.currTime.setContent(this.formatTime(this._currentTime) + ' / ' + this.formatTime(this._duration));
+			this.$.currTime.setContent(this.formatTime(this._currentTime) + ' / ' + this.formatTime(this.duration));
 		},
 
 		/**
@@ -1768,7 +1768,7 @@
 				return;
 			}
 
-			this._duration = e.duration;
+			this.duration = e.duration;
 			this._currentTime = e.currentTime;
 
 			this.updatePosition();
@@ -1797,11 +1797,11 @@
 		* @private
 		*/
 		durationUpdate: function(sender, e) {
-			this._duration = this.$.video.getDuration();
+			this.duration = this.$.video.getDuration();
 			this._currentTime = this.$.video.getCurrentTime();
 
 			this.$.slider.setMin(0);
-			this.$.slider.setMax(this._duration);
+			this.$.slider.setMax(this.duration);
 
 			this.updatePosition();
 
@@ -1865,7 +1865,7 @@
 		*/
 		_resetTime: function() {
 			this._currentTime = 0;
-			this._duration = 0;
+			this.duration = 0;
 			this.updatePosition();
 			this.$.slider.setBgProgress(0);
 			this.$.bgProgressStatus.applyStyle('width', 0);
