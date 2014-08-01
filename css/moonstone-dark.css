@@ -791,6 +791,9 @@
 .enyo-locale-right-to-left .moon-marquee {
   text-align: right;
 }
+.moon-marquee.allow-wrap {
+  white-space: normal !important;
+}
 .moon-simple-picker {
   display: inline-block;
   max-width: 350px;

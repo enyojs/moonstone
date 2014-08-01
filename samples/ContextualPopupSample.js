@@ -155,10 +155,54 @@ enyo.kind({
 					]}
 				]
 			}
+		]},
+		{style: 'position: absolute; left: 30%; top: 25%;', components: [
+			{kind: 'moon.Divider', content: 'Button Position', classes: 'radioItemFont'},
+			{kind: moon.InputDecorator, components: [
+				{kind: 'moon.Input', style: 'width: 120px', name:'leftInput', placeholder: 'left (px or %)', classes: 'radioItemFont'}
+			]},
+			{kind: 'moon.InputDecorator', components: [
+				{kind: 'moon.Input', style: 'width: 120px', name:'topInput', placeholder: 'top (px or %)', classes: 'radioItemFont'}
+			]},
+			{kind: 'moon.Button', small: true, content: 'Set Position', ontap: 'setPosition'}
+		]},
+		{style: 'position: absolute; left: 30%; top: 50%; ', components: [
+			{kind: 'moon.Divider', content: 'Popup Direction', classes: 'radioItemFont'},
+			{kind: 'moon.RadioItemGroup', onActivate: 'groupChanged', components: [
+				{content: 'none', classes: 'radioItemFont'},
+				{content: 'left', classes: 'radioItemFont'},
+				{content: 'right', classes: 'radioItemFont'},
+				{content: 'top', classes: 'radioItemFont'},
+				{content: 'bottom', classes: 'radioItemFont'}
+			]}
+		]},
+		{kind: 'moon.ContextualPopupDecorator', name: 'directionButton', style: 'position: absolute; left: 40%; top: 75%;', components: [
+			{content: 'Direction'},
+			{
+				kind: 'moon.ContextualPopup',
+				name: 'directionContext',
+				classes: 'moon-6h moon-4v',
+				components: [
+					{kind: moon.Scroller, horizontal: 'auto', classes: 'enyo-fill', components: [
+						{kind: moon.Button, content: 'Button 1'},
+						{kind: moon.Button, content: 'Button 2'}
+					]}
+				]
+			}
 		]}
 	],
 	buttonToggled: function(inSender, inEvent) {
 		this.$.buttonPopup.setSpotlightModal(inSender.getActive());
 		this.$.buttonPopup.setAutoDismiss(!inSender.getActive());
+	},
+	setPosition: function(){
+		this.$.directionButton.applyStyle('left', this.$.leftInput.getValue() === '' ? '40%' : this.$.leftInput.getValue());
+		this.$.directionButton.applyStyle('top', this.$.topInput.getValue() === '' ? '70%' : this.$.topInput.getValue());
+	},
+	groupChanged: function(inSender, inEvent) {
+		if(inEvent.originator.getActive() && inEvent.originator.kind === 'moon.RadioItem') {
+			var selected = inEvent.originator.getContent();
+			this.$.directionContext.set('direction', selected);
+		}
 	}
 });

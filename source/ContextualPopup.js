@@ -230,7 +230,126 @@
 			var rHeight = (r.height === undefined) ? (r.bottom - r.top) : r.height;
 			var rWidth = (r.width === undefined) ? (r.right - r.left) : r.width;
 
-			return {top: r.top + pageYOffset, left: r.left + pageXOffset, height: rHeight, width: rWidth};
+			return {top: r.top + pageYOffset, left: r.left + pageXOffset, height: rHeight, width: rWidth, bottom: r.top + pageYOffset + rHeight, right: r.left + pageXOffset + rWidth};			
+		},
+
+		/**
+		* @private
+		*/
+		resetDirection: function () {
+			this.removeClass('right');
+			this.removeClass('left');
+			this.removeClass('high');
+			this.removeClass('low');
+			this.removeClass('below');
+			this.removeClass('above');
+		},
+
+		/**
+		* Alter the direction of the popup
+		*
+		* @private
+		*/
+		alterDirection: function () {
+			var clientRect = this.getBoundingRect(this.node);
+			var viewPortHeight = enyo.dom.getWindowHeight();
+			var viewPortWidth = enyo.dom.getWindowWidth();
+			var offsetHeight = (clientRect.height - this.activatorOffset.height) / 2;
+			var offsetWidth = (clientRect.width - this.activatorOffset.width) / 2;
+			var popupMargin = 20;
+
+			var bounds = {top: null, left: null};
+
+			if(this.direction === 'left') {
+				if(clientRect.width + popupMargin < this.activatorOffset.left) { 
+					this.resetDirection();
+					this.addClass('right');
+
+					if(this.activatorOffset.top < offsetHeight) {
+						this.addClass('high');
+						bounds.top = this.activatorOffset.top;
+					} else if(viewPortHeight - this.activatorOffset.bottom < offsetHeight) {
+						this.addClass('low');
+						bounds.top = this.activatorOffset.bottom - clientRect.height;
+					} else {
+						bounds.top = this.activatorOffset.top - offsetHeight;
+					}
+
+					bounds.left = this.activatorOffset.left - clientRect.width;
+				}
+			} else if(this.direction === 'right') {
+				if(viewPortWidth > this.activatorOffset.right + clientRect.width + popupMargin) {
+					this.resetDirection();
+					this.addClass('left');
+
+					if(this.activatorOffset.top < offsetHeight) {
+						this.addClass('high');
+						bounds.top = this.activatorOffset.top;
+					} else if(viewPortHeight - this.activatorOffset.bottom < offsetHeight) {
+						this.addClass('low');
+						bounds.top = this.activatorOffset.bottom - clientRect.height;
+					} else {
+						bounds.top = this.activatorOffset.top - offsetHeight;
+					}
+
+					bounds.left = this.activatorOffset.right;
+				}
+			} else if(this.direction === 'top') {
+				if(clientRect.height + popupMargin < this.activatorOffset.top) {
+					this.resetDirection();
+					this.addClass('above');
+
+					if(this.activatorOffset.left < offsetWidth) {
+						this.addClass('right');
+						bounds.left = this.activatorOffset.left;
+					} else if(viewPortWidth - this.activatorOffset.right < offsetWidth) {
+						this.addClass('left');
+						bounds.left = this.activatorOffset.right - clientRect.width;
+					} else {
+						bounds.left = this.activatorOffset.left - offsetWidth;
+					}
+
+					bounds.top = this.activatorOffset.top - clientRect.height;
+				}
+			} else if(this.direction === 'bottom') {
+				if(viewPortHeight > this.activatorOffset.bottom + clientRect.height + popupMargin) {
+					this.resetDirection();
+					this.addClass('below');
+
+					if(this.activatorOffset.left < offsetWidth) {
+						this.addClass('right');
+						bounds.left = this.activatorOffset.left;
+					} else if(viewPortWidth - this.activatorOffset.right < offsetWidth) {
+						this.addClass('left');
+						bounds.left = this.activatorOffset.right - clientRect.width;
+					} else {
+						bounds.left = this.activatorOffset.left - offsetWidth;
+					}
+
+					bounds.top = this.activatorOffset.bottom;
+				}
+			}
+
+			this.setBounds(bounds);
+		},
+
+		/**
+		* @private
+		*/
+		getBoundingRect: function (node) {
+			// getBoundingClientRect returns top/left values which are relative to the viewport and not absolute
+			var o = node.getBoundingClientRect();
+			if (!o.width || !o.height) {
+				return {
+					left: o.left,
+					right: o.right,
+					top: o.top,
+					bottom: o.bottom,
+					width: o.right - o.left,
+					height: o.bottom - o.top
+				};
+			}
+			return o;
 		},
 
 		/**
@@ -403,7 +522,15 @@
 		*/
 		showingChanged: function () {
 			this.inherited(arguments);
+			this.alterDirection();
 			this.showHideScrim(this.showing);
+		},
+
+		/**
+		* @private
+		*/
+		directionChanged: function () {
+			this.alterDirection();
 		}
 	});
 
