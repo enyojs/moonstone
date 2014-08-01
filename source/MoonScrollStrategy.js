@@ -610,14 +610,12 @@
 		*/
 		requestSetupBounds: function(sender, event) {
 			this.scrollBounds = this._getScrollBounds();
-			if (this.scrollBounds.clientHeight && this.scrollBounds.clientWidth) {
-				this.setupBounds();
-				this.scrollBounds = null;
-				if ((this.showVertical() && this.$.scrollMath.bottomBoundary) || (this.showHorizontal() && this.$.scrollMath.rightBoundary)) {
-					this.alertThumbs();
-				}
-				return true;
+			this.setupBounds();
+			this.scrollBounds = null;
+			if ((this.showVertical() && this.$.scrollMath.bottomBoundary) || (this.showHorizontal() && this.$.scrollMath.rightBoundary)) {
+				this.alertThumbs();
 			}
+			return true;
 		},
 
 		/**
