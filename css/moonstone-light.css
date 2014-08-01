@@ -1534,6 +1534,17 @@
   filter: alpha(opacity=60);
 }
 /* Header */
+.moon-expandable-list-header {
+  margin: 0px;
+  background-position: right 0px top 24px;
+  background-repeat: no-repeat;
+  background-image: url(../images/LightTheme_Icons/SmallCarat_down1.png);
+  display: inline-block;
+  padding-right: 40px;
+}
+.moon-expandable-list-header.spotlight {
+  background-image: url(../images/LightTheme_Icons/SmallCarat_down2.png);
+}
 .moon-expandable-list-item-header {
   margin-bottom: 0px;
   box-sizing: border-box;
@@ -1542,6 +1553,12 @@
 .moon-expandable-list-item-header.disabled {
   opacity: 1;
   filter: alpha(opacity=100);
+}
+.moon-expandable-list-item.open .moon-expandable-list-item-header {
+  background-image: url(../images/LightTheme_Icons/SmallCarat_up1.png);
+}
+.moon-expandable-list-item.open .moon-expandable-list-item-header.spotlight {
+  background-image: url(../images/LightTheme_Icons/SmallCarat_up2.png);
 }
 .moon-expandable-list-item.open .spotlight .moon-expandable-list-item-header {
   color: #ffffff;
