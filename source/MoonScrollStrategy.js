@@ -609,7 +609,7 @@
 		*/
 		requestSetupBounds: function(sender, event) {
 			this.scrollBounds = this._getScrollBounds();
-			if (this.scrollBounds && this.validBound(this.scrollBounds.clientHeight) && this.validBound(this.scrollBounds.clientWidth)) {
+			if (!(this.validBound(this.scrollBounds.clientHeight) && this.validBound(this.scrollBounds.clientWidth))) {
 				this.setupBounds();
 				this.scrollBounds = null;
 				if ((this.showVertical() && this.$.scrollMath.bottomBoundary) || (this.showHorizontal() && this.$.scrollMath.rightBoundary)) {
@@ -734,7 +734,7 @@
 		* @private
 		*/
 		_getScrollBounds: function() {
-			if (this.scrollBounds || !this.$.clientContainer.hasNode()) {
+			if (this.scrollBounds) {
 				return this.scrollBounds;
 			}
 			var containerBounds = this.getContainerBounds(),
