@@ -424,11 +424,6 @@
 .moon-neutral-divider-border {
   border-bottom: 2px solid #ffffff;
 }
-.enyo-scrim.enyo-scrim-translucent {
-  background-color: #000000;
-  opacity: 0.3;
-  filter: alpha(opacity=30);
-}
 /* Text definitions */
 .moon-header-font {
   font-family: "Moonstone Miso";
