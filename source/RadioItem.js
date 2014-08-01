@@ -25,64 +25,13 @@
 		kind: 'moon.SelectableItem',
 
 		/**
-<<<<<<< HEAD
-		 * @private
-		 */
+		* @private
+		*/
 		create: function() {
 			this.inherited(arguments);
 			this.removeClass('moon-selectable-item');
 			this.addClass('moon-radio-item');
 		}
 	});
-
-=======
-		* @private
-		*/
-		classes: 'moon-radio-item',
-
-		/**
-		* @private
-		*/
-		componentOverrides: {
-			indicator: {kind: 'moon.RadioItemIndicator'}
-		}
-	});
-
-	/**
-	* `moon.RadioItemIndicator` is a control designed for use with
-	* [`moon.RadioItem`]{@link moon.RadioItem}. It is used to display the indicator dot that appears
-	* when a RadioItem is selected.
-	*
-	* @class moon.RadioItemIndicator
-	* @extends enyo.Control
-	* @ui
-	* @public
-	*/
-	enyo.kind(
-		/** @lends  moon.RadioItemIndicator.prototype */ {
-
-		/**
-		* @private
-		*/
-		name: 'moon.RadioItemIndicator',
-
-		/**
-		* @private
-		*/
-		kind: 'enyo.Control',
-
-		/**
-		* @private
-		*/
-		classes: 'moon-radio-item-indicator',
-
-		/**
-		* @private
-		*/
-		components: [
-			{classes: 'moon-radio-item-indicator-center-dot'}
-		]
-	});
-
 
 })(enyo, this);
