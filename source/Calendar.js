@@ -21,7 +21,7 @@
 	* the monthly calendar kind {@link moon.Calendar}.
 	*
 	* @class moon.CalendarDate
-	* @extends moon.Button
+	* @extends enyo.Control
 	* @ui
 	* @public
 	*/
@@ -36,7 +36,7 @@
 		/**
 		* @private
 		*/
-		kind: 'moon.Button',
+		kind: 'enyo.Control',
 
 		/**
 		* @private
