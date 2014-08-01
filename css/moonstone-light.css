@@ -1437,10 +1437,8 @@
 .moon-radio-item.selected:before {
   background-color: #cf0652;
 }
-.enyo-locale-right-to-left {
-  margin: 0 0 0 15px;
-}
 .enyo-locale-right-to-left .moon-radio-item {
+  margin: 0 0 0 15px;
   padding: 10px 42px 10px 10px;
 }
 .enyo-locale-right-to-left .moon-radio-item:before {
