@@ -778,7 +778,7 @@
 			this.$.marqueeText.applyStyle('transition-duration', duration + 's');
 			this.$.marqueeText.applyStyle('-webkit-transition-duration', duration + 's');
 
-			enyo.dom.transform(this, {translateZ: -0.01});
+			enyo.dom.transform(this, {translateZ: '-0.1px'});
 
 			// Need this timeout for FF!
 			setTimeout(this.bindSafely(function () {
@@ -804,7 +804,7 @@
 			setTimeout(this.bindSafely(function () {
 				this.$.marqueeText.removeClass('animate-marquee');
 				enyo.dom.transform(this.$.marqueeText, {translateX: null});
-				enyo.dom.transform(this.$.marqueeText, {translateZ: null});
+				enyo.dom.transform(this, {translateZ: null});
 			}), enyo.platform.firefox ? 100 : 0);
 		},
 
