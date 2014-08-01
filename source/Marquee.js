@@ -230,11 +230,8 @@
 				// FIXME: not sure why events can arrive without event objects, but we guard here for safety
 				if (oEvent && !oEvent.delegate) {
 					var handler = this._marquee_Handlers[sEventName];
-					if (handler){
-						this.cachePoint = true;
-						if(this[handler](oSender, oEvent)) {
-							return true;
-						}
+					if (handler && this[handler](oSender, oEvent)) {
+						return true;
 					}
 				}
 				return sup.apply(this, arguments);
