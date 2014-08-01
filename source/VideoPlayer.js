@@ -1,27 +1,49 @@
 (function (enyo, scope) {
 	/**
-	* Fires when [_disablePlaybackControls_]{@link enyo.VideoPlayer#disablePlaybackControls} 
+	* Fires when [`disablePlaybackControls`]{@link enyo.VideoPlayer#disablePlaybackControls} 
 	* is `true` and the user taps one of the [controls]{@link enyo.Control}; may be handled to 
 	* re-enable the controls, if desired. No event-specific information is sent with this event.
 	*
-	* @event moon.VideoPlayer#event:onPlaybackControlsTapped
+	* @event moon.VideoPlayer#onPlaybackControlsTapped
 	* @type {Object}
 	* @public
 	*/
 
 	/**
-	* _moon.VideoPlayer_ is an HTML5 [video]{@glossary video} player control.  It wraps an 
+	* Child controls can bubble this event to toggle the full-screen state of the video player. No
+	* additional data needs to be sent with this event.
+	*
+	* @event moon.VideoPlayer#onRequestFullscreen
+	* @type {Object}
+	* @public
+	*/
+
+	/**
+	* Child controls can bubble this event to request an update to the current video position.
+	*
+	* @event moon.VideoPlayer#onRequestTimeChange
+	* @type {Object}
+	* @property {Number} value - Requested time index
+	* @public
+	*/
+
+	/**
+	* `moon.VideoPlayer` is an HTML5 [video]{@glossary video} player control.  It wraps an 
 	* {@link enyo.Video} [object]{@glossary Object} to provide Moonstone-styled standard transport 
 	* [controls]{@link enyo.Control}, optional app-specific controls, and an information bar for 
 	* displaying video information and player feedback.
 	* 
-	* All of the standard HTML5 media [events]{@glossary event} bubbled from _enyo.Video_ will also
-	* bubble from this control.
+	* All of the standard HTML5 media [events]{@glossary event} bubbled from `enyo.Video` will
+	* also bubble from this control.
 	* 
-	* Client [components]{@link enyo.Component} added to the _components_ block are rendered into 
+	* Client [components]{@link enyo.Component} added to the `components` block are rendered into 
 	* the video player's transport control area, and should generally be limited to instances of 
-	* {moon.IconButton}. If more than two client components are specified, they will be rendered 
-	* into an "overflow" screen, reached by activating a button to the right of the controls.
+	* {@link moon.IconButton}. If more than two client components are specified, they will be
+	* rendered into an "overflow" screen, reached by activating a button to the right of the
+	* controls.
+	*
+	* Client components addded to the [`infoComponents`]{@link moon.VideoPlayer#infoComponents}
+	* block will be created as a header for the video.
 	*
 	* ```javascript
 	* {
@@ -32,13 +54,18 @@
 	*		{kind: 'moon.IconButton', src: 'assets/feature1.png', ontap: 'feature1'},
 	*		{kind: 'moon.IconButton', src: 'assets/feature2.png', ontap: 'feature2'},
 	*		{kind: 'moon.IconButton', src: 'assets/feature3.png', ontap: 'feature3'}
-	*	]
+	*	],
+	*	infoComponents: [
+	*		{kind: 'moon.VideoHeaderBackground', components: [
+	*			{kind: 'moon.VideoInfoHeader', ... }
+	*		]
+	*	],
 	* }
 	* ```
 	*
-	* @ui
 	* @class moon.VideoPlayer
 	* @extends enyo.Control
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -74,9 +101,9 @@
 
 		/**
 		* @private
+		* @lends moon.VideoPlayer.prototype
 		*/
-		published: 
-			/** @lends moon.VideoPlayer.prototype */ {
+		published: {
 			
 			/** 
 			* URL of HTML5 video
@@ -90,16 +117,28 @@
 			/** 
 			* Array for setting multiple sources for the same video
 			*
-			* @type {Array}
+			* @type {String[]}
 			* @default null
 			* @public
 			*/
 			sources: null,
+
+			/**
+			* A [component]{@link enyo.Component} definition block describing components to be
+			* created as an information block above the video. Usually, this contains a
+			* [`moon.VideoInfoBackground`]{@link moon.VideoInfoBackground} with a
+			* [`moon.VideoInfoHeader`]{@link moon.VideoInfoHeader} in it.
+			*
+			* @type {Object}
+			* @default null
+			* @public
+			*/
+			infoComponents: null,
 			
 			/**
 			* When `true`, the video player is resized after metadata is loaded, based on the 
-			* [_aspectRatio_]{@link moon.VideoPlayer#aspectRatio} contained in the metadata. This 
-			* applies only to [inline]{@link moon.VideoPlayer#inline} mode--i.e., when 
+			* [`aspectRatio`]{@link moon.VideoPlayer#aspectRatio} contained in the metadata. This 
+			* applies only to [`inline`]{@link moon.VideoPlayer#inline} mode -- i.e., when 
 			* `inline: true`.
 			*
 			* @type {Boolean}
@@ -109,11 +148,11 @@
 			autoResize: false,
 			
 			/**
-			* Video aspect ratio, specified as `width:height`, or `none`.  When an aspect ratio is 
-			* specified at render time, the player's height or width will be updated to respect the 
-			* ratio, depending on whether [_fixedHeight_]{@link moon.VideoPlayer#fixedHeight} is
-			* `true` or `false`. If [_autoResize_]{@link moon.VideoPlayer#autoResize} is `true`, the
-			* _aspectRatio_ will be updated based on the metadata for the current video and the 
+			* Video aspect ratio, specified as `'width:height'`, or `'none'`.  When an aspect ratio
+			* is specified at render time, the player's height or width will be updated to respect
+			* the ratio, depending on whether [`fixedHeight`]{@link moon.VideoPlayer#fixedHeight} is
+			* `true` or `false`. If [`autoResize`]{@link moon.VideoPlayer#autoResize} is `true`, the
+			* `aspectRatio` will be updated based on the metadata for the current video and the
 			* player will be resized accordingly. This applies only to inline mode.
 			*
 			* @type {String}
@@ -126,8 +165,8 @@
 			* When `true`, the width will be adjusted at render time based on the observed height 
 			* and the aspect ratio. When `false` (the default), the height will be adjusted at 
 			* render time based on the observed width and the aspect ratio. This property is ignored
-			* if [_aspectRatio_]{@link moon.VideoPlayer#aspectRatio} is `none` or a falsy value. In
-			* addition, this applies only to inline mode.
+			* if [`aspectRatio`]{@link moon.VideoPlayer#aspectRatio} is `'none'` or a **falsy**
+			* value.  In addition, this applies only to inline mode.
 			*
 			* @type {Boolean}
 			* @default false
@@ -164,7 +203,7 @@
 
 			/**
 			* When `false`, fullscreen video control overlays (info or transport) are not shown or 
-			* hidden automatically in response to _up/down_ events.
+			* hidden automatically in response to **up/down** events.
 			*
 			* @type {Boolean}
 			* @default true
@@ -174,7 +213,7 @@
 
 			/**
 			* When `true`, the overlay will be shown in response to pointer movement (in addition to
-			* _up/down_ events).
+			* **up/down** events).
 			*
 			* @type {Boolean}
 			* @default false
@@ -183,8 +222,8 @@
 			shakeAndWake: false,
 
 			/**
-			* When `false`, the top _infoComponents_ are not automatically shown or hidden in 
-			* response to _up_ events}.
+			* When `false`, the top [`infoComponents`]{@link moon.VideoPlayer#infoComponents} are
+			* not automatically shown or hidden in response to **up** events}.
 			*
 			* @type {Boolean}
 			* @default true
@@ -194,7 +233,7 @@
 
 			/**
 			* When `false`, the bottom slider/controls are not automatically shown or hidden in 
-			* response to _down_ events.
+			* response to **down** events.
 			*
 			* @type {Boolean}
 			* @default true
@@ -203,8 +242,9 @@
 			autoShowControls: true,
 
 			/**
-			* When `true`, the top _infoComponents_ are shown with no timeout; when `false`, they 
-			* are shown based on [_autoShow_]{@link moon.VideoPlayer#autoShow} property values.
+			* When `true`, the top [`infoComponents`]{@link moon.VideoPlayer#infoComponents} are
+			* shown with no timeout; when `false`, they are shown based on
+			* [`autoShow`]{@link moon.VideoPlayer#autoShow} property values.
 			*
 			* @type {Boolean}
 			* @default false
@@ -224,7 +264,7 @@
 
 			/**
 			* Amount of time (in seconds) to jump in response to jump buttons. This value is ignored
-			* when [_jumpStartEnd_]{@link moon.VideoPlayer#jumpStartEnd} is `true`.
+			* when [`jumpStartEnd`]{@link moon.VideoPlayer#jumpStartEnd} is `true`.
 			*
 			* @type {Number}
 			* @default 30
@@ -243,7 +283,7 @@
 			jumpStartEnd: false,
 
 			/**
-			* When `true`, popups opened from _VideoPlayer_ client controls are automatically 
+			* When `true`, popups opened from `VideoPlayer` client controls are automatically 
 			* hidden.
 			*
 			* @type {Boolean}
@@ -311,7 +351,7 @@
 			/**
 			* When `true`, the slider and playback controls are disabled. If the user taps the 
 			* controls, an 
-			* [_onPlaybackControlsTapped_]{@link enyo.VideoPlayer#event:onPlaybackControlsTapped} 
+			* [`onPlaybackControlsTapped`]{@link enyo.VideoPlayer#onPlaybackControlsTapped} 
 			* event will be bubbled.
 			*
 			* @type {Boolean}
@@ -494,12 +534,20 @@
 			onSpotlightRight: 'spotlightLeftRightFilter',
 			onresize: 'handleResize'
 		},
+		
+		/**
+		* @private
+		*/
+		eventsToCapture: {
+			onSpotlightFocus: 'capturedFocus'
+		},
 
 		/**
 		* @private
 		*/
 		bindings: [
-			{from: '.sourceComponents',			to:'.$.video.sourceComponents'},
+			{from: '.src',						to:'.$.video.src'},
+			{from: '.sources',					to:'.$.video.sourceComponents'},
 			{from: '.playbackRateHash',			to:'.$.video.playbackRateHash'},
 			{from: '.poster',					to:'.$.video.poster'},
 			{from: '.constrainToBgProgress',	to:'.$.slider.constrainToBgProgress'},
@@ -511,6 +559,13 @@
 			{from: '.showPlayPauseControl',		to:'.$.fsPlayPause.showing'},
 			{from: '.showVideo',				to:'.$.videoContainer.showing'}
 		],
+
+		/**
+		* @private
+		*/
+		observers: {
+			updateSource: ['src', 'sources']
+		},
 		
 		/**
 		* @private
@@ -604,7 +659,7 @@
 		*/
 		create: function() {
 			this.inherited(arguments);
-			this.srcChanged();
+			this.updateSource();
 			this.createInfoControls();
 			this.inlineChanged();
 			this.showInfoChanged();
@@ -664,7 +719,7 @@
 		updatePlaybackControlState: function() {
 			var disabled = this.disablePlaybackControls || 
 				this._panelsShowing || 
-				(this.disablePlaybackControlsOnUnload && (this._errorCode || !this.getSrc()));
+				(this.disablePlaybackControlsOnUnload && (this._errorCode || (!this.getSrc() && !this.getSources()) ));
 			this.updateSliderState();
 			this.$.playbackControls.addRemoveClass('disabled', disabled);
 			this.$.jumpBack.setDisabled(disabled);
@@ -717,20 +772,11 @@
 		showProgressBarChanged: function(was) {
 			this.$.sliderContainer.setShowing(this.showProgressBar);
 		},
-		
-		/** 
-		* Overrides default _enyo.Control_ behavior.
-		*
-		* @private
-		*/
-		getSrc: function() {
-			return this.src;
-		},
 
 		/**
 		* @private
 		*/
-		srcChanged: function() {
+		updateSource: function(old, value, source) {
 			this._canPlay = false;
 			this._isPlaying = this.autoplay;
 			this._errorCode = null;
@@ -738,11 +784,18 @@
 			this.updateSpinner();
 			this.updatePlaybackControlState();
 			this._resetTime();
-			this.$.video.setSrc(this.getSrc());
+
+			// since src and sources are mutually exclusive, clear the other property
+			// when one changes
+			if (source === 'src') {
+				this.sources = null;
+			} else if (source === 'sources') {
+				this.src = '';
+			}
 		},
 
 		/** 
-		* Returns the underlying _enyo.Video_ control (wrapping the HTML5 video node).
+		* Returns the underlying {@link enyo.Video} control (wrapping the HTML5 video node).
 		*
 		* @returns {enyo.Video} An {@link enyo.Video} control.
 		* @public
@@ -863,7 +916,7 @@
 				this.disableSlider || 
 				this.disablePlaybackControls || 
 				!this._loaded || 
-				(this.disablePlaybackControlsOnUnload && (this._errorCode || !this.getSrc()));
+				(this.disablePlaybackControlsOnUnload && (this._errorCode || (!this.getSrc() && !this.getSources()) ));
 			this.$.slider.setDisabled(disabled);
 		},
 
@@ -941,7 +994,7 @@
 			this._isPlaying = false;
 			this._canPlay = false;
 			this._errorCode = null;
-			this.src = null;
+			this.src = '';
 			this.updatePlaybackControlState();
 			this.updateSpinner();
 		},
@@ -995,7 +1048,7 @@
 		panelsHandleFocused: function(sender, e) {
 			this._infoShowing = this.$.videoInfoHeaderClient.getShowing();
 			this._controlsShowing = this.$.playerControl.getShowing();
-			this.hideFSControls();
+			this.hideFSControls(true);
 		},
 
 		/**
@@ -1104,19 +1157,35 @@
 				this.showFSControls();
 			}
 		},
-		//* Sets _this.visible_ to true and clears hide job.
+
+		/** Sets `this.visible` to true and clears hide job.
+		*
+		* @private
+		*/
 		showFSControls: function(sender, e) {
 			this.showFSInfo();
 			this.showFSBottomControls();
 		},
-		hideFSControls: function() {
+
+		/**
+		* @private
+		*/
+		hideFSControls: function(spottingHandled) {
 			if (this.isOverlayShowing()) {
 				this.hideFSInfo();
 				this.hideFSBottomControls();
 			}
+			if (!spottingHandled) {
+				enyo.Spotlight.setPointerMode(false);
+				enyo.Spotlight.spot(this);
+			}
 			this.stopJob('autoHide');
 		},
-		//* Sets _this.visible_ to true and clears hide job.
+
+		/** Sets `this.visible` to true and clears hide job.
+		*
+		* @private
+		*/
 		showFSBottomControls: function(sender, e) {
 			if (this.autoShowOverlay && this.autoShowControls) {
 				this.resetAutoTimeout();
@@ -1163,10 +1232,9 @@
 		},
 
 		/** 
-		* Sets _this.visible_ to false.
+		* Sets `this.visible` to false.
 		*
 		* @private
-		*
 		*/
 		hideFSBottomControls: function() {
 			// When controls are hidden, set as just a spotlight true component, 
@@ -1186,7 +1254,11 @@
 			this.showScrim(false);
 			this.$.playerControl.setShowing(false);
 		},
-		//* Sets _this.visible_ to true and clears hide job.
+
+		/** Sets `this.visible` to true and clears hide job.
+		*
+		* @private
+		*/
 		showFSInfo: function() {
 			if (this.autoShowOverlay && this.autoShowInfo) {
 				this.resetAutoTimeout();
@@ -1197,18 +1269,30 @@
 				this.$.videoInfoHeaderClient.waterfallDown('onRequestStartMarquee');
 			}
 		},
-		//* Sets _this.visible_ to false.
+
+		/** Sets `this.visible` to false.
+		*
+		* @private
+		*/
 		hideFSInfo: function() {
 			if (!this.showInfo) {
 				this.$.videoInfoHeaderClient.setShowing(false);
 			}
 		},
+
+		/**
+		* @private
+		*/
 		resetAutoTimeout: function() {
 			if (this.isFullscreen() || !this.getInline()) {
 				this.startJob('autoHide', this.bindSafely('hideFSControls'), this.getAutoCloseTimeout());
 			}
 		},
-		//* Toggles play/pause state based on _this.playing_.
+
+		/** Toggles play/pause state based on `this.playing`.
+		*
+		* @private
+		*/
 		playPause: function(sender, e) {
 			if (this._isPlaying) {
 				this.pause(sender, e);
@@ -1353,7 +1437,7 @@
 		},
 
 		/** 
-		* Programatically updates slider position to match _this.currentTime_/_this.duration_.
+		* Programatically updates slider position to match `this.currentTime`/`this.duration`.
 		*
 		* @private
 		*/
@@ -1364,7 +1448,27 @@
 			this.$.slider.setValue(this._currentTime);
 		},
 
-
+		/**
+		* @private
+		*/
+		capture: function () {
+			enyo.dispatcher.capture(this, this.eventsToCapture);
+		},
+		
+		/**
+		* @private
+		*/
+		release: function () {
+			enyo.dispatcher.release(this);
+		},
+		
+		/**
+		* @private
+		*/
+		capturedFocus: function (sender, event) {
+			enyo.Spotlight.spot(this);
+			return true;
+		},
 
 		///// Inline controls /////
 
@@ -1414,7 +1518,9 @@
 				this.$.fullscreenControl.setShowing(true);
 				this.showFSControls();
 				this.$.controlsContainer.resize();
+				this.capture();
 			} else {
+				this.release();
 				this.stopJob('autoHide');
 				this.addClass('inline');
 				this.$.inlineControl.setShowing(true);
@@ -1426,7 +1532,7 @@
 		},
 
 		/** 
-		* Facades _this.$.video.play()_.
+		* Plays the video
 		*
 		* @public
 		*/
@@ -1439,7 +1545,7 @@
 		},
 		
 		/** 
-		* Facades _this.$.video.pause()_.
+		* Pauses the video
 		*
 		* @public
 		*/
@@ -1451,7 +1557,8 @@
 		},
 		
 		/** 
-		* Facades _this.$.video.rewind()_.
+		* Changes the playback speed based upon the previous playback setting and by cycling through
+		* the appropriate speeds.
 		*
 		* @public
 		*/
@@ -1463,7 +1570,8 @@
 		},
 
 		/** 
-		* Facades _this.$.video.jumpToStart()_.
+		* Jumps to beginning of media [source]{@link moon.VideoPlayer#src} and sets 
+		* [`playbackRate`]{@link enyo.Video#playbackRate} to `1`.
 		*
 		* @public
 		*/
@@ -1475,7 +1583,7 @@
 		},
 
 		/** 
-		* Facades _this.$.video.jumpBackward()_.
+		* Jumps backward [`jumpSec`]{@link moon.VideoPlayer#jumpSec} seconds from the current time.
 		*
 		* @public
 		*/
@@ -1486,7 +1594,8 @@
 		},
 
 		/** 
-		* Facades _this.$.video.fastForward()_.
+		* Changes the playback speed based upon the previous playback setting and by cycling through
+		* the appropriate speeds.
 		*
 		* @public
 		*/
@@ -1498,7 +1607,8 @@
 		},
 
 		/** 
-		* Facades _this.$.video.jumpToEnd()_.
+		* Jumps to end of media [source]{@link moon.VideoPlayer#src} and sets 
+		* [`playbackRate`]{@link enyo.Video#playbackRate} to `1`.
 		*
 		* @public
 		*/
@@ -1514,7 +1624,7 @@
 		},
 
 		/** 
-		* Facades _this.$.video.jumpForward()_.
+		* Jumps forward [`jumpSec`]{@link moon.VideoPlayer#jumpSec} seconds from the current time.
 		*
 		* @public
 		*/
@@ -1525,9 +1635,9 @@
 		},
 
 		/** 
-		* Facades _this.$.video.setCurrentTime()_.
+		* Sets the current time in the video
 		*
-		* @param {Number} val The current time to set the video to, in seconds.
+		* @param {Number} val - The current time to set the video to, in seconds.
 		* @public
 		*/
 		setCurrentTime: function(val) {
@@ -1535,7 +1645,7 @@
 		},
 
 		/** 
-		* Responds to _onRequestTimeChange_ event by setting current video time.
+		* Responds to `onRequestTimeChange` event by setting current video time.
 		*
 		* @private
 		*/
@@ -1925,7 +2035,8 @@
 		*/
 		_error: function(sender, e) {
 			// Error codes in e.currentTarget.error.code
-			// 1: MEDIA_ERR_ABORTED, 2: MEDIA_ERR_NETWORK, 3: MEDIA_ERR_DECODE, 4: MEDIA_ERR_SRC_NOT_SUPPORTED
+			// 1: MEDIA_ERR_ABORTED, 2: MEDIA_ERR_NETWORK, 3: MEDIA_ERR_DECODE,
+			// 4: MEDIA_ERR_SRC_NOT_SUPPORTED
 			this._errorCode = e.currentTarget.error.code;
 			this._loaded = false;
 			this._isPlaying = false;

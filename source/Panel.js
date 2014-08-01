@@ -3,7 +3,7 @@
 	* Fires when this [panel]{@link moon.Panel} has completed its pre-arrangement transition.
 	* No additional data is passed with this event.
 	*
-	* @event moon.Panel#event:onPreTransitionComplete
+	* @event moon.Panel#onPreTransitionComplete
 	* @type {Object}
 	* @public
 	*/
@@ -12,22 +12,22 @@
 	* Fires when this [panel]{@link moon.Panel} has completed its post-arrangement transition.
 	* No additional data is passed with this event.
 	*
-	* @event moon.Panel#event:onPostTransitionComplete
+	* @event moon.Panel#onPostTransitionComplete
 	* @type {Object}
 	* @public
 	*/
 
 	/**
-	* _moon.Panel_ is the default kind for controls created inside a
-	* [moon.Panels]{@link moon.Panels} container. [moon.Panels]{@link moon.Panels} will typically
-	* contain several instances of [moon.Panel]{@link moon.Panel}.
+	* `moon.Panel` is the default kind for controls created inside a
+	* [moon.Panels]{@link moon.Panels} container. `moon.Panels` will typically
+	* contain several instances of `moon.Panel`.
 	*
-	* The built-in features include an embedded {@link moon.Header} and a {@link enyo.FittableRows}
+	* The built-in features include an embedded {@link moon.Header} and an {@link enyo.FittableRows}
 	* layout for the main body content.
 	*
-	* @ui
 	* @class moon.Panel
 	* @extends enyo.Control
+	* @ui
 	* @public
 	*/
 
@@ -46,8 +46,9 @@
 
 		/**
 		* @private
+		* @lends moon.Panel.prototype
 		*/
-		published: /** @lends moon.Panel.prototype */ {
+		published: {
 			/**
 			* Facade for the {@link moon.Header#title} of the embedded {@link moon.Header}
 			*
@@ -85,8 +86,8 @@
 			subTitleBelow: '',
 
 			/**
-			* If `true`, the header's {@link moon.Header#titleAbove} property is automatically populated with the panel
-			* index
+			* If `true`, the header's {@link moon.Header#titleAbove} property is automatically
+			* populated with the panel index.
 			*
 			* @type {Boolean}
 			* @default true
@@ -95,11 +96,11 @@
 			autoNumber: true,
 
 			/**
-			* Facade for the {@link moon.Header#type} of the embedded {@link moon.Header}. Valid values are:
-			* `large`, `small` and `mini`.
+			* Facade for the {@link moon.Header#type} of the embedded {@link moon.Header}. Valid
+			* values are: `'large'`, `'small'` and `'medium'`.
 			*
 			* @type {String}
-			* @default ''
+			* @default 'large'
 			* @public
 			*/
 			headerType: 'large',
@@ -107,8 +108,8 @@
 			/**
 			* Facade for the {@link moon.Header#small} of the embedded {@link moon.Header}. Note:
 			* this property will be deprecated soon. For backward compatibility, I leave it for a
-			* while. And until it is removed, `small` refers to the historical size, which is now
-			* `medium`.
+			* while. And until it is removed, `'small'` refers to the historical size, which is now
+			* `'medium'`.
 			*
 			* @type {Boolean}
 			* @default false
@@ -608,9 +609,9 @@
 		*
 		* @param {Object} info - Information from the Panels component. Additional information may
 		*	be supplied by the arranger, such as breadcrumb and offscreen status.
-		* @param {number} info.from - The index the parent Panels was moving from for this transition
-		* @param {number} info.to - The index the parent Panels was moving to for this transition
-		* @param {number} info.index - The current index of this panel
+		* @param {Number} info.from - The index the parent Panels was moving from for this transition
+		* @param {Number} info.to - The index the parent Panels was moving to for this transition
+		* @param {Number} info.index - The current index of this panel
 		* @param {Boolean} info.animate - Whether the parent Panels is set to animate or not
 		* @public
 		*/

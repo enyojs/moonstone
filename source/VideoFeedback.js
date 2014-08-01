@@ -1,13 +1,13 @@
 (function (enyo, scope) {
 	/**
-	* _moon.VideoFeedback_ is a control used by	{@link moon.VideoPlayer} to display feedback in 
+	* `moon.VideoFeedback` is a control used by {@link moon.VideoPlayer} to display feedback in 
 	* response to input from video playback controls. It may also be used to display custom 
 	* messages. The {@link moon.VideoTransportSlider} control typically communicates directly with
-	* _moon.VideoFeedback_.
+	* `moon.VideoFeedback`.
 	*
-	* @ui
 	* @class moon.VideoFeedback
 	* @extends enyo.Control
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -30,9 +30,9 @@
 		
 		/**
 		* @private
+		* @lends enyo.VideoFeedback.prototype
 		*/
-		published: 
-			/** @lends enyo.VideoFeedback.prototype */ {
+		published: {
 
 			/**
 			* Length of time (in milliseconds) after which the on-screen feedback will automatically
@@ -130,10 +130,11 @@
 		},
 
 		/**
-		* Updates [IconButton]{@link moon.IconButton} image and [Slider]{@link moon.Slider} message 
-		* with current state and playback rate when any of the playback controls are triggered.
+		* Updates [`IconButton`]{@link moon.IconButton} image and [`Slider`]{@link moon.Slider}
+		* message with current state and playback rate when any of the playback controls are
+		* triggered.
 		*
-		* Playback states are mapped to _playbackRate_ values according to the following hash:
+		* Playback states are mapped to `playbackRate` values according to the following hash:
 		* 
 		* ```javascript
 		* {
@@ -165,16 +166,16 @@
 		/**
 		* Set the current state for a {@link moon.VideoFeedback} control.
 		*
-		* @param {String} msg The string to display.
-		* @param {moon.VideoTransportSlider~FeedbackParameterObject} params A 
+		* @param {String} msg - The string to display.
+		* @param {moon.VideoTransportSlider~FeedbackParameterObject} params - A 
 		*	[hash]{@glossary Object} of parameters that accompany the message.
-		* @param {Boolean} persist If `true`, the [feedback]{@link moon.VideoFeedback} control will
-		*	not be automatically hidden.
-		* @param {String} leftSrc The source url for the image that is displayed on the left side of
-		*	the [feedback]{@link moon.VideoFeedback} control.
-		* @param {String} rightSrc The source url for the image that is displayed on the right side 
+		* @param {Boolean} persist - If `true`, the [feedback]{@link moon.VideoFeedback} control
+		*	will not be automatically hidden.
+		* @param {String} leftSrc - The source url for the image that is displayed on the left side
 		*	of the [feedback]{@link moon.VideoFeedback} control.
-		* @param {Boolean} preview Pass in `true` if {@link moon.VideoPlayer} is in preview mode, 
+		* @param {String} rightSrc - The source url for the image that is displayed on the right
+		*	side of the [feedback]{@link moon.VideoFeedback} control.
+		* @param {Boolean} preview - Pass in `true` if {@link moon.VideoPlayer} is in preview mode,
 		*	`false` otherwise.
 		* @public
 		*/

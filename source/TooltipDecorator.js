@@ -1,59 +1,79 @@
 (function (enyo, scope) {
 	/**
-	 * _moon.TooltopDecorator_ is a control that activates a [moon.Tooltip]{@link moon.Tooltip}. It
-	 * surrounds a control such as a button and displays the tooltip when the control generates
-	 * an _onEnter_ event:
-	 *
-	 * ```
-	 * {kind: 'moon.TooltipDecorator', components: [
-	 *	{kind: 'moon.Button', content: 'Tooltip'},
-	 *	{kind: 'moon.Tooltip', content: 'I am a tooltip for a button.'}
-	 * ]}
-	 * ```
-	 *
-	 * Here is an example with a [moon.Input]{@link moon.Input} control and a decorator around the
-	 * input:
-	 *
-	 * ```
-	 * {kind: 'moon.TooltipDecorator', components: [
-	 *	{kind: 'moon.InputDecorator', components: [
-	 *		{kind: 'moon.Input', placeholder: 'Just an input...'}
-	 *	]},
-	 *	{kind: 'moon.Tooltip', content: 'I am just a tooltip for an input.'}
-	 * ]}
-	 * ```
-	 *
-	 * Automatic hiding and showing of tooltips may be disabled by calling
-	 * [mute()]{@link moon.TooltipDecorator#mute} or by bubbling the `onRequestMuteTooltip` event;
-	 *  it may be re-enabled by calling [unmute()]{@link moon.TooltipDecorator#unmute) or by
-	 *  bubbling the `onRequestUnmuteTooltip` event.
-	 *
-	 * @class moon.TooltipDecorator
-	 * @extends enyo.Control
-	 * @ui
-	 * @public
-	 */
+	* Bubble this event from a contained [`Control`]{@link enyo.Control} to mute tooltips. No data
+	* needs be passed with this event.
+	*
+	* @event enyo.TooltipDecorator#onRequestMuteTooltip
+	* @type {Object}
+	* @public
+	*/
+
+	/**
+	* Bubble this event from a contained [`Control`]{@link enyo.Control} to unmute tooltips. No data
+	* needs be passed with this event.
+	*
+	* @event enyo.TooltipDecorator#onRequestUnmuteTooltip
+	* @type {Object}
+	* @public
+	*/
+
+	/**
+	* `moon.TooltipDecorator` is a control that activates a [`moon.Tooltip`]{@link moon.Tooltip}. It
+	* surrounds a control such as a button and displays the tooltip when the control generates
+	* an `onenter` event:
+	*
+	* ```
+	* {kind: 'moon.TooltipDecorator', components: [
+	*	{kind: 'moon.Button', content: 'Tooltip'},
+	*	{kind: 'moon.Tooltip', content: 'I am a tooltip for a button.'}
+	* ]}
+	* ```
+	*
+	* Here is an example with a [`moon.Input`]{@link moon.Input} control and a decorator around the
+	* input:
+	*
+	* ```
+	* {kind: 'moon.TooltipDecorator', components: [
+	*	{kind: 'moon.InputDecorator', components: [
+	*		{kind: 'moon.Input', placeholder: 'Just an input...'}
+	*	]},
+	*	{kind: 'moon.Tooltip', content: 'I am just a tooltip for an input.'}
+	* ]}
+	* ```
+	*
+	* Automatic hiding and showing of tooltips may be disabled by calling
+	* [`mute()`]{@link moon.TooltipDecorator#mute} or by bubbling the
+	* [`onRequestMuteTooltip`]{@link enyo.TooltipDecorator#event:onRequestMuteTooltip} event;
+	*  it may be re-enabled by calling [`unmute()`]{@link moon.TooltipDecorator#unmute} or by
+	*  bubbling the
+	*  [`onRequestUnmuteTooltip`]{@link enyo.TooltipDecorator#event:onRequestUnmuteTooltip} event.
+	*
+	* @class moon.TooltipDecorator
+	* @extends enyo.Control
+	* @ui
+	* @public
+	*/
 	enyo.kind(
 		/** @lends  moon.TooltipDecorator.prototype */ {
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		name: 'moon.TooltipDecorator',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		defaultKind: 'moon.Button',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		classes: 'moon-contextual-popup-decorator',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		handlers: {
 			onenter: 'enter',
 			onleave: 'leave',
@@ -64,41 +84,42 @@
 		},
 
 		/**
-		 * @private
-		 */
-		published: /** @lends moon.TooltipDecorator.prototype */ {
+		* @private
+		* @lends moon.TooltipDecorator.prototype
+		*/
+		published: {
 			/**
-			 * Boolean indicating whether tooltips are automatically shown when the activator is
-			 * hovered over
-			 *
-			 * @type {Boolean}
-			 * @default true
-			 * @public
-			 */
+			* Boolean indicating whether tooltips are automatically shown when the activator is
+			* hovered over
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
 			autoShow: true
 		},
 
 		/**
-		 * Disables automatic tooltip showing/hiding.
-		 *
-		 * @public
-		 */
+		* Disables automatic tooltip showing/hiding.
+		*
+		* @public
+		*/
 		mute: function () {
 			this.setAutoShow(false);
 		},
 
 		/**
-		 * Re-enables automatic tooltip showing/hiding after being muted.
-		 *
-		 * @public
-		 */
+		* Re-enables automatic tooltip showing/hiding after being muted.
+		*
+		* @public
+		*/
 		unmute: function () {
 			this.setAutoShow(true);
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		autoShowChanged: function () {
 			if (!this.autoShow) {
 				this.requestHideTooltip();
@@ -106,52 +127,52 @@
 		},
 
 		/**
-		 * @private
-		 */
-		enter: function () {
-			this.requestShowTooltip();
+		* @private
+		*/
+		enter: function (inSender, inEvent) {
+			this.requestShowTooltip(inSender, inEvent);
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		leave: function () {
 			this.requestHideTooltip();
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		spotFocused: function () {
 			this.requestShowTooltip();
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		spotBlur: function () {
 			this.requestHideTooltip();
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		tap: function () {
 			this.requestHideTooltip();
 		},
 
 		/**
-		 * @private
-		 */
-		requestShowTooltip: function () {
+		* @private
+		*/
+		requestShowTooltip: function (inSender, inEvent) {
 			if (this.autoShow && !enyo.Spotlight.isFrozen()) {
-				this.waterfallDown('onRequestShowTooltip');
+				this.waterfallDown("onRequestShowTooltip", inEvent, inSender);
 			}
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		requestHideTooltip: function () {
 			this.waterfallDown('onRequestHideTooltip');
 		}

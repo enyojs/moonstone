@@ -2,20 +2,19 @@
 	/**
 	* Fires when the control is either checked or unchecked.
 	*
-	* _event.toggledControl_ 	*
-	* @event moon.CheckboxItem#event:onActivate
+	* @event moon.CheckboxItem#onActivate
 	* @type {Object}
 	* @property {Boolean} checked - indicates whether the checkbox is currently checked.
 	* @property {Object} toggledControl - contains a reference to the CheckboxItem whose
 	*	state toggled. (Note that the originator of this event is actually the
-	*	{@link moon.Checkbox} contained within the CheckboxItem, so use this property to
-	*	reference the CheckboxItem.)
+	*	{@link moon.Checkbox} contained within the `CheckboxItem`, so use this property to
+	*	reference the `CheckboxItem`.)
 	*
 	* @public
 	*/
 
 	/**
-	* _moon.CheckboxItem_ is a control that combines a {@link moon.Checkbox} with a text label.
+	* `moon.CheckboxItem` is a control that combines a {@link moon.Checkbox} with a text label.
 	* The label text may be set via the {@link enyo.Control#content} property. The state of the
 	* checkbox may be retrieved by querying the {@link moon.CheckboxItem#checked} property.
 	*
@@ -68,8 +67,9 @@
 
 		/**
 		* @private
+		* @lends moon.CheckboxItem.prototype
 		*/
-		published: /** @lends moon.CheckboxItem.prototype */ {
+		published: {
 
 			/**
 			* Boolean value indicating whether checkbox is currently checked
@@ -81,7 +81,7 @@
 			checked: false,
 
 			/**
-			* If true, checkbox will be displayed on the right side of the checkbox item
+			* If `true`, checkbox will be displayed on the right side of the checkbox item
 			*
 			* @type {Boolean}
 			* @default false
@@ -90,14 +90,40 @@
 			checkboxOnRight: false,
 
 			/**
-			* When true, button is shown as disabled and does not generate tap
-			* events
+			* When `true`, button is shown as disabled and does not generate tap events
 			*
 			* @type {Boolean}
 			* @default false
 			* @public
 			*/
-			disabled: false
+			disabled: false,
+
+			/**
+			* When locked is true, cannot change the value of the checked property
+			*
+			* @type {Boolean}
+			* @default false
+			* @public
+			*/
+			locked: false,
+
+			/**
+			* Customize the appearance of the checkbox with an icon name. Consult moon.Icon for valid values
+			*
+			* @type {String}
+			* @default 'check'
+			* @public
+			*/
+			icon: 'check',
+
+			/**
+			* Customize the appearance of the checkbox with an image asset.
+			*
+			* @type {String}
+			* @default ''
+			* @public
+			*/
+			src: ''
 		},
 
 		/**
@@ -152,6 +178,7 @@
 			this.inherited(arguments);
 			this.disabledChanged();
 			this.checkboxOnRightChanged();
+			this.lockedChanged();
 		},
 
 		/**
@@ -159,6 +186,10 @@
 		*/
 		rendered: function () {
 			this.inherited(arguments);
+			if (this.src || this.icon) {
+				this.srcChanged();
+				this.iconChanged();
+			}
 			this.checkedChanged();
 		},
 
@@ -186,7 +217,7 @@
 
 		/**
 		* waterfall event
-		* @fires enyo.Control#event:ontap
+		* @fires enyo.Control#ontap
 		* @private
 		*/
 		tap: function (inSender, inEvent) {
@@ -196,7 +227,7 @@
 		},
 
 		/**
-		* @fires moon.CheckboxItem#event:onActivate
+		* @fires moon.CheckboxItem#onActivate
 		* @private
 		*/
 		decorateActivateEvent: function (inSender, inEvent) {
@@ -206,7 +237,7 @@
 		},
 
 		/**
-		* @fires moon.Scroller#event:onRequestScrollIntoView
+		* @fires moon.Scroller#onRequestScrollIntoView
 		* @private
 		*/
 		spotlightFocused: function (inSender, inEvent) {
@@ -220,6 +251,27 @@
 		*/
 		contentChanged: function () {
 			this.$.client.setContent(this.getContent());
+		},
+
+		/**
+		* @private
+		*/
+		lockedChanged: function() {
+			this.$.input.setLocked(this.locked);
+		},
+
+		/**
+		* @private
+		*/
+		iconChanged: function() {
+			this.$.input.setIcon(this.icon);
+		},
+
+		/**
+		* @private
+		*/
+		srcChanged: function() {
+			this.$.input.setSrc(this.src);
 		}
 	});
 

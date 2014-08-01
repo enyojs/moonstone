@@ -2,22 +2,22 @@
 	/**
 	* Fired when a date is selected. No information is passed in this event.
 	*
-	* @event moon.CalendarDate#event:onDateSelected
+	* @event moon.CalendarDate#onDateSelected
 	* @type {Object}
 	* @public
 	*/
 
 	/**
-	* Fired when the [value]{@link moon.Calendar#value} changes.
+	* Fired when [`value`]{@link moon.Calendar#value} changes.
 	*
-	* @event moon.Calendar#event:onChange
+	* @event moon.Calendar#onChange
 	* @type {Object}
-	* @property {Date} value - contains a standard JavaScript Date object
+	* @property {Date} value - contains a standard JavaScript {@glossary Date} object
 	* @public
 	*/
 
 	/**
-	* _moon.CalendarDate_ implements a control representing a single day, used by
+	* `moon.CalendarDate` implements a control representing a single day, used by
 	* the monthly calendar kind {@link moon.Calendar}.
 	*
 	* @class moon.CalendarDate
@@ -40,13 +40,14 @@
 
 		/**
 		* @private
+		* @lends moon.CalendarDate.prototype
 		*/
-		published: /** @lends moon.CalendarDate.prototype */ {
+		published: {
 
 			/**
-			* Date object
+			* {@glossary Date} object
 			*
-			* @type {Object}
+			* @type {Date}
 			* @default null
 			* @public
 			*/
@@ -59,7 +60,18 @@
 			* @default false
 			* @public
 			*/
-			color: false
+			color: false,
+
+			/**
+			* Used when the CalendarDate is part of an [enyo.Group]{@link enyo.Group}.
+			* A value of true indicates that this is the active button of the group;
+			* false, that it is not the active button.
+			*
+			* @type {Boolean}
+			* @default false
+			* @public
+			*/
+			active: false
 		},
 
 		/**
@@ -68,6 +80,11 @@
 		events: {
 			onDateSelected:''
 		},
+
+		/**
+		* @private
+		*/
+		spotlight: true,
 
 		/**
 		* @private
@@ -128,7 +145,7 @@
 
 		/**
 		* @private
-		* @fires moon.CalendarDate#event:onDateSelected
+		* @fires moon.CalendarDate#onDateSelected
 		*/
 		tap: function () {
 			this.doDateSelected();
@@ -136,7 +153,7 @@
 	});
 
 	/**
-	* _moon.Calendar_ is a control that displays a monthly calendar, with the
+	* `moon.Calendar` is a control that displays a monthly calendar, with the
 	* month name at the top and a grid of days, grouped into rows by week, below.
 	*
 	* The header buttons are used to navigate to the desired month; the desired day
@@ -161,16 +178,17 @@
 
 		/**
 		* @private
+		* @lends moon.Calendar.prototype
 		*/
-		published: /** @lends moon.Calendar.prototype */ {
+		published: {
 
 			/**
 			*
 			* Current locale used for formatting. May be set after the control is
 			* created, in which case the control will be updated to reflect the
-			* new value.  Only valid if _ilib_ is loaded.
+			* new value.  Only valid if {@glossary ilib} is loaded.
 			*
-			* @type {string}
+			* @type {String}
 			* @default ''
 			* @public
 			*/
@@ -178,7 +196,7 @@
 
 			/**
 			*
-			* The current Date object.
+			* The current {@glossary Date} object.
 			*
 			* @type {Date}
 			* @default null
@@ -189,9 +207,9 @@
 			/**
 			*
 			* The first day of the week in the current locale.
-			* Valid values are Sunday (0) through Saturday (6). Default is Sunday (0).
+			* Valid values are Sunday (`0`) through Saturday (`6`). Default is Sunday (`0`).
 			*
-			* @type {number}
+			* @type {Number}
 			* @default 0
 			* @public
 			*/
@@ -200,10 +218,10 @@
 			/**
 			*
 			* Maximum number of weeks to display on a screen.
-			* If this value is greater than 9, dates two months in the future may be
+			* If this value is greater than `9`, dates two months in the future may be
 			* shown. Unexpected input may result in errors.
 			*
-			* @type {number}
+			* @type {Number}
 			* @default 6
 			* @public
 			*/
@@ -213,7 +231,7 @@
 			*
 			* Start value for range of years displayed in year picker
 			*
-			* @type {number}
+			* @type {Number}
 			* @default 1900
 			* @public
 			*/
@@ -223,7 +241,7 @@
 			*
 			* End value for range of years displayed in year picker
 			*
-			* @type {number}
+			* @type {Number}
 			* @default 2200
 			* @public
 			*/
@@ -231,9 +249,9 @@
 
 			/**
 			*
-			* CSS classes used to decorate day labels (e.g., _'moon-divider'_)
+			* CSS classes used to decorate day labels (e.g., `'moon-divider'`)
 			*
-			* @type {string}
+			* @type {String}
 			* @default ''
 			* @public
 			*/
@@ -242,10 +260,10 @@
 			/**
 			*
 			* Length of abbreviation to use for day of the week.
-			* Accepted values are _'short'_, _'medium'_, _'long'_, and _'full'_.
-			* Only valid if _ilib_ is loaded.
+			* Accepted values are `'short'`, `'medium'`, `'long'`, and `'full'`.
+			* Only valid if {@glossary ilib} is loaded.
 			*
-			* @type {string}
+			* @type {String}
 			* @default 'short'
 			* @public
 			*/
@@ -259,9 +277,7 @@
 			/**
 				Fires when the date changes.
 
-				_inEvent.name_ contains the name of this control.
-
-				_inEvent.value_ contains a standard JavaScript Date object representing
+				`inEvent.value` contains a standard JavaScript Date object representing
 				the current date.
 			*/
 			onChange: ''
@@ -345,10 +361,10 @@
 		},
 
 		/**
-		* When ilib is supported, _this.locale_ is given from instantiation of calendar
+		* When {@glossary iLib} is supported, `this.locale` is given from instantiation of calendar
 		* or retrived from defalut locale (en-US)
 		*
-		* @fires moon.Calendar#event:onChange
+		* @fires moon.Calendar#onChange
 		* @private
 		*/
 		localeChanged: function () {
@@ -374,7 +390,7 @@
 		/**
 		* Sometimes the first day of week changes because of a locale change.
 		* When this happens, we destroy the day label and reconstruct it.
-		* We create a new _ilib.Date_ instance with the time of the given day, and get
+		* We create a new {@link ilib.Date} instance with the time of the given day, and get
 		* a Gregorian date instance that represents the first day of the week.
 		*
 		* @private
@@ -390,7 +406,7 @@
 		* Date value before updating a control with this value. Though this ordering was
 		* non-guaranteed, it has since changed and can possibly affect any code that is
 		* improperly relying on the specific ordering of these calls. We instead handle the
-		* validation in the generic setter and facade this via the _setValue_ method.
+		* validation in the generic setter and facade this via the `setValue()` method.
 		*
 		* @private
 		*/
@@ -414,7 +430,7 @@
 		}),
 
 		/**
-		* @fires moon.Calendar#event:onChange
+		* @fires moon.Calendar#onChange
 		* @private
 		*/
 		valueChanged: function (inOld) {
@@ -477,9 +493,9 @@
 
 		/**
 		* Updates days of the week from first day to last day.
-		* If it uses ilib, '0' value of this.firstDayOfweek means Sunday
-		* and '1' means Monday.
-		* To make day acts like above, it adds an offset to day calculation.
+		* If it uses ilib, `'0'` value of `this.firstDayOfweek` means Sunday
+		* and `'1'` means Monday.
+		* To make day act like above, it adds an offset to day calculation.
 		*
 		* @private
 		*/
@@ -661,7 +677,7 @@
 		},
 
 		/**
-		* When ilib is supported, and type of calendar is changed like
+		* When {@glossary ilib} is supported, and type of calendar is changed like
 		* from gregorian to thaisolar, julian, arabic, hebrew or chinese
 		* calendar should check whethere there are any differences in
 		* year, month and day.

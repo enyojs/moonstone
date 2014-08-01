@@ -8,7 +8,7 @@
 	/**
 	* Localized strings from {@link iLib} translations.
 	*
-	* @param {String} string String to be localized.
+	* @param {String} string - String to be localized.
 	* @returns {String} Localized string.
 	* @name moon.$L
 	* @public

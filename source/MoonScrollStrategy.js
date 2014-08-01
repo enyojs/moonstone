@@ -1,8 +1,7 @@
 (function (enyo, scope) {
 	/**
-	* _moon.ScrollStrategy_ inherits from {@link enyo.TouchScrollStrategy}. Its
-	* main purpose is to handle scroller paging for {@link moon.Scroller} and
-	* {@link moon.DataList}.
+	* `moon.ScrollStrategy` inherits from {@link enyo.TouchScrollStrategy}. Its main purpose is to
+	* handle scroller paging for {@link moon.Scroller} and {@link moon.DataList}.
 	*
 	* @class moon.ScrollStrategy
 	* @extends enyo.TouchScrollStrategy
@@ -23,8 +22,10 @@
 
 		/**
 		* @private
+		* @lends moon.ScrollStrategy.prototype
 		*/
-		published: /** @lends moon.ScrollStrategy.prototype */ {
+		published: {
+
 			/**
 			* The ratio of mousewheel "delta" units to pixels scrolled. Increase this value to
 			* increase the distance scrolled by the scroll wheel. Note that mice/trackpads do not
@@ -39,7 +40,7 @@
 
 			/**
 			* The ratio of the maximum distance scrolled by each scroll wheel event to the
-			* height/width of the viewport. Setting a value larger than 1 is not advised, since a
+			* height/width of the viewport. Setting a value larger than `1` is not advised, since a
 			* single scroll event could move more than one viewport's worth of content (depending on
 			* the delta received), resulting in skipped content.
 			*
@@ -51,8 +52,8 @@
 
 			/**
 			* The ratio of the distance scrolled per tap of the paging button to the height/width of
-			* the viewport. Setting a value larger than 1 is not advised, since a paging button tap
-			* will move more than one viewport's worth of content, resulting in skipped content.
+			* the viewport. Setting a value larger than `1` is not advised, since a paging button
+			* tap will move more than one viewport's worth of content, resulting in skipped content.
 			*
 			* @type {Number}
 			* @default 0.8
@@ -127,8 +128,8 @@
 		},
 
 		/**
-		* Calls super-super-inherited (i.e., skips _TouchScrollStrategy_'s) _rendered()_ function to
-		* avoid thumb flicker at render time. Then shows or hides page controls.
+		* Calls super-super-inherited (i.e., skips {@link enyo.TouchScrollStrategy}'s) `rendered()`
+		* function to avoid thumb flicker at render time. Then shows or hides page controls.
 		*
 		* @private
 		*/
@@ -189,7 +190,7 @@
 		/**
 		* Sets the left scroll position within the scroller.
 		*
-		* @param {Number} left The desired scroll-left measurement (in pixels).
+		* @param {Number} left - The desired scroll-left measurement (in pixels).
 		* @public
 		*/
 		setScrollLeft: function(left) {
@@ -201,7 +202,7 @@
 		/**
 		* Sets the top scroll position within the scroller.
 		*
-		* @param {Number} top The desired scroll-top measurement (in pixels).
+		* @param {Number} top - The desired scroll-top measurement (in pixels).
 		* @public
 		*/
 		setScrollTop: function(top) {
@@ -213,9 +214,9 @@
 		/**
 		* Scrolls to specific x/y positions within the scroll area.
 		*
-		* @param {Number} x The horizontal coordinate.
-		* @param {Number} y The vertical coordinate.
-		* @param {Boolean} animate Should we animate to the new scroll position or not?
+		* @param {Number} x - The horizontal coordinate.
+		* @param {Number} y - The vertical coordinate.
+		* @param {Boolean} [animate=true] - Should we animate to the new scroll position or not?
 		* @public
 		*/
 		scrollTo: function(x, y, animate) {
@@ -232,7 +233,7 @@
 		},
 
 		/**
-		* Overrides default _maxHeightChanged()_ method from _TouchScrollStrategy_.
+		* Overrides {@link enyo.TouchScrollStrategy#maxHeightChanged}
 		*
 		* @private
 		*/
@@ -253,7 +254,7 @@
 		shouldDrag: function(sender, event) { return true; },
 
 		/**
-		* On _hold_, stops scrolling.
+		* On `hold`, stops scrolling.
 		*
 		* @private
 		*/
@@ -264,7 +265,7 @@
 		},
 
 		/**
-		* On _down_, stops scrolling.
+		* On `down`, stops scrolling.
 		*
 		* @private
 		*/
@@ -275,7 +276,7 @@
 		},
 
 		/**
-		* On _mousewheel_, scrolls a fixed amount.
+		* On `mousewheel`, scrolls a fixed amount.
 		*
 		* @private
 		*/
@@ -339,7 +340,7 @@
 		},
 
 		/**
-		* On _enter_, sets _this.hovering_ to true and shows pagination controls.
+		* On `enter`, sets `this.hovering` to true and shows pagination controls.
 		*
 		* @private
 		*/
@@ -351,7 +352,7 @@
 		},
 
 		/**
-		* On _leave_, sets _this.hovering_ to false and hides pagination controls.
+		* On `leave`, sets `this.hovering` to false and hides pagination controls.
 		*
 		* @private
 		*/
@@ -361,7 +362,7 @@
 		},
 
 		/**
-		* Handles _paginate_ events sent from PagingControl buttons.
+		* Handles `paginate` events sent from {@link moon.PagingControl} buttons.
 		*
 		* @private
 		*/
@@ -398,7 +399,7 @@
 		},
 
 		/**
-		* Handles _paginateScroll_ events sent from PagingControl buttons.
+		* Handles `paginateScroll` events sent from PagingControl buttons.
 		*
 		* @private
 		*/
@@ -471,7 +472,7 @@
 		},
 
 		/**
-		* Returns true if _inControl_ is one of four page controls.
+		* Returns true if `control` is one of four page controls.
 		*
 		* @private
 		*/
@@ -793,9 +794,14 @@
 			this.scrollBounds = null;
 		},
 		/**
-		* Scrolls until _inControl_ is in view. If _inScrollFullPage_ is set, scrolls until the edge
-		* of _inControl_ is aligned with the edge of the visible scroll area.
+		* Scrolls until `control` is in view. If `scrollFullPage` is set, scrolls until the edge
+		* of `control` is aligned with the edge of the visible scroll area.
 		*
+		* @param {Control} control - Control to scroll into view
+		* @param {Boolean} [scrollFullPage] - If `true` scrolls until the edge of `control` is
+		*	aligned with the edge of the visible scroll area. If `undefined`, the value in the
+		*	container's `scrollFullPage` property is used.
+		* @param {Boolean} [animate=true] - `false` to prevent animation
 		* @private
 		*/
 		animateToControl: function(control, scrollFullPage, animate) {

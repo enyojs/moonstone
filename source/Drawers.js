@@ -2,33 +2,40 @@
 	/**
 	* Handler for initial rendering event
 	*
-	* @event moon.Drawers#event:onDrawersRendered
+	* @event moon.Drawers#onDrawersRendered
 	* @type {Object}
-	* @property {number} drawersHeight - The height of the drawer
+	* @property {Number} drawersHeight - The height of the drawer
 	* @public
 	*/
 
 	/**
 	* Handler for initial resizing event to size drawers to full screen
 	*
-	* @event moon.Drawers#event:onDrawersResized
+	* @event moon.Drawers#onDrawersResized
 	* @type {Object}
-	* @property {number} drawersHeight - The height of the drawer
+	* @public
+	*/
+
+	/**
+	* Handler for initial resizing event to size drawers to full screen
+	*
+	* @event moon.Drawers#onDrawersResized
+	* @type {Object}
+	* @property {Number} drawersHeight - The height of the drawer
 	* @public
 	*/
 
 
 	/**
-	* _moon.Drawers_ is a container kind designed to hold a set of
-	* {@link moon.Drawer} objects and client content. The {@link moon.Drawers#drawers} property
-	* accepts an array of {@link moon.Drawer} controls. The associated
-	* [handlers]{@link moon.DrawerHandle) are positioned in their own small drawer,
-	* centered at the top of the 'dresser'--the region containing the array of
-	* Drawer controls and the activator nub.
+	* `moon.Drawers` is a container kind designed to hold a set of {@link moon.Drawer} objects and
+	* client content. The {@link moon.Drawers#drawers} property accepts an array of `Drawer`
+	* controls. The associated [handlers]{@link moon.DrawerHandle} are positioned in their own small
+	* drawer, centered at the top of the 'dresser' -- the region containing the array of Drawer
+	* controls and the activator nub.
 	*
-	* When a handle is selected, it opens the corresponding Drawer object's main
-	* drawer or control drawer, depending on how the Drawer object is configured.
-	* The control's child components may be of any kind.
+	* When a handle is selected, it opens the corresponding Drawer object's main drawer or control
+	* drawer, depending on how the Drawer object is configured.  The control's child components may
+	* be of any kind.
 	*
 	* ```
 	* 		{
@@ -46,7 +53,7 @@
 	* 					]
 	* 				}
 	* 			],
-	* `		components: [
+	* 		components: [
 	* 				{content: 'Content Area'}
 	* 			]
 	* 		}
@@ -54,7 +61,6 @@
 	*
 	* @class moon.Drawers
 	* @extends enyo.Control
-	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -77,13 +83,14 @@
 
 		/**
 		* @private
+		* @lends moon.Drawers.prototype
 		*/
-		published: /** @lends moon.Drawers.prototype */ {
+		published: {
 
 			/**
-			* Populate with an array of {@link moon.Drawer} component definitions
+			* Populate with an array of {@link moon.Drawer} components
 			*
-			* @type {Array}
+			* @type {Object[]}
 			* @default null
 			* @public
 			*/
@@ -105,11 +112,9 @@
 		* @private
 		*/
 		components: [
-			{name:'activatorWrapper', classes:'moon-drawers-activator-wrapper', spotlight:true, ontap:'activatorHandler', components: [
-				{name:'activator', classes:'moon-drawers-activator'}
-			]},
-			{name:'handleContainer', classes:'moon-drawers-handle-container', kind:'enyo.Drawer', resizeContainer:false, open:false, spotlightDisabled: true, onpostresize:'resizeHandleContainer', components:[
-				{name:'handles', classes:'moon-neutral moon-drawers-handles'}
+			{name:"activator", classes: "moon-drawers-activator", spotlight: true, ontap: "activatorHandler"},
+			{name:"handleContainer", classes:"moon-drawers-handle-container", kind:"enyo.Drawer", resizeContainer:false, open:false, spotlightDisabled: true, onpostresize:"resizeHandleContainer", components:[
+				{name:"handles", classes: "moon-neutral moon-drawers-handles"}
 			]},
 			{name: 'drawers', classes:'moon-drawers-drawer-container'},
 			{name: 'client', classes:'moon-drawers-client'}
@@ -135,7 +140,7 @@
 
 		/**
 		* event waterfalls down
-		* @fires moon.Drawers#event:onDrawersRendered
+		* @fires moon.Drawers#onDrawersRendered
 		* @private
 		*/
 		rendered: function () {
@@ -156,7 +161,7 @@
 				for (index = 0; index < this.drawers.length; ++index) {
 					handles.push(this.drawers[index].handle || {});
 				}
-				this.$.handles.createComponents(handles, {kind: 'moon.DrawerHandle', owner:this});
+				this.$.handles.createComponents(handles, {kind: 'moon.Item', owner:this});
 				controls = this.$.handles.getControls();
 				enyo.forEach(handles, function (handle, idx) {
 					controls[idx].addClass('moon-drawers-handle');
@@ -318,7 +323,7 @@
 		},
 
 		/**
-		* @fires moon.Drawers#event:onDrawersResized
+		* @fires moon.Drawers#onDrawersResized
 		* @private
 		*/
 		handleResize: function () {

@@ -1,11 +1,11 @@
 (function (enyo, scope) {
 
 	/**
-	* Used internally for [ListActions]{@link moon.ListActions} to request 
-	* [Header]{@link moon.Header} to add fitting components to itself. Not intended for use by 
+	* Used internally for [`ListActions`]{@link moon.ListActions} to request 
+	* [`Header`]{@link moon.Header} to add fitting components to itself. Not intended for use by 
 	* end-developer.
 	*
-	* @event moon.ListActions#event:onRequestCreateListActions
+	* @event moon.ListActions#onRequestCreateListActions
 	* @type {Object}
 	* @property {Object} components - The drawer components to be created
 	* @private
@@ -14,16 +14,16 @@
 	/**
 	* Fires when when the open state of the drawer has changed.
 	*
-	* @event moon.ListActions#event:onListActionOpenChanged
+	* @event moon.ListActions#onListActionOpenChanged
 	* @type {Object}
 	* @property {Boolean} open - `true` if the drawer is open
 	* @public
 	*/
 
 	/**
-	* _moon.ListActions_ is a [control]{@link enyo.Control} designed to live within a 
-	* [_moon.Header_]{@link moon.Header}. It is used to perform actions on an associated list of 
-	* items. A _ListActions_ [object]{@glossary Object} combines an activating control with a drawer
+	* `moon.ListActions` is a [control]{@link enyo.Control} designed to live within a 
+	* [`moon.Header`]{@link moon.Header}. It is used to perform actions on an associated list of 
+	* items. A `ListActions` [object]{@glossary Object} combines an activating control with a drawer
 	* containing a user-defined menu of selectable options for acting on items in the list. When a 
 	* menu item is selected, an action--such as filtering, sorting, moving, or deleting--may be
 	* invoked in the application by handling change events from the selected items.
@@ -40,7 +40,7 @@
 		* @private
 		*/
 		name: 'moon.ListActions',
-		
+
 		/**
 		* @private
 		*/
@@ -50,14 +50,14 @@
 		* @private
 		*/
 		kind: 'enyo.GroupItem',
-		
+
 		/**
 		* @private
+		* @lends moon.ListActions.prototype
 		*/
-		published: 
-			/** @lends moon.ListActions.prototype */ {
+		published: {
 
-			/** 
+			/**
 			* If `true`, the drawer is expanded, showing this item's contents.
 			*
 			* @type {Boolean}
@@ -65,7 +65,7 @@
 			* @public
 			*/
 			open: false,
-			
+
 			/**
 			* If `true`, the drawer will automatically close when the user selects a menu item.
 			*
@@ -74,40 +74,40 @@
 			* @public
 			*/
 			autoCollapse: false,
-			
+
 			/**
 			* A block of one or more controls to be displayed inside the list actions menu. By 
 			* default, each top-level ListActions will have a 
-			* [_defaultKind_]{@link enyo.Control#defaultKind} of 
-			* [_FittableRows_]{@link enyo.FittableRows}, and should typically contain a 
-			* [_moon.Divider_]{@link moon.Divider} identifying the category and a 
-			* [_moon.Scroller_]{@link moon.Scroller} with `fit:true`, containing instances of 
-			* [_moon.CheckboxItem_]{@link moon.CheckboxItem}, 
-			* [_moon.ToggleItem_]{@link moon.ToggleItem}, or 
-			* [_moon.SelectableItem_]{@link moon.SelectableItem} for setting options for the 
+			* [`defaultKind`]{@link enyo.Control#defaultKind} of 
+			* [`FittableRows`]{@link enyo.FittableRows}, and should typically contain a 
+			* [`moon.Divider`]{@link moon.Divider} identifying the category and a 
+			* [`moon.Scroller`]{@link moon.Scroller} with `fit:true`, containing instances of 
+			* [`moon.CheckboxItem`]{@link moon.CheckboxItem}, 
+			* [`moon.ToggleItem`]{@link moon.ToggleItem}, or 
+			* [`moon.SelectableItem`]{@link moon.SelectableItem} for setting options for the 
 			* underlying [panel]{@link moon.Panel}. Alternatively, a 
-			* [_moon.DataRepeater_]{@link moon.DataRepeater} (with a _moon.Scroller_ set as its 
-			* container) or a [_moon.DataList_]{@link moon.DataList} may be used as the `fit:true` 
+			* [`moon.DataRepeater`]{@link moon.DataRepeater} (with a `moon.Scroller` set as its 
+			* container) or a [`moon.DataList`]{@link moon.DataList} may be used as the `fit:true` 
 			* control for populating a data-bound list of options (see below for limitations on 
-			* using a _moon.DataList_).
+			* using a `moon.DataList`).
 			* 
-			* More than one option group may be added to the _listActions_ block, in which options 
-			* are laid out horizontally by default, with each FittableRows' height constrained to 
-			* the height of the parent [Header]{@link moon.Header}. However, a minimum width (300px)
-			* is enforced for each group, and if there are more groups than will fit in the 
-			* available horizontal space, all controls will instead be stacked vertically. In this 
-			* case, an outer scroller is enabled; the outer scroller scrolls all groups vertically, 
-			* and the FittableRows are reset to natural size based on their content, effectively 
+			* More than one option group may be added to the `listActions` block, in which options
+			* are laid out horizontally by default, with each `FittableRows`' height constrained to
+			* the height of the parent [`Header`]{@link moon.Header}. However, a minimum width
+			* (300px) is enforced for each group, and if there are more groups than will fit in the
+			* available horizontal space, all controls will instead be stacked vertically. In this
+			* case, an outer scroller is enabled; the outer scroller scrolls all groups vertically,
+			* and the `FittableRows` are reset to natural size based on their content, effectively
 			* disabling any scrollers contained within, to prevent nested scrolling.
 			* 
-			* Note that the vertical stacking capability poses a limitation on using 
-			* {@link moon.DataList}. Since _moon.DataList_ must always be allowed to scroll, it is
+			* Note that the vertical stacking capability poses a limitation on using
+			* {@link moon.DataList}. Since `moon.DataList` must always be allowed to scroll, it is
 			* not suitable for use in a stacked scenario in which only one outer scroller is used.
-			* As such, _moon.DataList_ cannot be used within a _ListActions_ that may need to stack
+			* As such, `moon.DataList` cannot be used within a `ListActions` that may need to stack
 			* vertically.
-			* 
+			*
 			* Each group should have a string value set for the `action` property, as this will be
-			* passed in all events that bubble from the _ListActions_, to allow the user to identify
+			* passed in all events that bubble from the `ListActions`, to allow the user to identify
 			* which category changed.
 			*
 			* @type {Object[]}
@@ -115,7 +115,7 @@
 			* @public
 			*/
 			listActions: null,
-			
+
 			/**
 			* Source URL for icon image.
 			*
@@ -124,21 +124,21 @@
 			* @public
 			*/
 			iconSrc: '',
-			
+
 			/**
-			* Set the icon name to be used by the _ListActions Activator_ button (like 
-			* [moon.Icon]{@link moon.Icon} and [moon.IconButton]{@link moon.IconButton}).
+			* Set the icon name to be used by the `ListActions Activator` button (like 
+			* [`moon.Icon`]{@link moon.Icon} and [`moon.IconButton`]{@link moon.IconButton}).
 			*
 			* @type {String}
 			* @default ''
 			* @public
 			*/
 			icon: '',
-			
+
 			/**
-			* By default, list action menus are 300px wide. Set this to `true` to instead have the 
+			* By default, list action menus are 300px wide. Set this to `true` to instead have the
 			* menus be proportionally sized within the available space. Note that a minimum width of
-			* 300px is still respected; if all menus don't fit horizontally, they will be stacked 
+			* 300px is still respected; if all menus don't fit horizontally, they will be stacked
 			* vertically.
 			*
 			* @type {Boolean}
@@ -167,7 +167,7 @@
 		* @private
 		*/
 		drawerComponents: [
-			{name: 'drawer', spotlightDisabled: true, kind: 'moon.ListActionsDrawer', classes: 'list-actions-drawer', onComplete: 'drawerAnimationEnd', open: false, spotlight: 'container', spotlightModal:true, components: [
+			{name: 'drawer', kind: 'moon.ListActionsDrawer', classes: 'list-actions-drawer', onComplete: 'drawerAnimationEnd', open: false, spotlight: 'container', spotlightModal:true, components: [
 				{name: 'closeButton', kind: 'moon.IconButton', icon: 'closex', classes: 'moon-popup-close moon-list-actions-close moon-neutral', ontap: 'expandContract', defaultSpotlightDown:'listActions'},
 				{name: 'listActionsClientContainer', classes: 'enyo-fit moon-list-actions-client-container moon-neutral', components: [
 					{name: 'listActions', kind: 'moon.Scroller', classes: 'enyo-fit moon-list-actions-scroller', horizontal:'hidden', vertical:'hidden', onActivate: 'optionSelected', defaultSpotlightUp:'closeButton'}
@@ -179,13 +179,14 @@
 		* @private
 		*/
 		bindings: [
-			{from: '.open', to: '.$.drawer.open'},
-			{from: '.iconSrc', to: '.$.activator.src'},
-			{from: '.icon', to: '.$.activator.icon'}
+			{from: 'open', to: '$.drawer.open'},
+			{from: 'iconSrc', to: '$.activator.src'},
+			{from: 'icon', to: '$.activator.icon'},
+			{from: 'disabled', to: '$.activator.disabled', oneWay: false}
 		],
 
 		/**
-		* @fires moon.ListActions#event:onRequestCreateListActions
+		* @fires moon.ListActions#onRequestCreateListActions
 		* @private
 		*/
 		create: function() {
@@ -194,6 +195,7 @@
 			if (!this.$.drawer) {
 				throw 'moon.ListActions must be created as a child of moon.Header';
 			}
+			this.disabledChanged();
 			this.listActionsChanged();
 			this.drawerNeedsResize = true;
 		},
@@ -217,6 +219,13 @@
 		destroy: function() {
 			enyo.dispatcher.release(this.$.drawer);
 			this.inherited(arguments);
+		},
+
+		/**
+		* @private
+		*/
+		disabledChanged: function() {
+			this.addRemoveClass('disabled', this.disabled);
 		},
 
 		/**
@@ -261,8 +270,8 @@
 				this.$.listActions.render();
 			}
 		},
-		
-		/** 
+
+		/**
 		* Creates a new list action component based on _inListAction_.
 		*
 		* @private
@@ -278,7 +287,7 @@
 		},
 
 		/**
-		* Adds a mixin to each list action menu that decorates _activate_ events with the menu's 
+		* Adds a mixin to each list action menu that decorates _activate_ events with the menu's
 		* _action_ property.
 		*
 		* @private
@@ -290,8 +299,8 @@
 			}
 			return mixins;
 		},
-		
-		/** 
+
+		/**
 		* Toggles value of _this.open_.
 		*
 		* @private
@@ -314,11 +323,10 @@
 		},
 
 		/**
-		* @fires moon.ListActions#event:onListActionOpenChanged
+		* @fires moon.ListActions#onListActionOpenChanged
 		* @private
 		*/
 		openChanged: function(){
-			this.$.drawer.set('spotlightDisabled', !this.getOpen());
 			this.setActive(this.getOpen());
 			this.doListActionOpenChanged({open: this.open});
 			// If opened, show drawer and resize it if needed
@@ -336,6 +344,8 @@
 		},
 
 		/**
+		* @fires moon.TooltipDecorator#onRequestMuteTooltip
+		* @fires moon.TooltipDecorator#onRequestUnmuteTooltip
 		* @private
 		*/
 		drawerAnimationEnd: function() {
@@ -345,7 +355,7 @@
 					enyo.Spotlight.spot(this.$.activator);
 				}
 				this.bubble('onRequestUnmuteTooltip');
-			} 
+			}
 			//on open, move top and spot _this.$.closeButton_
 			else {
 				if (this.resetScroller) {
@@ -384,7 +394,7 @@
 			if (this.stacked) {
 				this.$.drawer.addClass('stacked');
 				this.stackMeUp();
-				// When stacked, always have vertical scroller 
+				// When stacked, always have vertical scroller
 				this.$.listActions.setVertical('scroll');
 			}
 			else {
@@ -406,7 +416,7 @@
 				optionGroup.applyStyle('display', 'block');
 				// Stacked contols get natural height (which prevents scrolling), such that they stack
 				// within outer scroller which is allowed to scroll all controls; this is a problem for
-				// DataLists, which require an explicit height, making them unsuitable for use in 
+				// DataLists, which require an explicit height, making them unsuitable for use in
 				// stacked ListActions
 				optionGroup.applyStyle('height', 'none');
 			}
@@ -480,7 +490,7 @@
 		*/
 		capturedSpotlightFocus: function(sender, e) {
 			// We need to prevent header children below the drawer from being focused
-			if (e.originator.isDescendantOf(this.$.drawer.parent) && 
+			if (e.originator.isDescendantOf(this.$.drawer.parent) &&
 				!e.originator.isDescendantOf(this.$.drawer)) {
 				enyo.Spotlight.spot(this.$.drawer);
 				return true;
@@ -489,19 +499,21 @@
 	});
 
 	/**
-	* Fires when the [ListActionsDrawer]{@link moon.ListActionsDrawer} has completed any setup 
-	* and/or preparation work, i.e. when animating or initial setup.
+	* Fires when the [`ListActionsDrawer`]{@link moon.ListActionsDrawer} has completed any setup 
+	* and/or preparation work, i.e. when animating or initial setup. No event-specific information
+	* is sent with this event.
 	*
-	* @event moon.ListActionsDrawer#event:onComplete
+	* @event moon.ListActionsDrawer#onComplete
 	* @type {Object}
 	* @public
 	*/
 
 	/**
-	* _moon.ListActionsDrawer_ is a [control]{@link enyo.Control} used by {@link moon.ListActions} 
+	* `moon.ListActionsDrawer` is a [control]{@link enyo.Control} used by {@link moon.ListActions}
 	* to house a menu of selectable options.
 	*
 	* @class moon.ListActionsDrawer
+	* @extends enyo.Control
 	* @public
 	*/
 	enyo.kind(
@@ -511,12 +523,17 @@
 		* @private
 		*/
 		name: 'moon.ListActionsDrawer',
-		
+
 		/**
 		* @private
 		*/
-		published: 
-			/** @lends moon.ListActionsDrawer.prototype */ {
+		kind: 'enyo.Control',
+
+		/**
+		* @private
+		* @lends moon.ListActionsDrawer.prototype
+		*/
+		published: {
 
 			/**
 			* If `true`, the drawer will be in its opened state, otherwise it will be closed.
@@ -527,7 +544,7 @@
 			*/
 			open: false
 		},
-		
+
 		/**
 		* @private
 		*/
@@ -548,7 +565,7 @@
 		},
 
 		/**
-		* @fires moon.ListActionsDrawer#event:onComplete
+		* @fires moon.ListActionsDrawer#onComplete
 		* @private
 		*/
 		rendered: function() {
@@ -564,7 +581,7 @@
 		},
 
 		/**
-		* @fires moon.ListActionsDrawer#event:onComplete
+		* @fires moon.ListActionsDrawer#onComplete
 		* @private
 		*/
 		handleTransitionEnd: function(sender, e) {
@@ -573,14 +590,14 @@
 				return true;
 			}
 		},
-		
+
 		/**
 		* We override getBubbleTarget here so that events emanating from a 
-		* [ListActionsDrawer]{@link moon.ListActionsDrawer} instance will bubble to the owner of the
-		* associated [ListActions]{@link moon.ListActions} instance, as expected. This is necessary 
-		* because events normally bubble to a control's DOM parent, but we have sneakily arranged 
-		* for the DOM parent of a ListActionsDrawer instance to be not the ListActions instance but 
-		* the containing [Header]{@link moon.Header} instance.
+		* [`ListActionsDrawer`]{@link moon.ListActionsDrawer} instance will bubble to the owner of
+		* the associated [`ListActions`]{@link moon.ListActions} instance, as expected. This is
+		* necessary because events normally bubble to a control's DOM parent, but we have sneakily
+		* arranged for the DOM parent of a `ListActionsDrawer` instance to be not the `ListActions`
+		* instance but the containing [`Header`]{@link moon.Header} instance.
 		*
 		* @private
 		*/
@@ -607,13 +624,13 @@
 
 	/**
 	* An internally-used support mixin added to a {@link moon.ListActions} menu that decorates
-	* _activate_ events with the menu's _action_ property.
+	* `activate` events with the menu's `action` property.
 	*
 	* @mixin moon.ListActionActivationSupport
 	* @protected
 	*/
 	moon.ListActionActivationSupport = {
-		
+
 		/**
 		* @private
 		*/

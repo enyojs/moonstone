@@ -1,8 +1,9 @@
 (function (enyo, scope) {
 	/**
-	* moon.DataListSpotlightSupport_ a mixin that provides spotlight handling code for use by
-	* {@link moon.DataList} and {@link moon.DataGridList}. Since those each extend from their respective
-	* enyo counterparts, this mixin provides common add-on code needed for proper spotlight handling.
+	* `moon.DataListSpotlightSupport` is a [mixin]{@glossary mixin} that provides spotlight handling
+	* code for use by {@link moon.DataList} and {@link moon.DataGridList}. Since those each extend
+	* from their respective enyo counterparts, this mixin provides common add-on code needed for
+	* proper spotlight handling.
 	*
 	* @mixin moon.DataListSpotlightSupport
 	* @private
@@ -11,8 +12,16 @@
 
 		/**
 		* @private
+		* @lends moon.DataListSpotlightSupport.prototype
 		*/
 		published: {
+			/**
+			* The index of the item to focus at render time, or `-1` for no focused item.
+			*
+			* @type {Number}
+			* @default -1
+			* @public
+			*/
 			initialFocusIndex: -1
 		},
 
@@ -181,7 +190,6 @@
 					return this.findSpottableControl(inDirection, inPage === pages.firstPage ? pages.lastPage : pages.firstPage, inPageIndex - 1);
 				}
 			}
-
 			return control;
 		},
 
@@ -232,14 +240,21 @@
 			// Loop through the pages in top-down order
 			var pages = (this.$.page1.index < this.$.page2.index) ?
 				[this.$.page1, this.$.page2] :
-				[this.$.page2, this.$.page1];
-			for (var p in pages) {
-				var page = pages[p];
-				var pb = page.getBounds();
+				[this.$.page2, this.$.page1],
+				pageIdx,
+				page,
+				pb,
+				i,
+				c,
+				cb;
+
+			for (pageIdx = 0; pageIdx < pages.length; pageIdx++) {
+				page = pages[pageIdx];
+				pb = page.getBounds();
 				// Loop through children in each page top-down
-				for (var i=0; i<page.children.length; i++) {
-					var c = page.children[i];
-					var cb = c.getBounds();
+				for (i=0; i<page.children.length; i++) {
+					c = page.children[i];
+					cb = c.getBounds();
 					// Need to add page offset to target bounds
 					cb.top += pb.top;
 					cb.left += pb.left;
@@ -255,6 +270,7 @@
 					}
 				}
 			}
+
 			return null;
 		},
 
@@ -324,6 +340,7 @@
 				}
 				oControl = oControl.parent;
 			}
+
 			return null;
 		},
 
@@ -401,13 +418,13 @@
 	};
 
 	/**
-	* _moon.DataList_ is an {@link enyo.DataList} with Moonstone styling
+	* `moon.DataList` is an {@link enyo.DataList} with Moonstone styling
 	* applied.  It uses {@link moon.Scroller} as its default scroller.
 	*
-	* @ui
 	* @class moon.DataList
 	* @extends enyo.DataList
 	* @mixes moon.DataListSpotlightSupport
+	* @ui
 	* @public
 	*/
 	enyo.kind(

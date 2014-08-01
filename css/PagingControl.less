@@ -1,21 +1,26 @@
 /* Scroller Page Controls */
 .moon-icon-button.moon-paging-button {
-	position:absolute;
+	position: absolute;
 	z-index: 150;
 	margin: 0;
+
+	&.top {
+		top: 0;
+	}
+
+	&.right {
+		right: 0;
+	}
+
+	&.bottom {
+		bottom: 0;
+	}
+
+	&.left {
+		left: 0;
+	}
 }
-.moon-icon-button.moon-paging-button.top {
-	top: 0px;
-}
-.moon-icon-button.moon-paging-button.right {
-	right: 0px;
-}
-.moon-icon-button.moon-paging-button.bottom {
-	bottom: 0px;
-}
-.moon-icon-button.moon-paging-button.left {
-	left: 0px;
-}
+
 .moon-neutral .moon-icon-button.moon-paging-button.disabled {
 	color: @moon-neutral-child-text-color;
 }
