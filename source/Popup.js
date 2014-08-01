@@ -53,6 +53,11 @@
 		/**
 		* @private
 		*/
+		scrim: true,
+
+		/**
+		* @private
+		*/
 		handlers: {
 			onRequestScrollIntoView   : '_preventEventBubble',
 			ontransitionend           : 'animationEnd',
@@ -70,38 +75,6 @@
 		* @private
 		*/
 		published: /** @lends moon.Popup.prototype */ {
-			/**
-			* Determines whether a scrim will appear when the dialog is modal. If `true`,
-			* {@link moon.Scrim} provides a transparent (i.e., invisible) overlay that prevents
-			* propagation of tap events.
-			*
-			* @type {Boolean}
-			* @default true
-			* @public
-			*/
-			scrimWhenModal: true,
-
-			/**
-			* Determines whether or not to display a scrim. Only displays scrims when floating. When
-			* the scrim is in the floating state (`floating: true`), it covers the entire viewport
-			* --i.e., it is displayed on top of other controls.
-			*
-			* @type {Boolean}
-			* @default true
-			* @public
-			*/
-			scrim: true,
-
-			/**
-			* Optional class name to apply to the scrim. Be aware that the scrim is a singleton and
-			* you will be modifying the scrim instance used for other popups.
-			*
-			* @type {Boolean}
-			* @default true
-			* @public
-			*/
-			scrimClassName: '',
-
 			/**
 			* If `true`, spotlight (focus) cannot leave the area of the popup unless the popup is
 			* explicitly closed; if `false`, spotlight may be moved anywhere within the viewport.
@@ -341,13 +314,13 @@
 					}
 				}
 				this.activator = enyo.Spotlight.getCurrent();
-				moon.Popup.count++;
-				this.applyZIndex();
+				//moon.Popup.count++;
+				//this.applyZIndex();
 			}
 			else {
-				if(moon.Popup.count > 0) {
-					moon.Popup.count--;
-				}
+				//if(moon.Popup.count > 0) {
+					//moon.Popup.count--;
+				//}
 				if (this.generated) {
 					this.respotActivator();
 				}
@@ -475,21 +448,9 @@
 		/**
 		* @private
 		*/
-		getScrim: function() {
-			// show a transparent scrim for modal popups if scrimWhenModal is true
-			// if scrim is true, then show a regular scrim.
-			if (this.modal && this.scrimWhenModal && !this.scrim) {
-				return moon.scrimTransparent.make();
-			}
-			return moon.scrim.make();
-		},
-
-		/**
-		* @private
-		*/
 		applyZIndex: function() {
 			// Adjust the zIndex so that popups will properly stack on each other.
-			this._zIndex = moon.Popup.count * 2 + this.findZIndex() + 1;
+			this._zIndex = enyo.Popup.count * 2 + this.findZIndex() + 1;
 			// leave room for scrim
 			this.applyStyle('z-index', this._zIndex);
 		},
