@@ -1,57 +1,33 @@
-@moon-video-transport-slider-knob-size: 6px;
-@moon-video-transport-slider-knob-offset: -20px;
-@moon-video-transport-slider-height: 80px;
-
+/* ---- Slider container styling ---- */
+.moon-video-player-slider-container {
+	margin: 110px 0 0 0;
+	height: @moon-video-transport-slider-height;
+}
+.moon-video-player-slider-container .moon-slider {
+	margin: 0 0 0 !important;
+}
 .moon-video-transport-slider {
 	height: @moon-video-transport-slider-height;
-	background-color: #323232;
+	background-color: @moon-videoplayer-progressbar-bg-color;
 }
 
-.moon-video-transport-slider .moon-slider-popup.above {
-	padding-left: 0px;
-}
-
-
-/* ----- Knob ---- */
-.moon-video-transport-slider-knob,
-.moon-video-transport-slider-knob.disabled:active:hover,
-.moon-video-transport-slider-knob.active,
-.moon-video-transport-slider-knob.spotselect,
-.moon-video-transport-slider-knob:active:hover {
-	position: absolute;
-	height: @moon-video-transport-slider-knob-size;
-	width: @moon-video-transport-slider-knob-size;
-	border-radius: @moon-video-transport-slider-knob-size/2;
-	margin: -@moon-video-transport-slider-knob-size/2;
-	top: @moon-video-transport-slider-height/2 + @moon-video-transport-slider-knob-offset;
-	pointer-events: none;
-}
-.moon-video-transport-slider-knob {
-	background: transparent;
-	color: transparent;
-}
-.moon-video-transport-slider.visible .moon-video-transport-slider-knob,
-.moon-video-transport-slider.visible .moon-video-transport-slider-knob.disabled:active:hover {
-	background-color: #fff;
-}
-
-/* ---- Bar ---- */
-.moon-video-transport-slider-bar-bar {
-	height: 100%;
-	background-color: @moon-accent;
-	position: absolute;
-	top: 0;
-}
-.moon-video-transport-slider-bg-bar {
-	height: 100%;
-	background-color: @moon-dark-gray;
-	position: absolute;
-	top: 0;
-}
-
+/* ---- Video Slider Bar ---- */
+.moon-video-transport-slider-bar-bar,
+.moon-video-transport-slider-bg-bar,
 .moon-video-transport-slider-taparea {
 	position: absolute;
 	height: 100%;
+}
+
+.moon-video-transport-slider-bar-bar {
+	background-color: @moon-accent;
+}
+
+.moon-video-transport-slider-bg-bar {
+	background-color: @moon-dark-gray;
+}
+
+.moon-video-transport-slider-taparea {
 	width: 100%;
 }
 
@@ -60,59 +36,78 @@
 	white-space: nowrap;
 	color: @moon-dark-gray;
 	vertical-align: top;
+
+	> * {
+		display: inline-block;
+	}
 }
 .enyo-locale-non-latin .moon-video-transport-slider-popup-label {
 	.enyo-locale-non-latin .moon-large-button-text;
 }
-.moon-video-transport-slider-popup-label > * {
-	display: inline-block;
 
-}
-.enyo-locale-non-latin .moon-video-transport-slider-popup-label > * {
-}
-
-.moon-video-transport-slider-indicator-wrapper {
-	height: 82px;
-	top: 0;
-	position: absolute;
-}
-.moon-video-transport-slider-indicator-wrapper.start {
-	left: 0px;
-}
-.moon-video-transport-slider-indicator-wrapper.end {
-	right: 0px;
-}
-.moon-video-transport-slider-indicator-bar-left {
-	position: absolute;
-	left: 49.5%;
-	top: 25px;
-	width: 2px;
-	height: 30px;
-	background-color: @moon-indicator-bar-bg-color;
-}
-.moon-video-transport-slider-indicator-bar-right {
-	position: absolute;
-	left: 49.5%;
-	top: 25px;
-	width: 2px;
-	height: 30px;
-	background-color: #ffffff;
-}
+/* Video Slider Indicator Text */
 .moon-video-transport-slider-indicator-text {
 	position: absolute;
-	width: 100%;
-	height: 30px;
-	top: 23px;
-	font-size: 30px;
+	top: (@moon-video-transport-slider-height - @moon-video-transport-slider-indicator-font-size) / 2;
 	font-family: @moon-header-font-family;
-	font-weight:bold;
+	font-weight: bold;
+	font-size: @moon-video-transport-slider-indicator-font-size;
+	line-height: @moon-video-transport-slider-indicator-font-size;
 	color: @moon-indicator-text-color;
-	text-align: left;
-	left: 55%;
+	padding: 0 0 0 10px;
+	border-left: solid 2px @moon-indicator-text-color;
+	box-sizing: border-box;
+
+	// use the -1px margin to offset the 2px border, so it is center on the porgress
+	// bar starting/ending point
+	&.start {
+		margin: 0 0 0 -1px;
+	}
+
+	&.end {
+		margin: 0 1px 0 0;
+	}
+
+	&.no-text {
+		color: transparent;
+	}
+
+	&.no-border {
+		border: 0;
+	}
+	// use this class when the developer set showDummyArea to false,
+	// make sure text is aligned to right and bar is on the right also
+	&.right-border {
+		text-align: right;
+		border-left: 0;
+		border-right: solid 2px @moon-indicator-text-color;
+		padding: 0 10px 0 0;
+		margin: 0 -1px 0 0 ;
+	}
 }
+
 .enyo-locale-non-latin .moon-video-transport-slider-indicator-text {
 	font-family: @moon-non-latin-font-family;
 }
 .enyo-locale-right-to-left .moon-video-transport-slider-indicator-text {
 	direction: rtl;
+}
+
+/* ----- Video Slider Knob ---- */
+.moon-video-transport-slider {
+	.moon-video-transport-slider-knob {
+		position: absolute;
+		height: @moon-video-transport-slider-knob-size;
+		width: @moon-video-transport-slider-knob-size;
+		border-radius: @moon-video-transport-slider-knob-size / 2;
+		margin: -@moon-video-transport-slider-knob-size / 2;
+		top: @moon-video-transport-slider-height / 2 + @moon-video-transport-slider-knob-offset;
+		background: transparent;
+		color: transparent;
+		pointer-events: none;
+	}
+
+	&.visible .moon-video-transport-slider-knob {
+		background-color: @moon-indicator-text-color;
+	}
 }

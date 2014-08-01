@@ -284,14 +284,8 @@
 		* @private
 		*/
 		tickComponents: [
-			{name: 'startWrapper', classes: 'moon-video-transport-slider-indicator-wrapper start', components: [
-				{name: 'beginTickBar', classes: 'moon-video-transport-slider-indicator-bar-left'},
-				{name: 'beginTickText', classes: 'moon-video-transport-slider-indicator-text', content: '00:00'}
-			]},
-			{name: 'endWrapper', classes: 'moon-video-transport-slider-indicator-wrapper end', components: [
-				{name: 'endTickBar', classes: 'moon-video-transport-slider-indicator-bar-right'},
-				{name: 'endTickText', classes: 'moon-video-transport-slider-indicator-text', content: '00:00'}
-			]}
+			{name: 'beginTickText', classes: 'moon-video-transport-slider-indicator-text start', content: '00:00'},
+			{name: 'endTickText', classes: 'moon-video-transport-slider-indicator-text end', content: '00:00'}
 		],
 
 		/**
@@ -481,8 +475,10 @@
 		* @private
 		*/
 		beginPositionChanged: function() {
-			// Set the width of the wrapper to twice the amount of it's position from the start.
-			this.$.startWrapper.applyStyle('width', (this.get('beginPosition') * 200) + '%');
+			// Set the width of the wrapper to once the amount of it's position from the start.
+			this.$.beginTickText.applyStyle('width', this.get('beginPosition') * 100 + '%');
+			// Set the left position of the TickText the width of the beginPostion if showDummyArea is true, 0 if no DummyArea
+			this.$.beginTickText.applyStyle('left', this.showDummyArea ? this.get('beginPosition') * 100 + '%' : 0);
 			this.updateSliderRange();
 		},
 
@@ -490,8 +486,11 @@
 		* @private
 		*/
 		endPositionChanged: function() {
-			// Set the width of the wrapper to twice the amount of it's position from the end.
-			this.$.endWrapper.applyStyle('width', ((this.get('endPosition') - 1) * -200) + '%');
+			// Set the width of the wrapper to once the amount of it's position from the end.
+			this.$.endTickText.applyStyle('width', (1 - this.get('endPosition')) * 100 + '%');
+			this.$.endTickText.applyStyle('right', 0);
+			// If the showDummyArea is set to false, move the tickBar to the right
+			this.$.endTickText.addRemoveClass('right-border', Boolean(!this.showDummyArea && this.getShowTickBar()));
 			this.updateSliderRange();
 		},
 
@@ -499,8 +498,8 @@
 		* @private
 		*/
 		showTickTextChanged: function() {
-			this.$.beginTickText.setShowing(this.getShowTickText());
-			this.$.endTickText.setShowing(this.getShowTickText());
+			this.$.beginTickText.addRemoveClass('no-text', !this.getShowTickText());
+			this.$.endTickText.addRemoveClass('no-text', !this.getShowTickText());
 		},
 
 		/**
@@ -510,8 +509,8 @@
 			if(this.showDummyArea) {
 				this.showTickBar = true;
 			}
-			this.$.beginTickBar.setShowing(this.getShowTickBar());
-			this.$.endTickBar.setShowing(this.getShowTickBar());
+			this.$.beginTickText.addRemoveClass('no-border', !this.getShowTickBar());
+			this.$.endTickText.addRemoveClass('no-border', !this.getShowTickBar());
 		},
 
 		/**
