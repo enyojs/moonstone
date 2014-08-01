@@ -847,6 +847,9 @@
 			}
 			if (old && !this.wrapInsteadOfMarquee) {
 				this.removeClass("allow-wrap");
+				// FIXME: Performing creation here to workaround potential WebKit measuring issue 
+				// with scrollWidth (under-measures by 10px when marquee components are destroyed
+				// when we switch wrapInsteadofMarquee from `false` to `true`, and back to `false`).
 				this._marquee_createMarquee();
 			}
 		}
