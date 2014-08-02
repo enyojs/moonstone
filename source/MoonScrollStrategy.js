@@ -608,11 +608,13 @@
 		* @private
 		*/
 		requestSetupBounds: function(sender, event) {
-			this.scrollBounds = this._getScrollBounds();
-			this.setupBounds();
-			this.scrollBounds = null;
-			if ((this.showVertical() && this.$.scrollMath.bottomBoundary) || (this.showHorizontal() && this.$.scrollMath.rightBoundary)) {
-				this.alertThumbs();
+			if (this.hasNode()) {
+				this.scrollBounds = this._getScrollBounds();
+				this.setupBounds();
+				this.scrollBounds = null;
+				if ((this.showVertical() && this.$.scrollMath.bottomBoundary) || (this.showHorizontal() && this.$.scrollMath.rightBoundary)) {
+					this.alertThumbs();
+				}
 			}
 			return true;
 		},
