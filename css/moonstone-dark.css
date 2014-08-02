@@ -2181,6 +2181,29 @@
   position: absolute;
   left: 40%;
 }
+.moon-progress-button-remove-bar {
+  -webkit-animation: progress 0.2s ease-in-out forwards;
+}
+@-webkit-keyframes progress {
+  0% {
+    transform: translateX(0%);
+  }
+  5% {
+    transform: translateX(5%);
+  }
+  25% {
+    transform: translateX(25%);
+  }
+  50% {
+    transform: translateX(50%);
+  }
+  75% {
+    transform: translateX(75%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
 /* RTL classes */
 .moon-progress-button-rtl .moon-progress-button-bar {
   float: right;

@@ -58,6 +58,11 @@
 		/**
 		* @private
 		*/
+		spotlight: false,
+
+		/**
+		* @private
+		*/
 		published: /** @lends moon.ProgressButton.prototype */ {
 
 			/**
@@ -140,6 +145,7 @@
 		* @private
 		*/
 		progressChanged: function () {
+			this.$.bar.removeClass("moon-progress-button-remove-bar");
 			this.progress = this.clampValue(this.min, this.max, this.progress);
 			var percent = this.calcPercent(this.progress);
 			var arr = [0,5,25,50,75,100];
@@ -204,9 +210,9 @@
 			var _this = this;
 			setTimeout(function(){
 				_this.$.progressPercent.set('content', '');
-				_this.$.bar.removeClass(_this.barClasses);
+				_this.$.bar.addClass("moon-progress-button-remove-bar");
 				_this.set('content', _this.postContent);
-			},500);
+			},1000);
 		},
 
 		/**
