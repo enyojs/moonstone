@@ -7,14 +7,16 @@
 		to set pointer events to auto or scrim will not function as expected.
 	*/
 	pointer-events: none;
-}
-.moon-scrim.moon-scrim-translucent {
-	pointer-events: auto;
-	background-color: @moon-scrim-translucent-bg-color;
-	opacity: 0.3;
-	filter: alpha(opacity=30);
-}
-.moon-scrim.moon-scrim-transparent {
-	pointer-events: auto;
-	background: transparent;
+
+	&.moon-scrim-translucent {
+		pointer-events: auto;
+		background-color: @moon-scrim-translucent-bg-color;
+		opacity: 0.3;
+		filter: alpha(opacity=30);
+	}
+
+	&.moon-scrim-transparent {
+		pointer-events: auto;
+		background: transparent;
+	}
 }
