@@ -2138,6 +2138,7 @@
 /* ProgressBar.css */
 .moon-progress-bar {
   position: relative;
+  margin: 50px 20px;
   height: 10px;
   background-color: #262626;
   min-width: 128px;
@@ -2159,6 +2160,9 @@
   float: right;
 }
 /* Slider Bar */
+.moon-slider {
+  margin: 60px 45px;
+}
 .moon-slider.spotlight > .moon-progress-bar-bar {
   background-color: #cf0652;
 }
