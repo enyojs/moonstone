@@ -30,8 +30,8 @@
 		* @private
 		*/
 		components:[
-			{name: 'label', classes: 'label'},
-			{name: 'text', classes: 'text'}
+			{name: 'label', classes: 'moon-sub-header-text label'},
+			{name: 'text', classes: 'moon-body-text text'}
 		],
 
 		/**

@@ -1188,12 +1188,6 @@
 }
 /* Item.css */
 .moon-item {
-  font-family: "MuseoSans 700";
-  font-size: 30px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
-  color: #a6a6a6;
   line-height: 1.2em;
   padding: 10px;
   position: relative;
@@ -1208,11 +1202,6 @@
 .moon-item.disabled {
   cursor: default;
   opacity: 0.6;
-}
-.enyo-locale-non-latin .moon-item {
-  font-family: "Moonstone LG Display";
-  font-family: "Moonstone LG Display Bold";
-  font-size: 30px;
 }
 /* SelectableItem.css */
 .moon-selectable-item.selected {
@@ -1461,30 +1450,8 @@
 .moon-expandable-list-item-client .moon-item {
   font-family: "MuseoSans 300";
   font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
-  color: #a6a6a6;
-  line-height: 32px;
-}
-.moon-expandable-list-item-client .moon-item a:link {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-expandable-list-item-client .moon-item a:visited {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-expandable-list-item-client .moon-item a:hover {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-expandable-list-item-client .moon-item a:active {
-  color: #cf0652;
-  text-decoration: none;
 }
 .enyo-locale-non-latin .moon-expandable-list-item-client .moon-item {
-  font-family: "Moonstone LG Display";
   font-family: "Moonstone LG Display Light";
   font-size: 26px;
   line-height: 32px;
@@ -1535,42 +1502,13 @@
 }
 /* Current Value */
 .moon-expandable-picker-current-value {
-  font-family: "MuseoSans 300";
-  font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
-  line-height: 32px;
-  color: #a6a6a6;
-  margin: 0px;
-}
-.moon-expandable-picker-current-value a:link {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-expandable-picker-current-value a:visited {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-expandable-picker-current-value a:hover {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-expandable-picker-current-value a:active {
-  color: #cf0652;
-  text-decoration: none;
+  margin: 0;
 }
 .enyo-locale-right-to-left .moon-expandable-picker-current-value {
   padding-left: 0;
 }
 .moon-expandable-list-item .spotlight .moon-expandable-picker-current-value {
   color: #ffffff;
-}
-.enyo-locale-non-latin .moon-expandable-picker-current-value {
-  font-family: "Moonstone LG Display";
-  font-family: "Moonstone LG Display Light";
-  font-size: 26px;
-  line-height: 32px;
 }
 /* Help Text */
 .moon-expandable-picker-help-text {
@@ -1644,52 +1582,12 @@
 /* Title Below */
 .moon-header-title-below {
   position: relative;
-  font-family: "MuseoSans 700";
-  font-size: 30px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
-  color: #a6a6a6;
   height: 44px;
-}
-.enyo-locale-non-latin .moon-header-title-below {
-  font-family: "Moonstone LG Display";
-  font-family: "Moonstone LG Display Bold";
-  font-size: 30px;
 }
 /* Sub Title Below */
 .moon-header-sub-title-below {
   position: relative;
-  font-family: "MuseoSans 300";
-  font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
-  color: #a6a6a6;
-  line-height: 32px;
   height: 44px;
-}
-.moon-header-sub-title-below a:link {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-header-sub-title-below a:visited {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-header-sub-title-below a:hover {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-header-sub-title-below a:active {
-  color: #cf0652;
-  text-decoration: none;
-}
-.enyo-locale-non-latin .moon-header-sub-title-below {
-  font-family: "Moonstone LG Display";
-  font-family: "Moonstone LG Display Light";
-  font-size: 26px;
-  line-height: 32px;
 }
 /* Header Client */
 .moon-header-client {
@@ -1803,37 +1701,12 @@
   border: 5px solid transparent;
 }
 .moon-gridlist-imageitem .caption {
-  font-family: "MuseoSans 700";
   font-size: 30px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #a6a6a6;
 }
 .moon-gridlist-imageitem .sub-caption {
-  font-family: "MuseoSans 300";
   font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #a6a6a6;
-  line-height: 32px;
-}
-.moon-gridlist-imageitem .sub-caption a:link {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-gridlist-imageitem .sub-caption a:visited {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-gridlist-imageitem .sub-caption a:hover {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-gridlist-imageitem .sub-caption a:active {
-  color: #cf0652;
-  text-decoration: none;
 }
 .moon-gridlist-imageitem.selected {
   border: 5px solid #404040;
@@ -1866,13 +1739,9 @@
   bottom: 35px;
 }
 .enyo-locale-non-latin .moon-gridlist-imageitem .caption {
-  font-family: "Moonstone LG Display";
-  font-family: "Moonstone LG Display Bold";
   font-size: 30px;
 }
 .enyo-locale-non-latin .moon-gridlist-imageitem .sub-caption {
-  font-family: "Moonstone LG Display";
-  font-family: "Moonstone LG Display Light";
   font-size: 26px;
   line-height: 32px;
 }
@@ -2010,13 +1879,6 @@
 }
 /* Input.css */
 .moon-input {
-  font-family: "MuseoSans 300";
-  font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
-  color: #a6a6a6;
-  line-height: 32px;
   margin: 0px;
   padding: 0px;
   border: none;
@@ -2026,31 +1888,9 @@
   box-shadow: none;
   color: #4b4b4b;
 }
-.moon-input a:link {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-input a:visited {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-input a:hover {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-input a:active {
-  color: #cf0652;
-  text-decoration: none;
-}
 .moon-input::selection {
   color: #ffffff;
   background-color: #cf0652;
-}
-.enyo-locale-non-latin .moon-input {
-  font-family: "Moonstone LG Display";
-  font-family: "Moonstone LG Display Light";
-  font-size: 26px;
-  line-height: 32px;
 }
 .enyo-locale-non-latin.enyo-locale-th .moon-input {
   font-size: 24px;
@@ -2275,15 +2115,8 @@
 }
 /* RichText.css */
 .moon-richtext {
-  font-family: "MuseoSans 300";
-  font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
-  color: #a6a6a6;
-  line-height: 32px;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   border: none;
   outline: none;
   cursor: pointer;
@@ -2293,31 +2126,9 @@
   width: 300px;
   color: #4b4b4b;
 }
-.moon-richtext a:link {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-richtext a:visited {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-richtext a:hover {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-richtext a:active {
-  color: #cf0652;
-  text-decoration: none;
-}
 .moon-richtext::selection {
   color: #ffffff;
   background-color: #cf0652;
-}
-.enyo-locale-non-latin .moon-richtext {
-  font-family: "Moonstone LG Display";
-  font-family: "Moonstone LG Display Light";
-  font-size: 26px;
-  line-height: 32px;
 }
 .moon-textarea-decorator > .moon-richtext {
   resize: none;
@@ -2619,15 +2430,8 @@
 }
 /* TextArea.css */
 .moon-textarea {
-  font-family: "MuseoSans 300";
-  font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
-  color: #a6a6a6;
-  line-height: 32px;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   border: none;
   outline: none;
   cursor: pointer;
@@ -2637,31 +2441,9 @@
   width: 300px;
   color: #4b4b4b;
 }
-.moon-textarea a:link {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-textarea a:visited {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-textarea a:hover {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-textarea a:active {
-  color: #cf0652;
-  text-decoration: none;
-}
 .moon-textarea::selection {
   color: #ffffff;
   background-color: #cf0652;
-}
-.enyo-locale-non-latin .moon-textarea {
-  font-family: "Moonstone LG Display";
-  font-family: "Moonstone LG Display Light";
-  font-size: 26px;
-  line-height: 32px;
 }
 .moon-textarea-decorator > .moon-textarea {
   /* Remove scrollbars and resize handle */
@@ -2793,24 +2575,14 @@
   min-width: 336px;
   height: 194px;
   overflow: hidden;
-  margin: 0px;
+  margin: 0;
 }
 /* Label */
 .moon-labeledtextitem .label {
-  font-family: "MuseoSans 700";
-  font-size: 30px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #a6a6a6;
   border-top: 2px solid #a6a6a6;
-  margin: 0px 0px 3px 0px;
-  padding: 6px 0px 0px 0px;
-}
-.enyo-locale-non-latin .moon-labeledtextitem .label {
-  font-family: "Moonstone LG Display";
-  font-family: "Moonstone LG Display Bold";
-  font-size: 30px;
+  margin: 0 0 3px 0;
+  padding: 6px 0 0 0;
 }
 .spotlight.moon-labeledtextitem .label,
 .spotlight .moon-labeledtextitem .label {
@@ -2819,38 +2591,11 @@
 }
 /* Text */
 .moon-labeledtextitem .text {
-  font-family: "MuseoSans 300";
-  font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #a6a6a6;
   line-height: 32px;
   text-transform: none;
-  margin: 0px;
-  padding: 0px;
-}
-.moon-labeledtextitem .text a:link {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-labeledtextitem .text a:visited {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-labeledtextitem .text a:hover {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-labeledtextitem .text a:active {
-  color: #cf0652;
-  text-decoration: none;
-}
-.enyo-locale-non-latin .moon-labeledtextitem .text {
-  font-family: "Moonstone LG Display";
-  font-family: "Moonstone LG Display Light";
-  font-size: 26px;
-  line-height: 32px;
+  margin: 0;
+  padding: 0;
 }
 .spotlight.moon-labeledtextitem .text,
 .spotlight .moon-labeledtextitem .text {
@@ -3402,12 +3147,6 @@
   float: right;
 }
 .moon-calendar-picker .moon-calendar-picker-day {
-  font-family: "MuseoSans 700";
-  font-size: 30px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
-  color: #a6a6a6;
   text-align: center;
   vertical-align: middle;
   overflow: hidden;
@@ -3426,11 +3165,6 @@
   display: inline-block;
 }
 .moon-calendar-picker-date {
-  font-family: "MuseoSans 700";
-  font-size: 30px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #ffffff;
   width: 60px;
   line-height: 60px;
@@ -3448,16 +3182,6 @@
 }
 .moon-calendar-picker-date.moon-calendar-picker-date-shadow.spotlight {
   color: #ffffff;
-}
-.enyo-locale-non-latin .moon-calendar-picker-day {
-  font-family: "Moonstone LG Display";
-  font-family: "Moonstone LG Display Bold";
-  font-size: 30px;
-}
-.enyo-locale-non-latin .moon-calendar-picker-date {
-  font-family: "Moonstone LG Display";
-  font-family: "Moonstone LG Display Bold";
-  font-size: 30px;
 }
 /* Table.css */
 .moon-table-row.spotlight {
@@ -5072,33 +4796,10 @@
   -webkit-box-orient: vertical;
 }
 .moon-expandable-text .moon-expandable-text-button {
-  font-family: "MuseoSans 300";
-  font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
-  color: #a6a6a6;
-  line-height: 32px;
   float: right;
   display: inline-block;
   padding-right: 42px;
   position: relative;
-}
-.moon-expandable-text .moon-expandable-text-button a:link {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-expandable-text .moon-expandable-text-button a:visited {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-expandable-text .moon-expandable-text-button a:hover {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-expandable-text .moon-expandable-text-button a:active {
-  color: #cf0652;
-  text-decoration: none;
 }
 .moon-expandable-text .moon-expandable-text-button:after {
   position: absolute;
@@ -5116,12 +4817,6 @@
 }
 .moon-expandable-text .moon-expandable-text-button.hidden {
   display: none;
-}
-.enyo-locale-non-latin .moon-expandable-text .moon-expandable-text-button {
-  font-family: "Moonstone LG Display";
-  font-family: "Moonstone LG Display Light";
-  font-size: 26px;
-  line-height: 32px;
 }
 .enyo-locale-non-latin .moon-expandable-text .moon-expandable-text-button:after {
   top: 11px;

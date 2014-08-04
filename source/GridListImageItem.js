@@ -52,8 +52,8 @@
 		* @private
 		*/
 		componentOverrides: {
-			caption: {kind:'moon.MarqueeText'},
-			subCaption: {kind:'moon.MarqueeText'}
+			caption: {kind:'moon.MarqueeText', classes: 'moon-sub-header-text'},
+			subCaption: {kind:'moon.MarqueeText', classes: 'moon-body-text'}
 		},
 
 		/**
