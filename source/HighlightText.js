@@ -1,8 +1,8 @@
 (function (enyo, scope) {
 	/**
-	* event sent to {@link moon.HighlighText} to turn on highlight
+	* Event sent to {@link moon.HighlightText} to turn on highlight
 	*
-	* @event moon.HighlighText#event:onHighlight
+	* @event moon.HighlightText#onHighlight
 	* @type {Object}
 	* @property {String|RegExp} highlight - String or regular expression specifying the text or
 	*	pattern to highlight.
@@ -10,9 +10,9 @@
 	*/
 
 	/**
-	* event sent to {@link moon.HighlighText} to turn off highlight
+	* Event sent to {@link moon.HighlightText} to turn off highlight
 	*
-	* @event moon.HighlighText#event:onUnHighlight
+	* @event moon.HighlightText#onUnHighlight
 	* @type {Object}
 	* @public
 	*/
@@ -37,8 +37,8 @@
 	};
 
 	/**
-	* _moon.HighlightText_ is a control that displays highlighted text.  When
-	* {@link moon.HighlightText#setHighlight} is called or an
+	* `moon.HighlightText` is a control that displays highlighted text.  When
+	* [`highlight`]{@link moon.HighlightText#highlight} is set or an
 	* {@link moon.HighlightText#event:onHighlight} event is received, it will highlight a specified
 	* string if that string is found within the control's content.
 	*
@@ -55,7 +55,7 @@
 	* or the direct API call
 	*
 	* ```
-	* this.$.myHT.setHighlight('Hello');
+	* this.$.myHT.set('highlight', 'Hello');
 	* ```
 	*
 	* the word 'Hello' will be highlighted.
@@ -66,15 +66,15 @@
 	* ```
 	* this.waterfall('onUnHighlight');
 	* ```
-	* or when {@link moon.HighlightText#setHighlight} is passed a falsy value
+	* or when {@link moon.HighlightText#highlight} is set to a **falsy** value
 	*
 	* ```
-	* this.$.myHT.setHighlight('');
+	* this.$.myHT.set('highlight', '');
 	* ```
 	*
-	* @ui
 	* @class moon.HighlightText
 	* @extends enyo.Control
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -92,12 +92,13 @@
 
 		/**
 		* @private
+		* @lends moon.HighlightText.prototype
 		*/
-		published: /** @lends moon.HighlightText.prototype */ {
+		published: {
 
 			/**
 			* String or regular expression specifying the text or pattern to
-			* highlight. Setting this to an empty string, falsy value, or empty
+			* highlight. Setting this to an empty string, **falsy** value, or empty
 			* regex will disable highlighting.
 			*
 			* @type {String|RegExp}
@@ -110,7 +111,7 @@
 			* When `true`, only case-sensitive matches of the string to highlight will be
 			* highlighted.  This property will be ignored if the
 			* {@link moon.HighlightText#highlight} property is set to a regular expression (you
-			* may use the 'i' modifier to create a case-insensitive regex).
+			* may use the `'i'` modifier to create a case-insensitive regex).
 			*
 			* @type {Boolean}
 			* @default false

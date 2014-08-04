@@ -1,12 +1,11 @@
 (function (enyo, scope) {
 	/**
-	* _moon.DataGridList_ is an {@link enyo.DataGridList} with
-	* Moonstone visual styling applied.
+	* `moon.DataGridList` is an {@link enyo.DataGridList} with Moonstone visual styling applied.
 	*
-	* @ui
 	* @class moon.DataGridList
 	* @extends enyo.DataGridList
 	* @mixes moon.DataListSpotlightSupport
+	* @ui
 	* @public
 	*/
 	enyo.kind(

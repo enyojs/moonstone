@@ -1,11 +1,11 @@
 (function (enyo, scope) {
 	/**
-    * _moon.LabeledTextItem_, which extends {@link moon.Item}, is a [control]{@link enyo.Control}
+    * `moon.LabeledTextItem`, which extends {@link moon.Item}, is a [control]{@link enyo.Control}
     * that combines text content with a text label.
     *
-    * @ui
     * @class moon.LabeledTextItem
     * @extends moon.Item
+    * @ui
     * @public
     */
 	enyo.kind(
@@ -45,9 +45,9 @@
 		
 		/**
 		* @private
+		* @lends moon.LabeledTextItem.prototype
 		*/
-		published: 
-			/** @lends moon.LabeledTextItem.prototype */ {
+		published: {
 
 			/** 
 			* The label to be displayed along with the text.

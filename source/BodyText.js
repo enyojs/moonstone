@@ -1,11 +1,11 @@
 (function (enyo, scope) {
 	/**
-	* _moon.BodyText_ is a simple control for displaying body text in an app.  It is
-	* designed to align with other text-based controls.
+	* `moon.BodyText` is a simple control for displaying body text in an app.  It is designed to
+	* align with other text-based controls.
 	*
-	* @ui
 	* @class moon.BodyText
 	* @extends enyo.Control
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -19,30 +19,34 @@
 		/**
 		* @private
 		*/
+		kind: 'enyo.Control',
+
+		/**
+		* @private
+		*/
 		classes: 'moon-body-text moon-body-text-spacing moon-body-text-control',
 
 		/**
 		*
-		* If true, HTML tags are allowed in the control's content
+		* If `true`, HTML tags are allowed in the control's content
 		*
 		* @type {Boolean}
 		* @default true
-		* @memberof moon.BodyText.prototype
 		* @public
 		*/
 		allowHtml: true,
 
 		/**
 		* @private
+		* @lends moon.BodyText.prototype
 		*/
 		published: {
 
 			/**
-			* When true, text content is centered; otherwise left-aligned
+			* When `true`, text content is centered; otherwise left-aligned
 			*
 			* @type {Boolean}
 			* @default false
-			* @memberof moon.BodyText.prototype
 			* @public
 			*/
 			centered: false

@@ -1,73 +1,73 @@
 (function (enyo, scope) {
 	/**
-	 * _moon.MeridiemPicker_ is a helper kind used by [moon.TimePicker]{@link moon.TimePicker}. It is not intended
-	 * for use in other contexts.
-	 *
-	 * @class moon.MeridiemPicker
-	 * @extends moon.IntegerPicker
-	 * @protected
-	 * @ui
-	 */
+	* `moon.MeridiemPicker` is a helper kind used by [`moon.TimePicker`]{@link moon.TimePicker}. It
+	* is not intended for use in other contexts.
+	*
+	* @class moon.MeridiemPicker
+	* @extends moon.IntegerPicker
+	* @ui
+	* @protected
+	*/
 	enyo.kind(
 		/** @lends  moon.MeridiemPicker.prototype */ {
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		name: 'moon.MeridiemPicker',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		kind: 'moon.IntegerPicker',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		classes:'moon-date-picker-month',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		min: 0,
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		max: 1,
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		value: null,
 
 		/**
-		 * @private
-		 */
+		* @private
+		* @lends moon.MeridiemPicker.prototype
+		*/
 		published: {
 			/**
-			 * If _TimePicker.meridiemEnable_ is false, this value has not yet been initialized; if true, this value
-			 * will be _'PM'_ if the _hour_ is greater than 11, or _'AM'_ otherwise.
-			 *
-			 * @type {Array}
-			 * @default ['AM','PM']
-			 * @memberof moon.MeridiemPicker.prototype
-			 * @public
-			 */
+			* The meridiem text to display if {@link TimePicker.meridiemEnable} is `true`. The first
+			* item is used if the `hour` is less than `11`, otherwise the second is used.
+			*
+			* @type {String[]}
+			* @default ['AM','PM']
+			* @public
+			*/
 			meridiems: ['AM','PM']
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		valueChanged: function () {
 			this.inherited(arguments);
 			this.updateOverlays();
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		setupItem: function (inSender, inEvent) {
 			var index = inEvent.index;
 			this.$.item.setContent(this.meridiems[index]);
@@ -75,61 +75,61 @@
 	});
 	
 	/**
-	 * _moon.HourPicker_ is a helper kind used by [moon.TimePicker]{@link moon.TimePicker}. It is not intended for
-	 * use in other contexts.
-	 *
-	 * @class moon.HourPicker
-	 * @extends moon.IntegerPicker
-	 * @protected
-	 * @ui
-	 */
+	* `moon.HourPicker` is a helper kind used by [`moon.TimePicker`]{@link moon.TimePicker}. It is
+	*  not intended for use in other contexts.
+	*
+	* @class moon.HourPicker
+	* @extends moon.IntegerPicker
+	* @ui
+	* @protected
+	*/
 	enyo.kind(
-		/** @lends  moon.HourPicker.prototype */ {
+		/** @lends moon.HourPicker.prototype */ {
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		name: 'moon.HourPicker',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		kind: 'moon.IntegerPicker',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		classes:'moon-date-picker-field',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		min: 0,
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		max: 23,
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		value: null,
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		formatter: null,
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		wrap: true,
 
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		create: function () {
 			this.inherited(arguments);
 			// Create ilib Date object used for formatting hours
@@ -139,8 +139,8 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		setupItem: function (inSender, inEvent) {
 			var hour = inEvent.index;
 			if (this.date) { // ilib enabled
@@ -154,119 +154,122 @@
 	});
 	
 	/**
-	 * _moon.TimePicker_ is a control that can display--or allow the selection of--a
-	 * time expressed in hours and minutes, with an optional meridiem indicator
-	 * ('am' or 'pm').
-	 *
-	 * ```
-	 * {kind: 'moon.TimePicker', content: 'Time', meridiemEnable: true, onChange: 'changed'}
-	 * ```
-	 * Set the _value_ property to a standard JavaScript Date object to initialize
-	 * the picker, or to change it programmatically at runtime.
-	 *
-	 * @class moon.TimePicker
-	 * @extends moon.DateTimePickerBase
-	 * @public
-	 * @ui
-	 */
+	* `moon.TimePicker` is a [control]{@link enyo.Control} that can display -- or allow the
+	* selection of -- a time expressed in hours and minutes, with an optional meridiem indicator
+	* ('am' or 'pm').
+	*
+	* ```
+	* {kind: 'moon.TimePicker', content: 'Time', meridiemEnable: true, onChange: 'changed'}
+	* ```
+	* Set the [`value`]{@link moon.TimePicker#value} property to a standard JavaScript
+	* {@glossary Date} object to initialize the picker, or to change it programmatically at runtime.
+	*
+	* @class moon.TimePicker
+	* @extends moon.DateTimePickerBase
+	* @ui
+	* @public
+	*/
 	enyo.kind(
-		/** @lends  moon.HourPicker.prototype */ {
+		/** @lends moon.TimePicker.prototype */ {
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		name: 'moon.TimePicker',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		kind: 'moon.DateTimePickerBase',
 
 		/**
-		 * @private
-		 */
+		* @private
+		* @lends moon.TimePicker.prototype
+		*/
 		published: {
+
 			/**
-			 * When true, the picker will use a 12-hour clock. (When [iLib]{@link iLib} is loaded, this value will be ignored and
-			 * the current locale's rules will determine whether a 12-hour or 24-hour clock is used.)
-			 *
-			 * @type {Boolean}
-			 * @default false
-			 * @memberof moon.TimePicker.prototype
-			 * @public
-			 */
+			* When `true`, the picker will use a 12-hour clock. (When [iLib]{@link iLib} is loaded,
+			* this value will be ignored and the current locale's rules will determine whether a
+			* 12-hour or 24-hour clock is used.)
+			*
+			* @type {Boolean}
+			* @default false
+			* @public
+			*/
 			meridiemEnable: false,
+
 			/**
-			 * Optional label for hour
-			 *
-			 * @type {String}
-			 * @default moon.$L('hour')
-			 * @memberof moon.TimePicker.prototype
-			 * @public
-			 */
+			* Optional label for hour
+			*
+			* @type {String}
+			* @default moon.$L('hour')
+			* @public
+			*/
 			hourText: moon.$L('hour'),			// i18n 'HOUR' label in moon.TimePicker widget
+
 			/**
-			 * Optional label for minute
-			 *
-			 * @type {String}
-			 * @default moon.$L('minute')
-			 * @memberof moon.TimePicker.prototype
-			 * @public
-			 */
+			* Optional label for minute
+			*
+			* @type {String}
+			* @default moon.$L('minute')
+			* @public
+			*/
 			minuteText: moon.$L('minute'),		// i18n 'MINUTE' label in moon.TimePicker widget
+
 			/**
-			 * Optional label for meridiem
-			 *
-			 * @type {String}
-			 * @default moon.$L('meridiem')
-			 * @memberof moon.TimePicker.prototype
-			 * @public
-			 */
-			meridiemText: moon.$L('meridiem'),	// i18n 'MERIDIAN' label in moon.TimePicker widget
+			* Optional label for meridiem
+			*
+			* @type {String}
+			* @default moon.$L('meridiem')
+			* @public
+			*/
+
+			meridiemText: moon.$L('meridiem'),	// i18n 'MERIDIEM' label in moon.TimePicker widget
 			/**
-			 * When true, midnight (and noon, if _meridiemEnable: true_) will be represented as 0 instead
-			 * of 24 (and 12). (When [iLib]{@link iLib} is loaded, this value will be ignored and the current locale's
-			 * rules will determine whether 0 is used.)
-			 *
-			 * @type {Boolean}
-			 * @default false
-			 * @memberof moon.TimePicker.prototype
-			 * @public
-			 */
+			* When `true`, midnight (and noon, if `meridiemEnable: true`) will be represented as 0
+			* instead of 24 (and 12). (When [iLib]{@link iLib} is loaded, this value will be ignored
+			* and the current locale's rules will determine whether 0 is used.)
+			*
+			* @type {Boolean}
+			* @default false
+			* @public
+			*/
 			hoursStartAtZero: false,
+
 			/**
-			 * When true, hours will be zero-padded. (When [iLib]{@link iLib} is loaded, this value will be ignored and the
-			 * current locale's rules will determine whether zero-padding is used.)
-			 *
-			 * @type {Boolean}
-			 * @default false
-			 * @memberof moon.TimePicker.prototype
-			 * @public
-			 */
+			* When `true`, hours will be zero-padded. (When [iLib]{@link iLib} is loaded, this value
+			* will be ignored and the current locale's rules will determine whether zero-padding is
+			* used.)
+			*
+			* @type {Boolean}
+			* @default false
+			* @public
+			*/
 			hoursZeroPadded: false
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		observers: {
 			refresh: ['hoursStartAtZero', 'meridiemEnable', 'hoursZeroPadded']
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		iLibFormatType  : 'time',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		defaultOrdering : 'hma',
 
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		initILib: function () {
 			this.inherited(arguments);
 	
@@ -306,8 +309,8 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		setupPickers: function (ordering) {
 			var orderingArr = ordering.toLowerCase().split('');
 			var doneArr = [];
@@ -362,8 +365,8 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		formatValue: function () {
 			if (!this.value) {
 				return (this.noneText);
@@ -381,8 +384,8 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		formatHour: function (hour) {
 			if (this.meridiemEnable) {
 				if (hour > 12) {
@@ -407,8 +410,8 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		updateValue: function (inSender, inEvent) {
 			var hour = this.$.hour.getValue();
 			var minute = this.$.minute.getValue();
@@ -455,8 +458,8 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		setChildPickers: function (inOld) {
 			if (this.value) {
 				var hour = this.value.getHours();
@@ -470,22 +473,22 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		hourTextChanged: function (inOldvalue, inNewValue) {
 			this.$.hourLabel.setContent(inNewValue);
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		minuteTextChanged: function (inOldvalue, inNewValue) {
 			this.$.minuteLabel.setContent(inNewValue);
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		meridiemTextChanged: function (inOldvalue, inNewValue) {
 			this.$.meridiemLabel.setContent(inNewValue);
 		}

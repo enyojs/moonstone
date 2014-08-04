@@ -1,13 +1,13 @@
 (function (enyo, scope) {
 	/**
-	* @event moon.ContextualPopup#event:onRequestShowPopup
+	* @event moon.ContextualPopup#onRequestShowPopup
 	* @type {Object}
 	* @property {Object} activator - contains a reference to the activating object
 	* @public
 	*/
 	
 	/**
-	* @event moon.ContextualPopup#event:onRequestHidePopup
+	* @event moon.ContextualPopup#onRequestHidePopup
 	* @type {Object}
 	* @public
 	*/
@@ -15,15 +15,15 @@
 	/**
 	* Extends {@link enyo.Popup#event:onActivate}
 	*
-	* @event moon.ContextualPopup#event:onActivate
+	* @event moon.ContextualPopup#onActivate
 	* @type {Object}
 	* @property {Object} sentFromPopup - contains a reference to the popup
 	* @public
 	*/
 	
 	/**
-	* _moon.ContextualPopup_ is a popup window control with Moonstone visual styling
-	* applied.  It extends {@link enyo.Popup) and is designed to be used with
+	* `moon.ContextualPopup` is a popup window control with Moonstone visual styling
+	* applied.  It extends {@link enyo.Popup} and is designed to be used with
 	* {@link moon.ContextualPopupDecorator}.
 	*
 	* @class moon.ContextualPopup
@@ -74,11 +74,12 @@
 
 		/**
 		* @private
+		* @lends moon.ContextualPopup.prototype
 		*/
-		published: /** @lends moon.ContextualPopup.prototype */ {
+		published: {
 
 			/**
-			* When true, focus cannot leave the constraints of the popup unless the
+			* When `true`, focus cannot leave the constraints of the popup unless the
 			* popup is explicitly closed.
 			*
 			* @type {Boolean}
@@ -88,8 +89,8 @@
 			spotlightModal: false,
 
 			/**
-			* When false, _closeButton_ is hidden; when true, it is shown. When
-			* _showCloseButton_ is set to 'auto' (the default), _closeButton_ is shown
+			* When `false`, the close button is hidden; when `true`, it is shown. When
+			* `showCloseButton` is set to `'auto'` (the default), the close button is shown
 			* when {@link moon.ContextualPopup#spotlightModal} is true.
 			*
 			* @type {String}
@@ -209,7 +210,7 @@
 		},
 
 		/**
-		* @fires enyo.Popup#event:onActivate
+		* @fires enyo.Popup#onActivate
 		* @private
 		*/
 		decorateActivateEvent: function (inSender, inEvent) {
@@ -220,7 +221,8 @@
 		* @private
 		*/
 		getPageOffset: function (inNode) {
-			// getBoundingClientRect returns top/left values which are relative to the viewport and not absolute
+			// getBoundingClientRect returns top/left values which are relative to the viewport and
+			// not absolute
 			var r = inNode.getBoundingClientRect();
 
 			var pageYOffset = (window.pageYOffset === undefined) ? document.documentElement.scrollTop : window.pageYOffset;
@@ -372,7 +374,7 @@
 		},
 
 		/**
-		* Determines whether to display _closeButton_.
+		* Determines whether to display `closeButton`.
 		*
 		* @private
 		*/
@@ -412,7 +414,7 @@
 		},
 
 		/**
-		* Called when _this.showCloseButton_ changes.
+		* Called when `this.showCloseButton` changes.
 		*
 		* @private
 		*/
@@ -490,8 +492,9 @@
 		* @private
 		*/
 		getScrim: function () {
-			// show a transparent scrim for modal popups if scrimWhenModal is true
-			// if scrim is true, then show a regular scrim.
+			// show a transparent scrim for modal popups if
+			// {@link moon.ContextualPopup#scrimWhenModal} is `true`, else show a
+			// regular scrim.
 			if (this.modal && this.scrimWhenModal) {
 				return moon.scrimTransparent.make();
 			}

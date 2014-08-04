@@ -1,17 +1,15 @@
 (function (enyo, scope) {
 	/**
-	* _moon.GridListImageItem_ extends
-	* {@link #enyo.GridListImageItem}, adding Moonstone-specific
+	* `moon.GridListImageItem` extends {@link #enyo.GridListImageItem}, adding Moonstone-specific
 	* configuration, styling, decorators, and Spotlight/focus-state management.
 	*
-	* You may create an image grid by adding instances of this kind as components of
-	* a {@link moon.DataGridList}. See the latter kind for an example of how
-	* this may be done.
+	* You may create an image grid by adding instances of this kind as components of a
+	* {@link moon.DataGridList}. See the latter kind for an example of how this may be done.
 	*
-	* @ui
 	* @class moon.GridListImageItem
 	* @extends enyo.GridListImageItem
 	* @mixes moon.MarqueeSupport
+	* @ui
 	* @public
 	*/
 
@@ -72,7 +70,7 @@
 		},
 
 		/**
-		* @fires moon.Scroller#event:onRequestScrollIntoView
+		* @fires moon.Scroller#onRequestScrollIntoView
 		* @private
 		*/
 		focused: function (inSender, inEvent) {

@@ -1,10 +1,10 @@
 (function (enyo, scope) {
 	/**
-	* _moon.ObjectActionDecorator_ is a decorator that wraps a spotlightable object. When the object
+	* `moon.ObjectActionDecorator` is a decorator that wraps a spotlightable object. When the object
 	* is focused, additional controls are displayed, allowing the user to act on the object.
 	*
-	* The decorator supports two orientations: vertical, with object actions placed below the
-	* wrapped components, and horizontal, with object actions placed next to the components.
+	* The decorator supports two orientations: `'vertical'`, with object actions placed below the
+	* wrapped components, and `'horizontal'`, with object actions placed next to the components.
 	*
 	* **Here's a vertical example:**
 	* ```javascript
@@ -53,11 +53,13 @@
 
 		/**
 		* @private
+		* @lends moon.ObjectActionDecorator.prototype
 		*/
-		published: /** @lends moon.ObjectActionDecorator.prototype */ {
+		published: {
+
 			/**
-			* Orientation of object actions in relation to focused components; _vertical_ places the
-			* object actions below the components, while _horizontal_ places them next to the
+			* Orientation of object actions in relation to focused components; `'vertical'` places
+			* the object actions below the components, while `'horizontal'` places them next to the
 			* components.
 			*
 			* @type {String}
@@ -65,9 +67,11 @@
 			* @public
 			*/
 			orientation: 'vertical',
+
 			/**
-			* When _orientation_ is _vertical_, setting _noStretch: false_ causes the object actions
-			* to be stretched to fit the width of the components above
+			* When [`orientation`]{@link moon.ObjectActionDecorator} is `'vertical'`, setting
+			* `noStretch: false` causes the object actions to be stretched to fit the width of the
+			* components above
 			*
 			* @type {Boolean}
 			* @default false
