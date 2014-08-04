@@ -124,7 +124,7 @@
 			return function (value) {
 				var content = sup.apply(this, arguments);
 				return this.unit? content + ' ' + this.unit : content;
-			}
+			};
 		}),
 
 		/**
@@ -149,8 +149,8 @@
 					this.width = ib.width + this.itemPadding;
 					this.applyStyle('width', this.width + 'px');
 					this.$.item.setStyle('width: ' + this.width + 'px');
-				};
-			}
+				}
+			};
 		}),
 
 		/**

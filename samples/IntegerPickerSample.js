@@ -11,13 +11,13 @@ enyo.kind({
 			{kind: 'moon.FormCheckbox', content: 'Animate', checked: true, prop: 'animate', onchange: 'checked'},
 			{kind: 'moon.FormCheckbox', content: 'Wrap', prop: 'wrap', onchange: 'checked'},
 			{kind: 'moon.FormCheckbox', content: 'Padding (5 digits)', onchange: 'paddingChecked'},
-			{kind: 'moon.FormCheckbox', content: 'Disabled', prop: 'disabled', onchange: 'checked'},
+			{kind: 'moon.FormCheckbox', content: 'Disabled', prop: 'disabled', onchange: 'checked'}
 		]},
 		{kind: 'moon.Divider', content: 'Result'},
 		{kind: 'moon.BodyText', name: 'value', content: 'No change yet'}
 	],
 	changed: function (sender, event) {
-		if (this.$.value){
+		if (this.$.value) {
 			this.$.value.setContent(event.name + ' changed to ' + event.value);
 		}
 	},
@@ -27,5 +27,5 @@ enyo.kind({
 	paddingChecked: function (sender, event) {
 		this.$.picker.set('digits', sender.checked? 5 : null);
 		this.$.picker.render();
-	},
+	}
 });
