@@ -120,7 +120,9 @@
 		*/
 		create: function () {
 			this.inherited(arguments);
-			this.activeChanged();
+			if (this.hasOwnProperty("active")) {
+				this.activeChanged();
+			}
 			this.noBackgroundChanged();
 		},
 
