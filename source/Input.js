@@ -1,7 +1,7 @@
 (function (enyo, scope) {
 	/**
-	* _moon.Input_ is a Moonstone-styled input control, derived from
-	* [enyo.Input]{@link enyo.Input}. Typically, a {@link moon.Input} is placed inside a
+	* `moon.Input` is a Moonstone-styled input control, derived from
+	* [enyo.Input]{@link enyo.Input}. Typically, a `moon.Input` is placed inside a
 	* [moon.InputDecorator]{@link moon.InputDecorator}, which provides styling, e.g.:
 	*
 	* ```
@@ -10,12 +10,12 @@
 	* ]}
 	* ```
 	*
-	* For more information, see the documentation on [Text
-	* Fields](building-apps/controls/text-fields.html) in the Enyo Developer Guide.
+	* For more information, see the documentation on
+	* [Text Fields](building-apps/controls/text-fields.html) in the Enyo Developer Guide.
 	*
-	* @ui
 	* @class moon.Input
 	* @extends enyo.Input
+	* @ui
 	* @public
 	*/
 
@@ -46,11 +46,12 @@
 
 		/**
 		* @private
+		* @lends moon.Input.prototype
 		*/
-		published: /** @lends moon.Input.prototype */ {
+		published: {
 
 			/**
-			* When true, blur on Enter keypress (if focused)
+			* When `true`, blur on Enter keypress (if focused)
 			*
 			* @type {Boolean}
 			* @default false

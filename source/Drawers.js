@@ -2,43 +2,40 @@
 	/**
 	* Handler for initial rendering event
 	*
-	* event.drawersHeight contains the height of the drawer
-	*
-	* @event moon.Drawers#event:onDrawersRendered
+	* @event moon.Drawers#onDrawersRendered
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
+	* @property {Number} drawersHeight - The height of the drawer
 	* @public
 	*/
 
 	/**
 	* Handler for initial resizing event to size drawers to full screen
 	*
-	* event.drawersHeight contains the height of the drawer
-	*
-	* @event moon.Drawers#event:onDrawersResized
+	* @event moon.Drawers#onDrawersResized
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
+	* @public
+	*/
+
+	/**
+	* Handler for initial resizing event to size drawers to full screen
+	*
+	* @event moon.Drawers#onDrawersResized
+	* @type {Object}
+	* @property {Number} drawersHeight - The height of the drawer
 	* @public
 	*/
 
 
 	/**
-	* _moon.Drawers_ is a container kind designed to hold a set of
-	* {@link moon.Drawer} objects and client content. The {@link moon.Drawers#drawers} property
-	* accepts an array of {@link moon.Drawer} controls. The associated
-	* {@link moon.DrawerHandle) are positioned in their own small drawer,
-	* centered at the top of the 'dresser'--the region containing the array of
-	* Drawer controls and the activator nub.
+	* `moon.Drawers` is a container kind designed to hold a set of {@link moon.Drawer} objects and
+	* client content. The {@link moon.Drawers#drawers} property accepts an array of `Drawer`
+	* controls. The associated [handlers]{@link moon.DrawerHandle} are positioned in their own small
+	* drawer, centered at the top of the 'dresser' -- the region containing the array of Drawer
+	* controls and the activator nub.
 	*
-	* When a handle is selected, it opens the corresponding Drawer object's main
-	* drawer or control drawer, depending on how the Drawer object is configured.
-	* The control's child components may be of any kind.
+	* When a handle is selected, it opens the corresponding Drawer object's main drawer or control
+	* drawer, depending on how the Drawer object is configured.  The control's child components may
+	* be of any kind.
 	*
 	* ```
 	* {
@@ -64,6 +61,7 @@
 	*
 	* @class moon.Drawers
 	* @extends enyo.Control
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -86,13 +84,14 @@
 
 		/**
 		* @private
+		* @lends moon.Drawers.prototype
 		*/
-		published: /** @lends moon.Drawers.prototype */ {
+		published: {
 
 			/**
 			* Populate with an array of {@link moon.Drawer} components
 			*
-			* @type {object}
+			* @type {Object[]}
 			* @default null
 			* @public
 			*/
@@ -180,7 +179,7 @@
 
 		/**
 		* event waterfalls down
-		* @fires moon.Drawers#event:onDrawersRendered
+		* @fires moon.Drawers#onDrawersRendered
 		* @private
 		*/
 		rendered: function () {
@@ -400,7 +399,7 @@
 		},
 
 		/**
-		* @fires moon.Drawers#event:onDrawersResized
+		* @fires moon.Drawers#onDrawersResized
 		* @private
 		*/
 		handleResize: function () {
