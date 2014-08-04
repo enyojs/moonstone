@@ -12,7 +12,7 @@ enyo.kind({
 			{kind: 'moon.FormCheckbox', content: 'Wrap', prop: 'wrap', onchange: 'checked'},
 			{kind: 'moon.FormCheckbox', content: 'Padding (3 digits)', onchange: 'paddingChecked'},
 			{kind: 'moon.FormCheckbox', content: 'Labeled (sec)', checked: true, onchange: 'labelChecked'},
-			{kind: 'moon.FormCheckbox', content: 'Disabled', prop: 'disabled', onchange: 'checked'},
+			{kind: 'moon.FormCheckbox', content: 'Disabled', prop: 'disabled', onchange: 'checked'}
 		]},
 		{kind: 'moon.ToggleButton', content: 'Toggle RTL', ontap: 'buttonTapped'},
 		{kind: 'moon.Divider', content:'Result'},

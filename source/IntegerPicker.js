@@ -342,7 +342,9 @@
 	 	* @private
 	 	*/
 		previous: function (inSender, inEvent) {
-			if(this.disabled) return;
+			if(this.disabled) {
+				return;
+			}
 
 			this.direction = -1;
 
@@ -367,7 +369,9 @@
 	 	* @private
 	 	*/
 		next: function (inSender, inEvent) {
-			if(this.disabled) return;
+			if(this.disabled) {
+				return;
+			}
 
 			this.direction = 1;
 
