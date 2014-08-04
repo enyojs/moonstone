@@ -1,75 +1,75 @@
 (function (enyo, scope) {
 	/**
-	 * _moon.ToggleText_, which extends [moon.Checkbox]{@link moon.Checkbox}, is a control that looks like a switch with
-	 * labels for an 'on' state and an 'off' state. When the ToggleText is tapped, it switches its state and fires
-	 * an _onChange_ event.
-	 *
-	 * @class moon.ToggleText
-	 * @extends moon.Checkbox
-	 * @public
-	 * @ui
-	 */
+	* `moon.ToggleText`, which extends [`moon.Checkbox`]{@link moon.Checkbox}, is a control that
+	* looks like a switch with labels for an 'on' state and an 'off' state. When the ToggleText is
+	* tapped, it switches its state and fires an [`onChange`]{@link enyo.Checkbox#event:onChange}
+	* event.
+	*
+	* @class moon.ToggleText
+	* @extends moon.Checkbox
+	* @ui
+	* @public
+	*/
 	enyo.kind(
-		/** @lends  moon.ToggleText.prototype */ {
+		/** @lends moon.ToggleText.prototype */ {
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		name: 'moon.ToggleText',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		kind: 'moon.Checkbox',
 
 		/**
-		 * @private
-		 */
+		* @private
+		* @lends moon.ToggleText.prototype
+		*/
 		published: {
 			/**
-			 * Text label for the 'on' state
-			 *
-			 * @type {String}
-			 * @default moon.$L('on')
-			 * @memberof moon.ToggleText.prototype
-			 * @public
-			 */
+			* Text label for the 'on' state
+			*
+			* @type {String}
+			* @default moon.$L('on')
+			* @public
+			*/
 			onContent: moon.$L('on'),   // i18n 'ON' label in moon.ToggleText widget
 
 			/**
-			 * Text label for the 'off' state
-			 *
-			 * @type {String}
-			 * @default moon.$L('off')
-			 * @memberof moon.ToggleText.prototype
-			 * @public
-			 */
+			* Text label for the 'off' state
+			*
+			* @type {String}
+			* @default moon.$L('off')
+			* @public
+			*/
 			offContent: moon.$L('off')  // i18n 'OFF' label in moon.ToggleText widget
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		classes: 'moon-toggle-text',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		components: [
 			{name: 'label', classes: 'moon-toggle-text-text'}
 		],
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		create: function () {
 			this.inherited(arguments);
 			this.checkedChanged();
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		checkedChanged: function () {
 			this.inherited(arguments);
 			this.$.label.setContent(this.getChecked() ? this.onContent : this.offContent);

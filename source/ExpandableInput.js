@@ -2,15 +2,15 @@
 	/**
 	* Fires when the current text changes. This passes through {@link enyo.Input#event:onChange}.
 	*
-	* @event moon.ExpandableInput#event:onChange
+	* @event moon.ExpandableInput#onChange
 	* @type {Object}
 	* @property {String} value - The value of the input.
 	* @public
 	*/
 
 	/**
-	* _moon.ExpandableInput_, which extends
-	* [moon.ExpandableListItem]{@link moon.ExpandableListItem}, is a drop-down input that
+	* `moon.ExpandableInput`, which extends
+	* [`moon.ExpandableListItem`]{@link moon.ExpandableListItem}, is a drop-down input that
 	* prompts the user to enter text.
 	*
 	* @class moon.ExpandableInput
@@ -47,11 +47,12 @@
 
 		/**
 		* @private
+		* @lends moon.ExpandableInput.prototype
 		*/
-		published: /** @lends moon.ExpandableInput.prototype */ {
+		published: {
 
 			/**
-			* Text to be displayed in the _currentValue_ control if no item is currently selected
+			* Text to be displayed as the current value if no item is currently selected
 			*
 			* @type {String}
 			* @default ''
@@ -184,7 +185,7 @@
 		},
 
 		/**
-		* value should submit if user clicks outside control. We check for 'onSpotlightFocus' and  
+		* value should submit if user clicks outside control. We check for 'onSpotlightFocus' and
 		* 'mouseover' to make sure not to contract on the event which is fired from itself.
 		*
 		* @private
@@ -238,9 +239,9 @@
 		},
 
 		/**
-		* If {@link moon.ExpandableInput#lockBottom} is _true_, don't allow user to navigate down from
-		* the input field. If {@link moon.ExpandableInput#lockBottom} is _false_, close drawer and
-		* return true to keep spotlight on header.
+		* If {@link moon.ExpandableInput#lockBottom} is `true`, don't allow user to navigate down
+		* from the input field. If {@link moon.ExpandableInput#lockBottom} is `false`, close drawer
+		* and return true to keep spotlight on header.
 		*
 		* @private
 		*/

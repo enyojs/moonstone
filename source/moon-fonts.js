@@ -1,8 +1,8 @@
 (function(enyo, scope) {
 	/**
-	* _moon-fonts_ is the locale-specific font generator, allowing any locale to have its own custom
+	* `moon-fonts` is the locale-specific font generator, allowing any locale to have its own custom
 	* font. Each locale-font from the configuration block (defined in this file) is generated at
-	* run-time. If the locale you're currently in, is in the locale-font list, an additional
+	* run-time. If the locale you're currently in is in the locale-font list an additional
 	* `@font-face` rule will be generated that will override the standard "Moonstone LG Display"
 	* font.
 	*

@@ -1,21 +1,20 @@
 (function (enyo, scope) {
 	/**
-	* Fires when the currently selected value changes (i.e., when either
-	* _topOverlay_ or _bottomOverlay_ is tapped).
+	* Fires when the currently selected value changes
 	*
-	* @event moon.IntegerPicker#event:onChange
+	* @event moon.IntegerPicker#onChange
 	* @type {Object}
 	* @property {Number} value - The currently selected value.
-	* @property {String} name - The name of the IntegerPicker instance
+	* @property {String} name - The name of the `IntegerPicker` instance
 	* @public
 	*/
 
 	/**
-	* _moon.IntegerPicker_ is a control that displays a list of integers
+	* `moon.IntegerPicker` is a control that displays a list of integers
 	* ranging from {@link moon.IntegerPicker#min} to {@link moon.IntegerPicker#max},
 	* soliciting a choice from the user.
 	*
-	* To initialize the picker to a particular integer, set the _value_ property to
+	* To initialize the picker to a particular integer, set the `value` property to
 	* that integer:
 	*
 	* ```
@@ -24,8 +23,9 @@
 	* ```
 	*
 	* The picker may be changed programmatically by modifying the published
-	* properties {@link moon.IntegerPicker#value}, {@link moon.IntegerPicker#min}, or
-	* {@linkmoon.IntegerPicker#max} in the normal manner, by calling {@link enyo.Object#set}.
+	* properties [`value`]{@link moon.IntegerPicker#value}, [`min`]{@link moon.IntegerPicker#min},
+	* or [`max`]{@link moon.IntegerPicker#max} in the normal manner, by calling
+	* {@link enyo.Object#set}.
 	*
 	* @class moon.IntegerPicker
 	* @extends enyo.Control
@@ -52,8 +52,9 @@
 
 		/**
 		* @private
+		* @lends moon.IntegerPicker.prototype
 		*/
-		published: /** @lends moon.IntegerPicker.prototype */ {
+		published: {
 
 			/**
 			* Current value of the picker
@@ -93,8 +94,9 @@
 			digits: null,
 
 			/**
-			* When `true`, incrementing beyond {@link moon.IntegerPicker#max} will wrap to
-			* {@link moon.IntegerPicker#min}, and decrementing beyond min will wrap to max
+			* When `true`, incrementing beyond [`max`]{@link moon.IntegerPicker#max} will wrap to
+			* [`min`]{@link moon.IntegerPicker#min}, and decrementing beyond `min` will wrap to
+			* `max`
 			*
 			* @type {Boolean}
 			* @default false
@@ -356,7 +358,7 @@
 		},
 
 		/**
-		* @fires moon.IntegerPicker#event:onChange
+		* @fires moon.IntegerPicker#onChange
 		* @private
 		*/
 		fireChangeEvent: function () {
@@ -375,7 +377,7 @@
 		},
 
 		/**
-		* @fires moon.Scroller#event:onRequestScrollIntoView
+		* @fires moon.Scroller#onRequestScrollIntoView
 		* @private
 		*/
 		spotlightFocus: function () {
@@ -401,7 +403,7 @@
 		},
 
 		/**
-		* Silently scrolls to the _inValue_ y-position without animating
+		* Silently scrolls to the `inValue` y-position without animating
 		*
 		* @private
 		*/
@@ -428,11 +430,11 @@
 		}
 	});
 
- 	/**
+	/**
 	* For backward compatibility
 	*
- 	* @private
- 	*/
+	* @private
+	*/
 	moon.IntegerScrollPicker = moon.IntegerPicker;
 
 })(enyo, this);

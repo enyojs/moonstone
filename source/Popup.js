@@ -1,10 +1,11 @@
 (function (enyo, scope) {
 	/**
-	* _moon.Popup_ is an [enyo.Popup]{@link enyo.Popup} that appears at the bottom of the screen and
-	* takes up the full screen width.
+	* `moon.Popup` is an [`enyo.Popup`]{@link enyo.Popup} that appears at the bottom of the screen
+	* and takes up the full screen width.
 	*
 	* @class moon.Popup
 	* @extends enyo.Popup
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -68,11 +69,12 @@
 
 		/**
 		* @private
+		* @lends moon.Popup.prototype
 		*/
-		published: /** @lends moon.Popup.prototype */ {
+		published: {
 			/**
 			* Determines whether a scrim will appear when the dialog is modal. If `true`,
-			* {@link moon.Scrim} provides a transparent (i.e., invisible) overlay that prevents
+			* {@link enyo.Scrim} provides a transparent (i.e., invisible) overlay that prevents
 			* propagation of tap events.
 			*
 			* @type {Boolean}
@@ -84,7 +86,7 @@
 			/**
 			* Determines whether or not to display a scrim. Only displays scrims when floating. When
 			* the scrim is in the floating state (`floating: true`), it covers the entire viewport
-			* --i.e., it is displayed on top of other controls.
+			* -- i.e., it is displayed on top of other controls.
 			*
 			* @type {Boolean}
 			* @default true
@@ -103,11 +105,11 @@
 			scrimClassName: '',
 
 			/**
-			* If `true`, spotlight (focus) cannot leave the area of the popup unless the popup is
-			* explicitly closed; if `false`, spotlight may be moved anywhere within the viewport.
-			* Note that setting the value of _spotlightModal_ will have no effect on spotlight
-			* behavior unless the _autoDismiss_ property inherited from {@link enyo.Popup} is set to
-			* `false` (default is `true`).
+			* If `true`, {@glossary Spotlight} (focus) cannot leave the area of the popup unless the
+			* popup is explicitly closed; if `false`, spotlight may be moved anywhere within the
+			* viewport.  Note that setting the value of `spotlightModal` will have no effect on
+			* spotlight behavior unless the `autoDismiss` property inherited from {@link enyo.Popup}
+			* is set to `false` (default is `true`).
 			*
 			* @type {Boolean}
 			* @default false
@@ -116,10 +118,9 @@
 			spotlightModal: false,
 
 			/**
-			* When `false`, _closeButton_ is hidden; when `true`, it is shown. When
-			* [showCloseButton]{@link moon.Popup#showCloseButton} is set to "auto" (the default),
-			* _closeButton_ is shown when [spotlightModal]{@link moon.Popup#spotlightModal} is
-			* `true`.
+			* When `false`, the close button is hidden; when `true`, it is shown. When
+			* `showCloseButton` is set to `'auto'` (the default), the close button is shown when
+			* [`spotlightModal`]{@link moon.Popup#spotlightModal} is `true`.
 			*
 			* @type {String}
 			* @default 'auto'
@@ -204,7 +205,7 @@
 		},
 
 		/**
-		* Renders _moon.Popup_, extending enyo.Popup
+		* Renders `moon.Popup`, extending enyo.Popup
 		*
 		* @private
 		*/
@@ -229,7 +230,7 @@
 		},
 
 		/**
-		* Sets _this.downEvent_ on _onSpotlightSelect_ event.
+		* Sets `this.downEvent` on `onSpotlightSelect` event.
 		*
 		* @private
 		*/
@@ -238,7 +239,7 @@
 		},
 
 		/**
-		* If _this.downEvent_ is set to a spotlight event, skips normal popup _capturedTap()_ code.
+		* If `this.downEvent` is set to a spotlight event, skips normal popup `capturedTap()` code.
 		*
 		* @private
 		*/
@@ -286,7 +287,7 @@
 		},
 
 		/**
-		* Determines whether to display _closeButton_.
+		* Determines whether to display `closeButton`.
 		*
 		* @private
 		*/
@@ -305,7 +306,7 @@
 		},
 
 		/**
-		* Called if _this.spotlightModal_ changes.
+		* Called if `this.spotlightModal` changes.
 		*
 		* @private
 		*/
@@ -314,7 +315,7 @@
 		},
 
 		/**
-		* Called if _this.showCloseButton_ changes.
+		* Called if `this.showCloseButton` changes.
 		*
 		* @private
 		*/
@@ -399,8 +400,8 @@
 		},
 
 		/**
-		* Overrides the default _getShowing()_ behavior to avoid setting _this.showing_ based on the
-		* CSS _display_ property.
+		* Overrides the default `getShowing()` behavior to avoid setting `this.showing` based on the
+		* CSS `display` property.
 		*
 		* @private
 		*/
@@ -511,7 +512,7 @@
 		},
 
 		/**
-		* Removes focus style from _closeButton_ and hides the _moon.Popup_.
+		* Removes focus style from `closeButton` and hides the `moon.Popup`.
 		*
 		* @private
 		*/
@@ -523,7 +524,7 @@
 		},
 
 		/**
-		* Attempts to respot _this.activator_ when _moon.Popup_ is hidden.
+		* Attempts to respot `this.activator` when `moon.Popup` is hidden.
 		*
 		* @private
 		*/

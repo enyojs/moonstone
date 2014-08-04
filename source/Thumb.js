@@ -1,56 +1,56 @@
 (function (enyo, scope) {
 	/**
-	 * _moon.ScrollThumb_, which extends [enyo.ScrollThumb]{@link enyo.ScrollThumb}, is
-	 * used to display a small visual scroll indicator.
-	 *
-	 * _moon.ScrollThumb_ is not typically created in application code.
-	 *
-	 * @class moon.ScrollThumb
-	 * @extends enyo.ScrollThumb
-	 * @public
-	 * @ui
-	 */
+	* `moon.ScrollThumb`, which extends [`enyo.ScrollThumb`]{@link enyo.ScrollThumb}, is
+	* used to display a small visual scroll indicator.
+	*
+	* `moon.ScrollThumb` is not typically created in application code.
+	*
+	* @class moon.ScrollThumb
+	* @extends enyo.ScrollThumb
+	* @ui
+	* @public
+	*/
 	enyo.kind(
 		/** @lends  moon.ScrollThumb.prototype */ {
 	
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		name: 'moon.ScrollThumb',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		kind: 'enyo.ScrollThumb',
 
 		/**
-		 * @private
-		 */
+		* @private
+		* @lends moon.ScrollThumb.prototype
+		*/
 		published: {
 			/**
-			 * Ratio of size and position of thumb with respect to scroll bounds
-			 *
-			 * @type {Number}
-			 * @default 1
-			 * @memberof moon.ScrollThumb.prototype
-			 * @public
-			 */
+			* Ratio of size and position of thumb with respect to scroll bounds
+			*
+			* @type {Number}
+			* @default 1
+			* @public
+			*/
 			sizeRatio: 1
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		classes: 'moon-thumb matrix3dsurface',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		minSize: 20,
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		create: function () {
 			this.inherited(arguments);
 			var v = this.axis == 'v';
@@ -64,8 +64,8 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		update: function (inStrategy) {
 			if (this.showing && this.scrollBounds) {
 				var d = this.dimension;
@@ -103,8 +103,8 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		generateMatrix: function (inPosition, inSize) {
 			var x, y, w, h, node = this.hasNode();
 	
@@ -131,34 +131,34 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		assemle2dMatrix: function (inX, inY, inWidth, inHeight) {
 			return inWidth + ', 0, 0, ' + inHeight + ', ' + inX + ', ' + inY;
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		assemble3dMatrix: function (inX, inY, inWidth, inHeight) {
 			return inWidth + ', 0, 0, 0, 0, ' + inHeight + ', 0, 0, 0, 0, 1, 0, ' + inX + ', ' + inY + ', 1, 1';
 		},
 
 		/**
-		 * Override _show()_ to give fade effect.
-		 * 
-		 * @private
-		 */
+		* Override _show()_ to give fade effect.
+		* 
+		* @private
+		*/
 		show: function () {
 			this.cancelDelayHide();
 			this.removeClass('hidden');
 		},
 
 		/**
-		 * Hides the control.
-		 *
-		 * @private
-		 */
+		* Hides the control.
+		*
+		* @private
+		*/
 		hide: function () {
 			this.addClass('hidden');
 		}

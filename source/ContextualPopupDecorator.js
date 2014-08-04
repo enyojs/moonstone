@@ -1,9 +1,9 @@
 (function (enyo, scope) {
 	/**
-	* _moon.ContextualPopupDecorator_ is a control that activates a
+	* `moon.ContextualPopupDecorator` is a control that activates a
 	* {@link moon.ContextualPopup}. It loosely couples the popup
 	* with an activating control, which may be a button or any other control that
-	* fires an {@link enyo.Control#event:onActivate event. The decorator surrounds both the
+	* fires an {@link enyo.Control#onActivate} event. The decorator surrounds both the
 	* activating control and the contextual popup.
 	*
 	* When the control is activated, the popup shows itself in the correct position
@@ -60,7 +60,7 @@
 		},
 
 		/**
-		* @fires enyo.Control#event:onActivate
+		* @fires enyo.Control#onActivate
 		* @private
 		*/
 		activated: function (inSender, inEvent) {
@@ -84,13 +84,12 @@
 		},
 
 		/**
-		* onShow event handler.
-		* Due to popup being a 'client control' of decorator
-		* we should provide connector between them.
+		* `onShow` event handler.  Due to popup being a 'client control' of decorator we should
+		* provide connector between them.
 		*
 		*
-		* @param {inSender} the component that most recently propagated onShow event
-		* @param {inEvent} an object which contains event information
+		* @param {Object} inSender - the component that most recently propagated onShow event
+		* @param {Object} inEvent - an object which contains event information
 		* @private
 		*/
 		popupShown: function (inSender, inEvent) {
@@ -115,7 +114,7 @@
 
 		/**
 		* event waterfalls down
-		* @fires moon.ContextualPopup#event:onRequestShowPopup
+		* @fires moon.ContextualPopup#onRequestShowPopup
 		* @private
 		*/
 		requestShowPopup: function () {
@@ -124,7 +123,7 @@
 
 		/**
 		* event waterfalls down
-		* @fires moon.ContextualPopup#event:onRequestHidePopup
+		* @fires moon.ContextualPopup#onRequestHidePopup
 		* @private
 		*/
 		requestHidePopup: function () {
