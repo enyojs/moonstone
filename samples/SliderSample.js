@@ -7,7 +7,7 @@ enyo.kind({
 		{from: ".$.slider1.bgProgress", to: ".$.slider2.bgProgress"}
 	],
 	components: [
-		{kind: "moon.Scroller", fit: true, components: [
+		{kind: "moon.Scroller", classes: "moon-sample-slider-wrapper", fit: true, components: [
 			{classes:"moon-1v"},
 			{kind: "moon.Divider", content: "Slider 1: Default"},
 			{name: "slider1", kind: "moon.Slider", value: 25, bgProgress: 35, onChanging: "sliderChanging", onChange: "sliderChanged"},
