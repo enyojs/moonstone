@@ -4,6 +4,7 @@
 
 	.moon-checkbox.moon-toggle-switch {
 		top: @moon-spotlight-outset + 1px; /* To override top:10px set by .moon-checkbox-item .moon-checkbox so the indicator vertically middle align */
+		right: @moon-spotlight-outset;
 	}
 }
 
@@ -11,7 +12,13 @@
 	margin-right: @moon-toggleswitch-margin;
 }
 
-.enyo-locale-right-to-left .moon-toggle-item .moon-toggle-item-label-wrapper {
-	margin-left: @moon-toggleswitch-margin;
-	margin-right: 0px;
+.enyo-locale-right-to-left .moon-toggle-item {
+	.moon-checkbox.moon-toggle-switch {
+		left: @moon-spotlight-outset;
+		right: auto;
+	}
+	.moon-toggle-item-label-wrapper {
+		margin-left: @moon-toggleswitch-margin;
+		margin-right: 0px;
+	}
 }

@@ -60,6 +60,11 @@
 		/**
 		 * @private
 		 */
+		 spotlight: true,
+
+		/**
+		 * @private
+		 */
 		defaultKind: 'moon.TableCell'
 	});
 

@@ -211,7 +211,7 @@
 		rendered: enyo.inherit(function (sup) {
 			return function () {
 				sup.apply(this, arguments);
-				if (this.marqueeOnRender) {
+				if (this.marqueeOnRender && !this.disabled) {
 					this.startMarqueeCustomDelay(this.marqueeOnRenderDelay);
 				}
 			};
@@ -230,8 +230,11 @@
 				// FIXME: not sure why events can arrive without event objects, but we guard here for safety
 				if (oEvent && !oEvent.delegate) {
 					var handler = this._marquee_Handlers[sEventName];
-					if (handler && this[handler](oSender, oEvent)) {
-						return true;
+					if (handler){
+						this.cachePoint = true;
+						if(this[handler](oSender, oEvent)) {
+							return true;
+						}
 					}
 				}
 				return sup.apply(this, arguments);
@@ -280,7 +283,8 @@
 		*/
 		_marquee_enter: function (inSender, inEvent) {
 			this._marquee_isHovered = true;
-			if (this.marqueeOnHover && !this.marqueeOnSpotlight) {
+			if ((this.marqueeOnHover && !this.marqueeOnSpotlight) || 
+			(this.disabled && this.marqueeOnSpotlight && !this.hasNode().getAttribute('disabled'))) {
 				this.startMarquee();
 			}
 		},
@@ -290,7 +294,7 @@
 		*/
 		_marquee_leave: function (inSender, inEvent) {
 			this._marquee_isHovered = false;
-			if (this.marqueeOnHover && !this.marqueeOnSpotlight) {
+			if ((this.marqueeOnHover && !this.marqueeOnSpotlight) || (this.disabled && this.marqueeOnSpotlight)) {
 				this.stopMarquee();
 			}
 		},
@@ -522,7 +526,8 @@
 		*/
 		observers: {
 			_marquee_contentChanged: ['content'],
-			_marquee_centeredChanged: ['centered']
+			_marquee_centeredChanged: ['centered'],
+			_marquee_wrapInsteadOfMarqueeChanged: ["wrapInsteadOfMarquee"]
 		},
 
 		/**
@@ -584,6 +589,7 @@
 				sup.apply(this, arguments);
 				this.detectTextDirectionality();
 				this._marquee_centeredChanged();
+				this._marquee_wrapInsteadOfMarqueeChanged();
 			};
 		}),
 
@@ -637,7 +643,7 @@
 		* @private
 		*/
 		_marquee_requestMarquee: function (inSender, inEvent) {
-			if (!inEvent || this.disabled || !this.showing || !this._marquee_enabled || this._marquee_fits) {
+			if (!inEvent || !this.showing || this._marquee_fits) {
 				return;
 			}
 
@@ -775,7 +781,7 @@
 			this.$.marqueeText.applyStyle('transition-duration', duration + 's');
 			this.$.marqueeText.applyStyle('-webkit-transition-duration', duration + 's');
 
-			enyo.dom.transform(this.$.marqueeText, {translateZ: 0});
+			enyo.dom.transform(this, {translateZ: -0.01});
 
 			// Need this timeout for FF!
 			setTimeout(this.bindSafely(function () {
@@ -829,6 +835,26 @@
 		*/
 		_marquee_centeredChanged: function () {
 			this.applyStyle('text-align', this.centered ? 'center' : null);
+		},
+
+		/**
+		* @private
+		*/
+		_marquee_wrapInsteadOfMarqueeChanged: function(old) {
+			if (this.wrapInsteadOfMarquee) {
+				this.addClass("allow-wrap");
+				if (this.$.marqueeText) {
+					this.$.marqueeTextWrapper.destroy();
+					this.render();
+				}
+			}
+			if (old && !this.wrapInsteadOfMarquee) {
+				this.removeClass("allow-wrap");
+				// FIXME: Performing creation here to workaround potential WebKit measuring issue 
+				// with scrollWidth (under-measures by 10px when marquee components are destroyed
+				// when we switch wrapInsteadofMarquee from `false` to `true`, and back to `false`).
+				this._marquee_createMarquee();
+			}
 		}
 	};
 
@@ -929,7 +955,16 @@
 			* @default true
 			* @public
 			*/
-			centered: false
+			centered: false,
+
+			/**
+			* When true, element wraps instead of marqueeing
+			*
+			* @type {Boolean}
+			* @default false
+			* @public
+			*/
+			wrapInsteadOfMarquee: false
 		}
 	});
 

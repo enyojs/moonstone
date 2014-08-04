@@ -1,17 +1,12 @@
 /* Table.css */
+.moon-table-row {
+	&.spotlight{
+		background-color: @moon-spotlight-background-color;
+		color: @moon-spotlight-text-color;
+	}
 
-/*.moon-table {
-	padding-right: 2em;
-	box-sizing: border-box;
-}*/
-
-.moon-table-row.spotlight {
-	background-color: @moon-spotlight-background-color;
-}
-
-/* TODO: Support for disabled table rows? */
-
-.moon-table-cell {
-	padding-right: 2em;
-	white-space: nowrap;
+	.moon-table-cell {
+		padding: @moon-spotlight-outset;
+		white-space: nowrap;
+	}
 }
