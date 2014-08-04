@@ -933,6 +933,8 @@
 		inlineChanged: function() {
 			// Force fullscreen
 			this.addRemoveClass('enyo-fullscreen enyo-fit', !this.inline);
+			// Padding-bottom contains inline controls
+			this.addRemoveClass('moon-video-inline', this.inline);
 			// show hide controls visibility
 			this.$.inlineControl.setShowing(this.inline);
 			this.$.fullscreenControl.setShowing(!this.inline);
