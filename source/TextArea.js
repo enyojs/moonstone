@@ -1,58 +1,58 @@
 (function (enyo, scope) {
 	/**
-	 * _moon.TextArea_ is a Moonstone-styled TextArea control, derived from
-	 * [enyo.TextArea]{@link enyo.TextArea}. Typically, a _moon.TextArea_ is placed inside
-	 * a [moon.InputDecorator]{@link moon.InputDecorator}, which provides styling, e.g.:
-	 *
-	 * ```
-	 * {kind: 'moon.InputDecorator', components: [
-	 *	{kind: 'moon.TextArea', onchange: 'inputChange'}
-	 * ]}
-	 * ```
-	 *
-	 * For more information, see the documentation on [Text
-	 * Fields]{@link building-apps/controls/text-fields.html} in the Enyo Developer Guide.
-	 *
-	 * @class moon.TextArea
-	 * @extends enyo.TextArea
-	 * @public
-	 * @ui
-	 */
+	* `moon.TextArea` is a Moonstone-styled TextArea control, derived from
+	* [`enyo.TextArea`]{@link enyo.TextArea}. Typically, a `moon.TextArea` is placed inside
+	* a [`moon.InputDecorator`]{@link moon.InputDecorator}, which provides styling, e.g.:
+	*
+	* ```
+	* {kind: 'moon.InputDecorator', components: [
+	*	{kind: 'moon.TextArea', onchange: 'inputChange'}
+	* ]}
+	* ```
+	*
+	* For more information, see the documentation on
+	* [Text Fields]{@link building-apps/controls/text-fields.html} in the Enyo Developer Guide.
+	*
+	* @class moon.TextArea
+	* @extends enyo.TextArea
+	* @ui
+	* @public
+	*/
 	enyo.kind(
 		/** @lends  moon.TextArea.prototype */ {
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		name: 'moon.TextArea',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		kind: 'enyo.TextArea',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		classes: 'moon-textarea',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		spotlightIgnoredKeys: [13, 16777221],	// 13==Enter, 16777221==KeypadEnter
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		handlers: {
 			onblur: 'blurred'
 		},
 
 		/**
-		 * Set the focus on the textarea
-		 *
-		 * @public
-		 */
+		* Set the focus on the textarea
+		*
+		* @public
+		*/
 		focus: function () {
 			this.inherited(arguments);
 			var node = this.hasNode();
@@ -64,10 +64,10 @@
 		},
 
 		/**
-		 * Remove focus from textarea
-		 *
-		 * @public
-		 */
+		* Remove focus from textarea
+		*
+		* @public
+		*/
 		blur: function () {
 			if (this.hasNode()) {
 				this.node.blur();
@@ -75,15 +75,15 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		blurred: function () {
 			this.hasNode().scrollTop = 0;
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		left: function (inEvent) {
 			if (!this.hasNode() || this.node.selectionStart === 0) {
 				return false;
@@ -92,8 +92,8 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		right: function (inEvent) {
 			if (!this.hasNode() || this.node.selectionStart == this.node.value.length) {
 				return false;
@@ -102,15 +102,15 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		up: function (inEvent) {
 			return this.left(inEvent);
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		down: function (inEvent) {
 			return this.right(inEvent);
 		}

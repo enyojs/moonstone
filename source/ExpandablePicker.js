@@ -2,22 +2,22 @@
 	/**
 	* Fires when the currently selected item changes.
 	*
-	* @event moon.ExpandablePicker#event:onChange
+	* @event moon.ExpandablePicker#onChange
 	* @type {Object}
 	* @property {Object|Object[]} selected - a reference to the currently selected item,
-	*	or (when [multipleSelection]{@link moon.ExpandablePicker#multipleSelection} is `true`),
+	*	or (when [`multipleSelection`]{@link moon.ExpandablePicker#multipleSelection} is `true`),
 	*	an array of selected items.
 	* @property {String} content - The content of the currently selected item, or (when
-	*	[multipleSelection]{@link moon.ExpandablePicker#multipleSelection} is `true`), a comma
+	*	[`multipleSelection`]{@link moon.ExpandablePicker#multipleSelection} is `true`), a comma
 	*	(plus space) separated list of the selected items' content.
 	* @property {Number} index - The index of the currently selected item, or (when
-	*	[multipleSelection]{@link moon.ExpandablePicker#multipleSelection} is `true`), an array of
+	*	[`multipleSelection`]{@link moon.ExpandablePicker#multipleSelection} is `true`), an array of
 	*	indexes.
 	* @public
 	*/
 
 	/**
-	* _moon.ExpandablePicker_, which extends
+	* `moon.ExpandablePicker`, which extends
 	* [moon.ExpandableListItem]{@link moon.ExpandableListItem}, is a drop-down picker
 	* menu that solicits a choice from the user. The picker's child components,
 	* which are instances of [moon.CheckboxItem]{@link moon.CheckboxItem} by default,
@@ -33,8 +33,8 @@
 	* ```
 	*
 	* The currently selected item is available in the picker's {@link moon.ExpandablePicker#selected}
-	* property and may be accessed in the normal manner, by calling _get('selected')_ and
-	* _set('selected', &lt;value&gt;)_. Similarly, the index of the current selection is
+	* property and may be accessed in the normal manner, by calling `get('selected')` and
+	* `set('selected', <value>)`. Similarly, the index of the current selection is
 	* available in {@link moon.ExpandablePicker#selectedIndex}. When the multipleSelection property
 	* is set to true, selected returns an array of selected items, and selectedIndex returns an
 	* array of selected indexes.
@@ -51,7 +51,7 @@
 	* ```
 	*
 	* The picker options may be modified programmatically in the standard manner, by
-	* calling _createComponent().render()_ or _destroy()_.
+	* calling `createComponent().render()` or `destroy()`.
 	*
 	* ```
 	* // Add new items to picker
@@ -101,12 +101,14 @@
 
 		/**
 		* @private
+		* @lends moon.ExpandablePicker.prototype
 		*/
-		published: /** @lends moon.ExpandablePicker.prototype */ {
+		published: {
 
 			/**
-			* Reference to currently selected item, if any,
-			* or (when [multipleSelection]{@link moon.ExpandablePicker#multipleSelection} is `true`), an array of selected items.
+			* Reference to currently selected item, if any, or (when
+			* [`multipleSelection`]{@link moon.ExpandablePicker#multipleSelection} is `true`), an
+			* array of selected items.
 			*
 			* @type {Object | Object[]}
 			* @default null
@@ -115,8 +117,8 @@
 			selected: null,
 
 			/**
-			* Index of currently selected item or -1, or (when
-			* [multipleSelection]{@link moon.ExpandablePicker#multipleSelection} is `true`), an
+			* Index of currently selected item or `-1`, or (when
+			* [`multipleSelection`]{@link moon.ExpandablePicker#multipleSelection} is `true`), an
 			* array of selected indexes or an empty array, if none.
 			*
 			* @type {Number | Number[]}
@@ -126,7 +128,7 @@
 			selectedIndex: -1,
 
 			/**
-			* Text to be displayed in the _currentValue_ control if no item is currently selected
+			* Text to be displayed as the current value if no item is currently selected
 			*
 			* @type {String}
 			* @default ''
@@ -258,9 +260,9 @@
 
 		/**
 		* When the {@link moon.ExpandablePicker#selected} control changes, updates
-		* {@link moon.ExpandablePicker#checked} values appropriately and fires an _onChange_ event.
+		* {@link moon.ExpandablePicker#checked} values appropriately and fires an `onChange` event.
 		*
-		* @fires moon.ExpandablePicker#event:onChange
+		* @fires moon.ExpandablePicker#onChange
 		* @private
 		*/
 		selectedChanged: function (inOldValue) {
@@ -352,7 +354,8 @@
 		},
 
 		/**
-		* If there is no selected item, uses {link @moon.ExpandablePicker#noneText} as current value.
+		* If there is no selected item, uses {link @moon.ExpandablePicker#noneText} as current
+		* value.
 		*
 		* @private
 		*/
@@ -369,7 +372,7 @@
 		},
 
 		/**
-		* When {@link moon.ExpandablePicker#open} changes, shows/hides _this.$.currentValue_.
+		* When {@link moon.ExpandablePicker#open} changes, shows/hides `this.$.currentValue`.
 		*
 		* @private
 		*/
@@ -380,7 +383,7 @@
 		},
 
 		/**
-		* When drawer is opened/closed, shows/hides _this.$.helpText.
+		* When drawer is opened/closed, shows/hides `this.$.helpText`.
 		*
 		* @private
 		*/
@@ -398,8 +401,9 @@
 		*/
 		destroy: enyo.inherit(function (sup) {
 			return function () {
-				// When the expandablePicker itself is going away, take note so we don't try and do single-picker option
-				// remove logic such as setting some properties to default value when each picker option is destroyed
+				// When the expandablePicker itself is going away, take note so we don't try and do
+				// single-picker option remove logic such as setting some properties to default
+				// value when each picker option is destroyed
 				this.destroying = true;
 				sup.apply(this, arguments);
 			};
@@ -421,7 +425,8 @@
 								break;
 							}
 						}
-						// have to call selectedChanged in all cases for multipleSelection because indexes will change
+						// have to call selectedChanged in all cases for multipleSelection because
+						// indexes will change
 						this.selectedChanged();
 					} else {
 						if (this.selected === inControl) {
@@ -446,7 +451,7 @@
 		/**
 		* When the picker is initialized, looks for any items with an `active: true`
 		* flag; if one is found, it is set as the currently selected item. This is
-		* done without triggering an [onChange]{@link moon.ExpandablePicker#event:onChange] event,
+		* done without triggering an [onChange]{@link moon.ExpandablePicker#event:onChange} event,
 		* as it happens during initialization.
 		*
 		* @private
@@ -527,9 +532,9 @@
 		},
 
 		/**
-		* Fires an _onChange_ event.
+		* Fires an `onChange` event.
 		*
-		* @fires moon.ExpandablePicker#event:onChange
+		* @fires moon.ExpandablePicker#onChange
 		* @private
 		*/
 		fireChangeEvent: function () {

@@ -1,32 +1,32 @@
 (function (enyo, scope) {
 	/**
-	 * _moon.RadioItem_ is a modified [moon.Item]{@link moon.Item} control designed for use inside
-	 * a [moon.RadioItemGroup]{@link moon.RadioItemGroup}.
-	 *
-	 * For more information, see the documentation on [Radio Items]{@link building-apps/controls/radio-items.html}
-	 * in the Enyo Developer Guide.
-	 *
-	 * @class moon.RadioItem
-	 * @extends moon.SelectableItem
-	 * @public
-	 * @ui
-	 */
+	* `moon.RadioItem` is a modified [`moon.Item`]{@link moon.Item} control designed for use inside
+	* a [`moon.RadioItemGroup`]{@link moon.RadioItemGroup}.
+	*
+	* For more information, see the documentation on
+	* [Radio Items]{@link building-apps/controls/radio-items.html} in the Enyo Developer Guide.
+	*
+	* @class moon.RadioItem
+	* @extends moon.SelectableItem
+	* @ui
+	* @public
+	*/
 	enyo.kind(
-		/** @lends  moon.RadioItem.prototype */ {
+		/** @lends moon.RadioItem.prototype */ {
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		name: 'moon.RadioItem',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		kind: 'moon.SelectableItem',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		create: function() {
 			this.inherited(arguments);
 			this.removeClass('moon-selectable-item');
