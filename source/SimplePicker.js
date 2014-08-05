@@ -222,8 +222,8 @@
 		showHideNavButtons: function() {
 			var index = this.getSelectedIndex(),
 				maxIndex = this.getClientControls().length - 1;
-			var prevButton = this.rtl ? this.$.buttonRight : this.$.buttonLeft;
-			var nextButton = this.rtl ? this.$.buttonLeft : this.$.buttonRight;
+			var prevButton = this.$.buttonLeft;
+			var nextButton = this.$.buttonRight;
 
 			if (this.disabled) {
 				this.hideNavButton(prevButton);
@@ -373,7 +373,7 @@
 		* @private
 		*/
 		selectedIndexChanged: function() {
-			enyo.dom.transform(this.$.client, {translateX: (this.selectedIndex * 100 * (this.rtl ? 1 : -1)) + '%'});
+			enyo.dom.transform(this.$.client, {translateX: (this.selectedIndex * -100) + '%'});
 			this.updateMarqueeDisable();
 			this.setSelected(this.getClientControls()[this.selectedIndex]);
 			this.fireChangedEvent();
@@ -402,11 +402,7 @@
 		*/
 		left: function(sender, e) {
 			if (e && e.sentHold) { return; }
-			if (this.rtl) {
-				this.next(sender, e);
-			} else {
-				this.previous(sender, e);
-			}
+			this.previous(sender, e);
 		},
 
 		/**
@@ -414,11 +410,7 @@
 		*/
 		right: function(sender, e) {
 			if (e && e.sentHold) { return; }
-			if (this.rtl) {
-				this.previous(sender, e);
-			} else {
-				this.next(sender, e);
-			}
+			this.next(sender, e);
 		},
 
 		/**
