@@ -289,13 +289,10 @@
 		*/
 		build: function() {
 			var indices = this.indices = {},
-				values = this.values = [],
-				ilibNumFmt = (typeof ilib !== 'undefined') ? new ilib.NumFmt({locale: new ilib.LocaleInfo().locale, useNative: false}) : null,
-				fmtValue;
+				values = this.values = [];
 
 			for (var i = 0, v = this.min; v <= this.max; i++, v += this.step) {
-				fmtValue = ilibNumFmt ? ilibNumFmt.format(v) : v;
-				this.createComponent({content: fmtValue + ' ' + this.unit, value: v});
+				this.createComponent({content: v + ' ' + this.unit, value: v});
 				values[i] = v;
 				indices[v] = i;
 				if (this.step <= 0) {
