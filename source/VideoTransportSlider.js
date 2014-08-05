@@ -767,7 +767,7 @@
 		timeUpdate: function(sender, e) {
 			this._currentTime = sender._currentTime;
 			if (!this.dragging && this.isInPreview()) { return; }
-			this._duration = sender._duration;
+			this._duration = sender.duration;
 			this.currentTime = this._currentTime;
 			this.duration = this._duration;
 			this.$.endTickText.setContent(this.formatTime(this.duration));
