@@ -497,6 +497,9 @@
 		* and `'1'` means Monday.
 		* To make day act like above, it adds an offset to day calculation.
 		*
+		* Reference date is the 1st of JAN 1584. It is the 2nd year of gregorian calendar.
+		* And it is Sunday.
+		*
 		* @private
 		*/
 		updateDays: function () {
@@ -505,7 +508,11 @@
 				if (typeof ilib !== 'undefined') {
 					var date = ilib.Date.newInstance({
 						type: this._tf.getCalendar(),
-						day:  2 + i + this.getFirstDayOfWeek()
+						year: 1584,
+						month: 1,
+						day:  1 + i + this.getFirstDayOfWeek(),
+						hour: 12,
+						locale: this.locale
 					});
 					var day = this._tf.format(date);
 					daysControls[i].setContent(enyo.toUpperCase(day));
