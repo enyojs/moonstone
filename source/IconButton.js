@@ -1,6 +1,6 @@
 (function (enyo, scope) {
 	/**
-	* _moon.IconButton_ is an icon that acts like a button. Specify the icon image
+	* `moon.IconButton` is an icon that acts like a button. Specify the icon image
 	* by setting the {@link moon.Icon#src} property to a URL indicating the image file's location.
 	*
 	* ```
@@ -8,27 +8,27 @@
 	* ```
 	*
 	* If you want to combine an icon with text inside of a button, use a
-	* [moon.Icon]{@link moon.Icon} inside a [moon.Button]{@link moon.Button}.
+	* [`moon.Icon`]{@link moon.Icon} inside a [`moon.Button`]{@link moon.Button}.
 	*
-	* Moonstone supports two methods for displaying icons; in addition to using
-	* traditional image assets specified in {@link moon.Icon#src}, you may use icons that are
-	* stored as single characters in a special symbol font. To do this, set the
-	* value of the _icon_ property to a string representing an icon name, e.g.:
+	* Moonstone supports two methods for displaying icons; in addition to using traditional image
+	* assets specified in [`src`]{@link moon.Icon#src}, you may use icons that are stored as single
+	* characters in a special symbol font. To do this, set the value of the
+	* [`icon`]{@link moon.Icon#icon} property to a string representing an icon name, e.g.:
 	*
 	* ```
 	* {kind: 'moon.IconButton', icon: 'closex'}
 	* ```
 	*
 	* The name-to-character mappings for font-based icons are stored in
-	* _css/moonstone-icons.less_. Each mapping associates an icon name with the icon
+	* `css/moonstone-icons.less`. Each mapping associates an icon name with the icon
 	* font's corresponding character or symbol.
 	*
-	* See [moon.Icon]{@link moon.Icon} for more information on the available font-based
+	* See [`moon.Icon`]{@link moon.Icon} for more information on the available font-based
 	* icons, as well as specifications for icon image assets.
 	*
-	* @ui
 	* @class moon.IconButton
 	* @extends moon.Icon
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -46,13 +46,14 @@
 
 		/**
 		* @private
+		* @lends moon.IconButton.prototype
 		*/
-		published: /** @lends moon.IconButton.prototype */ {
+		published: {
 
 			/**
-			* Used when the IconButton is part of an [enyo.Group]{@link enyo.Group}.
-			* A value of true indicates that this is the active button of the group;
-			* false, that it is not the active button.
+			* Used when the IconButton is part of an [`enyo.Group`]{@link enyo.Group}.
+			* A value of `true` indicates that this is the active button of the group;
+			* `false`, that it is not the active button.
 			*
 			* @type {Boolean}
 			* @default false
@@ -62,7 +63,7 @@
 
 			/**
 			* A boolean parameter affecting the size of the button.
-			* If true, the button will have a diameter of 60px.
+			* If `true`, the button will have a diameter of 60px.
 			* However, the button's tap target will still have a diameter of 78px, with
 			* invisible DOM wrapping the small button to provide the larger tap zone.
 			*
@@ -73,10 +74,10 @@
 			small: true,
 
 			/**
-			* When true, the button will have no rounded background color/border
+			* When `true`, the button will have no rounded background color/border
 			*
 			* @type {Boolean}
-			* @default true
+			* @default false
 			* @public
 			*/
 			noBackground: false
@@ -142,7 +143,7 @@
 		},
 
 		/**
-		* @fires enyo.GroupItem#event:onActivate
+		* @fires enyo.GroupItem#onActivate
 		* @private
 		*/
 		activeChanged: function () {
@@ -150,7 +151,7 @@
 		},
 
 		/**
-		* Adds _pressed_ CSS class.
+		* Adds `pressed` CSS class.
 		* @private
 		*/
 		depress: function (inSender, inEvent) {
@@ -160,7 +161,7 @@
 		},
 
 		/**
-		* Removes _pressed_ CSS class.
+		* Removes `pressed` CSS class.
 		* @private
 		*/
 		undepress: function () {
@@ -168,7 +169,7 @@
 		},
 
 		/**
-		* @fires moon.Scroller#event:onRequestScrollIntoView
+		* @fires moon.Scroller#onRequestScrollIntoView
 		* @private
 		*/
 		spotlightFocused: function (inSender, inEvent) {

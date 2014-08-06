@@ -2,24 +2,24 @@
 	/**
 	* Fires when page boundary is reached.
 	*
-	* @event moon.PagingControl#event:onPaginate
+	* @event moon.PagingControl#onPaginate
 	* @type {Object}
-	* @property {number} scrollDelta - The distance of the scroll
+	* @property {Number} scrollDelta - The distance of the scroll
 	* @public
 	*/
 
 	/**
 	* Fires when we've determined how large the bounceback effect should be.
 	*
-	* @event moon.PagingControl#event:onPaginateScroll
+	* @event moon.PagingControl#onPaginateScroll
 	* @type {Object}
-	* @property {number} scrollDelta - The magnitude of the scroll bounceback
+	* @property {Number} scrollDelta - The magnitude of the scroll bounceback
 	*	[event]{@link external:event} information.
 	* @public
 	*/
 
 	/**
-	* _moon.PagingControl_ is a paging control button derived from
+	* `moon.PagingControl` is a paging control button derived from
 	* [moon.IconButton]{@link moon.IconButton}. This control is not intended for use outside of
 	* [moon.Scroller]{@link moon.Scroller}.
 	*
@@ -52,12 +52,13 @@
 
 		/**
 		* @private
+		* @lends moon.PagingControl.prototype
 		*/
-		published: /** @lends moon.PagingControl.prototype */ {
+		published: {
 			/**
 			* The side of the control where the button will be.
 			*
-			* Supported values are 'top', 'right', 'bottom', 'left'.
+			* Supported values are `'top'`, `'right'`, `'bottom'`, `'left'`.
 			*
 			* @type {String}
 			* @default null
@@ -139,9 +140,11 @@
 		},
 
 		/**
-		* Stops scrolling animation and triggers _onPaginate_ event with a delta value for the
+		* Stops scrolling animation and triggers
+		* [`onPaginate`]{@link moon.PagingControl#event:onPaginate} event with a delta value for the
 		* bounceback effect.
 		*
+		* @fires moon.PagingControl#onPaginate
 		* @public
 		*/
 		hitBoundary: function() {
@@ -162,13 +165,15 @@
 		},
 
 		/**
-		* Set this control's CSS class based on its _side_ value.
+		* Set this control's CSS class based on its [`side`]{@link moon.PagingControl#side} value.
 		*
 		* @private
 		*/
 		sideChanged: function(old) {
-			var s = this.getSide();
-			this.removeClass(old);
+			var s = this.side;
+			if(old) {
+				this.removeClass(old);
+			}
 			this.addClass(s);
 			this.setIcon(this._iconMappings[s]);
 		},
@@ -239,6 +244,7 @@
 		},
 
 		/**
+		* @fires moon.PagingControl#onPaginateScroll
 		* @private
 		*/
 		startHoldJob: function() {
@@ -268,6 +274,7 @@
 		},
 
 		/**
+		* @fires moon.PagingControl#onPaginate
 		* @private
 		*/
 		sendPaginateEvent: function() {

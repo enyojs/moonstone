@@ -1,12 +1,12 @@
 (function (enyo, scope) {
 	/**
-	* _moon.Checkbox_ is a box that, when clicked, shows or hides a checkmark and
+	* `moon.Checkbox` is a box that, when clicked, shows or hides a checkmark and
 	* fires an {@link enyo.Checkbox#event:onChange} event. It derives from {@link enyo.Checkbox} and
 	* is designed to be used with {@link moon.CheckboxItem}.
 	*
-	* @ui
 	* @class moon.Checkbox
 	* @extends enyo.Checkbox
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -33,7 +33,7 @@
 		*/
 		published: {
 			/**
-			* When locked is true, cannot change the value of the checked property
+			* When locked is `true`, cannot change the value of the `checked` property
 			*
 			* @type {Boolean}
 			* @default false
@@ -42,7 +42,8 @@
 			locked: false,
 
 			/**
-			* Customize the appearance of the checkbox with an icon name. Consult moon.Icon for valid values
+			* Customize the appearance of the checkbox with an icon name.  Consult {@link moon.Icon}
+			* for valid values
 			*
 			* @type {String}
 			* @default 'check'
@@ -98,7 +99,7 @@
 		},
 
 		/**
-		* @fires enyo.Checkbox#event:onChange
+		* @fires enyo.Checkbox#onChange
 		* @private
 		*/
 		tap: function (inSender, e) {

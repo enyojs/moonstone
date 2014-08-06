@@ -1,43 +1,44 @@
 (function (enyo, scope) {
 	/**
-	 * _moon.ToggleItem_ is a control that combines a [moon.ToggleSwitch]{@link moon.ToggleSwitch} with a text label.
-	 *
-	 * @class moon.ToggleItem
-	 * @extends moon.CheckboxItem
-	 * @public
-	 * @ui
-	 */
+	* `moon.ToggleItem` is a control that combines a [`moon.ToggleSwitch`]{@link moon.ToggleSwitch}
+	* with a text label.
+	*
+	* @class moon.ToggleItem
+	* @extends moon.CheckboxItem
+	* @ui
+	* @public
+	*/
 	enyo.kind(
-		/** @lends  moon.ToggleItem.prototype */ {
+		/** @lends moon.ToggleItem.prototype */ {
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		name: 'moon.ToggleItem',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		kind: 'moon.CheckboxItem',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		icon: 'circle',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		classes: 'moon-toggle-item',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		checkboxOnRight: true,
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		componentOverrides: {
 			client: {classes: 'moon-toggle-item-label-wrapper'},
 			input: {kind: 'moon.ToggleSwitch', spotlight: false}

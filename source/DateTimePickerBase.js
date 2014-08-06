@@ -2,7 +2,7 @@
 	/**
 	* Fires when the value changes.
 	*
-	* @event moon.DateTimePickerBase#event:onChange
+	* @event moon.DateTimePickerBase#onChange
 	* @type {Object}
 	* @property {String} name - contains the name of this control.
 	* @property {Date} value - contains a standard JavaScript Date object representing
@@ -11,7 +11,7 @@
 	*/
 
 	/**
-	* _moon.DateTimePickerBase_ is a base kind implementing fuctionality shared
+	* `moon.DateTimePickerBase` is a base kind implementing fuctionality shared
 	* by {@link moon.DatePicker} and {@link moon.TimePicker}.
 	* It is not intended to be used directly.
 	*
@@ -64,12 +64,12 @@
 
 		/**
 		* @private
+		* @lends moon.DateTimePickerBase.prototype
 		*/
-		published: /** @lends moon.DateTimePickerBase.prototype */ {
+		published: {
 
 			/**
-			* Text to be displayed in the `currentValue` control if no item is
-			* currently selected
+			* Text to be displayed as the current value if no item is currently selected
 			*
 			* @type {String}
 			* @default ''
@@ -80,11 +80,11 @@
 			/**
 			* The locale (in IETF format) used for picker formatting.
 			*
-			* This setting only applies when the _iLib_ library is loaded.
+			* This setting only applies when the {@glossary iLib} library is loaded.
 			*
 			* When iLib is not present, US English (en-US) formatting is applied.
 			*
-			* * When iLib is present and _locale_ is set to the default value (`null`),
+			* * When iLib is present and `locale` is set to the default value (`null`),
 			* the picker uses iLib's current locale (which iLib tries to determine
 			* from the system).
 			*
@@ -101,7 +101,7 @@
 			locale: null,
 
 			/**
-			* The value, expressed as a standard JavaScript Date object.
+			* The value, expressed as a standard JavaScript {@glossary Date} object.
 			*
 			* @type {Date}
 			* @default null
@@ -237,6 +237,7 @@
 		},
 
 		/**
+		* @fires moon.DateTimePickerBase#onChange
 		* @private
 		*/
 		valueChanged: function (inOld) {
@@ -256,7 +257,7 @@
 		},
 
 		/**
-		* If no item is selected, uses [`noneText]{@link moon.DateTimePickerBase#noneText}
+		* If no item is selected, uses [`noneText`]{@link moon.DateTimePickerBase#noneText}
 		* as current value.
 		*
 		* @private
@@ -286,11 +287,12 @@
 						p = p.getClientControls()[0];
 					}
 					if (open) {
-						//Force the pickers to update their scroll positions (they don't update while the drawer is closed)
+						//Force the pickers to update their scroll positions (they don't update
+						//while the drawer is closed)
 						p.refreshScrollState();
 					} else {
-						// If one of the pickers is animating when the drawer closes, it won't display properly
-						// when the drawer reopens, unless we stabilize here
+						// If one of the pickers is animating when the drawer closes, it won't
+						// display properly when the drawer reopens, unless we stabilize here
 						p.stabilize();
 					}
 				}
@@ -318,7 +320,10 @@
 		* @private
 		*/
 		closePicker: function (inSender, inEvent) {
-			//* If select/enter is pressed on any date picker item or the left key is pressed on the first item, close the drawer
+			/**
+			* If select/enter is pressed on any date picker item or the left key is pressed on the
+			* first item, close the drawer
+			*/
 			if (inEvent.type == 'onSpotlightSelect' ||
 				this.$.client.children[0].id == inEvent.originator.id) {
 				this.expandContract();
@@ -342,11 +347,12 @@
 			// We've received a localechange event from the system, which means either the system
 			// locale or the timzezone may have changed.
 			if (ilib && ilib.getLocale() !== this.iLibLocale) {
-				// We're using iLib locale, and it has changed, so we'll rebuild the child pickers entirely
+				// We're using iLib locale, and it has changed, so we'll rebuild the child pickers
+				// entirely
 				this.refresh();
 			} else {
-				// We don't care about the iLib locale or it hasn't changed, but timezone might have changed,
-				// so we'll just update the child pickers
+				// We don't care about the iLib locale or it hasn't changed, but timezone might have
+				// changed, so we'll just update the child pickers
 				this.setChildPickers();
 			}
 		},
