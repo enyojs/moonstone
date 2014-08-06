@@ -168,7 +168,6 @@
 			} else {
 				this.setActive(true);
 				enyo.Spotlight.unspot();
-				enyo.Spotlight.freeze();
 			}
 		},
 
@@ -259,7 +258,6 @@
 		*/
 		drawerAnimationEnd: function () {
 			if (this.getOpen()) {
-				enyo.Spotlight.unfreeze();
 				this.focusInput();
 			}
 			this.inherited(arguments);
