@@ -4133,6 +4133,9 @@
 :full-screen.moon-video-player .moon-video-player-video {
   position: static;
 }
+.moon-video-inline {
+  padding-bottom: 80px;
+}
 .moon-video-inline-control {
   position: relative;
   width: 100%;
