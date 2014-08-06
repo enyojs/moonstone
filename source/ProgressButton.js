@@ -3,13 +3,13 @@
 	* Fires when progress button finishes animating to a position. No event-specific data is sent with
 	* this event.
 	*
-	* @event moon.ProgressButton#event:onButtonProgressFinish
+	* @event moon.ProgressButton#onButtonProgressFinish
 	* @type {Object}
 	* @public
 	*/
 
 	/**
-	* _moon.ProgressButton_ is an animated button to show progress from one state to another.
+	* `moon.ProgressButton` is an animated button to show progress from one state to another.
 	*
 	* ```
 	* {kind: 'moon.ProgressButton', progress: 10, content: 'Download', postContent: 'Launch'}
@@ -62,8 +62,9 @@
 
 		/**
 		* @private
+		* @lends moon.ProgressButton.prototype
 		*/
-		published: /** @lends moon.ProgressButton.prototype */ {
+		published: {
 
 			/**
 			* Current position of progress button
@@ -108,7 +109,7 @@
 		events: {
 
 			/**
-			* {@link moon.ProgressButton#event:onButtonProgressFinish}
+			* {@link moon.ProgressButton#onButtonProgressFinish}
 			*/
 			onButtonProgressFinish: ''
 		},
@@ -145,24 +146,31 @@
 		* @private
 		*/
 		progressChanged: function () {
-			this.$.bar.removeClass("moon-progress-button-remove-bar");
+			this.$.bar.removeClass('moon-progress-button-remove-bar');
 			this.progress = this.clampValue(this.min, this.max, this.progress);
 			var percent = this.calcPercent(this.progress);
-			var arr = [0,5,25,50,75,100];
-			for(var i=0, len=arr.length; i<len; i++){
-				if(percent == arr[i]){
-					this.set('content', this.preContent);
-					this.$.progressPercent.set('content', '');
-					break;
-				} else if(percent>arr[i] && percent<=arr[i+1]){
-					this.updateProgressPercent(percent);
-					this.updateBarPosition(arr[i]);
-					break;
-				} else if(percent>=arr[len-1]){
-					this.updateBarPosition(arr[len-1]);
-					this.setPostContent();
-					break;
-				}
+			if(percent === 0){
+				this.$.bar.applyStyle('transform', 'translateX(-100%)');
+				this.set('content', this.preContent);
+				this.$.progressPercent.set('content', '');
+			} else if(percent>0 && percent<5){
+				this.updateProgressPercent(percent);
+				this.$.bar.applyStyle('transform', 'translateX(-100%)');
+			} else if(percent>=5 && percent<25){
+				this.updateProgressPercent(percent);
+				this.$.bar.applyStyle('transform', 'translateX(-95%)');
+			} else if(percent>=25 && percent<50){
+				this.updateProgressPercent(percent);
+				this.$.bar.applyStyle('transform', 'translateX(-75%)');
+			} else if(percent>=50 && percent<75){
+				this.updateProgressPercent(percent);
+				this.$.bar.applyStyle('transform', 'translateX(-50%)');
+			} else if(percent>=75 && percent<100){
+				this.updateProgressPercent(percent);
+				this.$.bar.applyStyle('transform', 'translateX(-25%)');
+			} else if(percent == 100){
+				this.$.bar.applyStyle('transform', 'translateX(0%)');
+				this.setPostContent();
 			}
 		},
 
@@ -210,7 +218,7 @@
 			var _this = this;
 			setTimeout(function(){
 				_this.$.progressPercent.set('content', '');
-				_this.$.bar.addClass("moon-progress-button-remove-bar");
+				_this.$.bar.addClass('moon-progress-button-remove-bar');
 				_this.set('content', _this.postContent);
 			},1000);
 		},
@@ -238,7 +246,7 @@
 		},
 
 		/**
-		* @fires moon.ProgressBar#event:onButtonProgressFinish
+		* @fires moon.ProgressBar#onButtonProgressFinish
 		* @private
 		*/
 		progressAnimatorComplete: function (inSender) {
