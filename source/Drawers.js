@@ -274,7 +274,6 @@
 		openHandleContainer: function () {
 			this.$.handleContainer.spotlightDisabled = false;
 			this.$.handleContainer.setOpen(true);
-			enyo.Spotlight.spot(this.$.handleContainer);
 			this.updateActivator(true);
 			enyo.dispatcher.capture(this.$.handleContainer, this.eventsToCapture, this);
 		},
