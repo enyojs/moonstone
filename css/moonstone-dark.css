@@ -3538,6 +3538,7 @@
   position: absolute;
   width: 100%;
   /* The activator & nub are white when a drawer is open */
+  /* Activator is spotlight focused */
 }
 .moon-drawers-activator:before {
   content: '';
@@ -3566,9 +3567,7 @@
 .moon-drawers-activator.open:after {
   content: "\0F0005";
 }
-.moon-drawers-activator.open:hover:before,
 .moon-drawers-activator.spotlight:before,
-.moon-drawers-activator.open:hover:after,
 .moon-drawers-activator.spotlight:after {
   color: #ffffff;
   background-color: #cf0652;
