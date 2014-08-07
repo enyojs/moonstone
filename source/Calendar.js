@@ -124,11 +124,11 @@
 		valueChanged: function () {
 			if (this.value) {
 				if (typeof ilib !== 'undefined') {
-					this.localValue = ilib.Date.newInstance({
+					this.localeValue = ilib.Date.newInstance({
 						unixtime: this.value.getTime(),
 						timezone: 'local'
 					});
-					this.setContent(this._tf.format(this.localValue));
+					this.setContent(this._tf.format(this.localeValue));
 				} else {
 					this.setContent(this.value.getDate());
 				}
@@ -146,14 +146,14 @@
 			// the new locale may have a different time
 			// zone or calendar, so the date components
 			// (year/month/day) may be different than before
-			this.localValue = ilib.Date.newInstance({
+			this.localeValue = ilib.Date.newInstance({
 				unixtime: this.value.getTime(),
 				timezone: 'local'
 			});
 
 			// reformat the number with the new timezone/calendar/locale
 			this._tf = formatter;
-			this.setContent(this._tf.format(this.localValue));
+			this.setContent(this._tf.format(this.localeValue));
 		},
 		
 		/**
@@ -464,7 +464,7 @@
 
 			if (typeof ilib !== 'undefined') {
 				this.cal = ilib.Cal.newInstance();
-				this.localValue = ilib.Date.newInstance({timezone: 'local'});
+				this.localeValue = ilib.Date.newInstance({timezone: 'local'});
 				this._dateFormatter = new ilib.DateFmt({
 					type: 'date',	// only format the date component, not the time
 					date: 'd',		// 'd' is the date of month
@@ -570,7 +570,7 @@
 				// the new locale may use a different calendar, so
 				// redo the local date in that new calendar. The this.value
 				// does not change, but the local date does.
-				this.localValue = ilib.Date.newInstance({
+				this.localeValue = ilib.Date.newInstance({
 					unixtime: this.value.getTime(),
 					timezone: 'local'
 				});
@@ -649,12 +649,12 @@
 			var month, year;
 			
 			if (typeof ilib !== 'undefined') {
-				this.localValue = ilib.Date.newInstance({
+				this.localeValue = ilib.Date.newInstance({
 					unixtime: this.value.getTime(),
 					timezone: 'local'
 				});
-				month = this.localValue.getMonths() - 1;
-				year = this.localValue.getYears();
+				month = this.localeValue.getMonths() - 1;
+				year = this.localeValue.getYears();
 			} else {
 				month = this.value.getMonth();
 				year = this.value.getFullYear();
@@ -703,7 +703,7 @@
 						length: 'long'
 					});
 				}
-				var numberOfMonths = this.cal.getNumMonths(this.localValue.getYears());
+				var numberOfMonths = this.cal.getNumMonths(this.localeValue.getYears());
 				var monthPickerControls = this.$.monthPicker.getClientControls();
 				
 				// show the 13th month for those calendars that use it, and only in those
@@ -713,7 +713,7 @@
 				// this depends on the year because some calendars have 12 or 13 months, 
 				// depending on which year it is 
 				var monthNames = this._monthFmt.getMonthsOfYear({
-					year: this.localValue.getYears(),
+					year: this.localeValue.getYears(),
 					length: 'long'
 				});
 				for (var i = 0; i < monthNames.length - 1; i++) {
@@ -752,8 +752,8 @@
 			if (typeof ilib !== 'undefined') {
 				// get the first of this month
 				var dt = ilib.Date.newInstance({
-					year: this.localValue.getYears(),
-					month: this.localValue.getMonths(),
+					year: this.localeValue.getYears(),
+					month: this.localeValue.getMonths(),
 					day: 1,
 					timezone: 'local'
 				});
@@ -813,8 +813,8 @@
 			
 			if (typeof ilib !== 'undefined') {
 				var lastDay = ilib.Date.newInstance({
-					year: this.localValue.getYears(),
-					month: this.localValue.getMonths(),
+					year: this.localeValue.getYears(),
+					month: this.localeValue.getMonths(),
 					day: monthLength,
 					timezone: 'local'
 				});
@@ -850,8 +850,8 @@
 			var datesOfPrevMonth = this.updatePrevMonth();
 
 			if (typeof ilib !== 'undefined') {
-				var thisYear = this.localValue.getYears(),
-					thisMonth = this.localValue.getMonths();
+				var thisYear = this.localeValue.getYears(),
+					thisMonth = this.localeValue.getMonths();
 				var	monthLength = this.getMonthLength(thisYear, thisMonth);
 				var dates = this.$.dates.getControls();
 				var temp;
@@ -865,7 +865,7 @@
 					dates[datesOfPrevMonth + i].setValue(temp.getJSDate());
 					dates[datesOfPrevMonth + i].setColor(0);
 				}
-				this.$.dates.setActive(dates[datesOfPrevMonth - 1 + this.localValue.getDays()]);
+				this.$.dates.setActive(dates[datesOfPrevMonth - 1 + this.localeValue.getDays()]);
 				this.updateNextMonth(datesOfPrevMonth, monthLength);
 			} else {
 				var thisYear = this.value.getFullYear(),
@@ -888,20 +888,20 @@
 			var month, day;
 
 			if (typeof ilib !== 'undefined') {
-				if (this.localValue.getYears() != newYear) {
-					month = this.localValue.getMonths();
-					day = this.localValue.getDays();
+				if (this.localeValue.getYears() != newYear) {
+					month = this.localeValue.getMonths();
+					day = this.localeValue.getDays();
 					
 					var newMonthLength = this.getMonthLength(newYear, month);
 					
-					this.localValue = ilib.Date.newInstance({
+					this.localeValue = ilib.Date.newInstance({
 						year: newYear,
 						month: month,
 						day: (day > newMonthLength) ? newMonthLength : day,
 						timezone: 'local'
 					});
 					
-					this.setValue(this.localValue.getJSDate());
+					this.setValue(this.localeValue.getJSDate());
 					
 					// Some years have a different number of months in other calendars,
 					// so we need to make sure to update the month names in the picker
@@ -927,20 +927,20 @@
 
 			if (typeof ilib !== 'undefined') {
 				newMonth++; // convert to ilib month
-				if (this.localValue.getMonths() != newMonth) {
-					year = this.localValue.getYears();
-					day = this.localValue.getDays();
+				if (this.localeValue.getMonths() != newMonth) {
+					year = this.localeValue.getYears();
+					day = this.localeValue.getDays();
 					
 					var newMonthLength = this.getMonthLength(year, newMonth);
 					
-					this.localValue = ilib.Date.newInstance({
+					this.localeValue = ilib.Date.newInstance({
 						year: year,
 						month: newMonth,
 						day: (day > newMonthLength) ? newMonthLength : day,
 						timezone: 'local'
 					});
 					
-					this.setValue(this.localValue.getJSDate());
+					this.setValue(this.localeValue.getJSDate());
 				}
 			} else {
 				if (this.value.getMonth() != newMonth) {
@@ -960,19 +960,19 @@
 			var year, month, day;
 
 			if (typeof ilib !== 'undefined') {
-				year = this.localValue.getYears();
-				month = this.localValue.getMonths();
+				year = this.localeValue.getYears();
+				month = this.localeValue.getMonths();
 				
 				var newMonthLength = this.getMonthLength(year, month);
 				
-				this.localValue = ilib.Date.newInstance({
+				this.localeValue = ilib.Date.newInstance({
 					year: year,
 					month: month,
 					day: (newDate > newMonthLength) ? newMonthLength : newDate,
 					timezone: 'local'
 				});
 				
-				this.setValue(this.localValue.getJSDate());
+				this.setValue(this.localeValue.getJSDate());
 			} else {
 				var value = this.value,
 					newValue,
@@ -990,7 +990,7 @@
 		selectDate: function (inSender, inEvent) {
 			var newValue = inEvent.originator.value;
 			this.setValue(newValue);
-			this.localValue = ilib.Date.newInstance({
+			this.localeValue = ilib.Date.newInstance({
 				unixtime: newValue.getTime(),
 				timezone: 'local'
 			});
