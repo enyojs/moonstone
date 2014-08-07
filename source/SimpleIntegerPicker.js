@@ -418,14 +418,12 @@
 					max = this.values[this.values.length - 1];
 				if (is === min) {
 					this.$.buttonLeft.applyStyle('visibility', 'hidden');
-				}
-				else if (was === min) {
+				} else {
 					this.$.buttonLeft.applyStyle('visibility', 'visible');
 				}
 				if (is === max) {
 					this.$.buttonRight.applyStyle('visibility', 'hidden');
-				}
-				else if (was === max) {
+				} else {
 					this.$.buttonRight.applyStyle('visibility', 'visible');
 				}
 			}
