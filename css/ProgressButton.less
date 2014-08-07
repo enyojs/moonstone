@@ -10,21 +10,6 @@
 		padding: @moon-progress-button-border-width (@moon-button-h-padding + @moon-progress-button-border-width);
 		border-width: 0;
 	}
-	.moon-progress-button-bar {
-		height: 100%;
-		width: 100%;
-		position: absolute;
-		top: 0;
-		left: 0;
-		border-radius: @moon-progress-button-bar-border-radius;
-		background-color: @moon-progress-button-bar-color;
-		transform: translateZ(0);
-	}
-	.moon-progress-button-progresspercent {
-		position: absolute;
-		left: 50%;
-		transform: translateX(-50%);
-	}
 	&.completed .moon-progress-button-bar {
 		transform: translateX(103%);
 	}
@@ -36,4 +21,19 @@
 			transition: transform 0.2s ease-in;
 		}
 	}
+}
+.moon-progress-button-bar {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	border-radius: @moon-progress-button-bar-border-radius;
+	background-color: @moon-progress-button-bar-color;
+	transform: translateZ(0);
+}
+.moon-progress-button-progresspercent {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
 }
