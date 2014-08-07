@@ -805,9 +805,7 @@
 		spotLeft: function(sender, e) {
 			if (this.selected) {
 				// If in the process of animating, work from the previously set value
-				var v = this.rtl
-					? this.getValue() + (this.increment || 1)
-					: this.getValue() - (this.increment || 1);
+				var v = this.getValue() - (this.increment || 1);
 
 				this.set('value',v);
 				return true;
@@ -819,9 +817,7 @@
 		*/
 		spotRight: function(sender, e) {
 			if (this.selected) {
-				var v = this.rtl
-					? this.getValue() - (this.increment || 1)
-					: this.getValue() + (this.increment || 1);
+				var v = this.getValue() + (this.increment || 1);
 
 				this.set('value',v);
 				return true;
