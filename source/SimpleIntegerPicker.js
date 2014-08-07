@@ -295,7 +295,7 @@
 				this.createComponent({content: v + ' ' + this.unit, value: v});
 				values[i] = v;
 				indices[v] = i;
-				if (this.step <= 0 || typeof this.step !== 'number') {
+				if (this.step <= 0 || typeof this.step != 'number') {
 					// if step value is 0 or negative, should create only 'min' value and then break this loop.
 					break;
 				}
@@ -334,7 +334,7 @@
 		* @private
 		*/
 		triggerRebuild: function(was, is, source) {
-			if (source != 'unit' && typeof is !== 'number') {
+			if (source != 'unit' && typeof is != 'number') {
 				// We warn here so that developers can easily catch their falut.
 				enyo.warn(source + ' sould be a number!');
 			}
@@ -420,13 +420,13 @@
 				if (is === min) {
 					this.$.buttonLeft.applyStyle('visibility', 'hidden');
 				}
-				else if (was === min || typeof was !== 'number') {
+				else if (was === min || typeof was != 'number') {
 					this.$.buttonLeft.applyStyle('visibility', 'visible');
 				}
 				if (is === max) {
 					this.$.buttonRight.applyStyle('visibility', 'hidden');
 				}
-				else if (was === max || typeof was !== 'number') {
+				else if (was === max || typeof was != 'number') {
 					this.$.buttonRight.applyStyle('visibility', 'visible');
 				}
 			}
@@ -456,7 +456,7 @@
 		* @private
 		*/
 		handleValueChange: function(was, is) {
-			if (typeof is !== 'number') {
+			if (typeof is != 'number') {
 				// We warn here so that developers can easily catch their falut.
 				enyo.warn('value sould be a number!');
 			}
