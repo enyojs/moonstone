@@ -346,7 +346,6 @@
 			this.popupLabelClassesChanged();
 			this.tapAreaClassesChanged();
 			this.initSliderStyles();
-			this.addRemoveClass('moon-slider-rtl', this.rtl);
 		},
 
 		/**
@@ -609,8 +608,6 @@
 				knobValue = (this.showPercentage && this.popupContent === null) ? percent : val
 			;
 
-			if (this.rtl) { percent = 100 - percent; }
-
 			this.$.knob.applyStyle('left', percent + '%');
 			this.$.popup.addRemoveClass('moon-slider-popup-flip-h', percent > 50);
 			this.$.popupLabel.addRemoveClass('moon-slider-popup-flip-h', percent > 50);
@@ -644,13 +641,8 @@
 		* @private
 		*/
 		calcKnobPosition: function(e) {
-			var x;
-			if (this.rtl) {
-				x = this.hasNode().getBoundingClientRect().right - e.clientX;
-			} else {
-				x = e.clientX - this.hasNode().getBoundingClientRect().left;
-			}
-			var pos = (x / this.getBounds().width) * (this.max - this.min) + this.min;
+			var x = e.clientX - this.hasNode().getBoundingClientRect().left,
+				pos = (x / this.getBounds().width) * (this.max - this.min) + this.min;
 			return pos;
 		},
 
@@ -813,9 +805,7 @@
 		spotLeft: function(sender, e) {
 			if (this.selected) {
 				// If in the process of animating, work from the previously set value
-				var v = this.rtl
-					? this.getValue() + (this.increment || 1)
-					: this.getValue() - (this.increment || 1);
+				var v = this.getValue() - (this.increment || 1);
 
 				this.set('value',v);
 				return true;
@@ -827,9 +817,7 @@
 		*/
 		spotRight: function(sender, e) {
 			if (this.selected) {
-				var v = this.rtl
-					? this.getValue() - (this.increment || 1)
-					: this.getValue() + (this.increment || 1);
+				var v = this.getValue() + (this.increment || 1);
 
 				this.set('value',v);
 				return true;
