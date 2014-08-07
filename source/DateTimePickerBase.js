@@ -348,7 +348,7 @@
 		*/
 		handleLocaleChangeEvent: function () {
 			// We've received a localechange event from the system, which means either the system
-			// locale or the timzezone may have changed.
+			// locale or the timezone may have changed.
 			if (ilib && ilib.getLocale() !== this.iLibLocale) {
 				// We're using iLib locale, and it has changed, so we'll rebuild the child pickers entirely
 				this.refresh();
@@ -368,6 +368,7 @@
 			if (this._tf) {
 				delete this._tf;
 			}
+			this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
 			this.initDefaults();
 			this.render();
 		}
