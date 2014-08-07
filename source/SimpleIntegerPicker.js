@@ -1,67 +1,49 @@
 (function (enyo, scope) {
 	/**
-	* The extended [event]{@glossary:event} [object]{@link glossary Object} that is provided when 
-	* the [onChange]{@link moon.SimpleIntegerPicker#event:onChange} and
-	* [onSelect]{@link moon.SimpleIntegerPicker#event:onSelect} [events]{@glossary event} are fired.
+	* Fires when the currently selected item changes.
 	*
-	* @typedef {Object} moon.SimpleIntegerPicker~SelectionEventObject
-	* @property {String} value - The value of the currently selected item.
+	* @event moon.SimpleIntegerPicker#onChange
+	* @type {Object}
+	* @property {Number} value - The value of the currently selected item.
 	* @property {String} content - The content of the currently selected item.
 	* @public
 	*/
 
 	/**
-	* Fires when the currently selected item changes.
-	*
-	* @event moon.SimpleIntegerPicker#event:onChange
-	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently 
-	*	propagated the [event]{@glossary event}.
-	* @property {moon.SimpleIntegerPicker~SelectionEventObject} event - An 
-	*	[object]{@glossary Object} containing [event]{@glossary event} information.
-	* @public
-	*/
-
-	/**
-	* Fires in response to "Return" keypress while the picker has focus in 
+	* Fires in response to "Return" keypress while the picker has focus in
 	* [Spotlight]{@link enyo.Spotlight} 5-way mode.
 	*
-	* @event moon.SimpleIntegerPicker#event:onSelect
+	* @event moon.SimpleIntegerPicker#onSelect
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently 
-	*	propagated the [event]{@glossary event}.
-	* @property {moon.SimpleIntegerPicker~SelectionEventObject} event - An 
-	*	[object]{@glossary Object} containing [event]{@glossary event} information.
+	* @property {Number} value - The value of the currently selected item.
+	* @property {String} content - The content of the currently selected item.
 	* @public
 	*/
 
 	/**
 	* Fires when the picker is rebuilt, allowing other controls the opportunity to reflow the picker
-	* as necessary, i.e. as a child of 
-	* [_moon.ExpandableIntegerPicker_]{@link moon.ExpandableIntegerPicker} needing to be reflowed 
-	* when opened as it may currently not be visible.
+	* as necessary, i.e. as a child of
+	* [`moon.ExpandableIntegerPicker`]{@link moon.ExpandableIntegerPicker} needing to be reflowed
+	* when opened as it may currently not be visible. No event-specific data is sent with this
+	* event.
 	*
-	* @event moon.SimpleIntegerPicker#event:onRebuilt
+	* @event moon.SimpleIntegerPicker#onRebuilt
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently 
-	*	propagated the [event]{@glossary event}.
-	* @property {Object} event - An [object]{@glossary Object} containing [event]{@glossary event} 
-	*	information.
 	* @public
 	*/
 
 	/**
-	* _moon.SimpleIntegerPicker_ is a [control]{@link enyo.Control} that prompts the user to make a
+	* `moon.SimpleIntegerPicker` is a [control]{@link enyo.Control} that prompts the user to make a
 	* selection from a range of integer-based options.
-	* 
-	* The picker may be changed programmatically by calling 
-	* [_previous()_]{@link moon.SimpleIntegerPicker#previous} or 
-	* [_next()_]{@link moon.SimpleIntegerPicker#next}, or by modifying the published property 
-	* [_value_]{@link moon.SimpleIntegerPicker#value}.
 	*
-	* @ui
+	* The picker may be changed programmatically by calling
+	* [`previous()`]{@link moon.SimpleIntegerPicker#previous} or
+	* [`next()`]{@link moon.SimpleIntegerPicker#next}, or by modifying the published property
+	* [`value`]{@link moon.SimpleIntegerPicker#value}.
+	*
 	* @class moon.SimpleIntegerPicker
 	* @extends enyo.Control
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -115,11 +97,11 @@
 		
 		/**
 		* @private
+		* @lends moon.SimpleIntegerPicker.prototype
 		*/
-		published: 
-			/** @lends moon.SimpleIntegerPicker.prototype */ {
+		published: {
 
-			/** 
+			/**
 			* When `true`, picker transitions animate left/right.
 			*
 			* @type {Boolean}
@@ -128,7 +110,7 @@
 			*/
 			animate:true,
 			
-			/** 
+			/**
 			* When `true`, button is shown as disabled and does not generate tap events.
 			*
 			* @type {Boolean}
@@ -137,7 +119,7 @@
 			*/
 			disabled: false,
 			
-			/** 
+			/**
 			* Initial picker value.
 			*
 			* @type {Number}
@@ -146,7 +128,7 @@
 			*/
 			value: -1,
 			
-			/** 
+			/**
 			* Minimum picker value.
 			*
 			* @type {Number}
@@ -155,7 +137,7 @@
 			*/
 			min: 1,
 			
-			/** 
+			/**
 			* Maximum picker value.
 			*
 			* @type {Number}
@@ -164,10 +146,10 @@
 			*/
 			max: 9,
 			
-			/** 
-			* Amount to increment/decrement by when moving picker between 
-			* [_min_]{@link moon.SimpleIntegerPicker#min} and 
-			* [_max_]{@link moon.SimpleIntegerPicker#max}.
+			/**
+			* Amount to increment/decrement by when moving picker between
+			* [`min`]{@link moon.SimpleIntegerPicker#min} and
+			* [`max`]{@link moon.SimpleIntegerPicker#max}.
 			*
 			* @type {Number}
 			* @default 1
@@ -175,7 +157,7 @@
 			*/
 			step: 1,
 			
-			/** 
+			/**
 			* Unit label to be appended to the value for display.
 			*
 			* @type {String}
@@ -238,11 +220,11 @@
 		*/
 		sync: function(val, origin, binding) {
 			if (this.values) {
-				return (origin === 'source') ? this.indices[val] : this.values[val];
+				return (origin === enyo.Binding.DIRTY_FROM) ? this.indices[val] : this.values[val];
 			}
 		},
 
-		/** 
+		/**
 		* Cycles the selected item to the one before the currently selected item.
 		*
 		* @returns {Boolean} Returns `true` indicating event has been handled.
@@ -253,7 +235,7 @@
 			return true;
 		},
 		
-		/** 
+		/**
 		* Cycles the selected item to the one after the currently selected item.
 		*
 		* @returns {Boolean} Returns `true` indicating event has been handled.
@@ -280,7 +262,7 @@
 			this.next();
 		},
 		
-		/** 
+		/**
 		* Facades the currently active panel.
 		*
 		* @private
@@ -307,17 +289,14 @@
 		*/
 		build: function() {
 			var indices = this.indices = {},
-				values = this.values = [],
-				ilibNumFmt = (typeof ilib !== 'undefined') ? new ilib.NumFmt({locale: new ilib.LocaleInfo().locale, useNative: false}) : null,
-				fmtValue;
+				values = this.values = [];
 
 			for (var i = 0, v = this.min; v <= this.max; i++, v += this.step) {
-				fmtValue = ilibNumFmt ? ilibNumFmt.format(v) : v;
-				this.createComponent({content: fmtValue + ' ' + this.unit, value: v});
+				this.createComponent({content: v + ' ' + this.unit, value: v});
 				values[i] = v;
 				indices[v] = i;
 				if (this.step <= 0) {
-					// if step value is 0 or negative, should create only 'min' value and then break this loop. 
+					// if step value is 0 or negative, should create only 'min' value and then break this loop.
 					break;
 				}
 			}
@@ -339,7 +318,7 @@
 		},
 
 		/**
-		* @fires moon.SimpleIntegerPicker#event:onRebuilt
+		* @fires moon.SimpleIntegerPicker#onRebuilt
 		* @private
 		*/
 		rebuild: function() {
@@ -372,7 +351,7 @@
 			this.addRemoveClass('disabled', this.getDisabled());
 		},
 
-		//* On reflow, updates the bounds of _this.$.client_.
+		//* On reflow, updates the bounds of `this.$.client`.
 		reflow: function() {
 			this.inherited(arguments);
 
@@ -450,7 +429,7 @@
 		},
 
 		/**
-		* @fires moon.SimpleIntegerPicker#event:onSelect
+		* @fires moon.SimpleIntegerPicker#onSelect
 		* @private
 		*/
 		fireSelectEvent: function () {
@@ -460,7 +439,7 @@
 		},
 
 		/**
-		* @fires moon.SimpleIntegerPicker#event:onChange
+		* @fires moon.SimpleIntegerPicker#onChange
 		* @private
 		*/
 		fireChangeEvent: function() {

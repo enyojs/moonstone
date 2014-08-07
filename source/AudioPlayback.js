@@ -2,26 +2,18 @@
 	/**
 	* Fires when an audio track is added to the list
 	*
-	* _event.tracks_ contains a reference to the collection of tracks
-	*
-	* @event moon.AudioPlaybackr#onAddAudio
+	* @event moon.AudioPlayback#onAddAudio
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {enyo.Scroller~ScrollEvent} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
+	* @property {Object} tracks - contains a reference to the collection of tracks
 	* @public
 	*/
 
 	/**
-	* Fires when an audio list item is to be removed
+	* Fires when an audio list item is to be removed. The list event data is passed through.
+	* TODO: When fixed with right list component be sure to link to event data.
 	*
-	* @event moon.AudioListItem#onRemove
+	* @event moon.AudioPlayback#onRemove
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {enyo.Scroller~ScrollEvent} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
 	* @public
 	*/
 
@@ -29,8 +21,8 @@
 	* FIXME! THIS KIND IS BROKEN.  We removed moon.List as part of code cleanup in
 	* 2.4, and this code hasn't yet been updated to use {@link moon.DataList}.
 	*
-	* _moon.AudioPlayback_ is meant to be used with {@link moon.Drawers}.
-	* This extends a {@link moon.Drawer} by adding  an audio playback control
+	* `moon.AudioPlayback` is meant to be used with {@link moon.Drawers}.
+	* This extends a {@link moon.Drawer} by adding an audio playback control
 	* and playlist for the imported audio.
 	*
 	* ```
@@ -48,9 +40,9 @@
 	* ]}
 	* ```
 	*
-	* @ui
 	* @class moon.AudioPlayback
 	* @extends moon.Drawer
+	* @ui
 	* @public
 	*/
 
@@ -116,8 +108,9 @@
 
 		/**
 		* @private
+		* @lends moon.AudioPlayback.prototype
 		*/
-		published: /** @lends moon.AudioPlayback.prototype */ {
+		published: {
 
 			/**
 			* Whether to play the audio on repeat
@@ -129,7 +122,7 @@
 			repeat: false,
 
 			/**
-			* When false, audio player doesn't response to remote controller
+			* When `false`, audio player doesn't respond to remote controller
 			*
 			* @type {Boolean}
 			* @default true
@@ -358,7 +351,7 @@
 		/**
 		* Adds an audio track to the list
 		*
-		* @fires moon.AudioPlayback#event:onAddAudio
+		* @fires moon.AudioPlayback#onAddAudio
 		* @param {String} src  The url of the audio track to be added
 		* @param {String} trackName  Track name
 		* @param {String} artistName  Artist na me
@@ -495,9 +488,9 @@
 	});
 
 	/**
-	* @ui
 	* @class moon.AudioListItem
 	* @extends enyo.Control
+	* @ui
 	* @protected
 	*/
 	enyo.kind(
@@ -547,7 +540,7 @@
 		},
 
 		/**
-		* @fires moon.AudioListItem#event:onRemove
+		* @fires moon.AudioListItem#onRemove
 		* @private
 		*/
 		removeTap: function (inSender, inEvent) {

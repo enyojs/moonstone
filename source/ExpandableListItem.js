@@ -1,8 +1,8 @@
 (function (enyo, scope) {
 	/**
-	* _moon.ExpandableListItem_, which extends [moon.Item]{@link moon.Item}, displays a
+	* `moon.ExpandableListItem`, which extends [`moon.Item`]{@link moon.Item}, displays a
 	* header while also allowing additional content to be stored in an
-	* [enyo.Drawer]{@link enyo.Drawer}. When the header is selected, the drawer opens
+	* [`enyo.Drawer`]{@link enyo.Drawer}. When the header is selected, the drawer opens
 	* below. To close the drawer, tap on the header text or navigate (via 5-way)
 	* back to the top of the drawer.
 	*
@@ -36,19 +36,19 @@
 	* 					{content: 'Item Three'},
 	* 					{content: 'Item Four'}
 	* 				]
-	*			},
+	* 			},
 	* 			{kind: 'moon.ExpandableListItem',
 	* 				content: 'This is yet another grouped ExpandableListItem', components: [
 	* 					{content: 'Item Five'},
 	* 					{content: 'Item Six'}
 	* 				]
 	* 			}
-	*		]}
+	* 		]}
 	* ```
 	*
-	* @ui
 	* @class moon.ExpandableListItem
 	* @extends enyo.Control
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -62,12 +62,17 @@
 		/**
 		* @private
 		*/
-		published: /** @lends moon.ExpandableListItem.prototype */ {
+		kind: 'enyo.Control',
+
+		/**
+		* @private
+		* @lends moon.ExpandableListItem.prototype
+		*/
+		published: {
 
 			/**
-			* If true, the drawer automatically closes when the user navigates to the
-			* top of the control. If false (the default), the user must select/tap the
-			* header to close the drawer.
+			* If `true`, the drawer automatically closes when the user navigates to the top of the
+			* control. If `false`, the user must select/tap the header to close the drawer.
 			*
 			* @type {Boolean}
 			* @default false
@@ -76,8 +81,8 @@
 			autoCollapse: false,
 
 			/**
-			* If true, the drawer is expanded, showing this item's contents. Use this
-			* property (rather than moon.ExpandableListItem#active) to set the item's initial state.
+			* If `true`, the drawer is expanded, showing this item's contents. Use this property
+			* (rather than {@link moon.ExpandableListItem#active}) to set the item's initial state.
 			*
 			* @type {Boolean}
 			* @default false
@@ -86,11 +91,12 @@
 			open: false,
 
 			/**
-			* Boolean that reflects the value of the {@link moon.ExpandableListItem#open} property; it is
-			* used to support the {@link enyo.Group} API for grouping a set of ExpandableListItems in
-			* which only one is expanded at a time. Note that the {@link moon.ExpandableListItem#open}
-			* property (not the {@link moon.ExpandableListItem#active} property) controls
-			* the initial state of the picker.
+			* Boolean that reflects the value of the {@link moon.ExpandableListItem#open} property;
+			* it is used to support the {@link enyo.Group} API for grouping a set of
+			* ExpandableListItems in which only one is expanded at a time. Note that the
+			* {@link moon.ExpandableListItem#open} property (not the
+			* {@link moon.ExpandableListItem#active} property) controls the initial state of the
+			* picker.
 			*
 			* @type {Boolean}
 			* @default false
@@ -99,7 +105,7 @@
 			active: false,
 
 			/**
-			* If true, the user is prevented from moving spotlight past the bottom of
+			* If `true`, the user is prevented from moving spotlight past the bottom of
 			* the drawer (when open) using five-way controls
 			*
 			* @type {Boolean}
@@ -109,7 +115,7 @@
 			lockBottom: false,
 
 			/**
-			* When true, item is shown as disabled and does not generate tap events
+			* When `true`, item is shown as disabled and does not generate tap events
 			*
 			* @type {Boolean}
 			* @default false
@@ -145,7 +151,8 @@
 		* @private
 		*/
 		components: [
-			// headerContainer required to avoid bad scrollWidth returned in RTL for certain text widths (webkit bug)
+			// headerContainer required to avoid bad scrollWidth returned in RTL for certain text
+			// widths (webkit bug)
 			{name: 'headerContainer', classes: 'moon-expandable-list-item-header moon-expandable-picker-header moon-expandable-list-header', onSpotlightFocus: 'headerFocus', ontap: 'expandContract', components: [
 				{name: 'header', kind: 'moon.MarqueeText'}
 			]},
@@ -207,7 +214,7 @@
 		},
 
 		/**
-		* @fires enyo.GroupItem#event:onActivate
+		* @fires enyo.GroupItem#onActivate
 		* @private
 		*/
 		activeChanged: function () {
@@ -247,7 +254,7 @@
 		* If drawer is currently open, and event was sent via keypress (i.e., it has a direction),
 		* process header focus
 		*
-		* @fires moon.Scroller#event:onRequestScrollIntoView
+		* @fires moon.Scroller#onRequestScrollIntoView
 		* @private
 		*/
 		headerFocus: function (inSender, inEvent) {
@@ -276,7 +283,7 @@
 		},
 
 		/**
-		* @fires moon.Scroller#event:onRequestScrollIntoView
+		* @fires moon.Scroller#onRequestScrollIntoView
 		* @private
 		*/
 		drawerAnimationEnd: function () {

@@ -1,31 +1,32 @@
 (function (enyo, scope) {
 	/**
-	* Fired when a control explicitly requests to be scrolled into view
+	* Fired when a control explicitly requests to be scrolled into view. Handled by the 
+	* [scroll strategy]{@link enyo.Scroller#strategyKind}.
 	*
 	* @event enyo.Scroller#onRequestScrollIntoView
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
+	* @property {Boolean} scrollInPointerMode - `true` to scroll in pointer mode
+	* @property {Boolean} scrollFullPage - If defined, overrides the scroller's
+	*	[`scrollFullPage`]{@link moon.Scroller#scrollFullPage} property.
 	* @public
 	*/
 
 	/**
-	* _moon.Scroller_ extends [enyo.Scroller]{@link enyo.Scroller}, adding support for
-	* 5-way focus (Spotlight) and pagination buttons.
+	* `moon.Scroller` extends [enyo.Scroller]{@link enyo.Scroller}, adding support for 5-way focus
+	* (Spotlight) and pagination buttons.
 	*
-	* {@link moon.Scroller} responds when controls explicitly request to be scrolled into
-	* view by emitting the {link moon.Scroller#event:onRequestScrollIntoView} event. This typically
-	* happens when a control handles an _onSpotlightFocused_ event, ensuring that 5-way
-	* (Spotlight) focused controls remain in view.
+	* It responds when controls explicitly request to be scrolled into view by emitting the
+	* [`onRequestScrollIntoView`]{@link moon.Scroller#event:onRequestScrollIntoView} event. This
+	* typically happens when a control handles an
+	* [`onSpotlightFocused`]{@link Spotlight:event#onSpotlightFocused} event, ensuring that 5-way
+	* ({@glossary Spotlight}) focused controls remain in view.
 	*
 	* For more information, see the documentation on
 	* [Scrollers](building-apps/layout/scrollers.html) in the Enyo Developer Guide.
 	*
-	* @ui
 	* @class moon.Scroller
 	* @extends enyo.Scroller
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -43,11 +44,12 @@
 
 		/**
 		* @private
+		* @lends moon.Scroller.prototype
 		*/
-		published: /** @lends moon.Scroller.prototype */ {
+		published: {
 
 			/**
-			* If true, when scrolling to focused child controls, the scroller will
+			* If `true`, when scrolling to focused child controls, the scroller will
 			* scroll as far as possible, until its edge meets the next item's edge
 			*
 			* @type {Boolean}
@@ -57,7 +59,7 @@
 			scrollFullPage: false,
 
 			/**
-			* If true, paging controls are focusable (in 5-way mode).  Normally, this
+			* If `true`, paging controls are focusable (in 5-way mode).  Normally, this
 			* is not required, since the scroller will automatically scroll to ensure
 			* most focusable items are in view.  It is intended to be used when the
 			* scroller contents have no spotlightable controls, such as the case of a
@@ -93,7 +95,7 @@
 
 			/**
 			* The ratio of the maximum distance scrolled by each scroll wheel event to
-			* the height/width of the viewport. Setting a value larger than 1 is not
+			* the height/width of the viewport. Setting a value larger than `1` is not
 			* advised, since a single scroll event could move more than one viewport's
 			* worth of content (depending on the delta received), resulting in skipped
 			* content.
@@ -106,7 +108,7 @@
 
 			/**
 			* The ratio of the distance scrolled per tap of the paging button to the
-			* height/width of the viewport. Setting a value larger than 1 is not
+			* height/width of the viewport. Setting a value larger than `1` is not
 			* advised, since a paging button tap will move more than one viewport's
 			* worth of content, resulting in skipped content.
 			*
@@ -129,9 +131,9 @@
 			paginationScrollMultiplier: 8,
 
 			/**
-			* When true, the scroll wheel moves spotlight focus up/down through the
+			* When `true`, the scroll wheel moves spotlight focus up/down through the
 			* scroller when in 5-way mode. (In pointer mode, the scroll wheel always
-			* scrolls the viewport without modifying focus position.) When false, the
+			* scrolls the viewport without modifying focus position.) When `false`, the
 			* scroll wheel works the same in 5-way mode as in pointer mode, where the
 			* wheel moves the position of the scroller viewport.
 			*
@@ -154,49 +156,50 @@
 		},
 
 		/**
-		* If true, scroll events are not allowed to propagate
+		* If `true`, scroll events are not allowed to propagate
 		*
 		* @private
 		*/
 		preventScrollPropagation: false,
 
 		/**
-		* Default to moon.ScrollStrategy
+		* Default to {@link moon.ScrollStrategy}
 		*
 		* @private
 		*/
 		strategyKind: 'moon.ScrollStrategy',
 
 		/**
-		* Scrolls until _inControl_ is in view. If _inScrollFullPage_ is set, scrolls
-		* until the edge of _inControl_ is aligned with the edge of the visible scroll
+		* Scrolls until `control` is in view. If `scrollFullPage` is set, scrolls
+		* until the edge of `control` is aligned with the edge of the visible scroll
 		* area. Optional third parameter to indicate whether or not it should animate
-		* the scroll. Defaults to animation unless it is set to false.
-		* If _setLastFocusedChild_ is true, scroller will set up _inControl_ to be the spotted child
+		* the scroll. Defaults to animation unless it is set to `false`.
+		* If `setLastFocusedChild` is `true`, scroller will set up `control` to be the spotted child
 		* when scroller is spotted.
 		*
-		* @param {Object} inControl  The control to scroll to until it is in view
-		* @param {Boolean} inScrollFullPage  If true scrolls until the edge of _inControl_ is aligned
-		* with the edge of the visible scroll area
-		* @param {Boolean} animate  If true, animates the scroll
-		* @param {Boolean} setLastFocusedChild  If true, scroller will set up _inControl_ to be the
-		* spotted child when scroller is spotted.
+		* @param {Object} control - The control to scroll into view
+		* @param {Boolean} [scrollFullPage] - If `true` scrolls until the edge of `control` is
+		*	aligned with the edge of the visible scroll area. If `undefined`, the value in
+		*	[`scrollFullPage`]{@link moon.Scroller#scrollFullPage} is used.
+		* @param {Boolean} [animate=true] - If `true`, animates the scroll
+		* @param {Boolean} [setLastFocusedChild=false] - If `true`, scroller will set up `control`
+		*	to be the spotted child when scroller is spotted.
 		* @public
 		*/
-		scrollToControl: function (inControl, inScrollFullPage, animate, setLastFocusedChild) {
+		scrollToControl: function (control, scrollFullPage, animate, setLastFocusedChild) {
 			if (setLastFocusedChild) {
-				this.$.strategy.setLastFocusedChild(inControl);
+				this.$.strategy.setLastFocusedChild(control);
 			}
-			this.$.strategy.animateToControl(inControl, inScrollFullPage, animate);
+			this.$.strategy.animateToControl(control, scrollFullPage, animate);
 		},
 
 		/**
 		* Accepts third optional paramater to indicate whether or not it should
-		* animate the scroll. Defaults to animation unless it is set to false.
+		* animate the scroll. Defaults to animation unless it is set to `false`.
 		*
-		* @param {Number} x  Horizontal position in pixels
-		* @param {Number} y  Vertical position in pixels
-		* @param {Boolean} animate  If true, animates the scroll.
+		* @param {Number} x - Horizontal position in pixels
+		* @param {Number} y - Vertical position in pixels
+		* @param {Boolean} [animate=true] - If `true`, animates the scroll.
 		* @public
 		*/
 		scrollTo: function (x, y, animate) {

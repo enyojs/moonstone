@@ -2,20 +2,14 @@
 	/**
 	* Fires when this control expands or collapses.
 	*
-	* _event.collapsed_ contains a boolean indicating whether the control is
-	* currently collapsed.
-	*
-	* @event moon.ExpandableText#event:onExpandCollapse
+	* @event moon.ExpandableText#onExpandCollapse
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
+	* @property {Boolean} collapsed - Indicates whether the control is currently collapsed.
 	* @public
 	*/
 
 	/**
-	* _moon.ExpandableText_ is a control that allows long bodies of text to be
+	* `moon.ExpandableText` is a control that allows long bodies of text to be
 	* expanded and collapsed.
 	*
 	* ```
@@ -26,9 +20,9 @@
 	* The {@link moon.ExpandableText#event:onExpandCollapse} event is fired when the control is
 	* either expanded or collapsed.
 	*
-	* @ui
 	* @class moon.ExpandableText
 	* @extends enyo.Control
+	* @ui
 	* @public
 	*/
 
@@ -48,11 +42,12 @@
 
 		/**
 		* @private
+		* @lends moon.ExpandableText.prototype
 		*/
-		published: /** @lends moon.ExpandableText.prototype */ {
+		published: {
 
 			/**
-			* When true, content is collapsed
+			* When `true`, content is collapsed
 			*
 			* @type {Boolean}
 			* @default true
@@ -70,18 +65,17 @@
 			maxLines: 3,
 
 			/**
-			* Button text when content is collapsed
-			* i18n 'MORE' label in moon.ExpandableText widget
+			* Button text when content is collapsed (i.e. 'more' label). Default is locale aware.
 			*
-			* @type {Boolean}
+			* @type {String}
 			* @default 'more'
 			* @public
 			*/
 			moreContent: moon.$L('more'),
 
 			/**
-			* Button text when content is not collapsed
-			* i18n 'LESS' label in moon.ExpandableText widget
+			* Button text when content is not collapsed (i.e. 'less' label). Default is locale
+			* aware.
 			*
 			* @type {String}
 			* @default 'less'
@@ -227,10 +221,10 @@
 
 		/**
 		* When {@link moon.ExpandableText#collapse} changes, adds/removes the line clamp, and pushes
-		* state to _this.$.button_. If the node has rendered, bubbles _onExpandCollapse_ event.
+		* state to `this.$.button`. If the node has rendered, bubbles `onExpandCollapse` event.
 		*
-		* @fires moon.ExpandableText#event:onExpandCollapse
-		* @fires moon.Scrollert#event:onRequestScrollIntoView
+		* @fires moon.ExpandableText#onExpandCollapse
+		* @fires moon.Scroller#onRequestScrollIntoView
 		* @private
 		*/
 		collapsedChanged: function () {
@@ -292,7 +286,7 @@
 		},
 
 		/**
-		* Updates {@link moon.ExpandableText#contentHeight} by unclamping _this.$.client_ and measuring
+		* Updates {@link moon.ExpandableText#contentHeight} by unclamping `this.$.client` and measuring
 		* it, before returning it to its previous state.
 		*
 		* @private
@@ -315,7 +309,7 @@
 		},
 
 		/**
-		* @param {Boolean} inAdd whether to add/remove _webkit-line-clamp_ style
+		* @param {Boolean} inAdd whether to add/remove `webkit-line-clamp` style
 		* @private
 		*/
 		addRemoveLineClamp: function (inAdd) {
@@ -324,11 +318,11 @@
 	});
 
 	/**
-	* _moon.ExpandableTextButton_ is a control used inside of {@link moon.ExpandableText}.
+	* `moon.ExpandableTextButton` is a control used inside of {@link moon.ExpandableText}.
 	*
-	* @ui
 	* @class moon.ExpandableTextButton
 	* @extends enyo.Control
+	* @ui
 	* @private
 	*/
 	enyo.kind(
@@ -346,12 +340,13 @@
 
 		/**
 		* @private
+		* @lends moon.ExpandableTextButton.prototype
 		*/
-		published: /** @lends moon.ExpandableTextButton.prototype */ {
+		published: {
 
 			/**
-			* Button text when {@link moon.ExpandableTextButton#collapsed} is true
-			* i18n 'MORE' label in moon.ExpandableTextButton widget
+			* Button text when {@link moon.ExpandableTextButton#collapsed} is `true`
+			* i18n 'MORE' label in `moon.ExpandableTextButton` widget
 			*
 			* @type {String}
 			* @default 'more'
@@ -360,7 +355,7 @@
 			moreContent: moon.$L('more'),
 
 			/**
-			* Button text when {@link moon.ExpandableTextButton#collapsed} is false
+			* Button text when {@link moon.ExpandableTextButton#collapsed} is `false`
 			* i18n 'LESS' label in moon.ExpandableTextButton widget
 			*
 			* @type {String}
@@ -386,7 +381,7 @@
 
 			/**
 			* {@link enyo.Spotlight#event:onSpotlightFocus}, the handler bubbles an
-			* {@link moon.Scroller#requestScrollIntoView} event
+			* {@link moon.Scroller#event:requestScrollIntoView} event
 			*/
 			onSpotlightFocused	: 'spotFocused'
 
@@ -413,7 +408,7 @@
 		/**
 		* Bubbles a {@link moon.Scroller#event:requestScrollIntoView} event
 		*
-		* @fires moon.Scroller#event:requestScrollIntoView
+		* @fires moon.Scroller#requestScrollIntoView
 		* @private
 		*/
 		spotFocused: function (inSender, inEvent) {
@@ -444,9 +439,10 @@
 		},
 
 		/**
-		* If control is collapsed, sets {@link moon.ExpandableTextButton#content} to
-		* {@link moon.ExpandableTextButton#moreContent} and adds _collapsed_ CSS class' otherwise, sets
-		* content to {@link moon.ExpandableTextButton#lessContent} and removes _collapsed_ CSS class.
+		* If control is collapsed, sets {@link moon.ExpandableTextButton#content} to 
+		* {@link moon.ExpandableTextButton#moreContent} and adds `collapsed` CSS class' otherwise,
+		* sets content to {@link moon.ExpandableTextButton#lessContent} and removes `collapsed` CSS
+		* class.
 		*
 		* @private
 		*/

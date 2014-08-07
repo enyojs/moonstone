@@ -1,14 +1,13 @@
 (function (enyo, scope) {
 	/**
-	* _moon.ImageItem_, which derives from [moon.Item](#moon.Item), is a control
-	* that combines an [enyo.Image]{@link enyo.Image} with a
-	* [moon.LabeledTextItem]{@link moon.LabeledTextItem}. By default, the image is
-	* displayed to the left of the text; to display the image on the right, set
-	* {@link moon.ImageItem#imageAlignRight} to _true_.
+	* `moon.ImageItem`, which derives from {@link moon.Item}, is a control that combines an
+	* [`enyo.Image`]{@link enyo.Image} with a [`moon.LabeledTextItem`]{@link moon.LabeledTextItem}.
+	* By default, the image is displayed to the left of the text; to display the image on the right,
+	* set [`imageAlignRight`]{@link moon.ImageItem#imageAlignRight} to `true`.
 	*
-	* @ui
 	* @class moon.ImageItem
 	* @extends moon.Item
+	* @ui
 	* @public
 	*/
 
@@ -18,78 +17,79 @@
 		/**
 		* @private
 		*/
-	   name: 'moon.ImageItem',
-
- 		/**
- 		* @private
- 		*/
-	   classes: 'moon-imageitem',
+		name: 'moon.ImageItem',
 
 		/**
 		* @private
 		*/
-	   kind: 'moon.Item',
+		classes: 'moon-imageitem',
 
- 		/**
- 		* @private
- 		*/
-	   components:[
-	        {name: 'image', kind: 'enyo.Image'},
-	        {name: 'textItem', kind: 'moon.LabeledTextItem', spotlight: false}
-	    ],
+		/**
+		* @private
+		*/
+		kind: 'moon.Item',
 
-  		/**
-  		* @private
-  		*/
-		published: /** @lends enyo.Animator.prototype */ {
+		/**
+		* @private
+		*/
+		components:[
+			{name: 'image', kind: 'enyo.Image'},
+			{name: 'textItem', kind: 'moon.LabeledTextItem', spotlight: false}
+		],
 
-  			/**
-  			* The absolute URL path to the image
-  			*
-  			* @type {String}
-  			* @default ''
-  			* @public
-  			*/
+		/**
+		* @private
+		* @lends moon.ImageItem.prototype
+		*/
+		published: {
+
+			/**
+			* The absolute URL path to the image
+			*
+			* @type {String}
+			* @default ''
+			* @public
+			*/
 			source: '',
 
-  			/**
-  			* The label to be displayed along with the text
-  			*
-  			* @type {String}
-  			* @default ''
-  			* @public
-  			*/
+			/**
+			* The label to be displayed along with the text
+			*
+			* @type {String}
+			* @default ''
+			* @public
+			*/
 			label: '',
 
-  			/**
-  			* The text to be displayed in the item
-  			*
-  			* @type {String}
-  			* @default ''
-  			* @public
-  			*/
+			/**
+			* The text to be displayed in the item
+			*
+			* @type {String}
+			* @default ''
+			* @public
+			*/
 			text: '',
 
-  			/**
-  			* Set to true to align image to right of text
-  			*
-  			* @type {Boolean}
-  			* @default false
-  			* @public
-  			*/
+			/**
+			* Set to `true` to align image to right of text
+			*
+			* @type {Boolean}
+			* @default false
+			* @public
+			*/
 			imageAlignRight: false
 		},
 
-  		/**
-  		* @private
-  		*/
+		/**
+		* @private
+		*/
 		bindings: [
 			{from: '.allowHtml', to: '.$.textItem.allowHtml'}
 		],
 
-  		/**
-  		* @private
-  		*/
+		/**
+		* @private
+		*/
 		create: function () {
 			this.inherited(arguments);
 			this.sourceChanged();
@@ -98,9 +98,9 @@
 			this.imageAlignRightChanged();
 		},
 
-  		/**
-  		* @private
-  		*/
+		/**
+		* @private
+		*/
 		sourceChanged: function () {
 			if (!this.source || this.source === '') {
 				return;
@@ -108,23 +108,23 @@
 			this.$.image.setAttribute('src', this.source);
 		},
 
-  		/**
-  		* @private
-  		*/
+		/**
+		* @private
+		*/
 		labelChanged: function () {
 			this.$.textItem.setLabel(this.label);
 		},
 
-  		/**
-  		* @private
-  		*/
+		/**
+		* @private
+		*/
 		textChanged: function () {
 			this.$.textItem.setText(this.text);
 		},
 
-  		/**
-  		* @private
-  		*/
+		/**
+		* @private
+		*/
 		imageAlignRightChanged: function () {
 			this.addRemoveClass('align-right', this.imageAlignRight);
 		}

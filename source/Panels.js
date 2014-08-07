@@ -1,18 +1,17 @@
 (function (enyo, scope) {
 	/**
-	* _moon.Panels_ extends {@link enyo.Panels}, adding support for 5-way
-	* focus (Spotlight) and pre-configured Moonstone panels design patterns. By
-	* default, controls added to a _moon.Panels_ are instances of
-	* {@link moon.Panel}.
+	* `moon.Panels` extends {@link enyo.Panels}, adding support for 5-way focus (Spotlight) and
+	* pre-configured Moonstone panels design patterns. By default, controls added to a `moon.Panels`
+	* are instances of {@link moon.Panel}.
 	*
-	* _moon.Panels_ introduces the concept of a pattern for panel display. Setting
-	* {@link moon.Panels#pattern} to `activity` or `alwaysViewing` chooses between two patterns for
-	* app use on Smart TV systems.
+	* `moon.Panels` introduces the concept of a pattern for panel display. Setting
+	* [`pattern`]{@link moon.Panels#pattern} to `'activity'` or `'alwaysViewing'` chooses between
+	* two patterns for app use on Smart TV systems.
 	*
 	* @class moon.Panels
 	* @extends enyo.Panels
-	* @public
 	* @ui
+	* @public
 	*/
 	enyo.kind(
 		/** @lends moon.Panels.prototype */ {
@@ -39,10 +38,11 @@
 
 		/**
 		* @private
+		* @lends moon.Panels.prototype
 		*/
-		published: /** @lends moon.Panels.prototype */ {
+		published: {
 			/**
-			* A convenience property for configuring _moon.Panels_ according to a
+			* A convenience property for configuring `moon.Panels` according to a
 			* particular design pattern.  Valid values are `'none'` (default), `'activity'`,
 			* and `'alwaysviewing'`. Note that this property may only be set at creation
 			* time, and should not be changed at runtime.
@@ -96,7 +96,7 @@
 			* activating the handle and hidden by re-activating the handle or by tapping
 			* outside the panel area. When `false`, the handle is hidden and panels may
 			* only be shown or hidden programmatically using the {@link enyo.Control#showing}
-			* property or the {@link enyo.Control.hide} / {@link enyo.Control.show} API. This
+			* property or the {@link enyo.Control#hide} / {@link enyo.Control#show} API. This
 			* property only has an effect when the value of {@link moon.Panels#useHandle} is
 			* `true` (or `'auto'`, resulting in `true`).
 			*
@@ -158,9 +158,7 @@
 				{name: 'scrim', classes: 'moon-panels-panel-scrim'},
 				{name: 'client', tag: null}
 			]},
-			{name: 'handleWrapper', kind: 'enyo.Control', classes: 'moon-panels-handle-wrapper hidden', canGenerate: false, ontap: 'handleTap', onSpotlightLeft: 'handleSpotLeft', onSpotlightRight: 'handleSpotRight', onSpotlightFocused: 'handleFocused', onSpotlightBlur: 'handleBlur', components: [
-				{name: 'showHideHandle', kind: 'enyo.Control', classes: 'moon-panels-handle'}
-			]},
+			{name: 'showHideHandle', kind: 'enyo.Control', classes: 'moon-panels-handle hidden', canGenerate: false, ontap: 'handleTap', onSpotlightLeft: 'handleSpotLeft', onSpotlightRight: 'handleSpotRight', onSpotlightFocused: 'handleFocused', onSpotlightBlur: 'handleBlur'},
 			{name: 'showHideAnimator', kind: 'enyo.StyleAnimator', onComplete: 'animationComplete'}
 		],
 
@@ -192,7 +190,7 @@
 		showFirstBreadcrumb: false,
 
 		/**
-		* Default to using _moon.BreadcrumbArranger_
+		* Default to using `moon.BreadcrumbArranger`
 		*
 		* @private
 		*/
@@ -239,8 +237,8 @@
 		/**
 		* Creates a panel on top of the stack and increments index to select that component.
 		*
-		* @param {Object} info The declarative {@link external:kind} definition.
-		* @param {Object} moreInfo Additional properties to be applied (defaults).
+		* @param {Object} info - The declarative {@link external:kind} definition.
+		* @param {Object} moreInfo - Additional properties to be applied (defaults).
 		* @return {Object} The instance of the panel that was created on top of the stack.
 		* @public
 		*/
@@ -258,18 +256,20 @@
 		},
 
 		/**
-		* Creates multiple panels on top of the stack and updates index to select the last one created.
+		* Creates multiple panels on top of the stack and updates index to select the last one
+		* created.
 		*
-		* @param {Object} info The declarative {@link external:kind} definition.
-		* @param {Object} inCommonInfo Additional properties to be applied (defaults).
-		* @return {Array} Array of the panels that were created on top of the stack.
+		* @param {Object[]} info - The declarative {@link external:kind} definitions.
+		* @param {Object} commonInfo - Additional properties to be applied (defaults).
+		* @return {null|Object[]} Array of the panels that were created on top of the stack, or
+		*	`null` if panels cannot be created
 		* @public
 		*/
-		pushPanels: function (info, inCommonInfo) { // added
+		pushPanels: function (info, commonInfo) { // added
 			if (this.transitionInProgress || this.isModifyingPanels) {return null;}
 			this.isModifyingPanels = true;
 			var lastIndex = this.getPanels().length - 1,
-				oPanels = this.createComponents(info, inCommonInfo),
+				oPanels = this.createComponents(info, commonInfo),
 				nPanel;
 
 			for (nPanel = 0; nPanel < oPanels.length; ++nPanel) {
@@ -285,9 +285,9 @@
 		},
 
 		/**
-		* Destroys panels whose index is greater than or equal to _index_.
+		* Destroys panels whose index is greater than or equal to `index`.
 		*
-		* @param {Number} index Index to start destroying panels
+		* @param {Number} index - Index to start destroying panels
 		* @public
 		*/
 		popPanels: function (index) {
@@ -305,9 +305,9 @@
 		/**
 		* Destroys specified panel and creates new panel in-place without transition effect.
 		*
-		* @param {Number} index Index of panel to destroy
-		* @param {Object} info The declarative {@link external:kind} definition.
-		* @param {Object} moreInfo Additional properties to be applied (defaults).
+		* @param {Number} index - Index of panel to destroy
+		* @param {Object} info - The declarative {@link external:kind} definition.
+		* @param {Object} moreInfo - Additional properties to be applied (defaults).
 		* @public
 		*/
 		replacePanel: function (index, info, moreInfo) {
@@ -328,10 +328,10 @@
 		},
 
 		/**
-		* Find the panel index of the passed-in control, or return -1 if the panel is not found.
+		* Find the panel index of the passed-in control, or return `-1` if the panel is not found.
 		*
-		* @param {Object} oControl A control
-		* @return {Number} Panel index of control or -1
+		* @param {Object} oControl - A control
+		* @return {Number} Panel index of control or `-1`
 		* @public
 		*/
 		getPanelIndex: function (oControl) {
@@ -360,8 +360,8 @@
 		/**
 		* Returns `true` if the passed-in control is a child panel of this Panels instance.
 		*
-		* @param {Object} control A panel control
-		* @return {Boolean} `true` if control is a child  panel of this Panels instance.
+		* @param {Object} control - A panel control
+		* @return {Boolean} `true` if control is a child panel of this Panels instance.
 		* @public
 		*/
 		isPanel: function (control) {
@@ -373,6 +373,7 @@
 		},
 
 		/**
+		* @method
 		* @private
 		*/
 		create: enyo.inherit(function (sup) {
@@ -488,7 +489,7 @@
 			}
 			if (next && orig instanceof moon.Panel) {
 				if (this.useHandle === true && this.handleShowing && next.isOffscreen) {
-					enyo.Spotlight.spot(this.$.handleWrapper);
+					enyo.Spotlight.spot(this.$.showHideHandle);
 				}
 				else {
 					this.next();
@@ -616,19 +617,19 @@
 		handleShowingChanged: function () {
 			//* show handle only when useHandle is true
 			if (this.useHandle !== true) { return; }
-			this.$.handleWrapper.addRemoveClass('hidden', !this.handleShowing);
-			this.$.handleWrapper.spotlight = this.handleShowing;
+			this.$.showHideHandle.addRemoveClass('hidden', !this.handleShowing);
+			this.$.showHideHandle.spotlight = this.handleShowing;
 		},
 
 		/**
-		* Called when focus enters one of the panels. If currently hiding and _this.useHandle_ is true,
-		* shows handle.
+		* Called when focus enters one of the panels. If currently hiding and `this.useHandle` is
+		* `true`, shows handle.
 		*
 		* @private
 		*/
 		onSpotlightPanelEnter: function () {
 			if (!this.showing && (this.useHandle === true) && this.handleShowing ) {
-				enyo.Spotlight.spot(this.$.handleWrapper);
+				enyo.Spotlight.spot(this.$.showHideHandle);
 				return true;
 			}
 		},
@@ -636,7 +637,7 @@
 		/**
 		* Set the index of the active panel, possibly transitioning the panel into view.
 		*
-		* @param {number} index Index of the panel to make active
+		* @param {number} index - Index of the panel to make active
 		* @public
 		*/
 		setIndex: function (index) {
@@ -668,6 +669,7 @@
 				if (this.animate) {
 					this.transitionInProgress = true;
 					enyo.Spotlight.mute(this);
+					this.fireTransitionStart();
 					this.triggerPreTransitions();
 				}
 				else {
@@ -703,7 +705,8 @@
 		},
 
 		/**
-		* Returns true if any panels will move in the transition from _this.fromIndex_ to _this.toIndex_.
+		* Returns true if any panels will move in the transition from `this.fromIndex` to
+		* `this.toIndex`.
 		*
 		* @private
 		*/
@@ -769,6 +772,20 @@
 			info.index = inPanelIndex;
 			info.animate = this.animate;
 			return info;
+		},
+
+		/**
+		* Suppresses firing onTransitionStart when a transition is in progress because it was
+		* already fired in {@link moon.Panels#setIndex}
+		* 
+		* @see enyo.Panels#startTransition
+		* @private
+		*/
+		startTransition: function(sendEvents) {
+			if (this.transitionInProgress) {
+				sendEvents = !this.transitionInProgress;
+			}
+			this.inherited(arguments);
 		},
 
 		/**
@@ -856,8 +873,8 @@
 		},
 
 		/**
-		* When index changes, make sure to update the breadcrumbed panel _spotlight_ property (to avoid
-		* spotlight issues)
+		* When index changes, make sure to update the breadcrumbed panel `spotlight` property (to
+		* avoid spotlight issues)
 		*
 		* @private
 		*/
@@ -933,8 +950,8 @@
 		},
 
 		/**
-		* Override the default _getShowing()_ behavior to avoid setting _this.showing_ based on the CSS _display_
-		* property.
+		* Override the default `getShowing()` behavior to avoid setting `this.showing` based on the
+		* CSS `display` property.
 		*
 		* @private
 		*/
@@ -1034,8 +1051,8 @@
 		*/
 		initializeShowHideHandle: function () {
 			if (this.useHandle === true) {
-				this.$.handleWrapper.canGenerate = true;
-				this.$.handleWrapper.spotlight = true;
+				this.$.showHideHandle.canGenerate = true;
+				this.$.showHideHandle.spotlight = true;
 			}
 		},
 
@@ -1077,7 +1094,7 @@
 		_directShow: function () {
 			this.$.showHideHandle.addClass('right');
 			if (this.handleShowing) {
-				this.$.handleWrapper.removeClass('hidden');
+				this.$.showHideHandle.removeClass('hidden');
 			}
 			this.applyShowAnimation(true);
 		},
@@ -1088,7 +1105,7 @@
 		* @private
 		*/
 		_directHide: function () {
-			this.$.handleWrapper.addClass('hidden');
+			this.$.showHideHandle.addClass('hidden');
 			this.$.showHideHandle.removeClass('right');
 			this.applyHideAnimation(true);
 			this.hideAnimationComplete();
@@ -1138,7 +1155,7 @@
 		*/
 		showAnimationComplete: function () {
 			if (this.handleShowing) {
-				this.$.handleWrapper.removeClass('hidden');
+				this.$.showHideHandle.removeClass('hidden');
 			}
 		},
 
@@ -1147,7 +1164,7 @@
 		*/
 		hideAnimationComplete: function () {
 			if (this.handleShowing) {
-				this.$.handleWrapper.removeClass('hidden');
+				this.$.showHideHandle.removeClass('hidden');
 			}
 		},
 

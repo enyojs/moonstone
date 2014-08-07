@@ -4,7 +4,7 @@ enyo.kind({
 	components: [
 		{name: "panels", kind: "moon.Panels", popOnBack:true, pattern: "activity", classes: "enyo-fit"}
 	],
-	create: function() {
+	rendered: function () {
 		this.inherited(arguments);
 		this.pushSinglePanel();
 	},

@@ -1,14 +1,13 @@
 (function (enyo, scope) {
 	/**
-	* _moon.VideoInfoHeader_ is a [control]{@link enyo.Control} that displays various information 
-	* about a video. It is designed to be used within the _infoComponents_ block of a
-	* {@link moon.VideoPlayer}.
+	* `moon.VideoInfoHeader` is a [control]{@link enyo.Control} that displays various information 
+	* about a video. It is designed to be used within the
+	* [`infoComponents`]{@link moon.VideoPlayer#infoComponents} block of a {@link moon.VideoPlayer}.
 	* 
 	* Example:
 	* ```javascript
 	* {
 	*	kind: 'moon.VideoInfoHeader',
-	*	aboveTitle: new Date(),
 	*	title: 'Breaking Bad - Live Free Or Die',
 	*	subTitle: 'AMC (301) 7:00 PM - 8:00 PM',
 	*	description: 'As Walt deals with the aftermath of the Casa Tranquila explosion, '
@@ -21,10 +20,10 @@
 	* }
 	* ```
 	*
-	* @ui
 	* @class moon.VideoInfoHeader
 	* @extends enyo.Control
 	* @mixes moon.MarqueeSupport
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -39,7 +38,7 @@
 		* @private
 		*/
 		kind: 'enyo.Control',
-		
+
 		/**
 		* @private
 		*/
@@ -59,49 +58,49 @@
 		* @private
 		*/
 		marqueeOnRender: true,
-		
+
 		/**
 		* @private
+		* @lends moon.VideoInfoHeader.prototype
 		*/
-		published: 
-			/** @lends moon.VideoInfoHeader.prototype */ {
-			
+		published: {
+
 			/** 
-			* Title of the _VideoInfoHeader_.
+			* Title of the `VideoInfoHeader`.
 			*
 			* @type {String}
 			* @default ''
 			* @public
 			*/
 			title: '',
-			
+
 			/** 
-			* Subtitle of the _VideoInfoHeader_.
+			* Subtitle of the `VideoInfoHeader`.
 			*
 			* @type {String}
 			* @default ''
 			* @public
 			*/
 			subTitle: '',
-			
+
 			/** 
-			* Text below subtitle of the _VideoInfoHeader_.
+			* Text below subtitle of the `VideoInfoHeader`.
 			*
 			* @type {String}
 			* @default ''
 			* @public
 			*/
 			subSubTitle: '',
-			
+
 			/** 
-			* Main content of the _VideoInfoHeader_.
+			* Main content of the `VideoInfoHeader`.
 			*
 			* @type {String}
 			* @default ''
 			* @public
 			*/
 			description: '',
-			
+
 			/** 
 			* When `true`, the title text will be converted to locale-safe uppercasing.
 			*
@@ -111,7 +110,7 @@
 			*/
 			titleUpperCase: true
 		},
-		
+
 		/**
 		* @private
 		*/

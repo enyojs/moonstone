@@ -1,18 +1,15 @@
 (function (enyo, scope) {
 	/**
-	* Fires when progress bar finishes animating to a position.
+	* Fires when progress bar finishes animating to a position. No event-specific data is sent with
+	* this event.
 	*
 	* @event moon.ProgressBar#onAnimateProgressFinish
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {enyo.Scroller~ScrollEvent} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
 	* @public
 	*/
 
 	/**
-	* _moon.ProgressBar_ is a  control that shows the current progress of a
+	* `moon.ProgressBar` is a  control that shows the current progress of a
 	* process in a horizontal bar.
 	*
 	* ```
@@ -36,9 +33,9 @@
 	* Indicators](building-apps/controls/progress-indicators.html) in the Enyo
 	* Developer Guide
 	*
-	* @ui
 	* @class moon.ProgressBar
 	* @extends enyo.Control
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -56,8 +53,9 @@
 
 		/**
 		* @private
+		* @lends moon.ProgressBar.prototype
 		*/
-		published: /** @lends moon.ProgressBar.prototype */ {
+		published: {
 
 			/**
 			* Current position of progress bar
@@ -120,7 +118,7 @@
 		events: {
 
 			/**
-			* {@link moon.ProgressBar#event:onAnimateProgressFinish}
+			* {@link moon.ProgressBar#onAnimateProgressFinish}
 			*/
 			onAnimateProgressFinish: ''
 		},
@@ -139,7 +137,6 @@
 		*/
 		create: function () {
 			this.inherited(arguments);
-			this.addRemoveClass('moon-progress-bar-rtl', this.rtl);
 			this.progressChanged();
 			this.barClassesChanged();
 			this.bgBarClassesChanged();
@@ -238,11 +235,11 @@
 		},
 
 		/**
-		* @fires moon.ProgressBar#event:onAnimateProgressFinish
+		* @fires moon.ProgressBar#onAnimateProgressFinish
 		* @private
 		*/
 		progressAnimatorComplete: function (inSender) {
-			this.doAnimateProgressFinish(inSender);
+			this.doAnimateProgressFinish();
 			return true;
 		}
 	});

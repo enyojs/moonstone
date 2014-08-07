@@ -1,34 +1,34 @@
 (function (enyo, scope) {
 	/**
-	* _event.activator_ contains a reference to the activating object
+	* @event moon.ContextualPopup#onRequestShowPopup
+	* @type {Object}
+	* @property {Object} activator - contains a reference to the activating object
+	* @public
+	*/
+	
+	/**
+	* @event moon.ContextualPopup#onRequestHidePopup
+	* @type {Object}
+	* @public
+	*/
+	
+	/**
+	* Extends {@link enyo.Popup#event:onActivate}
 	*
-	* @event moon.ContextualPopup#event:onRequestShowPopup
+	* @event moon.ContextualPopup#onActivate
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
+	* @property {Object} sentFromPopup - contains a reference to the popup
 	* @public
 	*/
 	
 	/**
-	* @event moon.ContextualPopup#event:onRequestHidePopup
-	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
-	* @public
-	*/
-	
-	/**
-	* _moon.ContextualPopup_ is a popup window control with Moonstone visual styling
-	* applied.  It extends {@link enyo.Popup) and is designed to be used with
+	* `moon.ContextualPopup` is a popup window control with Moonstone visual styling
+	* applied.  It extends {@link enyo.Popup} and is designed to be used with
 	* {@link moon.ContextualPopupDecorator}.
 	*
-	* @ui
 	* @class moon.ContextualPopup
 	* @extends enyo.Popup
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -74,11 +74,12 @@
 
 		/**
 		* @private
+		* @lends moon.ContextualPopup.prototype
 		*/
-		published: /** @lends moon.ContextualPopup.prototype */ {
+		published: {
 
 			/**
-			* When true, focus cannot leave the constraints of the popup unless the
+			* When `true`, focus cannot leave the constraints of the popup unless the
 			* popup is explicitly closed.
 			*
 			* @type {Boolean}
@@ -88,8 +89,8 @@
 			spotlightModal: false,
 
 			/**
-			* When false, _closeButton_ is hidden; when true, it is shown. When
-			* _showCloseButton_ is set to 'auto' (the default), _closeButton_ is shown
+			* When `false`, the close button is hidden; when `true`, it is shown. When
+			* `showCloseButton` is set to `'auto'` (the default), the close button is shown
 			* when {@link moon.ContextualPopup#spotlightModal} is true.
 			*
 			* @type {String}
@@ -209,7 +210,7 @@
 		},
 
 		/**
-		* @fires enyo.Popup#event:onActivate
+		* @fires enyo.Popup#onActivate
 		* @private
 		*/
 		decorateActivateEvent: function (inSender, inEvent) {
@@ -220,7 +221,8 @@
 		* @private
 		*/
 		getPageOffset: function (inNode) {
-			// getBoundingClientRect returns top/left values which are relative to the viewport and not absolute
+			// getBoundingClientRect returns top/left values which are relative to the viewport and
+			// not absolute
 			var r = inNode.getBoundingClientRect();
 
 			var pageYOffset = (window.pageYOffset === undefined) ? document.documentElement.scrollTop : window.pageYOffset;
@@ -228,7 +230,126 @@
 			var rHeight = (r.height === undefined) ? (r.bottom - r.top) : r.height;
 			var rWidth = (r.width === undefined) ? (r.right - r.left) : r.width;
 
-			return {top: r.top + pageYOffset, left: r.left + pageXOffset, height: rHeight, width: rWidth};
+			return {top: r.top + pageYOffset, left: r.left + pageXOffset, height: rHeight, width: rWidth, bottom: r.top + pageYOffset + rHeight, right: r.left + pageXOffset + rWidth};			
+		},
+
+		/**
+		* @private
+		*/
+		resetDirection: function () {
+			this.removeClass('right');
+			this.removeClass('left');
+			this.removeClass('high');
+			this.removeClass('low');
+			this.removeClass('below');
+			this.removeClass('above');
+		},
+
+		/**
+		* Alter the direction of the popup
+		*
+		* @private
+		*/
+		alterDirection: function () {
+			var clientRect = this.getBoundingRect(this.node);
+			var viewPortHeight = enyo.dom.getWindowHeight();
+			var viewPortWidth = enyo.dom.getWindowWidth();
+			var offsetHeight = (clientRect.height - this.activatorOffset.height) / 2;
+			var offsetWidth = (clientRect.width - this.activatorOffset.width) / 2;
+			var popupMargin = 20;
+
+			var bounds = {top: null, left: null};
+
+			if(this.direction === 'left') {
+				if(clientRect.width + popupMargin < this.activatorOffset.left) { 
+					this.resetDirection();
+					this.addClass('right');
+
+					if(this.activatorOffset.top < offsetHeight) {
+						this.addClass('high');
+						bounds.top = this.activatorOffset.top;
+					} else if(viewPortHeight - this.activatorOffset.bottom < offsetHeight) {
+						this.addClass('low');
+						bounds.top = this.activatorOffset.bottom - clientRect.height;
+					} else {
+						bounds.top = this.activatorOffset.top - offsetHeight;
+					}
+
+					bounds.left = this.activatorOffset.left - clientRect.width;
+				}
+			} else if(this.direction === 'right') {
+				if(viewPortWidth > this.activatorOffset.right + clientRect.width + popupMargin) {
+					this.resetDirection();
+					this.addClass('left');
+
+					if(this.activatorOffset.top < offsetHeight) {
+						this.addClass('high');
+						bounds.top = this.activatorOffset.top;
+					} else if(viewPortHeight - this.activatorOffset.bottom < offsetHeight) {
+						this.addClass('low');
+						bounds.top = this.activatorOffset.bottom - clientRect.height;
+					} else {
+						bounds.top = this.activatorOffset.top - offsetHeight;
+					}
+
+					bounds.left = this.activatorOffset.right;
+				}
+			} else if(this.direction === 'top') {
+				if(clientRect.height + popupMargin < this.activatorOffset.top) {
+					this.resetDirection();
+					this.addClass('above');
+
+					if(this.activatorOffset.left < offsetWidth) {
+						this.addClass('right');
+						bounds.left = this.activatorOffset.left;
+					} else if(viewPortWidth - this.activatorOffset.right < offsetWidth) {
+						this.addClass('left');
+						bounds.left = this.activatorOffset.right - clientRect.width;
+					} else {
+						bounds.left = this.activatorOffset.left - offsetWidth;
+					}
+
+					bounds.top = this.activatorOffset.top - clientRect.height;
+				}
+			} else if(this.direction === 'bottom') {
+				if(viewPortHeight > this.activatorOffset.bottom + clientRect.height + popupMargin) {
+					this.resetDirection();
+					this.addClass('below');
+
+					if(this.activatorOffset.left < offsetWidth) {
+						this.addClass('right');
+						bounds.left = this.activatorOffset.left;
+					} else if(viewPortWidth - this.activatorOffset.right < offsetWidth) {
+						this.addClass('left');
+						bounds.left = this.activatorOffset.right - clientRect.width;
+					} else {
+						bounds.left = this.activatorOffset.left - offsetWidth;
+					}
+
+					bounds.top = this.activatorOffset.bottom;
+				}
+			}
+
+			this.setBounds(bounds);
+		},
+
+		/**
+		* @private
+		*/
+		getBoundingRect: function (node) {
+			// getBoundingClientRect returns top/left values which are relative to the viewport and not absolute
+			var o = node.getBoundingClientRect();
+			if (!o.width || !o.height) {
+				return {
+					left: o.left,
+					right: o.right,
+					top: o.top,
+					bottom: o.bottom,
+					width: o.right - o.left,
+					height: o.bottom - o.top
+				};
+			}
+			return o;
 		},
 
 		/**
@@ -253,7 +374,7 @@
 		},
 
 		/**
-		* Determines whether to display _closeButton_.
+		* Determines whether to display `closeButton`.
 		*
 		* @private
 		*/
@@ -293,7 +414,7 @@
 		},
 
 		/**
-		* Called when _this.showCloseButton_ changes.
+		* Called when `this.showCloseButton` changes.
 		*
 		* @private
 		*/
@@ -371,8 +492,9 @@
 		* @private
 		*/
 		getScrim: function () {
-			// show a transparent scrim for modal popups if scrimWhenModal is true
-			// if scrim is true, then show a regular scrim.
+			// show a transparent scrim for modal popups if
+			// {@link moon.ContextualPopup#scrimWhenModal} is `true`, else show a
+			// regular scrim.
 			if (this.modal && this.scrimWhenModal) {
 				return moon.scrimTransparent.make();
 			}
@@ -400,7 +522,15 @@
 		*/
 		showingChanged: function () {
 			this.inherited(arguments);
+			this.alterDirection();
 			this.showHideScrim(this.showing);
+		},
+
+		/**
+		* @private
+		*/
+		directionChanged: function () {
+			this.alterDirection();
 		}
 	});
 

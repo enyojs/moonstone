@@ -1,63 +1,70 @@
 (function (enyo, scope) {
 	/**
-	 * Fires when an animation step occurs.
-	 *
-	 * @event enyo.StyleAnimator#event:onStep
-	 * @type {Object}
-	 * @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	 *	propagated the [event]{@link external:event}.
-	 * @property {Object} event - An [object]{@link external:Object} containing
-	 *	[event]{@link external:event} information.
-	 * @public
-	 */
+	* @typedef {Object} enyo.StyleAnimator~AnimationDefinitionObject
+	* @property {String} name - An optional name for the animation. One will be generated if not
+	*	supplied.
+	* @property {Number} duration - An optional duration. If not specified the
+	*	[default duration]{@link enyo.StyleAnimator#defaultDuration} will be used.
+	* @property {Object} timingFunction - An optional timing function. If not specified, the
+	*	[default timing function]{@link enyo.StyleAnimator#deafultTimingFunction} will be used.
+	* @property {String} direction - `'forward'` or `'backward'`. Currently unused.
+	* @property {Object[]} keyframes - Animation keyframes
+	* @public
+	*/
 
 	/**
-	 * Fires when the animation completes.
-	 *
-	 * @event enyo.StyleAnimator#event:onStep
-	 * @type {Object}
-	 * @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	 *	propagated the [event]{@link external:event}.
-	 * @property {Object} event - An [object]{@link external:Object} containing
-	 *	[event]{@link external:event} information.
-	 * @public
-	 */
+	* Fires when an animation step occurs.
+	*
+	* @event enyo.StyleAnimator#onStep
+	* @type {Object}
+	* @property {Object} animation - A link to the animation generating the event
+	* @public
+	*/
 
 	/**
-	 * _enyo.StyleAnimator_ is a basic animation component.  Call [play()](#play) to start
-	 * the animation.  The animation will run for the period of time (in milliseconds)
-	 * specified by its [duration](#duration), subject to its [timingFunction](#timingFunction)
-	 * and [direction](#direction).
-	 *
-	 * @class enyo.StyleAnimator
-	 * @extends enyo.Component
-	 * @public
-	 * @ui
-	 */
+	* Fires when the animation completes.
+	*
+	* @event enyo.StyleAnimator#onComplete
+	* @type {Object}
+	* @property {Object} animation - A link to the animation completing
+	* @public
+	*/
+
+	/**
+	* `enyo.StyleAnimator` is a basic animation component.  Call
+	* [`play()`]{@link enyo.StyleAnimator#play} to start the animation.  The animation will run for
+	* the period of time (in milliseconds) specified by its `duration`, subject to its
+	* `timingFunction` and `direction` (See: {@link enyo.StyleAnimator~AnimationDefinitionObject}).
+	*
+	* @class enyo.StyleAnimator
+	* @extends enyo.Component
+	* @public
+	*/
 	enyo.kind(
 		/** @lends  enyo.StyleAnimator.prototype */ {
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		name: 'enyo.StyleAnimator',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		kind: 'enyo.Component',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		events: {
 			onStep: '',
 			onComplete: ''
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		* @lends moon.StyleAnimator.prototype
+		*/
 		published: {
 			//* Default value used if the animation has no _duration_ specified
 			defaultDuration: 1000,
@@ -68,65 +75,67 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		transitionProperty: enyo.dom.transition,
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		instructions: null,
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		stepInterval: null,
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		stepIntervalMS: 50,
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		startTime: null,
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		animations: null,
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		create: function () {
 			this.inherited(arguments);
 			this.animations = [];
 		},
 
 		/**
-		 * Returns animation object reflecting the passed-in properties, while also adding it to the
-		 * [animations](#animations) array.
-		 *
-		 * @public
-		 */
-		newAnimation: function (inProps) {
-			if (this.animations && inProps.name && this.getAnimation(inProps.name)) {
-				this.deleteAnimation(inProps.name);
+		* Returns animation object reflecting the passed-in properties, while also adding it to the
+		* [animations]{@link enyo.StyleAnimator#animations} array.
+		*
+		* @param {enyo.StyleAnimator~AnimationDefinitionObject} props - An animation definition hash
+		* @public
+		*/
+		newAnimation: function (props) {
+			// TODO: Add documentation for the generated animation object
+			if (this.animations && props.name && this.getAnimation(props.name)) {
+				this.deleteAnimation(props.name);
 			}
 
-			inProps.keyframes = this.formatKeyframes(inProps.keyframes);
-			inProps.instructions = this.generateInstructions(inProps.keyframes);
+			props.keyframes = this.formatKeyframes(props.keyframes);
+			props.instructions = this.generateInstructions(props.keyframes);
 
 			var animation = {
-				name:           inProps.name || this.generateAnimationName(),
-				duration:       inProps.duration || this.getDefaultDuration,
-				timingFunction: this.updateTimingFunction (inProps.timingFunction) || this.updateTimingFunction (this.getDefaultTimingfunction ()),
-				direction:      inProps.direction || this.getDefaultDirection(),
+				name:           props.name || this.generateAnimationName(),
+				duration:       props.duration || this.defaultDuration,
+				timingFunction: props.timingFunction ? this.updateTimingFunction (props.timingFunction) : this.updateTimingFunction (this.defaultTimingFunction),
+				direction:      props.direction || this.defaultDirection,
 				timeElapsed:    0,
-				keyframes:      inProps.keyframes,
-				instructions:   inProps.instructions,
+				keyframes:      props.keyframes,
+				instructions:   props.instructions,
 				state:          'paused'
 			};
 
@@ -136,22 +145,24 @@
 		},
 
 		/**
-		 * Resets transition properties to their pre-transition state.
-		 *
-		 * @public
-		 */
-		reset: function (inName) {
-			this.getAnimation(inName);
-			this._reset(inName);
+		* Resets transition properties to their pre-transition state for the specified animation.
+		*
+		* @param {String} name - Name of the animation
+		* @public
+		*/
+		reset: function (name) {
+			this.getAnimation(name);
+			this._reset(name);
 		},
 
 		/**
-		 * Plays the animation according to its properties.
-		 *
-		 * @public
-		 */
-		play: function (inName) {
-			var animation = this.getAnimation(inName);
+		* Plays the animation according to its properties.
+		*
+		* @param {String} name - Name of the animation
+		* @public
+		*/
+		play: function (name) {
+			var animation = this.getAnimation(name);
 
 			if (!animation) {
 				return;
@@ -161,16 +172,17 @@
 			this.applyValues(animation.startValues);
 			this.cacheStartValues(animation.startValues);
 
-			enyo.asyncMethod(this.bindSafely(function () { this._play(inName); }));
+			enyo.asyncMethod(this.bindSafely(function () { this._play(name); }));
 		},
 
 		/**
-		 * Jumps directly to the end state of a given animation (without animating).
-		 *
-		 * @public
-		 */
-		jumpToEnd: function (inName) {
-			var animation = this.getAnimation(inName);
+		* Jumps directly to the end state of a given animation (without animating).
+		*
+		* @param {String} name - Name of the animation
+		* @public
+		*/
+		jumpToEnd: function (name) {
+			var animation = this.getAnimation(name);
 
 			if (!animation) {
 				return;
@@ -181,26 +193,28 @@
 		},
 
 		/**
-		 * Pauses the animation, if it is currently playing.
-		 *
-		 * @public
-		 */
-		pause: function (inName) {
-			var animation = this.getAnimation(inName);
+		* Pauses the animation, if it is currently playing.
+		*
+		* @param {String} name - Name of the animation
+		* @public
+		*/
+		pause: function (name) {
+			var animation = this.getAnimation(name);
 			if (animation.state === 'playing') {
-				this._pause(inName);
+				this._pause(name);
 			}
 		},
 
 		/**
-		 * Looks up an animation by name in _this.animations_.
-		 *
-		 * @public
-		 */
-		getAnimation: function (inName) {
+		* Looks up an animation by name in the animation list
+		*
+		* @param {String} name - Name of the animation
+		* @public
+		*/
+		getAnimation: function (name) {
 			var animation = null;
 			for (var i = 0; i < this.animations.length; i++) {
-				if (this.animations[i].name === inName) {
+				if (this.animations[i].name === name) {
 					animation = this.animations[i];
 					break;
 				}
@@ -209,47 +223,48 @@
 		},
 
 		/**
-		 * Removes an existing animation from _this.animations_, stopping it first, if necessary.
-		 *
-		 * @public
-		 */
-		deleteAnimation: function (inName) {
-			var animation = this.getAnimation(inName);
+		* Removes an existing animation from _this.animations_, stopping it first, if necessary.
+		*
+		* @param {String} name - Name of the animation
+		* @public
+		*/
+		deleteAnimation: function (name) {
+			var animation = this.getAnimation(name);
 
 			if (!animation) {
 				return false;
 			}
 
 			// Pause animation if necessary
-			this._pause(inName);
+			this._pause(name);
 
 			// Splice out this animation
 			this.animations.splice(this.animations.indexOf(animation), 1);
 		},
 
 		/**
-		 * Begins stepping through the animation.
-		 *
-		 * @public
-		 */
+		* Begins stepping through the animation.
+		*
+		* @public
+		*/
 		start: function () {
 			this.beginStepping();
 		},
 
 		/**
-		 * Stops stepping through the animation.
-		 *
-		 * @public
-		 */
+		* Stops stepping through the animation.
+		*
+		* @public
+		*/
 		stop: function () {
 			this.stopStepping();
 		},
 
 		/**
-		 * Generates a unique name based on the length of _this.animations_.
-		 *
-		 * @private
-		 */
+		* Generates a unique name based on the length of _this.animations_.
+		*
+		* @private
+		*/
 		generateAnimationName: function () {
 			var count = this.animations.length,
 				name = this.getName()+'_animation_'+count;
@@ -260,8 +275,8 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		formatKeyframes: function (inKeyframes) {
 			var frames = [];
 			for (var index in inKeyframes) {
@@ -271,15 +286,15 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		updateTimingFunction: function (inTimingFunction) {
 			return inTimingFunction.match(/\bcubic-bezier/i) ? inTimingFunction : this.convertTimingFunctionToBezier(inTimingFunction);
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		convertTimingFunctionToBezier: function (timing) {
 			switch (timing) {
 			case 'linear':
@@ -298,8 +313,8 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		generateInstructions: function (inKeyframes) {
 			var frames = inKeyframes,
 				instructions = [],
@@ -334,8 +349,8 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		findStartAndEndValues: function (inAnimation) {
 			var frames = inAnimation.keyframes,
 				startValues = {},
@@ -381,8 +396,8 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		findInstructionEndValues: function (inInstruction, inFrameIndex, inFrames) {
 			for (var i = inFrameIndex; i < inFrames.length; i++) {
 				for (var j = 0, control; (control = inFrames[i].controls[j]); j++) {
@@ -399,28 +414,28 @@
 		},
 
 		/**
-		 * @private
-		 */
-		_play: function (inName) {
-			this.startAnimation(inName);
+		* @private
+		*/
+		_play: function (name) {
+			this.startAnimation(name);
 			this.beginStepping();
 		},
 
 		/**
-		 * @private
-		 */
-		startAnimation: function (inName) {
-			var animation = this.getAnimation(inName);
+		* @private
+		*/
+		startAnimation: function (name) {
+			var animation = this.getAnimation(name);
 
-			this.applyTransitions(inName, 0);
+			this.applyTransitions(name, 0);
 			animation.state = 'playing';
 			animation.timeElapsed = 0;
 			animation.startTime = enyo.perfNow();
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		applyValues: function (inValues) {
 			var item, prop, control;
 
@@ -434,8 +449,8 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		cacheStartValues: function (inStartValues) {
 			var item, control;
 			this.startValues = inStartValues;
@@ -447,24 +462,24 @@
 		},
 
 		/**
-		 * @private
-		 */
-		applyTransitions: function (inName, inStartTime) {
-			var animation = this.getAnimation(inName),
+		* @private
+		*/
+		applyTransitions: function (name, inStartTime) {
+			var animation = this.getAnimation(name),
 				instructions = animation.instructions;
 			for (var i = 0; i < instructions.length; i++) {
 				if (instructions[i].startTime <= inStartTime && !instructions[i].started) {
-					this.applyTransition(inName, instructions[i]);
+					this.applyTransition(name, instructions[i]);
 					instructions[i].started = true;
 				}
 			}
 		},
 
 		/**
-		 * @private
-		 */
-		applyTransition: function (inName, inInstruction) {
-			var animation = this.getAnimation(inName),
+		* @private
+		*/
+		applyTransition: function (name, inInstruction) {
+			var animation = this.getAnimation(name),
 				currentStyle = inInstruction.control[this.transitionProperty],
 				transitionTime = (inInstruction.endTime - inInstruction.startTime)*animation.duration/(100*1000),
 				newStyle = currentStyle ? currentStyle + ', ' : '',
@@ -484,10 +499,10 @@
 		},
 
 		/**
-		 * Begins stepping.
-		 *
-		 * @private
-		 */
+		* Begins stepping.
+		*
+		* @private
+		*/
 		beginStepping: function () {
 			if (!this.stepInterval) {
 				this.stepInterval = setInterval(this.bindSafely('_step'), this.stepIntervalMS);
@@ -495,10 +510,10 @@
 		},
 
 		/**
-		 * Stops stepping.
-		 *
-		 * @private
-		 */
+		* Stops stepping.
+		*
+		* @private
+		*/
 		stopStepping: function () {
 			if (this.stepInterval) {
 				clearInterval(this.stepInterval);
@@ -507,10 +522,10 @@
 		},
 
 		/**
-		 * Steps through each playing animation.
-		 *
-		 * @private
-		 */
+		* Steps through each playing animation.
+		*
+		* @private
+		*/
 		_step: function () {
 			var playingAnimations = false,
 				now = enyo.perfNow(),
@@ -551,33 +566,33 @@
 		},
 
 		/**
-		 * @private
-		 */
-		completeAnimation: function (inName) {
-			var animation = this.getAnimation(inName);
+		* @private
+		*/
+		completeAnimation: function (name) {
+			var animation = this.getAnimation(name);
 
-			this._pause(inName);
-			this._reset(inName);
+			this._pause(name);
+			this._reset(name);
 			this.doComplete({animation: animation});
 		},
 
 		/**
-		 * Resets transition properties to their pre-transition values.
-		 *
-		 * @private
-		 */
-		_reset: function (inName) {
-			var animation = this.getAnimation(inName);
+		* Resets transition properties to their pre-transition values.
+		*
+		* @private
+		*/
+		_reset: function (name) {
+			var animation = this.getAnimation(name);
 			for(var item in animation.startValues) {
 				animation.startValues[item].control.applyStyle(this.transitionProperty, animation.startValues[item].properties[this.transitionProperty]);
 			}
 		},
 
 		/**
-		 * @private
-		 */
-		_pause: function (inName) {
-			var animation = this.getAnimation(inName);
+		* @private
+		*/
+		_pause: function (name) {
+			var animation = this.getAnimation(name);
 			animation.state = 'paused';
 		}
 	});

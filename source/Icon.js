@@ -1,6 +1,6 @@
 (function (enyo, scope) {
 	/**
-	* _moon.Icon_ is a control that displays an icon image. You may specify the
+	* `moon.Icon` is a control that displays an icon image. You may specify the
 	* image by setting the {@link moon.Icon#src} property to a URL indicating the image file's
 	* location.
 	*
@@ -18,17 +18,18 @@
 	* ```
 	*
 	* The name-to-character mappings for font-based icons are stored in
-	* _css/moonstone-icons.less_. Each mapping in the file associates an icon name
+	* `css/moonstone-icons.less`. Each mapping in the file associates an icon name
 	* with the icon font's corresponding character or symbol.
 	*
 	* For image-based icons, two sizes are supported: large (45x45 pixels) and small
 	* (32x32 pixels). Icons are small by default. To specify a large icon, set the
-	* {@link moon.Icon#small} property to _false_:
+	* {@link moon.Icon#small} property to `false`:
 	*
 	* ```
 	* {kind: 'moon.Icon', src: 'images/search.png', small: false}
 	*
 	* {kind: 'moon.Icon', icon: 'closex', small: false}
+	* ```
 	*
 	* In addition, both icon sizes support two states: a default or resting state,
 	* and a pressed or active state.  Both states need to be included in the icon's
@@ -47,11 +48,11 @@
 	* width of an icon must be set if an image of a different size is used.
 	*
 	* For situations in which an icon should act like a button, use
-	* [moon.IconButton]{@link moon.IconButton}.
+	* [`moon.IconButton`]{@link moon.IconButton}.
 	*
-	* @ui
 	* @class moon.Icon
 	* @extends enyo.Control
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -64,25 +65,26 @@
 
 		/**
 		* @private
+		* @lends moon.Icon.prototype
 		*/
-		published: /** @lends moon.Icon.prototype */ {
+		published: {
 
 			/**
 			* When using a font-based icon, the name of the icon to be used.
 			* The following icon names are valid:
 			*
-			* 'drawer'
-			* 'arrowlargeup'
-			* 'arrowlargedown'
-			* 'arrowlargeleft'
-			* 'arrowlargeright'
-			* 'arrowsmallup'
-			* 'arrowsmalldown'
-			* 'arrowsmallleft'
-			* 'arrowsmallright'
-			* 'closex'
-			* 'check'
-			* 'search'
+			* `'drawer'`
+			* `'arrowlargeup'`
+			* `'arrowlargedown'`
+			* `'arrowlargeleft'`
+			* `'arrowlargeright'`
+			* `'arrowsmallup'`
+			* `'arrowsmalldown'`
+			* `'arrowsmallleft'`
+			* `'arrowsmallright'`
+			* `'closex'`
+			* `'check'`
+			* `'search'`
 			*
 			* @type {String}
 			* @default ''
@@ -100,7 +102,7 @@
 			src: '',
 
 			/**
-			* When true, icon is shown as disabled
+			* When `true`, icon is shown as disabled
 			*
 			* @type {Boolean}
 			* @default false
@@ -109,10 +111,9 @@
 			disabled: false,
 
 			/**
-			* A boolean parameter affecting the size of the button.
-			* If true, the diameter of this button will be 60px.
-			* However, the button's tap target will still have a diameter of 78px, with
-			* invisible DOM wrapping the small button to provide the larger tap zone.
+			* A boolean parameter affecting the size of the icon.
+			* If `true`, the icon will be 32px x 32px. If `false`, the icon will be 45px x 45px.
+			* When small, a larger, invisible tap area will be applied around the icon.
 			*
 			* @type {Boolean}
 			* @default true

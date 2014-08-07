@@ -1,7 +1,6 @@
 (function (enyo, scope) {
 	/**
-	* The extended [event]{@glossary:event} [object]{@link glossary Object} that is provided when 
-	* the [onChange]{@link moon.SimplePicker#event:onChange} [event]{@glossary event} is fired.
+	* Fires when the currently selected item changes. The following shows the event-specific data:
 	*
 	* ```javascript
 	* {
@@ -11,7 +10,8 @@
 	* }
 	* ```
 	* 
-	* @typedef {Object} moon.SimplePicker~SelectionEventObject
+	* @event moon.SimplePicker#onChange
+	* @type {Object}
 	* @property {enyo.Control} selected - A reference to the currently selected item.
 	* @property {String} content - The content of the currently selected item.
 	* @property {Number} index - The index of the currently selected item.
@@ -19,22 +19,10 @@
 	*/
 
 	/**
-	* Fires when the currently selected item changes.
-	*
-	* @event moon.SimplePicker#event:onChange
-	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently 
-	*	propagated the [event]{@glossary event}.
-	* @property {moon.SimplePicker~SelectionEventObject} event - An [object]{@glossary Object} 
-	*	containing [event]{@glossary event} information.
-	* @public
-	*/
-
-	/**
-	* _moon.SimplePicker_ is a [control]{@link enyo.Control} that solicits a choice from the user by
+	* `moon.SimplePicker` is a [control]{@link enyo.Control} that solicits a choice from the user by
 	* cycling through a list of options. The picker's child [components]{@link enyo.Component}, 
-	* typically simple {@link enyo.Control} [objects]{@glossary Object} with text content, become 
-	* the options for the picker.
+	* typically [`moon.MarqueeText`]{@link moon.MarqueeText} [objects]{@glossary Object} (the
+	* default component), become the options for the picker.
 	*
 	* ```javascript
 	* {kind: 'moon.SimplePicker', onChange: 'changed', selectedIndex: 1, components: [
@@ -45,10 +33,10 @@
 	* ```
 	* 
 	* The picker may be changed programmatically by calling 
-	* [_previous()_]{@link moon.SimplePicker#previous} or [_next()_]{@link moon.SimplePicker#next}, 
-	* or by modifying the [_selectedIndex_]{@link moon.SimplePicker#selectedIndex} published 
+	* [`previous()`]{@link moon.SimplePicker#previous} or [`next()`]{@link moon.SimplePicker#next}, 
+	* or by modifying the [`selectedIndex`]{@link moon.SimplePicker#selectedIndex} published 
 	* property by calling `set('selectedIndex', <value>)`.
-	* 
+	*
 	* The picker options may be modified programmatically in the standard manner, by calling
 	* `createComponent().render()` or `destroy()`.
 	*
@@ -56,15 +44,15 @@
 	* // Add new items to picker
 	* this.$.picker.createComponent({"New York"}).render();
 	* this.$.picker.createComponent({"London"}).render();
-	* 
+	*
 	* // Remove currently selected item from picker
 	* this.$.picker.getSelected().destroy();
 	* ```
 	*
-	* @ui
 	* @class moon.SimplePicker
 	* @extends enyo.Control
 	* @mixes moon.MarqueeSupport
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -79,7 +67,7 @@
 		* @private
 		*/
 		kind: 'enyo.Control',
-		
+
 		/**
 		* @private
 		*/
@@ -89,21 +77,21 @@
 		* @private
 		*/
 		mixins: ['moon.MarqueeSupport'],
-		
+
 		/**
 		* @private
 		*/
 		events: {
-			onChange:''
+			onChange: ''
 		},
 
 		/**
 		* @private
+		* @lends moon.SimplePicker.prototype
 		*/
-		published: 
-			/** @lends moon.SimplePicker.prototype */ {
+		published: {
 
-			/** 
+			/**
 			* Reference to currently selected item, if any.
 			*
 			* @type {enyo.Control}
@@ -111,8 +99,8 @@
 			* @public
 			*/
 			selected: '',
-			
-			/** 
+
+			/**
 			* Index of currently selected item, if any.
 			*
 			* @type {Number}
@@ -120,8 +108,8 @@
 			* @public
 			*/
 			selectedIndex: 0,
-			
-			/** 
+
+			/**
 			* When `true`, picker transitions animate left/right.
 			*
 			* @type {Boolean}
@@ -129,8 +117,8 @@
 			* @public
 			*/
 			animate: true,
-			
-			/** 
+
+			/**
 			* When `true`, button is shown as disabled and does not generate tap events.
 			*
 			* @type {Boolean}
@@ -138,8 +126,8 @@
 			* @public
 			*/
 			disabled: false,
-			
-			/** 
+
+			/**
 			* When `true`, picker will wrap around from last item to first.
 			*
 			* @type {Boolean}
@@ -147,9 +135,9 @@
 			* @public
 			*/
 			wrap: false,
-			
-			/** 
-			* By default, [SimplePicker]{@link moon.SimplePicker} is an inline-block element; 
+
+			/**
+			* By default, [SimplePicker]{@link moon.SimplePicker} is an inline-block element;
 			* setting `block: true` makes it a block element.
 			*
 			* @type {Boolean}
@@ -158,12 +146,12 @@
 			*/
 			block: false
 		},
-		
+
 		/**
 		* @private
 		*/
 		defaultKind:'moon.MarqueeText',
-		
+
 		/**
 		* @private
 		*/
@@ -204,7 +192,7 @@
 		},
 
 		/**
-		* @fires moon.SimplePicker#event:onChange
+		* @fires moon.SimplePicker#onChange
 		* @private
 		*/
 		fireChangedEvent: function() {
@@ -225,8 +213,8 @@
 		blockChanged: function() {
 			this.addRemoveClass('block', this.block);
 		},
-		
-		/** 
+
+		/**
 		* Shows/hides previous/next buttons based on current index.
 		*
 		* @private
@@ -234,8 +222,8 @@
 		showHideNavButtons: function() {
 			var index = this.getSelectedIndex(),
 				maxIndex = this.getClientControls().length - 1;
-			var prevButton = this.rtl ? this.$.buttonRight : this.$.buttonLeft;
-			var nextButton = this.rtl ? this.$.buttonLeft : this.$.buttonRight;
+			var prevButton = this.$.buttonLeft;
+			var nextButton = this.$.buttonRight;
 
 			if (this.disabled) {
 				this.hideNavButton(prevButton);
@@ -276,8 +264,8 @@
 		*/
 		addControl: function(ctl) {
 			this.inherited(arguments);
-			var addedIdx = this.getClientControls().indexOf(ctl);
-			var selectedIdx = this.selectedIndex;
+			var addedIdx = this.getClientControls().indexOf(ctl),
+				selectedIdx = this.selectedIndex;
 			if (this.generated) {
 				if ((selectedIdx < 0) || (addedIdx < selectedIdx)) {
 					this.setSelectedIndex(selectedIdx + 1);
@@ -294,9 +282,9 @@
 		*/
 		removeControl: function(ctl) {
 			if (!this.destroying) {
-				var removedIdx = this.getClientControls().indexOf(ctl);
-				var selectedIdx = this.selectedIndex;
-				var wasLast = (removedIdx == this.getClientControls().length-1);
+				var removedIdx = this.getClientControls().indexOf(ctl),
+					selectedIdx = this.selectedIndex,
+					wasLast = (removedIdx == this.getClientControls().length-1);
 
 				this.inherited(arguments);
 
@@ -316,8 +304,8 @@
 				this.inherited(arguments);
 			}
 		},
-		
-		/** 
+
+		/**
 		* Hides _inControl_ and disables spotlight functionality.
 		*
 		* @private
@@ -325,8 +313,8 @@
 		hideNavButton: function(ctl) {
 			ctl.setDisabled(true);
 		},
-		
-		/** 
+
+		/**
 		* Shows _inControl_ and enables spotlight functionality.
 		*
 		* @private
@@ -362,17 +350,18 @@
 			}
 		},
 		/*
-		* When the picker is initialized, looks for any items with an `active:true` flag; if one is 
-		* found, it is set as the currently selected item. This is done without triggering an 
-		* [_onChange_]{@link moon.SimplePicker#event:onChange} event, as it happens during 
+		* When the picker is initialized, looks for any items with an `active:true` flag; if one is
+		* found, it is set as the currently selected item. This is done without triggering an
+		* [_onChange_]{@link moon.SimplePicker#event:onChange} event, as it happens during
 		* initialization.
 		*
 		* @private
 		*/
 		initializeActiveItem: function() {
-			var controls = this.getClientControls();
-			for(var i=0;i<controls.length;i++) {
-				if(controls[i].active) {
+			var i,
+				controls = this.getClientControls();
+			for (i = 0; i < controls.length; i++) {
+				if (controls[i].active) {
 					this.selectedIndex = i;
 					this.selected = controls[i];
 					return;
@@ -384,7 +373,7 @@
 		* @private
 		*/
 		selectedIndexChanged: function() {
-			enyo.dom.transform(this.$.client, {translateX: (this.selectedIndex * 100 * (this.rtl ? 1 : -1)) + '%'});
+			enyo.dom.transform(this.$.client, {translateX: (this.selectedIndex * -100) + '%'});
 			this.updateMarqueeDisable();
 			this.setSelected(this.getClientControls()[this.selectedIndex]);
 			this.fireChangedEvent();
@@ -397,11 +386,13 @@
 		*/
 		updateMarqueeDisable: function() {
 			this.stopMarquee();
-			for (var c$=this.getClientControls(), i=0; i<c$.length; i++) {
+			var i,
+				c = this.getClientControls();
+			for (i = 0; i < c.length; i++) {
 				if (i == this.selectedIndex) {
-					c$[i].disabled = false;
+					c[i].disabled = false;
 				} else {
-					c$[i].disabled = true;
+					c[i].disabled = true;
 				}
 			}
 		},
@@ -411,11 +402,7 @@
 		*/
 		left: function(sender, e) {
 			if (e && e.sentHold) { return; }
-			if (this.rtl) {
-				this.next(sender, e);
-			} else {
-				this.previous(sender, e);
-			}
+			this.previous(sender, e);
 		},
 
 		/**
@@ -423,11 +410,7 @@
 		*/
 		right: function(sender, e) {
 			if (e && e.sentHold) { return; }
-			if (this.rtl) {
-				this.previous(sender, e);
-			} else {
-				this.next(sender, e);
-			}
+			this.next(sender, e);
 		},
 
 		/**
@@ -456,8 +439,13 @@
 		},
 
 		/** 
-		* Cycles the selected item to the one before the currently selected item.
+		* Cycles the selected item to the one before the currently selected item. If chained from an
+		* event it will cancel {@link Spotlight} hold pulse events once reaching the first item,
+		* unless [`wrap`]{@link moon.SimplePicker#wrap} is `true`. When calling directly, no
+		* arguments are required.
 		*
+		* @param {Object} sender - (unused) Sender if chained from event
+		* @param {Object} e - Event object, if chained from event
 		* @public
 		*/
 		previous: function(sender, e) {
@@ -474,8 +462,13 @@
 		},
 
 		/** 
-		* Cycles the selected item to the one after the currently selected item.
+		* Cycles the selected item to the one after the currently selected item. If chained from an
+		* event it will cancel {@link Spotlight} hold pulse events once reaching the last item,
+		* unless [`wrap`]{@link moon.SimplePicker#wrap} is `true`. When calling directly, no
+		* arguments are required.
 		*
+		* @param {Object} sender - (unused) Sender if chained from event
+		* @param {Object} e - Event object, if chained from event
 		* @public
 		*/
 		next: function(sender, e) {
@@ -484,7 +477,7 @@
 				if (idx > this.getClientControls().length - 1) {
 					idx = this.wrap ? 0 : this.getClientControls().length - 1;
 				}
-				if (!this.wrap && idx === this.getClientControls().length - 1 
+				if (!this.wrap && idx === this.getClientControls().length - 1
 					&& e && e.cancelHoldPulse) {
 					e.cancelHoldPulse();
 				}

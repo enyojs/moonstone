@@ -44,7 +44,8 @@ enyo.kind({
 					]},
 					{kind: "moon.ExpandablePicker", content: "Choose DOW Label Class", onChange: "setLabelStyle", components: [
 						{content: "Default", active: true, className:""},
-						{content: "Divider", className:"moon-divider moon-divider-text"}
+						{content: "Divider", className:"moon-divider moon-divider-text"},
+						{content: "Smaller font", className: "moon-calendar-picker-day small"}
 					]}
 				]}
 			]},
@@ -105,14 +106,25 @@ enyo.kind({
 				});
 			}
 			this.updateCurrentString(this.$.calendar.getValue());
+			this.removeLabelItem(this.$.dowLabelClass, inEvent, 'Divider', 'full');
 		}
 		return true;
 	},
 	setLabelStyle: function(inSender, inEvent){
 		if (inEvent.content){
 			this.$.calendar.setDayOfWeekClasses(inEvent.selected.className);
+			this.removeLabelItem(this.$.dowLengthPicker, inEvent, 'full', 'Divider');
 		}
 		return true;
+	},
+	removeLabelItem: function (inControl, inEvent, inLabelName1, inLabelName2) {
+		var i,
+			c = inControl.getClientControls();
+			for (i=0; i<c.length; i++) {
+				if (c[i].content == inLabelName1) {
+					c[i].addRemoveClass("moon-calendar-dow-lable-nodisplay", Boolean(inEvent.content == inLabelName2));
+				}
+			}
 	},
 	changed: function(inSender, inEvent) {
 		if (this.$.result && inEvent.value) {

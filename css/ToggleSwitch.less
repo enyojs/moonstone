@@ -9,29 +9,35 @@
 	font-size: @moon-toggleswitch-image-width;
 	overflow: hidden;
 	text-align: left;
-	
-	&:after {
+
+	.moon-icon {
+		visibility: visible;
+		cursor: default;
+		background-color: transparent;
+		left: 0px;
+	}
+	.moon-icon:after {
 		color: @moon-checkbox-toggle-switch-color;
-		content: @moon-icon-circle;
-		margin-left: 5px;
 	}
 	&[checked] {
 		background-color: @moon-checkbox-toggle-switch-checked-bg-color;
-		&:after {
+		.moon-icon {
+			left:  @moon-toggleswitch-image-width / 2;
+		}
+		.moon-icon:after {
 			color: @moon-checkbox-toggle-switch-checked-color;
-			margin-left: (@moon-toggleswitch-image-width - @moon-toggleswitch-image-height + 5px);
 		}
 	}
 	&[disabled] {
 		background-color: @moon-checkbox-toggle-switch-bg-color;
-		&:after {
+		.moon-icon:after {
 			color: @moon-checkbox-toggle-switch-color;
 		}
 	}
-	&.animated {
-		-webkit-transition: background-color 0.2s;
+	&.animated .moon-icon {
+		-webkit-transition: background-color 0.2s, left 0.2s;
 		&:after {
-			-webkit-transition: color 0.2s, margin-left 0.2s;
+			-webkit-transition: color 0.2s;
 		}
 	}
 }

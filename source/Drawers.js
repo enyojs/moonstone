@@ -2,68 +2,66 @@
 	/**
 	* Handler for initial rendering event
 	*
-	* event.drawersHeight contains the height of the drawer
-	*
-	* @event moon.Drawers#event:onDrawersRendered
+	* @event moon.Drawers#onDrawersRendered
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
+	* @property {Number} drawersHeight - The height of the drawer
 	* @public
 	*/
 
 	/**
 	* Handler for initial resizing event to size drawers to full screen
 	*
-	* event.drawersHeight contains the height of the drawer
-	*
-	* @event moon.Drawers#event:onDrawersResized
+	* @event moon.Drawers#onDrawersResized
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
+	* @public
+	*/
+
+	/**
+	* Handler for initial resizing event to size drawers to full screen
+	*
+	* @event moon.Drawers#onDrawersResized
+	* @type {Object}
+	* @property {Number} drawersHeight - The height of the drawer
 	* @public
 	*/
 
 
 	/**
-	* _moon.Drawers_ is a container kind designed to hold a set of
-	* {@link moon.Drawer} objects and client content. The {@link moon.Drawers#drawers} property
-	* accepts an array of {@link moon.Drawer} controls. The associated
-	* {@link moon.DrawerHandle) are positioned in their own small drawer,
-	* centered at the top of the 'dresser'--the region containing the array of
-	* Drawer controls and the activator nub.
+	* `moon.Drawers` is a container kind designed to hold a set of {@link moon.Drawer} objects and
+	* client content. The {@link moon.Drawers#drawers} property accepts an array of `Drawer`
+	* controls. The associated [handlers]{@link moon.DrawerHandle} are positioned in their own small
+	* drawer, centered at the top of the 'dresser' -- the region containing the array of Drawer
+	* controls and the activator nub.
 	*
-	* When a handle is selected, it opens the corresponding Drawer object's main
-	* drawer or control drawer, depending on how the Drawer object is configured.
-	* The control's child components may be of any kind.
+	* When a handle is selected, it opens the corresponding Drawer object's main drawer or control
+	* drawer, depending on how the Drawer object is configured.  The control's child components may
+	* be of any kind.
 	*
 	* ```
+	* {
+	* 	kind: 'moon.Drawers',
+	* 	drawers: [
 	* 		{
-	* 			kind: 'moon.Drawers',
-	* 			drawers: [
-	* 				{
-	* 					name: 'musicDrawer',
-	* 					kind: 'moon.Drawer',
-	* 					handle: {kind: 'moon.DrawerHandle', content: 'Handle'},
-	* 					components: [
-	* 						{content: 'Drawer Content'}
-	* 					],
-	* 					controlDrawerComponents: [
-	* 						{content: 'Controls'}
-	* 					]
-	* 				}
+	* 			name: 'musicDrawer',
+	* 			kind: 'moon.Drawer',
+	* 			handle: {kind: 'moon.DrawerHandle', content: 'Handle'},
+	* 			components: [
+	* 				{content: 'Drawer Content'}
 	* 			],
-	* `		components: [
-	* 				{content: 'Content Area'}
+	* 			controlDrawerComponents: [
+	* 				{content: 'Controls'}
 	* 			]
 	* 		}
+	* 	],
+	* 	components: [
+	* 		{content: 'Content Area'}
+	* 	]
+	* }
 	* ```
 	*
 	* @class moon.Drawers
 	* @extends enyo.Control
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -86,17 +84,50 @@
 
 		/**
 		* @private
+		* @lends moon.Drawers.prototype
 		*/
-		published: /** @lends moon.Drawers.prototype */ {
+		published: {
 
 			/**
 			* Populate with an array of {@link moon.Drawer} components
 			*
-			* @type {object}
+			* @type {Object[]}
 			* @default null
 			* @public
 			*/
-			drawers: null
+			drawers: null,
+
+			/**
+			* When using a font-based icon, the name of the icon to be used.
+			* The following icon names are valid:
+			*
+			* 'drawer'
+			* 'arrowlargeup'
+			* 'arrowlargedown'
+			* 'arrowlargeleft'
+			* 'arrowlargeright'
+			* 'arrowsmallup'
+			* 'arrowsmalldown'
+			* 'arrowsmallleft'
+			* 'arrowsmallright'
+			* 'closex'
+			* 'check'
+			* 'search'
+			*
+			* @type {String}
+			* @default ''
+			* @public
+			*/
+			icon: '',
+
+			/**
+			* URL specifying path to icon image
+			*
+			* @type {String}
+			* @default ''
+			* @public
+			*/
+			src: ''
 		},
 
 		/**
@@ -114,11 +145,9 @@
 		* @private
 		*/
 		components: [
-			{name:'activatorWrapper', classes:'moon-drawers-activator-wrapper', spotlight:true, ontap:'activatorHandler', components: [
-				{name:'activator', classes:'moon-drawers-activator'}
-			]},
-			{name:'handleContainer', classes:'moon-drawers-handle-container', kind:'enyo.Drawer', resizeContainer:false, open:false, spotlightDisabled: true, onpostresize:'resizeHandleContainer', components:[
-				{name:'handles', classes:'moon-neutral moon-drawers-handles'}
+			{name: 'activator', classes: 'moon-drawers-activator', spotlight: true, ontap: 'activatorHandler', mixins: ['enyo.StylesheetSupport']},
+			{name: 'handleContainer', classes: 'moon-drawers-handle-container', kind: 'enyo.Drawer', resizeContainer: false, open: false, spotlightDisabled: true, onpostresize: 'resizeHandleContainer', components: [
+				{name:'handles', classes: 'moon-neutral moon-drawers-handles'}
 			]},
 			{name: 'drawers', classes:'moon-drawers-drawer-container'},
 			{name: 'client', classes:'moon-drawers-client'}
@@ -140,11 +169,17 @@
 			this.inherited(arguments);
 			this.$.drawers.createComponents(this.drawers, {kind: 'moon.Drawer', owner:this.owner});
 			this.setupHandles();
+			if (this.src) {
+				this.srcChanged();
+			}
+			if (this.icon) {
+				this.iconChanged();
+			}
 		},
 
 		/**
 		* event waterfalls down
-		* @fires moon.Drawers#event:onDrawersRendered
+		* @fires moon.Drawers#onDrawersRendered
 		* @private
 		*/
 		rendered: function () {
@@ -156,16 +191,54 @@
 		/**
 		* @private
 		*/
+		srcChanged: function(old) {
+			// Always change the src, even if its set to NULL because we want to be able to restore
+			// the initial behavior with `inherit`.
+			var src = this.src || 'inherit',
+				id = this.$.activator.id;
+
+			// If src passed is null|none|inherit|initial
+			if (src == 'none' || src == 'inherit' || src == 'initial') {
+				this.$.activator.set('stylesheetContent', '');
+			} else {
+				src = 'url(\'' + enyo.path.rewrite(this.src) + '\')';
+				// If icon exists, add image as background and inherit content
+				if (this.icon) {
+					this.$.activator.set('stylesheetContent', '#' + id + '.moon-drawers-activator:not(.open):after { background-image: ' + src + '; }');
+				} else {
+					// Else no content, only image
+					this.$.activator.set('stylesheetContent', '#' + id + '.moon-drawers-activator:not(.open):after { background-image: ' + src + '; content: ""; }');
+				}
+			}
+		},
+
+		/**
+		* @private
+		*/
+		iconChanged: function(old) {
+			if (old) {
+				this.$.activator.removeClass('moon-icon-' + old);
+			}
+			if (this.icon) {
+				this.$.activator.addClass('moon-icon-' + this.icon);
+			}
+			// Run srcChanged() which also does accounting for this.icon's presence.
+			this.srcChanged();
+		},
+
+		/**
+		* @private
+		*/
 		setupHandles: function () {
-			var handles = []
-				, controls, index;
+			var controls, index,
+				handles = [];
 
 			// cover the case where one is not defined
 			if (this.drawers) {
 				for (index = 0; index < this.drawers.length; ++index) {
 					handles.push(this.drawers[index].handle || {});
 				}
-				this.$.handles.createComponents(handles, {kind: 'moon.DrawerHandle', owner:this});
+				this.$.handles.createComponents(handles, {kind: 'moon.Item', owner:this});
 				controls = this.$.handles.getControls();
 				enyo.forEach(handles, function (handle, idx) {
 					controls[idx].addClass('moon-drawers-handle');
@@ -228,8 +301,7 @@
 		*/
 		openDrawer: function (drawer) {
 			var handles = this.$.handles.getControls();
-			for (var index = 0; index < handles.length; ++index)
-			{
+			for (var index = 0; index < handles.length; ++index) {
 				if (handles[index] == drawer || enyo.Spotlight.Util.isChild(handles[index],drawer)) {
 					drawer = this.$.drawers.getControls()[index];
 					drawer.toggleDrawer();
@@ -245,7 +317,7 @@
 		*/
 		drawerOpen: function () {
 			var drawers = this.$.drawers.getControls();
-			for (var index = 0; index < drawers.length; ++index){
+			for (var index = 0; index < drawers.length; ++index) {
 				if (drawers[index].getOpen() || drawers[index].getControlsOpen()) {
 					return true;
 				}
@@ -258,7 +330,7 @@
 		*/
 		closeDrawers: function () {
 			var drawers = this.$.drawers.getControls();
-			for (var index = 0; index < drawers.length; ++index){
+			for (var index = 0; index < drawers.length; ++index) {
 				var drawer = drawers[index];
 				if (drawer.getOpen() || drawer.getControlsOpen()) {
 					enyo.dispatcher.release(drawer);
@@ -327,7 +399,7 @@
 		},
 
 		/**
-		* @fires moon.Drawers#event:onDrawersResized
+		* @fires moon.Drawers#onDrawersResized
 		* @private
 		*/
 		handleResize: function () {
@@ -344,7 +416,7 @@
 		* @private
 		*/
 		resizeHandleContainer: function (inSender, inEvent) {
-			enyo.asyncMethod(inEvent.delegate.bindSafely(function (){
+			enyo.asyncMethod(inEvent.delegate.bindSafely(function () {
 				if (!this.$.animator.isAnimating()) {
 					this.parent.$.activator.addRemoveClass('drawer-open', this.parent.drawerOpen() ? true : false);
 				}

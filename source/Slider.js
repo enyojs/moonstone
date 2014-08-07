@@ -1,52 +1,33 @@
 (function (enyo, scope) {
 	/**
-	* The extended [event]{@glossary:event} [object]{@link glossary Object} that is provided when 
-	* the [onChange]{@link moon.Slider#event:onChange} and
-	* [onChanging]{@link moon.Slider#event:onChanging} [events]{@glossary event} are fired.
-	*
-	* @typedef {Object} moon.Slider~ChangeEventObject
-	* @property {String} value - The value of the current position.
-	* @public
-	*/
-
-	/**
 	* Fires when bar position is set.
 	*
-	* @event moon.Slider#event:onChange
+	* @event moon.Slider#onChange
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently 
-	*	propagated the [event]{@glossary event}.
-	* @property {moon.Slider~ChangeEventObject} event - An [object]{@glossary Object} 
-	*	containing [event]{@glossary event} information.
+	* @property {Number} value - The value of the current position.
 	* @public
 	*/
 
 	/**
 	* Fires while control knob is being dragged.
 	*
-	* @event moon.Slider#event:onChanging
+	* @event moon.Slider#onChanging
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently 
-	*	propagated the [event]{@glossary event}.
-	* @property {moon.Slider~ChangeEventObject} event - An [object]{@glossary Object} 
-	*	containing [event]{@glossary event} information.
+	* @property {Number} value - The value of the current position.
 	* @public
 	*/
 
 	/**
-	* Fires when animation to a position finishes.
+	* Fires when animation to a position finishes. No additional information is passed with this
+	* event.
 	*
-	* @event moon.Slider#event:onAnimateFinish
+	* @event moon.Slider#onAnimateFinish
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently 
-	*	propagated the [event]{@glossary event}.
-	* @property {Object} event - An [object]{@glossary Object} containing [event]{@glossary event} 
-	* information.
 	* @public
 	*/
 
 	/**
-	* _moon.Slider_ is a [control]{@link enyo.Control} that presents a range of selection options in
+	* `moon.Slider` is a [control]{@link enyo.Control} that presents a range of selection options in
 	* the form of a horizontal slider with a control knob. The knob may be tapped and dragged to the
 	* desired location.
 	*
@@ -54,9 +35,9 @@
 	* {kind: "moon.Slider", value: 30}
 	* ```
 	*
-	* @ui
 	* @class moon.Slider
 	* @extends moon.ProgressBar
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -84,9 +65,9 @@
 		
 		/**
 		* @private
+		* @lends moon.Slider.prototype
 		*/
-		published: 
-			/** @lends moon.Slider.prototype */ {
+		published: {
 
 			/**
 			* Position of slider, expressed as an integer between `0` and `100`, inclusive.
@@ -97,7 +78,7 @@
 			*/
 			value: 0,
 			
-			/** 
+			/**
 			* Sliders may "snap" to multiples of this value in either direction.
 			*
 			* @type {Number}
@@ -115,7 +96,7 @@
 			*/
 			lockBar: true,
 			
-			/** 
+			/**
 			* If `true`, tapping on bar will change current position.
 			*
 			* @type {Boolean}
@@ -124,7 +105,7 @@
 			*/
 			tappable: true,
 			
-			/** 
+			/**
 			* CSS classes to apply to knob.
 			*
 			* @type {String}
@@ -133,8 +114,8 @@
 			*/
 			knobClasses: 'moon-slider-knob',
 			
-			/** 
-			* CSS classes to apply to _popupLabel_.
+			/**
+			* CSS classes to apply to the popup label
 			*
 			* @type {String}
 			* @default 'moon-slider-popup-label'
@@ -142,8 +123,8 @@
 			*/
 			popupLabelClasses: 'moon-slider-popup-label',
 			
-			/** 
-			* CSS classes to apply to _tapArea_.
+			/**
+			* CSS classes to apply to the tap area.
 			*
 			* @type {String}
 			* @default 'moon-slider-taparea'
@@ -151,8 +132,8 @@
 			*/
 			tapAreaClasses: 'moon-slider-taparea',
 			
-			/** 
-			* Color value of _popup_.
+			/**
+			* Color value of the popup.
 			*
 			* @type {String}
 			* @default '#4d4d4d'
@@ -180,7 +161,7 @@
 			animate: true,
 			
 			/**
-			* When `false`, the slider's popup bubble is displayed while the slider is being 
+			* When `false`, the slider's popup bubble is displayed while the slider is being
 			* adjusted.
 			*
 			* @type {Boolean}
@@ -198,7 +179,7 @@
 			*/
 			showPercentage: true,
 			
-			/** 
+			/**
 			* Popup width in pixels.
 			*
 			* @type {Number|String}
@@ -207,7 +188,7 @@
 			*/
 			popupWidth: 'auto',
 			
-			/** 
+			/**
 			* Popup height in pixels; value should be under `72`.
 			*
 			* @type {Number|String}
@@ -216,7 +197,7 @@
 			*/
 			popupHeight: 67,
 			
-			/** 
+			/**
 			* Popup offset in pixels.
 			*
 			* @type {Number}
@@ -226,7 +207,8 @@
 			popupOffset: 8,
 			
 			/**
-			* When `false`, the knob may be moved past the _bgProgress_ value.
+			* When `false`, the knob may be moved past the
+			* [`bgProgress`]{@link moon.ProgressBar#bgProgress} value.
 			*
 			* @type {Boolean}
 			* @default false
@@ -235,8 +217,8 @@
 			constrainToBgProgress: false,
 			
 			/**
-			* When `true`, an elastic visual effect is seen when the knob is dragged past the 
-			* _bgProgress_ value.
+			* When `true`, an elastic visual effect is seen when the knob is dragged past the
+			* [`bgProgress`]{@link moon.ProgressBar#bgProgress} value.
 			*
 			* @type {Boolean}
 			* @default false
@@ -244,7 +226,7 @@
 			*/
 			elasticEffect: false,
 			
-			/** 
+			/**
 			* Custom popup content (ignored if `null`).
 			*
 			* @type {String|null}
@@ -253,7 +235,7 @@
 			*/
 			popupContent: null,
 			
-			/** 
+			/**
 			* When `true`, popup content will be translated to locale-safe uppercase.
 			*
 			* @type {Boolean}
@@ -321,7 +303,7 @@
 		*/
 		selected: false,
 
-		/** 
+		/**
 		* Animates to the given value.
 		*
 		* @param {Number} start The start position, as an integer between `0` and `100`.
@@ -339,9 +321,9 @@
 			});
 		},
 
-		/** 
+		/**
 		* Determine if the slider is currently being dragged.
-		* 
+		*
 		* @returns {Boolean} Returns `true` if the slider is currently being dragged.
 		* @public
 		*/
@@ -364,7 +346,6 @@
 			this.popupLabelClassesChanged();
 			this.tapAreaClassesChanged();
 			this.initSliderStyles();
-			this.addRemoveClass('moon-slider-rtl', this.rtl);
 		},
 
 		/**
@@ -439,7 +420,7 @@
 			this.$.popup.applyStyle('top', -(this.getPopupHeight() + this.getPopupOffset()) + 'px');
 		},
 		
-		/** 
+		/**
 		* Updates popup offset.
 		*
 		* @private
@@ -449,7 +430,7 @@
 			this.drawToCanvas(this.popupColor);
 		},
 		
-		/** 
+		/**
 		* Updates popup width.
 		*
 		* @private
@@ -472,7 +453,7 @@
 			this.$.popup.applyStyle('line-height', h - 6 + 'px');
 		},
 		
-		/** 
+		/**
 		* Updates popup height.
 		*
 		* @private
@@ -493,7 +474,7 @@
 			this.$.popupLabel.applyStyle('background-color', this.popupColor);
 		},
 		
-		/** 
+		/**
 		* Updates popup color.
 		*
 		* @private
@@ -503,7 +484,7 @@
 			this.updatePopupLabelColor();
 		},
 		
-		/** 
+		/**
 		* Updates popup content.
 		*
 		* @private
@@ -532,8 +513,8 @@
 			return (Math.round(val / this.increment) * this.increment);
 		},
 		
-		/** 
-		* Called only when [_constrainToBgProgress_]{@link moon.Slider#constrainToBgProgress} is 
+		/**
+		* Called only when [`constrainToBgProgress`]{@link moon.Slider#constrainToBgProgress} is
 		* `true`.
 		*
 		* @private
@@ -542,8 +523,8 @@
 			return (Math.floor(val / this.increment) * this.increment);
 		},
 
-		/** 
-		* Initializes [_value_]{@link moon.Slider#value} at creation time.
+		/**
+		* Initializes [`value`]{@link moon.Slider#value} at creation time.
 		*
 		* @private
 		*/
@@ -627,8 +608,6 @@
 				knobValue = (this.showPercentage && this.popupContent === null) ? percent : val
 			;
 
-			if (this.rtl) { percent = 100 - percent; }
-
 			this.$.knob.applyStyle('left', percent + '%');
 			this.$.popup.addRemoveClass('moon-slider-popup-flip-h', percent > 50);
 			this.$.popupLabel.addRemoveClass('moon-slider-popup-flip-h', percent > 50);
@@ -662,13 +641,8 @@
 		* @private
 		*/
 		calcKnobPosition: function(e) {
-			var x;
-			if (this.rtl) { 
-				x = this.hasNode().getBoundingClientRect().right - e.clientX;
-			} else {
-				x = e.clientX - this.hasNode().getBoundingClientRect().left;
-			}
-			var pos = (x / this.getBounds().width) * (this.max - this.min) + this.min;
+			var x = e.clientX - this.hasNode().getBoundingClientRect().left,
+				pos = (x / this.getBounds().width) * (this.max - this.min) + this.min;
 			return pos;
 		},
 
@@ -778,13 +752,13 @@
 		},
 
 		/**
-		* @fires moon.Slider#event:onAnimateFinish
+		* @fires moon.Slider#onAnimateFinish
 		* @private
 		*/
 		animatorComplete: function(sender) {
 			this._setValue(sender.value);
 			this.animatingTo = null;
-			this.doAnimateFinish(sender);
+			this.doAnimateFinish();
 			return true;
 		},
 
@@ -831,9 +805,7 @@
 		spotLeft: function(sender, e) {
 			if (this.selected) {
 				// If in the process of animating, work from the previously set value
-				var v = this.rtl
-					? this.getValue() + (this.increment || 1)
-					: this.getValue() - (this.increment || 1);
+				var v = this.getValue() - (this.increment || 1);
 
 				this.set('value',v);
 				return true;
@@ -845,9 +817,7 @@
 		*/
 		spotRight: function(sender, e) {
 			if (this.selected) {
-				var v = this.rtl
-					? this.getValue() - (this.increment || 1)
-					: this.getValue() + (this.increment || 1);
+				var v = this.getValue() + (this.increment || 1);
 
 				this.set('value',v);
 				return true;
@@ -919,7 +889,7 @@
 		changeDelayMS: 50,
 
 		/**
-		* @fires moon.Slider#event:onChange
+		* @fires moon.Slider#onChange
 		* @private
 		*/
 		sendChangeEvent: function(data) {
@@ -927,7 +897,7 @@
 		},
 
 		/**
-		* @fires moon.Slider#event:onChanging
+		* @fires moon.Slider#onChanging
 		* @private
 		*/
 		sendChangingEvent: function(data) {

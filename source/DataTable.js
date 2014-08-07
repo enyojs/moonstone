@@ -1,11 +1,10 @@
 (function (enyo, scope) {
 	/**
-	* _moon.DataTable_ is an {@link enyo.DataTable} with Moonstone visual
-	* styling applied.
+	* `moon.DataTable` is an {@link enyo.DataTable} with Moonstone visual styling applied.
 	*
-	* @ui
 	* @class moon.DataTable
 	* @extends enyo.DataTable
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -19,12 +18,12 @@
 		/**
 		* @private
 		*/
-	   kind: 'enyo.DataTable',
+		kind: 'enyo.DataTable',
 
 		/**
 		* @private
 		*/
-	   defaultKind: 'moon.TableRow',
+		defaultKind: 'moon.TableRow',
 
 		/**
 		* @method
