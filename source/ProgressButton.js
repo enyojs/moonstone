@@ -58,7 +58,7 @@
 		/**
 		* @private
 		*/
-		spotlight: false,
+		spotlight: true,
 
 		/**
 		* @private
@@ -67,7 +67,7 @@
 		published: {
 
 			/**
-			* Current position of progress button
+			* Current position of progress button.
 			*
 			* @type {Number}
 			* @default 0
@@ -76,7 +76,7 @@
 			progress: 0,
 
 			/**
-			* Minimum progress value (i.e., no progress made)
+			* Minimum progress value (i.e., no progress made).
 			*
 			* @type {Number}
 			* @default 0
@@ -85,7 +85,7 @@
 			min: 0,
 
 			/**
-			* Maximum progress value (i.e., process complete)
+			* Maximum progress value (i.e., process complete).
 			*
 			* @type {Number}
 			* @default 100
@@ -94,13 +94,41 @@
 			max: 100,
 
 			/**
-			* CSS classes to apply to progress button bar
+			* Optional CSS classes to apply to progress button bar.
 			*
 			* @type {String}
-			* @default 'moon-progress-button-bgcolor'
+			* @default ''
 			* @public
 			*/
-			barClasses: 'moon-progress-button-bgcolor'
+			barClasses: '',
+
+			/**
+			* The text to display after the progress has been completed.
+			*
+			* @type {String}
+			* @default 'Completed'
+			* @public
+			*/
+			postContent: 'Completed',
+
+			/**
+			* Toggle whether there will be animation on the progress updates
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
+			animated: true,
+
+			/**
+			* The amount of fixed-steps the progress bar should incriment to. 4 steps would step to
+			* 25%, 50%, 75%, and 100%. 5 steps would step to 20%, 40%, 60%, 80%, and 100%. etc.
+			*
+			* @type {Number}
+			* @default 4
+			* @public
+			*/
+			steps: 4
 		},
 
 		/**
@@ -131,6 +159,7 @@
 			this.preContent = this.content;
 			this.addRemoveClass('moon-progress-button-rtl', this.rtl);
 			this.progressChanged();
+			this.animatedChanged();
 			this.barClassesChanged();
 		},
 
@@ -146,32 +175,60 @@
 		* @private
 		*/
 		progressChanged: function () {
-			this.$.bar.removeClass('moon-progress-button-remove-bar');
 			this.progress = this.clampValue(this.min, this.max, this.progress);
-			var percent = this.calcPercent(this.progress);
-			if(percent === 0){
-				this.$.bar.applyStyle('transform', 'translateX(-100%)');
-				this.set('content', this.preContent);
-				this.$.progressPercent.set('content', '');
-			} else if(percent>0 && percent<5){
-				this.updateProgressPercent(percent);
-				this.$.bar.applyStyle('transform', 'translateX(-100%)');
-			} else if(percent>=5 && percent<25){
-				this.updateProgressPercent(percent);
-				this.$.bar.applyStyle('transform', 'translateX(-95%)');
-			} else if(percent>=25 && percent<50){
-				this.updateProgressPercent(percent);
-				this.$.bar.applyStyle('transform', 'translateX(-75%)');
-			} else if(percent>=50 && percent<75){
-				this.updateProgressPercent(percent);
-				this.$.bar.applyStyle('transform', 'translateX(-50%)');
-			} else if(percent>=75 && percent<100){
-				this.updateProgressPercent(percent);
-				this.$.bar.applyStyle('transform', 'translateX(-25%)');
-			} else if(percent == 100){
-				this.$.bar.applyStyle('transform', 'translateX(0%)');
-				this.setPostContent();
+
+			var progress,
+				percent = this.calcPercent(this.progress),
+				offset = 3,
+				minimumVisibleProgress = 10,
+				increment = parseInt(100 / this.get('steps'), 10);
+			if (percent < 100) {
+				this.removeClass('completed');
 			}
+			if (percent < 5) {
+				if (percent === 0) {
+					this._inProgress(false);
+					this.set('content', this.preContent);
+					this.$.progressPercent.set('content', '');
+					this.removeClass('in-progress');
+				} else {
+					this._inProgress(true);
+					this.updateProgressPercent(percent);
+				}
+				// The value is so small that it should not be visible.
+				this.$.bar.applyStyle('transform', 'translateX(-100%)');
+				progress = 0;
+			} else if (percent >= 5 && percent < 100) {
+				// Disable spotlight: you can't click a button once it's in progress
+				this._inProgress(true);
+				if (percent < increment) {
+					// Statically set the size of the progress bar if it's less than 1 increment.
+					progress = minimumVisibleProgress;
+				} else {
+					// Calculate how many increments we should use
+					progress = parseInt(percent / increment, 10) * increment;
+				}
+				this.updateProgressPercent(percent);
+				// Only change the progress bar if it's different from the last time this was run
+				if (progress != this._visibleProgress) {
+					this.$.bar.applyStyle('transform', 'translateX(-' + (100 + offset - progress) + '%)');
+				}
+			} else if (percent >= 100) {
+				// Make it spottable again, now that it's finished.
+				this.$.bar.applyStyle('transform', null);
+				this.setPostContent();
+				progress = 100;
+			}
+			// Remember the last progress state
+			this._visibleProgress = progress;
+		},
+
+		/**
+		* @private
+		*/
+		_inProgress: function (state) {
+			this.addRemoveClass('in-progress', state);
+			this.set('spotlight', !state);
 		},
 
 		/**
@@ -179,6 +236,13 @@
 		*/
 		clampValue: function (inMin, inMax, inValue) {
 			return Math.max(inMin, Math.min(inValue, inMax));
+		},
+
+		/**
+		* @private
+		*/
+		animatedChanged: function () {
+			this.addRemoveClass('animated', this.get('animated'));
 		},
 
 		/**
@@ -208,19 +272,22 @@
 		updateProgressPercent: function(inPercent) {
 			this.set('content', '');
 			this.$.progressPercent.set('content', Math.round(inPercent) + '%');
-			this.$.bar.addClass(this.barClasses);
 		},
 
 		/**
 		* @private
 		*/
 		setPostContent: function(){
-			var _this = this;
-			setTimeout(function(){
-				_this.$.progressPercent.set('content', '');
-				_this.$.bar.addClass('moon-progress-button-remove-bar');
-				_this.set('content', _this.postContent);
-			},1000);
+			this.startJob('completeProgress', function () {
+				this.$.progressPercent.set('content', '');
+				this.addClass('completed');
+				this.set('content', this.get('postContent'));
+
+				// When the animation is done, we are finally no longer in-progress.
+				this.startJob('completeProgressDone', function () {
+					this._inProgress(false);
+				}, 200); // Same as the CSS transition duration
+			}, 1000);
 		},
 
 		/**

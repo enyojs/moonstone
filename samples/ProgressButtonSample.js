@@ -23,6 +23,10 @@ enyo.kind({
 			{name: "animateSetting", kind: "moon.CheckboxItem", checked: true, content: "Animated"}
 		]}
 	],
+	bindings: [
+		{from: '$.animateSetting.checked', to: '$.autoDownload.animated'},
+		{from: '$.animateSetting.checked', to: '$.progressButton.animated'}
+	],
 	changeValue: function(inSender, inEvent) {
 		if (this.$.animateSetting.getChecked()) {
 			this.$.progressButton.animateProgressTo(this.$.input.getValue());

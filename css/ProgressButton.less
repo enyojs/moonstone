@@ -2,38 +2,38 @@
 .moon-progress-button {
 	position: relative;
 	border: @moon-progress-button-border-width solid transparent;
-}
-.moon-progress-button:active:hover:not([disabled]) {
-	border: @moon-progress-button-border-width solid transparent;
-}
-.moon-progress-button-bgcolor {
-	background-color: @moon-progress-button-bg-color;
-}
-.moon-progress-button-bar {
-	height: @moon-progress-button-bar-height;
-	width: @moon-progress-button-bar-width;
-	position: absolute;
-	top: 0;
-	left: 0;
-	border-radius: @moon-progress-button-bar-border-radius;
-}
-.moon-progress-button-progresspercent{
-	position: absolute;
-	left: 40%;
-}
-.moon-progress-button-remove-bar {
-	-webkit-animation: progress .2s ease-in-out forwards;
-}
-@-webkit-keyframes progress {
-	0%   {transform: translateX(0%);}
-	5%   {transform: translateX(5%);}
-	25%  {transform: translateX(25%);}
-	50%  {transform: translateX(50%);}
-	75%  {transform: translateX(75%);}
-	100% {transform: translateX(100%);}
-}
+	transform: translateZ(0);
 
-/* RTL classes */
-.moon-progress-button-rtl .moon-progress-button-bar {
-	float: right;
+	// Override the moon-button mouse-click state to suppress the border
+	&.in-progress:active:hover:not([disabled]),
+	&.in-progress {
+		padding: @moon-progress-button-border-width (@moon-button-h-padding + @moon-progress-button-border-width);
+		border-width: 0;
+	}
+	.moon-progress-button-bar {
+		height: 100%;
+		width: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		border-radius: @moon-progress-button-bar-border-radius;
+		background-color: @moon-progress-button-bar-color;
+		transform: translateZ(0);
+	}
+	.moon-progress-button-progresspercent {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+	&.completed .moon-progress-button-bar {
+		transform: translateX(103%);
+	}
+	&.animated {
+		.moon-progress-button-bar {
+			transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+		}
+		&.completed {
+			transition: transform 0.2s ease-in;
+		}
+	}
 }
