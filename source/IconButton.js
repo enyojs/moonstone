@@ -120,10 +120,17 @@
 		*/
 		create: function () {
 			this.inherited(arguments);
+			this.noBackgroundChanged();
+		},
+
+		/**
+		* @private
+		*/
+		rendered: function () {
+			this.inherited(arguments);
 			if (this.hasOwnProperty("active")) {
 				this.activeChanged();
 			}
-			this.noBackgroundChanged();
 		},
 
 		/**
