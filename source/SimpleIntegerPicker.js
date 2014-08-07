@@ -333,7 +333,11 @@
 		/**
 		* @private
 		*/
-		triggerRebuild: function() {
+		triggerRebuild: function(was, is, source) {
+			if (source != 'unit' && typeof is !== 'number') {
+				// We warn here so that developers can easily catch their falut.
+				enyo.warn(source + ' sould be a number!');
+			}
 			// We use a job here to avoid rebuilding the picker multiple
 			// times in succession when more than one of the properties it
 			// depends on (min, max, step, unit) change at once. This case
@@ -452,6 +456,10 @@
 		* @private
 		*/
 		handleValueChange: function(was, is) {
+			if (typeof is !== 'number') {
+				// We warn here so that developers can easily catch their falut.
+				enyo.warn('value sould be a number!');
+			}
 			this.setButtonVisibility(was, is);
 			this.fireChangeEvent();
 		},
