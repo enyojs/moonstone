@@ -1,10 +1,10 @@
 (function (enyo, scope) {
 	/**
-	* `moon.Button` is an {@link enyo.Button} with Moonstone styling applied. The color of the
-	* button may be customized by specifying a background color.
+	* {@link moon.Button} is an {@link enyo.Button} with Moonstone styling applied.
+	* The color of the button may be customized by specifying a background color.
 	*
 	* For more information, see the documentation on
-	* [Buttons](building-apps/controls/buttons.html) in the Enyo Developer Guide.
+	* [Buttons]{@link building-apps/controls/buttons.html} in the Enyo Developer Guide.
 	*
 	* @class moon.Button
 	* @extends enyo.Button
@@ -52,8 +52,8 @@
 
 			/**
 			* A boolean parameter affecting the minimum width of the button. If `true`,
-			* the minimum width will be set to 180px (or 130px if [`small`]{@link moon.Button#small}
-			* is true). If `false`, the minimum width will be set to the current
+			* the minimum width will be set to 180px (or 130px if [small]{@link moon.Button#small}
+			* is `true`). If `false`, the minimum width will be set to the current value of
 			* `@moon-button-height` (thus forcing the button to be no smaller than a circle with
 			* diameter `@moon-button-height`).
 			*
@@ -64,7 +64,7 @@
 			minWidth: true,
 
 			/**
-			* When `true`, the content will be converted to locale-safe uppercasing
+			* When `true`, the content will have locale-safe uppercasing applied.
 			*
 			* @type {Boolean}
 			* @default true
@@ -138,7 +138,7 @@
 		},
 
 		/**
-		* Bubble `requestScrollIntoView` event
+		* Bubbles `requestScrollIntoView` event.
 		*
 		* @fires moon.Scroller#onRequestScrollIntoView
 		* @private
@@ -158,7 +158,7 @@
 		},
 
 		/**
-		* If `this.small` is true, adds a child that increases the tap area.
+		* If `this.small` is `true`, adds a child that increases the tap area.
 		* @private
 		*/
 		smallChanged: function () {
