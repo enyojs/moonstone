@@ -55,7 +55,7 @@ enyo.kind({
 	],
 	bindings: [
 		{from: ".$.calendar.value", to:".$.picker.value", oneWay:false},
-		{from: ".$.calendar.value", to:".$.input.value", transform: function(val) { return ilib ? this.df.format(val) : val.toDateString();	} }
+		{from: ".$.calendar.value", to:".$.input.value", transform: function(val) { return window.ilib ? this.df.format(val) : val.toDateString();	} }
 	],
 	create: function(){
 		this.inherited(arguments);
@@ -75,7 +75,7 @@ enyo.kind({
 	},
 	
 	updateCurrentString: function (date) {
-		var formatted = ilib ? this.df.format(date) : date.toDateString();
+		var formatted = window.ilib ? this.df.format(date) : date.toDateString();
 		this.$.result.setContent("Current Date" + " changed to " + formatted);
 	},
 	

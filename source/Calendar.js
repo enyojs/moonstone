@@ -699,6 +699,7 @@
 		* @private
 		*/
 		updateMonthPicker: function () {
+			var month;
 			if (typeof ilib !== 'undefined') {
 				if (typeof(this._monthFmt) === 'undefined') {
 					this._monthFmt = new ilib.DateFmt({
@@ -725,7 +726,11 @@
 				for (var i = 0; i < monthNames.length - 1; i++) {
 					monthPickerControls[i].setContent(monthNames[i+1]);
 				}
+				month = this.localeValue.getMonths() - 1;
+			} else {
+				month = this.value.getMonth();
 			}
+			this.$.monthPicker.setSelectedIndex(month);
 		},
 
 		/**
@@ -755,9 +760,12 @@
 		* @private
 		*/
 		updatePrevMonth: function () {
+			var dt,
+				dates,
+				i;
 			if (typeof ilib !== 'undefined') {
 				// get the first of this month
-				var dt = ilib.Date.newInstance({
+				dt = ilib.Date.newInstance({
 					year: this.localeValue.getYears(),
 					month: this.localeValue.getMonths(),
 					day: 1,
@@ -771,9 +779,9 @@
 				var sunJD = sunday.getJulianDay();
 				var daysBefore = Math.floor(dt.getJulianDay() - sunJD); 
 				if (daysBefore > 0) {
-					var dates = this.$.dates.getControls();
+					dates = this.$.dates.getControls();
 					var temp;
-					for (var i = 0; i <= daysBefore; i++) {
+					for (i = 0; i <= daysBefore; i++) {
 						temp = ilib.Date.newInstance({
 							julianday: sunJD + i,
 							timezone: 'local'
@@ -785,7 +793,7 @@
 				}
 			} else {
 				var value = this.value;
-				var dt = new Date(value.getFullYear(), value.getMonth(), value.getDate());
+				dt = new Date(value.getFullYear(), value.getMonth(), value.getDate());
 				dt.setDate(0);
 				var thisYear = dt.getFullYear(),
 					datesOfPrevMonth = dt.getDate(),
@@ -795,8 +803,8 @@
 					dayOfLastDate += 7;
 				}
 				if (dayOfLastDate !== 6) {
-					var dates = this.$.dates.getControls();
-					for (var i = 0; i <= dayOfLastDate; i++) {
+					dates = this.$.dates.getControls();
+					for (i = 0; i <= dayOfLastDate; i++) {
 						dates[i].setValue(new Date(thisYear, prevMonth, datesOfPrevMonth - dayOfLastDate + i));
 						dates[i].setColor(true);
 					}
@@ -813,8 +821,9 @@
 		* @private
 		*/
 		updateNextMonth: function (datesOfPrevMonth, monthLength) {
-			var startIndex = datesOfPrevMonth + monthLength;
-			var dates = this.$.dates.getControls();
+			var startIndex = datesOfPrevMonth + monthLength,
+				dates = this.$.dates.getControls(),
+				i;
 			
 			if (typeof ilib !== 'undefined') {
 				var lastDay = ilib.Date.newInstance({
@@ -827,7 +836,7 @@
 				// get the first day of the next month
 				var jd = lastDay.getJulianDay() + 1;
 				var temp;
-				for (var i = 0; i < this.$.dates.controls.length - startIndex; i++) {
+				for (i = 0; i < this.$.dates.controls.length - startIndex; i++) {
 					temp = ilib.Date.newInstance({
 						julianday: jd + i,
 						timezone: 'local'
@@ -841,7 +850,7 @@
 				dt.setMonth(dt.getMonth() + 1);
 				var thisYear = dt.getFullYear(),
 					nextMonth = dt.getMonth();
-				for (var i = 0; i < this.$.dates.controls.length - startIndex; i++) {
+				for (i = 0; i < this.$.dates.controls.length - startIndex; i++) {
 					dates[startIndex + i].setValue(new Date(thisYear, nextMonth, i + 1));
 					dates[startIndex + i].setColor(true);
 				}
@@ -852,16 +861,20 @@
 		* @private
 		*/
 		updateDates: function () {
-			var datesOfPrevMonth = this.updatePrevMonth();
-			var	monthLength;
+			var datesOfPrevMonth = this.updatePrevMonth(),
+				monthLength,
+				thisYear,
+				thisMonth,
+				dates,
+				temp,
+				i;
 			
 			if (typeof ilib !== 'undefined') {
-				var thisYear = this.localeValue.getYears(),
-					thisMonth = this.localeValue.getMonths();
+				thisYear = this.localeValue.getYears();
+				thisMonth = this.localeValue.getMonths();
 				monthLength = this.getMonthLength(thisYear, thisMonth);
-				var dates = this.$.dates.getControls();
-				var temp;
-				for (var i = 0; i < monthLength; i++) {
+				dates = this.$.dates.getControls();
+				for (i = 0; i < monthLength; i++) {
 					temp = ilib.Date.newInstance({
 						year: thisYear,
 						month: thisMonth,
@@ -873,11 +886,11 @@
 				}
 				this.$.dates.setActive(dates[datesOfPrevMonth - 1 + this.localeValue.getDays()]);
 			} else {
-				var thisYear = this.value.getFullYear(),
-					thisMonth = this.value.getMonth();
+				thisYear = this.value.getFullYear();
+				thisMonth = this.value.getMonth();
 				monthLength = this.getMonthLength(thisYear, thisMonth);
-				var dates = this.$.dates.getControls();
-				for (var i = 0; i < monthLength; i++) {
+				dates = this.$.dates.getControls();
+				for (i = 0; i < monthLength; i++) {
 					dates[datesOfPrevMonth + i].setValue(new Date(thisYear, thisMonth, i + 1));
 					dates[datesOfPrevMonth + i].setColor(false);
 				}
@@ -890,14 +903,16 @@
 		* @private
 		*/
 		setYear: function (newYear) {
-			var month, day;
+			var month,
+				day,
+				newMonthLength;
 
 			if (typeof ilib !== 'undefined') {
 				if (this.localeValue.getYears() != newYear) {
 					month = this.localeValue.getMonths();
 					day = this.localeValue.getDays();
 					
-					var newMonthLength = this.getMonthLength(newYear, month);
+					newMonthLength = this.getMonthLength(newYear, month);
 					
 					this.localeValue = ilib.Date.newInstance({
 						year: newYear,
@@ -917,7 +932,7 @@
 					month = this.value.getMonth();
 					day = this.value.getDate();
 					
-					var newMonthLength = this.getMonthLength(newYear, month);
+					newMonthLength = this.getMonthLength(newYear, month);
 					var newValue = new Date(newYear, month, (newMonthLength < day) ? newMonthLength : day);
 					this.setValue(newValue);
 				}
@@ -928,7 +943,11 @@
 		* @private
 		*/
 		setMonth: function (newMonth) {
-			var year, day;
+			var year, 
+				day,
+				newMonthLength,
+				value,
+				newValue;
 
 			if (typeof ilib !== 'undefined') {
 				newMonth++; // convert to ilib month
@@ -936,7 +955,7 @@
 					year = this.localeValue.getYears();
 					day = this.localeValue.getDays();
 					
-					var newMonthLength = this.getMonthLength(year, newMonth);
+					newMonthLength = this.getMonthLength(year, newMonth);
 					
 					this.localeValue = ilib.Date.newInstance({
 						year: year,
@@ -949,9 +968,8 @@
 				}
 			} else {
 				if (this.value.getMonth() != newMonth) {
-					var value = this.value,
-						newValue,
-						newMonthLength = this.getMonthLength(value.getFullYear(), newMonth);
+					value = this.value;
+					newMonthLength = this.getMonthLength(value.getFullYear(), newMonth);
 					newValue = new Date(value.getFullYear(), newMonth, (newMonthLength < value.getDate()) ? newMonthLength : value.getDate());
 					this.setValue(newValue);
 				}
@@ -962,13 +980,17 @@
 		* @private
 		*/
 		setDate: function (newDate) {
-			var year, month, day;
+			var year, 
+				month,
+				newMonthLength,
+				value,
+				newValue;
 
 			if (typeof ilib !== 'undefined') {
 				year = this.localeValue.getYears();
 				month = this.localeValue.getMonths();
 				
-				var newMonthLength = this.getMonthLength(year, month);
+				newMonthLength = this.getMonthLength(year, month);
 				
 				this.localeValue = ilib.Date.newInstance({
 					year: year,
@@ -979,10 +1001,9 @@
 				
 				this.setValue(this.localeValue.getJSDate());
 			} else {
-				var value = this.value,
-					newValue,
-					monthLength = this.getMonthLength(value.getFullYear(), value.getMonth());
-				newValue = new Date(value.getFullYear(), value.getMonth(), (monthLength < newDate) ? monthLength : newDate);
+				value = this.value;
+				newMonthLength = this.getMonthLength(value.getFullYear(), value.getMonth());
+				newValue = new Date(value.getFullYear(), value.getMonth(), (newMonthLength < newDate) ? newMonthLength : newDate);
 				this.setValue(newValue);
 			}
 		},
@@ -995,10 +1016,12 @@
 		selectDate: function (inSender, inEvent) {
 			var newValue = inEvent.originator.value;
 			this.setValue(newValue);
-			this.localeValue = ilib.Date.newInstance({
-				unixtime: newValue.getTime(),
-				timezone: 'local'
-			});
+			if (typeof ilib !== 'undefined') {
+				this.localeValue = ilib.Date.newInstance({
+					unixtime: newValue.getTime(),
+					timezone: 'local'
+				});
+			}
 			return true;
 		},
 
