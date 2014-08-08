@@ -204,7 +204,7 @@
 			* have more than 12 months in some years, but by default,
 			* we will use the Gregorian calendar with 12 months.
 			* 
-			* @type {number}
+			* @type {Number}
 			* @default 12
 			* @public
 			*/
@@ -370,11 +370,7 @@
 			*
 			* End value for range of years displayed in year picker
 			*
-<<<<<<< HEAD
-			* @type {number}
-=======
 			* @type {Number}
->>>>>>> d7db605d3aa1f24f48c57e82be016eb8e4b6e2c3
 			* @default 2200
 			* @public
 			*/
@@ -477,7 +473,7 @@
 				this._dateFormatter = new ilib.DateFmt({
 					type: 'date',	// only format the date component, not the time
 					date: 'd',		// 'd' is the date of month
-					//useNative: false,
+					useNative: false,
 					length: 'short',	//it uses 2 chars to abbreviate properly
 					timezone: 'local'
 				});
@@ -517,7 +513,6 @@
 		},
 
 		/**
-<<<<<<< HEAD
 		 * When ilib is supported, calculate the start year in the current calendar.
 		 * Otherwise, just return the start year in the published property.
 		 * 
@@ -568,12 +563,8 @@
 		},
 		
 		/**
-		* When ilib is supported, _this.locale_ is given from instantiation of calendar
-		* or retrieved from default locale (en-US)
-=======
 		* When {@glossary iLib} is supported, `this.locale` is given from instantiation of calendar
 		* or retrived from defalut locale (en-US)
->>>>>>> d7db605d3aa1f24f48c57e82be016eb8e4b6e2c3
 		*
 		* @fires moon.Calendar#onChange
 		* @private
@@ -589,9 +580,9 @@
 					timezone: 'local'
 				});
 
+				this._monthFmt = undefined; // force it to recreate the formatter
 				this.calendarChanged();
 				this.firstDayOfWeek = -1; // Force change handler when locale changes
-				this._monthFmt = undefined; // force it to recreate the formatter
 				this.setFirstDayOfWeek(new ilib.LocaleInfo(this.locale).getFirstDayOfWeek());
 
 				// notify each date instance as well
@@ -599,7 +590,7 @@
 				this._dateFormatter = new ilib.DateFmt({
 					type: 'date',	// only format the date component, not the time
 					date: 'd',		// 'd' is the date of month
-					//useNative: false,
+					useNative: false,
 					length: 'short',	//it uses 2 chars to abbreviate properly
 					timezone: 'local'
 				});
@@ -698,7 +689,8 @@
 			for (var i = 0; i < endYear - startYear; i++) {
 				yearPickerControls[i].setContent(i + startYear);
 			}
-			// this.setYear(newYear);
+			var year = (typeof ilib !== 'undefined') ? this.localeValue.getYears() : this.value.getFullYear();
+			this.$.yearPicker.setSelectedIndex(year - this.getStartYear());
 		},
 
 		/**
@@ -861,11 +853,12 @@
 		*/
 		updateDates: function () {
 			var datesOfPrevMonth = this.updatePrevMonth();
-
+			var	monthLength;
+			
 			if (typeof ilib !== 'undefined') {
 				var thisYear = this.localeValue.getYears(),
 					thisMonth = this.localeValue.getMonths();
-				var	monthLength = this.getMonthLength(thisYear, thisMonth);
+				monthLength = this.getMonthLength(thisYear, thisMonth);
 				var dates = this.$.dates.getControls();
 				var temp;
 				for (var i = 0; i < monthLength; i++) {
@@ -882,7 +875,7 @@
 			} else {
 				var thisYear = this.value.getFullYear(),
 					thisMonth = this.value.getMonth();
-				var	monthLength = this.getMonthLength(thisYear, thisMonth);
+				monthLength = this.getMonthLength(thisYear, thisMonth);
 				var dates = this.$.dates.getControls();
 				for (var i = 0; i < monthLength; i++) {
 					dates[datesOfPrevMonth + i].setValue(new Date(thisYear, thisMonth, i + 1));
