@@ -68,6 +68,7 @@ enyo.kind({
 				type: "datetime",
 				time: "hmsa",
 				date: "dmy",
+				useNative: false,
 				length: "short"
 			});
 		}
@@ -87,6 +88,7 @@ enyo.kind({
 				type: "datetime",
 				time: "hmsa",
 				date: "dmy",
+				useNative: false,
 				length: this.$.dowLengthPicker.selected.content
 			});
 			this.$.input.setValue(this.df.format(this.$.calendar.getValue()));
@@ -103,6 +105,7 @@ enyo.kind({
 					type: "datetime",
 					time: "hmsa",
 					date: "dmy",
+					useNative: false,
 					length: inEvent.content
 				});
 			}
