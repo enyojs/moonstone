@@ -220,7 +220,7 @@
 		*/
 		showHideNavButtons: function() {
 			var index = this.getSelectedIndex(),
-				maxIndex = Math.max(this.months, this.getClientControls().length) - 1;
+				maxIndex = Math.max(this.months, enyo.filter(this.getClientControls(), function(val, idx, arr) { return val.content; }).length) - 1;
 			var prevButton = this.rtl ? this.$.buttonRight : this.$.buttonLeft;
 			var nextButton = this.rtl ? this.$.buttonLeft : this.$.buttonRight;
 
