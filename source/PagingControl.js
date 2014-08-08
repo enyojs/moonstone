@@ -118,7 +118,7 @@
 		/**
 		* @private
 		*/
-		maxDelta: 100,
+		maxDelta: 45,
 
 		/**
 		* @private
