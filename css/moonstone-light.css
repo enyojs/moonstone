@@ -802,6 +802,7 @@
   position: relative;
   height: 60px;
   vertical-align: middle;
+  direction: ltr;
 }
 .moon-simple-picker.block {
   display: block;
@@ -2109,6 +2110,7 @@
   height: 10px;
   background-color: #323232;
   min-width: 128px;
+  direction: ltr;
 }
 .moon-progress-bg-bar {
   height: 100%;
@@ -2121,10 +2123,6 @@
   background-color: #cf0652;
   position: absolute;
   top: 0;
-}
-/* RTL classes */
-.moon-progress-bar-rtl .moon-progress-bar-bar {
-  float: right;
 }
 .moon-slider-taparea {
   position: absolute;
@@ -2180,7 +2178,6 @@
   white-space: nowrap;
   z-index: 20;
   left: 50%;
-  direction: ltr;
 }
 .moon-slider-popup.moon-slider-popup-flip-h {
   left: auto;
@@ -2199,9 +2196,6 @@
   margin: 0px 0 0 0;
   padding: 0;
   z-index: 21;
-}
-.enyo-locale-right-to-left .moon-slider-popup-center {
-  direction: rtl;
 }
 .moon-slider-popup-right {
   position: relative;
