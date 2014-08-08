@@ -565,7 +565,7 @@
 		},
 		
 		/**
-		* When [iLib]{@glossary ilib} is loaded, `this.locale` is taken from the
+		* When [iLib]{@glossary ilib} is supported, `this.locale` is taken from the
 		* value passed in at Calendar instantiation time, or retrieved from the
 		* default locale `(en-US)`.
 		*
