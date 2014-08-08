@@ -204,6 +204,7 @@
 		*/
 		refreshScrollState: function () {
 			this.updateScrollBounds();
+			this.stabilize();
 			var node = this.$.repeater.fetchRowNode(this.value - this.min);
 			if (node) {
 				this.$.scroller.scrollToNode(node);
