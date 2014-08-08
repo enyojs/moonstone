@@ -1,6 +1,6 @@
 (function (enyo, scope) {
 	/**
-	* Fired when a date is selected. No information is passed in this event.
+	* Fires when a date is selected. No additional data is passed in this event.
 	*
 	* @event moon.CalendarDate#onDateSelected
 	* @type {Object}
@@ -8,16 +8,16 @@
 	*/
 
 	/**
-	* Fired when [`value`]{@link moon.Calendar#value} changes.
+	* Fires when [value]{@link moon.Calendar#value} changes.
 	*
 	* @event moon.Calendar#onChange
 	* @type {Object}
-	* @property {Date} value - contains a standard JavaScript {@glossary Date} object
+	* @property {Date} value - A standard JavaScript {@glossary Date} object
 	* @public
 	*/
 
 	/**
-	* `moon.CalendarDate` implements a control representing a single day, used by
+	* {@link moon.CalendarDate} implements a control representing a single day, used by
 	* the monthly calendar kind {@link moon.Calendar}.
 	*
 	* @class moon.CalendarDate
@@ -54,7 +54,7 @@
 			value: null,
 
 			/**
-			* Whether to color the date differently
+			* Whether this date's coloring should be different from normal.
 			*
 			* @type {Boolean}
 			* @default false
@@ -63,9 +63,9 @@
 			color: false,
 
 			/**
-			* Used when the CalendarDate is part of an [enyo.Group]{@link enyo.Group}.
-			* A value of true indicates that this is the active button of the group;
-			* false, that it is not the active button.
+			* Used when the CalendarDate is part of an {@link enyo.Group}. A value of
+			* `true` indicates that this is the active button of the group; false,
+			* that it is not the active button.
 			*
 			* @type {Boolean}
 			* @default false
@@ -153,7 +153,7 @@
 	});
 
 	/**
-	* `moon.Calendar` is a control that displays a monthly calendar, with the
+	* {@link moon.Calendar} is a control that displays a monthly calendar, with the
 	* month name at the top and a grid of days, grouped into rows by week, below.
 	*
 	* The header buttons are used to navigate to the desired month; the desired day
@@ -186,7 +186,7 @@
 			*
 			* Current locale used for formatting. May be set after the control is
 			* created, in which case the control will be updated to reflect the
-			* new value.  Only valid if {@glossary ilib} is loaded.
+			* new value.  Only valid if [iLib]{@glossary ilib} is loaded.
 			*
 			* @type {String}
 			* @default ''
@@ -207,7 +207,7 @@
 			/**
 			*
 			* The first day of the week in the current locale.
-			* Valid values are Sunday (`0`) through Saturday (`6`). Default is Sunday (`0`).
+			* Valid values are `0` (i.e., Sunday) through `6` (Saturday). Default is `0`.
 			*
 			* @type {Number}
 			* @default 0
@@ -229,7 +229,7 @@
 
 			/**
 			*
-			* Start value for range of years displayed in year picker
+			* Start value for range of years displayed in year picker.
 			*
 			* @type {Number}
 			* @default 1900
@@ -239,7 +239,7 @@
 
 			/**
 			*
-			* End value for range of years displayed in year picker
+			* End value for range of years displayed in year picker.
 			*
 			* @type {Number}
 			* @default 2200
@@ -249,7 +249,7 @@
 
 			/**
 			*
-			* CSS classes used to decorate day labels (e.g., `'moon-divider'`)
+			* CSS classes used to decorate day labels (e.g., `'moon-divider'`).
 			*
 			* @type {String}
 			* @default ''
@@ -261,7 +261,7 @@
 			*
 			* Length of abbreviation to use for day of the week.
 			* Accepted values are `'short'`, `'medium'`, `'long'`, and `'full'`.
-			* Only valid if {@glossary ilib} is loaded.
+			* Only valid if [iLib]{@glossary ilib} is loaded.
 			*
 			* @type {String}
 			* @default 'short'
@@ -327,7 +327,7 @@
 		},
 
 		/**
-		* Create picker contents with default (un-US) value.
+		* Creates picker contents with default (en-US) values.
 		*
 		* @private
 		*/
@@ -361,8 +361,8 @@
 		},
 
 		/**
-		* When {@glossary iLib} is supported, `this.locale` is given from instantiation of calendar
-		* or retrived from defalut locale (en-US)
+		* When [iLib]{@glossary ilib} is supported, `this.locale` is given from instantiation
+		* of calendar or retrieved from the default locale `(en-US)`.
 		*
 		* @fires moon.Calendar#onChange
 		* @private
@@ -493,9 +493,9 @@
 
 		/**
 		* Updates days of the week from first day to last day.
-		* If it uses ilib, `'0'` value of `this.firstDayOfweek` means Sunday
+		* If iLib is loaded, a `'0'` value for `this.firstDayOfweek` means Sunday
 		* and `'1'` means Monday.
-		* To make day act like above, it adds an offset to day calculation.
+		* To make the day act as expected, an offset is added to the day calculation.
 		*
 		* @private
 		*/
@@ -632,7 +632,7 @@
 		},
 
 		/**
-		* Responds to selection of a particular CalendarDate.
+		* Responds to selection of a particular [CalendarDate]{@link moon.CalendarDate}.
 		*
 		* @private
 		*/
@@ -677,10 +677,9 @@
 		},
 
 		/**
-		* When {@glossary ilib} is supported, and type of calendar is changed like
-		* from gregorian to thaisolar, julian, arabic, hebrew or chinese
-		* calendar should check whethere there are any differences in
-		* year, month and day.
+		* When [iLib]{@glossary ilib} is supported, and type of calendar is changed
+		* (e.g., from gregorian to thaisolar, julian, arabic, hebrew or chinese),
+		* calendar should check for any differences in year, month and day.
 		*
 		* @private
 		*/
