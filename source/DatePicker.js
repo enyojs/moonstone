@@ -253,14 +253,15 @@
 		updateValue: function (inSender, inEvent) {
 			var day = this.$.day.getValue(),
 				month = this.$.month.getValue(),
-				year = this.$.year.getValue();
+				year = this.$.year.getValue(),
+				maxDays;
 			var valueHours = this.value ? this.value.getHours() : 0;
 			var valueMinutes = this.value ? this.value.getMinutes() : 0;
 			var valueSeconds = this.value ? this.value.getSeconds() : 0;
 			var valueMilliseconds = this.value ? this.value.getMilliseconds() : 0;
 
 			if (typeof ilib !== 'undefined') {
-				var maxDays = this.monthLength(year, month);
+				maxDays = this.monthLength(year, month);
 				this.localeValue = ilib.Date.newInstance({
 					day: (day <= maxDays) ? day : maxDays,
 					month: month,
@@ -272,7 +273,7 @@
 				});
 				this.setValue(new Date(this.localeValue.getTime()));
 			} else {
-				var maxDays = this.monthLength(year, month-1);
+				maxDays = this.monthLength(year, month-1);
 				this.setValue(new Date(year, month-1, (day <= maxDays) ? day : maxDays,
 					valueHours,
 					valueMinutes,
@@ -285,15 +286,16 @@
 		* @private
 		*/
 		setChildPickers: function (inOld) {
+			var updateDays;
 			if (this.value) {
 				if (typeof ilib !== 'undefined') {
 					this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
 					
-					var updateDays = false;
+					updateDays = false;
 					if (inOld) {
 						var old = ilib.Date.newInstance({date: inOld});
 						updateDays = (old.getYears() != this.localeValue.getYears() ||
-							 old.getMonths() != this.localeValue.getMonths());
+							old.getMonths() != this.localeValue.getMonths());
 					}
 					this.$.year.setValue(this.localeValue.getYears());
 					this.$.month.setValue(this.localeValue.getMonths());
@@ -306,7 +308,7 @@
 						this.$.day.updateOverlays();
 					}
 				} else {
-					var updateDays = inOld &&
+					updateDays = inOld &&
 					(inOld.getFullYear() != this.value.getFullYear() ||
 					inOld.getMonth() != this.value.getMonth());
 					this.$.year.setValue(this.value.getFullYear());
