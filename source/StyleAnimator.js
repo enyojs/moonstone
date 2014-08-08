@@ -1,14 +1,14 @@
 (function (enyo, scope) {
 	/**
 	* @typedef {Object} enyo.StyleAnimator~AnimationDefinitionObject
-	* @property {String} name - An optional name for the animation. One will be generated if not
-	*	supplied.
-	* @property {Number} duration - An optional duration. If not specified the
+	* @property {String} name - An optional name for the animation. If not specified,
+	* a name will be generated.
+	* @property {Number} duration - An optional duration. If not specified, the
 	*	[default duration]{@link enyo.StyleAnimator#defaultDuration} will be used.
 	* @property {Object} timingFunction - An optional timing function. If not specified, the
 	*	[default timing function]{@link enyo.StyleAnimator#deafultTimingFunction} will be used.
 	* @property {String} direction - `'forward'` or `'backward'`. Currently unused.
-	* @property {Object[]} keyframes - Animation keyframes
+	* @property {Object[]} keyframes - Animation keyframes.
 	* @public
 	*/
 
@@ -17,7 +17,7 @@
 	*
 	* @event enyo.StyleAnimator#onStep
 	* @type {Object}
-	* @property {Object} animation - A link to the animation generating the event
+	* @property {Object} animation - A reference to the animation that generated the event.
 	* @public
 	*/
 
@@ -26,13 +26,13 @@
 	*
 	* @event enyo.StyleAnimator#onComplete
 	* @type {Object}
-	* @property {Object} animation - A link to the animation completing
+	* @property {Object} animation - A reference to the animation that completed.
 	* @public
 	*/
 
 	/**
-	* `enyo.StyleAnimator` is a basic animation component.  Call
-	* [`play()`]{@link enyo.StyleAnimator#play} to start the animation.  The animation will run for
+	* {@link enyo.StyleAnimator} is a basic animation component.  Call
+	* [play()]{@link enyo.StyleAnimator#play} to start the animation.  The animation will run for
 	* the period of time (in milliseconds) specified by its `duration`, subject to its
 	* `timingFunction` and `direction` (See: {@link enyo.StyleAnimator~AnimationDefinitionObject}).
 	*
@@ -66,11 +66,11 @@
 		* @lends moon.StyleAnimator.prototype
 		*/
 		published: {
-			//* Default value used if the animation has no _duration_ specified
+			//* Default value used if the animation has no `duration` specified.
 			defaultDuration: 1000,
-			//* Default value used if the animation has no _timingFunction_ specified
+			//* Default value used if the animation has no `timingFunction` specified.
 			defaultTimingFunction: 'linear',
-			//* Default value used if the animation has no _direction_ specified
+			//* Default value used if the animation has no `direction` specified.
 			defaultDirection: 'forward'
 		},
 
@@ -114,9 +114,9 @@
 
 		/**
 		* Returns animation object reflecting the passed-in properties, while also adding it to the
-		* [animations]{@link enyo.StyleAnimator#animations} array.
+		* `animations` array.
 		*
-		* @param {enyo.StyleAnimator~AnimationDefinitionObject} props - An animation definition hash
+		* @param {enyo.StyleAnimator~AnimationDefinitionObject} props - An animation definition hash.
 		* @public
 		*/
 		newAnimation: function (props) {
@@ -147,7 +147,7 @@
 		/**
 		* Resets transition properties to their pre-transition state for the specified animation.
 		*
-		* @param {String} name - Name of the animation
+		* @param {String} name - Name of the animation.
 		* @public
 		*/
 		reset: function (name) {
@@ -158,7 +158,7 @@
 		/**
 		* Plays the animation according to its properties.
 		*
-		* @param {String} name - Name of the animation
+		* @param {String} name - Name of the animation.
 		* @public
 		*/
 		play: function (name) {
@@ -178,7 +178,7 @@
 		/**
 		* Jumps directly to the end state of a given animation (without animating).
 		*
-		* @param {String} name - Name of the animation
+		* @param {String} name - Name of the animation.
 		* @public
 		*/
 		jumpToEnd: function (name) {
@@ -195,7 +195,7 @@
 		/**
 		* Pauses the animation, if it is currently playing.
 		*
-		* @param {String} name - Name of the animation
+		* @param {String} name - Name of the animation.
 		* @public
 		*/
 		pause: function (name) {
@@ -206,9 +206,9 @@
 		},
 
 		/**
-		* Looks up an animation by name in the animation list
+		* Looks up an animation by name in the animation list.
 		*
-		* @param {String} name - Name of the animation
+		* @param {String} name - Name of the animation.
 		* @public
 		*/
 		getAnimation: function (name) {
@@ -223,9 +223,9 @@
 		},
 
 		/**
-		* Removes an existing animation from _this.animations_, stopping it first, if necessary.
+		* Removes an existing animation from `this.animations`, stopping it first, if necessary.
 		*
-		* @param {String} name - Name of the animation
+		* @param {String} name - Name of the animation.
 		* @public
 		*/
 		deleteAnimation: function (name) {
@@ -261,7 +261,7 @@
 		},
 
 		/**
-		* Generates a unique name based on the length of _this.animations_.
+		* Generates a unique name based on the length of `this.animations`.
 		*
 		* @private
 		*/
