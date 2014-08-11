@@ -1,12 +1,12 @@
 (function (enyo, scope) {
 	/**
-	* Fires when the value changes.
+	* Fires when the picker's value changes.
 	*
 	* @event moon.DateTimePickerBase#onChange
 	* @type {Object}
 	* @property {String} name - The name of this control.
 	* @property {Date} value - A standard JavaScript {@glossary Date} object representing
-	* the current value.
+	* the picker's current value.
 	* @public
 	*/
 
@@ -69,7 +69,7 @@
 		published: {
 
 			/**
-			* Text to be displayed as the current value if no item is currently selected
+			* Text to be displayed as the current value if no item is currently selected.
 			*
 			* @type {String}
 			* @default ''
@@ -101,7 +101,8 @@
 			locale: null,
 
 			/**
-			* The value, expressed as a standard JavaScript {@glossary Date} object.
+			* The value of the picker, expressed as a standard JavaScript {@glossary Date}
+			* object.
 			*
 			* @type {Date}
 			* @default null

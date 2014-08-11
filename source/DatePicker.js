@@ -1,7 +1,7 @@
 (function (enyo, scope) {
 	/**
-	* `moon.DatePicker` is a control that can be used to display -- or allow the selection of -- a
-	* day, month, and year.
+	* {@link moon.DatePicker} is a control used to allow the selection of (or to simply
+	* display) a day, month, and year.
 	*
 	* ```
 	* {
@@ -12,9 +12,9 @@
 	* }
 	* ```
 	*
-	* Set the {@link moon.DateTimePickerBase#value} property to a
-	* [standard JavaScript Date object]{@link external:Date} to initialize the picker, or to change
-	* it programmatically at runtime.
+	* Set the [value]{@link moon.DatePicker#value} property to a standard JavaScript
+	* {@glossary Date} object to initialize the picker, or to change it programmatically
+	* at runtime.
 	*
 	* @class moon.DatePicker
 	* @extends moon.DateTimePickerBase
@@ -61,34 +61,33 @@
 			maxYear: 2099,
 
 			/**
-			* Optional label for day
-			* i18n 'DAY' label in moon.DatePicker widget
+			* Optional label for day.
 			*
 			* @type {String}
 			* @default 'day'
 			* @public
 			*/
-			dayText: moon.$L('day'),
+			dayText: moon.$L('day'),			// i18n 'DAY' label in moon.DatePicker widget
+
 
 			/**
-			* Optional label for month
-			* i18n 'MONTH' label in moon.DatePicker widget
+			* Optional label for month.
 			*
 			* @type {String}
 			* @default 'month'
 			* @public
 			*/
-			monthText: moon.$L('month'),
+			monthText: moon.$L('month'),		// i18n 'MONTH' label in moon.DatePicker widget
 
 			/**
-			* Optional label for year
-			* i18n 'YEAR' label in moon.DatePicker widget
+			* Optional label for year.
+
 			*
 			* @type {String}
 			* @default 'year'
 			* @public
 			*/
-			yearText: moon.$L('year')
+			yearText: moon.$L('year')			// i18n 'YEAR' label in Moon.DatePicker widget
 		},
 
 		/**
@@ -119,8 +118,9 @@
 		},
 
 		/**
-		 * When ilib is supported, calculate the min year in the current calendar.
-		 * Otherwise, just return the min year in the published property.
+		 * When [iLib]{@glossary ilib} is supported, calculates the minimum year in the
+		 * current calendar. Otherwise, returns the value of the published property
+		 * [minYear]{@link moon.DatePicker#minYear}.
 		 * 
 		 * @private
 		 */
@@ -144,8 +144,9 @@
 		},
 		
 		/**
-		 * When ilib is supported, calculate the max year in the current calendar.
-		 * Otherwise, just return the max year in the published property.
+		 * When [iLib]{@glossary ilib} is supported, calculates the maximum year in the
+		 * current calendar. Otherwise, returns the value of the published property
+		 * [maxYear]{@link moon.DatePicker#maxYear}.
 		 * 
 		 * @private
 		 */

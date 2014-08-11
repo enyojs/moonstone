@@ -1,7 +1,7 @@
 (function (enyo, scope) {
 	/**
-	* `moon.MeridiemPicker` is a helper kind used by [`moon.TimePicker`]{@link moon.TimePicker}. It
-	* is not intended for use in other contexts.
+	* {@link moon.MeridiemPicker} is a helper kind used by {@link moon.TimePicker}.
+	* It is not intended for use in other contexts.
 	*
 	* @class moon.MeridiemPicker
 	* @extends moon.IntegerPicker
@@ -47,7 +47,7 @@
 		*/
 		published: {
 			/**
-			* The meridiem text to display if {@link TimePicker.meridiemEnable} is `true`. The first
+			* The meridiem text to display if {@link TimePicker#meridiemEnable} is `true`. The first
 			* item is used if the `hour` is less than `11`, otherwise the second is used.
 			*
 			* @type {String[]}
@@ -75,7 +75,7 @@
 	});
 	
 	/**
-	* `moon.HourPicker` is a helper kind used by [`moon.TimePicker`]{@link moon.TimePicker}. It is
+	* {@link moon.HourPicker} is a helper kind used by {@link moon.TimePicker}. It is
 	*  not intended for use in other contexts.
 	*
 	* @class moon.HourPicker
@@ -154,15 +154,16 @@
 	});
 	
 	/**
-	* `moon.TimePicker` is a [control]{@link enyo.Control} that can display -- or allow the
-	* selection of -- a time expressed in hours and minutes, with an optional meridiem indicator
-	* ('am' or 'pm').
+	* {@link moon.TimePicker} is a [control]{@link enyo.Control} used to allow the
+	* selection of (or to simply display) a time expressed in hours and minutes, with an
+	* optional meridiem indicator ('am' or 'pm').
 	*
 	* ```
 	* {kind: 'moon.TimePicker', content: 'Time', meridiemEnable: true, onChange: 'changed'}
 	* ```
-	* Set the [`value`]{@link moon.TimePicker#value} property to a standard JavaScript
-	* {@glossary Date} object to initialize the picker, or to change it programmatically at runtime.
+	* Set the [value]{@link moon.TimePicker#value} property to a standard JavaScript
+	* {@glossary Date} object to initialize the picker, or to change it programmatically at
+	* runtime.
 	*
 	* @class moon.TimePicker
 	* @extends moon.DateTimePickerBase
@@ -189,7 +190,7 @@
 		published: {
 
 			/**
-			* When `true`, the picker will use a 12-hour clock. (When [iLib]{@link iLib} is loaded,
+			* When `true`, the picker will use a 12-hour clock. (When [iLib]{@glossary ilib} is loaded,
 			* this value will be ignored and the current locale's rules will determine whether a
 			* 12-hour or 24-hour clock is used.)
 			*
@@ -200,7 +201,7 @@
 			meridiemEnable: false,
 
 			/**
-			* Optional label for hour
+			* Optional label for hour.
 			*
 			* @type {String}
 			* @default moon.$L('hour')
@@ -209,7 +210,7 @@
 			hourText: moon.$L('hour'),			// i18n 'HOUR' label in moon.TimePicker widget
 
 			/**
-			* Optional label for minute
+			* Optional label for minute.
 			*
 			* @type {String}
 			* @default moon.$L('minute')
@@ -218,7 +219,7 @@
 			minuteText: moon.$L('minute'),		// i18n 'MINUTE' label in moon.TimePicker widget
 
 			/**
-			* Optional label for meridiem
+			* Optional label for meridiem.
 			*
 			* @type {String}
 			* @default moon.$L('meridiem')
@@ -227,9 +228,9 @@
 
 			meridiemText: moon.$L('meridiem'),	// i18n 'MERIDIEM' label in moon.TimePicker widget
 			/**
-			* When `true`, midnight (and noon, if `meridiemEnable: true`) will be represented as 0
-			* instead of 24 (and 12). (When [iLib]{@link iLib} is loaded, this value will be ignored
-			* and the current locale's rules will determine whether 0 is used.)
+			* When `true`, midnight (and noon, if `meridiemEnable: true`) will be represented as `0`
+			* instead of `24` (and `12`). (When [iLib]{@glossary ilib} is loaded, this value will be
+			* ignored and the current locale's rules will determine whether `0` is used.)
 			*
 			* @type {Boolean}
 			* @default false
@@ -238,9 +239,9 @@
 			hoursStartAtZero: false,
 
 			/**
-			* When `true`, hours will be zero-padded. (When [iLib]{@link iLib} is loaded, this value
-			* will be ignored and the current locale's rules will determine whether zero-padding is
-			* used.)
+			* When `true`, hours will be zero-padded. (When [iLib]{@glosary ilib} is loaded, this
+			* value will be ignored and the current locale's rules will determine whether
+			* zero-padding is used.)
 			*
 			* @type {Boolean}
 			* @default false
