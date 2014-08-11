@@ -232,8 +232,18 @@
 		},
 
 		/**
+		* Snap to current value on a reflow
+		*
 		* @private
 		*/
+		reflow: function () {
+			this.inherited(arguments);
+			this.scrollToValue();
+		},
+
+	 	/**
+	 	* @private
+	 	*/
 		getVerifiedValue: function () {
 			return this.value >= this.min && this.value <= this.max ? this.value : this.min;
 		},

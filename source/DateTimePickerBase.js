@@ -287,15 +287,7 @@
 					if (p.getClientControls().length > 0) {
 						p = p.getClientControls()[0];
 					}
-					if (open) {
-						//Force the pickers to update their scroll positions (they don't update
-						//while the drawer is closed)
-						p.refreshScrollState();
-					} else {
-						// If one of the pickers is animating when the drawer closes, it won't
-						// display properly when the drawer reopens, unless we stabilize here
-						p.stabilize();
-					}
+					p.reflow();
 				}
 			}
 		},
