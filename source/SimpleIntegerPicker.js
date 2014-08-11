@@ -11,7 +11,7 @@
 
 	/**
 	* Fires in response to "Return" keypress while the picker has focus in
-	* [Spotlight]{@link enyo.Spotlight} 5-way mode.
+	* {@glossary Spotlight} 5-way mode.
 	*
 	* @event moon.SimpleIntegerPicker#onSelect
 	* @type {Object}
@@ -21,11 +21,10 @@
 	*/
 
 	/**
-	* Fires when the picker is rebuilt, allowing other controls the opportunity to reflow the picker
-	* as necessary, i.e. as a child of
-	* [`moon.ExpandableIntegerPicker`]{@link moon.ExpandableIntegerPicker} needing to be reflowed
-	* when opened as it may currently not be visible. No event-specific data is sent with this
-	* event.
+	* Fires when the picker is rebuilt, allowing other controls the opportunity to reflow
+	* the picker as necessary (e.g., a child of a {@link moon.ExpandableIntegerPicker} may
+	* need to be reflowed when the picker is opened, as it may not be currently visible).
+	* No event-specific data is sent with this event.
 	*
 	* @event moon.SimpleIntegerPicker#onRebuilt
 	* @type {Object}
@@ -33,13 +32,13 @@
 	*/
 
 	/**
-	* `moon.SimpleIntegerPicker` is a [control]{@link enyo.Control} that prompts the user to make a
-	* selection from a range of integer-based options.
+	* {@link moon.SimpleIntegerPicker} is a [control]{@link enyo.Control} that prompts the
+	* user to make a selection from a range of integer-based options.
 	*
 	* The picker may be changed programmatically by calling
-	* [`previous()`]{@link moon.SimpleIntegerPicker#previous} or
-	* [`next()`]{@link moon.SimpleIntegerPicker#next}, or by modifying the published property
-	* [`value`]{@link moon.SimpleIntegerPicker#value}.
+	* [previous()]{@link moon.SimpleIntegerPicker#previous} or
+	* [next()]{@link moon.SimpleIntegerPicker#next}, or by modifying the published property
+	* [value]{@link moon.SimpleIntegerPicker#value}.
 	*
 	* @class moon.SimpleIntegerPicker
 	* @extends enyo.Control
@@ -111,7 +110,7 @@
 			animate:true,
 			
 			/**
-			* When `true`, button is shown as disabled and does not generate tap events.
+			* When `true`, buttons are shown as disabled and do not generate tap events.
 			*
 			* @type {Boolean}
 			* @default false
@@ -147,9 +146,9 @@
 			max: 9,
 			
 			/**
-			* Amount to increment/decrement by when moving picker between
-			* [`min`]{@link moon.SimpleIntegerPicker#min} and
-			* [`max`]{@link moon.SimpleIntegerPicker#max}.
+			* Amount by which to increment/decrement when moving picker between
+			* [min]{@link moon.SimpleIntegerPicker#min} and
+			* [max]{@link moon.SimpleIntegerPicker#max}.
 			*
 			* @type {Number}
 			* @default 1
@@ -227,7 +226,7 @@
 		/**
 		* Cycles the selected item to the one before the currently selected item.
 		*
-		* @returns {Boolean} Returns `true` indicating event has been handled.
+		* @returns {Boolean} `true`, indicating that the event has been handled.
 		* @public
 		*/
 		previous: function() {
@@ -238,7 +237,7 @@
 		/**
 		* Cycles the selected item to the one after the currently selected item.
 		*
-		* @returns {Boolean} Returns `true` indicating event has been handled.
+		* @returns {Boolean} `true`, indicating that the event has been handled.
 		* @public
 		*/
 		next: function() {
