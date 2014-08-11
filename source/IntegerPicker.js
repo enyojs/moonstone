@@ -1,31 +1,29 @@
 (function (enyo, scope) {
 	/**
-	* Fires when the currently selected value changes
+	* Fires when the currently selected value changes.
 	*
 	* @event moon.IntegerPicker#onChange
 	* @type {Object}
 	* @property {Number} value - The currently selected value.
-	* @property {String} name - The name of the `IntegerPicker` instance
+	* @property {String} name - The name of the picker instance.
 	* @public
 	*/
 
 	/**
-	* `moon.IntegerPicker` is a control that displays a list of integers
-	* ranging from {@link moon.IntegerPicker#min} to {@link moon.IntegerPicker#max},
+	* {@link moon.IntegerPicker} is a control that displays a list of integers
+	* ranging from [min]{@link moon.IntegerPicker#min} to [max]{@link moon.IntegerPicker#max},
 	* soliciting a choice from the user.
 	*
-	* To initialize the picker to a particular integer, set the `value` property to
-	* that integer:
+	* To initialize the picker to a particular integer, set the
+	* [value]{@link moon.IntegerPicker#value} property to that integer:
 	*
 	* ```
 	* {kind: 'moon.IntegerPicker', noneText: 'None Selected',
 	* 	content: 'Choose a Number', min: 0, max: 25, value: 5}
 	* ```
 	*
-	* The picker may be changed programmatically by modifying the published
-	* properties [`value`]{@link moon.IntegerPicker#value}, [`min`]{@link moon.IntegerPicker#min},
-	* or [`max`]{@link moon.IntegerPicker#max} in the normal manner, by calling
-	* {@link enyo.Object#set}.
+	* The picker may be changed programmatically by modifying the `value`, `min`,
+	* and `max` properties in the normal manner, by calling [set()]{@link enyo.Object#set}.
 	*
 	* @class moon.IntegerPicker
 	* @extends enyo.Control
@@ -57,7 +55,7 @@
 		published: {
 
 			/**
-			* Current value of the picker
+			* Current value of the picker.
 			*
 			* @type {Number}
 			* @default null
@@ -66,7 +64,7 @@
 			value: null,
 
 			/**
-			* Minimum value of the picker
+			* Minimum value of the picker.
 			*
 			* @type {Number}
 			* @default 0
@@ -75,7 +73,7 @@
 			min: 0,
 
 			/**
-			* Maximum value of the picker
+			* Maximum value of the picker.
 			*
 			* @type {Number}
 			* @default 9
@@ -85,7 +83,7 @@
 
 			/**
 			* If a number is specified, the picker value is displayed as this many
-			* zero-filled digits
+			* zero-filled digits.
 			*
 			* @type {Number}
 			* @default null
@@ -94,9 +92,9 @@
 			digits: null,
 
 			/**
-			* When `true`, incrementing beyond [`max`]{@link moon.IntegerPicker#max} will wrap to
-			* [`min`]{@link moon.IntegerPicker#min}, and decrementing beyond `min` will wrap to
-			* `max`
+			* When `true`, incrementing beyond [max]{@link moon.IntegerPicker#max} will wrap to
+			* [min]{@link moon.IntegerPicker#min}, and decrementing beyond `min` will wrap to
+			* `max`.
 			*
 			* @type {Boolean}
 			* @default false
@@ -133,7 +131,8 @@
 		spotlight: true,
 
 		/**
-		* Cache scroll bounds so we don't have to run {@link enyo.Scroller#stop} every time we need them
+		* Cache scroll bounds so we don't have to run {@link enyo.Scroller#stop} every time we
+		* need them.
 		*
 		* @private
 		*/
@@ -159,7 +158,7 @@
 		],
 
 		/**
-		* parameter that determines scroll math simulation speed
+		* Parameter that determines scroll math simulation speed.
 		*
 		* @private
 		*/
@@ -239,8 +238,8 @@
 		},
 
 		/**
-		* fail-safe design.
-		* If out boundary value is assigned, adjust boundary.
+		* Fail-safe design.
+		* If out-of-boundary value is assigned, adjust boundary.
 		*
 		* @private
 		*/
@@ -259,7 +258,7 @@
 		},
 
 		/**
-		* prevent scroller dragging
+		* Prevent scroller dragging.
 		*
 		* @private
 		*/
@@ -403,7 +402,7 @@
 		},
 
 		/**
-		* Silently scrolls to the `inValue` y-position without animating
+		* Silently scrolls to the `inValue` y-position without animating.
 		*
 		* @private
 		*/

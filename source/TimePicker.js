@@ -47,8 +47,9 @@
 		*/
 		published: {
 			/**
-			* The meridiem text to display if {@link TimePicker#meridiemEnable} is `true`. The first
-			* item is used if the `hour` is less than `11`, otherwise the second is used.
+			* The meridiem text to display if [meridiemEnable]{@link moon.TimePicker#meridiemEnable}
+			* is `true`. The first item is used if the `hour` is less than `11`; otherwise, the
+			* second is used.
 			*
 			* @type {String[]}
 			* @default ['AM','PM']
