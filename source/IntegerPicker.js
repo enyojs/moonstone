@@ -19,7 +19,7 @@
 	*
 	* ```
 	* {kind: 'moon.IntegerPicker', noneText: 'None Selected',
-	* 	content: 'Choose a Number', min: 0, max: 25, value: 5}
+	*	content: 'Choose a Number', min: 0, max: 25, value: 5}
 	* ```
 	*
 	* The picker may be changed programmatically by modifying the `value`, `min`,
@@ -43,9 +43,9 @@
 		*/
 		kind: 'enyo.Control',
 
-	 	/**
-	 	* @private
-	 	*/
+		/**
+		* @private
+		*/
 		classes: 'moon-scroll-picker-container',
 
 		/**
@@ -210,18 +210,18 @@
 		*/
 		range: 0,
 
-	 	/**
-	 	* @private
-	 	*/
+		/**
+		* @private
+		*/
 		create: function () {
 			this.inherited(arguments);
 			this.verifyValue();
 			this.updateOverlays();
 		},
 
-	 	/**
-	 	* @private
-	 	*/
+		/**
+		* @private
+		*/
 		rendered: function () {
 			this.inherited(arguments);
 			this.width = null;
@@ -241,9 +241,9 @@
 			this.scrollToValue();
 		},
 
-	 	/**
-	 	* @private
-	 	*/
+		/**
+		* @private
+		*/
 		getVerifiedValue: function () {
 			return this.value >= this.min && this.value <= this.max ? this.value : this.min;
 		},
@@ -255,9 +255,9 @@
 			this.value = this.getVerifiedValue();
 		},
 
-	 	/**
-	 	* @private
-	 	*/
+		/**
+		* @private
+		*/
 		setupItem: function (inSender, inEvent) {
 			var index = inEvent.index;
 			var content = this.labelForValue(this.indexToValue(index % this.range));
@@ -292,8 +292,8 @@
 		* Fail-safe design.
 		* If out-of-boundary value is assigned, adjust boundary.
 		*
-	 	* @private
-	 	*/
+		* @private
+		*/
 		valueChanged: function (old) {
 			this.value -= (this.value-this.min)%this.step;
 			if (this.value < this.min) {
@@ -320,7 +320,7 @@
 			this.updateOverlays();
 		},
 
-	 	/**
+		/**
 		* Prevent scroller dragging
 		*
 		* @private
@@ -522,9 +522,9 @@
 			}
 		},
 
-	 	/**
-	 	* @private
-	 	*/
+		/**
+		* @private
+		*/
 		hideTopOverlay: function () {
 			this.$.nextOverlay.removeClass('selected');
 		},

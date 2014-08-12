@@ -278,8 +278,7 @@
 		*/
 		openChanged: function () {
 			this.inherited(arguments);
-			var open = this.$.drawer.get('open'),
-				pickers = this.pickers,
+			var pickers = this.pickers,
 				i, p;
 			if (pickers) {
 				for (i = 0; i < pickers.length; i++) {
