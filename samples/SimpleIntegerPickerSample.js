@@ -5,7 +5,7 @@ enyo.kind({
 	components:[
 		{kind: 'moon.Scroller', fit: true, components: [
 			{kind: 'moon.Divider', content:'Simple Integer Picker'},
-			{kind:'moon.SimpleIntegerPicker', name:'picker1', value:3, min:1, max:10, step: 1, unit: 'sec', onChange: 'change'},
+			{kind:'moon.SimpleIntegerPicker', name:'picker1', value:3, min:-10, max:10, step: 1, unit: 'sec', onChange: 'change'},
 
 			{kind: 'moon.Divider', content:'Options'},
 			{kind: 'moon.FormCheckbox', content: 'Animate', checked: true, prop: 'animate', onchange: 'checked'},

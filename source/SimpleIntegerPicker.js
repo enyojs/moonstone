@@ -81,17 +81,17 @@
 		handlers: {
 			onSpotlightUp: null,
 			onSpotlightDown: null,
-			onSpotlightRight: 'spotRight',
-			onSpotlightLeft: 'spotLeft',
+			onSpotlightRight: 'next',
+			onSpotlightLeft: 'previous',
 			onSpotlightSelect: 'fireSelectEvent'
 		},
 
 		/**
+		* @lends moon.SimpleIntegerPicker.prototype
 		* @private
 		* @lends moon.SimpleIntegerPicker.prototype
 		*/
-		published:
-			/** @lends moon.SimpleIntegerPicker.prototype */ {
+		published: {
 
 			/**
 			* Unit label to be appended to the value for display.
@@ -154,36 +154,6 @@
 		}),
 
 		/**
-		* Swaps the handler for a "right" keypress when rtl is true
-		*
-		* @private
-		*/
-		spotRight: function (sender, event) {
-			if(this.rtl) {
-				this.previous(sender, event);
-			} else {
-				this.next(sender, event);
-			}
-
-			return true;
-		},
-
-		/**
-		* Swaps the handler for a "left" keypress when rtl is true
-		*
-		* @private
-		*/
-		spotLeft: function (sender, event) {
-			if(this.rtl) {
-				this.next(sender, event);
-			} else {
-				this.previous(sender, event);
-			}
-
-			return true;
-		},
-
-		/**
 		* @fires moon.SimpleIntegerPicker#event:onSelect
 		* @private
 		*/
@@ -205,9 +175,8 @@
 		*/
 		reflow: enyo.inherit(function (sup) {
 			return function () {
-				sup.apply(this, arguments);
 				this.width = 0;
-				this.scrollToValue();
+				sup.apply(this, arguments);
 			};
 		})
 	});

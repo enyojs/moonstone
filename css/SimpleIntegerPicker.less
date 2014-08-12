@@ -93,64 +93,10 @@
 	}
 }
 
-// For rtl locales, the next and previous buttons need to swap sides but that also means we need
-// to update the content and border styling to be the reverse
 .enyo-locale-right-to-left .moon-simple-integer-picker {
 	.moon-scroll-picker {
 		// since the repeater controls are inline-block and we want to keep the ordering the same
 		// so scrolling works correctly, override the direction for the scroller's children
 		direction: ltr;
-	}
-
-	.moon-scroll-picker-overlay-container {
-		top: 0;
-
-		&.previous {
-			right: 0;
-			left: auto;
-
-			&:after {
-				content: @moon-icon-arrowsmallright;
-			}
-
-			&.selected .moon-scroll-picker-overlay {
-				border-left-width: 0;
-				border-right-width: @moon-integer-picker-shadow-width;
-				border-radius: 0 @moon-integer-picker-radius @moon-integer-picker-radius 0;
-
-				&:after {
-					content: @moon-icon-arrowsmallright;
-				}
-			}
-		}
-
-		&.next {
-			left: 0;
-			right: auto;
-
-			&:after {
-				content: @moon-icon-arrowsmallleft;
-			}
-
-			&.selected .moon-scroll-picker-overlay {
-				border-right-width: 0;
-				border-left-width: @moon-integer-picker-shadow-width;
-				border-radius: @moon-integer-picker-radius 0 0 @moon-integer-picker-radius;
-
-				&:after {
-					content: @moon-icon-arrowsmallleft;
-				}
-			}
-		}
-	}
-
-	&.spotlight {
-		.moon-scroll-picker-overlay-container.next:after {
-			content: @moon-icon-arrowlargeleft;
-		}
-
-		.moon-scroll-picker-overlay-container.previous:after {
-			content: @moon-icon-arrowlargeright;
-		}
 	}
 }

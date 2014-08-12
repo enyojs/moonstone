@@ -921,45 +921,6 @@
 .enyo-locale-right-to-left .moon-simple-integer-picker .moon-scroll-picker {
   direction: ltr;
 }
-.enyo-locale-right-to-left .moon-simple-integer-picker .moon-scroll-picker-overlay-container {
-  top: 0;
-}
-.enyo-locale-right-to-left .moon-simple-integer-picker .moon-scroll-picker-overlay-container.previous {
-  right: 0;
-  left: auto;
-}
-.enyo-locale-right-to-left .moon-simple-integer-picker .moon-scroll-picker-overlay-container.previous:after {
-  content: "\0F0008";
-}
-.enyo-locale-right-to-left .moon-simple-integer-picker .moon-scroll-picker-overlay-container.previous.selected .moon-scroll-picker-overlay {
-  border-left-width: 0;
-  border-right-width: 6px;
-  border-radius: 0 45px 45px 0;
-}
-.enyo-locale-right-to-left .moon-simple-integer-picker .moon-scroll-picker-overlay-container.previous.selected .moon-scroll-picker-overlay:after {
-  content: "\0F0008";
-}
-.enyo-locale-right-to-left .moon-simple-integer-picker .moon-scroll-picker-overlay-container.next {
-  left: 0;
-  right: auto;
-}
-.enyo-locale-right-to-left .moon-simple-integer-picker .moon-scroll-picker-overlay-container.next:after {
-  content: "\0F0007";
-}
-.enyo-locale-right-to-left .moon-simple-integer-picker .moon-scroll-picker-overlay-container.next.selected .moon-scroll-picker-overlay {
-  border-right-width: 0;
-  border-left-width: 6px;
-  border-radius: 45px 0 0 45px;
-}
-.enyo-locale-right-to-left .moon-simple-integer-picker .moon-scroll-picker-overlay-container.next.selected .moon-scroll-picker-overlay:after {
-  content: "\0F0007";
-}
-.enyo-locale-right-to-left .moon-simple-integer-picker.spotlight .moon-scroll-picker-overlay-container.next:after {
-  content: "\0F0003";
-}
-.enyo-locale-right-to-left .moon-simple-integer-picker.spotlight .moon-scroll-picker-overlay-container.previous:after {
-  content: "\0F0004";
-}
 /* Checkbox.css */
 .moon-checkbox {
   cursor: pointer;
