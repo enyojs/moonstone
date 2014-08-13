@@ -4,12 +4,12 @@
 	*
 	* @event moon.ExpandableText#onExpandCollapse
 	* @type {Object}
-	* @property {Boolean} collapsed - Indicates whether the control is currently collapsed.
+	* @property {Boolean} collapsed - Whether the control is currently collapsed.
 	* @public
 	*/
 
 	/**
-	* `moon.ExpandableText` is a control that allows long bodies of text to be
+	* {@link moon.ExpandableText} is a control that allows long bodies of text to be
 	* expanded and collapsed.
 	*
 	* ```
@@ -17,8 +17,8 @@
 	* content: 'I left my heart in San Francisco.'}
 	* ```
 	*
-	* The {@link moon.ExpandableText#event:onExpandCollapse} event is fired when the control is
-	* either expanded or collapsed.
+	* The [onExpandCollapse]{@link moon.ExpandableText#event:onExpandCollapse} event is fired
+	* when the control is either expanded or collapsed.
 	*
 	* @class moon.ExpandableText
 	* @extends enyo.Control
@@ -47,7 +47,7 @@
 		published: {
 
 			/**
-			* When `true`, content is collapsed
+			* When `true`, content is collapsed.
 			*
 			* @type {Boolean}
 			* @default true
@@ -56,7 +56,7 @@
 			collapsed: true,
 
 			/**
-			* Maximum number of lines of content to show in collapsed state
+			* Maximum number of lines of content to show in collapsed state.
 			*
 			* @type {Number}
 			* @default 3
@@ -65,8 +65,8 @@
 			maxLines: 3,
 
 			/**
-			* Button text when content is collapsed (i.e. 'more' label). Default is locale aware.
-			*
+			* Button text when content is collapsed (i.e., 'more' label). Default is
+			* locale-aware.
 			* @type {String}
 			* @default 'more'
 			* @public
@@ -74,8 +74,8 @@
 			moreContent: moon.$L('more'),
 
 			/**
-			* Button text when content is not collapsed (i.e. 'less' label). Default is locale
-			* aware.
+			* Button text when content is expanded (i.e., 'less' label). Default is
+			* locale-aware.
 			*
 			* @type {String}
 			* @default 'less'
@@ -134,7 +134,7 @@
 		},
 
 		/**
-		* Updates {@link moon.ExpandableText#lineHeight} after render.
+		* Updates [lineHeight]{@link moon.ExpandableText#lineHeight} after render.
 		*
 		* @private
 		*/
@@ -151,7 +151,7 @@
 		},
 
 		/**
-		* Updates {@link moon.ExpandableText#contentHeight} on reflow.
+		* Updates [contentHeight]{@link moon.ExpandableText#contentHeight} on reflow.
 		*
 		* @private
 		*/
@@ -160,7 +160,8 @@
 		},
 
 		/**
-		* Toggles value of {@link moon.ExpandableText#collapsed} when _this.$.button_ is tapped.
+		* Toggles value of [collapsed]{@link moon.ExpandableText#collapsed} when
+		* `this.$.button` is tapped.
 		*
 		* @private
 		*/
@@ -169,7 +170,7 @@
 		},
 
 		/**
-		* Facades _this.$.client.content_.
+		* Facades `this.$.client.content`.
 		*
 		* @private
 		*/
@@ -182,7 +183,7 @@
 		},
 
 		/**
-		* Facades _this.$.button.moreContent_.
+		* Facades `this.$.button.moreContent`.
 		*
 		* @private
 		*/
@@ -191,7 +192,7 @@
 		},
 
 		/**
-		* Facades _this.$.button.lessContent_.
+		* Facades `this.$.button.lessContent`.
 		*
 		* @private
 		*/
@@ -200,8 +201,8 @@
 		},
 
 		/**
-		* Recalculates {@link moon.ExpandableText#maxHeight} when
-		* {@link moon.ExpandableText#lineHeight} changes.
+		* Recalculates [maxHeight]{@link moon.ExpandableText#maxHeight} when
+		* [lineHeight]{@link moon.ExpandableText#lineHeight} changes.
 		*
 		* @private
 		*/
@@ -210,8 +211,8 @@
 		},
 
 		/**
-		* Recalculates {@link moon.ExpandableText#this.maxHeight}
-		* when {@link moon.ExpandableText#maxLines} changes.
+		* Recalculates [maxHeight]{@link moon.ExpandableText#maxHeight} when
+		* [maxLines]{@link moon.ExpandableText#maxLines} changes.
 		*
 		* @private
 		*/
@@ -220,8 +221,9 @@
 		},
 
 		/**
-		* When {@link moon.ExpandableText#collapse} changes, adds/removes the line clamp, and pushes
-		* state to `this.$.button`. If the node has rendered, bubbles `onExpandCollapse` event.
+		* When [collapsed]{@link moon.ExpandableText#collapsed} changes, adds/removes the
+		* line clamp, and pushes state to `this.$.button`. If the node has rendered, bubbles
+		* [onExpandCollapse]{@link moon.ExpandableText#event:onExpandCollapse} event.
 		*
 		* @fires moon.ExpandableText#onExpandCollapse
 		* @fires moon.Scroller#onRequestScrollIntoView
@@ -237,8 +239,8 @@
 		},
 
 		/**
-		* Updates {@link moon.ExpandableText#canCollapse} when
-		* {@link moon.ExpandableText#maxHeight} changes.
+		* Updates [canCollapse]{@link moon.ExpandableText#canCollapse} when
+		* [maxHeight]{@link moon.ExpandableText#maxHeight} changes.
 		*
 		* @private
 		*/
@@ -248,8 +250,8 @@
 		},
 
 		/**
-		* Updates {@link moon.ExpandableText#canCollapse} when
-		* {@link moon.ExpandableText#contentHeight} changes.
+		* Updates [canCollpase]{@link moon.ExpandableText#canCollapse} when
+		* [contentHeight]{@link moon.ExpandableText#contentHeight} changes.
 		*
 		* @private
 		*/
@@ -258,7 +260,8 @@
 		},
 
 		/**
-		* Updates _this.$.button.showing_ when {@link moon.ExpandableText#canCollapse} changes.
+		* Updates `this.$.button.showing` when
+		* [canCollapse]{@link moon.ExpandableText#canCollapse} changes.
 		*
 		* @private
 		*/
@@ -267,7 +270,7 @@
 		},
 
 		/**
-		* Updates {@link moon.ExpandableText#maxHeight}.
+		* Updates [maxHeight]{@link moon.ExpandableText#maxHeight}.
 		*
 		* @private
 		*/
@@ -276,7 +279,8 @@
 		},
 
 		/**
-		* Calculates line height of content and sets {@link moon.ExpandableText#lineHeight}.
+		* Calculates line height of content and sets
+		* [lineHeight]{@link moon.ExpandableText#lineHeight}.
 		*
 		* @private
 		*/
@@ -286,8 +290,8 @@
 		},
 
 		/**
-		* Updates {@link moon.ExpandableText#contentHeight} by unclamping `this.$.client` and measuring
-		* it, before returning it to its previous state.
+		* Updates [contentHeight]{@link moon.ExpandableText#contentHeight} by unclamping
+		* `this.$.client` and measuring it, before returning it to its previous state.
 		*
 		* @private
 		*/
@@ -309,7 +313,7 @@
 		},
 
 		/**
-		* @param {Boolean} inAdd whether to add/remove `webkit-line-clamp` style
+		* @param {Boolean} inAdd Whether to add or remove `webkit-line-clamp` style.
 		* @private
 		*/
 		addRemoveLineClamp: function (inAdd) {
@@ -318,7 +322,7 @@
 	});
 
 	/**
-	* `moon.ExpandableTextButton` is a control used inside of {@link moon.ExpandableText}.
+	* {@link moon.ExpandableTextButton} is a control used inside of {@link moon.ExpandableText}.
 	*
 	* @class moon.ExpandableTextButton
 	* @extends enyo.Control
@@ -345,27 +349,25 @@
 		published: {
 
 			/**
-			* Button text when {@link moon.ExpandableTextButton#collapsed} is `true`
-			* i18n 'MORE' label in `moon.ExpandableTextButton` widget
+			* Button text when [collapsed]{@link moon.ExpandableTextButton#collapsed} is `true`.
 			*
 			* @type {String}
 			* @default 'more'
 			* @public
 			*/
-			moreContent: moon.$L('more'),
+			moreContent: moon.$L('more'),		// i18n 'MORE' label in moon.ExpandableTextButton widget
 
 			/**
-			* Button text when {@link moon.ExpandableTextButton#collapsed} is `false`
-			* i18n 'LESS' label in moon.ExpandableTextButton widget
+			* Button text when [collapsed]{@link moon.ExpandableTextButton#collapsed} is `false`.
 			*
 			* @type {String}
 			* @default 'less'
 			* @public
 			*/
-			lessContent: moon.$L('less'),
+			lessContent: moon.$L('less'),		// i18n 'LESS' label in moon.ExpandableTextButton widget
 
 			/**
-			* Boolean value that causes content/class changes
+			* Boolean value that causes content/class changes.
 			*
 			* @type {Boolean}
 			* @default true
@@ -380,8 +382,8 @@
 		handlers: {
 
 			/**
-			* {@link enyo.Spotlight#event:onSpotlightFocus}, the handler bubbles an
-			* {@link moon.Scroller#event:requestScrollIntoView} event
+			* {@link enyo.Spotlight#event:onSpotlightFocus}, the handler bubbles a
+			* [requestScrollIntoView]{@link moon.Scroller#event:requestScrollIntoView} event.
 			*/
 			onSpotlightFocused	: 'spotFocused'
 
@@ -406,7 +408,8 @@
 		},
 
 		/**
-		* Bubbles a {@link moon.Scroller#event:requestScrollIntoView} event
+		* Bubbles a [requestScrollIntoView]{@link moon.Scroller#event:requestScrollIntoView}
+		* event.
 		*
 		* @fires moon.Scroller#requestScrollIntoView
 		* @private
@@ -439,10 +442,10 @@
 		},
 
 		/**
-		* If control is collapsed, sets {@link moon.ExpandableTextButton#content} to 
-		* {@link moon.ExpandableTextButton#moreContent} and adds `collapsed` CSS class' otherwise,
-		* sets content to {@link moon.ExpandableTextButton#lessContent} and removes `collapsed` CSS
-		* class.
+		* If control is collapsed, sets [content]{@link moon.ExpandableTextButton#content} to 
+		* [moreContent]{@link moon.ExpandableTextButton#moreContent} and adds `collapsed` CSS class;
+		* otherwise, sets content to [lessContent]{@link moon.ExpandableTextButton#lessContent} and
+		* removes `collapsed` CSS class.
 		*
 		* @private
 		*/
