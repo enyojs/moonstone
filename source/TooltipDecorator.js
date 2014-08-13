@@ -1,24 +1,24 @@
 (function (enyo, scope) {
 	/**
-	* Bubble this event from a contained [`Control`]{@link enyo.Control} to mute tooltips. No data
+	* Bubble this event from a contained [control]{@link enyo.Control} to mute tooltips. No data
 	* needs be passed with this event.
 	*
-	* @event enyo.TooltipDecorator#onRequestMuteTooltip
+	* @event moon.TooltipDecorator#onRequestMuteTooltip
 	* @type {Object}
 	* @public
 	*/
 
 	/**
-	* Bubble this event from a contained [`Control`]{@link enyo.Control} to unmute tooltips. No data
+	* Bubble this event from a contained [control]{@link enyo.Control} to unmute tooltips. No data
 	* needs be passed with this event.
 	*
-	* @event enyo.TooltipDecorator#onRequestUnmuteTooltip
+	* @event moon.TooltipDecorator#onRequestUnmuteTooltip
 	* @type {Object}
 	* @public
 	*/
 
 	/**
-	* `moon.TooltipDecorator` is a control that activates a [`moon.Tooltip`]{@link moon.Tooltip}. It
+	* {@link moon.TooltipDecorator} is a control that activates a {@link moon.Tooltip}. It
 	* surrounds a control such as a button and displays the tooltip when the control generates
 	* an `onenter` event:
 	*
@@ -29,8 +29,7 @@
 	* ]}
 	* ```
 	*
-	* Here is an example with a [`moon.Input`]{@link moon.Input} control and a decorator around the
-	* input:
+	* Here is an example with a {@link moon.Input} control and a decorator around the input:
 	*
 	* ```
 	* {kind: 'moon.TooltipDecorator', components: [
@@ -42,11 +41,11 @@
 	* ```
 	*
 	* Automatic hiding and showing of tooltips may be disabled by calling
-	* [`mute()`]{@link moon.TooltipDecorator#mute} or by bubbling the
-	* [`onRequestMuteTooltip`]{@link enyo.TooltipDecorator#event:onRequestMuteTooltip} event;
-	*  it may be re-enabled by calling [`unmute()`]{@link moon.TooltipDecorator#unmute} or by
-	*  bubbling the
-	*  [`onRequestUnmuteTooltip`]{@link enyo.TooltipDecorator#event:onRequestUnmuteTooltip} event.
+	* [mute()]{@link moon.TooltipDecorator#mute} or by bubbling the
+	* [onRequestMuteTooltip]{@link moon.TooltipDecorator#event:onRequestMuteTooltip} event;
+	* it may be re-enabled by calling [unmute()]{@link moon.TooltipDecorator#unmute}
+	* or by bubbling the
+	* [onRequestUnmuteTooltip]{@link moon.TooltipDecorator#event:onRequestUnmuteTooltip} event.
 	*
 	* @class moon.TooltipDecorator
 	* @extends enyo.Control
@@ -90,7 +89,7 @@
 		published: {
 			/**
 			* Boolean indicating whether tooltips are automatically shown when the activator is
-			* hovered over
+			* hovered over.
 			*
 			* @type {Boolean}
 			* @default true
@@ -100,7 +99,7 @@
 		},
 
 		/**
-		* Disables automatic tooltip showing/hiding.
+		* Disables automatic tooltip showing and hiding.
 		*
 		* @public
 		*/
@@ -109,7 +108,7 @@
 		},
 
 		/**
-		* Re-enables automatic tooltip showing/hiding after being muted.
+		* Re-enables automatic tooltip showing and hiding after being muted.
 		*
 		* @public
 		*/
