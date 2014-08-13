@@ -755,6 +755,20 @@
 .moon-icon-button.no-background.hover:hover:active {
   background-color: transparent;
 }
+.moon-icon-button.active.spotlight,
+.moon-icon-button.small.active.spotlight {
+  border-color: #ffffff;
+  background-color: #cf0652;
+  color: #ffffff;
+}
+.moon-icon-button.active.spotlight:active,
+.moon-icon-button.small.active.spotlight:active,
+.moon-icon-button.active.spotlight.pressed,
+.moon-icon-button.small.active.spotlight.pressed {
+  border-color: #cf0652;
+  background-color: #404040;
+  color: #a6a6a6;
+}
 .moon-marquee {
   width: auto;
   text-overflow: ellipsis;
