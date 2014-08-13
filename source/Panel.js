@@ -379,6 +379,15 @@
 				}
 				else {
 					this.spotlightDisabled = false;
+					if (this._spotlightDummy) {
+						this._spotlightDummy.destroy();
+						this._spotlightDummy = null;
+					}
+					if (!enyo.Spotlight.isSpottable(this)) {
+						// Create dummy div if there is no spottable child on panel
+						this._spotlightDummy = this.createComponent({name: "spotlightDummy", spotlight: true, style: "width:0;height:0;"});
+						if (this._spotlightDummy) this._spotlightDummy.render();
+					}
 				}
 			}
 		},
