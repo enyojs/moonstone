@@ -27,9 +27,9 @@
 	*/
 
 	/**
-	* `moon.Slider` is a [control]{@link enyo.Control} that presents a range of selection options in
-	* the form of a horizontal slider with a control knob. The knob may be tapped and dragged to the
-	* desired location.
+	* {@link moon.Slider} is a [control]{@link enyo.Control} that presents a range of selection
+	* options in the form of a horizontal slider with a control knob. The knob may be tapped and
+	* dragged to the desired location.
 	*
 	* ```javascript
 	* {kind: "moon.Slider", value: 30}
@@ -88,7 +88,7 @@
 			increment: 0,
 			
 			/**
-			* If `true`, current progress will be styled differently from rest of bar.
+			* When `true`, current progress is styled differently from rest of bar.
 			*
 			* @type {Boolean}
 			* @default true
@@ -97,7 +97,7 @@
 			lockBar: true,
 			
 			/**
-			* If `true`, tapping on bar will change current position.
+			* When `true`, tapping on bar will change current position.
 			*
 			* @type {Boolean}
 			* @default true
@@ -106,7 +106,7 @@
 			tappable: true,
 			
 			/**
-			* CSS classes to apply to knob.
+			* CSS classes to apply to the knob.
 			*
 			* @type {String}
 			* @default 'moon-slider-knob'
@@ -115,7 +115,7 @@
 			knobClasses: 'moon-slider-knob',
 			
 			/**
-			* CSS classes to apply to the popup label
+			* CSS classes to apply to the popup label.
 			*
 			* @type {String}
 			* @default 'moon-slider-popup-label'
@@ -142,7 +142,7 @@
 			popupColor: '#4d4d4d',
 			
 			/**
-			* When set to `true`, button is shown as disabled and does not generate tap events.
+			* If set to `true`, button is shown as disabled and does not generate tap events.
 			*
 			* @type {Boolean}
 			* @default false
@@ -151,8 +151,8 @@
 			disabled: false,
 			
 			/**
-			* When `true`, knob and progress move with animation when left or right direction key is
-			* pressed or bar is tapped.
+			* When `true`, knob and progress move with animation when left or right direction
+			* key is pressed, or when bar is tapped.
 			*
 			* @type {Boolean}
 			* @default true
@@ -189,7 +189,7 @@
 			popupWidth: 'auto',
 			
 			/**
-			* Popup height in pixels; value should be under `72`.
+			* Popup height in pixels; value should be less than `72`.
 			*
 			* @type {Number|String}
 			* @default 67
@@ -207,8 +207,8 @@
 			popupOffset: 8,
 			
 			/**
-			* When `false`, the knob may be moved past the
-			* [`bgProgress`]{@link moon.ProgressBar#bgProgress} value.
+			* When `false`, knob may be moved past the
+			* [bgProgress]{@link moon.ProgressBar#bgProgress} value.
 			*
 			* @type {Boolean}
 			* @default false
@@ -217,8 +217,8 @@
 			constrainToBgProgress: false,
 			
 			/**
-			* When `true`, an elastic visual effect is seen when the knob is dragged past the
-			* [`bgProgress`]{@link moon.ProgressBar#bgProgress} value.
+			* If set to `true`, an elastic visual effect is seen when the knob is dragged past
+			* the [bgProgress]{@link moon.ProgressBar#bgProgress} value.
 			*
 			* @type {Boolean}
 			* @default false
@@ -236,7 +236,7 @@
 			popupContent: null,
 			
 			/**
-			* When `true`, popup content will be translated to locale-safe uppercase.
+			* When `true`, popup content will have locale-safe uppercasing applied.
 			*
 			* @type {Boolean}
 			* @default true
@@ -306,8 +306,8 @@
 		/**
 		* Animates to the given value.
 		*
-		* @param {Number} start The start position, as an integer between `0` and `100`.
-		* @param {Number} end The end position, as an integer between `0` and `100`.
+		* @param {Number} start - The start position, as an integer between `0` and `100`.
+		* @param {Number} end - The end position, as an integer between `0` and `100`.
 		* @public
 		*/
 		animateTo: function(start, end) {
@@ -322,9 +322,9 @@
 		},
 
 		/**
-		* Determine if the slider is currently being dragged.
+		* Determines whether the slider is currently being dragged.
 		*
-		* @returns {Boolean} Returns `true` if the slider is currently being dragged.
+		* @returns {Boolean} `true` if the slider is currently being dragged; otherwise, `false`.
 		* @public
 		*/
 		isDragging: function() {
@@ -505,7 +505,7 @@
 		},
 
 		/**
-		* Slider will snap multiples.
+		* Slider will snap to multiples of this value. 
 		*
 		* @private
 		*/
@@ -514,7 +514,7 @@
 		},
 		
 		/**
-		* Called only when [`constrainToBgProgress`]{@link moon.Slider#constrainToBgProgress} is
+		* Called only when [constrainToBgProgress]{@link moon.Slider#constrainToBgProgress} is
 		* `true`.
 		*
 		* @private
@@ -524,7 +524,7 @@
 		},
 
 		/**
-		* Initializes [`value`]{@link moon.Slider#value} at creation time.
+		* Initializes [value]{@link moon.Slider#value} at creation time.
 		*
 		* @private
 		*/
