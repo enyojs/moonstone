@@ -10,7 +10,7 @@
 	*/
 
 	/**
-	* Fires in response to "Return" keypress while the picker has focus in
+	* Fires in response to Return keypress while the picker has focus in
 	* {@glossary Spotlight} 5-way mode.
 	*
 	* @event moon.SimpleIntegerPicker#onSelect
@@ -36,9 +36,9 @@
 	* user to make a selection from a range of integer-based options.
 	*
 	* The picker may be changed programmatically by calling
-	* [previous()]{@link moon.SimpleIntegerPicker#previous} or
-	* [next()]{@link moon.SimpleIntegerPicker#next}, or by modifying the published property
-	* [value]{@link moon.SimpleIntegerPicker#value}.
+	* [previous()]{@link moon.IntegerPicker#previous} or
+	* [next()]{@link moon.IntegerPicker#next}, or by modifying the published property
+	* [value]{@link moon.IntegerPicker#value}.
 	*
 	* @class moon.SimpleIntegerPicker
 	* @extends enyo.Control
@@ -104,8 +104,8 @@
 		},
 
 		/**
-		* Amount added to the width of each picker item as padding. Note that this is not a CSS
-		* padding value
+		* Number of pixels added to the width of each picker item as padding. Note that this
+		* is not a CSS padding value.
 		*
 		* @type {Number}
 		* @default 60
@@ -114,7 +114,7 @@
 		itemPadding: 60,
 
 		/**
-		* Appends `unit` to label
+		* Appends unit to content, forming label for display.
 		*
 		* @see moon.IntegerPicker#labelForValue
 		* @private
@@ -128,7 +128,7 @@
 		}),
 
 		/**
-		* Calculates the width of the picker when the first item is rendered
+		* Calculates width of the picker when the first item is rendered.
 		*
 		* @see moon.IntegerPicker#updateRepeater
 		* @private
@@ -167,7 +167,7 @@
 		},
 
 		/**
-		* Forces a recalculation of the width of the picker
+		* Forces recalculation of the width of the picker.
 		*
 		* @see enyo.UiComponent#reflow
 		* @private

@@ -73,7 +73,7 @@
 			animate: true,
 
 			/**
-			* Current value of the picker
+			* Current value of the picker.
 			*
 			* @type {Number}
 			* @default null
@@ -100,9 +100,8 @@
 			max: 9,
 
 			/**
-			* Amount to increment/decrement by when moving picker between
-			* [_min_]{@link moon.SimpleIntegerPicker#min} and
-			* [_max_]{@link moon.SimpleIntegerPicker#max}.
+			* Amount by which to increment or decrement when moving picker between
+			* [min]{@link moon.IntegerPicker#min} and [max]{@link moon.IntegerPicker#max}.
 			*
 			* @type {Number}
 			* @default 1
@@ -197,14 +196,14 @@
 
 		/**
 		* Indicates direction of change from user. Necessary to support proper wrapping
-		* when `range == 2`
+		* when `range == 2`.
 		*
 		* @private
 		*/
 		direction: 0,
 
 		/**
-		* Range of possible values `max - min`
+		* Range of possible values `max - min`.
 		*
 		* @private
 		*/
@@ -232,7 +231,7 @@
 		},
 
 		/**
-		* Snap to current value on a reflow
+		* Snap to current value on a reflow.
 		*
 		* @private
 		*/
@@ -265,11 +264,11 @@
 		},
 
 		/**
-		* Formats `value` for display. If [`digits`]{@link moon.IntegerPicker#digits} is **truthy**,
-		* it prepends zeros to that many digits.
+		* Formats passed-in value for display. If [digits]{@link moon.IntegerPicker#digits}
+		* is **truthy**, zeros will be prepended to reach that number of digits.
 		*
-		* @param  {Number} value - Value to format
-		* @return {String}       - Formatted value
+		* @param  {Number} value - Value to format.
+		* @return {String}       - Formatted value.
 		* @private
 		*/
 		labelForValue: function(value) {
@@ -321,7 +320,7 @@
 		},
 
 		/**
-		* Prevent scroller dragging
+		* Prevent scroller dragging.
 		*
 		* @private
 		*/
@@ -422,10 +421,10 @@
 		},
 
 		/**
-		* Renders the repeater
+		* Renders the repeater.
 		*
-		* @param {Number} index - Index of row
-		* @param {Number} count - Number of rows to render
+		* @param {Number} index - Index of row.
+		* @param {Number} count - Number of rows to render.
 		* @private
 		*/
 		updateRepeater: function(index, count) {
@@ -435,10 +434,10 @@
 		},
 
 		/**
-		* Scrolls to the node at `index` if it exists
+		* Scrolls to the node at `index` if it exists.
 		*
-		* @param  {Number} index    - Index of row
-		* @param  {Boolean} animate - Animate the scroll if `true`
+		* @param  {Number} index    - Index of row.
+		* @param  {Boolean} animate - If `true`, scroll is animated.
 		* @private
 		*/
 		scrollToIndex: function(index, animate) {
@@ -454,10 +453,10 @@
 		},
 
 		/**
-		* Converts `value` to it's index in the repeater
+		* Converts `value` to its index in the repeater.
 		*
-		* @param  {Number} value - Integer value
-		* @return {Number}       - Repeater index
+		* @param  {Number} value - Integer value.
+		* @return {Number}       - Repeater index.
 		* @private
 		*/
 		valueToIndex: function(value) {
@@ -465,7 +464,7 @@
 		},
 
 		/**
-		* Converts a repeater `index` to its value
+		* Converts a repeater `index` to its value.
 		*
 		* @param  {Number} index - Repeater index
 		* @return {Number}       - Integer value
@@ -477,11 +476,12 @@
 
 		/**
 		* Sets up the repeater to render the rows between `old` and
-		* `[value]{@link moon.IntegerPicker#value}` and scrolls to reveal the current value. If `old`
-		* is specified, the scroll will be animated. If `[wrap]{@link moon.IntegerPicker#wrap}` is
-		* `true`, the scroll will travel the shortest distance which may wrap.
+		* [value]{@link moon.IntegerPicker#value} and scrolls to reveal the current value. If `old`
+		* is specified, the scroll will be animated. If [wrap]{@link moon.IntegerPicker#wrap} is
+		* `true`, the scroll will travel the shortest distance to `value`, which may result in
+		* wrapping.
 		*
-		* @param  {Number} [old] - Prior value from which to scroll
+		* @param  {Number} [old] - Prior value from which to scroll.
 		* @private
 		*/
 		scrollToValue: function(old) {
@@ -573,8 +573,8 @@
 		},
 
 		/**
-		* Cache scroll bounds in {@link moon.IntegerPicker#scrollBounds} so we don't have to call
-		* {@link enyo.Scroller#stop} to retrieve them later
+		* Cache scroll bounds in [scrollBounds]{@link moon.IntegerPicker#scrollBounds} so we
+		* don't have to call {@link enyo.Scroller#stop} to retrieve them later.
 		*
 		* @private
 		*/
@@ -611,7 +611,7 @@
 	});
 
 	/**
-	* For backward compatibility
+	* For backward compatibility.
 	*
 	* @private
 	*/
