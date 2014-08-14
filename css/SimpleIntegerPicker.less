@@ -1,97 +1,102 @@
 .moon-simple-integer-picker {
-  .moon-sub-header-text;
-  direction: ltr;
-  display: inline-block;
-  height: @moon-picker-button-width;
-  border-radius: @moon-picker-button-width / 2;
+	padding: 0 @moon-picker-button-width;
 
-  > * {
-    display: inline-block;
-    vertical-align: middle;
-    height: @moon-picker-button-width;
-    line-height: @moon-picker-button-width;
-    box-sizing: border-box;
-  }
+	.list {
+		width: 100%;
+		white-space: nowrap;
 
-  &.spotlight {
-    background: @moon-spotlight-border-color;
-    .moon-simple-integer-picker-item,
-    .moon-simple-integer-picker-button {
-      color: @moon-spotlight-text-color;
-    }
-  }
+		> * {
+			display: inline-block;
+		}
+	}
 
-  .moon-simple-integer-picker-button {
-    position: relative;
-    width: @moon-picker-button-width;
-    text-align: center;
-    font-family: @moon-icon-font-family;
-    font-size: @moon-icon-small-size * 2;
-    line-height: @moon-picker-button-width;
-    color: @moon-sub-header-text-color;
+	.moon-scroll-picker {
+		height: @moon-picker-button-width;
+		border-top: 0;
+		border-bottom: 0;
+		width: 100%;
+	}
 
-    &.left:after {
-      content: @moon-icon-arrowsmallleft;
-    }
-    &.right:after {
-      content: @moon-icon-arrowsmallright;
-    }
-    .moon-simple-integer-picker-button-tap-area {
-      position: absolute;
-      top: -10px;
-      right: -10px;
-      bottom: -10px;
-      left: -10px;
-    }
-  }
+	.moon-scroll-picker-item {
+		height: @moon-picker-button-width;
+		line-height: @moon-picker-button-width;
+		padding: 0;
+	}
 
-  .moon-simple-integer-picker-item {
-    .moon-sub-header-text;
-    width: auto;
-    white-space: nowrap;
-    padding: 0 8px;
-    text-align: center;
-    box-sizing: border-box;
-  }
+	.moon-scroll-picker-overlay-container {
+		top: 0;
+		line-height: @moon-picker-button-width;
+		width: @moon-picker-button-width;
+		height: @moon-picker-button-width;
+
+		&.previous {
+			left: 0;
+
+			&:after {
+				content: @moon-icon-arrowsmallleft;
+				line-height: @moon-picker-button-width;
+			}
+
+			&.selected .moon-scroll-picker-overlay {
+				border-bottom: 0;
+				border-left-width: @moon-integer-picker-shadow-width;
+				border-radius: @moon-integer-picker-radius 0 0 @moon-integer-picker-radius;
+
+				&:after {
+					content: @moon-icon-arrowsmallleft;
+					line-height: @moon-picker-button-width;
+				}
+			}
+		}
+
+		&.next {
+			right: 0;
+
+			&:after {
+				content: @moon-icon-arrowsmallright;
+				line-height: @moon-picker-button-width;
+			}
+
+			&.selected .moon-scroll-picker-overlay {
+				border-top: 0;
+				border-right-width: @moon-integer-picker-shadow-width;
+				border-radius: 0 @moon-integer-picker-radius @moon-integer-picker-radius 0;
+
+				&:after {
+					content: @moon-icon-arrowsmallright;
+					line-height: @moon-picker-button-width;
+				}
+			}
+		}
+
+		.moon-scroll-picker-overlay {
+			position: absolute;
+			height: @moon-picker-button-width;
+			.border-box;
+		}
+	}
 }
 
-/*spotlight and overlay*/
-.spotlight {
-  .moon-simple-integer-picker-button {
-  box-sizing: border-box;
-    &.left:not(.pressed):after {
-      content: @moon-icon-arrowlargeleft;
-    }
-    &.left.pressed {
-        border-left: solid @moon-integer-picker-shadow-width @moon-shadow-color;
-        border-radius: @moon-picker-button-width / 2 0 0 @moon-picker-button-width / 2;
 
-        &:after {
-          margin-left: -@moon-integer-picker-shadow-width;
-        }
-      }
-    &.right:not(.pressed):after {
-      content: @moon-icon-arrowlargeright;
-    }
-    &.right.pressed {
-      border-right: solid  @moon-integer-picker-shadow-width @moon-shadow-color;
-      border-radius: 0 @moon-picker-button-width / 2 @moon-picker-button-width / 2 0;
-      &:after {
-        margin-right: -@moon-integer-picker-shadow-width;
-      }
-    }
-  }
+.spotlight.moon-simple-integer-picker {
+	background: @moon-spotlight-border-color;
+	border-radius: @moon-integer-picker-radius;
+
+	.moon-scroll-picker-overlay-container.next:after {
+		content: @moon-icon-arrowlargeright;
+		line-height: @moon-picker-button-width;
+	}
+
+	.moon-scroll-picker-overlay-container.previous:after {
+		content: @moon-icon-arrowlargeleft;
+		line-height: @moon-picker-button-width;
+	}
 }
 
-/*disabled*/
-.moon-simple-integer-picker.disabled,
-.moon-simple-integer-picker-button[disabled] {
-  cursor: default;
-  opacity: @moon-disabled-opacity;
-}
-
-.enyo-locale-non-latin {
-  .moon-simple-integer-picker-item {
-    .enyo-locale-non-latin .moon-sub-header-text;
-  }
+.enyo-locale-right-to-left .moon-simple-integer-picker {
+	.moon-scroll-picker {
+		// since the repeater controls are inline-block and we want to keep the ordering the same
+		// so scrolling works correctly, override the direction for the scroller's children
+		direction: ltr;
+	}
 }

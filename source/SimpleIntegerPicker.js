@@ -56,8 +56,8 @@
 		/**
 		* @private
 		*/
-		kind: 'enyo.Control',
-		
+		kind: 'moon.IntegerPicker',
+
 		/**
 		* @private
 		*/
@@ -66,96 +66,33 @@
 		/**
 		* @private
 		*/
-		spotlight:true,
-		
+		spotlight: true,
+
 		/**
 		* @private
 		*/
 		events: {
-			onChange: '',
-			onSelect: '',
-			onRebuilt: ''
+			onSelect: ''
 		},
-		
+
 		/**
 		* @private
 		*/
 		handlers: {
-			onSpotlightSelect      : 'fireSelectEvent',
-			onSpotlightRight       : 'next',
-			onSpotlightLeft        : 'previous',
-			onSpotlightScrollUp    : 'next',
-			onSpotlightScrollDown  : 'previous',
-			
-			onSpotlightBlur        : 'spotlightBlur',
-			onSpotlightFocus       : 'spotlightFocus',
-			onSpotlightFocused     : 'spotlightFocus',
-
-			onmousewheel           : 'mousewheel'
+			onSpotlightUp: null,
+			onSpotlightDown: null,
+			onSpotlightRight: 'next',
+			onSpotlightLeft: 'previous',
+			onSpotlightSelect: 'fireSelectEvent'
 		},
-		
+
 		/**
+		* @lends moon.SimpleIntegerPicker.prototype
 		* @private
 		* @lends moon.SimpleIntegerPicker.prototype
 		*/
 		published: {
 
-			/**
-			* When `true`, picker transitions animate left/right.
-			*
-			* @type {Boolean}
-			* @default true
-			* @public
-			*/
-			animate:true,
-			
-			/**
-			* When `true`, buttons are shown as disabled and do not generate tap events.
-			*
-			* @type {Boolean}
-			* @default false
-			* @public
-			*/
-			disabled: false,
-			
-			/**
-			* Initial picker value.
-			*
-			* @type {Number}
-			* @default -1
-			* @public
-			*/
-			value: -1,
-			
-			/**
-			* Minimum picker value.
-			*
-			* @type {Number}
-			* @default 1
-			* @public
-			*/
-			min: 1,
-			
-			/**
-			* Maximum picker value.
-			*
-			* @type {Number}
-			* @default 9
-			* @public
-			*/
-			max: 9,
-			
-			/**
-			* Amount by which to increment/decrement when moving picker between
-			* [min]{@link moon.SimpleIntegerPicker#min} and
-			* [max]{@link moon.SimpleIntegerPicker#max}.
-			*
-			* @type {Number}
-			* @default 1
-			* @public
-			*/
-			step: 1,
-			
 			/**
 			* Unit label to be appended to the value for display.
 			*
@@ -167,302 +104,81 @@
 		},
 
 		/**
-		* @private
-		*/
-		deferInitialization: false,
-
-		/**
-		* @private
-		*/
-		indices: null,
-
-		/**
-		* @private
-		*/
-		values: null,
-
-		/**
-		* @private
-		*/
-		components: [
-			{name: 'buttonLeft', classes: 'moon-simple-integer-picker-button left', ondown: 'downPrevious', onholdpulse:'previous', components: [
-				{classes: 'moon-simple-integer-picker-button-tap-area'}
-			]},
-			{name: 'client', kind: 'enyo.Panels', classes: 'moon-simple-integer-picker-client', controlClasses: 'moon-simple-integer-picker-item', draggable: false, arrangerKind: 'CarouselArranger',
-				onTransitionStart: 'transitionStart', onTransitionFinish:'transitionFinished'
-			},
-			{name: 'buttonRight', classes: 'moon-simple-integer-picker-button right', ondown: 'downNext', onholdpulse:'next', components: [
-				{classes: 'moon-simple-integer-picker-button-tap-area'}
-			]}
-		],
-
-		/**
-		* @private
-		*/
-		observers: {
-			triggerRebuild: ['step', 'min', 'max', 'unit'],
-			handleValueChange: ['value']
-		},
-
-		/**
-		* @private
-		*/
-		bindings: [
-			{from: '.animate',  to: '.$.client.animate'},
-			{from: '.disabled', to: '.$.buttonLeft.disabled'},
-			{from: '.disabled', to: '.$.buttonRight.disabled'},
-			{from: '.value',   to: '.$.client.index', oneWay: false, transform: 'sync'}
-		],
-
-		/**
-		* @private
-		*/
-		sync: function(val, origin, binding) {
-			if (this.values) {
-				return (origin === enyo.Binding.DIRTY_FROM) ? this.indices[val] : this.values[val];
-			}
-		},
-
-		/**
-		* Cycles the selected item to the one before the currently selected item.
+		* Amount added to the width of each picker item as padding. Note that this is not a CSS
+		* padding value
 		*
-		* @returns {Boolean} `true`, indicating that the event has been handled.
+		* @type {Number}
+		* @default 60
 		* @public
 		*/
-		previous: function() {
-			this.$.client.previous();
-			return true;
-		},
-		
+		itemPadding: 60,
+
 		/**
-		* Cycles the selected item to the one after the currently selected item.
+		* Appends `unit` to label
 		*
-		* @returns {Boolean} `true`, indicating that the event has been handled.
-		* @public
+		* @see moon.IntegerPicker#labelForValue
+		* @private
+		* @method
 		*/
-		next: function() {
-			this.$.client.next();
-			return true;
-		},
+		labelForValue: enyo.inherit(function (sup) {
+			return function (value) {
+				var content = sup.apply(this, arguments);
+				return this.unit? content + ' ' + this.unit : content;
+			};
+		}),
 
 		/**
-		* @private
-		*/
-		downPrevious: function(sender, e) {
-			e.configureHoldPulse({endHold: 'onLeave', delay: 300});
-			this.previous();
-		},
-
-		/**
-		* @private
-		*/
-		downNext: function(sender, e) {
-			e.configureHoldPulse({endHold: 'onLeave', delay: 300});
-			this.next();
-		},
-		
-		/**
-		* Facades the currently active panel.
+		* Calculates the width of the picker when the first item is rendered
 		*
+		* @see moon.IntegerPicker#updateRepeater
 		* @private
+		* @method
 		*/
-		getContent: function() {
-			return (this.$.client && this.$.client.hasNode() && this.$.client.getActive()) ? this.$.client.getActive().getContent() : '';
-		},
+		updateRepeater: enyo.inherit(function (sup) {
+			return function () {
+				sup.apply(this, arguments);
 
-		/**
-		* @private
-		*/
-		create: function() {
-			this.inherited(arguments);
-			if (!this.deferInitialization) {
-				this.build();
-				this.validate();
-			}
-			this.disabledChanged();
-			this.reflow();
-		},
+				if(!this.width) {
+					var ib;
+					this.$.repeater.performOnRow(this.$.repeater.rowOffset, function() {
+						// have to reset to natural width before getting bounds
+						this.$.item.setStyle('width: auto');
+						ib = this.$.item.getBounds();
+					}, this);
 
-		/**
-		* @private
-		*/
-		build: function() {
-			var indices = this.indices = {},
-				values = this.values = [];
-
-			for (var i = 0, v = this.min; v <= this.max; i++, v += this.step) {
-				this.createComponent({content: v + ' ' + this.unit, value: v});
-				values[i] = v;
-				indices[v] = i;
-				if (this.step <= 0) {
-					// if step value is 0 or negative, should create only 'min' value and then break this loop.
-					break;
+					this.width = ib.width + this.itemPadding;
+					this.applyStyle('width', this.width + 'px');
+					this.$.item.setStyle('width: ' + this.width + 'px');
 				}
-			}
-		},
+			};
+		}),
 
 		/**
-		* @private
-		*/
-		validate: function() {
-			var index = this.indices[this.value];
-			if (index !== undefined) {
-				this.$.client.set('index', index);
-				this.setButtonVisibility(null, this.value);
-			}
-			else
-			{
-				this.set('value', this.min);
-			}
-		},
-
-		/**
-		* @fires moon.SimpleIntegerPicker#onRebuilt
-		* @private
-		*/
-		rebuild: function() {
-			this.destroyClientControls();
-			this.build();
-			this.$.client.render();
-			this.reflow();
-			this.validate();
-			this.doRebuilt();
-		},
-
-		/**
-		* @private
-		*/
-		triggerRebuild: function() {
-			// We use a job here to avoid rebuilding the picker multiple
-			// times in succession when more than one of the properties it
-			// depends on (min, max, step, unit) change at once. This case
-			// occurs when SimpleIntegerPicker is used inside
-			// ExpandableIntegerPicker, since ExpandableIntegerPicker
-			// facades these properties and therefore sets them all upon
-			// creation.
-			this.startJob('rebuild', this.rebuild, 10);
-		},
-
-		/**
-		* @private
-		*/
-		disabledChanged: function() {
-			this.addRemoveClass('disabled', this.getDisabled());
-		},
-
-		//* On reflow, updates the bounds of `this.$.client`.
-		reflow: function() {
-			this.inherited(arguments);
-
-			// Find max width of all children
-			if (this.getAbsoluteShowing()) {
-				var i,
-					maxWidth = 0,
-					c = this.$.client.getPanels();
-				for (i = 0; i < c.length; i++) {
-					maxWidth = Math.max(maxWidth, c[i].getBounds().width);
-				}
-				this.$.client.setBounds({width: maxWidth});
-				for (i = 0; i < c.length; i++) {
-					c[i].setBounds({width: maxWidth});
-				}
-				this.$.client.reflow();
-			}
-		},
-
-		/**
-		* @private
-		*/
-		transitionStart: function(sender, e) {
-			if (e.fromIndex > e.toIndex) {
-				this.$.buttonLeft.addClass('pressed');
-			} else if (e.fromIndex < e.toIndex) {
-				this.$.buttonRight.addClass('pressed');
-			}
-			return true;
-		},
-
-		/**
-		* @private
-		*/
-		transitionFinished: function(sender, e) {
-			this.hideOverlays();
-			return true;
-		},
-
-		/**
-		* @private
-		*/
-		spotlightBlur: function() {
-			this.hideOverlays();
-		},
-
-		/**
-		* @private
-		*/
-		hideOverlays: function() {
-			this.$.buttonLeft.removeClass('pressed');
-			this.$.buttonRight.removeClass('pressed');
-		},
-
-		/**
-		* @private
-		*/
-		setButtonVisibility: function(was, is) {
-			if (this.values) {
-				var min = this.values[0],
-					max = this.values[this.values.length - 1];
-				if (is === min) {
-					this.$.buttonLeft.applyStyle('visibility', 'hidden');
-				}
-				else if (was === min) {
-					this.$.buttonLeft.applyStyle('visibility', 'visible');
-				}
-				if (is === max) {
-					this.$.buttonRight.applyStyle('visibility', 'hidden');
-				}
-				else if (was === max) {
-					this.$.buttonRight.applyStyle('visibility', 'visible');
-				}
-			}
-		},
-
-		/**
-		* @fires moon.SimpleIntegerPicker#onSelect
+		* @fires moon.SimpleIntegerPicker#event:onSelect
 		* @private
 		*/
 		fireSelectEvent: function () {
 			if (this.hasNode()) {
-				this.doSelect({content: this.getContent(), value: this.value});
+				this.doSelect({
+					content: this.labelForValue(this.value),
+					value: this.value
+				});
 			}
 		},
 
 		/**
-		* @fires moon.SimpleIntegerPicker#onChange
+		* Forces a recalculation of the width of the picker
+		*
+		* @see enyo.UiComponent#reflow
 		* @private
+		* @method
 		*/
-		fireChangeEvent: function() {
-			if (this.hasNode()) {
-				this.doChange({content: this.getContent(), value: this.value});
-			}
-		},
-
-		/**
-		* @private
-		*/
-		handleValueChange: function(was, is) {
-			this.setButtonVisibility(was, is);
-			this.fireChangeEvent();
-		},
-
-		/**
-		* @private
-		*/
-		mousewheel: function(sender, e) {
-			// Make sure scrollers that container integer pickers don't scroll
-			e.preventDefault();
-			return true;
-		}
+		reflow: enyo.inherit(function (sup) {
+			return function () {
+				this.width = 0;
+				sup.apply(this, arguments);
+			};
+		})
 	});
 
 })(enyo, this);
