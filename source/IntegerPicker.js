@@ -320,7 +320,7 @@
 		},
 
 		/**
-		* Prevent scroller dragging.
+		* Prevent scroller dragging
 		*
 		* @private
 		*/
