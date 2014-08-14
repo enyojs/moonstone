@@ -1,6 +1,7 @@
 (function (enyo, scope) {
 	/**
-	* `moon.DataTable` is an {@link enyo.DataTable} with Moonstone visual styling applied.
+	* {@link moon.DataTable} is an {@link enyo.DataTable} with Moonstone visual
+	* styling applied.
 	*
 	* @class moon.DataTable
 	* @extends enyo.DataTable

@@ -1,7 +1,8 @@
 (function (enyo, scope) {
 	/**
-	* `moon.ScrollStrategy` inherits from {@link enyo.TouchScrollStrategy}. Its main purpose is to
-	* handle scroller paging for {@link moon.Scroller} and {@link moon.DataList}.
+	* {@link moon.ScrollStrategy} inherits from {@link enyo.TouchScrollStrategy}.
+	* Its main purpose is to handle scroller paging for {@link moon.Scroller} and
+	* {@link moon.DataList}.
 	*
 	* @class moon.ScrollStrategy
 	* @extends enyo.TouchScrollStrategy
@@ -29,7 +30,7 @@
 			/**
 			* The ratio of mousewheel "delta" units to pixels scrolled. Increase this value to
 			* increase the distance scrolled by the scroll wheel. Note that mice/trackpads do not
-			* emit the same "delta" units per "notch" or flick of the scroll wheel/trackpad; that
+			* emit the same delta units per "notch" or flick of the scroll wheel/trackpad; that
 			* can vary based on intensity and momentum.
 			*
 			* @type {Number}
@@ -40,9 +41,10 @@
 
 			/**
 			* The ratio of the maximum distance scrolled by each scroll wheel event to the
-			* height/width of the viewport. Setting a value larger than `1` is not advised, since a
-			* single scroll event could move more than one viewport's worth of content (depending on
-			* the delta received), resulting in skipped content.
+			* height/width of the viewport. Setting a value larger than `1` is not advised since,
+			* in that scenario, a single scroll event could potentially move more than one
+			* viewport's worth of content (depending on the delta received), resulting in skipped
+			* content.
 			*
 			* @type {Number}
 			* @default 0.2
@@ -51,9 +53,10 @@
 			scrollWheelPageMultiplier: 0.2,
 
 			/**
-			* The ratio of the distance scrolled per tap of the paging button to the height/width of
-			* the viewport. Setting a value larger than `1` is not advised, since a paging button
-			* tap will move more than one viewport's worth of content, resulting in skipped content.
+			* The ratio of the distance scrolled per tap of the paging button to the height/width
+			* of the viewport. Setting a value larger than `1` is not advised since, in that
+			* scenario, a single paging button tap would move more than one viewport's worth of
+			* content, resulting in skipped content.
 			*
 			* @type {Number}
 			* @default 0.8
@@ -62,8 +65,8 @@
 			paginationPageMultiplier: 0.8,
 
 			/**
-			* The ratio of continuous-scrolling delta units to pixels scrolled. Increase this value
-			* to increase the distance scrolled when the pagination buttons are held.
+			* The ratio of continuous-scrolling "delta" units to pixels scrolled. Increase this
+			* value to increase the distance scrolled when the pagination buttons are held.
 			*
 			* @type {Number}
 			* @default 8
@@ -170,7 +173,7 @@
 		/**
 		* Gets the left scroll position within the scroller.
 		*
-		* @returns {Number} The left scroll position
+		* @returns {Number} The left scroll position.
 		* @public
 		*/
 		getScrollLeft: function() {
@@ -180,7 +183,7 @@
 		/**
 		* Gets the top scroll position within the scroller.
 		*
-		* @returns {Number} The top scroll position
+		* @returns {Number} The top scroll position.
 		* @public
 		*/
 		getScrollTop: function() {
@@ -214,9 +217,9 @@
 		/**
 		* Scrolls to specific x/y positions within the scroll area.
 		*
-		* @param {Number} x - The horizontal coordinate.
-		* @param {Number} y - The vertical coordinate.
-		* @param {Boolean} [animate=true] - Should we animate to the new scroll position or not?
+		* @param {Number} x - The horizontal position.
+		* @param {Number} y - The vertical position.
+		* @param {Boolean} [animate=true] - Whether to animate to the new scroll position.
 		* @public
 		*/
 		scrollTo: function(x, y, animate) {
@@ -233,7 +236,7 @@
 		},
 
 		/**
-		* Overrides {@link enyo.TouchScrollStrategy#maxHeightChanged}
+		* Overrides {@link enyo.TouchScrollStrategy#maxHeightChanged}.
 		*
 		* @private
 		*/
@@ -254,7 +257,7 @@
 		shouldDrag: function(sender, event) { return true; },
 
 		/**
-		* On `hold`, stops scrolling.
+		* On `hold` event, stops scrolling.
 		*
 		* @private
 		*/
@@ -265,7 +268,7 @@
 		},
 
 		/**
-		* On `down`, stops scrolling.
+		* On `down` event, stops scrolling.
 		*
 		* @private
 		*/
@@ -276,7 +279,7 @@
 		},
 
 		/**
-		* On `mousewheel`, scrolls a fixed amount.
+		* On `mousewheel` event, scrolls a fixed amount.
 		*
 		* @private
 		*/
@@ -340,7 +343,7 @@
 		},
 
 		/**
-		* On `enter`, sets `this.hovering` to true and shows pagination controls.
+		* On `enter` event, sets `this.hovering` to `true` and shows pagination controls.
 		*
 		* @private
 		*/
@@ -352,7 +355,7 @@
 		},
 
 		/**
-		* On `leave`, sets `this.hovering` to false and hides pagination controls.
+		* On `leave` event, sets `this.hovering` to `false` and hides pagination controls.
 		*
 		* @private
 		*/
@@ -362,7 +365,7 @@
 		},
 
 		/**
-		* Handles `paginate` events sent from {@link moon.PagingControl} buttons.
+		* Handles `paginate` events sent from [paging control]{@link moon.PagingControl} buttons.
 		*
 		* @private
 		*/
@@ -399,7 +402,8 @@
 		},
 
 		/**
-		* Handles `paginateScroll` events sent from PagingControl buttons.
+		* Handles `paginateScroll` events sent from [paging control]{@link moon.PagingControl}
+		* buttons.
 		*
 		* @private
 		*/
@@ -472,7 +476,7 @@
 		},
 
 		/**
-		* Returns true if `control` is one of four page controls.
+		* Returns `true` if passed-in [control]{@link enyo.Control} is one of four page controls.
 		*
 		* @private
 		*/
@@ -564,8 +568,8 @@
 		},
 
 		/**
-		* Because the thumb columns are a fixed size that impacts the scroll bounds, captures the
-		* difference for use in thumb rendering math.
+		* Because the thumb columns are a fixed size that impacts the scroll bounds, we capture
+		* the difference for use in thumb rendering math.
 		*
 		* @private
 		*/
@@ -604,7 +608,8 @@
 		},
 
 		/**
-		* Responds to child components' requests to update scrollBounds without scrolling into view
+		* Responds to child components' requests to update scroll bounds without
+		* scrolling into view.
 		*
 		* @private
 		*/
@@ -796,14 +801,15 @@
 			this.scrollBounds = null;
 		},
 		/**
-		* Scrolls until `control` is in view. If `scrollFullPage` is set, scrolls until the edge
-		* of `control` is aligned with the edge of the visible scroll area.
+		* Scrolls until the passed-in [control]{@link enyo.Control} is in view.
+		* If `scrollFullPage` is set, scrolls until the edge of `control` is aligned
+		* with the edge of the visible scroll area.
 		*
-		* @param {Control} control - Control to scroll into view
-		* @param {Boolean} [scrollFullPage] - If `true` scrolls until the edge of `control` is
+		* @param {Control} control - The [control]{@link enyo.Control} to scroll into view.
+		* @param {Boolean} [scrollFullPage] - If `true`, scrolls until the edge of `control` is
 		*	aligned with the edge of the visible scroll area. If `undefined`, the value in the
 		*	container's `scrollFullPage` property is used.
-		* @param {Boolean} [animate=true] - `false` to prevent animation
+		* @param {Boolean} [animate=true] - Set to `false` to prevent animation.
 		* @private
 		*/
 		animateToControl: function(control, scrollFullPage, animate) {

@@ -86,7 +86,7 @@
 			/**
 			* Reference to currently selected item, if any.
 			*
-			* @type {@link enyo.Control}
+			* @type {enyo.Control}
 			* @default ''
 			* @public
 			*/

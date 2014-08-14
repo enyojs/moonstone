@@ -1,7 +1,7 @@
 (function (enyo, scope) {
 	/**
-	* `moon.Item` is a focusable Moonstone-styled control that can display simple text or a set of
-	* controls.
+	* {@link moon.Item} is a focusable Moonstone-styled control that can display
+	* simple text or a set of controls.
 	*
 	* @class moon.Item
 	* @extends enyo.Control
@@ -47,7 +47,7 @@
 		published: {
 
 			/**
-			* When `true`, the control is shown as disabled and does not generate tap events
+			* If `true`, the control is shown as disabled and does not generate tap events.
 			*
 			* @type {Boolean}
 			* @default false
