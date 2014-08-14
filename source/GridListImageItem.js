@@ -1,10 +1,10 @@
 (function (enyo, scope) {
 	/**
-	* `moon.GridListImageItem` extends {@link #enyo.GridListImageItem}, adding Moonstone-specific
-	* configuration, styling, decorators, and Spotlight/focus-state management.
+	* {@link moon.GridListImageItem} extends {@link enyo.GridListImageItem}, adding
+	* Moonstone-specific configuration, styling, decorators, and focus-state management.
 	*
 	* You may create an image grid by adding instances of this kind as components of a
-	* {@link moon.DataGridList}. See the latter kind for an example of how this may be done.
+	* {@link moon.DataGridList}.
 	*
 	* @class moon.GridListImageItem
 	* @extends enyo.GridListImageItem

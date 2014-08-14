@@ -1,6 +1,6 @@
 (function (enyo, scope) {
 	/**
-	* Event sent to {@link moon.HighlightText} to turn on highlight
+	* Event sent to {@link moon.HighlightText} to turn on highlighting.
 	*
 	* @event moon.HighlightText#onHighlight
 	* @type {Object}
@@ -10,7 +10,8 @@
 	*/
 
 	/**
-	* Event sent to {@link moon.HighlightText} to turn off highlight
+	* Event sent to {@link moon.HighlightText} to turn off highlighting. No additional data
+	* is sent with this event.
 	*
 	* @event moon.HighlightText#onUnHighlight
 	* @type {Object}
@@ -37,10 +38,11 @@
 	};
 
 	/**
-	* `moon.HighlightText` is a control that displays highlighted text.  When
-	* [`highlight`]{@link moon.HighlightText#highlight} is set or an
-	* {@link moon.HighlightText#event:onHighlight} event is received, it will highlight a specified
-	* string if that string is found within the control's content.
+	* {@link moon.HighlightText} is a control that displays highlighted text.  When
+	* the [highlight]{@link moon.HighlightText#highlight} property is set or an
+	* [onHighlight]{@link moon.HighlightText#event:onHighlight} event is received,
+	* it will highlight a specified string if that string is found within the
+	* control's content.
 	*
 	* For example, let's say we have the following control:
 	*
@@ -60,13 +62,13 @@
 	*
 	* the word 'Hello' will be highlighted.
 	*
-	* The highlighting will be turned off when an {@link moon.HighlightText#event:onUnHighlight}
-	* event is received
+	* The highlighting will be turned off when an
+	* [onUnHighlight]{@link moon.HighlightText#event:onUnHighlight} event is received.
 	*
 	* ```
 	* this.waterfall('onUnHighlight');
 	* ```
-	* or when {@link moon.HighlightText#highlight} is set to a **falsy** value
+	* or when [highlight]{@link moon.HighlightText#highlight} is set to a **falsy** value.
 	*
 	* ```
 	* this.$.myHT.set('highlight', '');
@@ -97,9 +99,9 @@
 		published: {
 
 			/**
-			* String or regular expression specifying the text or pattern to
-			* highlight. Setting this to an empty string, **falsy** value, or empty
-			* regex will disable highlighting.
+			* String or regular expression specifying the text or pattern to highlight.
+			* Setting this to an empty string, a **falsy** value, or an empty regex
+			* will disable highlighting.
 			*
 			* @type {String|RegExp}
 			* @default ''
@@ -108,10 +110,10 @@
 			highlight: '',
 
 			/**
-			* When `true`, only case-sensitive matches of the string to highlight will be
+			* If `true`, only case-sensitive matches of the string to highlight will be
 			* highlighted.  This property will be ignored if the
-			* {@link moon.HighlightText#highlight} property is set to a regular expression (you
-			* may use the `'i'` modifier to create a case-insensitive regex).
+			* [highlight]{@link moon.HighlightText#highlight} property is set to a regular
+			* expression (you may use the `'i'` modifier to create a case-insensitive regex).
 			*
 			* @type {Boolean}
 			* @default false
@@ -120,7 +122,7 @@
 			caseSensitive: false,
 
 			/**
-			* The default CSS class to apply to highlighted content
+			* The default CSS class to apply to highlighted content.
 			*
 			* @type {String}
 			* @default 'moon-highlight-text-highlighted'
