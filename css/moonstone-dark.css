@@ -921,6 +921,11 @@
 .enyo-locale-right-to-left .moon-simple-integer-picker .moon-scroll-picker {
   direction: ltr;
 }
+.enyo-locale-non-latin .moon-simple-integer-picker-item {
+  font-family: "Moonstone LG Display";
+  font-family: "Moonstone LG Display Bold";
+  font-size: 30px;
+}
 /* Checkbox.css */
 .moon-checkbox {
   cursor: pointer;

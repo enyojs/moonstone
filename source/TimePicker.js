@@ -43,6 +43,11 @@
 
 		/**
 		* @private
+		*/
+		wrap: true,
+
+		/**
+		* @private
 		* @lends moon.MeridiemPicker.prototype
 		*/
 		published: {
@@ -70,7 +75,7 @@
 		* @private
 		*/
 		setupItem: function (inSender, inEvent) {
-			var index = inEvent.index;
+			var index = inEvent.index % this.range;
 			this.$.item.setContent(this.meridiems[index]);
 		}
 	});
@@ -143,15 +148,49 @@
 		* @private
 		*/
 		setupItem: function (inSender, inEvent) {
-			var hour = inEvent.index;
+			var hour = this.format(inEvent.index);
+			this.$.item.setContent(hour);
+		},
+
+		/**
+		 * Formats the hour at `index` for the current locale
+		 *
+		 * @param  {Number} index - Hour between 0 and 24
+		 * @return {String}       - Formatted hour
+		 * @private
+		 */
+		format: function (index) {
+			var hour;
+
 			if (this.date) { // ilib enabled
-				this.date.hour = hour;
+				this.date.hour = index;
 				hour = this.formatter.format(this.date);
 			} else {	// Have TimePicker format the hours
-				hour = this.formatter.formatHour(hour);
+				hour = this.formatter.formatHour(index);
 			}
-			this.$.item.setContent(hour);
-		}
+
+			return hour;
+		},
+
+		/**
+		 * If the formatted new and old values are the same, skip animating by not passing
+		 * the old value to `IntegerPicker.scrollToValue`. 
+		 * 
+		 * @see moon.IntegerPicker#scrollToValue
+		 * @private
+		 */
+		scrollToValue: enyo.inherit(function (sup) {
+			return function(old) {
+				// try to avoid the format calls if the old and current values
+				// don't mod to the same value
+				var maybeSame = old !== undefined && old%12 === this.value%12;
+				if(maybeSame && this.format(old) === this.format(this.value)) {
+					sup.call(this);
+				} else {
+					sup.apply(this, arguments);
+				}
+			};
+		})
 	});
 	
 	/**
