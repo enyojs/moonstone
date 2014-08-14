@@ -43,6 +43,11 @@
 
 		/**
 		* @private
+		*/
+		wrap: true,
+
+		/**
+		* @private
 		* @lends moon.MeridiemPicker.prototype
 		*/
 		published: {
@@ -70,7 +75,7 @@
 		* @private
 		*/
 		setupItem: function (inSender, inEvent) {
-			var index = inEvent.index;
+			var index = inEvent.index % this.range;
 			this.$.item.setContent(this.meridiems[index]);
 		}
 	});
