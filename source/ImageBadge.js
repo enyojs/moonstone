@@ -1,7 +1,7 @@
 (function (enyo, scope) {
 	/**
-	* `moon.ImageBadge`, which derives from [`moon.Icon`]{@link moon.Icon}, is a simple
-	* control designed for use inside of [`moon.Image`]{@link moon.Image}.
+	* {@link moon.ImageBadge}, which derives from {@link moon.Icon}, is a simple
+	* control designed for use inside of {@link moon.Image}.
 	*
 	* @class moon.ImageBadge
 	* @extends moon.Icon
