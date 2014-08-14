@@ -1,9 +1,9 @@
 (function (enyo, scope) {
 	/**
-	* `moon.Spinner` is a [control]{@link enyo.Control} that shows a spinning animation to indicate
-	* that activity is taking place. By default, the spinner is light-colored and suitable for
-	* displaying against a dark background. If you need a dark spinner (to be shown on a lighter
-	* background), add the `moon-light` CSS class:
+	* {@link moon.Spinner} is a [control]{@link enyo.Control} that shows a spinning animation
+	* to indicate that activity is taking place. By default, the spinner is light-colored and
+	* suitable for displaying against a dark background. If you need a dark spinner (to be
+	* shown on a lighter background), apply the `moon-light` CSS class:
 	*
 	* ```javascript
 	* // Normal
@@ -17,14 +17,14 @@
 	* ```
 	*
 	* Typically, a spinner is shown to indicate activity and hidden to indicate that the activity
-	* has ended. The animation automatically starts when the spinner is shown. If you wish, you may
-	* control the animation directly by calling the [`start()`]{@link moon.Spinner#start},
-	* [`stop()`]{@link moon.Spinner#stop}, and [`toggle()`]{@link moon.Spinner#toggle} methods.
+	* has ended. The animation automatically starts when the spinner is shown. If you wish, you
+	* may control the animation directly by calling the [start()]{@link moon.Spinner#start},
+	* [stop()]{@link moon.Spinner#stop}, and [toggle()]{@link moon.Spinner#toggle} methods.
 	*
-	* `moon.Spinner` supports both `content` text and alternatively a `components` block. You may
-	* only use one method at a time. Using a components block may be desirable if, for example,
-	* the text in the content section needs to [marquee]{@link moon.MarqueeSupport} or you'd like to
-	* include a {@link moon.Icon} in the message.
+	* `moon.Spinner` supports both `content` text and a `components` block. Note that you
+	* may only use one of these at a time. Using a `components` block may be desirable if,
+	* for example, the text in the content section needs [marquee]{@link moon.MarqueeSupport}
+	* functionality or you'd like to include an [icon]{@link moon.Icon} in the message.
 	*
 	* @class moon.Spinner
 	* @extends enyo.Control
