@@ -21,12 +21,20 @@
 		HighlightTextDelegate = Object.create(HTMLStringDelegate);
 
 	HighlightTextDelegate.generateInnerHtml = function (control) {
+		var i = 0, child;
 		// flow can alter the way that html content is rendered inside
 		// the container regardless of whether there are children.
 		control.flow();
-		if (control.children.length) { return this.generateChildHtml(control); }
+		if (control.children.length) {
+			// If marqueeText is created inside of highlightText then it needs to pass search keyword to children
+			for (; (child = control.children[i]); ++i) {
+				child.search = control.search;
+				child.highlightClasses = control.highlightClasses; // this is not included in search, so passing it
+			}
+			return this.generateChildHtml(control);
+		}
 		else {
-			if (control.search) {
+			if (control.search && control.content) {
 				return control.content.replace(control.search, control.bindSafely(function (s) {
 					return '<span style=\'pointer-events:none;\' class=\'' + this.highlightClasses + '\'>' + enyo.dom.escape(s) + '</span>';
 				}));
