@@ -1,12 +1,12 @@
 (function (enyo, scope) {
 	/**
-	* `moon.Panels` extends {@link enyo.Panels}, adding support for 5-way focus (Spotlight) and
-	* pre-configured Moonstone panels design patterns. By default, controls added to a `moon.Panels`
-	* are instances of {@link moon.Panel}.
+	* {@link moon.Panels} extends {@link enyo.Panels}, adding support for 5-way focus
+	* (Spotlight) and pre-configured Moonstone panels design patterns. By default,
+	* controls added to a `moon.Panels` are instances of {@link moon.Panel}.
 	*
-	* `moon.Panels` introduces the concept of a pattern for panel display. Setting
-	* [`pattern`]{@link moon.Panels#pattern} to `'activity'` or `'alwaysViewing'` chooses between
-	* two patterns for app use on Smart TV systems.
+	* `moon.Panels` introduces the concept of patterns for panel display. Set
+	* [pattern]{@link moon.Panels#pattern} to `'activity'` or `'alwaysViewing'`
+	* to use one of two patterns designed for apps on Smart TV systems.
 	*
 	* @class moon.Panels
 	* @extends enyo.Panels
@@ -42,7 +42,7 @@
 		*/
 		published: {
 			/**
-			* A convenience property for configuring `moon.Panels` according to a
+			* A convenience property for configuring {@link moon.Panels} according to a
 			* particular design pattern.  Valid values are `'none'` (default), `'activity'`,
 			* and `'alwaysviewing'`. Note that this property may only be set at creation
 			* time, and should not be changed at runtime.
@@ -52,8 +52,8 @@
 			* of the screen, allowing multiple breadcrumbs to accumulate on the left
 			* half of the screen.
 			*
-			* The `'activity'` pattern  uses the {@link moon.BreadcrumbArranger}, with opaque
-			* panels over the full screen, with only one breadcrumb showing onscreen.
+			* The `'activity'` pattern  uses the `moon.BreadcrumbArranger` with opaque
+			* panels over the full screen and only one breadcrumb showing onscreen.
 			*
 			* The `'none'` pattern should be used when selecting other arrangers, such as
 			* {@link enyo.CarouselArranger} or {@link enyo.CardArranger}.
@@ -65,8 +65,8 @@
 			pattern: 'none',
 
 			/**
-			* When [`useHandle`]{@link moon.Panels#useHandle} is used, it is automatically hidden
-			* after this amount of time (in milliseconds).
+			* When [useHandle]{@link moon.Panels#useHandle} is used, it is automatically
+			* hidden after this amount of time (in milliseconds).
 			*
 			* @type {Number}
 			* @default 4000
@@ -77,11 +77,11 @@
 			/**
 			* When `true`, a handle is created to allow the user to control the showing
 			* state of the panels using animation. When `false`, no handle is created and
-			* panels can only be hidden/shown programmatically with no animation.
-			* When `'auto'` (the default), `useHandle` is set to true if
-			* [`pattern`]{@link moon.Panels#pattern} is `'alwaysviewing'` and set to `false` if the
-			* [`pattern`]{@link moon.Panels#pattern} is `'activity'`. Note that this property may
-			* only be set at creation time, and should not be changed at runtime. This property
+			* panels may only be hidden/shown programmatically with no animation.
+			* When `'auto'` (the default), `useHandle` is set to `true` if the
+			* [pattern]{@link moon.Panels#pattern} is `'alwaysviewing'` and to `false` if
+			* the `pattern` is `'activity'`. Note that this property may only be set at
+			* creation time, and should not be changed at runtime. This property
 			* only has an effect when using the `'activity'` or `'alwaysviewing'` pattern.
 			*
 			* @type {String|Boolean}
@@ -95,10 +95,11 @@
 			* When `true` (the default), the handle is shown and panels may be shown by
 			* activating the handle and hidden by re-activating the handle or by tapping
 			* outside the panel area. When `false`, the handle is hidden and panels may
-			* only be shown or hidden programmatically using the {@link enyo.Control#showing}
-			* property or the {@link enyo.Control#hide} / {@link enyo.Control#show} API. This
-			* property only has an effect when the value of {@link moon.Panels#useHandle} is
-			* `true` (or `'auto'`, resulting in `true`).
+			* only be shown or hidden programmatically using the
+			* [showing]{@link enyo.Control#showing} property or the
+			* [show()]{@link enyo.Control#show}/[hide()]{@link enyo.Control#hide} API.
+			* This property only has an effect when [useHandle]{@link moon.Panels#useHandle}
+			* is `true` (or `'auto'`, resulting in `true`).
 			*
 			* @type {Boolean}
 			* @default true
@@ -107,7 +108,7 @@
 			handleShowing: true,
 
 			/**
-			* When `true`, panels are automatically popped when the user moves back
+			* When `true`, panels are automatically popped when the user moves back.
 			*
 			* @type {Boolean}
 			* @default false
@@ -117,7 +118,7 @@
 
 			/**
 			* The source of the image used for branding in the lower left region of the Panels
-			* (only applies to Panels using the `'activity'` pattern)
+			* (only applies to Panels using the `'activity'` pattern).
 			*
 			* @type {String}
 			* @default ''
@@ -169,65 +170,67 @@
 		defaultKind: 'moon.Panel',
 
 		/**
-		* Set to false to disable dragging
+		* When `false`, dragging is disabled.
 		*
 		* @private
 		*/
 		draggable: false,
 
 		/**
-		* Value may be between 0 and 1, inclusive
+		* Value may be between `0` and `1`, inclusive.
 		*
 		* @private
 		*/
 		panelCoverRatio: 1,
 
 		/**
-		* True for 'activity' pattern; false for 'alwaysviewing' pattern
+		* Will be `true` for 'activity' pattern, and `false` for 'alwaysviewing' pattern.
 		*
 		* @private
 		*/
 		showFirstBreadcrumb: false,
 
 		/**
-		* Default to using `moon.BreadcrumbArranger`
+		* Default to using `moon.BreadcrumbArranger`.
 		*
 		* @private
 		*/
 		arrangerKind: 'moon.BreadcrumbArranger',
 
 		/**
-		* Index of panel set in the middle of transition
+		* Index of panel set in the middle of transition.
 		*
 		* @private
 		*/
 		queuedIndex: null,
 
 		/**
-		* Flag for initial transition
+		* Flag for initial transition.
 		*
 		* @private
 		*/
 		_initialTransition: true,
 
 		/**
-		* Flag for panel transition
+		* Flag for panel transition.
 		*
 		* @private
 		*/
 		transitionInProgress: false,
 
 		/**
-		* Flag for blocking consecutive push/pop/replace panel to protect create/render/destroy time
+		* Flag for blocking consecutive push/pop/replace panel actions to protect
+		* create/render/destroy time.
 		*
 		* @private
 		*/
 		isModifyingPanels: false,
 
 		/**
-		* Check the state of panel transitions
+		* Checks the state of panel transitions.
 		*
-		* @return {Boolean} `true` if a transition between panels is currently in progress.
+		* @return {Boolean} `true` if a transition between panels is currently in progress;
+		* otherwise, `false`.
 		* @public
 		*/
 		inTransition: function () {
@@ -237,7 +240,7 @@
 		/**
 		* Creates a panel on top of the stack and increments index to select that component.
 		*
-		* @param {Object} info - The declarative {@link external:kind} definition.
+		* @param {Object} info - The declarative {@glossary kind} definition.
 		* @param {Object} moreInfo - Additional properties to be applied (defaults).
 		* @return {Object} The instance of the panel that was created on top of the stack.
 		* @public
@@ -259,10 +262,10 @@
 		* Creates multiple panels on top of the stack and updates index to select the last one
 		* created.
 		*
-		* @param {Object[]} info - The declarative {@link external:kind} definitions.
+		* @param {Object[]} info - The declarative {@glossary kind} definitions.
 		* @param {Object} commonInfo - Additional properties to be applied (defaults).
 		* @return {null|Object[]} Array of the panels that were created on top of the stack, or
-		*	`null` if panels cannot be created
+		*	`null` if panels could not be created.
 		* @public
 		*/
 		pushPanels: function (info, commonInfo) { // added
@@ -285,9 +288,9 @@
 		},
 
 		/**
-		* Destroys panels whose index is greater than or equal to `index`.
+		* Destroys panels whose index is greater than or equal to a specified value.
 		*
-		* @param {Number} index - Index to start destroying panels
+		* @param {Number} index - Index at which to start destroying panels.
 		* @public
 		*/
 		popPanels: function (index) {
@@ -305,8 +308,8 @@
 		/**
 		* Destroys specified panel and creates new panel in-place without transition effect.
 		*
-		* @param {Number} index - Index of panel to destroy
-		* @param {Object} info - The declarative {@link external:kind} definition.
+		* @param {Number} index - Index of panel to destroy.
+		* @param {Object} info - The declarative {@glossary kind} definition.
 		* @param {Object} moreInfo - Additional properties to be applied (defaults).
 		* @public
 		*/
@@ -328,10 +331,11 @@
 		},
 
 		/**
-		* Find the panel index of the passed-in control, or return `-1` if the panel is not found.
+		* Finds and returns the panel index of the passed-in control. Returns `-1` if
+		* panel is not found.
 		*
-		* @param {Object} oControl - A control
-		* @return {Number} Panel index of control or `-1`
+		* @param {Object} oControl - A control to look for.
+		* @return {Number} Panel index of control, or `-1` if panel is not found.
 		* @public
 		*/
 		getPanelIndex: function (oControl) {
@@ -360,8 +364,9 @@
 		/**
 		* Returns `true` if the passed-in control is a child panel of this Panels instance.
 		*
-		* @param {Object} control - A panel control
-		* @return {Boolean} `true` if control is a child panel of this Panels instance.
+		* @param {Object} control - A panel control.
+		* @return {Boolean} `true` if the specified control is a child panel of this Panels
+		* instance.
 		* @public
 		*/
 		isPanel: function (control) {
@@ -622,8 +627,8 @@
 		},
 
 		/**
-		* Called when focus enters one of the panels. If currently hiding and `this.useHandle` is
-		* `true`, shows handle.
+		* Called when focus enters one of the panels. If currently hiding and
+		* `this.useHandle` is `true`, shows handle.
 		*
 		* @private
 		*/
@@ -635,9 +640,9 @@
 		},
 
 		/**
-		* Set the index of the active panel, possibly transitioning the panel into view.
+		* Sets the index of the active panel, possibly transitioning the panel into view.
 		*
-		* @param {number} index - Index of the panel to make active
+		* @param {number} index - Index of the panel to make active.
 		* @public
 		*/
 		setIndex: function (index) {
@@ -705,8 +710,8 @@
 		},
 
 		/**
-		* Returns true if any panels will move in the transition from `this.fromIndex` to
-		* `this.toIndex`.
+		* Returns `true` if any panels will move in the transition from `fromIndex` to
+		* `toIndex`.
 		*
 		* @private
 		*/
@@ -775,10 +780,9 @@
 		},
 
 		/**
-		* Suppresses firing onTransitionStart when a transition is in progress because it was
-		* already fired in {@link moon.Panels#setIndex}
+		* Suppresses firing `onTransitionStart` when a transition is in progress, because
+		* it was already fired in [setIndex()]{@link moon.Panels#setIndex}.
 		* 
-		* @see enyo.Panels#startTransition
 		* @private
 		*/
 		startTransition: function(sendEvents) {
@@ -789,7 +793,7 @@
 		},
 
 		/**
-		* If any panel has a pre-transition, pushes the panel's index to _preTransitionWaitList_.
+		* If any panel has a pre-transition, pushes the panel's index to `preTransitionWaitList`.
 		*
 		* @private
 		*/
@@ -873,8 +877,8 @@
 		},
 
 		/**
-		* When index changes, make sure to update the breadcrumbed panel `spotlight` property (to
-		* avoid spotlight issues)
+		* When index changes, make sure to update the breadcrumbed panel's `spotlight` property
+		* (to avoid {@glossary Spotlight} issues).
 		*
 		* @private
 		*/
@@ -960,7 +964,7 @@
 		},
 
 		/**
-		* Returns true if this and all parents are showing.
+		* Returns `true` if this and all parents are showing.
 		*
 		* @private
 		*/
@@ -1135,7 +1139,7 @@
 		},
 
 		/**
-		* Hide/show animation complete
+		* Hide/show animation complete.
 		*
 		* @private
 		*/
