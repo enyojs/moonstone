@@ -273,7 +273,7 @@
 		*/
 		labelForValue: function(value) {
 			if (this.digits) {
-				value = ('00000000000000000000' + value).slice(-this.digits);
+				value = (value < 0? '-' : '') + ('00000000000000000000' + Math.abs(value)).slice(-this.digits);
 			}
 
 			return value;
