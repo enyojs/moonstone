@@ -17,22 +17,21 @@
 	* @public
 	*/
 
-
 	/**
-	* `moon.Drawer`, a control designed for use with {@link moon.Drawers},
+	* {@link moon.Drawer}, a control designed for use with {@link moon.Drawers},
 	* consists of two drawers and a {@link moon.DrawerHandle}.
 	* The main drawer is populated with any child components that are specified in
 	* the constructor; the optional second drawer (control drawer) is populated
-	* with components passed into the {@link moon.Drawer#controlDrawerComponents} property.
+	* with components passed into the
+	* [controlDrawerComponents]{@link moon.Drawer#controlDrawerComponents} property.
 	*
 	* If the second drawer has no components, the main drawer will take up the full
 	* height of the containing view; otherwise, its height will be equal to the
-	* height of the containing view minus the height of the
-	* {@link moon.Drawer#controlDrawerComponents}.
+	* height of the containing view minus the height of the `controlDrawerComponents`.
 	*
-	* A call to {@link moon.Drawer#toggleDrawer} will open the control drawer if
-	* {@link moon.Drawer#controlDrawerComponents} is non-empty; otherwise, it will open the main
-	* drawer.
+	* A call to [toggleDrawer()]{@link moon.Drawer#toggleDrawer} will open or close
+	* the control drawer if `controlDrawerComponents` is non-empty; otherwise, it will
+	* open or close the main drawer.
 	*
 	* The control's child components may be of any kind.
 	*
@@ -80,7 +79,7 @@
 		published: {
 
 			/**
-			* Components that are to be placed in the control drawer
+			* Components that are to be placed in the control drawer.
 			*
 			* @type {Object}
 			* @default null
@@ -89,7 +88,7 @@
 			controlDrawerComponents: null,
 
 			/**
-			* Typically set to an instance of {@link moon.DrawerHandle}
+			* Typically set to an instance of {@link moon.DrawerHandle}.
 			*
 			* @type {Object}
 			* @default null
@@ -98,7 +97,7 @@
 			handle: null,
 
 			/**
-			* Visibility state of the main drawer
+			* Visibility state of the main drawer.
 			*
 			* @type {Boolean}
 			* @default false
@@ -107,7 +106,7 @@
 			open: false,
 
 			/**
-			* Visibility state of the control drawer
+			* Visibility state of the control drawer.
 			*
 			* @type {Boolean}
 			* @default false
@@ -138,12 +137,12 @@
 		handlers: {
 
 			/**
-			* Handler for initial rendering event
+			* Handler for initial rendering event.
 			*/
 			onDrawersRendered: 'drawersRendered',
 
 			/**
-			* Handler for initial resizing event to size drawers to full screen
+			* Handler for initial resizing event to size drawers to fullscreen.
 			*/
 			onDrawersResized: 'drawersResized'
 		},
@@ -196,6 +195,10 @@
 		},
 
 		/**
+		* If [controlDrawerComponents]{@link moon.Drawer#controlDrawerComponents} is
+		* non-empty, toggles the visibility state of the control drawer; otherwise,
+		* toggles the visibility state of the main drawer. 
+		*
 		* @public
 		*/
 		toggleDrawer: function () {
@@ -255,9 +258,9 @@
 	});
 
 	/**
-	* `moon.FullScreenDrawer` is a content-free drawer that fills the client's
+	* {@link moon.FullScreenDrawer} is a content-free drawer that fills the client's
 	* full screen area.  It is only intended for use inside of {@link moon.Drawer}.
-	* Users should not instantiate {@link moon.FullScreenDrawer} directly.
+	* Users should not instantiate `moon.FullScreenDrawer` directly.
 	*
 	* @class moon.FullScreenDrawer
 	* @extends enyo.Drawer
@@ -294,9 +297,12 @@
 		published: {
 
 			/**
-			* An object that holds the client dimensions for the fullscreen drawer,
-			* e.g.: `drawer.setDrawerProps({height:100px});`.  This property is only
-			* intended to be used internally by {@link moon.Drawer}.
+			* An object containing the client dimensions for the fullscreen drawer,
+			* e.g.:
+			* ```
+			* drawer.setDrawerProps({height: 100px});
+			* ```
+			* This property is only intended to be used internally by {@link moon.Drawer}.
 			*
 			* @type {Object}
 			* @default null
