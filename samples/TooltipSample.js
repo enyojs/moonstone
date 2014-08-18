@@ -7,7 +7,7 @@ enyo.kind({
 			//Top row of buttons
 			{classes: "moon-5v", components:[
 				{kind: "moon.TooltipDecorator", components: [
-					{kind: "moon.Button", centered: true, content: "Left Tooltip"},
+					{kind: "moon.Button", disabled: true, centered: true, content: "Left Tooltip"},
 					{kind: "moon.Tooltip", content: "I'm a left tooltip.", position: "above"}
 				]},
 
