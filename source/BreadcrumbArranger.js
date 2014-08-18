@@ -1,25 +1,26 @@
 (function (enyo, scope) {
 	/**
 	* @typedef {Object} moon.BreadcrumbArranger~PanelInfoObject
-	* @property {Boolean} breadcrumb - reports whether panel is in breadcrumb (collapsed) form
-	* @property (Boolean) offscreen - reports whether a panel is offscreen
+	* @property {Boolean} breadcrumb - Whether panel is in breadcrumb (collapsed) form.
+	* @property {Boolean} offscreen - Whether panel is offscreen.
 	* @public
 	*/
 
 	/**
-	* `moon.BreadcrumbArranger` is an {@link enyo.Arranger} that displays the active control, along
-	* with some number of breadcrumbs on the right side. This is the default arranger for both the
-	* 'Always Viewing' and 'Activity' patterns; if you are using {@link moon.Panel} with either of
-	* these patterns, you don't need to specify an arranger explicitly.
+	* {@link moon.BreadcrumbArranger} is an {@link enyo.Arranger} that displays the active
+	* control, along with some number of breadcrumbs on the right side. This is the default
+	* arranger for both the "Always Viewing" and "Activity" patterns; if you are using
+	* {@link moon.Panel} with either of these patterns, you don't need to specify an arranger
+	* explicitly.
 	*
 	* The breadcrumbs reflect the sequence of panels that the user has already seen.
 	*
-	* Transitions between arrangements are handled by sliding the new control in from the right. If
-	* the old controls can fit within the width of the container, they will slide to the left; if
-	* not, they will collapse to the left.
+	* Transitions between arrangements are handled by sliding the new control in from the
+	* right. If the old controls can fit within the width of the container, they will slide
+	* to the left; if not, they will collapse to the left.
 	*
-	* The control's child components may be of any kind; by default, they are
-	* instances of {@link moon.Panel}.
+	* The control's child components may be of any kind; by default, they are instances of
+	* {@link moon.Panel}.
 	*
 	* ```
 	* {name: 'panels', kind: 'moon.Panels', pattern: 'alwaysviewing', classes: 'enyo-fit', components: [
@@ -61,11 +62,11 @@
 		* Returns an object containing information about the state of a given panel (identified by
 		* `panelIndex`) within a given arrangement (identified by `activeIndex`).
 		*
-		* Specifically, `moon.BreadcrumbArranger` reports whether a panel is offscreen, and whether
-		* it is in breadcrumb (collapsed) form.
+		* Specifically, {@link moon.BreadcrumbArranger} reports whether a panel is offscreen, and
+		* whether it is in breadcrumb (collapsed) form.
 		*
-		* @param {Number} panelIndex - index of the panel for which to get info
-		* @param {Number} activeIndex - index of the arranger the panel is in
+		* @param {Number} panelIndex - Index of the panel for which to get info.
+		* @param {Number} activeIndex - Index of the arranger the panel is in.
 		* @returns {moon.BreadcrumbArranger~PanelInfoObject}
 		* @public
 		*/
@@ -509,7 +510,7 @@
 		},
 
 		/**
-		* Return `true` if any panels will move in the transition from `fromIndex` to `toIndex`
+		* Returns `true` if any panels will move in the transition from `fromIndex` to `toIndex`.
 		* @private
 		*/
 		shouldArrange: function (fromIndex, toIndex) {
