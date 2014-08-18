@@ -14,7 +14,7 @@ enyo.kind({
 				{kind: 'moon.Button', small: true, content: 'How to use', ontap: 'howToUseMedium'}
 			]},
 			{classes: 'moon-1v'},
-			{kind: 'moon.Header', name: 'smallHeader', content: 'Small Header', type: 'small', titleAbove: '04', titleBelow: 'Sub Header', subTitleBelow: 'Sub-sub Header', components: [
+			{kind: 'moon.Header', name: 'smallHeader', content: 'Small Header', type: 'small', titleAbove: '04', subTitle: "Sub Title", titleBelow: 'Sub Header', subTitleBelow: 'Sub-sub Header', components: [
 				{kind: 'moon.Button', small: true, content: 'Description', ontap: 'describeSmall'},
 				{kind: 'moon.Button', small: true, content: 'How to use', ontap: 'howToUseSmall'}
 			]},

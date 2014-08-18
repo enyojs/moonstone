@@ -61,6 +61,15 @@
 			title: '',
 
 			/**
+			* Sub Title of the small header.
+			*
+			* @type {String}
+			* @default ''
+			* @public
+			*/
+			subTitle: '',
+
+			/**
 			* Text above the header.
 			*
 			* @type {String}
@@ -266,10 +275,20 @@
 				name: 'titleWrapper',
 				classes: 'moon-header-title-wrapper',
 				components: [{
-					name: 'title',
-					kind: 'moon.MarqueeText',
-					classes: 'moon-header-font moon-header-title',
-					canGenerate: false
+					kind: "moon.MarqueeDecorator",
+					marqueeOnSpotlight: true,
+					components: [{
+						name: 'title',
+						kind: 'moon.MarqueeText',
+						classes: 'moon-header-font moon-header-title',						
+						spotlight: true,
+						canGenerate: false
+					}, {
+						name: 'subTitle',
+						kind: 'moon.MarqueeText',
+						spotlight: true,
+						classes: 'moon-header-sub-title'
+					}]
 				}, {
 					name: 'inputDecorator',
 					kind: 'moon.InputDecorator',
@@ -317,6 +336,7 @@
 			this.smallChanged();
 			this.typeChanged();
 			this.titleChanged();
+			this.subTitleChanged();
 			this.titleAboveChanged();
 			this.titleBelowChanged();
 			this.subTitleBelowChanged();
@@ -645,6 +665,15 @@
 		*/
 		titleUpperCaseChanged: function () {
 			this.titleChanged();
+		},
+
+		/**
+		* @private
+		*/
+		subTitleChanged: function () {
+			if(this.type === 'small'){
+				this.$.subTitle.setContent(this.subTitle);
+			}
 		},
 
 		/**
