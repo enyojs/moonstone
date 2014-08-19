@@ -177,7 +177,7 @@
 			// FIXME: TranslateScrollStrategy doesn't work with the current design of this component so
 			// we're forcing TouchScrollStrategy
 			{kind: 'enyo.Scroller', strategyKind: 'TouchScrollStrategy', thumb:false, touch:true, useMouseWheel: false, classes: 'moon-scroll-picker', components:[
-				{name:'repeater', kind:'enyo.FlyweightRepeater', classes: 'list', ondragstart: 'dragstart', onSetupItem: 'setupItem', noSelect: true, components: [
+				{name:'repeater', kind:'enyo.FlyweightRepeater', classes: 'moon-scroll-picker-repeater', ondragstart: 'dragstart', onSetupItem: 'setupItem', noSelect: true, components: [
 					{name: 'item', classes: 'moon-scroll-picker-item'}
 				]}
 			]},

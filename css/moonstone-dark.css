@@ -844,11 +844,11 @@
 .moon-simple-integer-picker {
   padding: 0 60px;
 }
-.moon-simple-integer-picker .list {
+.moon-simple-integer-picker .moon-scroll-picker-repeater {
   width: 100%;
   white-space: nowrap;
 }
-.moon-simple-integer-picker .list > * {
+.moon-simple-integer-picker .moon-scroll-picker-repeater > * {
   display: inline-block;
 }
 .moon-simple-integer-picker .moon-scroll-picker {
