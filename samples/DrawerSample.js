@@ -47,10 +47,10 @@ enyo.kind({
 						{title: "First Panel", classes: "moon-7h", components: [
 							{kind: "moon.Scroller", horizontal: "hidden", classes: "enyo-fill", components: [
 								{kind: "moon.ExpandablePicker", onChange: "pickerChangedImg", content: "Select Image", components: [
-									{content: "Music",value: "assets/drawer_icon.png"},
-									{content: "LG", value: "assets/lg.png"},
-									{content: "HTML5", value: "assets/html5.png"},
-									{content: "CSS3", value: "assets/css3.png"},
+									{content: "Music",value: "$lib/moonstone/samples/assets/drawer_icon.png"},
+									{content: "LG", value: "$lib/moonstone/samples/assets/lg.png"},
+									{content: "HTML5", value: "$lib/moonstone/samples/assets/html5.png"},
+									{content: "CSS3", value: "$lib/moonstone/samples/assets/css3.png"},
 									{content: "Default", value: "", active: true}
 								]},
 								{kind: "moon.ExpandablePicker", onChange: "pickerChangedIcon", content: "Select Icon", components: [
