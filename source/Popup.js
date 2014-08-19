@@ -29,7 +29,7 @@
 		/**
 		* @private
 		*/
-		classes: 'moon-neutral enyo-unselectable moon-popup',
+		classes: 'moon moon-neutral enyo-unselectable moon-popup',
 
 		/**
 		* @private
