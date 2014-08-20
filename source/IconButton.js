@@ -123,8 +123,15 @@
 		*/
 		create: function () {
 			this.inherited(arguments);
-			this.activeChanged();
 			this.noBackgroundChanged();
+		},
+
+		/**
+		* @private
+		*/
+		rendered: function () {
+			this.inherited(arguments);
+			this.activeChanged();
 		},
 
 		/**

@@ -118,7 +118,7 @@
 		*/
 		_selectionScrim: [
 			{classes: 'enyo-fit moon-selection-overlay-support-scrim', components: [
-				{name:'selectionScrimIcon', kind: 'moon.IconButton', small: false, icon: "check", spotlight: false}
+				{name:'selectionScrimIcon', kind: 'moon.Icon', small: false, icon: "check", spotlight: false}
 			]}
 		],
 
