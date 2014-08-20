@@ -159,11 +159,7 @@
 		* @private
 		*/
 		requestShow: function (inSender, inEvent) {
-			// if onRequestShowTooltip is generated from moon.ListAction
-			// it must have activator
-			if (inSender.$.activator) {
-				this.activator = inSender.$.activator;
-			}
+			this.activator = inSender;
 			this.startJob('showJob', 'show', this.showDelay);
 			return true;
 		},
