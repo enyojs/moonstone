@@ -105,6 +105,7 @@
 				if (oEvent.keyCode == 13) {
 					if (this._bFocused) {
 						this.blur();
+						enyo.Spotlight.unspot();
 					}
 				}
 			}
