@@ -7,7 +7,7 @@ enyo.kind({
 			//Top row of buttons
 			{classes: "moon-5v", components:[
 				{kind: "moon.TooltipDecorator", components: [
-					{kind: "moon.Button", centered: true, content: "Left Tooltip"},
+					{kind: "moon.Button", disabled: true, centered: true, content: "Left Tooltip"},
 					{kind: "moon.Tooltip", content: "I'm a left tooltip.", position: "above"}
 				]},
 
@@ -24,7 +24,7 @@ enyo.kind({
 				]},
 
 				{kind: "moon.TooltipDecorator", style: "float: right", components: [
-					{kind: "moon.Button", small: true, content: "Item with Right Floating Tooltip"},
+					{kind: "moon.Button", disabled: true, small: true, content: "Item with Right Floating Tooltip"},
 					{name: "toolTipFloating", floating: true, kind: "moon.Tooltip", content: "I'm a right floating text tooltip", position: "above"}
 				]}
 			]},
