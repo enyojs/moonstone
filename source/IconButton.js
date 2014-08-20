@@ -128,9 +128,7 @@
 		*/
 		rendered: function () {
 			this.inherited(arguments);
-			if (this.hasOwnProperty("active")) {
-				this.activeChanged();
-			}
+			this.activeChanged();
 		},
 
 		/**

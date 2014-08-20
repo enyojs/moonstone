@@ -4976,17 +4976,18 @@
   display: block;
   text-align: center;
 }
-.selection-enabled .moon-selection-overlay-support.selected .moon-selection-overlay-support-scrim .moon-icon-button {
+.selection-enabled .moon-selection-overlay-support.selected .moon-selection-overlay-support-scrim .moon-icon {
   position: absolute;
   width: 60px;
   height: 60px;
-  line-height: 50px;
+  line-height: 60px;
   font-size: 72px;
   color: #cf0652;
   margin: -30px 0 0 -30px;
   background-color: #ffffff;
   border-color: #ffffff;
   background-size: 50px 50px;
+  border-radius: 30px;
 }
 .moon-selection-overlay-support-scrim {
   display: none;
