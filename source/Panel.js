@@ -233,7 +233,8 @@
 				]}
 			]},
 
-			{name: 'animator', kind: 'enyo.StyleAnimator', onComplete: 'animationComplete'}
+			{name: 'animator', kind: 'enyo.StyleAnimator', onComplete: 'animationComplete'},
+			{name: "spotlightDummy", spotlight: false, style: "width:0;height:0;"}
 		],
 
 		/**
@@ -379,14 +380,10 @@
 				}
 				else {
 					this.spotlightDisabled = false;
-					if (this._spotlightDummy) {
-						this._spotlightDummy.destroy();
-						this._spotlightDummy = null;
-					}
+					this.$.spotlightDummy.spotlight = false;
 					if (!enyo.Spotlight.isSpottable(this)) {
-						// Create dummy div if there is no spottable child on panel
-						this._spotlightDummy = this.createComponent({name: "spotlightDummy", spotlight: true, style: "width:0;height:0;"});
-						if (this._spotlightDummy) this._spotlightDummy.render();
+						// make dummy div spottable if there is no spottable child
+						this.$.spotlightDummy.spotlight = true;
 					}
 				}
 			}
