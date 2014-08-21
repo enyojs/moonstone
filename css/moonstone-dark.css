@@ -4952,9 +4952,8 @@
   color: #cf0652;
   margin: -30px 0 0 -30px;
   background-color: #ffffff;
-  border-color: #ffffff;
-  background-size: 50px 50px;
   border-radius: 30px;
+  background-position: center 5px;
 }
 .moon-selection-overlay-support-scrim {
   display: none;
