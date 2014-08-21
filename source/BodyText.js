@@ -66,7 +66,7 @@
 		contentChanged: function () {
 			this.inherited(arguments);
 			this.detectTextDirectionality();
-			if (this.hasNode()) this.bubble('onRequestSetupBounds');
+			if (this.hasNode()) { this.bubble('onRequestSetupBounds'); }
 		},
 
 		/**
