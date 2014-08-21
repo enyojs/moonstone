@@ -267,7 +267,11 @@
 		* @private
 		*/
 		components: [{
+			name: 'client',
+			classes: 'moon-hspacing moon-header-client'
+		}, {
 			name: 'texts',
+			classes: 'moon-header-texts',
 			components: [{
 				name: 'titleAbove',
 				classes: 'moon-super-header-text moon-header-title-above'
@@ -275,20 +279,10 @@
 				name: 'titleWrapper',
 				classes: 'moon-header-title-wrapper',
 				components: [{
-					kind: "moon.MarqueeDecorator",
-					marqueeOnSpotlight: true,
-					components: [{
-						name: 'title',
-						kind: 'moon.MarqueeText',
-						classes: 'moon-header-font moon-header-title',						
-						spotlight: true,
-						canGenerate: false
-					}, {
-						name: 'subTitle',
-						kind: 'moon.MarqueeText',
-						spotlight: true,
-						classes: 'moon-header-sub-title'
-					}]
+					name: 'title',
+					kind: 'moon.MarqueeText',
+					classes: 'moon-header-font moon-header-title',	
+					canGenerate: false
 				}, {
 					name: 'inputDecorator',
 					kind: 'moon.InputDecorator',
@@ -309,9 +303,6 @@
 				kind: 'moon.MarqueeText',
 				classes: 'moon-header-sub-title-below'
 			}]
-		}, {
-			name: 'client',
-			classes: 'moon-hspacing moon-header-client'
 		}, {
 			name: 'animator',
 			kind: 'enyo.StyleAnimator',
@@ -352,7 +343,7 @@
 		* @private
 		*/
 		allowHtmlChanged: function () {
-			this.$.title.setAllowHtml(this.allowHtml);
+			this.$.title.setAllowHtml( this.getType() == 'small' ? true : this.allowHtml );
 			this.$.titleBelow.setAllowHtml(this.allowHtml);
 			this.$.subTitleBelow.setAllowHtml(this.allowHtml);
 		},
@@ -618,6 +609,7 @@
 				this.addClass('moon-small-header');
 				break;
 			}
+			this.contentChanged();
 		},
 
 		/**
@@ -634,9 +626,15 @@
 		* @private
 		*/
 		contentChanged: function () {
-			this.$.title.setContent(this.getTitleUpperCase()
-					? enyo.toUpperCase(this.title || this.content)
-					: (this.title || this.content) );
+			var title = this.getTitleUpperCase()
+						? enyo.toUpperCase(this.title || this.content)
+						: (this.title || this.content);
+			if(this.getType() == 'small' && this.subTitle) {
+				this.$.title.setAllowHtml( this.getType() == 'small' ? true : this.allowHtml );
+				this.$.title.setContent(title + '<div class=\'moon-header-sub-title-gap\'></div>' + '<span class=\'moon-header-sub-title\'>' + this.subTitle + '</span>');
+			} else {
+				this.$.title.setContent(title);
+			}
 			this.placeholderChanged();
 		},
 
@@ -671,9 +669,7 @@
 		* @private
 		*/
 		subTitleChanged: function () {
-			if(this.type === 'small'){
-				this.$.subTitle.setContent(this.subTitle);
-			}
+			this.contentChanged();
 		},
 
 		/**
