@@ -305,6 +305,12 @@
 			this.updateOverlays();
 		},
 
+		stepChanged: function (old) {
+			var step = parseInt(this.step, 10);
+			this.step = isNaN(step)? 1 : step;
+			this.valueChanged(this.value);
+		},
+
 		/**
 		* @private
 		*/
