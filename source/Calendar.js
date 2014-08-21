@@ -749,9 +749,6 @@
 		*/
 		updateDays: function () {
 			var daysControls = this.$.days.getClientControls();
-			var dayOfWeekNames = (typeof ilib !== 'undefined') ? 
-					this._tf.getDaysOfWeek({length: this.dayOfWeekLength}) : 
-					this.days;
 			for(var i = 0; i < 7; i++) {
 				if (typeof ilib !== 'undefined') {
 					var date = ilib.Date.newInstance({
