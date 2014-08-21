@@ -538,7 +538,7 @@
 		* @private
 		*/
 		observers: {
-			_marquee_contentChanged: ['content'],
+			_marquee_contentChanged: ['content', 'highlight'],
 			_marquee_centeredChanged: ['centered'],
 			_marquee_wrapInsteadOfMarqueeChanged: ["wrapInsteadOfMarquee"]
 		},
@@ -645,6 +645,10 @@
 		_marquee_contentChanged: function () {
 			this.detectTextDirectionality();
 			if (this.$.marqueeText) {
+				if (this.$.marqueeText.search !== this.search) {
+					this.$.marqueeText.search = this.search;
+					this.$.marqueeText.setContent('');
+				}
 				this.$.marqueeText.setContent(this.content);
 			}
 			this._marquee_reset();
