@@ -1661,10 +1661,30 @@
   /* fallback in case text-align:end isn't supported */
   text-align: end;
   /* CSS3 for RTL support */
+  z-index: 1;
+  /* Fixme: Inverse component stack order */
+}
+.moon-small-header .moon-header-client {
+  position: relative;
+  float: right;
+  bottom: 0;
+  padding-top: 30px;
+  margin-left: 40px;
+}
+.enyo-locale-right-to-left .moon-small-header .moon-header-client {
+  float: left;
+  margin-left: 0;
+  margin-right: 40px;
 }
 .full-bleed .moon-header-client {
   left: 20px;
   right: 20px;
+}
+.full-bleed.moon-small-header .moon-header-client {
+  margin-right: 20px;
+}
+.enyo-locale-right-to-left .full-bleed.moon-small-header .moon-header-client {
+  margin-left: 20px;
 }
 .moon-header-client > * {
   text-align: left;
@@ -1725,6 +1745,13 @@
   font-size: 60px;
   height: 84px;
 }
+.moon-header-sub-title {
+  font-size: 27px;
+}
+.moon-header-sub-title-gap {
+  display: inline-block;
+  width: 40px;
+}
 .enyo-locale-non-latin .moon-small-header .moon-header-title {
   line-height: 1.5em;
 }
@@ -1747,10 +1774,10 @@
   opacity: 0;
   margin-top: 0;
 }
-.moon-header-left {
+.moon-header:not(.moon-small-header):not(.moon-medium-header) .moon-header-left {
   float: left;
 }
-.enyo-locale-right-to-left .moon-header-left {
+.enyo-locale-right-to-left .moon-header:not(.moon-small-header):not(.moon-medium-header) .moon-header-left {
   float: right;
 }
 /*
