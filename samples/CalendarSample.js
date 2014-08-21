@@ -20,14 +20,14 @@ enyo.kind({
 				{classes:"moon-7h", components: [
 					{kind: "moon.DatePicker", name: "picker", noneText: "Pick a Date", content: "Pick a Date"},
 					{kind: "moon.ExpandablePicker", name:"localePicker", noneText: "No Language Selected", content: "Choose Locale", onChange: "setLocale", components: [
-						{content: "en-US", active:true}, //United States, firstDayOfWeek: 1
-						{content: "th-TH"},	// Thailand, thaisolar calendar
-						{content: "fa-IR"},	// Iran, persian calendar
-						{content: "en-CA"},	// Canada, firstDayOfWeek: 0
-						{content: "ko-KR"}, // Korea, firstDayOfWeek: 0
-						{content: "ar-AE"}, // United Arab Emirates, firstDayOfWeek: 6
-						{content: "en-AG"}, // Antigua and Barbuda, firstDayOfWeek: 0
-						{content: "it-CH"},	// Italian/Switzerland
+						{content: "en-US", active:true}, //United States, firstDayOfWeek: 0
+						{content: "th-TH"}, //Thailand
+						{content: "en-CA"}, //Canada, firstDayOfWeek: 0
+						{content: "ko-KO"}, //Korea, firstDayOfWeek: 1
+						{content: "und-AE"}, //United Arab Emirates, firstDayOfWeek: 6
+						{content: "und-AG"}, //Antigua and Barbuda, firstDayOfWeek: 0
+						{content: "und-CA"}, //Canada, firstDayOfWeek: 0
+						{content: "it-CH"}, //Italian
 						{content: "en-MX"},
 						{content: "de-DE"}, // Germany, firstDayOfWeek: 1
 						{content: "fr-FR"}, // France, firstDayOfWeek: 1
@@ -123,11 +123,11 @@ enyo.kind({
 	removeLabelItem: function (inControl, inEvent, inLabelName1, inLabelName2) {
 		var i,
 			c = inControl.getClientControls();
-			for (i=0; i<c.length; i++) {
-				if (c[i].content == inLabelName1) {
-					c[i].addRemoveClass("moon-calendar-dow-lable-nodisplay", Boolean(inEvent.content == inLabelName2));
-				}
+		for (i = 0; i < c.length; i++) {
+			if (c[i].content == inLabelName1) {
+				c[i].addRemoveClass("moon-calendar-dow-lable-nodisplay", Boolean(inEvent.content == inLabelName2));
 			}
+		}
 	},
 	changed: function(inSender, inEvent) {
 		if (this.$.result && inEvent.value) {

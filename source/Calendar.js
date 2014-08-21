@@ -742,16 +742,28 @@
 		* means Sunday and `'1'` means Monday.
 		* An offset is applied to make the displayed day names behave as expected.
 		*
+		* Reference date is the 1st of JAN 1584. It is the 2nd year of gregorian calendar.
+		* And it is Sunday.
+		*
 		* @private
 		*/
 		updateDays: function () {
 			var daysControls = this.$.days.getClientControls();
-			var dayOfWeekNames = (typeof ilib !== 'undefined') ? 
-					this._tf.getDaysOfWeek({length: this.dayOfWeekLength}) : 
-					this.days;
 			for(var i = 0; i < 7; i++) {
-				var dow = (this.firstDayOfWeek + i) % 7;
-				daysControls[i].setContent(dayOfWeekNames[dow]);
+				if (typeof ilib !== 'undefined') {
+					var date = ilib.Date.newInstance({
+						type: this._tf.getCalendar(),
+						year: 1584,
+						month: 1,
+						day:  1 + i + this.getFirstDayOfWeek(),
+						hour: 12,
+						locale: this.locale
+					});
+					var day = this._tf.format(date);
+					daysControls[i].setContent(enyo.toUpperCase(day));
+				} else {
+					daysControls[i].setContent(this.days[(this.firstDayOfWeek + i) % 7]);
+				}
 			}
 		},
 
