@@ -242,7 +242,8 @@
 				]}
 			]},
 
-			{name: 'animator', kind: 'enyo.StyleAnimator', onComplete: 'animationComplete'}
+			{name: 'animator', kind: 'enyo.StyleAnimator', onComplete: 'animationComplete'},
+			{name: 'spotlightDummy', spotlight: false, style: 'width:0;height:0;'}
 		],
 
 		/**
@@ -388,6 +389,11 @@
 				}
 				else {
 					this.spotlightDisabled = false;
+					this.$.spotlightDummy.spotlight = false;
+					if (!enyo.Spotlight.isSpottable(this)) {
+						// make dummy div spottable if there is no spottable child
+						this.$.spotlightDummy.spotlight = true;
+					}
 				}
 			}
 		},
