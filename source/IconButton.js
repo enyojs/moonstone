@@ -1,19 +1,21 @@
 (function (enyo, scope) {
 	/**
-	* `moon.IconButton` is an icon that acts like a button. Specify the icon image
-	* by setting the {@link moon.Icon#src} property to a URL indicating the image file's location.
+	* {@link moon.IconButton} is a {@link moon.Icon} that acts like a button. Specify
+	* the icon image by setting the [src]{@link moon.Icon#src} property to a URL
+	* indicating the image file's location.
 	*
 	* ```
 	* {kind: 'moon.IconButton', src: 'images/search.png'}
 	* ```
 	*
 	* If you want to combine an icon with text inside of a button, use a
-	* [`moon.Icon`]{@link moon.Icon} inside a [`moon.Button`]{@link moon.Button}.
+	* `moon.Icon` inside a {@link moon.Button}.
 	*
-	* Moonstone supports two methods for displaying icons; in addition to using traditional image
-	* assets specified in [`src`]{@link moon.Icon#src}, you may use icons that are stored as single
+	* Moonstone supports two methods for displaying icons; in addition to specifying
+	* traditional image assets in `src`, you may use icons that are stored as single
 	* characters in a special symbol font. To do this, set the value of the
-	* [`icon`]{@link moon.Icon#icon} property to a string representing an icon name, e.g.:
+	* [icon]{@link moon.Icon#icon} property to a string representing an icon name,
+	* e.g.:
 	*
 	* ```
 	* {kind: 'moon.IconButton', icon: 'closex'}
@@ -23,8 +25,8 @@
 	* `css/moonstone-icons.less`. Each mapping associates an icon name with the icon
 	* font's corresponding character or symbol.
 	*
-	* See [`moon.Icon`]{@link moon.Icon} for more information on the available font-based
-	* icons, as well as specifications for icon image assets.
+	* See {@link moon.Icon} for more information on the available font-based icons,
+	* as well as specifications for icon image assets.
 	*
 	* @class moon.IconButton
 	* @extends moon.Icon
@@ -51,9 +53,9 @@
 		published: {
 
 			/**
-			* Used when the IconButton is part of an [`enyo.Group`]{@link enyo.Group}.
-			* A value of `true` indicates that this is the active button of the group;
-			* `false`, that it is not the active button.
+			* Used when the IconButton is part of an {@link enyo.Group}. A value of `true`
+			* indicates that this is the active button of the group; `false`, that it is not
+			* the active button.
 			*
 			* @type {Boolean}
 			* @default false
@@ -74,7 +76,7 @@
 			small: true,
 
 			/**
-			* When `true`, the button will have no rounded background color/border
+			* If `true`, the button will have no rounded background color/border.
 			*
 			* @type {Boolean}
 			* @default false
@@ -99,17 +101,17 @@
 		handlers: {
 
 			/**
-			* onSpotlightSelect simulates mousedown
+			* Simulates mousedown.
 			*/
 			onSpotlightKeyDown: 'depress',
 
 			/**
-			* onSpotlightKeyUp simulates mouseup
+			* Simulates mouseup.
 			*/
 			onSpotlightKeyUp: 'undepress',
 
 			/**
-			* used to request it is in view in scrollers
+			* Used to request it is in view in scrollers.
 			*/
 			onSpotlightFocused: 'spotlightFocused',
 
@@ -121,8 +123,15 @@
 		*/
 		create: function () {
 			this.inherited(arguments);
-			this.activeChanged();
 			this.noBackgroundChanged();
+		},
+
+		/**
+		* @private
+		*/
+		rendered: function () {
+			this.inherited(arguments);
+			this.activeChanged();
 		},
 
 		/**
@@ -180,4 +189,3 @@
 	});
 
 })(enyo, this);
-

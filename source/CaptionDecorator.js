@@ -1,7 +1,7 @@
 (function (enyo, scope) {
 	/**
-	* `moon.CaptionDecorator` wraps a control with a caption. The position of the
-	* caption is defined via the [`side`]{@link moon.CaptionDecorator#side} property.
+	* {@link moon.CaptionDecorator} wraps a control with a caption. The position of the
+	* caption is defined via the [side]{@link moon.CaptionDecorator#side} property.
 	*
 	* ```
 	* 	{kind: 'moon.CaptionDecorator', side: 'top', content: 'Top Label', components: [
@@ -10,7 +10,7 @@
 	* ```
 	*
 	* @class moon.CaptionDecorator
-	@ @extends enyo.Control
+	* @extends enyo.Control
 	* @ui
 	* @public
 	*/
@@ -38,7 +38,7 @@
 
 			/**
 			* The position of the caption with respect to the wrapped control; valid
-			* values are `'top'`, `'bottom'`, `'left'`, and `'right'`
+			* values are `'top'`, `'bottom'`, `'left'`, and `'right'`.
 			*
 			* @type {String}
 			* @default 'top'
@@ -48,7 +48,7 @@
 
 			/**
 			* If `true`, the caption is only shown when the wrapped control has Spotlight
-			* focus; otherwise, it is always visible
+			* focus; otherwise, it is always visible.
 			*
 			* @type {Boolean}
 			* @default false
@@ -103,7 +103,8 @@
 		},
 
 		/**
-		* If `this.showOnFocus` is `true`, reset caption position on reflow
+		* If [showOnFocus]{@link moon.CaptionDecorator#showOnFocus} is `true`, caption
+		* position is reset on reflow.
 		*
 		* @private
 		*/
@@ -116,7 +117,7 @@
 		},
 
 		/**
-		* If `this.showOnFocus` is `true`, reset caption position on reflow
+		* Retrieves [side]{@link moon.CaptionDecorator#side} value.
 		*
 		* @private
 		*/
@@ -174,7 +175,8 @@
 		// Event handlers
 
 		/**
-		* Add spotlight class when button is focused, and calculate caption position if required
+		* Adds `spotlight` class when button is focused, and calculates caption position
+		* if required.
 		*
 		* @private
 		*/
@@ -187,7 +189,7 @@
 		},
 
 		/**
-		* Remove spotlight class when button is blurred
+		* Removes `spotlight` class when button is blurred.
 		*
 		* @private
 		*/
@@ -198,7 +200,7 @@
 		// Caption positioning
 
 		/**
-		* Return current caption control
+		* Returns current caption control.
 		*
 		* @private
 		*/
@@ -207,7 +209,7 @@
 		},
 
 		/**
-		* Reset cached position values and reposition caption if currently spotted
+		* Resets cached position values and repositions caption if currently spotted.
 		*
 		* @private
 		*/
@@ -221,7 +223,7 @@
 		},
 
 		/**
-		* Position caption based on the value of `this.side`
+		* Positions caption based on the value of [side]{@link moon.CaptionDecorator#side}.
 		*
 		* @private
 		*/
@@ -257,7 +259,7 @@
 		},
 
 		/**
-		* Center caption control vertically relative to `this.decoratorBounds.height`
+		* Centers caption control vertically, relative to `this.decoratorBounds.height`.
 		*
 		* @private
 		*/
@@ -266,7 +268,7 @@
 		},
 
 		/**
-		* Center caption control horizontally relative to `this.decoratorBounds.width`
+		* Centers caption control horizontally, relative to `this.decoratorBounds.width`.
 		*
 		* @private
 		*/
@@ -275,7 +277,7 @@
 		},
 
 		/**
-		* Position caption at left edge of `this.$.client`
+		* Positions caption at left edge of `this.$.client`.
 		*
 		* @private
 		*/
@@ -285,7 +287,7 @@
 		},
 
 		/**
-		* Position caption at right edge of `this.$.client`
+		* Positions caption at right edge of `this.$.client`.
 		*
 		* @private
 		*/
@@ -295,7 +297,7 @@
 		},
 
 		/**
-		* Position caption at top edge of `this.$.client`
+		* Positions caption at top edge of `this.$.client`.
 		*
 		* @private
 		*/
@@ -305,7 +307,7 @@
 		},
 
 		/**
-		* Position caption at bottom edge of `this.$.client`
+		* Positions caption at bottom edge of `this.$.client`.
 		*
 		* @private
 		*/
@@ -315,7 +317,7 @@
 		},
 
 		/**
-		* Cache result from `this.getBounds()` call and save in `this.decoratorBounds`
+		* Caches result from `this.getBounds()` call, saving in `this.decoratorBounds`.
 		*
 		* @private
 		*/
@@ -325,7 +327,7 @@
 		},
 
 		/**
-		* Cache caption bounds and save in `this.captionBounds`
+		* Caches caption bounds, saving in `this.captionBounds`.
 		*
 		* @private
 		*/
@@ -335,7 +337,7 @@
 		},
 
 		/**
-		* Cache client bounds and save in `this.clientBounds`
+		* Caches client bounds, saving in `this.clientBounds`.
 		*
 		* @private
 		*/
@@ -345,7 +347,7 @@
 		},
 
 		/**
-		* Clear cached bounds
+		* Clears cached bounds.
 		*
 		* @private
 		*/
@@ -356,7 +358,7 @@
 		},
 
 		/**
-		* Return margins of caption control
+		* Returns margins of caption control.
 		*
 		* @private
 		*/

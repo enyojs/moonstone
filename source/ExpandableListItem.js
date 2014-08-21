@@ -1,13 +1,12 @@
 (function (enyo, scope) {
 	/**
-	* `moon.ExpandableListItem`, which extends [`moon.Item`]{@link moon.Item}, displays a
-	* header while also allowing additional content to be stored in an
-	* [`enyo.Drawer`]{@link enyo.Drawer}. When the header is selected, the drawer opens
-	* below. To close the drawer, tap on the header text or navigate (via 5-way)
-	* back to the top of the drawer.
+	* {@link moon.ExpandableListItem}, which extends {@link moon.Item}, displays a header
+	* while also allowing additional content to be stored in an {@link enyo.Drawer}. When
+	* the header is selected, the drawer opens below. To close the drawer, tap on the
+	* header text or navigate (via 5-way) back to the top of the drawer.
 	*
 	* The control's child components may be of any kind; by default, they are
-	* instances of {@link moon.Item}.
+	* instances of `moon.Item`.
 	*
 	* ```
 	* 		{kind: 'moon.ExpandableListItem', content: 'A Countries', components: [
@@ -72,7 +71,7 @@
 
 			/**
 			* If `true`, the drawer automatically closes when the user navigates to the top of the
-			* control. If `false`, the user must select/tap the header to close the drawer.
+			* control; if `false`, the user must select/tap the header to close the drawer.
 			*
 			* @type {Boolean}
 			* @default false
@@ -82,7 +81,8 @@
 
 			/**
 			* If `true`, the drawer is expanded, showing this item's contents. Use this property
-			* (rather than {@link moon.ExpandableListItem#active}) to set the item's initial state.
+			* (rather than [active]{@link moon.ExpandableListItem#active}) to set the item's
+			* initial state.
 			*
 			* @type {Boolean}
 			* @default false
@@ -91,12 +91,10 @@
 			open: false,
 
 			/**
-			* Boolean that reflects the value of the {@link moon.ExpandableListItem#open} property;
-			* it is used to support the {@link enyo.Group} API for grouping a set of
-			* ExpandableListItems in which only one is expanded at a time. Note that the
-			* {@link moon.ExpandableListItem#open} property (not the
-			* {@link moon.ExpandableListItem#active} property) controls the initial state of the
-			* picker.
+			* Boolean that reflects the value of the [open]{@link moon.ExpandableListItem#open}
+			* property; it is used to support the {@link enyo.Group} API for grouping a set of
+			* ExpandableListItems in which only one is expanded at a time. Note that the `open`
+			* property (not the `active` property) controls the initial state of the picker.
 			*
 			* @type {Boolean}
 			* @default false
@@ -105,8 +103,8 @@
 			active: false,
 
 			/**
-			* If `true`, the user is prevented from moving spotlight past the bottom of
-			* the drawer (when open) using five-way controls
+			* If `true`, the user is prevented from moving {@glossary Spotlight} past the bottom
+			* of the drawer (when open) using 5-way controls.
 			*
 			* @type {Boolean}
 			* @default false
@@ -115,7 +113,7 @@
 			lockBottom: false,
 
 			/**
-			* When `true`, item is shown as disabled and does not generate tap events
+			* If `true`, item is shown as disabled and does not generate tap events.
 			*
 			* @type {Boolean}
 			* @default false
@@ -180,7 +178,7 @@
 		},
 
 		/**
-		* Facade for header content
+		* Facade for header content.
 		*
 		* @private
 		*/
@@ -189,7 +187,7 @@
 		},
 
 		/**
-		* Facade for drawer
+		* Facade for drawer.
 		*
 		* @private
 		*/
@@ -252,7 +250,7 @@
 
 		/**
 		* If drawer is currently open, and event was sent via keypress (i.e., it has a direction),
-		* process header focus
+		* process header focus.
 		*
 		* @fires moon.Scroller#onRequestScrollIntoView
 		* @private
@@ -271,7 +269,7 @@
 
 		/**
 		* Check for the last item in the client area, and prevent 5-way focus movement below it,
-		* per UX specs
+		* per UX specs.
 		*
 		* @private
 		*/

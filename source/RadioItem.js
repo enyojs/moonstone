@@ -1,7 +1,7 @@
 (function (enyo, scope) {
 	/**
-	* `moon.RadioItem` is a modified [`moon.Item`]{@link moon.Item} control designed for use inside
-	* a [`moon.RadioItemGroup`]{@link moon.RadioItemGroup}.
+	* {@link moon.RadioItem} is a modified {@link moon.Item} designed for use inside
+	* a {@link moon.RadioItemGroup}.
 	*
 	* For more information, see the documentation on
 	* [Radio Items]{@link building-apps/controls/radio-items.html} in the Enyo Developer Guide.

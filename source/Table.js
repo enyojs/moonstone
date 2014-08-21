@@ -1,6 +1,6 @@
 (function (enyo, scope) {
 	/**
-	* `moon.Table` extends [`enyo.Table`]{@link enyo.Table}, adding Moonstone visual styling.
+	* {@link moon.Table} extends {@link enyo.Table}, adding Moonstone visual styling.
 	*
 	* @class moon.Table
 	* @extends enyo.Table
@@ -32,7 +32,7 @@
 	});
 
 	/**
-	* `moon.TableRow` extends [`enyo.TableRow`]{@link enyo.TableRow}, adding Moonstone visual
+	* {@link moon.TableRow} extends {@link enyo.TableRow}, adding Moonstone visual
 	* styling.
 	*
 	* @class moon.TableRow
@@ -70,7 +70,7 @@
 	});
 
 	/**
-	* `moon.TableCell` extends [`enyo.TableCell`]{@link enyo.TableCell}, adding Moonstone visual
+	* {@link moon.TableCell} extends {@link enyo.TableCell}, adding Moonstone visual
 	* styling.
 	*
 	* @class moon.TableCell

@@ -1,6 +1,6 @@
 (function (enyo, scope) {
 	/**
-	* Fires when [`disablePlaybackControls`]{@link enyo.VideoPlayer#disablePlaybackControls} 
+	* Fires when [disablePlaybackControls]{@link enyo.VideoPlayer#disablePlaybackControls} 
 	* is `true` and the user taps one of the [controls]{@link enyo.Control}; may be handled to 
 	* re-enable the controls, if desired. No event-specific information is sent with this event.
 	*
@@ -10,8 +10,8 @@
 	*/
 
 	/**
-	* Child controls can bubble this event to toggle the full-screen state of the video player. No
-	* additional data needs to be sent with this event.
+	* Child controls may bubble this event to toggle the fullscreen state of the video player.
+	* No additional data needs to be sent with this event.
 	*
 	* @event moon.VideoPlayer#onRequestFullscreen
 	* @type {Object}
@@ -19,19 +19,19 @@
 	*/
 
 	/**
-	* Child controls can bubble this event to request an update to the current video position.
+	* Child controls may bubble this event to request an update to the current video position.
 	*
 	* @event moon.VideoPlayer#onRequestTimeChange
 	* @type {Object}
-	* @property {Number} value - Requested time index
+	* @property {Number} value - Requested time index.
 	* @public
 	*/
 
 	/**
-	* `moon.VideoPlayer` is an HTML5 [video]{@glossary video} player control.  It wraps an 
-	* {@link enyo.Video} [object]{@glossary Object} to provide Moonstone-styled standard transport 
-	* [controls]{@link enyo.Control}, optional app-specific controls, and an information bar for 
-	* displaying video information and player feedback.
+	* {@link moon.VideoPlayer} is an HTML5 [video]{@glossary video} player control.  It wraps
+	* an {@link enyo.Video} [object]{@glossary Object} to provide Moonstone-styled standard
+	* transport [controls]{@link enyo.Control}, optional app-specific controls, and an information
+	* bar for displaying video information and player feedback.
 	* 
 	* All of the standard HTML5 media [events]{@glossary event} bubbled from `enyo.Video` will
 	* also bubble from this control.
@@ -42,7 +42,7 @@
 	* rendered into an "overflow" screen, reached by activating a button to the right of the
 	* controls.
 	*
-	* Client components addded to the [`infoComponents`]{@link moon.VideoPlayer#infoComponents}
+	* Client components addded to the [infoComponents]{@link moon.VideoPlayer#infoComponents}
 	* block will be created as a header for the video.
 	*
 	* ```javascript
@@ -106,7 +106,7 @@
 		published: {
 			
 			/** 
-			* URL of HTML5 video
+			* URL of HTML5 video file.
 			*
 			* @type {String}
 			* @default ''
@@ -115,7 +115,7 @@
 			src: '',
 			
 			/** 
-			* Array for setting multiple sources for the same video
+			* Array for setting multiple sources for the same video.
 			*
 			* @type {String[]}
 			* @default null
@@ -124,10 +124,10 @@
 			sources: null,
 
 			/**
-			* A [component]{@link enyo.Component} definition block describing components to be
-			* created as an information block above the video. Usually, this contains a
-			* [`moon.VideoInfoBackground`]{@link moon.VideoInfoBackground} with a
-			* [`moon.VideoInfoHeader`]{@link moon.VideoInfoHeader} in it.
+			* A [component]{@link enyo.Component} definition block describing components to
+			* be created as an information block above the video. Usually, this contains a
+			* [moon.VideoInfoBackground]{@link moon.VideoInfoBackground} with a
+			* [moon.VideoInfoHeader]{@link moon.VideoInfoHeader} in it.
 			*
 			* @type {Object}
 			* @default null
@@ -136,10 +136,10 @@
 			infoComponents: null,
 			
 			/**
-			* When `true`, the video player is resized after metadata is loaded, based on the 
-			* [`aspectRatio`]{@link moon.VideoPlayer#aspectRatio} contained in the metadata. This 
-			* applies only to [`inline`]{@link moon.VideoPlayer#inline} mode -- i.e., when 
-			* `inline: true`.
+			* If `true`, the video player is resized after metadata is loaded, based on the 
+			* [aspectRatio]{@link moon.VideoPlayer#aspectRatio} contained in the metadata. This 
+			* applies only to [inline]{@link moon.VideoPlayer#inline} mode (i.e., when 
+			* `inline` is `true`).
 			*
 			* @type {Boolean}
 			* @default false
@@ -150,10 +150,11 @@
 			/**
 			* Video aspect ratio, specified as `'width:height'`, or `'none'`.  When an aspect ratio
 			* is specified at render time, the player's height or width will be updated to respect
-			* the ratio, depending on whether [`fixedHeight`]{@link moon.VideoPlayer#fixedHeight} is
-			* `true` or `false`. If [`autoResize`]{@link moon.VideoPlayer#autoResize} is `true`, the
+			* the ratio, depending on whether [fixedHeight]{@link moon.VideoPlayer#fixedHeight} is
+			* `true` or `false`. If [autoResize]{@link moon.VideoPlayer#autoResize} is `true`, the
 			* `aspectRatio` will be updated based on the metadata for the current video and the
-			* player will be resized accordingly. This applies only to inline mode.
+			* player will be resized accordingly. This applies only to
+			* [inline]{@link moon.VideoPlayer#inline} mode.
 			*
 			* @type {String}
 			* @default '16:9'
@@ -165,8 +166,8 @@
 			* When `true`, the width will be adjusted at render time based on the observed height 
 			* and the aspect ratio. When `false` (the default), the height will be adjusted at 
 			* render time based on the observed width and the aspect ratio. This property is ignored
-			* if [`aspectRatio`]{@link moon.VideoPlayer#aspectRatio} is `'none'` or a **falsy**
-			* value.  In addition, this applies only to inline mode.
+			* if [aspectRatio]{@link moon.VideoPlayer#aspectRatio} is `'none'` or a **falsy**
+			* value.  In addition, this applies only to [inline]{@link moon.VideoPlayer#inline} mode.
 			*
 			* @type {Boolean}
 			* @default false
@@ -184,7 +185,7 @@
 			autoCloseTimeout: 7000,
 
 			/** 
-			* Duration of the video
+			* Duration of the video.
 			*
 			* @type {Number}
 			* @default 0
@@ -193,7 +194,7 @@
 			duration: 0,
 			
 			/** 
-			* When `true`, playback starts automatically when video is loaded.
+			* If `true`, playback starts automatically when video is loaded.
 			*
 			* @type {Boolean}
 			* @default false
@@ -202,8 +203,8 @@
 			autoplay: false,
 
 			/**
-			* When `false`, fullscreen video control overlays (info or transport) are not shown or 
-			* hidden automatically in response to **up/down** events.
+			* If `false`, fullscreen video control overlays (info or transport) are not shown
+			* or hidden automatically in response to `up` or `down` events.
 			*
 			* @type {Boolean}
 			* @default true
@@ -212,8 +213,8 @@
 			autoShowOverlay: true,
 
 			/**
-			* When `true`, the overlay will be shown in response to pointer movement (in addition to
-			* **up/down** events).
+			* If `true`, the overlay will be shown in response to pointer movement (in addition to
+			* `up` and `down` events).
 			*
 			* @type {Boolean}
 			* @default false
@@ -222,8 +223,8 @@
 			shakeAndWake: false,
 
 			/**
-			* When `false`, the top [`infoComponents`]{@link moon.VideoPlayer#infoComponents} are
-			* not automatically shown or hidden in response to **up** events}.
+			* If `false`, the top [infoComponents]{@link moon.VideoPlayer#infoComponents} are
+			* not automatically shown or hidden in response to `up` events.
 			*
 			* @type {Boolean}
 			* @default true
@@ -232,8 +233,8 @@
 			autoShowInfo: true,
 
 			/**
-			* When `false`, the bottom slider/controls are not automatically shown or hidden in 
-			* response to **down** events.
+			* If `false`, the bottom slider/controls are not automatically shown or hidden in 
+			* response to `down` events.
 			*
 			* @type {Boolean}
 			* @default true
@@ -242,9 +243,9 @@
 			autoShowControls: true,
 
 			/**
-			* When `true`, the top [`infoComponents`]{@link moon.VideoPlayer#infoComponents} are
-			* shown with no timeout; when `false`, they are shown based on
-			* [`autoShow`]{@link moon.VideoPlayer#autoShow} property values.
+			* When `true`, the top [infoComponents]{@link moon.VideoPlayer#infoComponents} are
+			* shown with no timeout; when `false` (the default), they are shown based on the
+			* value of the [autoShowInfo]{@link moon.VideoPlayer#autoShowInfo} property.
 			*
 			* @type {Boolean}
 			* @default false
@@ -264,7 +265,7 @@
 
 			/**
 			* Amount of time (in seconds) to jump in response to jump buttons. This value is ignored
-			* when [`jumpStartEnd`]{@link moon.VideoPlayer#jumpStartEnd} is `true`.
+			* when [jumpStartEnd]{@link moon.VideoPlayer#jumpStartEnd} is `true`.
 			*
 			* @type {Number}
 			* @default 30
@@ -273,7 +274,7 @@
 			jumpSec: 30,
 
 			/**
-			* When `true`, the jump forward and jump back buttons jump to the start and end of the 
+			* If `true`, the "jump forward" and "jump back" buttons jump to the start and end of the 
 			* video, respectively.
 			*
 			* @type {Boolean}
@@ -283,7 +284,7 @@
 			jumpStartEnd: false,
 
 			/**
-			* When `true`, popups opened from `VideoPlayer` client controls are automatically 
+			* When `true`, popups opened from the video player's client controls are automatically 
 			* hidden.
 			*
 			* @type {Boolean}
@@ -293,7 +294,7 @@
 			autoHidePopups: true,
 
 			/**
-			* When `false`, the progress bar is removed and any additional controls are moved 
+			* If `false`, the progress bar is removed and any additional controls are moved 
 			* downward.
 			*
 			* @type {Boolean}
@@ -303,7 +304,7 @@
 			showProgressBar: true,
 
 			/**
-			* When `false`, the transport controls are removed, but the icon button area is kept.
+			* If `false`, the transport controls are removed, but the icon button area is kept.
 			*
 			* @type {Boolean}
 			* @default true
@@ -321,7 +322,7 @@
 			hideButtonsOnSlider: true,
 
 			/**
-			* When `true`, the slider is disabled and will not be enabled when video data has 
+			* If `true`, the slider is disabled and will not be enabled when video data has 
 			* loaded.
 			*
 			* @type {Boolean}
@@ -330,14 +331,14 @@
 			*/
 			disableSlider: false,
 
-			/** 
-			* When `false`, the jump forward and jump back buttons are hidden.
+			/**
+			* If `false`, the "jump forward" and "jump back" buttons are hidden.
 			*
 			* @type {Boolean}
 			* @default true
 			* @public
 			*/
-			showJumpControls: true, 
+			showJumpControls: true,
 			
 			/** 
 			* When `true`, the fast-forward and rewind buttons are visible.
@@ -349,9 +350,9 @@
 			showFFRewindControls: false,
 			
 			/**
-			* When `true`, the slider and playback controls are disabled. If the user taps the 
+			* If `true`, the slider and playback controls are disabled. If the user taps the 
 			* controls, an 
-			* [`onPlaybackControlsTapped`]{@link enyo.VideoPlayer#onPlaybackControlsTapped} 
+			* [onPlaybackControlsTapped]{@link enyo.VideoPlayer#event:onPlaybackControlsTapped} 
 			* event will be bubbled.
 			*
 			* @type {Boolean}
@@ -371,7 +372,7 @@
 			disablePlaybackControlsOnUnload: true,
 
 			/** 
-			* When `false`, the Play/Pause control is hidden.
+			* If `false`, the Play/Pause control is hidden.
 			*
 			* @type {Boolean}
 			* @default true
@@ -380,7 +381,7 @@
 			showPlayPauseControl: true,
 			
 			/** 
-			* When `false`, the video element is hidden.
+			* If `false`, the video element is hidden.
 			*
 			* @type {Boolean}
 			* @default true
@@ -389,8 +390,8 @@
 			showVideo: true,
 
 			/**
-			* When `true`, a spinner is automatically shown when video is in play state but is still
-			* loading/buffering.
+			* When `true`, a spinner is automatically shown when video is in the play state but
+			* is still loading/buffering.
 			*
 			* @type {Boolean}
 			* @default true
@@ -400,7 +401,7 @@
 
 			/**
 			* Source of image file to show when video isn't available or user has not yet tapped the
-			* play button
+			* play button.
 			*
 			* @type {String}
 			* @default ''
@@ -409,7 +410,7 @@
 			poster: '',
 
 			/**
-			* When `false`, video player doesn't respond to remote controller.
+			* If `false`, video player won't respond to remote control.
 			*
 			* @type {Boolean}
 			* @default true
@@ -425,84 +426,84 @@
 			iconPath: '$lib/moonstone/images/video-player/',
 			
 			/** 
-			* Icon font or image files
+			* Name of font-based icon or image file.
 			*
 			* @private
 			*/
 			jumpBackIcon: 'skipbackward',
 
 			/** 
-			* Icon font or image files
+			* Name of font-based icon or image file.
 			*
 			* @private
 			*/
 			rewindIcon: 'backward',
 
 			/** 
-			* Icon font or image files
+			* Name of font-based icon or image file.
 			*
 			* @private
 			*/
 			playIcon: 'play',
 
 			/** 
-			* Icon font or image files
+			* Name of font-based icon or image file.
 			*
 			* @private
 			*/
 			pauseIcon: 'pause',
 
 			/** 
-			* Icon font or image files
+			* Name of font-based icon or image file.
 			*
 			* @private
 			*/
 			fastForwardIcon: 'forward',
 
 			/** 
-			* Icon font or image files
+			* Name of font-based icon or image file.
 			*
 			* @private
 			*/
 			jumpForwardIcon: 'skipforward',
 
 			/** 
-			* Icon font or image files
+			* Name of font-based icon or image file.
 			*
 			* @private
 			*/
 			moreControlsIcon: 'arrowextend',
 
 			/** 
-			* Icon font or image files
+			* Name of font-based icon or image file.
 			*
 			* @private
 			*/
 			lessControlsIcon: 'arrowshrink',
 
 			/** 
-			* Icon font or image files
+			* Name of font-based icon or image file.
 			*
 			* @private
 			*/
 			inlinePlayIcon: 'play',
 
 			/** 
-			* Icon font or image files
+			* Name of font-based icon or image file.
 			*
 			* @private
 			*/
 			inlinePauseIcon: 'pause',
 
 			/** 
-			* Icon font or image files
+			* Name of font-based icon or image file.
 			*
 			* @private
 			*/
 			inlineFullscreenIcon: 'fullscreen',
 
 			/** 
-			* Default hash of playback states and their associated playback rates
+			* Default hash of playback states and their associated playback rates.
 			* playbackRateHash: {
 			*	fastForward: ['2', '4', '8', '16'],
 			*	rewind: ['-2', '-4', '-8', '-16'],
@@ -797,7 +798,7 @@
 		/** 
 		* Returns the underlying {@link enyo.Video} control (wrapping the HTML5 video node).
 		*
-		* @returns {enyo.Video} An {@link enyo.Video} control.
+		* @returns {enyo.Video} - An {@link enyo.Video} control.
 		* @public
 		*/
 		getVideo: function() {
@@ -1139,7 +1140,7 @@
 		_sentHold: false,
 
 		/** 
-		* Returns true if any piece of the overlay is showing.
+		* Returns `true` if any piece of the overlay is showing.
 		*
 		* @private
 		*/
@@ -1161,7 +1162,7 @@
 		},
 
 		/**
-		* Sets `this.visible` to true and clears hide job.
+		* Sets `this.visible` to `true` and clears hide job.
 		*
 		* @private
 		*/
@@ -1186,7 +1187,7 @@
 		},
 
 		/**
-		* Sets `this.visible` to true and clears hide job.
+		* Sets `this.visible` to `true` and clears hide job.
 		*
 		* @private
 		*/
@@ -1236,7 +1237,7 @@
 		},
 
 		/** 
-		* Sets `this.visible` to false.
+		* Sets `this.visible` to `false`.
 		*
 		* @private
 		*/
@@ -1260,7 +1261,7 @@
 		},
 
 		/**
-		* Sets `this.visible` to true and clears hide job.
+		* Sets `this.visible` to `true` and clears hide job.
 		*
 		* @private
 		*/
@@ -1276,7 +1277,7 @@
 		},
 
 		/**
-		* Sets `this.visible` to false.
+		* Sets `this.visible` to `false`.
 		*
 		* @private
 		*/
@@ -1539,7 +1540,7 @@
 		},
 
 		/** 
-		* Plays the video
+		* Plays the video.
 		*
 		* @public
 		*/
@@ -1552,7 +1553,7 @@
 		},
 		
 		/** 
-		* Pauses the video
+		* Pauses the video.
 		*
 		* @public
 		*/
@@ -1564,7 +1565,7 @@
 		},
 		
 		/** 
-		* Changes the playback speed based upon the previous playback setting and by cycling through
+		* Changes the playback speed based on the previous playback setting, by cycling through
 		* the appropriate speeds.
 		*
 		* @public
@@ -1578,7 +1579,7 @@
 
 		/** 
 		* Jumps to beginning of media [source]{@link moon.VideoPlayer#src} and sets 
-		* [`playbackRate`]{@link enyo.Video#playbackRate} to `1`.
+		* [playbackRate]{@link enyo.Video#playbackRate} to `1`.
 		*
 		* @public
 		*/
@@ -1592,7 +1593,7 @@
 		},
 
 		/** 
-		* Jumps backward [`jumpSec`]{@link moon.VideoPlayer#jumpSec} seconds from the current time.
+		* Jumps backward [jumpSec]{@link moon.VideoPlayer#jumpSec} seconds from the current time.
 		*
 		* @public
 		*/
@@ -1603,7 +1604,7 @@
 		},
 
 		/** 
-		* Changes the playback speed based upon the previous playback setting and by cycling through
+		* Changes the playback speed based on the previous playback setting, by cycling through
 		* the appropriate speeds.
 		*
 		* @public
@@ -1617,7 +1618,7 @@
 
 		/** 
 		* Jumps to end of media [source]{@link moon.VideoPlayer#src} and sets 
-		* [`playbackRate`]{@link enyo.Video#playbackRate} to `1`.
+		* [playbackRate]{@link enyo.Video#playbackRate} to `1`.
 		*
 		* @public
 		*/
@@ -1633,7 +1634,7 @@
 		},
 
 		/** 
-		* Jumps forward [`jumpSec`]{@link moon.VideoPlayer#jumpSec} seconds from the current time.
+		* Jumps forward [jumpSec]{@link moon.VideoPlayer#jumpSec} seconds from the current time.
 		*
 		* @public
 		*/
@@ -1644,7 +1645,7 @@
 		},
 
 		/** 
-		* Sets the current time in the video
+		* Sets the current time in the video.
 		*
 		* @param {Number} val - The current time to set the video to, in seconds.
 		* @public
@@ -1731,7 +1732,7 @@
 		},
 
 		/** 
-		* Format time helper
+		* Time formatting helper.
 		*
 		* @private
 		*/
@@ -1758,7 +1759,7 @@
 		},
 		
 		/**
-		* Retrieve icons -- either through setSrc or setIcon depending on the iconType.
+		* Retrieves icons through either `setSrc()` or `setIcon()`, depending on the icon type.
 		*
 		* @private
 		*/
@@ -1803,7 +1804,7 @@
 		},
 
 		/**
-		* When _moreButton_ is tapped, toggles visibility of player controls and extra 
+		* When `moreButton` is tapped, toggles visibility of player controls and extra 
 		* functionality.
 		*
 		* @private

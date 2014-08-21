@@ -9,9 +9,8 @@
 	*/
 
 	/**
-	* `moon.ExpandableInput`, which extends
-	* [`moon.ExpandableListItem`]{@link moon.ExpandableListItem}, is a drop-down input that
-	* prompts the user to enter text.
+	* {@link moon.ExpandableInput}, which extends {@link moon.ExpandableListItem}, is a
+	* drop-down input that prompts the user to enter text.
 	*
 	* @class moon.ExpandableInput
 	* @extends moon.ExpandableListItem
@@ -52,7 +51,7 @@
 		published: {
 
 			/**
-			* Text to be displayed as the current value if no item is currently selected
+			* Text to be displayed as the current value if no item is currently selected.
 			*
 			* @type {String}
 			* @default ''
@@ -61,7 +60,7 @@
 			noneText: '',
 
 			/**
-			* Text to be displayed in the input if no text has been entered
+			* Text to be displayed in the input if no text has been entered.
 			*
 			* @type {String}
 			* @default ''
@@ -70,7 +69,7 @@
 			placeholder: '',
 
 			/**
-			* Initial value of the input
+			* Initial value of the input.
 			*
 			* @type {String}
 			* @default ''
@@ -127,7 +126,7 @@
 		},
 
 		/**
-		* Computed prop
+		* Computed property
 		*
 		* @private
 		*/
@@ -136,7 +135,7 @@
 		},
 
 		/**
-		* Computed prop
+		* Computed property
 		*
 		* @private
 		*/
@@ -185,8 +184,9 @@
 		},
 
 		/**
-		* value should submit if user clicks outside control. We check for 'onSpotlightFocus' and
-		* 'mouseover' to make sure not to contract on the event which is fired from itself.
+		* Value should be submitted if user clicks outside control. We check for
+		* `onSpotlightFocus` and `mouseover` to avoid contracting the input on an event
+		* fired from itself.
 		*
 		* @private
 		*/
@@ -239,9 +239,9 @@
 		},
 
 		/**
-		* If {@link moon.ExpandableInput#lockBottom} is `true`, don't allow user to navigate down
-		* from the input field. If {@link moon.ExpandableInput#lockBottom} is `false`, close drawer
-		* and return true to keep spotlight on header.
+		* If [lockBottom]{@link moon.ExpandableInput#lockBottom} is `true`, don't allow user
+		* to navigate down from the input field; if `false`, close the drawer and return
+		* `true` to keep {@glossary Spotlight} on header.
 		*
 		* @private
 		*/
@@ -266,11 +266,11 @@
 		},
 
 		/**
-		* We manually set pointer mode to false as it was seemingly the
+		* We manually set pointer mode to `false` as this seems to be the
 		* least harmful method to re-highlight the header after the drawer
 		* closes. The other options had side effects of resetting the
 		* current spotted control to the root, or requiring a double-press to
-		* subsequently 5-way move.
+		* subsequently move via 5-way.
 		*
 		* @private
 		*/

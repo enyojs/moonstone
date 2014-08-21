@@ -1,8 +1,9 @@
 (function (enyo, scope) {
 	/**
-	* `moon.RichText` is a Moonstone-styled RichText control, derived from
-	* [`enyo.RichText`]{@link enyo.RichText}).  Typically, a `moon.RichText` is placed inside a
-	* [`moon.InputDecorator`]{@link moon.InputDecorator}, which provides styling, e.g.:
+	* {@link moon.RichText} is a Moonstone-styled text input field with support for
+	* rich text formatting such as bold, italics, and underlining, derived from
+	* {@link enyo.RichText}. Typically, a `moon.RichText` is placed inside a
+	* {@link moon.InputDecorator}, which provides styling, e.g.:
 	*
 	* ```
 	* {kind: 'moon.InputDecorator', components: [
@@ -11,7 +12,8 @@
 	* ```
 	*
 	* For more information, see the documentation on
-	* [Text Fields]{@link building-apps/controls/text-fields.html} in the Enyo Developer Guide.
+	* [Text Fields]{@link building-apps/controls/text-fields.html} in the
+	* Enyo Developer Guide.
 	*
 	* @class moon.RichText
 	* @extends enyo.RichText
@@ -52,7 +54,7 @@
 		},
 
 		/**
-		* Set the focus on the textarea
+		* Sets the focus on the RichText.
 		*
 		* @public
 		*/
@@ -67,7 +69,7 @@
 		},
 
 		/**
-		* Remove focus from textarea
+		* Removes focus from the RichText.
 		*
 		* @public
 		*/

@@ -1,10 +1,10 @@
 (function (enyo, scope) {
 	/**
-	* `moon.ContextualPopupButton` is a {@link moon.Button} with additional
+	* {@link moon.ContextualPopupButton} is a {@link moon.Button} with additional
 	* styling applied.
 	*
 	* For more information, see the documentation on
-	* [Buttons](building-apps/controls/buttons.html) in the Enyo Developer Guide.
+	* [Buttons]{@link building-apps/controls/buttons.html} in the Enyo Developer Guide.
 	*
 	* @class moon.ContextualPopupButton
 	* @extends moon.Button

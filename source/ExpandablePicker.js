@@ -4,24 +4,23 @@
 	*
 	* @event moon.ExpandablePicker#onChange
 	* @type {Object}
-	* @property {Object|Object[]} selected - a reference to the currently selected item,
-	*	or (when [`multipleSelection`]{@link moon.ExpandablePicker#multipleSelection} is `true`),
+	* @property {Object|Object[]} selected - A reference to the currently selected item,
+	*	or (if [multipleSelection]{@link moon.ExpandablePicker#multipleSelection} is `true`),
 	*	an array of selected items.
-	* @property {String} content - The content of the currently selected item, or (when
-	*	[`multipleSelection`]{@link moon.ExpandablePicker#multipleSelection} is `true`), a comma
+	* @property {String} content - The content of the currently selected item, or (if
+	*	[multipleSelection]{@link moon.ExpandablePicker#multipleSelection} is `true`), a comma
 	*	(plus space) separated list of the selected items' content.
-	* @property {Number} index - The index of the currently selected item, or (when
-	*	[`multipleSelection`]{@link moon.ExpandablePicker#multipleSelection} is `true`), an array of
-	*	indexes.
+	* @property {Number} index - The index of the currently selected item, or (if
+	*	[multipleSelection]{@link moon.ExpandablePicker#multipleSelection} is `true`), an array
+	* of the index values of the selected items.
 	* @public
 	*/
 
 	/**
-	* `moon.ExpandablePicker`, which extends
-	* [moon.ExpandableListItem]{@link moon.ExpandableListItem}, is a drop-down picker
-	* menu that solicits a choice from the user. The picker's child components,
-	* which are instances of [moon.CheckboxItem]{@link moon.CheckboxItem} by default,
-	* provide the options for the picker.
+	* {@link moon.ExpandablePicker}, which extends {@link moon.ExpandableListItem}, is
+	* a drop-down picker menu that solicits a choice from the user. The picker's child
+	* components, which are instances of {@link moon.CheckboxItem} by default, provide
+	* the options for the picker.
 	*
 	* ```
 	* {kind: 'moon.ExpandablePicker', noneText: 'None Selected', content: 'Choose City',
@@ -32,25 +31,19 @@
 	* ]}
 	* ```
 	*
-	* The currently selected item is available in the picker's {@link moon.ExpandablePicker#selected}
-	* property and may be accessed in the normal manner, by calling `get('selected')` and
-	* `set('selected', <value>)`. Similarly, the index of the current selection is
-	* available in {@link moon.ExpandablePicker#selectedIndex}. When the multipleSelection property
-	* is set to true, selected returns an array of selected items, and selectedIndex returns an
-	* array of selected indexes.
+	* The currently selected item is available in the picker's
+	* [selected]{@link moon.ExpandablePicker#selected} property and may be accessed in
+	* the normal manner, by calling `get('selected')` and `set('selected', <value>)`.
+	* Similarly, the index of the current selection is available in
+	* [selectedIndex]{@link moon.ExpandablePicker#selectedIndex}. When the
+	* [multipleSelection]{@link moon.ExpandablePicker#multipleSelection} property is set
+	* to `true`, `selected` contains an array of selected items, and `selectedIndex`
+	* contains an array of the selected items' index values.
 	*
-	* The {@link moon.ExpandablePicker#event:onChange} event is fired when the selected item changes,
-	* and contains the following properties:
+	* The [onChange]{@link moon.ExpandablePicker#event:onChange} event is fired when the
+	* selected item changes.
 	*
-	* ```
-	* {
-	* 	selected: [object Object],	// Reference to selected item, or array of items
-	* 	content: 'San Francisco',	// Content of selected item, or items
-	* 	index: 1							// Index of selected item, or array of indexes
-	* }
-	* ```
-	*
-	* The picker options may be modified programmatically in the standard manner, by
+	* The picker's options may be modified programmatically in the standard manner, by
 	* calling `createComponent().render()` or `destroy()`.
 	*
 	* ```
@@ -63,8 +56,8 @@
 	* ```
 	*
 	* When the picker is minimized, the content of the currently selected item is
-	* displayed as subtext below the picker label. In the multipleSelection case,
-	* the content of all selected items is displayed as a comma separated list
+	* displayed as subtext below the picker label. If multiple selection is enabled,
+	* the content of all selected items will be displayed as a comma-separated list.
 	*
 	* @class moon.ExpandablePicker
 	* @extends moon.ExpandableListItem
@@ -107,8 +100,8 @@
 
 			/**
 			* Reference to currently selected item, if any, or (when
-			* [`multipleSelection`]{@link moon.ExpandablePicker#multipleSelection} is `true`), an
-			* array of selected items.
+			* [multipleSelection]{@link moon.ExpandablePicker#multipleSelection} is `true`),
+			* an array of selected items.
 			*
 			* @type {Object | Object[]}
 			* @default null
@@ -117,9 +110,10 @@
 			selected: null,
 
 			/**
-			* Index of currently selected item or `-1`, or (when
-			* [`multipleSelection`]{@link moon.ExpandablePicker#multipleSelection} is `true`), an
-			* array of selected indexes or an empty array, if none.
+			* Index of the currently selected item, or `-1` if nothing is selected. If
+			* [multipleSelection]{@link moon.ExpandablePicker#multipleSelection} is `true`,
+			* this will be array of the selected items' index values, or an empty array if
+			* nothing is selected.
 			*
 			* @type {Number | Number[]}
 			* @default -1
@@ -128,7 +122,7 @@
 			selectedIndex: -1,
 
 			/**
-			* Text to be displayed as the current value if no item is currently selected
+			* Text to be displayed as the current value if no item is currently selected.
 			*
 			* @type {String}
 			* @default ''
@@ -137,7 +131,7 @@
 			noneText: '',
 
 			/**
-			* Text to be displayed when the drawer is opened
+			* Text to be displayed when the drawer is opened.
 			*
 			* @type {String}
 			* @default null
@@ -146,7 +140,7 @@
 			helpText: null,
 
 			/**
-			* If `true`, auto collapse when an item is selected
+			* If `true`, picker auto-collapses when an item is selected.
 			*
 			* @type {Boolean}
 			* @default true
@@ -155,7 +149,7 @@
 			autoCollapseOnSelect: true,
 
 			/**
-			* If `true`, allow multiple selections.
+			* If `true`, multiple selection is allowed.
 			*
 			* @type {Boolean}
 			* @default false
@@ -259,8 +253,9 @@
 		},
 
 		/**
-		* When the {@link moon.ExpandablePicker#selected} control changes, updates
-		* {@link moon.ExpandablePicker#checked} values appropriately and fires an `onChange` event.
+		* When the [selected]{@link moon.ExpandablePicker#selected} control changes,
+		* updates [checked]{@link moon.CheckboxItem#checked} values appropriately and
+		* fires an [onChange]{@link moon.ExpandablePicker#event:onChange} event.
 		*
 		* @fires moon.ExpandablePicker#onChange
 		* @private
@@ -316,7 +311,7 @@
 
 		/**
 		* When the {@link moon.ExpandablePicker#selectedIndex} changes, calls
-		* {@link moon.ExpandablePicker#setChecked} on the appropriate control.
+		* `setChecked()` on the appropriate control.
 		*
 		* @private
 		*/
@@ -354,8 +349,8 @@
 		},
 
 		/**
-		* If there is no selected item, uses {link @moon.ExpandablePicker#noneText} as current
-		* value.
+		* If there is no selected item, uses [noneText]{link @moon.ExpandablePicker#noneText}
+		* as current value.
 		*
 		* @private
 		*/
@@ -372,7 +367,7 @@
 		},
 
 		/**
-		* When {@link moon.ExpandablePicker#open} changes, shows/hides `this.$.currentValue`.
+		* When [open]{@link moon.ExpandablePicker#open} changes, shows/hides `this.$.currentValue`.
 		*
 		* @private
 		*/
@@ -449,10 +444,10 @@
 		},
 
 		/**
-		* When the picker is initialized, looks for any items with an `active: true`
-		* flag; if one is found, it is set as the currently selected item. This is
-		* done without triggering an [onChange]{@link moon.ExpandablePicker#event:onChange} event,
-		* as it happens during initialization.
+		* When the picker is initialized, looks for any items with `active` flag set to
+		* `true`; if one is found, it is set as the currently selected item. This is done
+		* without triggering an [onChange]{@link moon.ExpandablePicker#event:onChange}
+		* event, as it happens during initialization.
 		*
 		* @private
 		*/
@@ -482,7 +477,7 @@
 		},
 
 		/**
-		*  When an item is chosen, marks it as checked and closes the picker.
+		* When an item is chosen, marks it as checked and closes the picker.
 		*
 		* @private
 		*/

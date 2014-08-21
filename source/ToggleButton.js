@@ -1,24 +1,24 @@
 (function (enyo, scope) {
 	/**
-	* Fires when the value of the toggle button changes
+	* Fires when the value of the toggle button changes.
 	*
 	* @event moon.ToggleButton:onChange
 	* @type {Object}
-	* @property {Boolean} value - Current state of the ToggleButton
+	* @property {Boolean} value - Current state of the ToggleButton.
 	* @public
 	*/
 
 	/**
-	* `moon.ToggleButton`, which extends [`moon.Button`]{@link moon.Button}, is a button with two
-	* states, 'on' and 'off'. When the `ToggleButton` is tapped, it switches its state and fires an
-	* [`onChange`]{@link moon.ToggleButton#event:onChange} event.
+	* {@link moon.ToggleButton}, which extends {@link moon.Button}, is a button with two
+	* states, 'on' and 'off'. When the toggle button is tapped, it switches its state
+	* and fires an [onChange]{@link moon.ToggleButton#event:onChange} event.
 	*
-	* One has the choice to show the same text (via the [`content`]{@link enyo.Control#content}
-	* property) for both toggle states, or different text can be shown for each toggle state,
-	* utilizing the [`toggleOnLabel`]{@link moon.ToggleButton#toggleOnLabel} and the
-	* [`toggleOffLabel`]{@link moon.ToggleButton#toggleOffLabel}. Note that both of these
-	* properties need to be set to display differentiating text, otherwise the `content` property
-	* will be shown for the button text.
+	* You may show the same text for both toggle states (via the
+	* [content]{@link enyo.Control#content} property), or different text for each state,
+	* using the [toggleOnLabel]{@link moon.ToggleButton#toggleOnLabel} and
+	* [toggleOffLabel]{@link moon.ToggleButton#toggleOffLabel} properties. Note that both
+	* `toggleOnLabel` and `toggleOffLabel` must be set in order to display different labels;
+	* otherwise, the `content` property will be used.
 	*
 	* @class moon.ToggleButton
 	* @extends moon.Button
@@ -45,7 +45,7 @@
 		published: {
 
 			/**
-			* Boolean indicating whether toggle button is currently in the 'on' state
+			* Boolean indicating whether toggle button is currently in the 'on' state.
 			*
 			* @type {Boolean}
 			* @default false
@@ -54,8 +54,8 @@
 			value: false,
 
 			/**
-			* Button text displayed in the 'on' state. If empty, will default to displaying
-			* [`content`]{@link enyo.Control#content} as button text
+			* Button text displayed in the 'on' state. If not specified, the
+			* [content]{@link enyo.Control#content} property will be used as button text.
 			*
 			* @type {String}
 			* @default ''
@@ -64,8 +64,8 @@
 			toggleOnLabel: '',
 
 			/**
-			* Button text displayed in the 'off' state. If empty, will default to displaying
-			* [`content`]{@link enyo.Control#content} as button text
+			* Button text displayed in the 'off' state. If not specified, the
+			* [content]{@link enyo.Control#content} property will be used as button text.
 			*
 			* @type {String}
 			* @default ''
@@ -150,7 +150,7 @@
 		},
 
 		/*
-		* We override the inherited activeChanged method
+		* We override the inherited `activeChanged()` method.
 		*
 		* @private
 		*/
@@ -163,7 +163,7 @@
 		},
 
 		/*
-		* we override the inherited tap method
+		* we override the inherited `tap()` method.
 		*
 		* @private
 		*/

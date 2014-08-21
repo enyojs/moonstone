@@ -1,7 +1,7 @@
 (function (enyo, scope) {
 	/**
-	* Fires when progress bar finishes animating to a position. No event-specific data is sent with
-	* this event.
+	* Fires when progress bar finishes animating to a position. No event-specific data
+	* is sent with this event.
 	*
 	* @event moon.ProgressBar#onAnimateProgressFinish
 	* @type {Object}
@@ -9,29 +9,30 @@
 	*/
 
 	/**
-	* `moon.ProgressBar` is a  control that shows the current progress of a
-	* process in a horizontal bar.
+	* {@link moon.ProgressBar} is a [control]{@link enyo.Control} that shows the current
+	* progress of a process in a horizontal bar.
 	*
 	* ```
 	* {kind: 'moon.ProgressBar', progress: 10}
 	* ```
 	*
-	* To animate progress changes, call the {@link moon.ProgressBar#animateProgressTo} method:
+	* To animate a progress change, call the
+	* [animateProgressTo()]{@link moon.ProgressBar#animateProgressTo} method:
 	*
 	* ```
 	* this.$.progressBar.animateProgressTo(50);
 	* ```
 	*
 	* You may customize the color of the bar by applying a style via the
-	* {@link moon.ProgressBar#barClasses} property, e.g.:
+	* [barClasses]{@link moon.ProgressBar#barClasses} property, e.g.:
 	*
 	* ```
 	* {kind: 'moon.ProgressBar', barClasses: 'class-name'}
 	* ```
 	*
-	* For more information, see the documentation on [Progress
-	* Indicators](building-apps/controls/progress-indicators.html) in the Enyo
-	* Developer Guide
+	* For more information, see the documentation on
+	* [Progress Indicators]{@link building-apps/controls/progress-indicators.html)
+	* in the Enyo Developer Guide.
 	*
 	* @class moon.ProgressBar
 	* @extends enyo.Control
@@ -58,7 +59,7 @@
 		published: {
 
 			/**
-			* Current position of progress bar
+			* Current position of progress bar.
 			*
 			* @type {Number}
 			* @default 0
@@ -67,7 +68,7 @@
 			progress: 0,
 
 			/**
-			* Minimum progress value (i.e., no progress made)
+			* Minimum progress value (i.e., no progress made).
 			*
 			* @type {Number}
 			* @default 0
@@ -76,7 +77,7 @@
 			min: 0,
 
 			/**
-			* Maximum progress value (i.e., process complete)
+			* Maximum progress value (i.e., process complete).
 			*
 			* @type {Number}
 			* @default 100
@@ -85,7 +86,7 @@
 			max: 100,
 
 			/**
-			* CSS classes to apply to progress bar
+			* CSS classes to apply to progress bar.
 			*
 			* @type {String}
 			* @default 'moon-progress-bar-bar'
@@ -94,7 +95,7 @@
 			barClasses: 'moon-progress-bar-bar',
 
 			/**
-			* CSS classes to apply to background progress bar
+			* CSS classes to apply to background progress bar.
 			*
 			* @type {String}
 			* @default 'moon-progress-bg-bar'
@@ -103,7 +104,7 @@
 			bgBarClasses: 'moon-progress-bg-bar',
 
 			/**
-			* Completion percentage for background process
+			* Completion percentage for background process.
 			*
 			* @type {Number}
 			* @default 0
@@ -137,7 +138,6 @@
 		*/
 		create: function () {
 			this.inherited(arguments);
-			this.addRemoveClass('moon-progress-bar-rtl', this.rtl);
 			this.progressChanged();
 			this.barClassesChanged();
 			this.bgBarClassesChanged();

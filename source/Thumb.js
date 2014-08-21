@@ -1,6 +1,6 @@
 (function (enyo, scope) {
 	/**
-	* `moon.ScrollThumb`, which extends [`enyo.ScrollThumb`]{@link enyo.ScrollThumb}, is
+	* {@link moon.ScrollThumb}, which extends {@link enyo.ScrollThumb}, is
 	* used to display a small visual scroll indicator.
 	*
 	* `moon.ScrollThumb` is not typically created in application code.
@@ -29,7 +29,7 @@
 		*/
 		published: {
 			/**
-			* Ratio of size and position of thumb with respect to scroll bounds
+			* Ratio of size and position of thumb with respect to scroll bounds.
 			*
 			* @type {Number}
 			* @default 1
@@ -145,7 +145,7 @@
 		},
 
 		/**
-		* Override _show()_ to give fade effect.
+		* Override `show()` to give fade effect.
 		* 
 		* @private
 		*/

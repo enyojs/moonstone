@@ -1,8 +1,8 @@
 (function (enyo, scope) {
 	/**
-	* `moon.Input` is a Moonstone-styled input control, derived from
-	* [enyo.Input]{@link enyo.Input}. Typically, a `moon.Input` is placed inside a
-	* [moon.InputDecorator]{@link moon.InputDecorator}, which provides styling, e.g.:
+	* {@link moon.Input} is a Moonstone-styled input control, derived from
+	* {@link enyo.Input}. Typically, a `moon.Input` is placed inside a
+	* {@link moon.InputDecorator}, which provides styling, e.g.:
 	*
 	* ```
 	* {kind: 'moon.InputDecorator', components: [
@@ -11,7 +11,8 @@
 	* ```
 	*
 	* For more information, see the documentation on
-	* [Text Fields](building-apps/controls/text-fields.html) in the Enyo Developer Guide.
+	* [Text Fields]{@link building-apps/controls/text-fields.html} in the
+	* Enyo Developer Guide.
 	*
 	* @class moon.Input
 	* @extends enyo.Input
@@ -51,7 +52,7 @@
 		published: {
 
 			/**
-			* When `true`, blur on Enter keypress (if focused)
+			* When `true`, input blurs on Enter keypress (if focused).
 			*
 			* @type {Boolean}
 			* @default false
@@ -70,8 +71,8 @@
 		},
 
 		/**
-		* Used only for dismissOnEnter feature, cannot rely on hasFocus in this case because of
-		* racing condition
+		* Used only for [dismissOnEnter]{@link moon.Input#dismissOnEnter} feature;
+		* we cannot rely on `hasFocus()` in this case due to race condition.
 		*
 		* @private
 		*/
@@ -104,6 +105,7 @@
 				if (oEvent.keyCode == 13) {
 					if (this._bFocused) {
 						this.blur();
+						enyo.Spotlight.unspot();
 					}
 				}
 			}

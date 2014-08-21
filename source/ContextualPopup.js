@@ -2,7 +2,7 @@
 	/**
 	* @event moon.ContextualPopup#onRequestShowPopup
 	* @type {Object}
-	* @property {Object} activator - contains a reference to the activating object
+	* @property {Object} activator - A reference to the activating object.
 	* @public
 	*/
 	
@@ -17,13 +17,13 @@
 	*
 	* @event moon.ContextualPopup#onActivate
 	* @type {Object}
-	* @property {Object} sentFromPopup - contains a reference to the popup
+	* @property {Object} sentFromPopup - A reference to the popup.
 	* @public
 	*/
 	
 	/**
-	* `moon.ContextualPopup` is a popup window control with Moonstone visual styling
-	* applied.  It extends {@link enyo.Popup} and is designed to be used with
+	* {@link moon.ContextualPopup} is a popup window control with Moonstone visual
+	* styling applied. It extends {@link enyo.Popup} and is designed to be used with
 	* {@link moon.ContextualPopupDecorator}.
 	*
 	* @class moon.ContextualPopup
@@ -90,8 +90,8 @@
 
 			/**
 			* When `false`, the close button is hidden; when `true`, it is shown. When
-			* `showCloseButton` is set to `'auto'` (the default), the close button is shown
-			* when {@link moon.ContextualPopup#spotlightModal} is true.
+			* this property is set to `'auto'` (the default), the close button is shown
+			* when [spotlightModal]{@link moon.ContextualPopup#spotlightModal} is `true`.
 			*
 			* @type {String}
 			* @default 'auto'
@@ -121,36 +121,36 @@
 		// Layout parameters
 
 		/**
-		* Vertical flush layout margin
+		* Vertical flush layout margin.
 		*
 		* @private
 		*/
 		vertFlushMargin:0,
 
 		/**
-		* Horizontal flush layout margin
+		* Horizontal flush layout margin.
 		*
 		* @private
 		*/
 		horizFlushMargin:0,
 
 		/**
-		* Popups wider than this value are considered wide (for layout purposes)
+		* Popups wider than this value are considered wide (for layout purposes).
 		*
 		* @private
 		*/
 		widePopup: 200,
 
 		/**
-		* Popups longer than this value are considered long (for layout purposes)
+		* Popups longer than this value are considered long (for layout purposes).
 		*
 		* @private
 		*/
 		longPopup: 200,
 
 		/**
-		* Do not allow horizontal flush popups past spec'd amount of buffer space on left/right screen
-		* edge
+		* Do not allow horizontal flush popups past spec'd amount of buffer space on left/right
+		* screen edge.
 		*
 		* @private
 		*/
@@ -170,7 +170,7 @@
 		],
 
 		/**
-		* Creates chrome.
+		* Creates chrome components.
 		*
 		* @private
 		*/
@@ -246,7 +246,7 @@
 		},
 
 		/**
-		* Alter the direction of the popup
+		* Alters the direction of the popup.
 		*
 		* @private
 		*/
@@ -353,7 +353,7 @@
 		},
 
 		/**
-		* Dismisses popup if Escape keypress is detected
+		* Dismisses popup if Escape keypress is detected.
 		*
 		* @private
 		*/
@@ -374,7 +374,7 @@
 		},
 
 		/**
-		* Determines whether to display `closeButton`.
+		* Determines whether to display close button.
 		*
 		* @private
 		*/
@@ -405,7 +405,7 @@
 		},
 
 		/**
-		* Called when {@link moon.ContextualPopup#spotlightModal} changes.
+		* Called when [spotlightModal]{@link moon.ContextualPopup#spotlightModal} changes.
 		*
 		* @private
 		*/
@@ -414,7 +414,7 @@
 		},
 
 		/**
-		* Called when `this.showCloseButton` changes.
+		* Called when [showCloseButton]{@link moon.ContextualPopup#showCloseButton} changes.
 		*
 		* @private
 		*/

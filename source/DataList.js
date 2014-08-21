@@ -1,9 +1,10 @@
 (function (enyo, scope) {
 	/**
-	* `moon.DataListSpotlightSupport` is a [mixin]{@glossary mixin} that provides spotlight handling
-	* code for use by {@link moon.DataList} and {@link moon.DataGridList}. Since those each extend
-	* from their respective enyo counterparts, this mixin provides common add-on code needed for
-	* proper spotlight handling.
+	* {@link moon.DataListSpotlightSupport} is a {@glossary mixin} that provides
+	* {@glossary Spotlight} handling code for use by {@link moon.DataList} and
+	* {@link moon.DataGridList}. Since both of these [kinds]{@glossary kind} inherit
+	* from their respective Enyo counterparts, this mixin provides the common add-on
+	* code needed for proper spotlight handling.
 	*
 	* @mixin moon.DataListSpotlightSupport
 	* @private
@@ -139,8 +140,8 @@
 		},
 
 		/**
-		* Spot the next/previous control. Handles the case where this control may not be generated yet,
-		* otherwise the default behavior occurs that is handled by Spotlight.
+		* Spots the next/previous control. Handles the case where this control may not be
+		* generated yet; otherwise, the default behavior occurs and is handled by Spotlight.
 		*
 		* @private
 		*/
@@ -167,8 +168,8 @@
 		},
 
 		/**
-		* Find the next/previous spottable control, page to generate next page of controls in, and
-		* index of the next page to generate
+		* Finds the next/previous spottable control, the page to generate the next
+		* page worth of controls in, and the index of the next page to generate.
 		*
 		* @private
 		*/
@@ -275,8 +276,8 @@
 		},
 
 		/**
-		* Retrieve the next/previous spottable child from the generated controls starting from the given
-		* index
+		* Retrieves the next/previous spottable child from the generated controls,
+		* starting from the given index.
 		*
 		* @private
 		*/
@@ -418,7 +419,7 @@
 	};
 
 	/**
-	* `moon.DataList` is an {@link enyo.DataList} with Moonstone styling
+	* {@link moon.DataList} is an {@link enyo.DataList} with Moonstone styling
 	* applied.  It uses {@link moon.Scroller} as its default scroller.
 	*
 	* @class moon.DataList
