@@ -234,7 +234,7 @@
 			]},
 
 			{name: 'animator', kind: 'enyo.StyleAnimator', onComplete: 'animationComplete'},
-			{name: "spotlightDummy", spotlight: false, style: "width:0;height:0;"}
+			{name: 'spotlightDummy', spotlight: false, style: 'width:0;height:0;'}
 		],
 
 		/**
