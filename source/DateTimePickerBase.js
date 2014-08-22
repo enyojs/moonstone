@@ -358,7 +358,9 @@
 			if (this._tf) {
 				delete this._tf;
 			}
-			this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
+			if (this.value){
+				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
+			}
 			this.initDefaults();
 			this.render();
 		}
