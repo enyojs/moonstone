@@ -30,10 +30,10 @@
 		* @private
 		*/
 		handlers: {
-			onSpotlightUp    : 'selectPrev',
-			onSpotlightLeft  : 'selectPrev',
-			onSpotlightDown  : 'selectNext',
-			onSpotlightRight : 'selectNext'
+			onSpotlightUp    : '_spotlightPrev',
+			onSpotlightLeft  : '_spotlightPrev',
+			onSpotlightDown  : '_spotlightNext',
+			onSpotlightRight : '_spotlightNext'
 		},
 
 		/**
@@ -128,15 +128,15 @@
 		/**
 		* @private
 		*/
-		selectNext: function (inSender, inEvent) {
-			return this.selectItem(inEvent, 1);
+		_spotlightNext: function (inSender, inEvent) {
+			return this._spotlightSelect(inEvent, 1);
 		},
 
 		/**
 		* @private
 		*/
-		selectPrev: function (inSender, inEvent) {
-			return this.selectItem(inEvent, -1);
+		_spotlightPrev: function (inSender, inEvent) {
+			return this._spotlightSelect(inEvent, -1);
 		},
 
 		/**
@@ -145,7 +145,7 @@
 		*
 		* @private
 		*/
-		selectItem: function (inEvent, inDirection) {
+		_spotlightSelect: function (inEvent, inDirection) {
 			var pages = this.delegate.pagesByPosition(this),
 				spottableControl;
 
