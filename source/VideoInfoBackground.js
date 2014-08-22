@@ -1,42 +1,93 @@
-/**
-	_moon.VideoInfoBackground_ is a control that provides a stylized background
-	for components placed in the _infoComponents_ block of a
-	[moon.VideoPlayer](#moon.VideoPlayer).  It is designed as a decorator,
-	wrapping components placed inside with the stylized background.
+(function (enyo, scope) {
+	/**
+	* {@link moon.VideoInfoBackground} is a [control]{@link enyo.Control} that provides a
+	* stylized background for [components]{@link enyo.Component} placed in the
+	* [infoComponents]{@link moon.VideoPlayer#infoComponents} block of a {@link moon.VideoPlayer}.
+	* It is designed as a decorator, wrapping the components inside with the stylized background.
+	* 
+	* Use the [orient]{@link moon.VideoInfoBackground#orient} property to set the orientation 
+	* (`'left'` or `'right'`).
+	* 
+	* For more details, see {@link moon.VideoPlayer}.
+	*
+	* @class moon.VideoInfoBackground
+	* @extends enyo.Control
+	* @ui
+	* @public
+	*/
+	enyo.kind(
+		/** @lends moon.VideoInfoBackground.prototype */ {
 
-	Use the _orient_ property to set the orientation ("left" or "right").
-
-	For more details, see [moon.VideoPlayer](#moon.VideoPlayer).
-*/
-enyo.kind({
-	name: "moon.VideoInfoBackground",
-	kind: "enyo.Control",
-	//* @protected
-	classes: "moon-background-wrapper",
-	//* @public
-	published: {
-		//* Orientation of the control; valid values are "left" and "right"
-		orient: "left",
 		/**
-			If true, background color is set to black; otherwise, background is
-			transparent
+		* @private
 		*/
-		background: true
-	},
-	//* @protected
-	components: [
-		{name: "client", classes: "moon-background-wrapper-client-content"}
-	],
-	initComponents: function() {
-		this.inherited(arguments);
-		this.orientChanged();
-		this.backgroundChanged();
-	},
-	orientChanged: function() {
-		this.$.client.addRemoveClass("right", this.orient != 'left');
-		this.$.client.addRemoveClass("left", this.orient == 'left');
-	},
-	backgroundChanged: function() {
-		this.$.client.addRemoveClass("bg", this.background);
-	}
-});
+		name: 'moon.VideoInfoBackground',
+
+		/**
+		* @private
+		*/
+		kind: 'enyo.Control',
+		
+		/**
+		* @private
+		*/
+		classes: 'moon-background-wrapper',
+		
+		/**
+		* @private
+		* @lends moon.VideoInfoBackground.prototype
+		*/
+		published: {
+			
+			/** 
+			* Orientation of the control; valid values are `'left'` and `'right'`.
+			*
+			* @type {String}
+			* @default 'left'
+			* @public
+			*/
+			orient: 'left',
+
+			/**
+			* When `true`, background color is set to black; otherwise, background is transparent.
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
+			background: true
+		},
+		
+		/**
+		* @private
+		*/
+		components: [
+			{name: 'client', classes: 'moon-background-wrapper-client-content'}
+		],
+
+		/**
+		* @private
+		*/
+		initComponents: function() {
+			this.inherited(arguments);
+			this.orientChanged();
+			this.backgroundChanged();
+		},
+
+		/**
+		* @private
+		*/
+		orientChanged: function() {
+			this.$.client.addRemoveClass('right', this.orient != 'left');
+			this.$.client.addRemoveClass('left', this.orient == 'left');
+		},
+
+		/**
+		* @private
+		*/
+		backgroundChanged: function() {
+			this.$.client.addRemoveClass('bg', this.background);
+		}
+	});
+
+})(enyo, this);

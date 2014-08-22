@@ -4,8 +4,8 @@
 	// Checkbox 
 	.moon-checkbox {
 		position: absolute;
-		top: @moon-spotlight-outset;
-		right: @moon-spotlight-outset;
+		top: @moon-spotlight-outset - 2;
+		right: @moon-spotlight-outset + 4;
 	}
 	// Label 
 	.moon-checkbox-item-label-wrapper {
@@ -17,7 +17,7 @@
 	&.left-handed  {
 		// Checkbox 
 		.moon-checkbox {
-			left: @moon-spotlight-outset;
+			left: @moon-spotlight-outset - 4;
 		}
 		// Label 
 		.moon-checkbox-item-label-wrapper {
@@ -46,7 +46,7 @@
 .enyo-locale-right-to-left .moon-checkbox-item {
 	// Checkbox
 	.moon-checkbox {
-		left: @moon-spotlight-outset;
+		left: @moon-spotlight-outset + 4;
 		right: auto;
 	}
 	.moon-checkbox-item-label-wrapper {
@@ -58,7 +58,7 @@
 	&.left-handed {
 		.moon-checkbox {
 			left: auto;
-			right: @moon-spotlight-outset;
+			right: @moon-spotlight-outset - 4;
 		}
 		.moon-checkbox-item-label-wrapper {
 			margin-right: @moon-item-indent;

@@ -10,9 +10,9 @@ enyo.kind({
 		{kind:"moon.Panel", headerType: "medium", title: "List Actions Sample", headerComponents: [
 			{kind:"moon.TooltipDecorator", components: [
 				{kind:"moon.Tooltip", position:"above", content:"Test Dynamic Lists"},
-			
+
 				//* List actions with default width
-				{kind: "moon.ListActions", name:"listActions", icon:"drawer", listActions: [
+				{kind: "moon.ListActions", disabled: true, name:"listActions", icon:"drawer", listActions: [
 					{action:"category3", components: [
 						{kind: "moon.Divider", content: "Category 3 (DataList)"},
 						{kind: "moon.DataList", name:"list", fit:true, components: [
@@ -39,7 +39,7 @@ enyo.kind({
 			]},
 			{kind:"moon.TooltipDecorator", components: [
 				{kind:"moon.Tooltip", position: "above", content: "Dummy List Actions"},
-			
+
 				//* List actions with proportional width
 				{kind: "moon.ListActions", proportionalWidth: true, iconSrc: "./assets/icon-list.png", listActions: [
 					{action: "Cost", components: [
@@ -67,7 +67,7 @@ enyo.kind({
 			]},
 			{kind:"moon.TooltipDecorator", components: [
 				{kind:"moon.Tooltip", position: "above", content: "Test Auto Collapse"},
-			
+
 				//* List actions with auto-collapsing
 				{kind: "moon.ListActions", autoCollapse: true, iconSrc: "./assets/icon-list.png", listActions: [
 					{action: "AutoCollapseTest", components: [
@@ -94,7 +94,9 @@ enyo.kind({
 				{kind:"moon.Button", small:true, content:"Add Option to Category 2", ontap:"addToRepeater"},
 				{kind:"moon.Button", small:true, content:"Add Option to Category 3", ontap:"addToList"},
 				{classes:"moon-1v"},
-				{kind:"moon.Button", small:true, content:"Breadcrumb Panel", ontap:"toggleBreadcrumb"}
+				{kind:"moon.Button", small:true, content:"Breadcrumb Panel", ontap:"toggleBreadcrumb"},
+				{kind: "moon.ToggleButton", small: true, toggleOnLabel: "Header Type: Small", toggleOffLabel: "Header Type: Medium", ontap: "toggleHeaderSize"},
+				{name: "toggleDisabledListActions", kind: "moon.ToggleButton", small: true, toggleOnLabel: "ListActions: Disabled", toggleOffLabel: "ListActions: Enabled", value: true}
 			]},
 			{fit: true},
 			{kind: "moon.Divider", content: "List Action Event"},
@@ -104,23 +106,26 @@ enyo.kind({
 			{kind:"moon.Button", small:true, content:"Go Back", ontap:"toggleBreadcrumb"}
 		]}
 	],
+	bindings: [
+		{from:"$.toggleDisabledListActions.value", to:"$.listActions.disabled"}
+	],
 	activateHandler: function(inSender, inEvent) {
 		if (inEvent && inEvent.action) {
 			if (inEvent.originator instanceof moon.SelectableItem) {
 				this.$.console.setContent(
-					inEvent.action + ": " + 
-					inEvent.originator.getContent() + " was " + 
+					inEvent.action + ": " +
+					inEvent.originator.getContent() + " was " +
 					(inEvent.originator.getSelected() ? "selected" : "unselected")
 				);
 			} else {	// moon.CheckboxItem or moon.ToggleItem
 				this.$.console.setContent(
-					inEvent.action + ": " + 
-					inEvent.toggledControl.getContent() + " was " + 
+					inEvent.action + ": " +
+					inEvent.toggledControl.getContent() + " was " +
 					(inEvent.originator.getChecked() ? "selected" : "unselected")
 				);
 			}
 		}
-		
+
 		// Log the active state of the ListAction drawer
 		if (inEvent.originator instanceof moon.ListActions) {
 			this.$.console.setContent(inEvent.originator.name + " is now " + (inEvent.originator.getOpen() ? "open" : "closed"));
@@ -140,6 +145,9 @@ enyo.kind({
 	},
 	toggleBreadcrumb: function() {
 		this.setIndex(this.getIndex() > 0 ? 0 : 1);
+	},
+	toggleHeaderSize: function() {
+		this.getActive().setHeaderType(this.getActive().getHeaderType() == "small" ? "medium": "small");
 	},
 	create: function() {
 		this.inherited(arguments);

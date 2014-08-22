@@ -1,38 +1,100 @@
-/**
-	_moon.Table_ extends [enyo.Table](#enyo.Table), adding Moonstone visual
-	styling.
-*/
-enyo.kind({
-	name: "moon.Table",
-	kind: "enyo.Table",
-	//* @protected
-	classes: "moon-table",
-	defaultKind: "moon.TableRow"
-});
+(function (enyo, scope) {
+	/**
+	* {@link moon.Table} extends {@link enyo.Table}, adding Moonstone visual styling.
+	*
+	* @class moon.Table
+	* @extends enyo.Table
+	* @ui
+	* @public
+	*/
+	enyo.kind(
+		/** @lends moon.Table.prototype */ {
 
-//* @public
+		/**
+		* @private
+		*/
+		name: 'moon.Table',
 
-/**
-	_moon.TableRow_ extends [enyo.TableRow](#enyo.TableRow), adding Moonstone
-	visual styling.
-*/
-enyo.kind({
-	name: "moon.TableRow",
-	kind: "enyo.TableRow",
-	//* @protected
-	classes: "moon-table-row",
-	defaultKind: "moon.TableCell"
-});
+		/**
+		* @private
+		*/
+		kind: 'enyo.Table',
 
-//* @public
+		/**
+		* @private
+		*/
+		classes: 'moon-table',
 
-/**
-	_moon.TableCell_ extends [enyo.TableCell](#enyo.TableCell), adding Moonstone
-	visual styling.
-*/
-enyo.kind({
-	name: "moon.TableCell",
-	kind: "enyo.TableCell",
-	//* @protected
-	classes: "moon-table-cell"
-});
+		/**
+		* @private
+		*/
+		defaultKind: 'moon.TableRow'
+	});
+
+	/**
+	* {@link moon.TableRow} extends {@link enyo.TableRow}, adding Moonstone visual
+	* styling.
+	*
+	* @class moon.TableRow
+	* @extends enyo.TableRow
+	* @ui
+	* @public
+	*/
+	enyo.kind(
+		/** @lends moon.TableRow.prototype */ {
+
+		/**
+		* @private
+		*/
+		name: 'moon.TableRow',
+
+		/**
+		* @private
+		*/
+		kind: 'enyo.TableRow',
+
+		/**
+		* @private
+		*/
+		classes: 'moon-table-row',
+
+		/**
+		* @private
+		*/
+		spotlight: true,
+
+		/**
+		* @private
+		*/
+		defaultKind: 'moon.TableCell'
+	});
+
+	/**
+	* {@link moon.TableCell} extends {@link enyo.TableCell}, adding Moonstone visual
+	* styling.
+	*
+	* @class moon.TableCell
+	* @extends enyo.TableCell
+	* @ui
+	* @public
+	*/
+	enyo.kind(
+		/** @lends moon.TableCell.prototype */ {
+
+		/**
+		* @private
+		*/
+		name: 'moon.TableCell',
+
+		/**
+		* @private
+		*/
+		kind: 'enyo.TableCell',
+
+		/**
+		* @private
+		*/
+		classes: 'moon-table-cell'
+	});
+
+})(enyo, this);

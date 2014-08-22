@@ -1,25 +1,56 @@
-/**
-	_moon.VideoFullscreenToggleButton_ is a specialized
-	[moon.IconButton](#moon.IconButton); when placed inside a
-	[moon.VideoPlayer](#moon.VideoPlayer), the button may be tapped to toggle the
-	VideoPlayer's fullscreen state.
-*/
-enyo.kind({
-	name: "moon.VideoFullscreenToggleButton",
-	kind: "moon.IconButton",
-	//* @protected
-	icon : "exitfullscreen",
-	classes : "moon-icon-video-round-controls-style moon-icon-exitfullscreen-font-style",
-	//* @public
-	events: {
+(function (enyo, scope) {
+	/**
+	* {@link moon.VideoFullscreenToggleButton} is a specialized {@link moon.IconButton};
+	* when placed inside a {@link moon.VideoPlayer}, the button may be tapped to toggle
+	* the video player's fullscreen state.
+	*
+	* @class moon.VideoFullscreenToggleButton
+	* @extends moon.IconButton
+	* @ui
+	* @public
+	*/
+	enyo.kind(
+		/** @lends moon.VideoFullscreenToggleButton */ {
+
 		/**
-			Fires when the button is tapped, sending request to toggle fullscreen
-			state.
+		* @private
 		*/
-		onRequestToggleFullscreen:""
-	},
-	//* @protected
-	handlers: {
-		ontap: "doRequestToggleFullscreen"
-	}
-});
+		name: 'moon.VideoFullscreenToggleButton',
+
+		/**
+		* @private
+		*/
+		kind: 'moon.IconButton',
+		
+		/**
+		* @private
+		*/
+		icon : 'exitfullscreen',
+
+		/**
+		* @private
+		*/
+		classes : 'moon-icon-video-round-controls-style moon-icon-exitfullscreen-font-style',
+		
+		/**
+		* @private
+		*/
+		events: {
+			/**
+			* {@link moon.VideoPlayer#event:onRequestToggleFullscreen}
+			*/
+			onRequestToggleFullscreen:''
+		},
+		
+		/**
+		* @private
+		*/
+		handlers: {
+			/**
+			* @fires moon.VideoPlayer#onRequestToggleFullscreen
+			*/
+			ontap: 'doRequestToggleFullscreen'
+		}
+	});
+
+})(enyo, this);

@@ -1,84 +1,180 @@
-/**
-	A control that activates a [moon.Tooltip](#moon.Tooltip). It surrounds a
-	control such as a button and displays the tooltip when the control generates
-	an _onEnter_ event:
+(function (enyo, scope) {
+	/**
+	* Bubble this event from a contained [control]{@link enyo.Control} to mute tooltips. No data
+	* needs be passed with this event.
+	*
+	* @event moon.TooltipDecorator#onRequestMuteTooltip
+	* @type {Object}
+	* @public
+	*/
 
-		{kind: "moon.TooltipDecorator", components: [
-			{kind: "moon.Button", content: "Tooltip"},
-			{kind: "moon.Tooltip", content: "I'm a tooltip for a button."}
-		]}
+	/**
+	* Bubble this event from a contained [control]{@link enyo.Control} to unmute tooltips. No data
+	* needs be passed with this event.
+	*
+	* @event moon.TooltipDecorator#onRequestUnmuteTooltip
+	* @type {Object}
+	* @public
+	*/
 
-	Here's an example with a [moon.Input](#moon.Input) control and a decorator
-	around the input:
+	/**
+	* {@link moon.TooltipDecorator} is a control that activates a {@link moon.Tooltip}. It
+	* surrounds a control such as a button and displays the tooltip when the control generates
+	* an `onenter` event:
+	*
+	* ```
+	* {kind: 'moon.TooltipDecorator', components: [
+	*	{kind: 'moon.Button', content: 'Tooltip'},
+	*	{kind: 'moon.Tooltip', content: 'I am a tooltip for a button.'}
+	* ]}
+	* ```
+	*
+	* Here is an example with a {@link moon.Input} control and a decorator around the input:
+	*
+	* ```
+	* {kind: 'moon.TooltipDecorator', components: [
+	*	{kind: 'moon.InputDecorator', components: [
+	*		{kind: 'moon.Input', placeholder: 'Just an input...'}
+	*	]},
+	*	{kind: 'moon.Tooltip', content: 'I am just a tooltip for an input.'}
+	* ]}
+	* ```
+	*
+	* Automatic hiding and showing of tooltips may be disabled by calling
+	* [mute()]{@link moon.TooltipDecorator#mute} or by bubbling the
+	* [onRequestMuteTooltip]{@link moon.TooltipDecorator#event:onRequestMuteTooltip} event;
+	* it may be re-enabled by calling [unmute()]{@link moon.TooltipDecorator#unmute}
+	* or by bubbling the
+	* [onRequestUnmuteTooltip]{@link moon.TooltipDecorator#event:onRequestUnmuteTooltip} event.
+	*
+	* @class moon.TooltipDecorator
+	* @extends enyo.Control
+	* @ui
+	* @public
+	*/
+	enyo.kind(
+		/** @lends  moon.TooltipDecorator.prototype */ {
 
-		{kind: "moon.TooltipDecorator", components: [
-			{kind: "moon.InputDecorator", components: [
-				{kind: "moon.Input", placeholder: "Just an input..."}
-			]},
-			{kind: "moon.Tooltip", content: "I'm just a tooltip for an input."}
-		]}
-
-	Automatic hiding and showing of tooltips may be disabled by calling _mute()_
-	or by bubbling the _onRequestMuteTooltip_ event; it may be re-enabled by
-	calling _unmute()_ or by bubbling the _onRequestUnmuteTooltip_ event.
-*/
-enyo.kind({
-	name: "moon.TooltipDecorator",
-	//* @protected
-	defaultKind: "moon.Button",
-	classes: "moon-contextual-popup-decorator",
-	handlers: {
-		onenter: "enter",
-		onleave: "leave",
-		onSpotlightFocused: "spotFocused",
-		onSpotlightBlur: "spotBlur",
-		onRequestMuteTooltip: "mute",
-		onRequestUnmuteTooltip: "unmute"
-	},
-	//* @public 
-	published: {
 		/**
-			Boolean indicating whether tooltips are automatically shown when the
-			activator is hovered over
+		* @private
 		*/
-		autoShow: true
-	},
-	//* @public
-	//* Disables automatic tooltip showing/hiding.
-	mute: function() {
-		this.setAutoShow(false);
-	},
-	//* Re-enables automatic tooltip showing/hiding after being muted.
-	unmute: function() {
-		this.setAutoShow(true);
-	},
-	//* @protected
-	autoShowChanged: function() {
-		if (!this.autoShow) {
+		name: 'moon.TooltipDecorator',
+
+		/**
+		* @private
+		*/
+		defaultKind: 'moon.Button',
+
+		/**
+		* @private
+		*/
+		classes: 'moon-contextual-popup-decorator',
+
+		/**
+		* @private
+		*/
+		handlers: {
+			onenter: 'enter',
+			onleave: 'leave',
+			onSpotlightFocused: 'spotFocused',
+			onSpotlightBlur: 'spotBlur',
+			onRequestMuteTooltip: 'mute',
+			onRequestUnmuteTooltip: 'unmute'
+		},
+
+		/**
+		* @private
+		* @lends moon.TooltipDecorator.prototype
+		*/
+		published: {
+			/**
+			* Boolean indicating whether tooltips are automatically shown when the activator is
+			* hovered over.
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
+			autoShow: true
+		},
+
+		/**
+		* Disables automatic tooltip showing and hiding.
+		*
+		* @public
+		*/
+		mute: function () {
+			this.setAutoShow(false);
+		},
+
+		/**
+		* Re-enables automatic tooltip showing and hiding after being muted.
+		*
+		* @public
+		*/
+		unmute: function () {
+			this.setAutoShow(true);
+		},
+
+		/**
+		* @private
+		*/
+		autoShowChanged: function () {
+			if (!this.autoShow) {
+				this.requestHideTooltip();
+			}
+		},
+
+		/**
+		* @private
+		*/
+		enter: function (inSender, inEvent) {
+			this.requestShowTooltip(inSender, inEvent);
+		},
+
+		/**
+		* @private
+		*/
+		leave: function () {
 			this.requestHideTooltip();
+		},
+
+		/**
+		* @private
+		*/
+		spotFocused: function () {
+			this.requestShowTooltip();
+		},
+
+		/**
+		* @private
+		*/
+		spotBlur: function () {
+			this.requestHideTooltip();
+		},
+
+		/**
+		* @private
+		*/
+		tap: function () {
+			this.requestHideTooltip();
+		},
+
+		/**
+		* @private
+		*/
+		requestShowTooltip: function (inSender, inEvent) {
+			if (this.autoShow && !enyo.Spotlight.isFrozen()) {
+				this.waterfallDown("onRequestShowTooltip", inEvent, inSender);
+			}
+		},
+
+		/**
+		* @private
+		*/
+		requestHideTooltip: function () {
+			this.waterfallDown('onRequestHideTooltip');
 		}
-	},
-	enter: function() {
-		this.requestShowTooltip();
-	},
-	leave: function() {
-		this.requestHideTooltip();
-	},
-	spotFocused: function() {
-		this.requestShowTooltip();
-	},
-	spotBlur: function() {
-		this.requestHideTooltip();
-	},
-	tap: function() {
-		this.requestHideTooltip();
-	},
-	requestShowTooltip: function() {
-		if (this.autoShow && !enyo.Spotlight.isFrozen()) {
-			this.waterfallDown("onRequestShowTooltip");
-		}
-	},
-	requestHideTooltip: function() {
-		this.waterfallDown("onRequestHideTooltip");
-	}
-});
+	});
+
+})(enyo, this);

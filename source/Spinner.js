@@ -1,89 +1,179 @@
-/**
-	_moon.Spinner_ is a control that shows a spinning animation to indicate that
-	activity is taking place. By default, the spinner is light-colored and
-	suitable for displaying against a dark background. If you need a dark spinner
-	(to be shown on a lighter background), add the _moon-light_ CSS class:
+(function (enyo, scope) {
+	/**
+	* {@link moon.Spinner} is a [control]{@link enyo.Control} that shows a spinning animation
+	* to indicate that activity is taking place. By default, the spinner is light-colored and
+	* suitable for displaying against a dark background. If you need a dark spinner (to be
+	* shown on a lighter background), apply the `moon-light` CSS class:
+	*
+	* ```javascript
+	* // Normal
+	* {kind: 'moon.Spinner'}
+	* // Light
+	* {kind: 'moon.Spinner', classes: 'moon-light'}
+	* // Normal with a message
+	* {kind: 'moon.Spinner', content: 'Loading...'}
+	* // Transparent background
+	* {kind: 'moon.Spinner', transparent: true}
+	* ```
+	*
+	* Typically, a spinner is shown to indicate activity and hidden to indicate that the activity
+	* has ended. The animation automatically starts when the spinner is shown. If you wish, you
+	* may control the animation directly by calling the [start()]{@link moon.Spinner#start},
+	* [stop()]{@link moon.Spinner#stop}, and [toggle()]{@link moon.Spinner#toggle} methods.
+	*
+	* `moon.Spinner` supports both `content` text and a `components` block. Note that you
+	* may only use one of these at a time. Using a `components` block may be desirable if,
+	* for example, the text in the content section needs [marquee]{@link moon.MarqueeSupport}
+	* functionality or you'd like to include an [icon]{@link moon.Icon} in the message.
+	*
+	* @class moon.Spinner
+	* @extends enyo.Control
+	* @ui
+	* @public
+	*/
+	enyo.kind(
+		/** @lends moon.Spinner.prototype */ {
 
-		{kind: "moon.Spinner", classes: "moon-light"}
+		/**
+		* @private
+		*/
+		name: 'moon.Spinner',
 
-	Typically, a spinner is shown to indicate activity and hidden to indicate
-	that the activity has ended. The animation automatically starts when the
-	spinner is shown. If you wish, you may control the animation directly by
-	calling the _start()_, _stop()_, and _toggle()_ methods.
-*/
-enyo.kind({
-	name: "moon.Spinner",
-	//* @protected
-	classes: "moon-spinner",
-	//* @public
-	published: {
-		//* Determines whether spinner's background is transparent (default is false)
-		transparent: false
-	},
-	components: [
-		{name: "decorator", classes: "moon-spinner-ball-decorator spin-ball-animation", components: [
-			{classes: "moon-spinner-ball moon-spinner-ball1"},
-			{classes: "moon-spinner-ball moon-spinner-ball2"},
-			{classes: "moon-spinner-ball moon-spinner-ball3"}
-		]}
-	],
-	spinnerTools: [
-		{name: "client", classes: "moon-spinner-client"}
-	],
-	initComponents: function() {
-		this.inherited(arguments);
-		this.createTools();
-	},
-	createTools: function() {
-		// This allows for the spinner instances with child components to not have 
-		// MarqueeText kind on the client container.
-		var tools = enyo.clone(this.spinnerTools);
-		if (!(this.components && this.components.length > 0)) {
-			// If there are no components in the spinner, convert its client area to a MarqueeText kind
-			enyo.mixin(tools[0], {
-				kind: "moon.MarqueeText",
-				mixins: ["moon.MarqueeSupport"],
-				marqueeOnSpotlight: false,
-				marqueeOnHover: true,
-				marqueeOnRender: true,
-				marqueeOnRenderDelay: 1000
-			});
+		/**
+		* @private
+		*/
+		kind: 'enyo.Control',
+
+		/**
+		* @private
+		*/
+		classes: 'moon-spinner',
+
+		/**
+		* @private
+		* @lends moon.Spinner.prototype
+		*/
+		published: {
+			/**
+			* Determines whether spinner's background is transparent.
+			*
+			* @type {Boolean}
+			* @default false
+			* @public
+			*/
+			transparent: false
+		},
+
+		/**
+		* @private
+		*/
+		components: [
+			{name: 'decorator', classes: 'moon-spinner-ball-decorator spin-ball-animation', components: [
+				{classes: 'moon-spinner-ball moon-spinner-ball1'},
+				{classes: 'moon-spinner-ball moon-spinner-ball2'},
+				{classes: 'moon-spinner-ball moon-spinner-ball3'}
+			]}
+		],
+
+		/**
+		* @private
+		*/
+		spinnerTools: [
+			{name: 'client', classes: 'moon-spinner-client'}
+		],
+
+		/**
+		* @private
+		*/
+		initComponents: function() {
+			this.inherited(arguments);
+			this.createTools();
+		},
+
+		/**
+		* @private
+		*/
+		createTools: function() {
+			// This allows for the spinner instances with child components to not have
+			// MarqueeText kind on the client container.
+			var tools = enyo.clone(this.spinnerTools);
+			if (!(this.components && this.components.length > 0)) {
+				// If there are no components in the spinner, convert its client area to a MarqueeText kind
+				enyo.mixin(tools[0], {
+					kind: 'moon.MarqueeText',
+					mixins: ['moon.MarqueeSupport'],
+					marqueeOnSpotlight: false,
+					marqueeOnHover: true,
+					marqueeOnRender: true,
+					marqueeOnRenderDelay: 1000
+				});
+			}
+			this.createChrome(tools);
+		},
+
+		/**
+		* @private
+		*/
+		create: function() {
+			this.inherited(arguments);
+			this.contentChanged();
+			this.transparentChanged();
+			this.addClass('running');
+		},
+
+		/**
+		* Hides the animating spinner.
+		*
+		* @public
+		*/
+		stop: function() {
+			this.set('showing', false);
+		},
+
+		/**
+		* Shows the spinner with animation.
+		*
+		* @public
+		*/
+		start: function() {
+			this.set('showing', true);
+		},
+
+		/**
+		* Toggles the spinner's visibility state.
+		*
+		* @public
+		*/
+		toggle: function() {
+			this.set('showing', !this.get('showing'));
+		},
+
+		/**
+		* @private
+		*/
+		hasContent: function() {
+			// true if this.content is set to something OR if there are more than zero components
+			return (!!this.content || (this.components && this.components.length > 0));
+		},
+
+		/**
+		* @private
+		*/
+		contentChanged: function(old) {
+			this.inherited(arguments);
+			if (this.content || old) {
+				this.$.client.set('content', this.content);
+			}
+			this.$.client.set('showing', !!this.content);
+			this.addRemoveClass('content', this.hasContent());
+		},
+
+		/**
+		* @private
+		*/
+		transparentChanged: function() {
+			this.addRemoveClass('moon-spinner-transparent-background', !!this.get('transparent'));
 		}
-		this.createChrome(tools);
-	},
-	create: function() {
-		this.inherited(arguments);
-		this.contentChanged();
-		this.transparentChanged();
-		this.addClass("running");
-	},
-	//* @public
-	//* Hides the animating spinner.
-	stop: function() {
-		this.set("showing", false);
-	},
-	//* Shows the spinner with animation.
-	start: function() {
-		this.set("showing", true);
-	},
-	//* Toggles the spinner's visibility state.
-	toggle: function() {
-		this.set("showing", !this.get("showing"));
-	},
-	//* @protected
-	hasContent: function() {
-		// true if this.content is set to something OR if there are more than zero components 
-		return (!!this.content || (this.components && this.components.length > 0));
-	},
-	contentChanged: function(inOld) {
-		this.inherited(arguments);
-		if (this.content || inOld) {
-			this.$.client.set("content", this.content);
-		}
-		this.$.client.set("showing", !!this.content);
-		this.addRemoveClass("content", this.hasContent());
-	},
-	transparentChanged: function() {
-		this.addRemoveClass("moon-spinner-transparent-background", !!this.get("transparent"));
-	}
-});
+	});
+
+})(enyo, this);

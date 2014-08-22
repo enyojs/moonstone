@@ -5,11 +5,27 @@ enyo.kind({
 	components: [
 		{fit:true, components: [
 			{kind: "moon.Divider", content:"Radio Items"},
+			{style: "margin: 0 10px", onActivate: "buttonActivated", components: [
+				{kind: "moon.RadioItem", content: "Cat"},
+				{kind: "moon.RadioItem", content: "Dog"},
+				{kind: "moon.RadioItem", content: "Whale", disabled: true},
+				{kind: "moon.RadioItem", content: "Monte Verde Golden Toad"}
+			]},
+			{classes:"moon-1v"},
+			{kind: "moon.Divider", content:"Radio Item Group"},
 			{kind: "moon.RadioItemGroup", onActivate: "buttonActivated", components: [
-				{content: "Cat"},
-				{content: "Dog"},
-				{content: "Whale", disabled: true},
-				{content: "Monte Verde Golden Toad"}
+				{content: "Raspberry"},
+				{content: "Blackberry"},
+				{content: "Strawberry", disabled: true},
+				{content: "Persimmon is botanical berries"}
+			]},
+			{classes:"moon-1v"},
+			{kind: "moon.Divider", content:"Pre-selected Radio Item Group"},
+			{kind: "moon.RadioItemGroup", onActivate: "buttonActivated", components: [
+				{content: "Creek"},
+				{content: "River", selected: true},
+				{content: "Waterfall", disabled: true},
+				{content: "Ocean is big big big water"}
 			]}
 		]},
 		{kind: "moon.Divider", content:"Result"},
