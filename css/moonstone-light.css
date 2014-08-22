@@ -3772,6 +3772,7 @@
 .moon-tooltip {
   z-index: 20;
   height: 68px;
+  transform: translatez(0);
 }
 .moon-tooltip-label {
   font-family: "Moonstone Miso Bold";
