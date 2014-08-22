@@ -9,10 +9,10 @@ moon.DataListSpotlightSupport = {
 		initialFocusIndex: -1
 	},
 	handlers: {
-		onSpotlightUp    : "selectPrev",
-		onSpotlightLeft  : "selectPrev",
-		onSpotlightDown  : "selectNext",
-		onSpotlightRight : "selectNext"
+		onSpotlightUp    : "_spotlightPrev",
+		onSpotlightLeft  : "_spotlightPrev",
+		onSpotlightDown  : "_spotlightNext",
+		onSpotlightRight : "_spotlightNext"
 	},
 	focusOnIndex: function(inIndex, inSubChild) {
 		var c = this.collection,
@@ -66,15 +66,15 @@ moon.DataListSpotlightSupport = {
 			return sup.apply(this, arguments);
 		};
 	}),
-	selectNext: function(inSender, inEvent) {
-		return this.selectItem(inEvent, 1);
+	_spotlightNext: function(inSender, inEvent) {
+		return this._spotlightSelect(inEvent, 1);
 	},
-	selectPrev: function(inSender, inEvent) {
-		return this.selectItem(inEvent, -1);
+	_spotlightPrev: function(inSender, inEvent) {
+		return this._spotlightSelect(inEvent, -1);
 	},
 	// Spot the next/previous control. Handles the case where this control may not be generated yet, otherwise the default
 	// behavior occurs that is handled by Spotlight.
-	selectItem: function(inEvent, inDirection) {
+	_spotlightSelect: function(inEvent, inDirection) {
 		var pages = this.delegate.pagesByPosition(this),
 			spottableControl;
 
