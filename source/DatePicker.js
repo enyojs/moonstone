@@ -293,7 +293,7 @@
 				if (typeof ilib !== 'undefined') {
 					this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
 					
-					updateDays = false;
+					updateDays = true;
 					if (inOld) {
 						var old = ilib.Date.newInstance({date: inOld});
 						updateDays = (old.getYears() != this.localeValue.getYears() ||
@@ -310,9 +310,9 @@
 						this.$.day.updateOverlays();
 					}
 				} else {
-					updateDays = inOld &&
+					updateDays = (inOld &&
 					(inOld.getFullYear() != this.value.getFullYear() ||
-					inOld.getMonth() != this.value.getMonth());
+					inOld.getMonth() != this.value.getMonth())) || !inOld;
 					this.$.year.setValue(this.value.getFullYear());
 					this.$.month.setValue(this.value.getMonth() + 1);
 					if (updateDays) {
