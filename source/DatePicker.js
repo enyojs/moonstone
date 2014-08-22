@@ -275,7 +275,7 @@
 				});
 				this.setValue(new Date(this.localeValue.getTime()));
 			} else {
-				maxDays = this.monthLength(year, month-1);
+				maxDays = this.monthLength(year, month);
 				this.setValue(new Date(year, month-1, (day <= maxDays) ? day : maxDays,
 					valueHours,
 					valueMinutes,
@@ -288,42 +288,17 @@
 		* @private
 		*/
 		setChildPickers: function (inOld) {
-			var updateDays;
 			if (this.value) {
+				var value = this.value;
 				if (typeof ilib !== 'undefined') {
 					this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
-					
-					updateDays = false;
-					if (inOld) {
-						var old = ilib.Date.newInstance({date: inOld});
-						updateDays = (old.getYears() != this.localeValue.getYears() ||
-							old.getMonths() != this.localeValue.getMonths());
-					}
-					this.$.year.setValue(this.localeValue.getYears());
-					this.$.month.setValue(this.localeValue.getMonths());
-					if (updateDays) {
-						this.$.day.setMax(this.monthLength(this.localeValue.getYears(), this.localeValue.getMonths()));
-						this.$.day.updateScrollBounds();
-					}
-					this.$.day.setValue(this.localeValue.getDays());
-					if (updateDays) {
-						this.$.day.updateOverlays();
-					}
-				} else {
-					updateDays = inOld &&
-					(inOld.getFullYear() != this.value.getFullYear() ||
-					inOld.getMonth() != this.value.getMonth());
-					this.$.year.setValue(this.value.getFullYear());
-					this.$.month.setValue(this.value.getMonth() + 1);
-					if (updateDays) {
-						this.$.day.setMax(this.monthLength(this.value.getFullYear(), this.value.getMonth()));
-						this.$.day.updateScrollBounds();
-					}
-					this.$.day.setValue(this.value.getDate());
-					if (updateDays) {
-						this.$.day.updateOverlays();
-					}
+					value = this.localeValue.getJSDate();
 				}
+
+				this.$.year.setValue(value.getFullYear());
+				this.$.month.setValue(value.getMonth() + 1);
+				this.$.day.setValue(value.getDate());
+				this.$.day.setMax(this.monthLength(value.getFullYear(), value.getMonth() + 1));
 			}
 			this.$.currentValue.setContent(this.formatValue());
 		},
@@ -353,7 +328,7 @@
 			if (typeof ilib !== 'undefined') {
 				return this._tf.cal.getMonLength(inMonth, inYear);
 			} else {
-				return 32 - new Date(inYear, inMonth, 32).getDate();
+				return 32 - new Date(inYear, inMonth - 1, 32).getDate();
 			}
 		},
 
