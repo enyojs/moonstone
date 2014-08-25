@@ -294,7 +294,7 @@
 		*/
 		_marquee_enter: function (inSender, inEvent) {
 			this._marquee_isHovered = true;
-			if ((this.marqueeOnHover && !this.marqueeOnSpotlight) || 
+			if ((this.marqueeOnHover && !this.marqueeOnSpotlight) ||
 			(this.disabled && this.marqueeOnSpotlight && !this.hasNode().getAttribute('disabled'))) {
 				this.startMarquee();
 			}
@@ -791,10 +791,10 @@
 			var duration = this._marquee_calcDuration(inDistance);
 
 			this.$.marqueeText.addClass('animate-marquee');
-			this.$.marqueeText.applyStyle('transition-duration', duration + 's');
-			this.$.marqueeText.applyStyle('-webkit-transition-duration', duration + 's');
+			this.$.marqueeText.applyStyle('transition', 'transform ' + duration + 's linear');
+			this.$.marqueeText.applyStyle('-webkit-transition', 'transform ' + duration + 's linear');
 
-			enyo.dom.transform(this, {translateZ: '-0.1px'});
+			enyo.dom.transform(this, {translateZ: -0.01});
 
 			// Need this timeout for FF!
 			setTimeout(this.bindSafely(function () {
@@ -820,7 +820,7 @@
 			setTimeout(this.bindSafely(function () {
 				this.$.marqueeText.removeClass('animate-marquee');
 				enyo.dom.transform(this.$.marqueeText, {translateX: null});
-				enyo.dom.transform(this, {translateZ: null});
+				enyo.dom.transform(this.$.marqueeText, {translateZ: null});
 			}), enyo.platform.firefox ? 100 : 0);
 		},
 
