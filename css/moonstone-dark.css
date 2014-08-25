@@ -1200,6 +1200,8 @@
 }
 /* Button */
 .moon-button {
+  position: relative;
+  overflow: visible;
   height: 85px;
   line-height: 75px;
   border-radius: 9999px;
@@ -1207,7 +1209,6 @@
   border: 5px solid transparent;
   cursor: pointer;
   white-space: nowrap;
-  overflow: hidden;
   display: inline-block;
   width: auto;
   min-width: 85px;
@@ -1237,8 +1238,6 @@
   min-width: 60px;
   line-height: 50px;
   padding: 0 20px;
-  position: relative;
-  overflow: visible;
 }
 .moon-button.min-width {
   min-width: 180px;
@@ -1246,7 +1245,14 @@
 .moon-button.small.min-width {
   min-width: 130px;
 }
-.moon-button.small > .small-button-tap-area {
+.moon-button > .button-tap-area {
+  position: absolute;
+  top: -5px;
+  bottom: -5px;
+  left: -5px;
+  right: -5px;
+}
+.moon-button.small > .button-tap-area {
   position: absolute;
   top: -14px;
   bottom: -14px;
