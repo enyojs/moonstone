@@ -1,8 +1,8 @@
 (function (enyo, scope) {
 	/**
-	* `moon.ChannelInfo` is a control that displays channel information.  It is
-	* designed to be used within the {@link moon.VideoPlayer#infoComponents} block of a
-	* {@link moon.VideoPlayer}.
+	* {@link moon.ChannelInfo} is a control that displays channel information.  It is
+	* designed to be used within the [infoComponents]{@link moon.VideoPlayer#infoComponents}
+	* block of a {@link moon.VideoPlayer}.
 	*
 	* Example:
 	* ```
@@ -64,7 +64,7 @@
 		published: {
 
 			/**
-			* The channel number
+			* The channel number.
 			*
 			* @type {String}
 			* @default ''
@@ -73,7 +73,7 @@
 			channelNo: '',
 
 			/**
-			* The name of the channel
+			* The name of the channel.
 			*
 			* @type {String}
 			* @default ''
@@ -82,8 +82,8 @@
 			channelName: '',
 
 			/**
-			* When true, [`channelNo`]{@link moon.ChannelInfo#channelNo} will be converted to
-			* locale-safe uppercase
+			* When true, [channelNo]{@link moon.ChannelInfo#channelNo} will have locale-safe
+			* uppercasing applied.
 			*
 			* @type {Boolean}
 			* @default true
@@ -138,7 +138,7 @@
 	});
 
 	/**
-	* `moon.ChannelInfoBadge` is a simple kind used to display a badge
+	* {@link moon.ChannelInfoBadge} is a simple kind used to display a badge
 	* containing channel info. It is the default kind for components added to
 	* {@link moon.ChannelInfo}.
 	*

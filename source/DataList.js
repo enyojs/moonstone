@@ -1,9 +1,10 @@
 (function (enyo, scope) {
 	/**
-	* `moon.DataListSpotlightSupport` is a [mixin]{@glossary mixin} that provides spotlight handling
-	* code for use by {@link moon.DataList} and {@link moon.DataGridList}. Since those each extend
-	* from their respective enyo counterparts, this mixin provides common add-on code needed for
-	* proper spotlight handling.
+	* {@link moon.DataListSpotlightSupport} is a {@glossary mixin} that provides
+	* {@glossary Spotlight} handling code for use by {@link moon.DataList} and
+	* {@link moon.DataGridList}. Since both of these [kinds]{@glossary kind} inherit
+	* from their respective Enyo counterparts, this mixin provides the common add-on
+	* code needed for proper spotlight handling.
 	*
 	* @mixin moon.DataListSpotlightSupport
 	* @private
@@ -29,10 +30,10 @@
 		* @private
 		*/
 		handlers: {
-			onSpotlightUp    : 'selectPrev',
-			onSpotlightLeft  : 'selectPrev',
-			onSpotlightDown  : 'selectNext',
-			onSpotlightRight : 'selectNext'
+			onSpotlightUp    : '_spotlightPrev',
+			onSpotlightLeft  : '_spotlightPrev',
+			onSpotlightDown  : '_spotlightNext',
+			onSpotlightRight : '_spotlightNext'
 		},
 
 		/**
@@ -127,24 +128,24 @@
 		/**
 		* @private
 		*/
-		selectNext: function (inSender, inEvent) {
-			return this.selectItem(inEvent, 1);
+		_spotlightNext: function (inSender, inEvent) {
+			return this._spotlightSelect(inEvent, 1);
 		},
 
 		/**
 		* @private
 		*/
-		selectPrev: function (inSender, inEvent) {
-			return this.selectItem(inEvent, -1);
+		_spotlightPrev: function (inSender, inEvent) {
+			return this._spotlightSelect(inEvent, -1);
 		},
 
 		/**
-		* Spot the next/previous control. Handles the case where this control may not be generated yet,
-		* otherwise the default behavior occurs that is handled by Spotlight.
+		* Spots the next/previous control. Handles the case where this control may not be
+		* generated yet; otherwise, the default behavior occurs and is handled by Spotlight.
 		*
 		* @private
 		*/
-		selectItem: function (inEvent, inDirection) {
+		_spotlightSelect: function (inEvent, inDirection) {
 			var pages = this.delegate.pagesByPosition(this),
 				spottableControl;
 
@@ -163,12 +164,26 @@
 					enyo.Spotlight.spot(spottableControl);
 					return true;
 				}
+			} else if (this.needToAdjustPages) {
+				// Sometimes after models added, page adjustment might be required.
+				var pagesForIndex = this.delegate.pageForIndex(this, inEvent.index),
+					pageCount = this.delegate.pageCount(this),
+					lastPageIndex = pages.lastPage.index;
+			
+				// If current selected index is lastPage and there is no page
+				// then lower bound of scrollThreshold is undefined because it is useless
+				// However after models are added then more pages could be generated
+				// We need to check whether current list's position passes scrollThreshold or not.
+				if (pagesForIndex === lastPageIndex && pageCount -1 !== lastPageIndex) {
+					this.didScroll(this, {scrollBounds: {left: null, top: null, xDir: 1, yDir: 1}});
+					this.needToAdjustPages = false;
+				}
 			}
 		},
 
 		/**
-		* Find the next/previous spottable control, page to generate next page of controls in, and
-		* index of the next page to generate
+		* Finds the next/previous spottable control, the page to generate the next
+		* page worth of controls in, and the index of the next page to generate.
 		*
 		* @private
 		*/
@@ -275,8 +290,8 @@
 		},
 
 		/**
-		* Retrieve the next/previous spottable child from the generated controls starting from the given
-		* index
+		* Retrieves the next/previous spottable child from the generated controls,
+		* starting from the given index.
 		*
 		* @private
 		*/
@@ -340,7 +355,6 @@
 				}
 				oControl = oControl.parent;
 			}
-
 			return null;
 		},
 
@@ -401,6 +415,8 @@
 				this.unspotAndRememberFocus();
 				sup.apply(this, arguments);
 				this.restoreFocus();
+				// For specific case, page adjusting is required after models added
+				this.needToAdjustPages = true;
 			};
 		}),
 
@@ -418,7 +434,7 @@
 	};
 
 	/**
-	* `moon.DataList` is an {@link enyo.DataList} with Moonstone styling
+	* {@link moon.DataList} is an {@link enyo.DataList} with Moonstone styling
 	* applied.  It uses {@link moon.Scroller} as its default scroller.
 	*
 	* @class moon.DataList

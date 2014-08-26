@@ -1,12 +1,13 @@
 (function (enyo, scope) {
 	/**
-	* `moon.Image` is a simple control that wraps an [`enyo.Image`]{@link enyo.Image} to
+	* {@link moon.Image} is a simple control that wraps an {@link enyo.Image} to
 	* provide proper alignment with text-based controls.
 	*
-	* In addition, `moon.Image` accepts optional [`moon.ImageBadge`]{@link moon.ImageBadge}
-	* client components (the default component), which are placed inside a container positioned over
-	* the image.  These badges are normally persistent, but may be shown or hidden based on
-	* {@glossary Spotlight} focus, using the {@link moon.Image#showBadgesOnSpotlight} property.
+	* In addition, `moon.Image` accepts optional {@link moon.ImageBadge} client
+	* components (ImageBadge being the default kind of Image), which are placed inside
+	* a container positioned over the image.  These badges are normally persistent,
+	* but may be shown or hidden based on {@glossary Spotlight} focus, using the
+	* [showBadgesOnSpotlight]{@link moon.Image#showBadgesOnSpotlight} property.
 	*
 	* ```
 	* {kind: 'moon.Image', src: 'assets/movie.png', showBadgesOnSpotlight: true, components: [
@@ -47,7 +48,7 @@
 		published: {
 
 			/**
-			* The URL of the image
+			* The URL of the image.
 			*
 			* @type {String}
 			* @default ''
@@ -56,7 +57,7 @@
 			src: '',
 
 			/**
-			* The URL of the alt image
+			* The `alt` text for the image.
 			*
 			* @type {String}
 			* @default ''
@@ -65,7 +66,7 @@
 			alt: '',
 
 			/**
-			* When `true`, badges will only be shown when the image is within a
+			* If `true`, badges will only be shown when the image is within a
 			* spotlightable component that has focus.  Otherwise, any badges provided
 			* will always be shown.
 			*
@@ -85,8 +86,8 @@
 			sizing: '',
 
 			/**
-			* The image position when {@link moon.Image#sizing} is used.  See {@link enyo.Image}
-			* for details.
+			* The image position when [sizing]{@link moon.Image#sizing} is used.  See
+			* {@link enyo.Image} for details.
 			*
 			* @type {Object}
 			* @default ''

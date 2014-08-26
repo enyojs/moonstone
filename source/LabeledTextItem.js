@@ -1,7 +1,7 @@
 (function (enyo, scope) {
 	/**
-    * `moon.LabeledTextItem`, which extends {@link moon.Item}, is a [control]{@link enyo.Control}
-    * that combines text content with a text label.
+    * {@link moon.LabeledTextItem}, which extends {@link moon.Item}, is a
+    * [control]{@link enyo.Control} that combines text content with a text label.
     *
     * @class moon.LabeledTextItem
     * @extends moon.Item

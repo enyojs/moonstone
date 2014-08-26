@@ -1,8 +1,8 @@
 (function (enyo, scope) {
 	/**
-	* `moon.InputDecorator` is a control that provides input styling. Any controls
-	* in the InputDecorator will appear to be inside an area styled as an input.
-	* Usually, an InputDecorator surrounds a [`moon.Input`]{@link moon.Input}:
+	* {@link moon.InputDecorator} is a control that provides input styling. Any controls
+	* in the InputDecorator will appear to be inside an area styled as an input. Usually,
+	* an InputDecorator surrounds a [moon.Input]{@link moon.Input}:
 	*
 	* ```
 	* {kind: 'moon.InputDecorator', components: [
@@ -21,7 +21,7 @@
 	* ]}
 	* ```
 	*
-	* Note that the `InputDecorator` fits around the content inside it. If the
+	* Note that the InputDecorator fits around the content inside it. If the
 	* decorator is sized, then its contents will likely need to be sized as well.
 	*
 	* ```
@@ -150,7 +150,9 @@
 		},
 
 		/**
-		* @param {Boolean} bFocus Add/Remove moon-focused class
+		* Updates styling based on focus state.
+		*
+		* @param {Boolean} bFocus - Whether to add/remove `moon-focused` class.
 		* @public
 		*/
 		updateFocus: function (bFocus) {
@@ -159,7 +161,9 @@
 		},
 
 		/**
-		* @returns {Object} a reference to the child input control
+		* Retrieves the child input control.
+		*
+		* @returns {Object} A reference to the child input control.
 		* @public
 		*/
 		getInputControl: function () {

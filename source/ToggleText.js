@@ -1,8 +1,8 @@
 (function (enyo, scope) {
 	/**
-	* `moon.ToggleText`, which extends [`moon.Checkbox`]{@link moon.Checkbox}, is a control that
-	* looks like a switch with labels for an 'on' state and an 'off' state. When the ToggleText is
-	* tapped, it switches its state and fires an [`onChange`]{@link enyo.Checkbox#event:onChange}
+	* {@link moon.ToggleText}, which extends {@link moon.Checkbox}, is a control that
+	* looks like a switch with labels for an 'on' state and an 'off' state. When tapped,
+	* it switches its state and fires an [onChange]{@link enyo.Checkbox#event:onChange}
 	* event.
 	*
 	* @class moon.ToggleText
@@ -29,7 +29,7 @@
 		*/
 		published: {
 			/**
-			* Text label for the 'on' state
+			* Text label for the 'on' state.
 			*
 			* @type {String}
 			* @default moon.$L('on')
@@ -38,7 +38,7 @@
 			onContent: moon.$L('on'),   // i18n 'ON' label in moon.ToggleText widget
 
 			/**
-			* Text label for the 'off' state
+			* Text label for the 'off' state.
 			*
 			* @type {String}
 			* @default moon.$L('off')

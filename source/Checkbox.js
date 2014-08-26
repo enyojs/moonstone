@@ -1,8 +1,8 @@
 (function (enyo, scope) {
 	/**
-	* `moon.Checkbox` is a box that, when clicked, shows or hides a checkmark and
-	* fires an {@link enyo.Checkbox#event:onChange} event. It derives from {@link enyo.Checkbox} and
-	* is designed to be used with {@link moon.CheckboxItem}.
+	* {@link moon.Checkbox} is a box that, when tapped, shows or hides a checkmark and
+	* fires an [onChange]{@link enyo.Checkbox#event:onChange} event. It derives from
+	* {@link enyo.Checkbox} and is designed to be used with {@link moon.CheckboxItem}.
 	*
 	* @class moon.Checkbox
 	* @extends enyo.Checkbox
@@ -33,7 +33,7 @@
 		*/
 		published: {
 			/**
-			* When locked is `true`, cannot change the value of the `checked` property
+			* If `true`, the `checked` property cannot be changed through user input.
 			*
 			* @type {Boolean}
 			* @default false
@@ -42,8 +42,8 @@
 			locked: false,
 
 			/**
-			* Customize the appearance of the checkbox with an icon name.  Consult {@link moon.Icon}
-			* for valid values
+			* Name of a font-based icon to use when displaying the checkbox. Consult
+			* {@link moon.Icon} for valid values.
 			*
 			* @type {String}
 			* @default 'check'
@@ -52,7 +52,7 @@
 			icon: 'check',
 
 			/**
-			* Customize the appearance of the checkbox with an image asset.
+			* Optional path to an image asset. May be used to customize checkbox appearance.
 			*
 			* @type {String}
 			* @default ''

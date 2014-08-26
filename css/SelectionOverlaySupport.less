@@ -5,17 +5,17 @@
 				display: block;
 				text-align: center;
 
-				.moon-icon-button {
+				.moon-icon {
 					position: absolute;
 					width: @moon-icon-button-small-size;
 					height: @moon-icon-button-small-size;
-					line-height: @moon-icon-button-small-size - @moon-button-border-width * 2;
+					line-height: @moon-icon-button-small-size;
 					font-size: @moon-icon-small-size * 2 + 8;
 					color: @moon-accent;
 					margin: -@moon-icon-button-small-size / 2 0 0 -@moon-icon-button-small-size / 2;
 					background-color: @moon-selection-overlay-bg-color;
-					border-color: @moon-selection-overlay-bg-color;
-					background-size: @moon-icon-sprite-small-size @moon-icon-sprite-small-size;
+					border-radius: @moon-icon-button-small-size / 2;
+					background-position: center @moon-button-border-width;
 				}
 			}
 		}

@@ -1,6 +1,6 @@
 (function (enyo, scope) {
 	/**
-	* Event sent to {@link moon.HighlightText} to turn on highlight
+	* Event sent to {@link moon.HighlightText} to turn on highlighting.
 	*
 	* @event moon.HighlightText#onHighlight
 	* @type {Object}
@@ -10,7 +10,8 @@
 	*/
 
 	/**
-	* Event sent to {@link moon.HighlightText} to turn off highlight
+	* Event sent to {@link moon.HighlightText} to turn off highlighting. No additional data
+	* is sent with this event.
 	*
 	* @event moon.HighlightText#onUnHighlight
 	* @type {Object}
@@ -21,12 +22,20 @@
 		HighlightTextDelegate = Object.create(HTMLStringDelegate);
 
 	HighlightTextDelegate.generateInnerHtml = function (control) {
+		var i = 0, child;
 		// flow can alter the way that html content is rendered inside
 		// the container regardless of whether there are children.
 		control.flow();
-		if (control.children.length) { return this.generateChildHtml(control); }
+		if (control.children.length) {
+			// If marqueeText is created inside of highlightText then it needs to pass search keyword to children
+			for (; (child = control.children[i]); ++i) {
+				child.search = control.search;
+				child.highlightClasses = control.highlightClasses; // this is not included in search, so passing it
+			}
+			return this.generateChildHtml(control);
+		}
 		else {
-			if (control.search) {
+			if (control.search && control.content) {
 				return control.content.replace(control.search, control.bindSafely(function (s) {
 					return '<span style=\'pointer-events:none;\' class=\'' + this.highlightClasses + '\'>' + enyo.dom.escape(s) + '</span>';
 				}));
@@ -37,10 +46,11 @@
 	};
 
 	/**
-	* `moon.HighlightText` is a control that displays highlighted text.  When
-	* [`highlight`]{@link moon.HighlightText#highlight} is set or an
-	* {@link moon.HighlightText#event:onHighlight} event is received, it will highlight a specified
-	* string if that string is found within the control's content.
+	* {@link moon.HighlightText} is a control that displays highlighted text.  When
+	* the [highlight]{@link moon.HighlightText#highlight} property is set or an
+	* [onHighlight]{@link moon.HighlightText#event:onHighlight} event is received,
+	* it will highlight a specified string if that string is found within the
+	* control's content.
 	*
 	* For example, let's say we have the following control:
 	*
@@ -60,13 +70,13 @@
 	*
 	* the word 'Hello' will be highlighted.
 	*
-	* The highlighting will be turned off when an {@link moon.HighlightText#event:onUnHighlight}
-	* event is received
+	* The highlighting will be turned off when an
+	* [onUnHighlight]{@link moon.HighlightText#event:onUnHighlight} event is received.
 	*
 	* ```
 	* this.waterfall('onUnHighlight');
 	* ```
-	* or when {@link moon.HighlightText#highlight} is set to a **falsy** value
+	* or when [highlight]{@link moon.HighlightText#highlight} is set to a **falsy** value.
 	*
 	* ```
 	* this.$.myHT.set('highlight', '');
@@ -97,9 +107,9 @@
 		published: {
 
 			/**
-			* String or regular expression specifying the text or pattern to
-			* highlight. Setting this to an empty string, **falsy** value, or empty
-			* regex will disable highlighting.
+			* String or regular expression specifying the text or pattern to highlight.
+			* Setting this to an empty string, a **falsy** value, or an empty regex
+			* will disable highlighting.
 			*
 			* @type {String|RegExp}
 			* @default ''
@@ -108,10 +118,10 @@
 			highlight: '',
 
 			/**
-			* When `true`, only case-sensitive matches of the string to highlight will be
+			* If `true`, only case-sensitive matches of the string to highlight will be
 			* highlighted.  This property will be ignored if the
-			* {@link moon.HighlightText#highlight} property is set to a regular expression (you
-			* may use the `'i'` modifier to create a case-insensitive regex).
+			* [highlight]{@link moon.HighlightText#highlight} property is set to a regular
+			* expression (you may use the `'i'` modifier to create a case-insensitive regex).
 			*
 			* @type {Boolean}
 			* @default false
@@ -120,7 +130,7 @@
 			caseSensitive: false,
 
 			/**
-			* The default CSS class to apply to highlighted content
+			* The default CSS class to apply to highlighted content.
 			*
 			* @type {String}
 			* @default 'moon-highlight-text-highlighted'

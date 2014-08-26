@@ -1,6 +1,6 @@
 (function (enyo, scope) {
 	/**
-	* `moon.Divider` is a simply styled component that may be used as a separator
+	* {@link moon.Divider} is a simply styled component that may be used as a separator
 	* between groups of components.
 	*
 	* @class moon.Divider

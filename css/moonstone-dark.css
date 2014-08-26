@@ -783,12 +783,12 @@
   -moz-transition-property: transform;
   -webkit-transition-property: -webkit-transform;
   -o-transition-property: transform;
-  transition-timing-function: linear;
-  -webkit-transition-timing-function: linear;
 }
 .moon-marquee .animate-marquee {
   text-overflow: clip;
   overflow: visible;
+  transition-timing-function: linear;
+  -webkit-transition-timing-function: linear;
 }
 .enyo-locale-right-to-left .moon-marquee {
   text-align: right;
@@ -804,6 +804,7 @@
   position: relative;
   height: 60px;
   vertical-align: middle;
+  direction: ltr;
 }
 .moon-simple-picker.block {
   display: block;
@@ -843,95 +844,84 @@
   opacity: 0.6;
 }
 .moon-simple-integer-picker {
-  font-family: "MuseoSans 700";
-  font-size: 30px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
-  color: #a6a6a6;
-  direction: ltr;
-  display: inline-block;
-  height: 60px;
-  border-radius: 30px;
+  padding: 0 60px;
 }
-.moon-simple-integer-picker > * {
-  display: inline-block;
-  vertical-align: middle;
-  height: 60px;
-  line-height: 60px;
-  box-sizing: border-box;
-}
-.moon-simple-integer-picker.spotlight {
-  background: #cf0652;
-}
-.moon-simple-integer-picker.spotlight .moon-simple-integer-picker-item,
-.moon-simple-integer-picker.spotlight .moon-simple-integer-picker-button {
-  color: #ffffff;
-}
-.moon-simple-integer-picker .moon-simple-integer-picker-button {
-  position: relative;
-  width: 60px;
-  text-align: center;
-  font-family: "Moonstone Icons";
-  font-size: 64px;
-  line-height: 60px;
-  color: #a6a6a6;
-}
-.moon-simple-integer-picker .moon-simple-integer-picker-button.left:after {
-  content: "\0F0007";
-}
-.moon-simple-integer-picker .moon-simple-integer-picker-button.right:after {
-  content: "\0F0008";
-}
-.moon-simple-integer-picker .moon-simple-integer-picker-button .moon-simple-integer-picker-button-tap-area {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  bottom: -10px;
-  left: -10px;
-}
-.moon-simple-integer-picker .moon-simple-integer-picker-item {
-  font-family: "MuseoSans 700";
-  font-size: 30px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
-  color: #a6a6a6;
-  width: auto;
+.moon-simple-integer-picker .moon-scroll-picker-repeater {
+  width: 100%;
   white-space: nowrap;
-  padding: 0 8px;
-  text-align: center;
+}
+.moon-simple-integer-picker .moon-scroll-picker-repeater > * {
+  display: inline-block;
+}
+.moon-simple-integer-picker .moon-scroll-picker {
+  height: 60px;
+  border-top: 0;
+  border-bottom: 0;
+  width: 100%;
+}
+.moon-simple-integer-picker .moon-scroll-picker-item {
+  height: 60px;
+  line-height: 60px;
+  padding: 0;
+}
+.moon-simple-integer-picker .moon-scroll-picker-overlay-container {
+  top: 0;
+  line-height: 60px;
+  width: 60px;
+  height: 60px;
+}
+.moon-simple-integer-picker .moon-scroll-picker-overlay-container.previous {
+  left: 0;
+}
+.moon-simple-integer-picker .moon-scroll-picker-overlay-container.previous:after {
+  content: "\0F0007";
+  line-height: 60px;
+}
+.moon-simple-integer-picker .moon-scroll-picker-overlay-container.previous.selected .moon-scroll-picker-overlay {
+  border-bottom: 0;
+  border-left-width: 6px;
+  border-radius: 45px 0 0 45px;
+}
+.moon-simple-integer-picker .moon-scroll-picker-overlay-container.previous.selected .moon-scroll-picker-overlay:after {
+  content: "\0F0007";
+  line-height: 60px;
+}
+.moon-simple-integer-picker .moon-scroll-picker-overlay-container.next {
+  right: 0;
+}
+.moon-simple-integer-picker .moon-scroll-picker-overlay-container.next:after {
+  content: "\0F0008";
+  line-height: 60px;
+}
+.moon-simple-integer-picker .moon-scroll-picker-overlay-container.next.selected .moon-scroll-picker-overlay {
+  border-top: 0;
+  border-right-width: 6px;
+  border-radius: 0 45px 45px 0;
+}
+.moon-simple-integer-picker .moon-scroll-picker-overlay-container.next.selected .moon-scroll-picker-overlay:after {
+  content: "\0F0008";
+  line-height: 60px;
+}
+.moon-simple-integer-picker .moon-scroll-picker-overlay-container .moon-scroll-picker-overlay {
+  position: absolute;
+  height: 60px;
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
-/*spotlight and overlay*/
-.spotlight .moon-simple-integer-picker-button {
-  box-sizing: border-box;
+.spotlight.moon-simple-integer-picker {
+  background: #cf0652;
+  border-radius: 45px;
 }
-.spotlight .moon-simple-integer-picker-button.left:not(.pressed):after {
-  content: "\0F0003";
-}
-.spotlight .moon-simple-integer-picker-button.left.pressed {
-  border-left: solid 6px rgba(0, 0, 0, 0.13);
-  border-radius: 30px 0 0 30px;
-}
-.spotlight .moon-simple-integer-picker-button.left.pressed:after {
-  margin-left: -6px;
-}
-.spotlight .moon-simple-integer-picker-button.right:not(.pressed):after {
+.spotlight.moon-simple-integer-picker .moon-scroll-picker-overlay-container.next:after {
   content: "\0F0004";
+  line-height: 60px;
 }
-.spotlight .moon-simple-integer-picker-button.right.pressed {
-  border-right: solid 6px rgba(0, 0, 0, 0.13);
-  border-radius: 0 30px 30px 0;
+.spotlight.moon-simple-integer-picker .moon-scroll-picker-overlay-container.previous:after {
+  content: "\0F0003";
+  line-height: 60px;
 }
-.spotlight .moon-simple-integer-picker-button.right.pressed:after {
-  margin-right: -6px;
-}
-/*disabled*/
-.moon-simple-integer-picker.disabled,
-.moon-simple-integer-picker-button[disabled] {
-  cursor: default;
-  opacity: 0.6;
+.enyo-locale-right-to-left .moon-simple-integer-picker .moon-scroll-picker {
+  direction: ltr;
 }
 .enyo-locale-non-latin .moon-simple-integer-picker-item {
   font-family: "Moonstone LG Display";
@@ -1673,10 +1663,30 @@
   /* fallback in case text-align:end isn't supported */
   text-align: end;
   /* CSS3 for RTL support */
+  z-index: 1;
+  /* Fixme: Inverse component stack order */
+}
+.moon-small-header .moon-header-client {
+  position: relative;
+  float: right;
+  bottom: 0;
+  padding-top: 30px;
+  margin-left: 40px;
+}
+.enyo-locale-right-to-left .moon-small-header .moon-header-client {
+  float: left;
+  margin-left: 0;
+  margin-right: 40px;
 }
 .full-bleed .moon-header-client {
   left: 20px;
   right: 20px;
+}
+.full-bleed.moon-small-header .moon-header-client {
+  margin-right: 20px;
+}
+.enyo-locale-right-to-left .full-bleed.moon-small-header .moon-header-client {
+  margin-left: 20px;
 }
 .moon-header-client > * {
   text-align: left;
@@ -1737,6 +1747,13 @@
   font-size: 60px;
   height: 84px;
 }
+.moon-header-sub-title {
+  font-size: 27px;
+}
+.moon-header-sub-title-gap {
+  display: inline-block;
+  width: 40px;
+}
 .enyo-locale-non-latin .moon-small-header .moon-header-title {
   line-height: 1.5em;
 }
@@ -1759,10 +1776,10 @@
   opacity: 0;
   margin-top: 0;
 }
-.moon-header-left {
+.moon-header:not(.moon-small-header):not(.moon-medium-header) .moon-header-left {
   float: left;
 }
-.enyo-locale-right-to-left .moon-header-left {
+.enyo-locale-right-to-left .moon-header:not(.moon-small-header):not(.moon-medium-header) .moon-header-left {
   float: right;
 }
 /*
@@ -1875,6 +1892,11 @@
   position: relative;
   text-align: center;
 }
+/*disabled*/
+.moon-scroll-picker-container.disabled {
+  cursor: default;
+  opacity: 0.6;
+}
 .moon-scroll-picker {
   height: 94px;
   border-top: solid 30px transparent;
@@ -1901,18 +1923,18 @@
   height: 30px;
   font-family: "Moonstone Icons";
 }
-.moon-scroll-picker-overlay-container.top {
+.moon-scroll-picker-overlay-container.next {
   top: 0;
 }
-.moon-scroll-picker-overlay-container.top-image:after {
+.moon-scroll-picker-overlay-container.next:after {
   content: "\0F0005";
   font-size: 68px;
   line-height: 38px;
 }
-.moon-scroll-picker-overlay-container.bottom {
+.moon-scroll-picker-overlay-container.previous {
   bottom: 0;
 }
-.moon-scroll-picker-overlay-container.bottom-image:after {
+.moon-scroll-picker-overlay-container.previous:after {
   content: "\0F0006";
   font-size: 68px;
   line-height: 26px;
@@ -1920,11 +1942,11 @@
 .spotlight .moon-scroll-picker-overlay-container {
   color: #ffffff;
 }
-.spotlight .moon-scroll-picker-overlay-container.top-image:after {
+.spotlight .moon-scroll-picker-overlay-container.next:after {
   content: "\0F0002";
   line-height: 42px;
 }
-.spotlight .moon-scroll-picker-overlay-container.bottom-image:after {
+.spotlight .moon-scroll-picker-overlay-container.previous:after {
   content: "\0F0001";
   line-height: 22px;
 }
@@ -1934,22 +1956,28 @@
   width: 100%;
   background-color: #cf0652;
 }
-.selected .moon-scroll-picker-overlay.top {
+.selected .moon-scroll-picker-overlay.next {
   top: 0;
-  border-top: solid 6px rgba(0, 0, 0, 0.2);
+  border-style: solid;
+  border-width: 0;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-top-width: 6px;
   border-radius: 45px 45px 0 0;
 }
-.selected .moon-scroll-picker-overlay.top:after {
+.selected .moon-scroll-picker-overlay.next:after {
   content: "\0F0005";
   font-size: 68px;
   line-height: 30px;
 }
-.selected .moon-scroll-picker-overlay.bottom {
+.selected .moon-scroll-picker-overlay.previous {
   bottom: 0;
-  border-bottom: solid 6px rgba(0, 0, 0, 0.2);
+  border-style: solid;
+  border-width: 0;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-bottom-width: 6px;
   border-radius: 0 0 45px 45px;
 }
-.selected .moon-scroll-picker-overlay.bottom:after {
+.selected .moon-scroll-picker-overlay.previous:after {
   content: "\0F0006";
   font-size: 68px;
   line-height: 42px;
@@ -2112,6 +2140,7 @@
   height: 10px;
   background-color: #262626;
   min-width: 128px;
+  direction: ltr;
 }
 .moon-progress-bg-bar {
   height: 100%;
@@ -2125,9 +2154,40 @@
   position: absolute;
   top: 0;
 }
-/* RTL classes */
-.moon-progress-bar-rtl .moon-progress-bar-bar {
-  float: right;
+/* ProgressButton.css */
+.moon-progress-button {
+  position: relative;
+  border: 5px solid transparent;
+  transform: translateZ(0);
+}
+.moon-progress-button.in-progress:active:hover:not([disabled]),
+.moon-progress-button.in-progress {
+  padding: 5px 27px;
+  border-width: 0;
+}
+.moon-progress-button.completed .moon-progress-button-bar {
+  transform: translateX(103%);
+}
+.moon-progress-button.animated .moon-progress-button-bar {
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.moon-progress-button.animated.completed {
+  transition: transform 0.2s ease-in;
+}
+.moon-progress-button-bar {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 9999px;
+  background-color: #cf0652;
+  transform: translateZ(0);
+}
+.moon-progress-button-progresspercent {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 /* ProgressButton.css */
 .moon-progress-button {
@@ -2218,7 +2278,6 @@
   white-space: nowrap;
   z-index: 20;
   left: 50%;
-  direction: ltr;
 }
 .moon-slider-popup.moon-slider-popup-flip-h {
   left: auto;
@@ -2237,9 +2296,6 @@
   margin: 0px 0 0 0;
   padding: 0;
   z-index: 21;
-}
-.enyo-locale-right-to-left .moon-slider-popup-center {
-  direction: rtl;
 }
 .moon-slider-popup-right {
   position: relative;
@@ -3791,6 +3847,7 @@
 .moon-tooltip {
   z-index: 20;
   height: 68px;
+  transform: translatez(0);
 }
 .moon-tooltip-label {
   font-family: "Moonstone Miso Bold";
@@ -4986,17 +5043,17 @@
   display: block;
   text-align: center;
 }
-.selection-enabled .moon-selection-overlay-support.selected .moon-selection-overlay-support-scrim .moon-icon-button {
+.selection-enabled .moon-selection-overlay-support.selected .moon-selection-overlay-support-scrim .moon-icon {
   position: absolute;
   width: 60px;
   height: 60px;
-  line-height: 50px;
+  line-height: 60px;
   font-size: 72px;
   color: #cf0652;
   margin: -30px 0 0 -30px;
   background-color: #ffffff;
-  border-color: #ffffff;
-  background-size: 50px 50px;
+  border-radius: 30px;
+  background-position: center 5px;
 }
 .moon-selection-overlay-support-scrim {
   display: none;

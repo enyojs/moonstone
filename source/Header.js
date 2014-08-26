@@ -1,7 +1,7 @@
 (function (enyo, scope) {
 	/**
-	* Custom input event to allow apps to differentiate between inputs and header inputs. See
-	* {@link enyo.Input#event:oninput} for more event information.
+	* Custom input event to allow apps to distinguish header inputs from regular inputs.
+	* See {@link enyo.Input#event:oninput} for more event information.
 	*
 	* @event moon.Header#onInputHeaderInput
 	* @type {Object}
@@ -9,8 +9,8 @@
 	*/
 
 	/**
-	* Custom input change event to allow apps to differentiate between input changes and header
-	* input changes. See {@link enyo.Input#event:onchange} for more event information.
+	* Custom input change event to allow apps to distinguish header input changes from
+	* regular input changes. See {@link enyo.Input#event:onchange} for more event information.
 	*
 	* @event moon.Header#onInputHeaderChange
 	* @type {Object}
@@ -18,7 +18,7 @@
 	*/
 
 	/**
-	* `moon.Header` is a Moonstone-styled control with a large title and an area for
+	* {@link moon.Header} is a Moonstone-styled control with a large title and an area for
 	* additional controls.
 	*
 	* @class moon.Header
@@ -52,7 +52,7 @@
 		published: {
 
 			/**
-			* Title of the header
+			* Title of the header.
 			*
 			* @type {String}
 			* @default ''
@@ -61,7 +61,16 @@
 			title: '',
 
 			/**
-			* Text above the header
+			* Sub Title of the small header.
+			*
+			* @type {String}
+			* @default ''
+			* @public
+			*/
+			subTitle: '',
+
+			/**
+			* Text above the header.
 			*
 			* @type {String}
 			* @default ''
@@ -70,7 +79,7 @@
 			titleAbove: '',
 
 			/**
-			* Text below the header
+			* Text below the header.
 			*
 			* @type {String}
 			* @default ''
@@ -79,7 +88,7 @@
 			titleBelow: '',
 
 			/**
-			* Sub-text below the header
+			* Sub-text below the header.
 			*
 			* @type {String}
 			* @default ''
@@ -88,9 +97,10 @@
 			subTitleBelow: '',
 
 			/**
-			* If `'medium'`, the `moon-medium-header` CSS class will be applied to this header
-			* If `'small'`, the `moon-small-header` CSS class will be applied to this header
-			* If `'large'`, the `moon-header` CSS class will be applied to this header
+			* Size of the header, for styling purposes. Will be one of `'large'` (the default),
+			* `'medium'`, or `'small'`. If `'large'`, the `moon-header` CSS class will be applied
+			* to this header; if `'medium'`, the `moon-medium-header` class will be applied; if
+			* `'small'`, the `moon-small-header` class will be applied.
 			*
 			* @type {String}
 			* @default 'large'
@@ -101,9 +111,9 @@
 			/**
 			* If `true`, the `moon-medium-header` CSS class will be applied to this header.
 			*
-			* Note: This property will be deprecated soon. For backward compatiblity, I leave it for
-			* a while. And until it is removed, `'small'` refers to the historical size, which is
-			* now `'medium'`
+			* Note that this property will be deprecated soon. For now, it is being left in
+			* for backward compatibility. Until it is removed, `small: true` refers to the
+			* historical header size, which is now equivalent to `type: 'medium'`.
 			*
 			* @type {Boolean}
 			* @default false
@@ -112,7 +122,7 @@
 			small: false,
 
 			/**
-			* URL of background image(s).
+			* URL(s) of background image(s).
 			* This may be a string referring a single background image, or an array of
 			* strings referring to multiple background images.
 			*
@@ -123,13 +133,13 @@
 			backgroundSrc: null,
 
 			/**
-			* Position of background image, defined as a string of the form `'vertical
-			* horizontal'`, with a space separating the `vertical` and `horizontal`
-			* properties (e.g., `'top right'`). If no second property is included, the
-			* horizontal value will default to `'right'`.
-			* As with {@link moon.Header#backgroundSrc}, an array of strings may be supplied to
-			* position multiple background images. The order of items should be the same as in
-			* {@link moon.Header#backgroundSrc}.
+			* Position of background image, defined as a string of the form
+			* `'<vertical> <horizontal>'`, with a space separating the `<vertical>`
+			* and `<horizontal>` values (e.g., `'top right'`). If no second property
+			* is specified, the `<horizontal>` value will default to `'right'`. As
+			* with [backgroundSrc]{@link moon.Header#backgroundSrc}, an array of strings
+			* may be supplied to position multiple background images. The order of items
+			* should be the same as in `backgroundSrc`.
 			*
 			* @type {(String|String[])}
 			* @default 'top right'
@@ -139,7 +149,7 @@
 
 			/**
 			* When using a full-bleed background image, set this property to `true` to indent
-			* the header text/controls and remove the header lines
+			* the header text/controls and remove the header lines.
 			*
 			* @type {Boolean}
 			* @default false
@@ -148,7 +158,7 @@
 			fullBleedBackground: false,
 
 			/**
-			* If `true`, title will be an input
+			* If `true`, title will be an input.
 			*
 			* @type {Boolean}
 			* @default false
@@ -157,7 +167,8 @@
 			inputMode: false,
 
 			/**
-			* When `true`, input will be blurred on Enter keypress (if focused)
+			* When `true`, input will be blurred on Enter keypress, if it was previously
+			* focused.
 			*
 			* @type {Boolean}
 			* @default false
@@ -166,7 +177,7 @@
 			dismissOnEnter: false,
 
 			/**
-			* Text to display when the input is empty
+			* Text to display when the input is empty.
 			*
 			* @type {String}
 			* @default ''
@@ -175,7 +186,7 @@
 			placeholder: '',
 
 			/**
-			* The value of the input
+			* The value of the input.
 			*
 			* @type {String}
 			* @default ''
@@ -184,7 +195,7 @@
 			value: '',
 
 			/**
-			* When `true`, the title text will be converted to locale-safe uppercasing
+			* When `true`, the title text will have locale-safe uppercasing applied.
 			*
 			* @type {Boolean}
 			* @default true
@@ -241,13 +252,13 @@
 		events: {
 
 			/**
-			* Custom input event to allow apps to differentiate between inputs and header inputs
+			* Custom input event to allow apps to distinguish header inputs from regular inputs.
 			*/
 			onInputHeaderInput: '',
 
 			/**
-			* Custom input change event to allow apps to differentiate between input changes and
-			* header input changes
+			* Custom input change event to allow apps to distinguish header input changes from
+			* regular input changes.
 			*/
 			onInputHeaderChange: ''
 		},
@@ -256,7 +267,11 @@
 		* @private
 		*/
 		components: [{
+			name: 'client',
+			classes: 'moon-hspacing moon-header-client'
+		}, {
 			name: 'texts',
+			classes: 'moon-header-texts',
 			components: [{
 				name: 'titleAbove',
 				classes: 'moon-super-header-text moon-header-title-above'
@@ -266,7 +281,7 @@
 				components: [{
 					name: 'title',
 					kind: 'moon.MarqueeText',
-					classes: 'moon-header-font moon-header-title',
+					classes: 'moon-header-font moon-header-title',	
 					canGenerate: false
 				}, {
 					name: 'inputDecorator',
@@ -288,9 +303,6 @@
 				kind: 'moon.MarqueeText',
 				classes: 'moon-header-sub-title-below'
 			}]
-		}, {
-			name: 'client',
-			classes: 'moon-hspacing moon-header-client'
 		}, {
 			name: 'animator',
 			kind: 'enyo.StyleAnimator',
@@ -315,6 +327,7 @@
 			this.smallChanged();
 			this.typeChanged();
 			this.titleChanged();
+			this.subTitleChanged();
 			this.titleAboveChanged();
 			this.titleBelowChanged();
 			this.subTitleBelowChanged();
@@ -330,7 +343,7 @@
 		* @private
 		*/
 		allowHtmlChanged: function () {
-			this.$.title.setAllowHtml(this.allowHtml);
+			this.$.title.setAllowHtml( this.getType() == 'small' ? true : this.allowHtml );
 			this.$.titleBelow.setAllowHtml(this.allowHtml);
 			this.$.subTitleBelow.setAllowHtml(this.allowHtml);
 		},
@@ -596,11 +609,12 @@
 				this.addClass('moon-small-header');
 				break;
 			}
+			this.contentChanged();
 		},
 
 		/**
-		* Note: This method will be deprecated soon. For backward compatiblity, I leave it for a
-		* while.
+		* Note that this method will be deprecated soon. For now, it is being left in for
+		* backward compatibility.
 		*
 		* @private
 		*/
@@ -612,14 +626,20 @@
 		* @private
 		*/
 		contentChanged: function () {
-			this.$.title.setContent(this.getTitleUpperCase()
-					? enyo.toUpperCase(this.title || this.content)
-					: (this.title || this.content) );
+			var title = this.getTitleUpperCase()
+						? enyo.toUpperCase(this.title || this.content)
+						: (this.title || this.content);
+			if(this.getType() == 'small' && this.subTitle) {
+				this.$.title.setAllowHtml( this.getType() == 'small' ? true : this.allowHtml );
+				this.$.title.setContent(title + '<div class=\'moon-header-sub-title-gap\'></div>' + '<span class=\'moon-header-sub-title\'>' + this.subTitle + '</span>');
+			} else {
+				this.$.title.setContent(title);
+			}
 			this.placeholderChanged();
 		},
 
 		/**
-		* For backward-compatibility with original API
+		* For backward-compatibility with original API.
 		*
 		* @private
 		*/
@@ -643,6 +663,13 @@
 		*/
 		titleUpperCaseChanged: function () {
 			this.titleChanged();
+		},
+
+		/**
+		* @private
+		*/
+		subTitleChanged: function () {
+			this.contentChanged();
 		},
 
 		/**
@@ -700,7 +727,8 @@
 		},
 
 		/**
-		* Create custom event for `input` events
+		* Handles `input` event, firing custom
+		* [onInputHeaderInput]{@link moon.Header#event:onInputHeaderInput} event.
 		*
 		* @fires moon.Header#onInputHeaderInput
 		* @private
@@ -710,7 +738,8 @@
 		},
 
 		/**
-		* Create custom event for `change` events
+		* Handles `change` event, firing custom
+		* [onInputHeaderChange]{@link moon.Header#event:onInputHeaderChange} event.
 		*
 		* @fires moon.Header#onInputHeaderChange
 		* @private
@@ -721,7 +750,7 @@
 
 
 		/**
-		* Enlarge listActionDrawer's height to large type's height
+		* Enlarges listActionDrawer's height to large type's height.
 		*
 		* @private
 		*/

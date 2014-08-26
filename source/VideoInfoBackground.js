@@ -1,11 +1,11 @@
 (function (enyo, scope) {
 	/**
-	* `moon.VideoInfoBackground` is a [control]{@link enyo.Control} that provides a stylized 
-	* background for [components]{@link enyo.Component} placed in the
-	* [`infoComponents`]{@link moon.VideoPlayer#infoComponents} block of a {@link moon.VideoPlayer}.
-	* It is designed as a decorator, wrapping components placed inside with the stylized background.
+	* {@link moon.VideoInfoBackground} is a [control]{@link enyo.Control} that provides a
+	* stylized background for [components]{@link enyo.Component} placed in the
+	* [infoComponents]{@link moon.VideoPlayer#infoComponents} block of a {@link moon.VideoPlayer}.
+	* It is designed as a decorator, wrapping the components inside with the stylized background.
 	* 
-	* Use the [`orient`]{@link moon.VideoInfoBackground#orient} property to set the orientation 
+	* Use the [orient]{@link moon.VideoInfoBackground#orient} property to set the orientation 
 	* (`'left'` or `'right'`).
 	* 
 	* For more details, see {@link moon.VideoPlayer}.
@@ -49,7 +49,7 @@
 			orient: 'left',
 
 			/**
-			* If `true`, background color is set to black; otherwise, background is transparent.
+			* When `true`, background color is set to black; otherwise, background is transparent.
 			*
 			* @type {Boolean}
 			* @default true

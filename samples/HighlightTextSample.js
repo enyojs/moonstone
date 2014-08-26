@@ -28,7 +28,12 @@ enyo.kind({
 					]},
 					{kind: "moon.Item", components: [
 						{kind: "moon.HighlightText", content:"Text to highlight", highlight:"highlight", highlightClasses:"highlight-text-sample-fancy"}
-					]}
+					]},
+					{kind: "moon.Divider", content:"Custom control with marquee"},
+					{tag:"div", style: "border: 2px dotted grey; margin: 5px 10px;", marqueeOnSpotlight: false, marqueeOnRender: true, mixins: ["moon.MarqueeSupport"], components: [
+						{name: "dynamic", kind: "moon.HighlightText", highlight:"text", mixins: ["moon.MarqueeItem"], content:$L("Very long text to see highlight with marquee but not using item")}
+					]},
+					{kind: "moon.Button", content: "Dynamic Content Change", ontap: "changeContent"}
 				]}
 			]},
 			{name: "inputPanel", kind: "moon.Panel", headerOptions: {kind: "moon.InputHeader"}, classes:"moon-6h", joinToPrev: true, oninput: "search", components: [
@@ -53,6 +58,9 @@ enyo.kind({
 	},
 	search: function(inSender, inEvent) {
 		inSender.waterfall("onHighlight", {highlight: inEvent.originator.getValue()});
+	},
+	changeContent: function() {
+		this.$.dynamic.setContent("Dynamic content change test, this text should be highlighted.");
 	},
 	data: [
 		{ text: "proident irure nostrud", isFolder: false },

@@ -1,9 +1,9 @@
 (function (enyo, scope) {
 	/**
-	* `moon.ImageItem`, which derives from {@link moon.Item}, is a control that combines an
-	* [`enyo.Image`]{@link enyo.Image} with a [`moon.LabeledTextItem`]{@link moon.LabeledTextItem}.
-	* By default, the image is displayed to the left of the text; to display the image on the right,
-	* set [`imageAlignRight`]{@link moon.ImageItem#imageAlignRight} to `true`.
+	* {@link moon.ImageItem}, which derives from {@link moon.Item}, is a control that
+	* combines an {@link enyo.Image} with a {@link moon.LabeledTextItem}. By default,
+	* the image is displayed to the left of the text; to display the image on the right,
+	* set [imageAlignRight]{@link moon.ImageItem#imageAlignRight} to `true`.
 	*
 	* @class moon.ImageItem
 	* @extends moon.Item
@@ -44,7 +44,7 @@
 		published: {
 
 			/**
-			* The absolute URL path to the image
+			* The absolute URL path to the image.
 			*
 			* @type {String}
 			* @default ''
@@ -53,7 +53,7 @@
 			source: '',
 
 			/**
-			* The label to be displayed along with the text
+			* The label to be displayed along with the text.
 			*
 			* @type {String}
 			* @default ''
@@ -62,7 +62,7 @@
 			label: '',
 
 			/**
-			* The text to be displayed in the item
+			* The text to be displayed in the item.
 			*
 			* @type {String}
 			* @default ''
@@ -71,7 +71,7 @@
 			text: '',
 
 			/**
-			* Set to `true` to align image to right of text
+			* Set to `true` to align image to right of text.
 			*
 			* @type {Boolean}
 			* @default false

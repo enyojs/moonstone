@@ -11,13 +11,12 @@
 	*/
 
 	/**
-	* `moon.ExpandableIntegerPicker`, which extends
-	* [`moon.ExpandableListItem`]{@link moon.ExpandableListItem}, is a drop-down picker
-	* menu that prompts the user to make a selection from a range of integer-based
-	* options.
+	* {@link moon.ExpandableIntegerPicker}, which extends {@link moon.ExpandableListItem},
+	* is a drop-down picker menu that prompts the user to make a selection from a range of
+	* integer-based options.
 	*
 	* The value of the currently selected item is available in the picker's
-	* [`value`]{@link moon.ExpandableIntegerPicker.value} property.
+	* [value]{@link moon.ExpandableIntegerPicker#value} property.
 	*
 	* When the picker is minimized, the content of the currently selected item is
 	* displayed as subtext below the picker label.
@@ -63,7 +62,7 @@
 		published: {
 
 			/**
-			* Text to be displayed as the current value if no item is currently selected
+			* Text to be displayed as the current value if no item is currently selected.
 			*
 			* @type {String}
 			* @default ''
@@ -72,7 +71,7 @@
 			noneText: '',
 
 			/**
-			* Initial value of the picker
+			* Initial value of the picker.
 			*
 			* @type {Number}
 			* @default -1
@@ -81,7 +80,7 @@
 			value: -1,
 
 			/**
-			* Minimum value of the picker
+			* Minimum value of the picker.
 			*
 			* @type {Number}
 			* @default 0
@@ -90,7 +89,7 @@
 			min: 0,
 
 			/**
-			* Maximum value of the picker
+			* Maximum value of the picker.
 			*
 			* @type {Number}
 			* @default 9
@@ -99,7 +98,7 @@
 			max: 9,
 
 			/**
-			* Amount to increment/decrement by
+			* Amount by which to increment/decrement.
 			*
 			* @type {Number}
 			* @default 1
@@ -108,7 +107,7 @@
 			step: 1,
 
 			/**
-			* Unit/label to be appended to the end of the number
+			* Unit/label to be appended to the end of the number.
 			*
 			* @type {String}
 			* @default 'sec'
@@ -131,8 +130,7 @@
 		* @private
 		*/
 		handlers: {
-			requestScrollIntoView: 'requestScrollIntoView',
-			onRebuilt: 'requestPickerReflow'
+			requestScrollIntoView: 'requestScrollIntoView'
 		},
 
 		/**
@@ -147,7 +145,7 @@
 				{name: 'currentValue', kind: 'moon.MarqueeText', classes: 'moon-expandable-picker-current-value'}
 			]},
 			{name: 'drawer', kind: 'enyo.Drawer', resizeContainer:false, classes:'moon-expandable-list-item-client indented', components: [
-				{name: 'picker', kind: 'moon.SimpleIntegerPicker', deferInitialization: true, onSelect: 'toggleActive', onActivate: 'activated'}
+				{name: 'picker', kind: 'moon.SimpleIntegerPicker', deferInitialization: true, onSelect: 'toggleActive'}
 			]}
 		],
 
@@ -215,7 +213,7 @@
 		},
 
 		/**
-		* Computed prop
+		* Computed property
 		*
 		* @private
 		*/
@@ -224,7 +222,7 @@
 		},
 
 		/**
-		* Computed prop
+		* Computed property
 		*
 		* @private
 		*/
@@ -233,7 +231,7 @@
 		},
 
 		/**
-		* Sets {@link @moon.ExpandableIntegerPicker#value} to `this.$.clientInput.value`.
+		* Sets [value]{@link @moon.ExpandableIntegerPicker#value} to `this.$.clientInput.value`.
 		*
 		* @private
 		*/
@@ -242,7 +240,7 @@
 		},
 
 		/**
-		* If open, closes and spots header. If closed, opens and unspots.
+		* If picker is open, closes and spots header; if picker is closed, opens and unspots.
 		*
 		* @private
 		*/
@@ -258,17 +256,7 @@
 		},
 
 		/**
-		* Kills any {@link moon.SimplePicker#event:onActivate} events coming from buttons in the
-		* SimplePicker.
-		*
-		* @private
-		*/
-		activated: function (inSender, inEvent) {
-			return true;
-		},
-
-		/**
-		* @fires moon.ExpandableIntegerPicker#onChange
+		* @fires moon.ExpandableIntegerPicker#event:onChange
 		* @private
 		*/
 		fireChangeEvent: function () {

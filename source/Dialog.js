@@ -1,6 +1,6 @@
 (function (enyo, scope) {
 	/**
-	* `moon.Dialog` is a {@link moon.Popup} with a title, a subtitle, a
+	* {@link moon.Dialog} is a {@link moon.Popup} with a title, a subtitle, a
 	* message, and an area for additional controls.
 	*
 	* @class moon.Dialog
@@ -34,7 +34,7 @@
 		published: {
 
 			/**
-			* The title string for the dialog
+			* The title for the dialog.
 			*
 			* @type {String}
 			* @default ''
@@ -43,7 +43,7 @@
 			title: '',
 
 			/**
-			* The subtitle string for the dialog
+			* The subtitle for the dialog.
 			*
 			* @type {String}
 			* @default ''
@@ -52,7 +52,7 @@
 			subTitle: '',
 
 			/**
-			* The message for the dialog
+			* The message for the dialog.
 			*
 			* @type {String}
 			* @default ''
@@ -61,7 +61,7 @@
 			message: '',
 
 			/**
-			* When `true`, the title text will be converted to locale-safe uppercasing
+			* When `true`, the title text will have locale-safe uppercasing applied.
 			*
 			* @type {Boolean}
 			* @default true

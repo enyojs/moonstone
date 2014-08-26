@@ -1,8 +1,8 @@
 (function (enyo, scope) {
 	/**
-	* `moon.VideoFullscreenToggleButton` is a specialized {@link moon.IconButton}; when placed 
-	* inside a {@link moon.VideoPlayer}, the button may be tapped to toggle the `VideoPlayer`'s
-	* fullscreen state.
+	* {@link moon.VideoFullscreenToggleButton} is a specialized {@link moon.IconButton};
+	* when placed inside a {@link moon.VideoPlayer}, the button may be tapped to toggle
+	* the video player's fullscreen state.
 	*
 	* @class moon.VideoFullscreenToggleButton
 	* @extends moon.IconButton

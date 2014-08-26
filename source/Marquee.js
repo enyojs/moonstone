@@ -1,13 +1,14 @@
 (function (enyo, scope) {
 	/**
-	* Fires to queue up a list of child animations
+	* Fires to queue up a list of child animations.
 	*
 	* @event moon.MarqueeSupport#onRequestMarquee
 	* @type {Object}
-	* @property {Object} originator - contains a reference to the originator of this event
-	*
-	* @property {Boolean} marqueePause - contains the value of {@link #marqueePause}
-	* @property {Number} marqueeSpeed - contains the value of {@link #marqueeSpeed}
+	* @property {Object} originator - A reference to the originator of this event.
+	* @property {Boolean} marqueePause - The desired duration in milliseconds that the
+	* marquee will pause at the end of the animation, before resetting to the beginning.
+	* @property {Number} marqueeSpeed - The desired speed for the marquee animation,
+	* in pixels per second.
 	* @private
 	*/
 
@@ -16,7 +17,7 @@
 	*
 	* @event moon.MarqueeSupport#onRequestMarqueeStart
 	* @type {Object}
-	* @property {Object} originator - contains a reference to the originator of this event
+	* @property {Object} originator - A reference to the originator of this event.
 	* @private
 	*/
 
@@ -25,7 +26,7 @@
 	*
 	* @event moon.MarqueeSupport#onRequestMarqueeStop
 	* @type {Object}
-	* @property {Object} originator - contains a reference to the originator of this event
+	* @property {Object} originator - A reference to the originator of this event.
 	* @private
 	*/
 
@@ -54,35 +55,37 @@
 	*/
 
 	/**
-	* The `moon.MarqueeSupport` [mixin]{@glossary mixin} should be used with controls that contain
-	* multiple marquees whose animation behavior should be synchronized. Calling
-	* [`this.startMarquee()`]{@link moon.MarqueeSupport#startMarquee} or
-	* [`this.stopMarquee()`]{@link moon.MarqueeSupport#stopMarquee} starts/stops all contained
-	* marquees.
+	* The {@link moon.MarqueeSupport} [mixin]{@glossary mixin} should be used with controls
+	* that contain multiple marquees whose animation behavior should be synchronized. Calling
+	* [this.startMarquee()]{@link moon.MarqueeSupport#startMarquee} or
+	* [this.stopMarquee()]{@link moon.MarqueeSupport#stopMarquee} will start or stop all
+	* contained marquees.
 	*
-	* The following properties defined on the base kind on which the mixin is applied
+	* The following properties, defined on the base kind to which the mixin is applied,
 	* control the marquee behavior:
 	*
-	* {@link moon.MarqueeSupport#marqueeOnSpotlight}: When `true`, marquee will start when
-	* spotlight focused and end when spotlight blurred.
+	* [marqueeOnSpotlight]{@link moon.MarqueeSupport#marqueeOnSpotlight}: When `true`, marquee
+	* starts when control is spotlight focused and ends when it is spotlight blurred.
 	*
-	* {@link moon.MarqueeSupport#marqueeOnHover}: When `true`, marquee will run when hovered with
-	* the mouse. This property is ignored if `marqueeOnSpotlight` is `true`.
+	* [marqueeOnHover]{@link moon.MarqueeSupport#marqueeOnHover}: When `true`, marquee runs
+	* while control is hovered over with the mouse. This property is ignored if
+	* `marqueeOnSpotlight` is `true`.
 	*
-	* {@link moon.MarqueeSupport#marqueeOnRender}: When `true`, marquee will start running as soon
-	* as it is rendered and run continuously.
+	* [marqueeOnRender]{@link moon.MarqueeSupport#marqueeOnRender}: When `true`, marquee starts
+	* running as soon as control is rendered, and runs continuously.
 	*
-	* {@link moon.MarqueeSupport#marqueeSpeed}: The speed of the marquee animation, in
-	* pixels/second.
+	* [marqueeSpeed]{@link moon.MarqueeSupport#marqueeSpeed}: The speed of the marquee animation,
+	* in pixels per second.
 	*
-	* {@link moon.MarqueeSupport#marqueeDelay}: The delay between spotlight focus/hover and the
-	* animation starting (only used when `marqueeOnSpotlight` or `marqueeOnHover` is `true`).
+	* [marqueeDelay]{@link moon.MarqueeSupport#marqueeDelay}: The delay between spotlight
+	* focus/hover and the start of the animation. (This is only used when either
+	* `marqueeOnSpotlight` or `marqueeOnHover` is `true`).
 	*
-	* {@link moon.MarqueeSupport#marqueeOnRenderDelay}: Used when you want the marquee to run on
-	* render, after a custom delay
+	* [marqueeOnRenderDelay]{@link moon.MarqueeSupport#marqueeOnRenderDelay}: Used when you want
+	* the marquee to run on render, after a specified delay.
 	*
-	* {@link moon.MarqueeSupport#marqueePause}: The duration between the last of all subordinate
-	* marquee animations ending and all animations restarting.
+	* [marqueePause]{@link moon.MarqueeSupport#marqueePause}: The duration in milliseconds that
+	* the marquee will pause at the end of the animation, before resetting to the beginning.
 	*
 	* @mixin moon.MarqueeSupport
 	* @public
@@ -121,8 +124,8 @@
 		_marquee_active: false,
 
 		/**
-		* When `true`, marquee will start when {@link Spotlight} focused and end when spotlight
-		* blurred.
+		* When `true`, marquee starts when the control is {@link Spotlight} focused and ends
+		* when it is spotlight blurred.
 		*
 		* @type {Boolean}
 		* @default undefined
@@ -131,8 +134,9 @@
 		marqueeOnSpotlight: undefined,
 
 		/**
-		* When true, marquee will run when hovered with the mouse. This property is ignored if
-		* [`marqueeOnSpotlight`]{@link moon.MarqueeSupport#marqueeOnSpotlight} is `true`.
+		* When `true`, marquee runs while the control is hovered over with the mouse. This
+		* property is ignored if [marqueeOnSpotlight]{@link moon.MarqueeSupport#marqueeOnSpotlight}
+		* is `true`.
 		*
 		* @type {Boolean}
 		* @default undefined
@@ -141,7 +145,8 @@
 		marqueeOnHover: undefined,
 
 		/**
-		* When `true`, marquee will start running as soon as it is rendered and run continuously.
+		* When `true`, marquee starts running as soon as the control is rendered, and runs
+		* continuously.
 		*
 		* @type {Boolean}
 		* @default undefined
@@ -150,7 +155,7 @@
 		marqueeOnRender: undefined,
 
 		/**
-		* The speed of the marquee animation, in pixels/second.
+		* The speed of the marquee animation, in pixels per second.
 		*
 		* @type {Number}
 		* @default undefined
@@ -159,9 +164,9 @@
 		marqueeSpeed: undefined,
 
 		/**
-		* The delay between spotlight focus/hover and the animation starting (only used when
-		* [`marqueeOnSpotlight`]{@link moon.MarqueeSupport#marqueeOnSpotlight} or
-		* [`marqueeOnHover`]{@link moon.MarqueeSupport#marqueeOnHover} is `true`).
+		* The delay between spotlight focus/hover and the start of the animation. (This is only
+		* used when either [marqueeOnSpotlight]{@link moon.MarqueeSupport#marqueeOnSpotlight} or
+		* [marqueeOnHover]{@link moon.MarqueeSupport#marqueeOnHover} is `true`.)
 		*
 		* @type {Number}
 		* @default undefined
@@ -170,7 +175,7 @@
 		marqueeDelay: undefined,
 
 		/**
-		* Used when you want the marquee to run on render, after a custom delay
+		* Used when you want the marquee to run on render, after a specified delay.
 		*
 		* @type {Number}
 		* @default undefined
@@ -179,8 +184,8 @@
 		marqueeOnRenderDelay: undefined,
 
 		/**
-		* The duration between the last of all subordinate marquee animations ending and all
-		* animations restarting.
+		* The duration in milliseconds that the marquee will pause at the end of the
+		* animation, before resetting to the beginning.
 		*
 		* @type {Number}
 		* @default undefined
@@ -209,7 +214,7 @@
 		}),
 
 		/**
-		* If {@link moon.MarqueeSupport#marqueeOnRender} is `true`, kick off marquee animation
+		* If {@link moon.MarqueeSupport#marqueeOnRender} is `true`, kicks off marquee animation.
 		*
 		* @method
 		* @private
@@ -316,7 +321,7 @@
 
 		/**
 		* When a child marquee animation completes, removes the child from
-		* {@link moon.marqueeSupport#marqueeWaitList}.
+		* [marqueeWaitList]{@link moon.marqueeSupport#marqueeWaitList}.
 		*
 		* @private
 		*/
@@ -343,7 +348,7 @@
 
 		/**
 		* Starts timer to waterfall an
-		* [`onRequestMarqueeStart`]{@link moon.MarqueeSupport#event:onRequestMarqueeStart} event
+		* [onRequestMarqueeStart]{@link moon.MarqueeSupport#event:onRequestMarqueeStart} event
 		* that kicks off marquee animation on all child marquees.
 		*
 		* @public
@@ -353,7 +358,7 @@
 		},
 
 		/**
-		* Waterfalls an [`onRequestMarqueeStop`]{@link moon.MarqueeSupport#event:onRequestMarqueeStop}
+		* Waterfalls an [onRequestMarqueeStop]{@link moon.MarqueeSupport#event:onRequestMarqueeStop}
 		* event to halt all running child marquees.
 		*
 		* @public
@@ -381,9 +386,9 @@
 		},
 
 		/**
-		* Adds `control` to the list of marquee items
+		* Adds the passed-in [control]{@link enyo.Control} to the list of marquee items.
 		*
-		* @param {Object} control  Control to add
+		* @param {Object} control  The [control]{@link enyo.Control} to add.
 		* @public
 		*/
 		addMarqueeItem: function (control) {
@@ -391,9 +396,9 @@
 		},
 
 		/**
-		* Restarts marquee if needed (depends on
-		* [`marqueeOnSpotlight`]{@link moon.MarqueeSupport#marqueeOnSpotlight}
-		* / [`marqueeOnRender`]{@link moon.MarqueeSupport#marqueeOnRender} settings)
+		* Restarts marquee if needed (depending on the
+		* [marqueeOnSpotlight]{@link moon.MarqueeSupport#marqueeOnSpotlight} and
+		* [marqueeOnRender]{@link moon.MarqueeSupport#marqueeOnRender} settings).
 		*
 		* @public
 		*/
@@ -407,10 +412,10 @@
 		},
 
 		/**
-		* starts Marquee with a custom delay. Used to provide a different delay for `onRender` and
-		* `onSpotlight/Hover`
+		* Starts Marquee after a specified delay. Used to provide different delays for `onRender`
+		* and `onSpotlight/Hover`.
 		*
-		* @param {Number} delay  Number of milliseconds to delay
+		* @param {Number} delay  Length of delay in milliseconds
 		* @public
 		*/
 		startMarqueeCustomDelay: function (delay) {
@@ -425,7 +430,7 @@
 		},
 
 		/**
-		* Stops and restarts the marquee animations
+		* Stops and restarts the marquee animations.
 		*
 		* @private
 		*/
@@ -437,7 +442,7 @@
 
 		/**
 		* Waterfalls request for child animations to build up
-		* {@link moon.MarqueeSupport#marqueeWaitList}.
+		* [marqueeWaitList]{@link moon.MarqueeSupport#marqueeWaitList}.
 		*
 		* @fires moon.MarqueeSupport#onRequestMarquee
 		* @private
@@ -498,8 +503,8 @@
 	};
 
 	/**
-	* The `moon.MarqueeItem` mixin is used to add marquee animation functionality to
-	* a control.
+	* The {@link moon.MarqueeItem} mixin is used to add marquee animation functionality
+	* to a control.
 	*
 	* @mixin moon.MarqueeItem
 	* @public
@@ -728,7 +733,7 @@
 		},
 
 		/**
-		* Returns _true_ if this control has enough content that it needs to animate.
+		* Returns `true` if this control has enough content to animate.
 		*
 		* @private
 		*/
@@ -761,7 +766,7 @@
 		},
 
 		/**
-		* Creates a marquee-able div inside of `this`.
+		* Creates a marquee-able `div` inside of `this`.
 		*
 		* @private
 		*/
@@ -789,7 +794,7 @@
 			this.$.marqueeText.applyStyle('transition-duration', duration + 's');
 			this.$.marqueeText.applyStyle('-webkit-transition-duration', duration + 's');
 
-			enyo.dom.transform(this, {translateZ: -0.01});
+			enyo.dom.transform(this, {translateZ: '-0.1px'});
 
 			// Need this timeout for FF!
 			setTimeout(this.bindSafely(function () {
@@ -815,12 +820,12 @@
 			setTimeout(this.bindSafely(function () {
 				this.$.marqueeText.removeClass('animate-marquee');
 				enyo.dom.transform(this.$.marqueeText, {translateX: null});
-				enyo.dom.transform(this.$.marqueeText, {translateZ: null});
+				enyo.dom.transform(this, {translateZ: null});
 			}), enyo.platform.firefox ? 100 : 0);
 		},
 
 		/**
-		* Flips distance value for RTL support
+		* Flips distance value for RTL support.
 		*
 		* @private
 		*/
@@ -867,11 +872,11 @@
 	};
 
 	/**
-	* `moon.MarqueeText` is a basic text control that supports marquee animation.
-	* When {@link moon.MarqueeText} objects are used inside a
-	* [`moon.MarqueeDecorator`]{@link moon.MarqueeDecorator}, the decorator synchronizes
+	* {@link moon.MarqueeText} is a basic text control that supports marquee animation.
+	* When `moon.MarqueeText` objects are used inside a
+	* [moon.MarqueeDecorator]{@link moon.MarqueeDecorator}, the decorator synchronizes
 	* their start times; the user may start a marquee programmatically by calling
-	* [`startMarquee()`]{@link moon.MarqueeText#startMarquee}.
+	* [startMarquee()]{@link moon.MarqueeSupport#startMarquee}.
 	*
 	* ```
 	* enyo.kind({
@@ -888,7 +893,8 @@
 	* });
 	* ```
 	*
-	* To add the marquee feature to a kind, simply use the MarqueeSupport mixin:
+	* To add the marquee feature to a kind, simply use the
+	* [MarqueeSupport]{@link moon.MarqueeSupport} mixin:
 	*
 	* ```
 	* enyo.kind({
@@ -935,7 +941,7 @@
 		published: {
 
 			/**
-			* Speed of marquee animation, in pixels per second
+			* The speed of the marquee animation, in pixels per second.
 			*
 			* @type {Number}
 			* @default 60
@@ -944,8 +950,8 @@
 			marqueeSpeed: 60,
 
 			/**
-			* Time in milliseconds that the marquee will pause at the end of the
-			* animation, before resetting to the beginning
+			* The duration in milliseconds that the marquee will pause at the end of the
+			* animation, before resetting to the beginning.
 			*
 			* @type {Number}
 			* @default 1000
@@ -954,7 +960,7 @@
 			marqueePause: 1000,
 
 			/**
-			* When `true`, marqueeing will not occur
+			* When `true`, marqueeing will not occur.
 			*
 			* @type {Boolean}
 			* @default false
@@ -963,7 +969,7 @@
 			disabled: false,
 
 			/**
-			* When `true`, text is centered; otherwise left-aligned
+			* When `true`, text is centered; otherwise, it is left-aligned.
 			*
 			* @type {Boolean}
 			* @default true
@@ -972,7 +978,7 @@
 			centered: false,
 
 			/**
-			* When true, element wraps instead of marqueeing
+			* When `true`, element wraps instead of marqueeing.
 			*
 			* @type {Boolean}
 			* @default false
@@ -983,8 +989,7 @@
 	});
 
 	/**
-	* `moon.MarqueeDecorator` is a wrapper for [`moon.MarqueeText`]{@link moon.MarqueeText}
-	* objects.
+	* {@link moon.MarqueeDecorator} is a wrapper for {@link moon.MarqueeText} objects.
 	*
 	* @class moon.MarqueeDecorator
 	* @extends enyo.Control

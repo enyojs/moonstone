@@ -1,17 +1,17 @@
 (function (enyo, scope) {
 	/**
-	* Fires when the value changes.
+	* Fires when the picker's value changes.
 	*
 	* @event moon.DateTimePickerBase#onChange
 	* @type {Object}
-	* @property {String} name - contains the name of this control.
-	* @property {Date} value - contains a standard JavaScript Date object representing
-	* the current value.
+	* @property {String} name - The name of this control.
+	* @property {Date} value - A standard JavaScript {@glossary Date} object representing
+	* the picker's current value.
 	* @public
 	*/
 
 	/**
-	* `moon.DateTimePickerBase` is a base kind implementing fuctionality shared
+	* {@link moon.DateTimePickerBase} is a base kind implementing fuctionality shared
 	* by {@link moon.DatePicker} and {@link moon.TimePicker}.
 	* It is not intended to be used directly.
 	*
@@ -69,7 +69,7 @@
 		published: {
 
 			/**
-			* Text to be displayed as the current value if no item is currently selected
+			* Text to be displayed as the current value if no item is currently selected.
 			*
 			* @type {String}
 			* @default ''
@@ -80,16 +80,16 @@
 			/**
 			* The locale (in IETF format) used for picker formatting.
 			*
-			* This setting only applies when the {@glossary iLib} library is loaded.
+			* This setting only applies when the [iLib]{@glossary ilib} library is loaded.
 			*
-			* When iLib is not present, US English (en-US) formatting is applied.
+			* When `iLib` is not present, U.S. English `(en-US)` formatting is applied.
 			*
-			* * When iLib is present and `locale` is set to the default value (`null`),
-			* the picker uses iLib's current locale (which iLib tries to determine
+			* When `iLib` is present and `locale` is set to the default value (`null`),
+			* the picker uses `iLib`'s current locale (which `iLib` tries to determine
 			* from the system).
 			*
-			* * When iLib is present and an explicit `locale` is provided, that locale
-			* will be used (regardless of iLib's current locale).
+			* When `iLib` is present and an explicit `locale` is provided, that locale
+			* will be used (regardless of `iLib`'s current locale).
 			*
 			* `locale` may be changed after the picker is created, in which case the
 			* picker will be reformatted to match the new setting.
@@ -101,7 +101,8 @@
 			locale: null,
 
 			/**
-			* The value, expressed as a standard JavaScript {@glossary Date} object.
+			* The value of the picker, expressed as a standard JavaScript {@glossary Date}
+			* object.
 			*
 			* @type {Date}
 			* @default null
@@ -111,7 +112,7 @@
 
 			/**
 			* When `true`, the picker uses a 12-hour clock (this value is ignored when
-			* iLib is loaded, since the meridiem will be set by the current locale)
+			* `iLib` is loaded, since the meridiem will be set by the current locale).
 			*
 			* @type {Boolean}
 			* @default false
@@ -257,7 +258,7 @@
 		},
 
 		/**
-		* If no item is selected, uses [`noneText`]{@link moon.DateTimePickerBase#noneText}
+		* If no item is selected, uses [noneText]{@link moon.DateTimePickerBase#noneText}
 		* as current value.
 		*
 		* @private
@@ -271,14 +272,13 @@
 		},
 
 		/**
-		* When [`open`]{@link moon.ExpandableListItem#open} changes, shows/hides the current value
+		* When [open]{@link moon.ExpandableListItem#open} changes, shows/hides the current value.
 		*
 		* @private
 		*/
 		openChanged: function () {
 			this.inherited(arguments);
-			var open = this.$.drawer.get('open'),
-				pickers = this.pickers,
+			var pickers = this.pickers,
 				i, p;
 			if (pickers) {
 				for (i = 0; i < pickers.length; i++) {
@@ -286,15 +286,7 @@
 					if (p.getClientControls().length > 0) {
 						p = p.getClientControls()[0];
 					}
-					if (open) {
-						//Force the pickers to update their scroll positions (they don't update
-						//while the drawer is closed)
-						p.refreshScrollState();
-					} else {
-						// If one of the pickers is animating when the drawer closes, it won't
-						// display properly when the drawer reopens, unless we stabilize here
-						p.stabilize();
-					}
+					p.reflow();
 				}
 			}
 		},
@@ -345,7 +337,7 @@
 		*/
 		handleLocaleChangeEvent: function () {
 			// We've received a localechange event from the system, which means either the system
-			// locale or the timzezone may have changed.
+			// locale or the timezone may have changed.
 			if (ilib && ilib.getLocale() !== this.iLibLocale) {
 				// We're using iLib locale, and it has changed, so we'll rebuild the child pickers
 				// entirely
@@ -365,6 +357,9 @@
 			this.pickers = null;
 			if (this._tf) {
 				delete this._tf;
+			}
+			if (this.value){
+				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
 			}
 			this.initDefaults();
 			this.render();
