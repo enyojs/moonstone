@@ -5169,14 +5169,16 @@
 .moon-hspacing.top > * {
   vertical-align: top;
 }
-.moon-hspacing > :first-child {
+.moon-hspacing > :first-child,
+.moon-hspacing > :first-child.moon-contextual-popup-decorator :first-child {
   margin-left: 0;
 }
 .enyo-locale-right-to-left .moon-hspacing > :first-child {
   margin-left: 10px;
   margin-right: 0;
 }
-.moon-hspacing > :last-child {
+.moon-hspacing > :last-child,
+.moon-hspacing > :last-child.moon-contextual-popup-decorator :first-child {
   margin-right: 0;
 }
 .enyo-locale-right-to-left .moon-hspacing > :last-child {
