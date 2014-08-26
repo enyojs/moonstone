@@ -98,17 +98,17 @@
 
 			/**
 			* @type {Number}
-			* @default ''
+			* @default 0
 			* @public
 			*/
 			min: 0,
 
 			/**
 			* @type {Number}
-			* @default ''
+			* @default 59
 			* @public
 			*/
-			max: 59,
+			max: 59
 		},
 
 		/**
