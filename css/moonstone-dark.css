@@ -665,23 +665,33 @@
   height: 45px;
   background-position: center -15px;
   background-repeat: no-repeat;
+  background-size: 75px 150px;
   display: inline-block;
   vertical-align: middle;
   margin: 9px 14px;
-  font-family: "Moonstone", "Moonstone Icons";
+  font-family: "Moonstone Icons";
   font-size: 90px;
   line-height: 45px;
   text-align: center;
   position: relative;
   color: #a6a6a6;
 }
+.moon-icon.spotlight,
+.moon-icon-toggle.spotlight {
+  background-position: center -90px;
+}
 .moon-icon.small,
 .moon-icon-toggle.small {
   background-position: center -9px;
+  background-size: 50px 100px;
   width: 32px;
   height: 32px;
   font-size: 64px;
   line-height: 32px;
+}
+.moon-icon.small.spotlight,
+.moon-icon-toggle.small.spotlight {
+  background-position: center -59px;
 }
 .moon-icon.small > .small-icon-tap-area,
 .moon-icon-toggle.small > .small-icon-tap-area {
@@ -691,13 +701,13 @@
   left: -14px;
   right: -14px;
 }
-.spotlight .moon-icon {
+.spotlight .moon-icon,
+.spotlight.moon-icon {
   color: #ffffff;
 }
-.disabled .moon-icon,
+.moon-icon .disabled,
 .moon-icon.disabled {
   opacity: 0.6;
-  filter: alpha(opacity=60);
 }
 /* IconButton.css */
 .moon-icon-button {
@@ -4982,6 +4992,7 @@
   background-color: #ffffff;
   border-radius: 30px;
   background-position: center 5px;
+  background-size: auto;
 }
 .moon-selection-overlay-support-scrim {
   display: none;

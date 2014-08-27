@@ -2,24 +2,35 @@
 .moon-icon, .moon-icon-toggle {
 	width: @moon-icon-size;
 	height: @moon-icon-size;
-	background-position: center -((@moon-icon-sprite-size - @moon-icon-size) / 2);
+	background-position: center -(@moon-icon-sprite-size - @moon-icon-size) / 2;
 	background-repeat: no-repeat;
+	background-size: @moon-icon-sprite-size @moon-icon-sprite-size * 2;
 	display: inline-block;
 	vertical-align: middle;
 	margin: 9px 14px;
-	font-family: "Moonstone", "Moonstone Icons";
-	font-size: (@moon-icon-size * 2);
+	font-family: @moon-icon-font-family;
+	font-size: @moon-icon-size * 2;
 	line-height: @moon-icon-size;
 	text-align: center;
 	position: relative;
 	color: @moon-icon-font-color;
 
+	&.spotlight {
+		background-position: center -(@moon-icon-sprite-size - @moon-icon-size) / 2 - @moon-icon-sprite-size;
+	}
+
 	&.small {
-		background-position: center -((@moon-icon-sprite-small-size - @moon-icon-small-size) / 2);
+		background-position: center -(@moon-icon-sprite-small-size - @moon-icon-small-size) / 2;
+		background-size: @moon-icon-sprite-small-size @moon-icon-sprite-small-size * 2;
 		width: @moon-icon-small-size;
 		height: @moon-icon-small-size;
-		font-size: (@moon-icon-small-size * 2);
+		font-size: @moon-icon-small-size * 2;
 		line-height: @moon-icon-small-size;
+
+		&.spotlight {
+			background-position: center -(@moon-icon-sprite-small-size - @moon-icon-small-size) / 2 - @moon-icon-sprite-small-size;
+		}
+
 		> .small-icon-tap-area {
 			position: absolute;
 			top: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
@@ -30,13 +41,13 @@
 	}
 }
 
-.spotlight .moon-icon {
+.spotlight .moon-icon,
+.spotlight.moon-icon {
 	color: @moon-spotlight-text-color;
 }
 
-.disabled .moon-icon,
+.moon-icon .disabled,
 .moon-icon.disabled {
 	opacity: @moon-disabled-opacity;
-	filter: alpha(opacity=@moon-disabled-opacity-ie);
 }
 

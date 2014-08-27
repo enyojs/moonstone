@@ -64,6 +64,11 @@
 			this.disabledChanged();
 			if (this.children.length) {
 				this.addClass('allow-wrap');
+				var i,
+					c = this.children;
+				for (i = 0; i < c.length; i++) {
+					c[i].spotlight = false;
+				}
 			}
 		},
 

@@ -140,6 +140,12 @@
 		/**
 		* @private
 		*/
+		spotlight: true,
+
+		/**
+		* @private
+		*/
+
 		create: function () {
 			this.inherited(arguments);
 			if (this.src) {
