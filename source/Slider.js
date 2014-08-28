@@ -758,7 +758,7 @@
 		animatorComplete: function(sender) {
 			this._setValue(sender.value);
 			this.animatingTo = null;
-			this.doAnimateFinish();
+			this.doAnimateFinish(sender);
 			return true;
 		},
 
