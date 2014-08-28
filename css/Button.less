@@ -1,6 +1,8 @@
 /* Button */
 
 .moon-button {
+   position: relative;
+   overflow: visible;
 	height:@moon-button-height;
 	line-height:(@moon-button-height)-(2*@moon-button-border-width);
 	border-radius: @moon-button-border-radius;
@@ -8,7 +10,6 @@
 	border: @moon-button-border-width solid transparent;
 	cursor: pointer;
 	white-space: nowrap;
-	overflow: hidden;
 	display: inline-block;
 	width: auto;
 	min-width: @moon-button-height;
@@ -39,8 +40,6 @@
   min-width: @moon-button-small-height;
   line-height:(@moon-button-small-height)-(2*@moon-button-border-width);
   padding:0 @moon-button-small-h-padding;
-  position: relative;
-  overflow: visible;
 }
 .moon-button.min-width {
   min-width: @moon-button-large-min-width;
@@ -49,7 +48,15 @@
   min-width: @moon-button-small-min-width;
 }
 
-.moon-button.small > .small-button-tap-area {
+.moon-button > .button-tap-area {
+	position: absolute;
+	top: -(@moon-button-border-width);
+	bottom: -(@moon-button-border-width);
+	left: -(@moon-button-border-width);
+	right: -(@moon-button-border-width);
+}
+
+.moon-button.small > .button-tap-area {
 	position: absolute;
 	top: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
 	bottom: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
