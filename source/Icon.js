@@ -66,6 +66,11 @@
 
 		/**
 		* @private
+		*/
+		allowHtml: true,
+
+		/**
+		* @private
 		* @lends moon.Icon.prototype
 		*/
 		published: {
@@ -101,6 +106,18 @@
 			* @public
 			*/
 			src: '',
+
+			/**
+			* Specify the font family/families, in string form, to use for use for this icon.
+			* It is only necessary to specify a font if you need a custom font.
+			* `moonstone-icons.ttf` is used by default. WebOS TVs have a font cassed
+			* "LG Disylay_Dingbat" which contains many standard interface icons.
+			*
+			* @type {String}
+			* @default null
+			* @public
+			*/
+			// font: null,
 
 			/**
 			* If `true`, icon is shown as disabled.
@@ -142,15 +159,24 @@
 		*/
 		create: function () {
 			this.inherited(arguments);
+
 			if (this.src) {
 				this.srcChanged();
 			}
-			if (this.icon) {
+			if (this.content) {
+				this.contentChanged();
+			} else if (this.icon) {
 				this.iconChanged();
 			}
-			this.smallChanged();
+			// this.fontChanged();
 			this.disabledChanged();
+			this.smallChanged();
 		},
+		// render: function() {
+			// this.inherited(arguments);
+			// This needs to be run during render because it has its own special render call,
+			// which clobbers the content code run earlier.
+		// },
 
 		/**
 		* @private
@@ -164,6 +190,25 @@
 		*/
 		disabledChanged: function () {
 			this.addRemoveClass('disabled', this.disabled);
+		},
+
+		/**
+		* @private
+		*/
+		// fontChanged: function () {
+		// 	this.applyStyle('font-family', this.get('font') ? ('\'' + this.get('font') + '\'') : null);
+		// },
+
+		/**
+		* @private
+		*/
+		contentChanged: function () {
+			this.inherited(arguments);
+			// If we have content and an icon, drop the icon entirely, in favor of the content.
+			if (this.get('content') && this.get('icon')) {
+				this.set('icon', null);
+			}
+			// console.log('content', this.get('content') );
 		},
 
 		/**
@@ -195,17 +240,38 @@
 		* @private
 		*/
 		smallChanged: function () {
-			if (this.$.tapArea) {
-				this.$.tapArea.destroy();
-			}
+			var content = this.get('content');
 
+			// if (this.generated) {
+			// 	this.render();
+			// }
 			if (this.small) {
-				var ta = this.createComponent({name: 'tapArea', classes: 'small-icon-tap-area', isChrome: true});
+				var //client,
+					ta = this.createComponent({name: 'tapArea', classes: 'small-icon-tap-area', isChrome: true});
+
+				// if (content) {
+				// 	client = this.createComponent({name: 'client', content: content, isChrome: true});
+				// }
 				if (this.generated) {
 					ta.render();
+					// if (client) {
+					// 	client.render();
+					// }
+				}
+			} else {
+				if (this.$.tapArea) {
+					this.$.tapArea.destroy();
+				}
+				if (this.$.client) {
+					this.$.client.destroy();
+				}
+				if (content && this.generated) {
+					this.set('content', content);
+					this.render();
 				}
 			}
 			this.addRemoveClass('small', this.small);
+			console.log("this:", this);
 		}
 	});
 
