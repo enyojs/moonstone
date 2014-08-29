@@ -852,10 +852,10 @@
 				hb = h - 8, // height bubble
 				hbc = (hb)/2, // height of bubble's center
 				wre = 26, // width's edge
-				r = hbc, //radius is half the bubble height
-				bcr = 50, //bottom curve radius 50
+				r = hbc, // radius is half the bubble height
+				bcr = 50, // bottom curve radius 50
 				bcy = hb + bcr, //calculate the height of the center of the circle plus the radius to get the y coordinate of the circle to draw the bottom irregular arc
-				lw = 1, // The line width that will be tucked under the neighboring dom element's edge
+				lw = 1, // line width that will be tucked under the neighboring dom element's edge
 
 				ctxLeft = this.$.drawingLeft.hasNode().getContext('2d'),
 				ctxRight = this.$.drawingRight.hasNode().getContext('2d');
@@ -882,15 +882,12 @@
 			ctxLeft.moveTo(wre+lw, 0);
 			ctxLeft.lineTo(wre+lw, hb);
 			ctxLeft.stroke();
-			// debugger
 
 			// Set styles. Default color is knob's color
 			ctxRight.fillStyle = bgColor;
 			// Draw shape with arrow on right
 			ctxRight.moveTo(lw, hb);
 			ctxRight.arcTo(wre+lw, hb, wre+lw, hbc, r);
-			// ctxRight.arcTo(lw, hb, lw, 0, r);
-			// debugger;
 
 			ctxRight.arcTo(wre+lw, 0, lw, 0, r);
 			ctxRight.lineTo(0, 0);
