@@ -23,6 +23,7 @@ enyo.depends(
 	'RadioItemGroup.js',
 	'ExpandableListItem.js',
 	'ExpandablePicker.js',
+	'ExpandableDataPicker.js',
 	'ExpandableIntegerPicker.js',
 	'Header.js',
 	'Icon.js',
