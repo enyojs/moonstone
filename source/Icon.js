@@ -53,10 +53,6 @@
 	* {kind: 'moon.Icon', icon: 'closex'}
 	* ```
 	*
-	* The name-to-character mappings for font-based icons are stored in
-	* `css/moonstone-icons.less`. Each mapping in the file associates an icon name
-	* with the icon font's corresponding character or symbol.
-	*
 	* For image-based icons, two sizes are supported: large (45x45 pixels) and small
 	* (32x32 pixels). Icons are small by default. To specify a large icon, set the
 	* [small]{@link moon.Icon#small} property to `false`:
@@ -217,6 +213,13 @@
 		/**
 		* @private
 		*/
+		getIconClass: function (inIconName) {
+			return 'moon-icon-' + (inIconName || this.icon);
+		},
+
+		/**
+		* @private
+		*/
 		disabledChanged: function () {
 			this.addRemoveClass('disabled', this.disabled);
 		},
@@ -237,7 +240,7 @@
 		/**
 		* @private
 		*/
-		iconChanged: function () {
+		iconChanged: function (old) {
 			var icon = this.get('icon') || '',
 				iconEntity = icons[icon] || icon;
 
@@ -248,6 +251,13 @@
 				this.$.tapArea.set('content', iconEntity);
 			} else {
 				this.set('content', iconEntity);
+			}
+
+			if (icons[old]) {
+				this.removeClass(this.getIconClass(old));
+			}
+			if (icons[icon]) {
+				this.addClass(this.getIconClass());
 			}
 		},
 
