@@ -697,6 +697,7 @@
   bottom: -14px;
   left: -14px;
   right: -14px;
+  line-height: 60px;
 }
 .moon-icon.font-lg-icons,
 .moon-icon-toggle.font-lg-icons {
@@ -709,6 +710,10 @@
 }
 .spotlight .moon-icon {
   color: #ffffff;
+  background-position: center -90px;
+}
+.spotlight .moon-icon.small {
+  background-position: center -59px;
 }
 .disabled .moon-icon,
 .moon-icon.disabled {

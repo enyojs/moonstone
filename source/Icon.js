@@ -1,4 +1,39 @@
 (function (enyo, scope) {
+
+	// Static private hash of all of the valid moonstone icons
+	var icons = {
+		drawer            : '&#983040;',  // \0F0000
+		arrowlargedown    : '&#983041;',  // \0F0001
+		arrowlargeup      : '&#983042;',  // \0F0002
+		arrowlargeleft    : '&#983043;',  // \0F0003
+		arrowlargeright   : '&#983044;',  // \0F0004
+		arrowsmallup      : '&#983045;',  // \0F0005
+		arrowsmalldown    : '&#983046;',  // \0F0006
+		arrowsmallleft    : '&#983047;',  // \0F0007
+		arrowsmallright   : '&#983048;',  // \0F0008
+		closex            : '&#983049;',  // \0F0009
+		check             : '&#983050;',  // \0F000A
+		search            : '&#983051;',  // \0F000B
+		exitfullscreen    : '&#983057;',  // \0F0011
+		fullscreen        : '&#983058;',  // \0F0012
+		circle            : '&#983059;',  // \0F0013
+		stop              : '&#983060;',  // \0F0014
+		play              : '&#983061;',  // \0F0015
+		pause             : '&#983062;',  // \0F0016
+		forward           : '&#983063;',  // \0F0017
+		backward          : '&#983064;',  // \0F0018
+		skipforward       : '&#983065;',  // \0F0019
+		skipbackward      : '&#983066;',  // \0F001A
+		pauseforward      : '&#983067;',  // \0F001B
+		pausebackward     : '&#983068;',  // \0F001C
+		pausejumpforward  : '&#983069;',  // \0F001D
+		pausejumpbackward : '&#983070;',  // \0F001E
+		jumpforward       : '&#983071;',  // \0F001F
+		jumpbackward      : '&#983072;',  // \0F0020
+		arrowextend       : '&#983073;',  // \0F0021
+		arrowshrink       : '&#983074;'   // \0F0022
+	};
+
 	/**
 	* {@link moon.Icon} is a control that displays an icon image. You may specify the
 	* image by setting the [src]{@link moon.Icon#src} property to a URL indicating the
@@ -76,21 +111,45 @@
 		published: {
 
 			/**
-			* When using a font-based icon, the name of the icon to be used.
+			* This property serves two purposes. One, it accepts one of the below Moonstone icon
+			* names. Two, it also supports standard ascii characters or HTML entities, to directly
+			* represent a glyph. By default, the font used when you specify a
+			* character/entity/glyph, the font "LG Display_Dingbat" will be used. It is applied via
+			* a `class`: "font-lg-icons". To apply your own dingbat font, override this class's
+			* `font-family` property in your CSS.
+			*
 			* The following icon names are valid:
 			*
-			* `'drawer'`
-			* `'arrowlargeup'`
-			* `'arrowlargedown'`
-			* `'arrowlargeleft'`
-			* `'arrowlargeright'`
-			* `'arrowsmallup'`
-			* `'arrowsmalldown'`
-			* `'arrowsmallleft'`
-			* `'arrowsmallright'`
-			* `'closex'`
-			* `'check'`
-			* `'search'`
+			* `drawer`
+			* `arrowlargedown`
+			* `arrowlargeup`
+			* `arrowlargeleft`
+			* `arrowlargeright`
+			* `arrowsmallup`
+			* `arrowsmalldown`
+			* `arrowsmallleft`
+			* `arrowsmallright`
+			* `closex`
+			* `check`
+			* `search`
+			* `exitfullscreen`
+			* `fullscreen`
+			* `circle`
+			* `stop`
+			* `play`
+			* `pause`
+			* `forward`
+			* `backward`
+			* `skipforward`
+			* `skipbackward`
+			* `pauseforward`
+			* `pausebackward`
+			* `pausejumpforward`
+			* `pausejumpbackward`
+			* `jumpforward`
+			* `jumpbackward`
+			* `arrowextend`
+			* `arrowshrink`
 			*
 			* @type {String}
 			* @default ''
@@ -106,18 +165,6 @@
 			* @public
 			*/
 			src: '',
-
-			/**
-			* Specify the font family/families, in string form, to use for use for this icon.
-			* It is only necessary to specify a font if you need a custom font.
-			* `moonstone-icons.ttf` is used by default. WebOS TVs have a font cassed
-			* "LG Disylay_Dingbat" which contains many standard interface icons.
-			*
-			* @type {String}
-			* @default null
-			* @public
-			*/
-			// font: null,
 
 			/**
 			* If `true`, icon is shown as disabled.
@@ -160,29 +207,11 @@
 		create: function () {
 			this.inherited(arguments);
 
+			this.smallChanged();
 			if (this.src) {
 				this.srcChanged();
 			}
-			if (this.content) {
-				this.contentChanged();
-			} else if (this.icon) {
-				this.iconChanged();
-			}
-			// this.fontChanged();
 			this.disabledChanged();
-			this.smallChanged();
-		},
-		// render: function() {
-			// this.inherited(arguments);
-			// This needs to be run during render because it has its own special render call,
-			// which clobbers the content code run earlier.
-		// },
-
-		/**
-		* @private
-		*/
-		getIconClass: function (inIconName) {
-			return 'moon-icon-' + (inIconName || this.icon);
 		},
 
 		/**
@@ -190,25 +219,6 @@
 		*/
 		disabledChanged: function () {
 			this.addRemoveClass('disabled', this.disabled);
-		},
-
-		/**
-		* @private
-		*/
-		// fontChanged: function () {
-		// 	this.applyStyle('font-family', this.get('font') ? ('\'' + this.get('font') + '\'') : null);
-		// },
-
-		/**
-		* @private
-		*/
-		contentChanged: function () {
-			this.inherited(arguments);
-			// If we have content and an icon, drop the icon entirely, in favor of the content.
-			if (this.get('content') && this.get('icon')) {
-				this.set('icon', null);
-			}
-			// console.log('content', this.get('content') );
 		},
 
 		/**
@@ -227,12 +237,17 @@
 		/**
 		* @private
 		*/
-		iconChanged: function (inOld) {
-			if (inOld) {
-				this.removeClass(this.getIconClass(inOld));
-			}
-			if (this.get('icon')) {
-				this.addClass(this.getIconClass());
+		iconChanged: function () {
+			var icon = this.get('icon') || '',
+				iconEntity = icons[icon] || icon;
+
+			// If the icon isn't in our known set, apply our custom font class
+			this.addRemoveClass('font-lg-icons', !icons[icon]);
+
+			if (this.get('small')) {
+				this.$.tapArea.set('content', iconEntity);
+			} else {
+				this.set('content', iconEntity);
 			}
 		},
 
@@ -240,38 +255,20 @@
 		* @private
 		*/
 		smallChanged: function () {
-			var content = this.get('content');
-
-			// if (this.generated) {
-			// 	this.render();
-			// }
 			if (this.small) {
-				var //client,
-					ta = this.createComponent({name: 'tapArea', classes: 'small-icon-tap-area', isChrome: true});
+				var ta = this.createComponent({name: 'tapArea', classes: 'small-icon-tap-area', allowHtml: this.allowHtml, isChrome: true});
 
-				// if (content) {
-				// 	client = this.createComponent({name: 'client', content: content, isChrome: true});
-				// }
 				if (this.generated) {
 					ta.render();
-					// if (client) {
-					// 	client.render();
-					// }
 				}
 			} else {
 				if (this.$.tapArea) {
 					this.$.tapArea.destroy();
 				}
-				if (this.$.client) {
-					this.$.client.destroy();
-				}
-				if (content && this.generated) {
-					this.set('content', content);
-					this.render();
-				}
 			}
 			this.addRemoveClass('small', this.small);
-			console.log("this:", this);
+			// Now that our content area is ready, assign the icon
+			this.iconChanged();
 		}
 	});
 
