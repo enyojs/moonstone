@@ -52,7 +52,7 @@
 		* @private
 		*/
 		kind: 'moon.ProgressBar',
-		
+
 		/**
 		* @private
 		*/
@@ -62,7 +62,7 @@
 		* @private
 		*/
 		spotlight: true,
-		
+
 		/**
 		* @private
 		* @lends moon.Slider.prototype
@@ -77,7 +77,7 @@
 			* @public
 			*/
 			value: 0,
-			
+
 			/**
 			* Sliders may "snap" to multiples of this value in either direction.
 			*
@@ -86,7 +86,7 @@
 			* @public
 			*/
 			increment: 0,
-			
+
 			/**
 			* When `true`, current progress is styled differently from rest of bar.
 			*
@@ -95,7 +95,7 @@
 			* @public
 			*/
 			lockBar: true,
-			
+
 			/**
 			* When `true`, tapping on bar will change current position.
 			*
@@ -104,7 +104,7 @@
 			* @public
 			*/
 			tappable: true,
-			
+
 			/**
 			* CSS classes to apply to the knob.
 			*
@@ -113,7 +113,7 @@
 			* @public
 			*/
 			knobClasses: 'moon-slider-knob',
-			
+
 			/**
 			* CSS classes to apply to the popup label.
 			*
@@ -122,7 +122,7 @@
 			* @public
 			*/
 			popupLabelClasses: 'moon-slider-popup-label',
-			
+
 			/**
 			* CSS classes to apply to the tap area.
 			*
@@ -131,7 +131,7 @@
 			* @public
 			*/
 			tapAreaClasses: 'moon-slider-taparea',
-			
+
 			/**
 			* Color value of the popup.
 			*
@@ -140,7 +140,7 @@
 			* @public
 			*/
 			popupColor: '#4d4d4d',
-			
+
 			/**
 			* If set to `true`, button is shown as disabled and does not generate tap events.
 			*
@@ -149,7 +149,7 @@
 			* @public
 			*/
 			disabled: false,
-			
+
 			/**
 			* When `true`, knob and progress move with animation when left or right direction
 			* key is pressed, or when bar is tapped.
@@ -159,7 +159,7 @@
 			* @public
 			*/
 			animate: true,
-			
+
 			/**
 			* When `false`, the slider's popup bubble is displayed while the slider is being
 			* adjusted.
@@ -169,7 +169,7 @@
 			* @public
 			*/
 			noPopup: false,
-			
+
 			/**
 			* When `true`, the popup displays a percentage value (rather than an absolute value).
 			*
@@ -178,7 +178,7 @@
 			* @public
 			*/
 			showPercentage: true,
-			
+
 			/**
 			* Popup width in pixels.
 			*
@@ -187,7 +187,7 @@
 			* @public
 			*/
 			popupWidth: 'auto',
-			
+
 			/**
 			* Popup height in pixels; value should be less than `72`.
 			*
@@ -196,7 +196,7 @@
 			* @public
 			*/
 			popupHeight: 67,
-			
+
 			/**
 			* Popup offset in pixels.
 			*
@@ -205,7 +205,7 @@
 			* @public
 			*/
 			popupOffset: 8,
-			
+
 			/**
 			* When `false`, knob may be moved past the
 			* [bgProgress]{@link moon.ProgressBar#bgProgress} value.
@@ -215,7 +215,7 @@
 			* @public
 			*/
 			constrainToBgProgress: false,
-			
+
 			/**
 			* If set to `true`, an elastic visual effect is seen when the knob is dragged past
 			* the [bgProgress]{@link moon.ProgressBar#bgProgress} value.
@@ -225,7 +225,7 @@
 			* @public
 			*/
 			elasticEffect: false,
-			
+
 			/**
 			* Custom popup content (ignored if `null`).
 			*
@@ -234,7 +234,7 @@
 			* @public
 			*/
 			popupContent: null,
-			
+
 			/**
 			* When `true`, popup content will have locale-safe uppercasing applied.
 			*
@@ -253,7 +253,7 @@
 			onChanging: '',
 			onAnimateFinish: ''
 		},
-		
+
 		/**
 		* @private
 		*/
@@ -291,12 +291,12 @@
 		/**
 		* @private
 		*/
-		popupLeftCanvasWidth: 26, // Popup left canvas width in pixel
+		popupLeftCanvasWidth: 27, // Popup left canvas width in pixel
 
 		/**
 		* @private
 		*/
-		popupRightCanvasWidth: 26, // Popup right canvas width in pixel
+		popupRightCanvasWidth: 27, // Popup right canvas width in pixel
 
 		/**
 		* @private
@@ -419,7 +419,7 @@
 		updatePopupOffset: function() {
 			this.$.popup.applyStyle('top', -(this.getPopupHeight() + this.getPopupOffset()) + 'px');
 		},
-		
+
 		/**
 		* Updates popup offset.
 		*
@@ -429,7 +429,7 @@
 			this.updatePopupOffset();
 			this.drawToCanvas(this.popupColor);
 		},
-		
+
 		/**
 		* Updates popup width.
 		*
@@ -452,7 +452,7 @@
 			this.$.popup.applyStyle('height', h + 'px');
 			this.$.popup.applyStyle('line-height', h - 6 + 'px');
 		},
-		
+
 		/**
 		* Updates popup height.
 		*
@@ -473,7 +473,7 @@
 		updatePopupLabelColor: function() {
 			this.$.popupLabel.applyStyle('background-color', this.popupColor);
 		},
-		
+
 		/**
 		* Updates popup color.
 		*
@@ -483,7 +483,7 @@
 			this.drawToCanvas(this.popupColor);
 			this.updatePopupLabelColor();
 		},
-		
+
 		/**
 		* Updates popup content.
 		*
@@ -505,14 +505,14 @@
 		},
 
 		/**
-		* Slider will snap to multiples of this value. 
+		* Slider will snap to multiples of this value.
 		*
 		* @private
 		*/
 		calcIncrement: function(val) {
 			return (Math.round(val / this.increment) * this.increment);
 		},
-		
+
 		/**
 		* Called only when [constrainToBgProgress]{@link moon.Slider#constrainToBgProgress} is
 		* `true`.
@@ -847,40 +847,61 @@
 		* @private
 		*/
 		drawToCanvas: function(bgColor) {
-			var h = this.getPopupHeight()+1; // height total
-			var hb = h - 8; // height bubble
-			var hbc = (hb)/2; // height of bubble's center
-			var wre = 26; // width's edge
-			var r = hbc; //radius is half the bubble height
-			var bcr = 50;//bottom curve radius 50
-			var bcy = hb + bcr;//calculate the height of the center of the circle plus the radius to get the y coordinate of the circle to draw the bottom irregular arc
+			bgColor = bgColor  || enyo.dom.getComputedStyleValue(this.$.knob.hasNode(), 'background-color');
+			var h = this.getPopupHeight()+1, // height total
+				hb = h - 8, // height bubble
+				hbc = (hb)/2, // height of bubble's center
+				wre = 26, // width's edge
+				r = hbc, //radius is half the bubble height
+				bcr = 50, //bottom curve radius 50
+				bcy = hb + bcr, //calculate the height of the center of the circle plus the radius to get the y coordinate of the circle to draw the bottom irregular arc
+				lw = 1, // The line width that will be tucked under the neighboring dom element's edge
 
-			var ctxLeft = this.$.drawingLeft.hasNode().getContext('2d');
-			var ctxRight = this.$.drawingRight.hasNode().getContext('2d');
+				ctxLeft = this.$.drawingLeft.hasNode().getContext('2d'),
+				ctxRight = this.$.drawingRight.hasNode().getContext('2d');
 
 			this.$.drawingLeft.setAttribute('width', this.popupLeftCanvasWidth);
 			this.$.drawingRight.setAttribute('width', this.popupRightCanvasWidth);
 
+
 			// Set styles. Default color is knob's color
-			ctxLeft.fillStyle = bgColor || enyo.dom.getComputedStyleValue(this.$.knob.hasNode(), 'background-color');
+			ctxLeft.fillStyle = bgColor;
 			// Draw shape with arrow on left
 			ctxLeft.moveTo(0, h);
+     		// arc(x, y, radius, startAngle, endAngle, counterClockwise);
 			ctxLeft.arc(wre, bcy, bcr, 1.35 * Math.PI, 1.485 * Math.PI, false);
 			ctxLeft.lineTo(wre, hb);
 			ctxLeft.lineTo(wre, 0);
 			ctxLeft.arcTo(0, 0, 0, hbc, r);
 			ctxLeft.lineTo(0, h);
 			ctxLeft.fill();
+			// Add a spacer line
+			ctxLeft.beginPath();
+			ctxLeft.lineWidth = lw+1;
+			ctxLeft.strokeStyle = bgColor;
+			ctxLeft.moveTo(wre+lw, 0);
+			ctxLeft.lineTo(wre+lw, hb);
+			ctxLeft.stroke();
+			// debugger
 
 			// Set styles. Default color is knob's color
-			ctxRight.fillStyle = bgColor || enyo.dom.getComputedStyleValue(this.$.knob.hasNode(), 'background-color');
+			ctxRight.fillStyle = bgColor;
 			// Draw shape with arrow on right
-			ctxRight.moveTo(0, hb);
-			ctxRight.arcTo(wre, hb, wre, hbc, r);
+			ctxRight.moveTo(lw, hb);
+			ctxRight.arcTo(wre+lw, hb, wre+lw, hbc, r);
+			// ctxRight.arcTo(lw, hb, lw, 0, r);
+			// debugger;
 
-			ctxRight.arcTo(wre, 0, 0, 0, r);
+			ctxRight.arcTo(wre+lw, 0, lw, 0, r);
 			ctxRight.lineTo(0, 0);
 			ctxRight.fill();
+			// Add a spacer line
+			ctxRight.beginPath();
+			ctxRight.lineWidth = lw+1;
+			ctxRight.strokeStyle = bgColor;
+			ctxRight.moveTo(0, 0);
+			ctxRight.lineTo(0, hb);
+			ctxRight.stroke();
 		},
 
 		/**
