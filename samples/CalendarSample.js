@@ -36,13 +36,13 @@ enyo.kind({
 						{content: "es-ES"}, // Spain, firstDayOfWeek: 1
 						{content: "es-MX"}
 					]},
-					{kind: "moon.ExpandablePicker", name:"dowLengthPicker", content: "Choose DOW Label Length", onChange: "setLabelLength", components: [
+					{name: 'dowLengthPicker', kind: "moon.ExpandablePicker", content: "Choose DOW Label Length", onChange: "setLabelLength", components: [
 						{content: "short", active: true},
 						{content: "medium"},
 						{content: "long"},
 						{content: "full"}
 					]},
-					{kind: "moon.ExpandablePicker", content: "Choose DOW Label Class", onChange: "setLabelStyle", components: [
+					{name: 'dowLabelClass', kind: "moon.ExpandablePicker", content: "Choose DOW Label Class", onChange: "setLabelStyle", components: [
 						{content: "Default", active: true, className:""},
 						{content: "Divider", className:"moon-divider moon-divider-text"},
 						{content: "Smaller font", className: "moon-calendar-picker-day small"}
