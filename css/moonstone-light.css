@@ -1902,6 +1902,7 @@
   opacity: 0.35;
 }
 .moon-scroll-picker {
+  direction: ltr;
   height: 94px;
   border-top: solid 30px transparent;
   border-bottom: solid 30px transparent;
