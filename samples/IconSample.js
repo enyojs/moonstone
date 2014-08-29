@@ -69,6 +69,8 @@ enyo.kind({
 			{kind: "moon.Icon", icon: "exitfullscreen", ontap: "buttonTapped"},
 			{classes:"moon-1v"},
 			{kind: "moon.Divider", content: "Image Asset Icons:"},
+			{kind: "moon.Icon", src: "assets/icon-list.png", small: false, ontap: "buttonTapped"},
+			{kind: "moon.Icon", src: "assets/icon-album.png", small: false, ontap: "buttonTapped"},
 			{kind: "moon.Icon", src: "assets/icon-list.png", ontap: "buttonTapped"},
 			{kind: "moon.Icon", src: "assets/icon-album.png", ontap: "buttonTapped"},
 			{classes:"moon-1v"},

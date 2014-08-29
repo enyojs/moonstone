@@ -16,6 +16,9 @@
 					background-color: @moon-selection-overlay-bg-color;
 					border-radius: @moon-icon-button-small-size / 2;
 					background-position: center @moon-button-border-width;
+					// background-size: auto overrides the default set by .moon-icon.small in icon.less,
+					// ensures the code supporting either 1 or 2 frames sprite image
+					background-size: auto;
 				}
 			}
 		}

@@ -131,6 +131,12 @@
 				if (this.getClientControls().length > 0) {
 					this.$.client.canGenerate = true;
 					this.addClass('has-children');
+
+				var i,
+					c = this.$.client.children;
+					for (i = 0; i < c.length; i++) {
+						c[i].spotlight = false;
+					}
 				}
 
 				this.showBadgesOnSpotlightChanged();

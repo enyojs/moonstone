@@ -87,7 +87,7 @@
 		* @private
 		*/
 		components: [
-			{name: 'checkboxIcon', kind: 'moon.Icon', icon: 'check'}
+			{name: 'checkboxIcon', kind: 'moon.Icon', icon: 'check', spotlight: false}
 		],
 
 		/**
