@@ -173,6 +173,7 @@
 		* @private
 		*/
 		valueHourChanged: function() {
+			this.valueHour =  Math.round(this.valueHour);
 			if (this.valueHour === '') {
 				this.noneTextCheck();
 				this.$.hour.setValue(this.min);
@@ -189,6 +190,7 @@
 		* @private
 		*/
 		valueMinuteChanged: function() {
+			this.valueMinute =  Math.round(this.valueMinute);
 			if(this.valueMinute === ''){
 				this.noneTextCheck();
 				this.$.minute.setValue(this.min);
@@ -206,6 +208,7 @@
 		* @private
 		*/
 		valueSecondChanged: function() {
+			this.valueSecond =  Math.round(this.valueSecond);
 			if(this.valueSecond === '') {
 				this.noneTextCheck();
 				this.$.second.setValue(this.min);
