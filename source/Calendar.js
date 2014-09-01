@@ -520,6 +520,8 @@
 		 * @private
 		 */
 		getStartYear: function() {
+			var year = this.value instanceof Date ? this.value.getFullYear() : new Date().getFullYear();
+			this.startYear  = year < this.startYear ? year : this.startYear;
 			if (typeof ilib !== 'undefined') {
 				var greg = ilib.Date.newInstance({
 					type: "gregorian",
@@ -546,6 +548,8 @@
 		 * @private
 		 */
 		getEndYear: function() {
+			var year = this.value instanceof Date ? this.value.getFullYear() : new Date().getFullYear();
+			this.endYear  = year > this.endYear ? year : this.endYear;
 			if (typeof ilib !== 'undefined') {
 				var greg = ilib.Date.newInstance({
 					type: "gregorian",
