@@ -61,15 +61,6 @@
 			title: '',
 
 			/**
-			* Sub Title of the small header.
-			*
-			* @type {String}
-			* @default ''
-			* @public
-			*/
-			subTitle: '',
-
-			/**
 			* Text above the header.
 			*
 			* @type {String}
@@ -275,7 +266,7 @@
 					{name: 'titleInput', kind: 'moon.Input', classes: 'moon-header-text moon-header-title'}
 				]}
 			]},
-			{name: 'titleBelow', kind: 'moon.MarqueeText', classes: 'moon-sub-header-text moon-header-title-below'}, 
+			{name: 'titleBelow', kind: 'moon.MarqueeText', classes: 'moon-sub-header-text moon-header-title-below'},
 			{name: 'subTitleBelow', kind: 'moon.MarqueeText', classes: 'moon-body-text moon-header-sub-title-below'},
 			{name: 'animator', kind: 'enyo.StyleAnimator', onComplete: 'animationComplete'}
 		],
@@ -297,7 +288,6 @@
 			// while.
 			this.smallChanged();
 			this.titleChanged();
-			this.subTitleChanged();
 			this.titleAboveChanged();
 			this.titleBelowChanged();
 			this.subTitleBelowChanged();
@@ -318,7 +308,7 @@
 		* @private
 		*/
 		allowHtmlChanged: function () {
-			this.$.title.setAllowHtml( this.getType() == 'small' ? true : this.allowHtml );
+			this.$.title.setAllowHtml( this.get('type') == 'small' ? true : this.allowHtml );
 			this.$.titleBelow.setAllowHtml(this.allowHtml);
 			this.$.subTitleBelow.setAllowHtml(this.allowHtml);
 		},
@@ -344,7 +334,7 @@
 			}
 			// If `this.backgroundPosition` is set explicitly to inherit or initial, apply that
 			// instead of assuming a position.
-			if (bgp === 'inherit' || bgp === 'initial') {
+			if (bgp == 'inherit' || bgp == 'initial') {
 				this.applyStyle('background-position', bgp);
 				return;
 			}
@@ -567,8 +557,8 @@
 		* @private
 		*/
 		typeChanged: function () {
-			this.addRemoveClass('moon-medium-header', this.getType() == 'medium');
-			this.addRemoveClass('moon-small-header', this.getType() == 'small');
+			this.addRemoveClass('moon-medium-header', this.get('type') == 'medium');
+			this.addRemoveClass('moon-small-header', this.get('type') == 'small');
 			this.contentChanged();
 		},
 
@@ -579,7 +569,7 @@
 		* @private
 		*/
 		smallChanged: function () {
-			this.addRemoveClass('moon-medium-header', this.getSmall());
+			this.addRemoveClass('moon-medium-header', this.get('small'));
 		},
 
 		/**
@@ -587,17 +577,19 @@
 		*/
 		contentChanged: function () {
 			var title = this.getTitleUpperCase()
-						? enyo.toUpperCase(this.title || this.content)
-						: (this.title || this.content);
-			if ((this.getType() == 'small') && this.subTitle) {
-				this.$.title.setAllowHtml( this.getType() == 'small' ? true : this.allowHtml ); 
+						? enyo.toUpperCase(this.get('title') || this.get('content'))
+						: (this.get('title') || this.get('content')),
+				subtitle = this.get('titleBelow');
+			if ((this.get('type') == 'small') && subtitle) {
+				this.$.title.set('allowHtml', true);
 				if (this.rtl) {
-					this.$.title.setContent('<span class=\'moon-sub-header-text moon-header-sub-title\'>' +this.subTitle + '</span>' + '   '+ title);
+					this.$.title.set('content', '<span class="moon-sub-header-text moon-header-sub-title">' + subtitle + '</span>' + '   ' + title);
 				} else {
-					this.$.title.setContent(title + '   ' + '<span class=\'moon-sub-header-text moon-header-sub-title\'>' + this.subTitle + '</span>');
+					this.$.title.set('content', title + '   ' + '<span class="moon-sub-header-text moon-header-sub-title">' + subtitle + '</span>');
 				}
 			} else {
-				this.$.title.setContent(title);
+				this.$.title.set('allowHtml', this.get('allowHtml') );
+				this.$.title.set('content', title);
 			}
 			this.placeholderChanged();
 		},
@@ -632,38 +624,33 @@
 		/**
 		* @private
 		*/
-		subTitleChanged: function () {
-			this.contentChanged();
-		},
-
-		/**
-		* @private
-		*/
 		titleAboveChanged: function () {
 			this.$.titleAbove.addRemoveClass('no-border', this.titleAbove === '');
-			this.$.titleAbove.setContent(this.titleAbove);
+			this.$.titleAbove.set('content', this.titleAbove);
 		},
 
 		/**
 		* @private
 		*/
 		titleBelowChanged: function () {
-			this.$.titleBelow.setContent(this.titleBelow || '');
+			this.$.titleBelow.set('content', this.titleBelow || '');
 		},
 
 		/**
 		* @private
 		*/
 		subTitleBelowChanged: function () {
-			this.$.subTitleBelow.setContent(this.subTitleBelow || '');
+			this.$.subTitleBelow.set('content', this.subTitleBelow || '');
 		},
 
 		/**
+		* Placeholder
+		*
 		* @private
 		*/
-		animationComplete: function (inSender, inEvent) {
+		// animationComplete: function (inSender, inEvent) {
 			// Do something?
-		},
+		// },
 
 		/**
 		* @private
@@ -722,7 +709,7 @@
 			if (!inEvent.open) {
 				return;
 			}
-			inEvent.originator.beforeOpenDrawer(this.standardHeight, this.getType());
+			inEvent.originator.beforeOpenDrawer(this.standardHeight, this.get('type'));
 		}
 	});
 
