@@ -3017,6 +3017,16 @@
 .moon-spinner > * {
   display: inline-block;
 }
+.moon-spinner.center {
+  margin: 0;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+.moon-spinner.center.middle {
+  position: absolute;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
 .moon-spinner.moon-spinner-transparent-background {
   background-color: transparent;
 }

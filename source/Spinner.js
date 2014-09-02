@@ -50,19 +50,35 @@
 		classes: 'moon-spinner',
 
 		/**
-		* @private
-		* @lends moon.Spinner.prototype
+		* Determines whether spinner's background is transparent.
+		*
+		* @type {Boolean}
+		* @default false
+		* @public
 		*/
-		published: {
-			/**
-			* Determines whether spinner's background is transparent.
-			*
-			* @type {Boolean}
-			* @default false
-			* @public
-			*/
-			transparent: false
-		},
+		transparent: false,
+
+		/**
+		* Sets the spinner to be horizontally centered, relative to its containing control. Use in
+		* combination with [moon.Spinner#center]{@link moon.Spinner#middle} to center this spinner
+		* both horizontally and vertically, or just horizontally.
+		*
+		* @type {Boolean}
+		* @default false
+		* @public
+		*/
+		center: false,
+
+		/**
+		* When `true`, sets the spinner to be vertically centered inside its container. This option
+		* has no effect if [moon.Spinner#center]{@link moon.Spinner#center} is `false`. Setting this
+		* to false allows the spinner to only be horizontally centered, and not vertically centered.
+		*
+		* @type {Boolean}
+		* @default true
+		* @public
+		*/
+		middle: true,
 
 		/**
 		* @private
@@ -118,6 +134,8 @@
 			this.inherited(arguments);
 			this.contentChanged();
 			this.transparentChanged();
+			this.centerChanged();
+			this.middleChanged();
 			this.addClass('running');
 		},
 
@@ -166,6 +184,20 @@
 			}
 			this.$.client.set('showing', !!this.content);
 			this.addRemoveClass('content', this.hasContent());
+		},
+
+		/**
+		* @private
+		*/
+		centerChanged: function(old) {
+			this.addRemoveClass('center',this.get('center'));
+		},
+
+		/**
+		* @private
+		*/
+		middleChanged: function(old) {
+			this.addRemoveClass('middle',this.get('middle'));
 		},
 
 		/**
