@@ -236,7 +236,7 @@
 		* @private
 		*/
 		tap: function (inSender, inEvent) {
-			if (this.handleTapEvents) {
+			if (this.handleTapEvent) {
 				if (inSender != this.$.input) {
 					this.waterfallDown('ontap', inEvent, inSender);
 				}
