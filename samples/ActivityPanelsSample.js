@@ -108,12 +108,16 @@ enyo.kind({
 		if (this.$.mediumHeaderToggle.value) {
 			this.$.smallHeaderToggle.setValue(false);
 			this.$.panel.setHeaderType("medium");
+		} else {
+			this.$.panel.setHeaderType("large");
 		}
 	},
 	smallTapped: function(inSender, inEvent) {
 		if (this.$.smallHeaderToggle.value) {
 			this.$.mediumHeaderToggle.setValue(false);
 			this.$.panel.setHeaderType("small");
+		} else {
+			this.$.panel.setHeaderType("large");
 		}
 	}
 });
