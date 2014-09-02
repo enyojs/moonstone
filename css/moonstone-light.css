@@ -1658,7 +1658,6 @@
   margin: 38px 40px 0 0;
 }
 .enyo-locale-right-to-left .moon-small-header.full-bleed .moon-header-client {
-  float: left;
   margin: 38px 40px 0 20px;
 }
 .moon-header:not(.moon-small-header):not(.moon-medium-header) .moon-header-left {
