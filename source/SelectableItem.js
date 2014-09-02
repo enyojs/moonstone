@@ -34,19 +34,19 @@
 		* @private
 		*/
 		kind: 'moon.Item',
-		
+
 		/**
 		* @private
 		*/
 		classes: 'moon-selectable-item',
-		
+
 		/**
 		* @private
 		*/
 		events: {
 			onActivate: ''
 		},
-		
+
 		/**
 		* @private
 		*/
@@ -81,9 +81,20 @@
 			* @default false
 			* @public
 			*/
-			active: false
+			active: false,
+
+			/**
+			* If used as the base control within a {@link moon.DataList} or {@glossary subkind},
+			* this should be set to `false` so that selection support can be synchronized to the
+			* checked state of this control.
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
+			handleTapEvent: true
 		},
-		
+
 		/**
 		* @private
 		*/
@@ -97,7 +108,7 @@
 		bindings: [
 			{from: '.allowHtml', to: '.$.client.allowHtml'}
 		],
-		
+
 		/**
 		* @method
 		* @private
@@ -132,7 +143,11 @@
 			if (this.disabled) {
 				return true;
 			}
-
+			if (this.handleTapEvents) {
+				if (sender != this.$.input) {
+					this.waterfallDown('ontap', e, sender);
+				}
+			}
 			this.setActive(!this.getActive());
 			this.bubble('onchange');
 		},
