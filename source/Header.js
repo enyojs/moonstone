@@ -590,8 +590,12 @@
 						? enyo.toUpperCase(this.title || this.content)
 						: (this.title || this.content);
 			if ((this.getType() == 'small') && this.subTitle) {
-				this.$.title.setAllowHtml( this.getType() == 'small' ? true : this.allowHtml );
-				this.rtl ? this.$.title.setContent('<span class=\'moon-sub-header-text moon-header-sub-title\'>' +this.subTitle + '</span>' + '   '+ title) : this.$.title.setContent(title + '   ' + '<span class=\'moon-sub-header-text moon-header-sub-title\'>' + this.subTitle + '</span>');
+				this.$.title.setAllowHtml( this.getType() == 'small' ? true : this.allowHtml ); 
+				if (this.rtl) {
+					this.$.title.setContent('<span class=\'moon-sub-header-text moon-header-sub-title\'>' +this.subTitle + '</span>' + '   '+ title)
+				} else {
+					this.$.title.setContent(title + '   ' + '<span class=\'moon-sub-header-text moon-header-sub-title\'>' + this.subTitle + '</span>');
+				}
 			} else {
 				this.$.title.setContent(title);
 			}
