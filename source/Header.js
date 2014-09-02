@@ -592,7 +592,7 @@
 			if ((this.getType() == 'small') && this.subTitle) {
 				this.$.title.setAllowHtml( this.getType() == 'small' ? true : this.allowHtml ); 
 				if (this.rtl) {
-					this.$.title.setContent('<span class=\'moon-sub-header-text moon-header-sub-title\'>' +this.subTitle + '</span>' + '   '+ title)
+					this.$.title.setContent('<span class=\'moon-sub-header-text moon-header-sub-title\'>' +this.subTitle + '</span>' + '   '+ title);
 				} else {
 					this.$.title.setContent(title + '   ' + '<span class=\'moon-sub-header-text moon-header-sub-title\'>' + this.subTitle + '</span>');
 				}
