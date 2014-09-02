@@ -143,7 +143,7 @@
 			if (this.disabled) {
 				return true;
 			}
-			if (this.handleTapEvents) {
+			if (this.handleTapEvent) {
 				if (sender != this.$.input) {
 					this.waterfallDown('ontap', e, sender);
 				}
