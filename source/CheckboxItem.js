@@ -127,7 +127,18 @@
 			* @default ''
 			* @public
 			*/
-			src: ''
+			src: '',
+			
+			/**
+			* If used as the base control within a {@link moon.DataList} or {@glossary subkind},
+			* this should be set to `false` so that selection support can be synchronized to the
+			* checked state of this control.
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
+			handleTapEvent: true
 		},
 
 		/**
@@ -225,8 +236,10 @@
 		* @private
 		*/
 		tap: function (inSender, inEvent) {
-			if (inSender != this.$.input) {
-				this.waterfallDown('ontap', inEvent, inSender);
+			if (this.handleTapEvents) {
+				if (inSender != this.$.input) {
+					this.waterfallDown('ontap', inEvent, inSender);
+				}
 			}
 		},
 
