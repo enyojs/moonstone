@@ -1,54 +1,120 @@
 .moon-header {
 	.border-box;
 	color: @moon-header-text-color;
-	height: 360px;
-	border-top: 2px solid @moon-header-border-color;
-	border-bottom: 6px solid @moon-header-bottom-border-color;
+	height: @moon-header-height-large;
+	border-top: @moon-header-border-top-width solid @moon-header-border-color;
+	border-bottom: @moon-header-border-bottom-width solid @moon-header-bottom-border-color;
 	position: relative;
-	max-width:100%;
-	padding: 0 0 @moon-spotlight-outset 0px;
+	max-width: 100%;
+	padding: 0 0 @moon-spotlight-outset 0;
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-position: top left;
 	margin: 0 @moon-spotlight-outset;
+
+	.moon-header-title-above {
+		margin-top: 5px;
+		height: 1.2em;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+
+		.no-border {
+			border: none;
+		}
+	}
+
+	.moon-header-title {
+		line-height: @moon-header-line-height;
+		height: 155px;
+
+		.moon-marquee-text {
+			white-space: nowrap;
+		}
+	}
+
+	.moon-header-title-below, .moon-header-sub-title-below {
+		height: 44px;
+	}
+
+	.moon-header-client {
+		position: absolute;
+		bottom: 14px;
+		left: 0;
+		right: 0;
+		text-align: right;	/* fallback in case text-align:end isn't supported */
+		text-align: end;	/* CSS3 for RTL support */
+		z-index: 1;         /* Fixme: Inverse component stack order */
+	}
+
+	&.full-bleed {
+		padding: 0 @moon-header-indent-width @moon-spotlight-outset @moon-header-indent-width;
+		border: 0;
+
+		.moon-header-client {
+			left: @moon-header-indent-width;
+			right: @moon-header-indent-width;
+		}
+	}
+
+	// Medium Header
+	&.moon-medium-header {
+		height: @moon-header-height-medium;
+
+		.moon-header-title-above {
+			display: none;
+		}
+
+		.moon-header-title {
+			line-height: @moon-medium-header-line-height;
+		}
+
+		.moon-header-title-below, .moon-header-sub-title-below {
+			height: 40px;
+		}
+	}
+
+	// Small Header
+	&.moon-small-header {
+		height: @moon-header-height-small;
+
+		.moon-header-title-above, .moon-header-title-below, .moon-header-sub-title-below {
+			display: none;
+		}
+
+		.moon-header-title {
+			margin: 26px 0 0 0;
+			line-height: @moon-small-header-line-height;
+			font-size: @moon-small-header-font-size;
+			height: 84px;
+		}
+
+		.moon-header-sub-title {
+			font-size: @moon-small-header-sub-header-font-size;
+		}
+
+		.moon-header-client {
+			position: relative;
+			float: right;
+			bottom: inherit;
+			margin: 38px 0 0 @moon-header-title-subtitle-gap;
+		}
+
+		&.full-bleed .moon-header-client {
+			margin: 38px @moon-header-indent-width 0 @moon-header-title-subtitle-gap;
+		}
+	}
+
 }
+
+// neutral
 .moon-neutral .moon-header {
 	border-top: @moon-header-border-top-width solid @moon-neutral-border-color;
 	border-bottom: @moon-header-border-bottom-width solid @moon-neutral-border-color;
 }
-.moon-header.full-bleed {
-	padding-left: @moon-header-indent-width;
-	padding-right: @moon-header-indent-width;
-	border-top-color: transparent;
-	border-bottom-color: transparent;
-}
 
-/* Title Above */
-.moon-header-title-above.no-border {
-	border: none;
-}
-.moon-header-title-above {
-	margin-top:5px;
-	height: 1.2em;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-/* Main Title */
-.moon-header-title-wrapper {
-	position: relative;
-}
-
-.moon-header-title {
-	.moon-header-text;
-	line-height: @moon-header-line-height;
-	height: 155px;
-}
-.enyo-locale-non-latin .moon-header-title {
-	.enyo-locale-non-latin .moon-header-text;
-}
-/* Special override for Japanese font (LG Display_JP) which, as of 07-Feb-2014 
+// enyo-locale-non-latin
+/* Special override for Japanese font (LG Display_JP) which, as of 07-Feb-2014
    has a taller baseline. This corrects both Header and InputHeader. 2014-02-24
    Please remove the line-height rule below if this font file is changed. */
 .enyo-locale-non-latin.enyo-locale-ja .moon-header-title,
@@ -56,155 +122,20 @@
 	line-height: 1.25em;
 }
 
-.moon-header-title .moon-marquee-text {
-	white-space: nowrap;
+// enyo-locale-right-to-left
+.enyo-locale-right-to-left .moon-small-header {
+	.moon-header-client {
+		float: left;
+		margin: 38px @moon-header-title-subtitle-gap 0 0;
+	}
+
+	&.full-bleed .moon-header-client {
+		float: left;
+		margin: 38px @moon-header-title-subtitle-gap 0 20px;
+	}
 }
 
-/* Title Below */
-.moon-header-title-below {
-	position: relative;
-	.moon-sub-header-text;
-	height: 44px;
-}
-.enyo-locale-non-latin .moon-header-title-below {
-	.enyo-locale-non-latin .moon-sub-header-text;
-}
-
-/* Sub Title Below */
-.moon-header-sub-title-below {
-	position: relative;
-	.moon-body-text;
-	height: 44px;
-}
-.enyo-locale-non-latin .moon-header-sub-title-below {
-	.enyo-locale-non-latin .moon-body-text;
-}
-
-/* Header Client */
-.moon-header-client {
-	position: absolute;
-	bottom: 14px;
-	left: 0;
-	right: 0;
-	text-align: right;	/* fallback in case text-align:end isn't supported */
-	text-align: end;	/* CSS3 for RTL support */
-	z-index: 1;         /* Fixme: Inverse component stack order */
-}
-.moon-small-header .moon-header-client {
-	position: relative;
-	float: right;
-	top: 0;
-	padding-top: 26px;
-	margin-left: 40px;
-}
-.enyo-locale-right-to-left .moon-small-header .moon-header-client {
-	float: left;
-	margin-left: 0;
-	margin-right: 40px;
-}
-.full-bleed .moon-header-client {
-	left: @moon-header-indent-width;
-	right: @moon-header-indent-width;
-}
-.full-bleed.moon-small-header .moon-header-client {
-	margin-right: 20px;
-}
-.enyo-locale-right-to-left .full-bleed.moon-small-header .moon-header-client {
-	margin-left: 20px;
-}
-.moon-header-client > * {
-	text-align: left;	/* fallback in case text-align:start isn't supported */
-	text-align: start;	/* CSS3 for RTL support */
-}
-.moon-header-client > .moon-button,
-.moon-header-client > .moon-icon {
-	text-align: center;	/* Overrides the text-align property  for button */
-}
-
-
-/* Medium Header */
-.moon-header.moon-medium-header {
-	height: 240px;
-}
-
-.moon-medium-header .moon-header-title-above {
-	height:0;
-	opacity:0;
-	margin-top:0;
-}
-.moon-medium-header .moon-header-title {
-	line-height: @moon-medium-header-line-height;
-}
-.enyo-locale-non-latin .moon-medium-header .moon-header-title {
-	line-height: @moon-non-latin-medium-header-line-height;
-}
-.moon-medium-header .moon-header-title-wrapper {
-	padding-left: 0;
-	box-sizing: border-box;
-	max-height: 155px;
-}
-.enyo-locale-right-to-left .moon-medium-header .moon-header-title-wrapper {
-	padding-right: 0;
-}
-.moon-medium-header .moon-header-title-below {
-	max-height: 40px;
-}
-.moon-medium-header .moon-header-sub-title-below {
-	max-height: 40px;
-}
-.hidden-title .moon-header-title,
-.hidden-title .moon-header-title-below,
-.hidden-title .moon-header-sub-title-below {
-	opacity: 0;
-}
-
-/* Small Header */
-.moon-header.moon-small-header {
-	height: 112px;
-}
-
-.moon-small-header .moon-header-title-above {
-	height:0;
-	opacity:0;
-	margin-top:0;
-}
-.moon-small-header .moon-header-title {
-	line-height: @moon-small-header-line-height;
-	font-size: @moon-small-header-font-size;
-	height: 84px;
-}
-.moon-small-header .moon-header-sub-title {
-	font-family: "MuseoSans 700";
-	color: @moon-header-sub-title-color;
-	font-size: 27px;
-}
-.moon-small-header .moon-header-sub-title-gap {
-	display: inline-block;
-	width: 40px;
-}
-.enyo-locale-non-latin .moon-small-header .moon-header-title {
-	line-height: @moon-non-latin-small-header-line-height;
-}
-.moon-small-header .moon-header-title-wrapper {
-	padding-left: 0;
-	padding-top: 26px;
-	box-sizing: border-box;
-	max-height: 88px;
-}
-.enyo-locale-right-to-left .moon-small-header .moon-header-title-wrapper {
-	padding-right: 0;
-}
-.moon-small-header .moon-header-title-below {
-	height:0;
-	opacity:0;
-	margin-top:0;
-}
-.moon-small-header .moon-header-sub-title-below {
-	height:0;
-	opacity:0;
-	margin-top:0;
-}
-
+// moon-header-left is used in HeaderSample
 .moon-header:not(.moon-small-header):not(.moon-medium-header) .moon-header-left {
 	float: left;
 }

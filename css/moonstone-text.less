@@ -1,3 +1,8 @@
+.font-kerning {
+	-webkit-font-kerning: normal;
+	font-kerning: normal;
+}
+
 // mixin classes for create the moontone text classes
 .moon-sub-header-text-base (@font-size, @font-color) {
 	font-family: @moon-sub-header-font-family;
@@ -39,7 +44,7 @@
 	font-weight: @moon-header-font-weight;
 	font-style: @moon-header-font-style;
 	letter-spacing: @moon-header-letter-spacing;
-	-webkit-font-kerning: normal;
+	.font-kerning
 }
 .moon-sub-header-text {
 	.moon-sub-header-text-base (@moon-sub-header-font-size, @moon-sub-header-text-color);
