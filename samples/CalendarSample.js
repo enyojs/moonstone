@@ -18,15 +18,6 @@ enyo.kind({
 					]},
 					{kind: "moon.InputDecorator", classes: "moon-2h", components: [
 						{kind: "moon.Input", name:"dayInput", placeholder: "Day"}
-					]},
-					{kind: "moon.InputDecorator", classes: "moon-2h", components: [
-						{kind: "moon.Input", name:"hourInput", placeholder: "Hour"}
-					]},
-					{kind: "moon.InputDecorator", classes: "moon-2h", components: [
-						{kind: "moon.Input", name:"minuteInput", placeholder: "Minute"}
-					]},
-					{kind: "moon.InputDecorator", classes: "moon-2h", components: [
-						{kind: "moon.Input", name:"secondInput", placeholder: "Second"}
 					]}
 				]},
 				{classes:"moon-hspacing", components: [
@@ -89,12 +80,12 @@ enyo.kind({
 			});
 		}
 	},
-	
+
 	updateCurrentString: function (date) {
 		var formatted = window.ilib ? this.df.format(date) : date.toDateString();
 		this.$.result.setContent("Current Date" + " changed to " + formatted);
 	},
-	
+
 	setLocale: function(inSender, inEvent){
 		if (ilib) {
 			ilib.setLocale(inEvent.selected.content);
@@ -153,10 +144,7 @@ enyo.kind({
 		var year = isNaN(parseInt(this.$.yearInput.getValue(), 0)) ? this.$.picker.value.getFullYear() : parseInt(this.$.yearInput.getValue(), 0);
 		var month = isNaN(parseInt(this.$.monthInput.getValue(), 0)) ? this.$.picker.value.getMonth() : parseInt(this.$.monthInput.getValue(), 0) - 1;
 		var day = isNaN(parseInt(this.$.dayInput.getValue(), 0)) ? this.$.picker.value.getDate() : parseInt(this.$.dayInput.getValue(), 0);
-		var hour = parseInt(this.$.hourInput.getValue(), 0);
-		var minute = parseInt(this.$.minuteInput.getValue(), 0);
-		var second = parseInt(this.$.secondInput.getValue(), 0);
-		this.$.calendar.setValue(new Date(year, month, day, hour, minute, second));
+		this.$.calendar.setValue(new Date(year, month, day));
 	},
 	resetDate: function() {
 		this.$.calendar.setValue(null);
