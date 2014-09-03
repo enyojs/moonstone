@@ -4881,9 +4881,10 @@
   border-radius: 9999px;
   background-color: #404040;
   line-height: 42px;
+  text-align: center;
 }
 .moon-item.moon-formcheckbox-item .moon-checkbox .moon-icon {
-  padding: 0 0 2px 5px;
+  padding-bottom: 2px;
 }
 .moon-item.moon-formcheckbox-item .moon-checkbox-item-label-wrapper {
   padding: 8px 10px;
@@ -4891,9 +4892,6 @@
 }
 .enyo-locale-right-to-left .moon-item.moon-formcheckbox-item {
   padding: 0 10px 0 0;
-}
-.enyo-locale-right-to-left .moon-item.moon-formcheckbox-item .moon-checkbox .moon-icon {
-  padding: 0 5px 2px 0;
 }
 .enyo-locale-right-to-left .moon-item.moon-formcheckbox-item .moon-checkbox-item-label-wrapper {
   margin-left: auto;
