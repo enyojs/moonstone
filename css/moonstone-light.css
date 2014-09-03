@@ -2157,7 +2157,7 @@
 .moon-slider-popup-left {
   position: relative;
   display: inline-block;
-  margin: 0;
+  margin: 0 -1px 0 0;
   padding: 0;
 }
 .moon-slider-popup-center {
@@ -2172,7 +2172,7 @@
   position: relative;
   display: inline-block;
   vertical-align: top;
-  margin: 0;
+  margin: 0 0 0 -1px;
   padding: 0;
 }
 .moon-slider-popup-label {
