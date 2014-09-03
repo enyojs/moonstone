@@ -36,6 +36,7 @@ enyo.depends(
 	'Input.js',
 	'InputDecorator.js',
 	'ProgressBar.js',
+	'ProgressButton.js',
 	'Slider.js',
 	'RichText.js',
 	'ContextualPopupButton.js',
