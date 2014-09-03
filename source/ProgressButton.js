@@ -179,7 +179,7 @@
 
 			var progress,
 				percent = this.calcPercent(this.progress),
-				offset = 3,
+				offset = -10,
 				minimumVisibleProgress = 10,
 				increment = parseInt(100 / this.get('steps'), 10);
 			if (percent < 100) {
