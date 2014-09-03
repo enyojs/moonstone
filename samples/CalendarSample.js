@@ -10,9 +10,17 @@ enyo.kind({
 			{kind: "moon.Scroller", fit:true, components: [
 				{kind:"moon.Divider", content:"Set value:"},
 				{classes:"moon-hspacing", components: [
-					{kind: "moon.InputDecorator", components: [
-						{kind: "moon.Input", name:"input", value:"January 01 2013 11:22:59    "}
+					{kind: "moon.InputDecorator", classes: "moon-2h", components: [
+						{kind: "moon.Input", name:"yearInput", placeholder: "Year"}
 					]},
+					{kind: "moon.InputDecorator", classes: "moon-2h", components: [
+						{kind: "moon.Input", name:"monthInput", placeholder: "Month"}
+					]},
+					{kind: "moon.InputDecorator", classes: "moon-2h", components: [
+						{kind: "moon.Input", name:"dayInput", placeholder: "Day"}
+					]}
+				]},
+				{classes:"moon-hspacing", components: [
 					{kind: "moon.Button", small:true, content:"Set Date", ontap:"setDate"},
 					{kind: "moon.Button", small:true, content:"Reset to Current", ontap:"resetDate"}
 				]},
@@ -54,8 +62,7 @@ enyo.kind({
 		]}
 	],
 	bindings: [
-		{from: ".$.calendar.value", to:".$.picker.value", oneWay:false},
-		{from: ".$.calendar.value", to:".$.input.value", transform: function(val) { return window.ilib ? this.df.format(val) : val.toDateString();	} }
+		{from: ".$.calendar.value", to:".$.picker.value", oneWay:false}
 	],
 	create: function(){
 		this.inherited(arguments);
@@ -73,12 +80,12 @@ enyo.kind({
 			});
 		}
 	},
-	
+
 	updateCurrentString: function (date) {
 		var formatted = window.ilib ? this.df.format(date) : date.toDateString();
 		this.$.result.setContent("Current Date" + " changed to " + formatted);
 	},
-	
+
 	setLocale: function(inSender, inEvent){
 		if (ilib) {
 			ilib.setLocale(inEvent.selected.content);
@@ -91,7 +98,6 @@ enyo.kind({
 				useNative: false,
 				length: this.$.dowLengthPicker.selected.content
 			});
-			this.$.input.setValue(this.df.format(this.$.calendar.getValue()));
 			this.updateCurrentString(this.$.calendar.getValue());
 		}
 		return true;
@@ -135,7 +141,10 @@ enyo.kind({
 		}
 	},
 	setDate: function(inSender, inEvent){
-		this.$.calendar.setValue(new Date(this.$.calendar.getValue()));
+		var year = isNaN(parseInt(this.$.yearInput.getValue(), 0)) ? this.$.picker.value.getFullYear() : parseInt(this.$.yearInput.getValue(), 0);
+		var month = isNaN(parseInt(this.$.monthInput.getValue(), 0)) ? this.$.picker.value.getMonth() : parseInt(this.$.monthInput.getValue(), 0) - 1;
+		var day = isNaN(parseInt(this.$.dayInput.getValue(), 0)) ? this.$.picker.value.getDate() : parseInt(this.$.dayInput.getValue(), 0);
+		this.$.calendar.setValue(new Date(year, month, day));
 	},
 	resetDate: function() {
 		this.$.calendar.setValue(null);
