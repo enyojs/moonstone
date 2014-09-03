@@ -61,15 +61,6 @@
 			title: '',
 
 			/**
-			* Sub Title of the small header.
-			*
-			* @type {String}
-			* @default ''
-			* @public
-			*/
-			subTitle: '',
-
-			/**
 			* Text above the header.
 			*
 			* @type {String}
@@ -266,48 +257,19 @@
 		/**
 		* @private
 		*/
-		components: [{
-			name: 'client',
-			classes: 'moon-hspacing moon-header-client'
-		}, {
-			name: 'texts',
-			classes: 'moon-header-texts',
-			components: [{
-				name: 'titleAbove',
-				classes: 'moon-super-header-text moon-header-title-above'
-			}, {
-				name: 'titleWrapper',
-				classes: 'moon-header-title-wrapper',
-				components: [{
-					name: 'title',
-					kind: 'moon.MarqueeText',
-					classes: 'moon-header-font moon-header-title',	
-					canGenerate: false
-				}, {
-					name: 'inputDecorator',
-					kind: 'moon.InputDecorator',
-					classes: 'moon-input-header-input-decorator',
-					canGenerate: false,
-					components: [{
-						name: 'titleInput',
-						kind: 'moon.Input',
-						classes: 'moon-header-text moon-header-title'
-					}]
-				}]
-			}, {
-				name: 'titleBelow',
-				kind: 'moon.MarqueeText',
-				classes: 'moon-header-title-below'
-			}, {
-				name: 'subTitleBelow',
-				kind: 'moon.MarqueeText',
-				classes: 'moon-header-sub-title-below'
-			}]
-		}, {
-			name: 'animator',
-			kind: 'enyo.StyleAnimator',
-			onComplete: 'animationComplete'
-		}],
+		components: [
+			{name: 'client', classes: 'moon-hspacing moon-header-client'},
+			{name: 'titleAbove', classes: 'moon-super-header-text moon-header-title-above'},
+			{name: 'titleWrapper', classes: 'moon-header-title-wrapper', components: [
+				{name: 'title', kind: 'moon.MarqueeText', classes: 'moon-header-text moon-header-title', canGenerate: false},
+				{name: 'inputDecorator', kind: 'moon.InputDecorator', classes: 'moon-input-header-input-decorator',canGenerate: false, components: [
+					{name: 'titleInput', kind: 'moon.Input', classes: 'moon-header-text moon-header-title'}
+				]}
+			]},
+			{name: 'titleBelow', kind: 'moon.MarqueeText', classes: 'moon-sub-header-text moon-header-title-below'},
+			{name: 'subTitleBelow', kind: 'moon.MarqueeText', classes: 'moon-body-text moon-header-sub-title-below'},
+			{name: 'animator', kind: 'enyo.StyleAnimator', onComplete: 'animationComplete'}
+		],
 
 		/**
 		* @private
@@ -322,12 +284,10 @@
 		*/
 		create: function () {
 			this.inherited(arguments);
-			// Note: This line will be deprecated soon. For backward compatiblity, I leave it for a
+			// Note: This smallchanged() line will be deprecated soon. For backward compatiblity, I leave it for a
 			// while.
 			this.smallChanged();
-			this.typeChanged();
 			this.titleChanged();
-			this.subTitleChanged();
 			this.titleAboveChanged();
 			this.titleBelowChanged();
 			this.subTitleBelowChanged();
@@ -339,11 +299,16 @@
 			this.fullBleedBackgroundChanged();
 		},
 
+		rendered: function() {
+			this.inherited(arguments);
+			this.typeChanged();
+		},
+
 		/**
 		* @private
 		*/
 		allowHtmlChanged: function () {
-			this.$.title.setAllowHtml( this.getType() == 'small' ? true : this.allowHtml );
+			this.$.title.setAllowHtml( this.get('type') == 'small' ? true : this.allowHtml );
 			this.$.titleBelow.setAllowHtml(this.allowHtml);
 			this.$.subTitleBelow.setAllowHtml(this.allowHtml);
 		},
@@ -369,7 +334,7 @@
 			}
 			// If `this.backgroundPosition` is set explicitly to inherit or initial, apply that
 			// instead of assuming a position.
-			if (bgp === 'inherit' || bgp === 'initial') {
+			if (bgp == 'inherit' || bgp == 'initial') {
 				this.applyStyle('background-position', bgp);
 				return;
 			}
@@ -591,24 +556,9 @@
 		/**
 		* @private
 		*/
-		typeChanged: function (inOld) {
-			switch (inOld) {
-			case 'medium':
-				this.removeClass('moon-medium-header');
-				break;
-			case 'small':
-				this.removeClass('moon-small-header');
-				break;
-			}
-
-			switch (this.getType()) {
-			case 'medium':
-				this.addClass('moon-medium-header');
-				break;
-			case 'small':
-				this.addClass('moon-small-header');
-				break;
-			}
+		typeChanged: function () {
+			this.addRemoveClass('moon-medium-header', this.get('type') == 'medium');
+			this.addRemoveClass('moon-small-header', this.get('type') == 'small');
 			this.contentChanged();
 		},
 
@@ -619,7 +569,7 @@
 		* @private
 		*/
 		smallChanged: function () {
-			this.addRemoveClass('moon-medium-header', this.getSmall());
+			this.addRemoveClass('moon-medium-header', this.get('small'));
 		},
 
 		/**
@@ -627,13 +577,19 @@
 		*/
 		contentChanged: function () {
 			var title = this.getTitleUpperCase()
-						? enyo.toUpperCase(this.title || this.content)
-						: (this.title || this.content);
-			if(this.getType() == 'small' && this.subTitle) {
-				this.$.title.setAllowHtml( this.getType() == 'small' ? true : this.allowHtml );
-				this.$.title.setContent(title + '<div class=\'moon-header-sub-title-gap\'></div>' + '<span class=\'moon-header-sub-title\'>' + this.subTitle + '</span>');
+						? enyo.toUpperCase(this.get('title') || this.get('content'))
+						: (this.get('title') || this.get('content')),
+				subtitle = this.get('titleBelow');
+			if ((this.get('type') == 'small') && subtitle) {
+				this.$.title.set('allowHtml', true);
+				if (this.rtl) {
+					this.$.title.set('content', '<span class="moon-sub-header-text moon-header-sub-title">' + subtitle + '</span>' + '   ' + title);
+				} else {
+					this.$.title.set('content', title + '   ' + '<span class="moon-sub-header-text moon-header-sub-title">' + subtitle + '</span>');
+				}
 			} else {
-				this.$.title.setContent(title);
+				this.$.title.set('allowHtml', this.get('allowHtml') );
+				this.$.title.set('content', title);
 			}
 			this.placeholderChanged();
 		},
@@ -668,38 +624,33 @@
 		/**
 		* @private
 		*/
-		subTitleChanged: function () {
-			this.contentChanged();
-		},
-
-		/**
-		* @private
-		*/
 		titleAboveChanged: function () {
 			this.$.titleAbove.addRemoveClass('no-border', this.titleAbove === '');
-			this.$.titleAbove.setContent(this.titleAbove);
+			this.$.titleAbove.set('content', this.titleAbove);
 		},
 
 		/**
 		* @private
 		*/
 		titleBelowChanged: function () {
-			this.$.titleBelow.setContent(this.titleBelow || '');
+			this.$.titleBelow.set('content', this.titleBelow || '');
 		},
 
 		/**
 		* @private
 		*/
 		subTitleBelowChanged: function () {
-			this.$.subTitleBelow.setContent(this.subTitleBelow || '');
+			this.$.subTitleBelow.set('content', this.subTitleBelow || '');
 		},
 
 		/**
+		* Placeholder
+		*
 		* @private
 		*/
-		animationComplete: function (inSender, inEvent) {
+		// animationComplete: function (inSender, inEvent) {
 			// Do something?
-		},
+		// },
 
 		/**
 		* @private
@@ -758,7 +709,7 @@
 			if (!inEvent.open) {
 				return;
 			}
-			inEvent.originator.beforeOpenDrawer(this.standardHeight, this.getType());
+			inEvent.originator.beforeOpenDrawer(this.standardHeight, this.get('type'));
 		}
 	});
 
