@@ -1334,6 +1334,42 @@
 .moon-neutral .moon-button.small.spotlight.pressed * {
   color: #4b4b4b;
 }
+.moon-button.active.spotlight,
+.moon-button.small.active.spotlight {
+  border: 5px solid #ffffff;
+  background-color: #cf0652;
+  color: #ffffff;
+}
+.moon-button.active.spotlight:active,
+.moon-button.small.active.spotlight:active,
+.moon-button.active.spotlight.pressed,
+.moon-button.small.active.spotlight.pressed {
+  border: 5px solid #cf0652;
+  background-color: #ffffff;
+  color: #4b4b4b;
+}
+.moon-neutral .moon-button.active.spotlight:active,
+.moon-neutral .moon-button.active.spotlight.pressed,
+.moon-neutral .moon-button.small.active.spotlight:active,
+.moon-neutral .moon-button.small.active.spotlight.pressed {
+  border: 5px solid #cf0652;
+  background-color: #ffffff;
+}
+.moon-neutral .moon-button.active.spotlight:active *,
+.moon-neutral .moon-button.active.spotlight.pressed *,
+.moon-neutral .moon-button.small.active.spotlight:active *,
+.moon-neutral .moon-button.small.active.spotlight.pressed * {
+  color: #4b4b4b;
+}
+.moon-neutral .moon-button.active.spotlight,
+.moon-neutral .moon-button.small.active.spotlight {
+  border: 5px solid #ffffff;
+  background-color: #cf0652;
+}
+.moon-neutral .moon-button.active.spotlight *,
+.moon-neutral .moon-button.small.active.spotlight * {
+  color: #ffffff;
+}
 /* Caption Decorator */
 .moon-button-caption-decorator {
   display: inline-block;

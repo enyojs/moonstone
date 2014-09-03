@@ -121,3 +121,51 @@
 {
   color: @moon-neutral-button-text-color;
 }
+
+.moon-button.active.spotlight,
+.moon-button.small.active.spotlight
+{
+	border: @moon-button-border-width solid @moon-active-spotlight-border-color;
+	background-color: @moon-spotlight-border-color;
+	color:@moon-spotlight-text-color;
+}
+
+.moon-button.active.spotlight:active,
+.moon-button.small.active.spotlight:active,
+.moon-button.active.spotlight.pressed,
+.moon-button.small.active.spotlight.pressed
+{
+	border: @moon-button-border-width solid @moon-spotlight-border-color;
+	background-color: @moon-button-background-color;
+	color: @moon-button-text-color;
+}
+
+.moon-neutral .moon-button.active.spotlight:active,
+.moon-neutral .moon-button.active.spotlight.pressed,
+.moon-neutral .moon-button.small.active.spotlight:active,
+.moon-neutral .moon-button.small.active.spotlight.pressed
+{
+	border: @moon-button-border-width solid @moon-spotlight-border-color;
+	background-color: @moon-neutral-button-bg-color;	
+}
+
+.moon-neutral .moon-button.active.spotlight:active *,
+.moon-neutral .moon-button.active.spotlight.pressed *,
+.moon-neutral .moon-button.small.active.spotlight:active *,
+.moon-neutral .moon-button.small.active.spotlight.pressed *
+{
+	color: @moon-neutral-button-text-color;	
+}
+
+.moon-neutral .moon-button.active.spotlight,
+.moon-neutral .moon-button.small.active.spotlight
+{
+	border: @moon-button-border-width solid @moon-active-spotlight-border-color;
+	background-color: @moon-spotlight-border-color;
+}
+
+.moon-neutral .moon-button.active.spotlight *,
+.moon-neutral .moon-button.small.active.spotlight *
+{
+	color:@moon-spotlight-text-color;
+}
