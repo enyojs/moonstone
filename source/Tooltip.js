@@ -259,6 +259,9 @@
 					} else {
 						this.applyStyle('right', acBounds.width / 2 + paRightDiff + 'px');
 					}
+				} else {
+					this.removeClass('right-arrow');
+					this.addClass('left-arrow');
 				}
 			}
 		},
