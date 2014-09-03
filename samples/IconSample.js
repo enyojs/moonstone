@@ -79,20 +79,20 @@ enyo.kind({
 			{kind: "moon.Icon", icon: "&#42322;", ontap: "buttonTapped"},
 			{classes:"moon-1v"},
 			{kind: "moon.Divider", content: "Image Asset Icons:"},
-			{kind: "moon.Icon", src: "assets/icon-list.png", ontap: "buttonTapped"},
-			{kind: "moon.Icon", src: "assets/icon-album.png", ontap: "buttonTapped"},
+			{kind: "moon.Icon", src: "$lib/moonstone/samples/assets/icon-list.png", ontap: "buttonTapped"},
+			{kind: "moon.Icon", src: "$lib/moonstone/samples/assets/icon-album.png", ontap: "buttonTapped"},
 			{classes:"moon-1v"},
 			{kind: "moon.Divider", content: "Disabled Icons:"},
 			{kind: "moon.Icon", icon: "search", ontap: "buttonTapped", disabled: true},
 			{kind: "moon.Icon", icon: "&#42276;", ontap: "buttonTapped", disabled: true},
-			{kind: "moon.Icon", src: "assets/icon-list.png", ontap: "buttonTapped", disabled: true},
-			{kind: "moon.Icon", src: "assets/icon-album.png", ontap: "buttonTapped", disabled: true},
+			{kind: "moon.Icon", src: "$lib/moonstone/samples/assets/icon-list.png", ontap: "buttonTapped", disabled: true},
+			{kind: "moon.Icon", src: "$lib/moonstone/samples/assets/icon-album.png", ontap: "buttonTapped", disabled: true},
 			{classes:"moon-1v"},
 			{kind: "moon.Divider", content: "Icons inside a spottable Item:"},
 			{kind: "moon.Item", classes: "moon-hspacing", ontap: "buttonTapped", components: [
 				{content: "Selectable Item"},
 				{kind: "moon.Icon", icon: "&#42276;", ontap: "buttonTapped"},
-				{kind: "moon.Icon", src: "assets/icon-list.png", ontap: "buttonTapped"}
+				{kind: "moon.Icon", src: "$lib/moonstone/samples/assets/icon-list.png", ontap: "buttonTapped"}
 			]}
 		]},
 		{kind: "moon.Divider", content: "Result"},
