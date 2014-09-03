@@ -4,6 +4,7 @@
 	background: none;
 	padding: 0 0 0 @moon-spotlight-outset;
 	margin-bottom: @moon-spotlight-outset;
+
 	.moon-checkbox {
 		position: absolute;
 		top: 5px;
@@ -13,22 +14,21 @@
 		border-radius: @moon-button-border-radius;
 		background-color: @moon-form-checkbox-bg-color;
 		line-height: @moon-checkbox-width + @moon-spotlight-outset;
+		text-align: center;
 	}
 	.moon-checkbox .moon-icon {
-		padding: 0 0 2px 5px;
+		padding-bottom: 2px;
 	}
 	.moon-checkbox-item-label-wrapper {
 		padding: 8px 10px;
 		margin-left: @moon-checkbox-width + @moon-spotlight-outset;
 	}
-} 
+}
 
 .enyo-locale-right-to-left {
 	.moon-item.moon-formcheckbox-item {
 		padding: 0 @moon-spotlight-outset 0 0;
-		.moon-checkbox .moon-icon {
-			padding: 0 5px 2px 0;
-		}
+
 		.moon-checkbox-item-label-wrapper {
 			margin-left: auto;
 			margin-right: @moon-checkbox-width + 2*@moon-spotlight-outset;

@@ -22,16 +22,33 @@
 		line-height: @moon-icon-small-size;
 		> .small-icon-tap-area {
 			position: absolute;
-			top: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
-			bottom: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
-			left: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
-			right: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
+			top: @moon-icon-tap-area-offset;
+			bottom: @moon-icon-tap-area-offset;
+			left: @moon-icon-tap-area-offset;
+			right: @moon-icon-tap-area-offset;
+			// Always use the same color that was assigned to the parent: inherit.
+			color: inherit;
+			line-height: (@moon-icon-small-size - (@moon-icon-tap-area-offset * 2));
+		}
+	}
+
+	&.font-lg-icons {
+		font-family: "LG Icons";
+		font-size: @moon-icon-size;
+
+		&.small {
+			font-size: @moon-icon-small-size;
 		}
 	}
 }
 
 .spotlight .moon-icon {
 	color: @moon-spotlight-text-color;
+	background-position: center -(@moon-icon-sprite-size + ((@moon-icon-sprite-size - @moon-icon-size) / 2));
+
+	&.small {
+		background-position: center -(@moon-icon-sprite-small-size + ((@moon-icon-sprite-small-size - @moon-icon-small-size) / 2));
+	}
 }
 
 .disabled .moon-icon,

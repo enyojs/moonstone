@@ -21,10 +21,6 @@
 	* {kind: 'moon.IconButton', icon: 'closex'}
 	* ```
 	*
-	* The name-to-character mappings for font-based icons are stored in
-	* `css/moonstone-icons.less`. Each mapping associates an icon name with the icon
-	* font's corresponding character or symbol.
-	*
 	* See {@link moon.Icon} for more information on the available font-based icons,
 	* as well as specifications for icon image assets.
 	*
