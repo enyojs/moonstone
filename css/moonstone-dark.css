@@ -2101,11 +2101,13 @@
 /* ProgressButton.css */
 .moon-progress-button {
   position: relative;
+  overflow: hidden;
   border: 5px solid transparent;
   transform: translateZ(0);
 }
 .moon-progress-button.in-progress:active:hover:not([disabled]),
 .moon-progress-button.in-progress {
+  color: #ffffff;
   padding: 5px 27px;
   border-width: 0;
 }

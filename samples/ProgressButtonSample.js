@@ -8,7 +8,7 @@ enyo.kind({
 		{tag: "br"},
 		{tag: "br"},
 		{kind: "moon.Divider", content: "Simple Progress Button"},
-		{name: "progressButton", kind: "moon.ProgressButton", progress: 0, content: "Download", postContent: "Launch", barClasses: "moon-sample-yellow", ontap: "changeValue"},
+		{name: "progressButton", kind: "moon.ProgressButton", progress: 0, content: "Download", postContent: "Launch", barClasses: "moon-sample-blue", ontap: "changeValue"},
 		{tag: "br"},
 		{tag: "br"},
 		{kind: "moon.InputDecorator", style: "margin-right:10px;", components: [

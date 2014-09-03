@@ -1,7 +1,7 @@
 (function (enyo, scope) {
 	/**
-	* Fires when progress button finishes animating to a position. No event-specific data is sent with
-	* this event.
+	* Fires when progress button finishes animating to a position. No event-specific data is sent 
+	* with this event.
 	*
 	* @event moon.ProgressButton#onButtonProgressFinish
 	* @type {Object}
@@ -121,7 +121,7 @@
 			animated: true,
 
 			/**
-			* The amount of fixed-steps the progress bar should incriment to. 4 steps would step to
+			* The amount of fixed-steps the progress bar should increment to. 4 steps would step to
 			* 25%, 50%, 75%, and 100%. 5 steps would step to 20%, 40%, 60%, 80%, and 100%. etc.
 			*
 			* @type {Number}
@@ -166,8 +166,8 @@
 		/**
 		* @private
 		*/
-		barClassesChanged: function (inOld) {
-			this.$.bar.removeClass(inOld);
+		barClassesChanged: function (old) {
+			this.$.bar.removeClass(old);
 			this.$.bar.addClass(this.barClasses);
 		},
 
@@ -234,8 +234,8 @@
 		/**
 		* @private
 		*/
-		clampValue: function (inMin, inMax, inValue) {
-			return Math.max(inMin, Math.min(inValue, inMax));
+		clampValue: function (min, max, value) {
+			return Math.max(min, Math.min(value, max));
 		},
 
 		/**
@@ -248,30 +248,30 @@
 		/**
 		* @private
 		*/
-		calcRatio: function (inValue) {
-			return (inValue - this.min) / (this.max - this.min);
+		calcRatio: function (value) {
+			return (value - this.min) / (this.max - this.min);
 		},
 
 		/**
 		* @private
 		*/
-		calcPercent: function (inValue) {
-			return this.calcRatio(inValue) * 100;
+		calcPercent: function (value) {
+			return this.calcRatio(value) * 100;
 		},
 
 		/**
 		* @private
 		*/
-		updateBarPosition: function (inPercent) {
-			this.$.bar.applyStyle('width', inPercent + '%');
+		updateBarPosition: function (percent) {
+			this.$.bar.applyStyle('width', percent + '%');
 		},
 
 		/**
 		* @private
 		*/
-		updateProgressPercent: function(inPercent) {
+		updateProgressPercent: function(percent) {
 			this.set('content', '');
-			this.$.progressPercent.set('content', Math.round(inPercent) + '%');
+			this.$.progressPercent.set('content', Math.round(percent) + '%');
 		},
 
 		/**
@@ -293,13 +293,13 @@
 		/**
 		* Animates progress to the passed-in value.
 		*
-		* @param {Number} inValue  The destination number
+		* @param {Number} value  The destination number
 		* @public
 		*/
-		animateProgressTo: function (inValue) {
+		animateProgressTo: function (value) {
 			this.$.progressAnimator.play({
 				startValue: this.progress,
-				endValue: inValue,
+				endValue: value,
 				node: this.hasNode()
 			});
 		},
@@ -307,8 +307,8 @@
 		/**
 		* @private
 		*/
-		progressAnimatorStep: function (inSender) {
-			this.setProgress(inSender.value);
+		progressAnimatorStep: function (sender) {
+			this.setProgress(sender.value);
 			return true;
 		},
 
@@ -316,7 +316,7 @@
 		* @fires moon.ProgressBar#onButtonProgressFinish
 		* @private
 		*/
-		progressAnimatorComplete: function (inSender) {
+		progressAnimatorComplete: function (sender) {
 			this.doButtonProgressFinish();
 			return true;
 		}

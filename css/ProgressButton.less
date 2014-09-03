@@ -1,12 +1,14 @@
 /* ProgressButton.css */
 .moon-progress-button {
 	position: relative;
+	overflow: hidden;
 	border: @moon-progress-button-border-width solid transparent;
 	transform: translateZ(0);
 
 	// Override the moon-button mouse-click state to suppress the border
 	&.in-progress:active:hover:not([disabled]),
 	&.in-progress {
+		color: @moon-white;
 		padding: @moon-progress-button-border-width (@moon-button-h-padding + @moon-progress-button-border-width);
 		border-width: 0;
 	}
