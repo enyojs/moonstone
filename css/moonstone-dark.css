@@ -730,8 +730,9 @@
 }
 /* IconButton.css */
 .moon-icon-button {
-  color: #a6a6a6;
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  color: #a6a6a6;
   width: 85px;
   height: 85px;
   border-radius: 42.5px;
@@ -786,6 +787,20 @@
 .moon-icon-button.no-background.pressed,
 .moon-icon-button.no-background.hover:hover:active {
   background-color: transparent;
+}
+.moon-icon-button.active.spotlight:not(.contextual-popup-button) {
+  border-color: #ffffff;
+  background-color: #cf0652;
+  color: #ffffff;
+}
+.moon-icon-button.active.spotlight:not(.contextual-popup-button):active,
+.moon-icon-button.active.spotlight:not(.contextual-popup-button).pressed {
+  border-color: #cf0652;
+  background-position: center -75px;
+}
+.moon-icon-button.active.spotlight:not(.contextual-popup-button):active.small,
+.moon-icon-button.active.spotlight:not(.contextual-popup-button).pressed.small {
+  background-position: center -50px;
 }
 .moon-marquee {
   width: auto;
@@ -1248,6 +1263,58 @@
 .moon-button > * {
   text-align: center;
 }
+.moon-button .moon-marquee {
+  width: 100%;
+  vertical-align: top;
+  text-align: center;
+}
+.moon-button.min-width {
+  min-width: 180px;
+}
+.moon-button.spotlight {
+  background-color: #cf0652;
+  color: #ffffff;
+}
+.moon-button.active,
+.moon-button.pressed,
+.moon-button.spotlight.pressed,
+.moon-button.spotlight:active {
+  border: 5px solid #cf0652;
+  background-color: #404040;
+  color: #a6a6a6;
+}
+.moon-button.active.spotlight:not(.contextual-popup-button) {
+  border-color: #ffffff;
+  background-color: #cf0652;
+  color: #ffffff;
+}
+.moon-button.active.spotlight:not(.contextual-popup-button):active,
+.moon-button.active.spotlight:not(.contextual-popup-button).pressed {
+  border-color: #cf0652;
+}
+.moon-button[disabled] {
+  cursor: default;
+  color: #4d4d4d;
+  background-color: #262626;
+}
+.moon-button.small {
+  height: 60px;
+  min-width: 60px;
+  line-height: 50px;
+  padding: 0 20px;
+  position: relative;
+  overflow: visible;
+}
+.moon-button.small.min-width {
+  min-width: 130px;
+}
+.moon-button.small > .small-button-tap-area {
+  position: absolute;
+  top: -14px;
+  bottom: -14px;
+  left: -14px;
+  right: -14px;
+}
 .moon-neutral .moon-button {
   color: #4b4b4b;
   background-color: #ffffff;
@@ -1255,122 +1322,27 @@
 .moon-neutral .moon-button * {
   color: #4b4b4b;
 }
-.moon-neutral .moon-button[disabled] * {
-  color: #4d4d4d;
+.moon-neutral .moon-button.spotlight {
+  background-color: #cf0652;
 }
 .moon-neutral .moon-button.spotlight * {
   color: #ffffff;
 }
-.moon-button.small {
-  height: 60px;
-  min-width: 60px;
-  line-height: 50px;
-  padding: 0 20px;
-}
-.moon-button.min-width {
-  min-width: 180px;
-}
-.moon-button.small.min-width {
-  min-width: 130px;
-}
-.moon-button > .button-tap-area {
-  position: absolute;
-  top: -5px;
-  bottom: -5px;
-  left: -5px;
-  right: -5px;
-}
-.moon-button.small > .button-tap-area {
-  position: absolute;
-  top: -14px;
-  bottom: -14px;
-  left: -14px;
-  right: -14px;
-}
-/* Need 100% width for marquee in button */
-.moon-button .moon-marquee {
-  width: 100%;
-  vertical-align: top;
-  text-align: center;
-}
-/*
-	IE8 can't handle these selectors in tandem:
-	.moon-button.active, .moon-button:active:not([disabled]) {
-
-	the effect is as if .moon-button.active doesn't exist
-*/
-.moon-button.active,
-.moon-button.pressed,
-.moon-button.spotlight.pressed,
-.moon-button.spotlight:active,
-.moon-button.small.spotlight.pressed {
-  border: 5px solid #cf0652;
-  background-color: #404040;
-  color: #a6a6a6;
-}
-.moon-button:active:hover:not([disabled]) {
-  border: 5px solid #cf0652;
-  background-color: #404040;
-}
-.moon-button.spotlight {
-  background-color: #cf0652;
-  color: #ffffff;
-}
-.moon-button[disabled] {
-  cursor: default;
-  color: #4d4d4d;
-  background-color: #262626;
-}
 .moon-neutral .moon-button.active,
 .moon-neutral .moon-button.pressed,
 .moon-neutral .moon-button.spotlight.pressed,
-.moon-neutral .moon-button.spotlight:active,
-.moon-neutral .moon-button.small.spotlight.pressed {
+.moon-neutral .moon-button.spotlight:active {
   border: 5px solid #cf0652;
   background-color: #ffffff;
 }
 .moon-neutral .moon-button.active *,
 .moon-neutral .moon-button.pressed *,
 .moon-neutral .moon-button.spotlight.pressed *,
-.moon-neutral .moon-button.spotlight:active *,
-.moon-neutral .moon-button.small.spotlight.pressed * {
+.moon-neutral .moon-button.spotlight:active * {
   color: #4b4b4b;
 }
-.moon-button.active.spotlight,
-.moon-button.small.active.spotlight {
-  border: 5px solid #ffffff;
-  background-color: #cf0652;
-  color: #ffffff;
-}
-.moon-button.active.spotlight:active,
-.moon-button.small.active.spotlight:active,
-.moon-button.active.spotlight.pressed,
-.moon-button.small.active.spotlight.pressed {
-  border: 5px solid #cf0652;
-  background-color: #404040;
-  color: #a6a6a6;
-}
-.moon-neutral .moon-button.active.spotlight:active,
-.moon-neutral .moon-button.active.spotlight.pressed,
-.moon-neutral .moon-button.small.active.spotlight:active,
-.moon-neutral .moon-button.small.active.spotlight.pressed {
-  border: 5px solid #cf0652;
-  background-color: #ffffff;
-}
-.moon-neutral .moon-button.active.spotlight:active *,
-.moon-neutral .moon-button.active.spotlight.pressed *,
-.moon-neutral .moon-button.small.active.spotlight:active *,
-.moon-neutral .moon-button.small.active.spotlight.pressed * {
-  color: #4b4b4b;
-}
-.moon-neutral .moon-button.active.spotlight,
-.moon-neutral .moon-button.small.active.spotlight {
-  border: 5px solid #ffffff;
-  background-color: #cf0652;
-}
-.moon-neutral .moon-button.active.spotlight *,
-.moon-neutral .moon-button.small.active.spotlight * {
-  color: #ffffff;
+.moon-neutral .moon-button[disabled] * {
+  color: #4d4d4d;
 }
 /* Caption Decorator */
 .moon-button-caption-decorator {
