@@ -1695,11 +1695,11 @@
 .moon-header.moon-small-header .moon-header-client {
   position: relative;
   float: right;
-  bottom: inherit;
-  margin: 38px 0 0 40px;
+  margin-left: 40px;
+  top: 17px;
 }
 .moon-header.moon-small-header.full-bleed .moon-header-client {
-  margin: 38px 20px 0 40px;
+  margin: 0 20px 0 40px;
 }
 .moon-neutral .moon-header {
   border-top: 2px solid #ffffff;
@@ -1714,10 +1714,10 @@
 }
 .enyo-locale-right-to-left .moon-small-header .moon-header-client {
   float: left;
-  margin: 38px 40px 0 0;
+  margin: 0 40px 0 0;
 }
 .enyo-locale-right-to-left .moon-small-header.full-bleed .moon-header-client {
-  margin: 38px 40px 0 20px;
+  margin: 0 40px 0 20px;
 }
 .moon-header:not(.moon-small-header):not(.moon-medium-header) .moon-header-left {
   float: left;

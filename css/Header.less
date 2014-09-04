@@ -96,12 +96,12 @@
 		.moon-header-client {
 			position: relative;
 			float: right;
-			bottom: inherit;
-			margin: 38px 0 0 @moon-header-title-subtitle-gap;
+			margin-left: @moon-header-title-subtitle-gap;
+			top: 17px;
 		}
 
 		&.full-bleed .moon-header-client {
-			margin: 38px @moon-header-indent-width 0 @moon-header-title-subtitle-gap;
+			margin: 0 @moon-header-indent-width 0 @moon-header-title-subtitle-gap;
 		}
 	}
 
@@ -126,11 +126,11 @@
 .enyo-locale-right-to-left .moon-small-header {
 	.moon-header-client {
 		float: left;
-		margin: 38px @moon-header-title-subtitle-gap 0 0;
+		margin: 0 @moon-header-title-subtitle-gap 0 0;
 	}
 
 	&.full-bleed .moon-header-client {
-		margin: 38px @moon-header-title-subtitle-gap 0 20px;
+		margin: 0 @moon-header-title-subtitle-gap 0 20px;
 	}
 }
 
