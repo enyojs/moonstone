@@ -1,10 +1,10 @@
 /* Button */
 
 .moon-button {
-   position: relative;
-   overflow: visible;
-	height:@moon-button-height;
-	line-height:(@moon-button-height)-(2*@moon-button-border-width);
+	position: relative;
+	overflow: visible;
+	height: @moon-button-height;
+	line-height: (@moon-button-height - (2 * @moon-button-border-width));
 	border-radius: @moon-button-border-radius;
 	background-color: @moon-button-background-color;
 	border: @moon-button-border-width solid transparent;
@@ -20,152 +20,97 @@
 	> * {
 		text-align: center;
 	}
+
+	/* Need 100% width for marquee in button */
+	.moon-marquee {
+		width: 100%;
+		vertical-align: top;
+		text-align: center;
+	}
+
+	&.min-width {
+		min-width: @moon-button-large-min-width;
+	}
+
+	&.spotlight {
+		background-color: @moon-spotlight-border-color;
+		color: @moon-spotlight-text-color;
+	}
+
+	&.active,
+	&.pressed,
+	&.spotlight.pressed,
+	&.spotlight:active {
+		border: @moon-button-border-width solid @moon-spotlight-border-color;
+		background-color: @moon-button-background-color;
+		color: @moon-button-text-color;
+	}
+
+	// 'Selected+Focus' state
+	&.active.spotlight {
+		border-color: @moon-active-spotlight-border-color;
+		background-color: @moon-spotlight-border-color;
+		color: @moon-spotlight-text-color;
+
+		&:active,
+		&.pressed {
+			border-color: @moon-spotlight-border-color;
+		}
+	}
+
+	&[disabled] {
+		cursor: default;
+		color: @moon-button-disabled-text-color;
+		background-color: @moon-button-disabled-bg-color;
+	}
+
+	&.small {
+		height: @moon-button-small-height;
+		min-width: @moon-button-small-height;
+		line-height: (@moon-button-small-height - (2 * @moon-button-border-width));
+		padding:0 @moon-button-small-h-padding;
+		position: relative;
+		overflow: visible;
+
+		&.min-width {
+			min-width: @moon-button-small-min-width;
+		}
+
+		> .small-button-tap-area {
+			position: absolute;
+			top: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
+			bottom: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
+			left: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
+			right: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
+		}
+	}
 }
 
 .moon-neutral .moon-button {
-    color:@moon-neutral-button-text-color;
-    background-color:@moon-neutral-button-bg-color;
-}
-.moon-neutral .moon-button * {
-	color: @moon-neutral-button-text-color;
-}
-.moon-neutral .moon-button[disabled] * {
-	color: @moon-button-disabled-text-color;
-}
-.moon-neutral .moon-button.spotlight * {
-	color: @moon-spotlight-text-color;
-}
-.moon-button.small {
-  height: @moon-button-small-height;
-  min-width: @moon-button-small-height;
-  line-height:(@moon-button-small-height)-(2*@moon-button-border-width);
-  padding:0 @moon-button-small-h-padding;
-}
-.moon-button.min-width {
-  min-width: @moon-button-large-min-width;
-}
-.moon-button.small.min-width {
-  min-width: @moon-button-small-min-width;
-}
+    color: @moon-neutral-button-text-color;
+    background-color: @moon-neutral-button-bg-color;
 
-.moon-button > .button-tap-area {
-	position: absolute;
-	top: -(@moon-button-border-width);
-	bottom: -(@moon-button-border-width);
-	left: -(@moon-button-border-width);
-	right: -(@moon-button-border-width);
-}
+	* {
+		color: @moon-neutral-button-text-color;
+	}
 
-.moon-button.small > .button-tap-area {
-	position: absolute;
-	top: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
-	bottom: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
-	left: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
-	right: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
-}
-/* Need 100% width for marquee in button */
-.moon-button .moon-marquee {
-	width: 100%;
- 	vertical-align: top;
- 	text-align: center;
- }
+	&.spotlight * {
+		color: @moon-spotlight-text-color;
+	}
 
-/*
-	IE8 can't handle these selectors in tandem:
-	.moon-button.active, .moon-button:active:not([disabled]) {
+	&.active,
+	&.pressed,
+	&.spotlight.pressed,
+	&.spotlight:active {
+		border: @moon-button-border-width solid @moon-spotlight-border-color;
+		background-color: @moon-neutral-button-bg-color;
 
-	the effect is as if .moon-button.active doesn't exist
-*/
-.moon-button.active,
-.moon-button.pressed,
-.moon-button.spotlight.pressed,
-.moon-button.spotlight:active,
-.moon-button.small.spotlight.pressed
-{
-	border: @moon-button-border-width solid @moon-spotlight-border-color;
-	background-color: @moon-button-background-color;
-	color: @moon-button-text-color;
-}
+		* {
+			color: @moon-neutral-button-text-color;
+		}
+	}
 
-.moon-button:active:hover:not([disabled]) {
-	border: @moon-button-border-width solid @moon-spotlight-border-color;
-	background-color: @moon-button-background-color;
-}
-
-.moon-button.spotlight {
-	background-color: @moon-spotlight-border-color;
-	color: @moon-spotlight-text-color;
-}
-
-.moon-button[disabled] {
-	cursor: default;
-	color: @moon-button-disabled-text-color;
-	background-color: @moon-button-disabled-bg-color;
-}
-
-.moon-neutral .moon-button.active,
-.moon-neutral .moon-button.pressed,
-.moon-neutral .moon-button.spotlight.pressed,
-.moon-neutral .moon-button.spotlight:active,
-.moon-neutral .moon-button.small.spotlight.pressed
-{
-  border: @moon-button-border-width solid @moon-spotlight-border-color;
-  background-color: @moon-neutral-button-bg-color;
-}
-
-.moon-neutral .moon-button.active *,
-.moon-neutral .moon-button.pressed *,
-.moon-neutral .moon-button.spotlight.pressed *,
-.moon-neutral .moon-button.spotlight:active *,
-.moon-neutral .moon-button.small.spotlight.pressed *
-{
-  color: @moon-neutral-button-text-color;
-}
-
-.moon-button.active.spotlight,
-.moon-button.small.active.spotlight
-{
-	border: @moon-button-border-width solid @moon-active-spotlight-border-color;
-	background-color: @moon-spotlight-border-color;
-	color:@moon-spotlight-text-color;
-}
-
-.moon-button.active.spotlight:active,
-.moon-button.small.active.spotlight:active,
-.moon-button.active.spotlight.pressed,
-.moon-button.small.active.spotlight.pressed
-{
-	border: @moon-button-border-width solid @moon-spotlight-border-color;
-	background-color: @moon-button-background-color;
-	color: @moon-button-text-color;
-}
-
-.moon-neutral .moon-button.active.spotlight:active,
-.moon-neutral .moon-button.active.spotlight.pressed,
-.moon-neutral .moon-button.small.active.spotlight:active,
-.moon-neutral .moon-button.small.active.spotlight.pressed
-{
-	border: @moon-button-border-width solid @moon-spotlight-border-color;
-	background-color: @moon-neutral-button-bg-color;	
-}
-
-.moon-neutral .moon-button.active.spotlight:active *,
-.moon-neutral .moon-button.active.spotlight.pressed *,
-.moon-neutral .moon-button.small.active.spotlight:active *,
-.moon-neutral .moon-button.small.active.spotlight.pressed *
-{
-	color: @moon-neutral-button-text-color;	
-}
-
-.moon-neutral .moon-button.active.spotlight,
-.moon-neutral .moon-button.small.active.spotlight
-{
-	border: @moon-button-border-width solid @moon-active-spotlight-border-color;
-	background-color: @moon-spotlight-border-color;
-}
-
-.moon-neutral .moon-button.active.spotlight *,
-.moon-neutral .moon-button.small.active.spotlight *
-{
-	color:@moon-spotlight-text-color;
+	&[disabled] * {
+		color: @moon-button-disabled-text-color;
+	}
 }
