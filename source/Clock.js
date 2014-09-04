@@ -93,7 +93,7 @@
 		* @private
 		*/
 		components: [
-			{name: 'right', classes: 'moon-clock-right', components: [
+			{name: 'right', classes: 'moon-clock-right mini', components: [
 				{kind: 'enyo.Control', name: 'top', classes: 'moon-header-font moon-clock-top-text'}
 			]},
 			{kind: 'enyo.Signals', onlocalechange: 'handleLocaleChangeEvent'}
@@ -137,11 +137,6 @@
 			this.ilibLocaleInfo = new ilib.LocaleInfo(this.locale || undefined);
 			var clockPref = this.ilibLocaleInfo.getClock();
 			var clock = clockPref !== 'locale' ? clockPref : undefined;
-			var dateLen, fmtMin;
-
-			dateLen = 'full';
-			fmtMin = 'hma';
-			this.$.right.addRemoveClass('mini', true);
 
 			var fmtHourParams = {
 				locale: this.locale,
@@ -153,14 +148,13 @@
 			var fmtMinuteParams = {
 				locale: this.locale,
 				type: 'time',
-				time: fmtMin,
+				time: 'hma',
 				clock: clock,
 				timezone: (this.mode === 'normal') ? 'local' : 'Etc/UTC'
 			};
 
 			this._hf = new ilib.DateFmt(fmtHourParams);
 			this._mf = new ilib.DateFmt(fmtMinuteParams);
-
 		},
 
 		/**
