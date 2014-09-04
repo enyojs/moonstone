@@ -93,20 +93,11 @@
 		* @private
 		*/
 		components: [
-			{kind: 'enyo.Control', name: 'hour', classes: 'moon-header-text moon-clock-hour'},
-			{name: 'right', classes: 'moon-clock-right', components: [
-				{kind: 'enyo.Control', name: 'top', classes: 'moon-header-font moon-clock-top'},
-				{name: 'meridiem', classes: 'moon-bold-text moon-clock-meridiem'},
-				{name: 'divider', classes: 'moon-clock-divider'},
-				{kind: 'enyo.Control', name: 'bottom', classes: 'moon-body-text moon-clock-bottom'}
+			{name: 'right', classes: 'moon-clock-right mini', components: [
+				{kind: 'enyo.Control', name: 'top', classes: 'moon-header-font moon-clock-top-text'}
 			]},
 			{kind: 'enyo.Signals', onlocalechange: 'handleLocaleChangeEvent'}
 		],
-
-		/**
-		* @private
-		*/
-		months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
 
 		/**
 		* @private
@@ -147,21 +138,6 @@
 			this.ilibLocaleInfo = new ilib.LocaleInfo(this.locale || undefined);
 			var clockPref = this.ilibLocaleInfo.getClock();
 			var clock = clockPref !== 'locale' ? clockPref : undefined;
-			var dateLen, fmtMin;
-
-			if (this.ilibLocaleInfo.locale.spec === 'en-US') {
-				dateLen = 'long';
-				fmtMin = 'm';
-				this.$.right.addRemoveClass('mini', false);
-				this.$.hour.show();
-				this.$.meridiem.show();
-			} else {
-				dateLen = 'full';
-				fmtMin = 'hma';
-				this.$.right.addRemoveClass('mini', true);
-				this.$.hour.hide();
-				this.$.meridiem.hide();
-			}
 
 			var fmtHourParams = {
 				locale: this.locale,
@@ -173,21 +149,13 @@
 			var fmtMinuteParams = {
 				locale: this.locale,
 				type: 'time',
-				time: fmtMin,
+				time: 'hma',
 				clock: clock,
-				timezone: (this.mode === 'normal') ? 'local' : 'Etc/UTC'
-			};
-			var fmtMonthDayParams = {
-				locale: this.locale,
-				type: 'date',
-				date: 'md',
-				length: dateLen,
 				timezone: (this.mode === 'normal') ? 'local' : 'Etc/UTC'
 			};
 
 			this._hf = new ilib.DateFmt(fmtHourParams);
 			this._mf = new ilib.DateFmt(fmtMinuteParams);
-			this._mdf = new ilib.DateFmt(fmtMonthDayParams);
 		},
 
 		/**
@@ -266,12 +234,8 @@
 			if (this._mf) {
 				delete this._mf;
 			}
-			if (this._mdf) {
-				delete this._mdf;
-			}
 			this.initDefaults();
 		},
-
 
 		/**
 		* If user sets time without using a JavaScript Date object, this method
@@ -303,21 +267,7 @@
 				d = this.date;
 				h = (this.date.hour) ? this.date.hour : 0;
 			}
-			this.updateHour(d, h);
 			this.updateMinute(d, h);
-			this.updateMonthDay(d);
-		},
-
-		/**
-		* @private
-		*/
-		updateHour: function (inDate, inHour) {
-			inHour = (inHour > 12 ? inHour-12: inHour) || 12;
-
-			var hour = this._hf ? this._hf.format((this.mode === 'normal')	? ilib.Date.newInstance({unixtime: inDate.getTime(), timezone:'Etc/UTC'})
-																			: ilib.Date.newInstance(this.parseStaticDate(inDate)))
-								: inHour;
-			this.$.hour.setContent(hour);
 		},
 
 		/**
@@ -328,23 +278,7 @@
 																			: ilib.Date.newInstance(this.parseStaticDate(inDate)))
 								: (this.mode === 'normal')	? this._formatNumber(inDate.getMinutes())
 															: this._formatNumber(inDate.min);
-			var meridiem = '';
-			if (!this.ilibLocaleInfo || this.ilibLocaleInfo.locale.spec === 'en-US') {
-				meridiem = inHour > 11 ? 'pm' : 'am';
-			}
 			this.$.top.setContent(time);
-			this.$.meridiem.setContent(meridiem);
-		},
-
-		/**
-		* @private
-		*/
-		updateMonthDay: function (inDate) {
-			var md = this._mdf	? this._mdf.format((this.mode === 'normal') ? ilib.Date.newInstance({unixtime: inDate.getTime(), timezone:'Etc/UTC'})
-																			: ilib.Date.newInstance(this.parseStaticDate(inDate)))
-								: (this.mode === 'normal')	? this.months[inDate.getMonth()] + ' ' + this._formatNumber(inDate.getUTCDate())
-															: ((inDate.month !== undefined) ? this.months[inDate.month-1] : 0) + ' ' + this._formatNumber(inDate.day);
-			this.$.bottom.setContent(md);
 		},
 
 		/**

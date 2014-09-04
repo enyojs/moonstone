@@ -4591,16 +4591,12 @@
   position: relative;
   top: 5px;
 }
-.moon-clock-top {
-  color: #4b4b4b;
-  vertical-align: bottom;
-  display: inline-block;
-  line-height: 60px;
-  white-space: nowrap;
-  font-size: 61px;
-  line-height: 62px;
-  line-height: 96px;
-  height: 72px;
+.moon-clock-top-text {
+  font-family: "MuseoSans 900";
+  font-size: 54px;
+  line-height: 82px;
+  margin-left: 10px;
+  color: #FFFFFF;
 }
 .moon-clock-meridiem {
   font-family: "MuseoSans 900";
