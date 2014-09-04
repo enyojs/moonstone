@@ -1,24 +1,24 @@
 (function (enyo, scope) {
 	/**
-	* Fired when a control explicitly requests to be scrolled into view. Handled by the 
+	* Fires when a control explicitly requests to be scrolled into view. Handled by the 
 	* [scroll strategy]{@link enyo.Scroller#strategyKind}.
 	*
 	* @event enyo.Scroller#onRequestScrollIntoView
 	* @type {Object}
-	* @property {Boolean} scrollInPointerMode - `true` to scroll in pointer mode
+	* @property {Boolean} scrollInPointerMode - Whether to allow scrolling in pointer mode.
 	* @property {Boolean} scrollFullPage - If defined, overrides the scroller's
-	*	[`scrollFullPage`]{@link moon.Scroller#scrollFullPage} property.
+	*	[scrollFullPage]{@link moon.Scroller#scrollFullPage} property.
 	* @public
 	*/
 
 	/**
-	* `moon.Scroller` extends [enyo.Scroller]{@link enyo.Scroller}, adding support for 5-way focus
+	* {@link moon.Scroller} extends {@link enyo.Scroller}, adding support for 5-way focus
 	* (Spotlight) and pagination buttons.
 	*
 	* It responds when controls explicitly request to be scrolled into view by emitting the
-	* [`onRequestScrollIntoView`]{@link moon.Scroller#event:onRequestScrollIntoView} event. This
+	* [onRequestScrollIntoView]{@link moon.Scroller#event:onRequestScrollIntoView} event. This
 	* typically happens when a control handles an
-	* [`onSpotlightFocused`]{@link Spotlight:event#onSpotlightFocused} event, ensuring that 5-way
+	* [onSpotlightFocused]{@link Spotlight:event#onSpotlightFocused} event, ensuring that 5-way
 	* ({@glossary Spotlight}) focused controls remain in view.
 	*
 	* For more information, see the documentation on
@@ -50,7 +50,7 @@
 
 			/**
 			* If `true`, when scrolling to focused child controls, the scroller will
-			* scroll as far as possible, until its edge meets the next item's edge
+			* scroll as far as possible, until its edge meets the next item's edge.
 			*
 			* @type {Boolean}
 			* @default false
@@ -72,7 +72,7 @@
 			spotlightPagingControls: false,
 
 			/**
-			* Relative parameter used to determine scroll speed
+			* Relative parameter used to determine scroll speed.
 			*
 			* @type {Number}
 			* @default 75
@@ -156,7 +156,7 @@
 		},
 
 		/**
-		* If `true`, scroll events are not allowed to propagate
+		* If `true`, scroll events are not allowed to propagate.
 		*
 		* @private
 		*/
@@ -170,20 +170,20 @@
 		strategyKind: 'moon.ScrollStrategy',
 
 		/**
-		* Scrolls until `control` is in view. If `scrollFullPage` is set, scrolls
-		* until the edge of `control` is aligned with the edge of the visible scroll
-		* area. Optional third parameter to indicate whether or not it should animate
-		* the scroll. Defaults to animation unless it is set to `false`.
-		* If `setLastFocusedChild` is `true`, scroller will set up `control` to be the spotted child
-		* when scroller is spotted.
+		* Scrolls until the specified [control]{@link enyo.Control} is in view. If
+		* `scrollFullPage` is set, scrolls until the edge of `control` is aligned with
+		* the edge of the visible scroll area. Optional third parameter indicates
+		* whether or not the scroll should be animated. If `setLastFocusedChild` is
+		* `true`, scroller will set up `control` to be the spotted child when the
+		* scroller is spotted.
 		*
-		* @param {Object} control - The control to scroll into view
-		* @param {Boolean} [scrollFullPage] - If `true` scrolls until the edge of `control` is
-		*	aligned with the edge of the visible scroll area. If `undefined`, the value in
-		*	[`scrollFullPage`]{@link moon.Scroller#scrollFullPage} is used.
-		* @param {Boolean} [animate=true] - If `true`, animates the scroll
-		* @param {Boolean} [setLastFocusedChild=false] - If `true`, scroller will set up `control`
-		*	to be the spotted child when scroller is spotted.
+		* @param {Object} control - The [control]{@link enyo.Control} to scroll into view.
+		* @param {Boolean} [scrollFullPage] - If `true`, scrolls until the edge of `control`
+		* is aligned with the edge of the visible scroll area. If `undefined`, the value in
+		*	[scrollFullPage]{@link moon.Scroller#scrollFullPage} is used.
+		* @param {Boolean} [animate=true] - If `true`, animates the scroll.
+		* @param {Boolean} [setLastFocusedChild=false] - If `true`, scroller will set up
+		* `control` to be the spotted child when the scroller is spotted.
 		* @public
 		*/
 		scrollToControl: function (control, scrollFullPage, animate, setLastFocusedChild) {
@@ -194,8 +194,8 @@
 		},
 
 		/**
-		* Accepts third optional paramater to indicate whether or not it should
-		* animate the scroll. Defaults to animation unless it is set to `false`.
+		* Scrolls to the specified `x` and `y` coordinates. The optional third parameter
+		* may be set to `false` to disable animation for the scroll.
 		*
 		* @param {Number} x - Horizontal position in pixels
 		* @param {Number} y - Vertical position in pixels
@@ -263,7 +263,7 @@
 
 		/**
 		* When scroller is entered or one of its children is focused
-		* in 5-way mode, make sure that we're showing the scroll columns
+		* in 5-way mode, make sure that we're showing the scroll columns.
 		*
 		* @private
 		*/
@@ -274,7 +274,7 @@
 		},
 
 		/**
-		* When 5-way focus leaves scroller, hide the scroll columns
+		* When 5-way focus leaves scroller, hide the scroll columns.
 		*
 		* @private
 		*/
@@ -298,7 +298,7 @@
 
 	/**
 	* On touch platforms, revert to using Enyo scroller, which picks an appropriate
-	* scroll strategy for the given platform
+	* scroll strategy for the given platform.
 	*
 	* @private
 	*/

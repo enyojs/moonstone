@@ -1,9 +1,8 @@
 (function (enyo, scope) {
 	/**
-	* `moon.RadioItemGroup` is a container in which a group of
-	* [`moon.RadioItem`]{@link moon.RadioItem} objects are laid out horizontally. Within a group,
-	* only one item may be active at a time; tapping on an item will deactivate any
-	* previously-tapped item.
+	* {@link moon.RadioItemGroup} is a container in which a group of {@link moon.RadioItem}
+	* objects are laid out horizontally. Within a group, only one item may be active at a
+	* time; tapping on an item will deactivate any previously-tapped item.
 	*
 	* ```
 	* {kind: 'moon.RadioItemGroup', onActivate: 'buttonActivated', components: [

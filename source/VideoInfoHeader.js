@@ -1,8 +1,8 @@
 (function (enyo, scope) {
 	/**
-	* `moon.VideoInfoHeader` is a [control]{@link enyo.Control} that displays various information 
-	* about a video. It is designed to be used within the
-	* [`infoComponents`]{@link moon.VideoPlayer#infoComponents} block of a {@link moon.VideoPlayer}.
+	* {@link moon.VideoInfoHeader} is a [control]{@link enyo.Control} that displays
+	* various information about a video. It is designed to be used within the
+	* [infoComponents]{@link moon.VideoPlayer#infoComponents} block of a {@link moon.VideoPlayer}.
 	* 
 	* Example:
 	* ```javascript
@@ -102,7 +102,7 @@
 			description: '',
 
 			/** 
-			* When `true`, the title text will be converted to locale-safe uppercasing.
+			* When `true`, the title text will have locale-safe uppercasing applied.
 			*
 			* @type {Boolean}
 			* @default true

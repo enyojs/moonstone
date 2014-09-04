@@ -27,9 +27,9 @@
 	*/
 
 	/**
-	* `moon.Slider` is a [control]{@link enyo.Control} that presents a range of selection options in
-	* the form of a horizontal slider with a control knob. The knob may be tapped and dragged to the
-	* desired location.
+	* {@link moon.Slider} is a [control]{@link enyo.Control} that presents a range of selection
+	* options in the form of a horizontal slider with a control knob. The knob may be tapped and
+	* dragged to the desired location.
 	*
 	* ```javascript
 	* {kind: "moon.Slider", value: 30}
@@ -52,7 +52,7 @@
 		* @private
 		*/
 		kind: 'moon.ProgressBar',
-		
+
 		/**
 		* @private
 		*/
@@ -62,7 +62,7 @@
 		* @private
 		*/
 		spotlight: true,
-		
+
 		/**
 		* @private
 		* @lends moon.Slider.prototype
@@ -77,7 +77,7 @@
 			* @public
 			*/
 			value: 0,
-			
+
 			/**
 			* Sliders may "snap" to multiples of this value in either direction.
 			*
@@ -86,43 +86,43 @@
 			* @public
 			*/
 			increment: 0,
-			
+
 			/**
-			* If `true`, current progress will be styled differently from rest of bar.
+			* When `true`, current progress is styled differently from rest of bar.
 			*
 			* @type {Boolean}
 			* @default true
 			* @public
 			*/
 			lockBar: true,
-			
+
 			/**
-			* If `true`, tapping on bar will change current position.
+			* When `true`, tapping on bar will change current position.
 			*
 			* @type {Boolean}
 			* @default true
 			* @public
 			*/
 			tappable: true,
-			
+
 			/**
-			* CSS classes to apply to knob.
+			* CSS classes to apply to the knob.
 			*
 			* @type {String}
 			* @default 'moon-slider-knob'
 			* @public
 			*/
 			knobClasses: 'moon-slider-knob',
-			
+
 			/**
-			* CSS classes to apply to the popup label
+			* CSS classes to apply to the popup label.
 			*
 			* @type {String}
 			* @default 'moon-slider-popup-label'
 			* @public
 			*/
 			popupLabelClasses: 'moon-slider-popup-label',
-			
+
 			/**
 			* CSS classes to apply to the tap area.
 			*
@@ -131,7 +131,7 @@
 			* @public
 			*/
 			tapAreaClasses: 'moon-slider-taparea',
-			
+
 			/**
 			* Color value of the popup.
 			*
@@ -140,26 +140,26 @@
 			* @public
 			*/
 			popupColor: '#4d4d4d',
-			
+
 			/**
-			* When set to `true`, button is shown as disabled and does not generate tap events.
+			* If set to `true`, button is shown as disabled and does not generate tap events.
 			*
 			* @type {Boolean}
 			* @default false
 			* @public
 			*/
 			disabled: false,
-			
+
 			/**
-			* When `true`, knob and progress move with animation when left or right direction key is
-			* pressed or bar is tapped.
+			* When `true`, knob and progress move with animation when left or right direction
+			* key is pressed, or when bar is tapped.
 			*
 			* @type {Boolean}
 			* @default true
 			* @public
 			*/
 			animate: true,
-			
+
 			/**
 			* When `false`, the slider's popup bubble is displayed while the slider is being
 			* adjusted.
@@ -169,7 +169,7 @@
 			* @public
 			*/
 			noPopup: false,
-			
+
 			/**
 			* When `true`, the popup displays a percentage value (rather than an absolute value).
 			*
@@ -178,7 +178,7 @@
 			* @public
 			*/
 			showPercentage: true,
-			
+
 			/**
 			* Popup width in pixels.
 			*
@@ -187,16 +187,16 @@
 			* @public
 			*/
 			popupWidth: 'auto',
-			
+
 			/**
-			* Popup height in pixels; value should be under `72`.
+			* Popup height in pixels; value should be less than `72`.
 			*
 			* @type {Number|String}
 			* @default 67
 			* @public
 			*/
 			popupHeight: 67,
-			
+
 			/**
 			* Popup offset in pixels.
 			*
@@ -205,27 +205,27 @@
 			* @public
 			*/
 			popupOffset: 8,
-			
+
 			/**
-			* When `false`, the knob may be moved past the
-			* [`bgProgress`]{@link moon.ProgressBar#bgProgress} value.
+			* When `false`, knob may be moved past the
+			* [bgProgress]{@link moon.ProgressBar#bgProgress} value.
 			*
 			* @type {Boolean}
 			* @default false
 			* @public
 			*/
 			constrainToBgProgress: false,
-			
+
 			/**
-			* When `true`, an elastic visual effect is seen when the knob is dragged past the
-			* [`bgProgress`]{@link moon.ProgressBar#bgProgress} value.
+			* If set to `true`, an elastic visual effect is seen when the knob is dragged past
+			* the [bgProgress]{@link moon.ProgressBar#bgProgress} value.
 			*
 			* @type {Boolean}
 			* @default false
 			* @public
 			*/
 			elasticEffect: false,
-			
+
 			/**
 			* Custom popup content (ignored if `null`).
 			*
@@ -234,9 +234,9 @@
 			* @public
 			*/
 			popupContent: null,
-			
+
 			/**
-			* When `true`, popup content will be translated to locale-safe uppercase.
+			* When `true`, popup content will have locale-safe uppercasing applied.
 			*
 			* @type {Boolean}
 			* @default true
@@ -253,7 +253,7 @@
 			onChanging: '',
 			onAnimateFinish: ''
 		},
-		
+
 		/**
 		* @private
 		*/
@@ -291,12 +291,12 @@
 		/**
 		* @private
 		*/
-		popupLeftCanvasWidth: 26, // Popup left canvas width in pixel
+		popupLeftCanvasWidth: 27, // Popup left canvas width in pixel
 
 		/**
 		* @private
 		*/
-		popupRightCanvasWidth: 26, // Popup right canvas width in pixel
+		popupRightCanvasWidth: 27, // Popup right canvas width in pixel
 
 		/**
 		* @private
@@ -306,8 +306,8 @@
 		/**
 		* Animates to the given value.
 		*
-		* @param {Number} start The start position, as an integer between `0` and `100`.
-		* @param {Number} end The end position, as an integer between `0` and `100`.
+		* @param {Number} start - The start position, as an integer between `0` and `100`.
+		* @param {Number} end - The end position, as an integer between `0` and `100`.
 		* @public
 		*/
 		animateTo: function(start, end) {
@@ -322,9 +322,9 @@
 		},
 
 		/**
-		* Determine if the slider is currently being dragged.
+		* Determines whether the slider is currently being dragged.
 		*
-		* @returns {Boolean} Returns `true` if the slider is currently being dragged.
+		* @returns {Boolean} `true` if the slider is currently being dragged; otherwise, `false`.
 		* @public
 		*/
 		isDragging: function() {
@@ -419,7 +419,7 @@
 		updatePopupOffset: function() {
 			this.$.popup.applyStyle('top', -(this.getPopupHeight() + this.getPopupOffset()) + 'px');
 		},
-		
+
 		/**
 		* Updates popup offset.
 		*
@@ -429,7 +429,7 @@
 			this.updatePopupOffset();
 			this.drawToCanvas(this.popupColor);
 		},
-		
+
 		/**
 		* Updates popup width.
 		*
@@ -452,7 +452,7 @@
 			this.$.popup.applyStyle('height', h + 'px');
 			this.$.popup.applyStyle('line-height', h - 6 + 'px');
 		},
-		
+
 		/**
 		* Updates popup height.
 		*
@@ -473,7 +473,7 @@
 		updatePopupLabelColor: function() {
 			this.$.popupLabel.applyStyle('background-color', this.popupColor);
 		},
-		
+
 		/**
 		* Updates popup color.
 		*
@@ -483,7 +483,7 @@
 			this.drawToCanvas(this.popupColor);
 			this.updatePopupLabelColor();
 		},
-		
+
 		/**
 		* Updates popup content.
 		*
@@ -505,16 +505,16 @@
 		},
 
 		/**
-		* Slider will snap multiples.
+		* Slider will snap to multiples of this value.
 		*
 		* @private
 		*/
 		calcIncrement: function(val) {
 			return (Math.round(val / this.increment) * this.increment);
 		},
-		
+
 		/**
-		* Called only when [`constrainToBgProgress`]{@link moon.Slider#constrainToBgProgress} is
+		* Called only when [constrainToBgProgress]{@link moon.Slider#constrainToBgProgress} is
 		* `true`.
 		*
 		* @private
@@ -524,7 +524,7 @@
 		},
 
 		/**
-		* Initializes [`value`]{@link moon.Slider#value} at creation time.
+		* Initializes [value]{@link moon.Slider#value} at creation time.
 		*
 		* @private
 		*/
@@ -758,7 +758,7 @@
 		animatorComplete: function(sender) {
 			this._setValue(sender.value);
 			this.animatingTo = null;
-			this.doAnimateFinish();
+			this.doAnimateFinish(sender);
 			return true;
 		},
 
@@ -847,40 +847,58 @@
 		* @private
 		*/
 		drawToCanvas: function(bgColor) {
-			var h = this.getPopupHeight()+1; // height total
-			var hb = h - 8; // height bubble
-			var hbc = (hb)/2; // height of bubble's center
-			var wre = 26; // width's edge
-			var r = hbc; //radius is half the bubble height
-			var bcr = 50;//bottom curve radius 50
-			var bcy = hb + bcr;//calculate the height of the center of the circle plus the radius to get the y coordinate of the circle to draw the bottom irregular arc
+			bgColor = bgColor  || enyo.dom.getComputedStyleValue(this.$.knob.hasNode(), 'background-color');
+			var h = this.getPopupHeight()+1, // height total
+				hb = h - 8, // height bubble
+				hbc = (hb)/2, // height of bubble's center
+				wre = 26, // width's edge
+				r = hbc, // radius is half the bubble height
+				bcr = 50, // bottom curve radius 50
+				bcy = hb + bcr, //calculate the height of the center of the circle plus the radius to get the y coordinate of the circle to draw the bottom irregular arc
+				lw = 1, // line width that will be tucked under the neighboring dom element's edge
 
-			var ctxLeft = this.$.drawingLeft.hasNode().getContext('2d');
-			var ctxRight = this.$.drawingRight.hasNode().getContext('2d');
+				ctxLeft = this.$.drawingLeft.hasNode().getContext('2d'),
+				ctxRight = this.$.drawingRight.hasNode().getContext('2d');
 
 			this.$.drawingLeft.setAttribute('width', this.popupLeftCanvasWidth);
 			this.$.drawingRight.setAttribute('width', this.popupRightCanvasWidth);
 
+
 			// Set styles. Default color is knob's color
-			ctxLeft.fillStyle = bgColor || enyo.dom.getComputedStyleValue(this.$.knob.hasNode(), 'background-color');
+			ctxLeft.fillStyle = bgColor;
 			// Draw shape with arrow on left
 			ctxLeft.moveTo(0, h);
+     		// arc(x, y, radius, startAngle, endAngle, counterClockwise);
 			ctxLeft.arc(wre, bcy, bcr, 1.35 * Math.PI, 1.485 * Math.PI, false);
 			ctxLeft.lineTo(wre, hb);
 			ctxLeft.lineTo(wre, 0);
 			ctxLeft.arcTo(0, 0, 0, hbc, r);
 			ctxLeft.lineTo(0, h);
 			ctxLeft.fill();
+			// Add a spacer line
+			ctxLeft.beginPath();
+			ctxLeft.lineWidth = lw+1;
+			ctxLeft.strokeStyle = bgColor;
+			ctxLeft.moveTo(wre+lw, 0);
+			ctxLeft.lineTo(wre+lw, hb);
+			ctxLeft.stroke();
 
 			// Set styles. Default color is knob's color
-			ctxRight.fillStyle = bgColor || enyo.dom.getComputedStyleValue(this.$.knob.hasNode(), 'background-color');
+			ctxRight.fillStyle = bgColor;
 			// Draw shape with arrow on right
-			ctxRight.moveTo(0, hb);
-			ctxRight.arcTo(wre, hb, wre, hbc, r);
+			ctxRight.moveTo(lw, hb);
+			ctxRight.arcTo(wre+lw, hb, wre+lw, hbc, r);
 
-			ctxRight.arcTo(wre, 0, 0, 0, r);
+			ctxRight.arcTo(wre+lw, 0, lw, 0, r);
 			ctxRight.lineTo(0, 0);
 			ctxRight.fill();
+			// Add a spacer line
+			ctxRight.beginPath();
+			ctxRight.lineWidth = lw+1;
+			ctxRight.strokeStyle = bgColor;
+			ctxRight.moveTo(0, 0);
+			ctxRight.lineTo(0, hb);
+			ctxRight.stroke();
 		},
 
 		/**

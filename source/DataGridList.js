@@ -1,6 +1,7 @@
 (function (enyo, scope) {
 	/**
-	* `moon.DataGridList` is an {@link enyo.DataGridList} with Moonstone visual styling applied.
+	* {@link moon.DataGridList} is an {@link enyo.DataGridList} with Moonstone visual
+	* styling applied.
 	*
 	* @class moon.DataGridList
 	* @extends enyo.DataGridList

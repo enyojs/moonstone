@@ -1,32 +1,33 @@
 (function (enyo, scope) {
 
 	/**
-	* Used internally for [`ListActions`]{@link moon.ListActions} to request 
-	* [`Header`]{@link moon.Header} to add fitting components to itself. Not intended for use by 
-	* end-developer.
+	* Used internally by [ListActions]{@link moon.ListActions} to ask
+	* {@link moon.Header} to add fitting components to itself. Not intended for use
+	* by end-developers.
 	*
 	* @event moon.ListActions#onRequestCreateListActions
 	* @type {Object}
-	* @property {Object} components - The drawer components to be created
+	* @property {Object} components - The drawer components to be created.
 	* @private
 	*/
 
 	/**
-	* Fires when when the open state of the drawer has changed.
+	* Fires when when the [open]{@link moon.ListActions#open} state of the drawer has changed.
 	*
 	* @event moon.ListActions#onListActionOpenChanged
 	* @type {Object}
-	* @property {Boolean} open - `true` if the drawer is open
+	* @property {Boolean} open - `true` if the drawer is open; otherwise, `false`.
 	* @public
 	*/
 
 	/**
-	* `moon.ListActions` is a [control]{@link enyo.Control} designed to live within a 
-	* [`moon.Header`]{@link moon.Header}. It is used to perform actions on an associated list of 
-	* items. A `ListActions` [object]{@glossary Object} combines an activating control with a drawer
-	* containing a user-defined menu of selectable options for acting on items in the list. When a 
-	* menu item is selected, an action--such as filtering, sorting, moving, or deleting--may be
-	* invoked in the application by handling change events from the selected items.
+	* {@link moon.ListActions} is a [control]{@link enyo.Control} designed to live within a 
+	* {@link moon.Header}. It is used to perform actions on an associated list of items. A
+	* ListActions [object]{@glossary Object} combines an activating control with a drawer
+	* containing a user-defined menu of selectable options for acting on items in the list.
+	* When a menu item is selected, an action--such as filtering, sorting, moving, or
+	* deleting--may be invoked in the application by handling change events from the selected
+	* items.
 	*
 	* @class moon.ListActions
 	* @extends enyo.GroupItem
@@ -77,38 +78,35 @@
 
 			/**
 			* A block of one or more controls to be displayed inside the list actions menu. By 
-			* default, each top-level ListActions will have a 
-			* [`defaultKind`]{@link enyo.Control#defaultKind} of 
-			* [`FittableRows`]{@link enyo.FittableRows}, and should typically contain a 
-			* [`moon.Divider`]{@link moon.Divider} identifying the category and a 
-			* [`moon.Scroller`]{@link moon.Scroller} with `fit:true`, containing instances of 
-			* [`moon.CheckboxItem`]{@link moon.CheckboxItem}, 
-			* [`moon.ToggleItem`]{@link moon.ToggleItem}, or 
-			* [`moon.SelectableItem`]{@link moon.SelectableItem} for setting options for the 
-			* underlying [panel]{@link moon.Panel}. Alternatively, a 
-			* [`moon.DataRepeater`]{@link moon.DataRepeater} (with a `moon.Scroller` set as its 
-			* container) or a [`moon.DataList`]{@link moon.DataList} may be used as the `fit:true` 
-			* control for populating a data-bound list of options (see below for limitations on 
-			* using a `moon.DataList`).
+			* default, each top-level [ListActions]{@link moon.ListActions} will have a 
+			* [defaultKind]{@link enyo.Control#defaultKind} of 
+			* [FittableRows]{@link enyo.FittableRows}, and should typically contain a 
+			* {@link moon.Divider} identifying the category and a {@link moon.Scroller} with
+			* `fit: true` set on it, containing instances of {@link moon.CheckboxItem},
+			* {@link moon.ToggleItem}, or {@link moon.SelectableItem} for setting options for
+			* the underlying [panel]{@link moon.Panel}. Alternatively, a {@link moon.DataList}
+			* may be used as the `fit: true` control for populating a data-bound list of options
+			* (see below for limitations on using a `moon.DataList`).
 			* 
 			* More than one option group may be added to the `listActions` block, in which options
-			* are laid out horizontally by default, with each `FittableRows`' height constrained to
-			* the height of the parent [`Header`]{@link moon.Header}. However, a minimum width
-			* (300px) is enforced for each group, and if there are more groups than will fit in the
-			* available horizontal space, all controls will instead be stacked vertically. In this
-			* case, an outer scroller is enabled; the outer scroller scrolls all groups vertically,
-			* and the `FittableRows` are reset to natural size based on their content, effectively
-			* disabling any scrollers contained within, to prevent nested scrolling.
+			* are laid out horizontally by default, with the height of each `FittableRows` being
+			* constrained to the height of the parent [Header]{@link moon.Header}. However, a
+			* minimum width (300px) is enforced for each group, and if there are more groups than
+			* will fit in the available horizontal space, all controls will instead be stacked
+			* vertically. In this case, an outer scroller is enabled; the outer scroller scrolls
+			* all groups vertically, and the `FittableRows` are reset to natural size based on
+			* their content, effectively disabling any scrollers contained within, to prevent
+			* nested scrolling.
 			* 
 			* Note that the vertical stacking capability poses a limitation on using
-			* {@link moon.DataList}. Since `moon.DataList` must always be allowed to scroll, it is
-			* not suitable for use in a stacked scenario in which only one outer scroller is used.
-			* As such, `moon.DataList` cannot be used within a `ListActions` that may need to stack
+			* `moon.DataList`. Since `moon.DataList` must always be allowed to scroll, it is
+			* not suitable for use in a stacked scenario in which only one outer scroller is
+			* used. As such, it cannot be used within a `ListActions` that may need to stack
 			* vertically.
 			*
-			* Each group should have a string value set for the `action` property, as this will be
-			* passed in all events that bubble from the `ListActions`, to allow the user to identify
-			* which category changed.
+			* Each group should have a string value set for the `action` property, as this will
+			* be passed in all events that bubble from the `ListActions`, to allow the user to
+			* identify which category changed.
 			*
 			* @type {Object[]}
 			* @default null
@@ -126,8 +124,8 @@
 			iconSrc: '',
 
 			/**
-			* Set the icon name to be used by the `ListActions Activator` button (like 
-			* [`moon.Icon`]{@link moon.Icon} and [`moon.IconButton`]{@link moon.IconButton}).
+			* Icon name to be used by the activator button (as in {@link moon.Icon} and
+			* {@link moon.IconButton}).
 			*
 			* @type {String}
 			* @default ''
@@ -136,10 +134,10 @@
 			icon: '',
 
 			/**
-			* By default, list action menus are 300px wide. Set this to `true` to instead have the
-			* menus be proportionally sized within the available space. Note that a minimum width of
-			* 300px is still respected; if all menus don't fit horizontally, they will be stacked
-			* vertically.
+			* By default, list action menus are 300px wide. Set this to `true` to instead have
+			* the menus be proportionally sized within the available space. Note that a minimum
+			* width of 300px is still respected; if all menus don't fit horizontally, they will
+			* be stacked vertically.
 			*
 			* @type {Boolean}
 			* @default false
@@ -272,7 +270,7 @@
 		},
 
 		/**
-		* Creates a new list action component based on _inListAction_.
+		* Creates a new list action component based on `listAction`.
 		*
 		* @private
 		*/
@@ -287,8 +285,8 @@
 		},
 
 		/**
-		* Adds a mixin to each list action menu that decorates _activate_ events with the menu's
-		* _action_ property.
+		* Adds a mixin to each list action menu that decorates `activate` events with the menu's
+		* `action` property.
 		*
 		* @private
 		*/
@@ -301,7 +299,7 @@
 		},
 
 		/**
-		* Toggles value of _this.open_.
+		* Toggles value of `this.open`.
 		*
 		* @private
 		*/
@@ -500,9 +498,9 @@
 	});
 
 	/**
-	* Fires when the [`ListActionsDrawer`]{@link moon.ListActionsDrawer} has completed any setup 
-	* and/or preparation work, i.e. when animating or initial setup. No event-specific information
-	* is sent with this event.
+	* Fires when the [ListActionsDrawer]{@link moon.ListActionsDrawer} has completed any
+	* setup and/or preparation work, e.g., when animating or initial setup. No event-specific
+	* information is sent with this event.
 	*
 	* @event moon.ListActionsDrawer#onComplete
 	* @type {Object}
@@ -510,8 +508,8 @@
 	*/
 
 	/**
-	* `moon.ListActionsDrawer` is a [control]{@link enyo.Control} used by {@link moon.ListActions}
-	* to house a menu of selectable options.
+	* {@link moon.ListActionsDrawer} is a [control]{@link enyo.Control} used by
+	* {@link moon.ListActions} to house a menu of selectable options.
 	*
 	* @class moon.ListActionsDrawer
 	* @extends enyo.Control
@@ -537,7 +535,7 @@
 		published: {
 
 			/**
-			* If `true`, the drawer will be in its opened state, otherwise it will be closed.
+			* If `true`, the drawer will be in its opened state; otherwise, it will be closed.
 			*
 			* @type {Boolean}
 			* @default false
@@ -593,12 +591,12 @@
 		},
 
 		/**
-		* We override getBubbleTarget here so that events emanating from a 
-		* [`ListActionsDrawer`]{@link moon.ListActionsDrawer} instance will bubble to the owner of
-		* the associated [`ListActions`]{@link moon.ListActions} instance, as expected. This is
-		* necessary because events normally bubble to a control's DOM parent, but we have sneakily
-		* arranged for the DOM parent of a `ListActionsDrawer` instance to be not the `ListActions`
-		* instance but the containing [`Header`]{@link moon.Header} instance.
+		* We override `getBubbleTarget()` here so that events emanating from a 
+		* [ListActionsDrawer]{@link moon.ListActionsDrawer} instance will bubble to the owner
+		* of the associated [ListActions]{@link moon.ListActions} instance, as expected. This
+		* is necessary because events normally bubble to a control's DOM parent, but we have
+		* sneakily arranged for the DOM parent of a `ListActionsDrawer` instance to be not the
+		* `ListActions` instance, but the containing [Header]{@link moon.Header} instance.
 		*
 		* @private
 		*/

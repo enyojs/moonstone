@@ -19,6 +19,9 @@
 		background-size: @moon-icon-sprite-small-size @moon-icon-sprite-small-size * 2;
 		background-position: center 0;
 		line-height: @moon-icon-sprite-small-size;
+		> .small-icon-tap-area {
+			line-height: @moon-button-small-tap-area-height;
+		}
 	}
 
 	&.hover:hover:not(.disabled),
@@ -49,7 +52,7 @@
 	&.disabled {
 		border-color: transparent;
 	}
-	
+
 	// No-background + no-background and all states
 	&.no-background {
 		&:not(.spotlight),

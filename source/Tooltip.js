@@ -1,10 +1,9 @@
 (function (enyo, scope) {
 	/**
-	* `moon.Tooltip` is a popup that works in conjunction with
-	* [`moon.TooltipDecorator`]{@link moon.TooltipDecorator}. It automatically displays a
-	* tooltip when the user hovers over the decorator for a given period of time.
-	* The tooltip is positioned around the decorator where there is available window
-	* space.
+	* {@link moon.Tooltip} is a popup that works in conjunction with
+	* {@link moon.TooltipDecorator}. The tooltip is automatically displayed when the
+	* user hovers over the decorator for a given period of time. The tooltip is
+	* positioned around the decorator where there is available window space.
 	*
 	* ```
 	* {kind: 'moon.TooltipDecorator', components: [
@@ -13,7 +12,7 @@
 	* ]}
 	* ```
 	*
-	* You may force the tooltip to appear by calling its [`show()`]{@link enyo.Control#show} method.
+	* You may force the tooltip to appear by calling its [show()]{@link enyo.Control#show} method.
 	*
 	* @class moon.Tooltip
 	* @extends enyo.Popup
@@ -45,11 +44,11 @@
 		published: {
 			/**
 			* This value overrides the default value of
-			* [`autoDismiss`]{@link enyo.Popup#autoDismiss} inherited from
-			* [`enyo.Popup`]{@link enyo.Popup}. If `true`, the Tooltip will hide when
-			* the user taps outside of it or presses ESC. Note that this property only
-			* affects behavior when the `Tooltip` is used independently -- not when it is used with
-			* TooltipDecorator.
+			* [autoDismiss]{@link enyo.Popup#autoDismiss} inherited from {@link enyo.Popup}.
+			* If `true`, the tooltip will hide when the user taps outside of it or presses
+			* ESC. Note that this property only affects behavior when the tooltip is used
+			* independently, not when it is used with
+			* [TooltipDecorator]{@link moon.TooltipDecorator}.
 			*
 			* @type {Boolean}
 			* @default false
@@ -68,7 +67,7 @@
 			showDelay: 500,
 
 			/**
-			* Position of the tooltip with respect to the activating control. Valid values are:
+			* Position of the tooltip with respect to the activating control. Valid values are
 			* `'above'`, `'below'`, and `'auto'`.
 			*
 			* @type {String}
@@ -78,7 +77,7 @@
 			position: 'auto',
 
 			/**
-			* Default `margin-left` value
+			* Default `margin-left` value.
 			*
 			* @type {Number}
 			* @default 0
@@ -87,7 +86,7 @@
 			defaultLeft: 0,
 
 			/**
-			* When `true`, the content will be converted to locale-safe uppercasing
+			* When `true`, the content will have locale-safe uppercasing applied.
 			*
 			* @type {Boolean}
 			* @default true
@@ -160,11 +159,7 @@
 		* @private
 		*/
 		requestShow: function (inSender, inEvent) {
-			// if onRequestShowTooltip is generated from moon.ListAction
-			// it must have activator
-			if (inSender.$.activator) {
-				this.activator = inSender.$.activator;
-			}
+			this.activator = inSender;
 			this.startJob('showJob', 'show', this.showDelay);
 			return true;
 		},
@@ -264,6 +259,9 @@
 					} else {
 						this.applyStyle('right', acBounds.width / 2 + paRightDiff + 'px');
 					}
+				} else {
+					this.removeClass('right-arrow');
+					this.addClass('left-arrow');
 				}
 			}
 		},
@@ -279,4 +277,3 @@
 	});
 
 })(enyo, this);
-

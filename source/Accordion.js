@@ -1,8 +1,7 @@
 (function (enyo, scope) {
 	/**
-	* `moon.Accordion` is an [`ExpandableListItem`]{@link moon.ExpandableListItem}
-	* with an arrow button to the right of the header and additional margin space to
-	* the left of the item list.
+	* {@link moon.Accordion} is a {@link moon.ExpandableListItem} with an arrow button
+	* to the right of the header and additional margin space to the left of the item list.
 	*
 	* To open or close the drawer, tap on the header text or navigate (via 5-way)
 	* back to the top of the drawer.

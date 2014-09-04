@@ -1,8 +1,8 @@
 (function (enyo, scope) {
 	/**
-	* `moon.TextArea` is a Moonstone-styled TextArea control, derived from
-	* [`enyo.TextArea`]{@link enyo.TextArea}. Typically, a `moon.TextArea` is placed inside
-	* a [`moon.InputDecorator`]{@link moon.InputDecorator}, which provides styling, e.g.:
+	* {@link moon.TextArea} is a Moonstone-styled text input field, derived from
+	* {@link enyo.TextArea}. Typically, a `moon.TextArea` is placed inside
+	* a {@link moon.InputDecorator}, which provides styling, e.g.:
 	*
 	* ```
 	* {kind: 'moon.InputDecorator', components: [
@@ -11,7 +11,8 @@
 	* ```
 	*
 	* For more information, see the documentation on
-	* [Text Fields]{@link building-apps/controls/text-fields.html} in the Enyo Developer Guide.
+	* [Text Fields]{@link building-apps/controls/text-fields.html} in the
+	* Enyo Developer Guide.
 	*
 	* @class moon.TextArea
 	* @extends enyo.TextArea
@@ -49,7 +50,7 @@
 		},
 
 		/**
-		* Set the focus on the textarea
+		* Sets the focus on the TextArea.
 		*
 		* @public
 		*/
@@ -64,7 +65,7 @@
 		},
 
 		/**
-		* Remove focus from textarea
+		* Removes focus from the TextArea.
 		*
 		* @public
 		*/

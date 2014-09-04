@@ -10,7 +10,7 @@
 	*/
 
 	/**
-	* Fires in response to dragging on the video position knob. No additional information is
+	* Fires when user starts dragging the video position knob. No additional data is
 	* provided in this event.
 	*
 	* @event moon.VideoTransportSlider#onSeekStart
@@ -19,7 +19,7 @@
 	*/
 
 	/**
-	* Fires when user changes the video position.
+	* Fires when user changes the video position by tapping the bar.
 	*
 	* @event moon.VideoTransportSlider#onSeek
 	* @type {Object}
@@ -28,7 +28,7 @@
 	*/
 
 	/**
-	* Fires in response to the user no longer dragging the video position knob.
+	* Fires when user stops dragging the video position knob.
 	*
 	* @event moon.VideoTransportSlider#onSeekFinish
 	* @type {Object}
@@ -37,7 +37,7 @@
 	*/
 
 	/**
-	* Fires when cursor enters _tapArea_.
+	* Fires when cursor enters the tap area.
 	*
 	* @event moon.VideoTransportSlider#onEnterTapArea
 	* @type {Object}
@@ -45,7 +45,7 @@
 	*/
 
 	/**
-	* Fires when cursor leaves _tapArea_.
+	* Fires when cursor leaves the tap area.
 	*
 	* @event moon.VideoTransportSlider#onLeaveTapArea
 	* @type {Object}
@@ -53,17 +53,17 @@
 	*/
 
 	/**
-	* `moon.VideoTransportSlider` extends {@link moon.Slider}, adding specialized behavior related
-	* to video playback.
+	* {@link moon.VideoTransportSlider} extends {@link moon.Slider}, adding specialized
+	* behavior related to video playback.
 	*
 	* ```javascript
 	* {kind: 'moon.VideoTransportSlider', value: 30}
 	* ```
 	*
-	* The [`onSeekStart`]{@link moon.VideoTransportSlider#event:onSeekStart} event is fired while
+	* The [onSeekStart]{@link moon.VideoTransportSlider#event:onSeekStart} event is fired while
 	* the control knob is being dragged, the
-	* [`onSeekFinish`]{@link moon.VideoTransportSlider#event:onSeekFinish} event is fired when the
-	* drag finishes, and the [`onSeek`]{@link moon.VideoTransportSlider#event:onSeek} event is fired
+	* [onSeekFinish]{@link moon.VideoTransportSlider#event:onSeekFinish} event is fired when the
+	* drag finishes, and the [onSeek]{@link moon.VideoTransportSlider#event:onSeek} event is fired
 	* when the position is set by tapping the bar.
 	*
 	* @class moon.VideoTransportSlider
@@ -101,7 +101,7 @@
 		published: {
 
 			/**
-			* Starting point of slider
+			* Starting point of slider.
 			*
 			* @type {Number}
 			* @default 0
@@ -110,7 +110,7 @@
 			rangeStart: 0,
 
 			/**
-			* Ending point of slider
+			* Ending point of slider.
 			*
 			* @type {Number}
 			* @default 100
@@ -119,7 +119,7 @@
 			rangeEnd: 100,
 			
 			/**
-			* The percentage of where the slider begins (between 0 and 1)
+			* The position where the slider begins, expressed as a number between `0` and `1`.
 			*
 			* @type {Number}
 			* @default 0.0625
@@ -128,7 +128,7 @@
 			beginPosition: 0.0625,
 			
 			/**
-			* The percentage of where the slider ends (between 0 and 1)
+			* The position where the slider ends, expressed as a number between `0` and `1`.
 			*
 			* @type {Number}
 			* @default 0.9375
@@ -137,7 +137,7 @@
 			endPosition: 0.9375,
 			
 			/**
-			* This flag controls the slider draw
+			* Controls the slider draw.
 			*
 			* @type {Boolean}
 			* @default true
@@ -146,7 +146,7 @@
 			syncTick: true,
 			
 			/**
-			* This flag determines whether we show the dummy area
+			* Determines whether the dummy area is shown.
 			*
 			* @type {Boolean}
 			* @default true
@@ -155,7 +155,7 @@
 			showDummyArea: true,
 			
 			/**
-			* When `true`, label is shown at the start and end positions
+			* When `true`, label is shown at the start and end positions.
 			*
 			* @type {Boolean}
 			* @default true
@@ -164,7 +164,7 @@
 			showTickText: true,
 			
 			/**
-			* When `true`, tick bar is shown at the start and end positions
+			* When `true`, tick bar is shown at the start and end positions.
 			*
 			* @type {Boolean}
 			* @default true
@@ -173,7 +173,7 @@
 			showTickBar: true,
 			
 			/**
-			* When `true`, the progress may extend past the hour markers
+			* When `true`, progress may extend past the hour markers.
 			*
 			* @type {Boolean}
 			* @default false
@@ -182,7 +182,7 @@
 			liveMode: false,
 
 			/**
-			* CSS classes to apply to bg progressbar
+			* CSS classes to apply to background progress bar.
 			*
 			* @type {String}
 			* @default 'moon-video-transport-slider-bg-bar'
@@ -191,7 +191,7 @@
 			bgBarClasses: 'moon-video-transport-slider-bg-bar',
 			
 			/**
-			* CSS classes to apply to progressbar
+			* CSS classes to apply to progress bar.
 			*
 			* @type {String}
 			* @default 'moon-video-transport-slider-bar-bar'
@@ -200,7 +200,7 @@
 			barClasses: 'moon-video-transport-slider-bar-bar',
 			
 			/**
-			* CSS classes to apply to popup label
+			* CSS classes to apply to popup label.
 			*
 			* @type {String}
 			* @default 'moon-video-transport-slider-popup-label'
@@ -209,7 +209,7 @@
 			popupLabelClasses: 'moon-video-transport-slider-popup-label',
 			
 			/**
-			* CSS classes to apply to knob
+			* CSS classes to apply to knob.
 			*
 			* @type {String}
 			* @default 'moon-video-transport-slider-knob'
@@ -218,7 +218,7 @@
 			knobClasses: 'moon-video-transport-slider-knob',
 			
 			/**
-			* CSS classes to apply to tapArea
+			* CSS classes to apply to tap area.
 			*
 			* @type {String}
 			* @default 'moon-video-transport-slider-taparea'
@@ -236,7 +236,7 @@
 			popupColor: '#fff',
 			
 			/**
-			* Popup offset in pixels
+			* Popup offset in pixels.
 			*
 			* @type {Number}
 			* @default 25
@@ -245,7 +245,7 @@
 			popupOffset: 25,
 			
 			/**
-			* Threshold value (percentage) for using animation effect on slider progress change
+			* Threshold value (percentage) for using animation effect on slider progress change.
 			*
 			* @type {Number}
 			* @default 1
@@ -254,7 +254,7 @@
 			smallVariation: 1,
 			
 			/**
-			* Popup height in pixels
+			* Popup height in pixels.
 			*
 			* @type {Number}
 			* @default 67
@@ -623,7 +623,7 @@
 		},
 		
 		/**
-		* If user presses on `this.$.tapArea`, seeks to that point.
+		* If user presses `this.$.tapArea`, seeks to that point.
 		*
 		* @private
 		*/
@@ -654,7 +654,7 @@
 		},
 
 		/**
-		* If dragstart, bubbles [`onSeekStart`]{@link moon.VideoTransportSlider#event:onSeekStart}
+		* If `dragstart`, bubbles [onSeekStart]{@link moon.VideoTransportSlider#event:onSeekStart}
 		* event.
 		*
 		* @fires moon.VideoTransportSlider#onSeekStart
@@ -683,8 +683,8 @@
 		},
 		
 		/**
-		* If drag, bubbles [`onSeek`]{@link moon.VideoTransportSlider#event:onSeek} event and
-		* overrides parent drag handler.
+		* If `drag`, bubbles [onSeek]{@link moon.VideoTransportSlider#event:onSeek} event and
+		* overrides parent `drag` handler.
 		*
 		* @private
 		*/
@@ -718,9 +718,9 @@
 		},
 
 		/**
-		* If dragfinish, bubbles
-		* [`onSeekFinish`]{@link moon.VideoTransportSlider#event:onSeekFinish} event and overrides
-		* parent dragfinish handler.
+		* If `dragfinish`, bubbles
+		* [onSeekFinish]{@link moon.VideoTransportSlider#event:onSeekFinish} event and overrides
+		* parent `dragfinish` handler.
 		*
 		* @fires moon.VideoTransportSlider#onSeekFinish
 		* @private
@@ -752,7 +752,7 @@
 		},
 
 		/**
-		* Sends [`onSeek`]{@link moon.VideoTransportSlider#event:onSeek} event.
+		* Sends [onSeek]{@link moon.VideoTransportSlider#event:onSeek} event.
 		*
 		* @fires moon.VideoTransportSlider#onSeek
 		* @private
@@ -796,7 +796,7 @@
 		},
 
 		/**
-		* Format time helper
+		* Time formatting helper.
 		*
 		* @private
 		*/
@@ -805,18 +805,18 @@
 		},
 		
 		/**
-		* Send current status to [feedback]{@link moon.VideoFeedback} control in response to user
-		* input.
+		* Sends current status to [feedback]{@link moon.VideoFeedback} control in response to
+		* user input.
 		*
-		* @param {String} msg The string to display.
-		* @param {moon.VideoTransportSlider~FeedbackParameterObject} params A
+		* @param {String} - msg The string to display.
+		* @param {moon.VideoTransportSlider~FeedbackParameterObject} params - A
 		*	[hash]{@glossary Object} of parameters that accompany the message.
-		* @param {Boolean} persist If `true`, the [feedback]{@link moon.VideoFeedback} control will
+		* @param {Boolean} persist - If `true`, the [feedback]{@link moon.VideoFeedback} control will
 		*	not be automatically hidden.
-		* @param {String} leftSrc The source url for the image that is displayed on the left side of
-		*	the [feedback]{@link moon.VideoFeedback} control.
-		* @param {String} rightSrc The source url for the image that is displayed on the right side
-		*	of the [feedback]{@link moon.VideoFeedback} control.
+		* @param {String} leftSrc - The source url for the image displayed on the left side of
+		*	the feedback control.
+		* @param {String} rightSrc - The source url for the image displayed on the right side
+		*	of the feedback control.
 		* @public
 		*/
 		feedback: function(msg, params, persist, leftSrc, rightSrc) {

@@ -1,14 +1,6 @@
 (function (enyo, scope) {
 	/**
-	* Fires when the currently selected item changes. The following shows the event-specific data:
-	*
-	* ```javascript
-	* {
-	*	selected: [object Object],	// Reference to selected item
-	*	content: "San Francisco",	// Content of selected item
-	*	index: 1					// Index of selected item
-	* }
-	* ```
+	* Fires when the currently selected item changes.
 	* 
 	* @event moon.SimplePicker#onChange
 	* @type {Object}
@@ -19,10 +11,10 @@
 	*/
 
 	/**
-	* `moon.SimplePicker` is a [control]{@link enyo.Control} that solicits a choice from the user by
-	* cycling through a list of options. The picker's child [components]{@link enyo.Component}, 
-	* typically [`moon.MarqueeText`]{@link moon.MarqueeText} [objects]{@glossary Object} (the
-	* default component), become the options for the picker.
+	* {@link moon.SimplePicker} is a [control]{@link enyo.Control} that solicits a
+	* choice from the user by cycling through a list of options. The picker's child
+	* [components]{@link enyo.Component}, {@link moon.MarqueeText}
+	* [objects]{@glossary Object} by default, become the options for the picker.
 	*
 	* ```javascript
 	* {kind: 'moon.SimplePicker', onChange: 'changed', selectedIndex: 1, components: [
@@ -32,9 +24,9 @@
 	* ]}
 	* ```
 	* 
-	* The picker may be changed programmatically by calling 
-	* [`previous()`]{@link moon.SimplePicker#previous} or [`next()`]{@link moon.SimplePicker#next}, 
-	* or by modifying the [`selectedIndex`]{@link moon.SimplePicker#selectedIndex} published 
+	* The picker may be changed programmatically by calling
+	* [previous()]{@link moon.SimplePicker#previous} or [next()]{@link moon.SimplePicker#next}, 
+	* or by modifying the [selectedIndex]{@link moon.SimplePicker#selectedIndex} published 
 	* property by calling `set('selectedIndex', <value>)`.
 	*
 	* The picker options may be modified programmatically in the standard manner, by calling
@@ -42,8 +34,8 @@
 	*
 	* ```javascript
 	* // Add new items to picker
-	* this.$.picker.createComponent({"New York"}).render();
-	* this.$.picker.createComponent({"London"}).render();
+	* this.$.picker.createComponent({'New York'}).render();
+	* this.$.picker.createComponent({'London'}).render();
 	*
 	* // Remove currently selected item from picker
 	* this.$.picker.getSelected().destroy();
@@ -119,7 +111,7 @@
 			animate: true,
 
 			/**
-			* When `true`, button is shown as disabled and does not generate tap events.
+			* When `true`, buttons are shown as disabled and do not generate tap events.
 			*
 			* @type {Boolean}
 			* @default false
@@ -137,7 +129,7 @@
 			wrap: false,
 
 			/**
-			* By default, [SimplePicker]{@link moon.SimplePicker} is an inline-block element;
+			* By default, {@link moon.SimplePicker} is an inline-block element;
 			* setting `block: true` makes it a block element.
 			*
 			* @type {Boolean}
@@ -306,7 +298,8 @@
 		},
 
 		/**
-		* Hides _inControl_ and disables spotlight functionality.
+		* Hides passed-in [control]{@link enyo.Control} and disables {@glossary Spotlight}
+		* functionality.
 		*
 		* @private
 		*/
@@ -315,7 +308,8 @@
 		},
 
 		/**
-		* Shows _inControl_ and enables spotlight functionality.
+		* Shows passed-in [control]{@link enyo.Control} and enables {@glossary Spotlight}
+		* functionality.
 		*
 		* @private
 		*/
@@ -350,10 +344,10 @@
 			}
 		},
 		/*
-		* When the picker is initialized, looks for any items with an `active:true` flag; if one is
-		* found, it is set as the currently selected item. This is done without triggering an
-		* [_onChange_]{@link moon.SimplePicker#event:onChange} event, as it happens during
-		* initialization.
+		* When the picker is initialized, looks for any items with the `active` flag set to
+		* `true`; if one is found, it is set as the currently selected item. This is done
+		* without triggering an [onChange]{@link moon.SimplePicker#event:onChange} event, as
+		* it happens during initialization.
 		*
 		* @private
 		*/
@@ -439,13 +433,13 @@
 		},
 
 		/** 
-		* Cycles the selected item to the one before the currently selected item. If chained from an
-		* event it will cancel {@link Spotlight} hold pulse events once reaching the first item,
-		* unless [`wrap`]{@link moon.SimplePicker#wrap} is `true`. When calling directly, no
-		* arguments are required.
+		* Cycles the selected item to the one before the currently selected item. If chained from
+		* an event, {@link Spotlight} hold pulse events will be canceled once the first item is
+		* reached, unless [wrap]{@link moon.SimplePicker#wrap} is `true`. When calling this method
+		* directly, no arguments are required.
 		*
-		* @param {Object} sender - (unused) Sender if chained from event
-		* @param {Object} e - Event object, if chained from event
+		* @param {Object} sender - (unused) Sender, if chained from event.
+		* @param {Object} e - Event object, if chained from event.
 		* @public
 		*/
 		previous: function(sender, e) {
@@ -462,13 +456,13 @@
 		},
 
 		/** 
-		* Cycles the selected item to the one after the currently selected item. If chained from an
-		* event it will cancel {@link Spotlight} hold pulse events once reaching the last item,
-		* unless [`wrap`]{@link moon.SimplePicker#wrap} is `true`. When calling directly, no
-		* arguments are required.
+		* Cycles the selected item to the one after the currently selected item. If chained from
+		* an event, {@link Spotlight} hold pulse events will be canceled once the last item is
+		* reached, unless [wrap]{@link moon.SimplePicker#wrap} is `true`. When calling this method
+		* directly, no arguments are required.
 		*
-		* @param {Object} sender - (unused) Sender if chained from event
-		* @param {Object} e - Event object, if chained from event
+		* @param {Object} sender - (unused) Sender, if chained from event.
+		* @param {Object} e - Event object, if chained from event.
 		* @public
 		*/
 		next: function(sender, e) {

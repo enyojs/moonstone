@@ -1,19 +1,19 @@
 (function (enyo, scope) {
 	/**
-	* Used for setting a static time for [`moon.Clock`]{@link moon.Clock} to display.
+	* Used to set a static time for {@link moon.Clock} to display.
 	*
 	* @typedef {Object} moon.Clock~DateTimeObject
-	* @property {Number} year - Year to display
-	* @property {Number} month - Month to display
-	* @property {Number} day - Day to display
-	* @property {Number} hour - Hour to display
-	* @property {Number} minute - Minute to display
-	* @property {Number} second - Second to display
+	* @property {Number} year - Year to display.
+	* @property {Number} month - Month to display.
+	* @property {Number} day - Day to display.
+	* @property {Number} hour - Hour to display.
+	* @property {Number} minute - Minute to display.
+	* @property {Number} second - Second to display.
 	* @public
 	*/
 
 	/**
-	* `moon.Clock` is a control that displays clock information
+	* {@link moon.Clock} is a control that displays clock information.
 	*
 	* Example:
 	*
@@ -51,7 +51,7 @@
 		published: {
 
 			/**
-			* Refresh time in milliseconds
+			* Refresh time in milliseconds.
 			*
 			* @type {Number}
 			* @default 1000
@@ -60,9 +60,9 @@
 			refresh: 1000,
 
 			/**
-			* User-provided date; if `undefined`, system date is used. Can supply either a
-			* JavaScript {@glossary Date} object or a {@link moon.Clock~DateTimeObject} detailing
-			* the static date/time to use.
+			* User-provided date; if `undefined`, system date is used. Can be either a
+			* JavaScript {@glossary Date} object or a {@link moon.Clock~DateTimeObject}
+			* detailing the static date/time to use.
 			*
 			* @type {Date|moon.Clock~DateTimeObject}
 			* @default undefined
@@ -73,7 +73,7 @@
 			/**
 			* Current locale used for formatting. May be set after the control is
 			* created, in which case the control will be updated to reflect the
-			* new value.  Only valid if {@glossary iLib} is loaded.
+			* new value.  Only valid if [iLib]{@glossary ilib} is loaded.
 			*
 			* @type {String}
 			* @default ''
@@ -105,16 +105,17 @@
 		_timeDiff: 0,
 
 		/**
-		* `ilib` locale info instance; it contains information about the particular locale
+		* [iLib]{@glossary ilib} locale info instance; it contains information about the
+		* particular locale.
 		*
 		* @private
 		*/
 		ilibLocaleInfo: null,
 
 		/**
-		* Define clock mode.
-		* If `date` is assigned with JS Date object or `null`, it will be `'normal'`.
-		* If `date` is assigned with JS object that indicates the exact time components
+		* Defines clock mode.
+		* If `date` is assigned with JavaScript Date object or `null`, it will be `'normal'`.
+		* If `date` is assigned with JavaScript object that indicates the exact time components
 		* to be formatted into the clock, it will be `'static'`.
 		*
 		* @private
@@ -237,8 +238,8 @@
 		},
 
 		/**
-		* If user sets time without using JS Date object,
-		* it should be parsed into array for ilib.Date object.
+		* If user sets time without using a JavaScript Date object, this method
+		* parses the object into an array for an `iLib.Date` object.
 		*
 		* @private
 		*/

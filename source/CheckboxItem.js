@@ -4,19 +4,20 @@
 	*
 	* @event moon.CheckboxItem#onActivate
 	* @type {Object}
-	* @property {Boolean} checked - indicates whether the checkbox is currently checked.
-	* @property {Object} toggledControl - contains a reference to the CheckboxItem whose
-	*	state toggled. (Note that the originator of this event is actually the
-	*	{@link moon.Checkbox} contained within the `CheckboxItem`, so use this property to
-	*	reference the `CheckboxItem`.)
+	* @property {Boolean} checked - Whether the checkbox is currently checked.
+	* @property {Object} toggledControl - A reference to the {@link moon.CheckboxItem}
+	*	whose state changed. (Note that the originator of this event is actually the
+	*	{@link moon.Checkbox} contained within the `CheckboxItem`, so use this property
+	* to reference the `CheckboxItem`.)
 	*
 	* @public
 	*/
 
 	/**
-	* `moon.CheckboxItem` is a control that combines a {@link moon.Checkbox} with a text label.
-	* The label text may be set via the {@link enyo.Control#content} property. The state of the
-	* checkbox may be retrieved by querying the {@link moon.CheckboxItem#checked} property.
+	* {@link moon.CheckboxItem} is a control that combines a {@link moon.Checkbox} with
+	* a text label. The label text may be set via the [content]{@link enyo.Control#content}
+	* property. The state of the checkbox may be retrieved by querying the
+	* [checked]{@link moon.CheckboxItem#checked} property.
 	*
 	* ```
 	*		{kind: 'moon.CheckboxItem', content: 'San Francisco',
@@ -27,9 +28,9 @@
 	*		}
 	* ```
 	*
-	* You may place {@link moon.CheckboxItem} objects inside an {@link enyo.Group}
-	* to create a group of checkboxes in which only one may be checked at any given
-	* time (similar to how a {@link moon.RadioItemGroup} works):
+	* You may place CheckboxItem objects inside an {@link enyo.Group} to create a group
+	* of checkboxes in which only one may be checked at any given time (similar to how a
+	* [RadioItemGroup]{@link moon.RadioItemGroup} behaves):
 	*
 	* ```
 	*		{kind: 'Group', components: [
@@ -72,7 +73,7 @@
 		published: {
 
 			/**
-			* Boolean value indicating whether checkbox is currently checked
+			* Boolean value indicating whether checkbox is currently checked.
 			*
 			* @type {Boolean}
 			* @default false
@@ -81,7 +82,8 @@
 			checked: false,
 
 			/**
-			* If `true`, checkbox will be displayed on the right side of the checkbox item
+			* If `true`, checkbox will be displayed on the right side of the checkbox item;
+			* otherwise, it will be displayed on the left side.
 			*
 			* @type {Boolean}
 			* @default false
@@ -90,7 +92,7 @@
 			checkboxOnRight: false,
 
 			/**
-			* When `true`, button is shown as disabled and does not generate tap events
+			* If `true`, checkbox is shown as disabled and does not generate tap events.
 			*
 			* @type {Boolean}
 			* @default false
@@ -99,7 +101,8 @@
 			disabled: false,
 
 			/**
-			* When locked is `true`, cannot change the value of the `checked` property
+			* If `true`, the value of the [checked]{@link moon.CheckboxItem#checked} property
+			* cannot be changed through user input.
 			*
 			* @type {Boolean}
 			* @default false
@@ -108,8 +111,8 @@
 			locked: false,
 
 			/**
-			* Customize the appearance of the checkbox with an icon name. Consult {@link moon.Icon}
-			* for valid values
+			* Name of a font-based icon to use when displaying the checkbox. Consult
+			* {@link moon.Icon} for valid values.
 			*
 			* @type {String}
 			* @default 'check'
@@ -118,13 +121,24 @@
 			icon: 'check',
 
 			/**
-			* Customize the appearance of the checkbox with an image asset.
+			* Optional path to an image asset. May be used to customize checkbox appearance.
 			*
 			* @type {String}
 			* @default ''
 			* @public
 			*/
-			src: ''
+			src: '',
+			
+			/**
+			* If used as the base control within a {@link moon.DataList} or {@glossary subkind},
+			* this should be set to `false` so that selection support can be synchronized to the
+			* checked state of this control.
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
+			handleTapEvent: true
 		},
 
 		/**
@@ -222,8 +236,10 @@
 		* @private
 		*/
 		tap: function (inSender, inEvent) {
-			if (inSender != this.$.input) {
-				this.waterfallDown('ontap', inEvent, inSender);
+			if (this.handleTapEvent) {
+				if (inSender != this.$.input) {
+					this.waterfallDown('ontap', inEvent, inSender);
+				}
 			}
 		},
 

@@ -1,40 +1,33 @@
 (function (enyo, scope) {
 	/**
-	* Handler for initial rendering event
+	* Handler for initial rendering event.
 	*
 	* @event moon.Drawers#onDrawersRendered
 	* @type {Object}
-	* @property {Number} drawersHeight - The height of the drawer
+	* @property {Number} drawersHeight - The height of the drawer.
 	* @public
 	*/
 
 	/**
-	* Handler for initial resizing event to size drawers to full screen
+	* Handler for initial resizing event to size drawers to fullscreen.
 	*
 	* @event moon.Drawers#onDrawersResized
 	* @type {Object}
-	* @public
-	*/
-
-	/**
-	* Handler for initial resizing event to size drawers to full screen
-	*
-	* @event moon.Drawers#onDrawersResized
-	* @type {Object}
-	* @property {Number} drawersHeight - The height of the drawer
+	* @property {Number} drawersHeight - The height of the drawer.
 	* @public
 	*/
 
 
 	/**
-	* `moon.Drawers` is a container kind designed to hold a set of {@link moon.Drawer} objects and
-	* client content. The {@link moon.Drawers#drawers} property accepts an array of `Drawer`
-	* controls. The associated [handlers]{@link moon.DrawerHandle} are positioned in their own small
-	* drawer, centered at the top of the 'dresser' -- the region containing the array of Drawer
-	* controls and the activator nub.
+	* {@link moon.Drawers} is a container kind designed to hold a set of {@link moon.Drawer}
+	* objects and client content. The [drawers]{@link moon.Drawers#drawers} property accepts
+	* an array of Drawer controls. The associated [handles]{@link moon.DrawerHandle} are
+	* positioned in their own small drawer, centered at the top of the "dresser" (the region
+	* containing the array of Drawer controls and the activator nub).
 	*
-	* When a handle is selected, it opens the corresponding Drawer object's main drawer or control
-	* drawer, depending on how the Drawer object is configured.  The control's child components may
+	* When a handle is selected, it opens the corresponding Drawer object's main drawer or
+	* control drawer, depending on how the Drawer object is configured. The control's child
+	* components may
 	* be of any kind.
 	*
 	* ```
@@ -89,7 +82,7 @@
 		published: {
 
 			/**
-			* Populate with an array of {@link moon.Drawer} components
+			* Populate with an array of {@link moon.Drawer} components.
 			*
 			* @type {Object[]}
 			* @default null
@@ -121,7 +114,7 @@
 			icon: '',
 
 			/**
-			* URL specifying path to icon image
+			* URL specifying path to icon image.
 			*
 			* @type {String}
 			* @default ''
@@ -178,7 +171,7 @@
 		},
 
 		/**
-		* event waterfalls down
+		* Event waterfalls down.
 		* @fires moon.Drawers#onDrawersRendered
 		* @private
 		*/
@@ -273,7 +266,6 @@
 		openHandleContainer: function () {
 			this.$.handleContainer.spotlightDisabled = false;
 			this.$.handleContainer.setOpen(true);
-			enyo.Spotlight.spot(this.$.handleContainer);
 			this.updateActivator(true);
 			enyo.dispatcher.capture(this.$.handleContainer, this.eventsToCapture, this);
 		},
@@ -410,7 +402,7 @@
 		},
 
 		/**
-		* Updates the activator's style only when it is not animating, so that there
+		* Updates the activator's style only if it is not animating, so that there
 		* are no visual artifacts.
 		*
 		* @private

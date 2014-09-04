@@ -4,7 +4,7 @@
 	*
 	* @event moon.PagingControl#onPaginate
 	* @type {Object}
-	* @property {Number} scrollDelta - The distance of the scroll
+	* @property {Number} scrollDelta - The distance of the scroll.
 	* @public
 	*/
 
@@ -13,15 +13,14 @@
 	*
 	* @event moon.PagingControl#onPaginateScroll
 	* @type {Object}
-	* @property {Number} scrollDelta - The magnitude of the scroll bounceback
-	*	[event]{@link external:event} information.
+	* @property {Number} scrollDelta - The magnitude of the scroll bounceback.
 	* @public
 	*/
 
 	/**
-	* `moon.PagingControl` is a paging control button derived from
-	* [moon.IconButton]{@link moon.IconButton}. This control is not intended for use outside of
-	* [moon.Scroller]{@link moon.Scroller}.
+	* {@link moon.PagingControl} is a paging control button derived from
+	* {@link moon.IconButton}. This control is not intended for use outside of
+	* {@link moon.Scroller}.
 	*
 	* @class moon.PagingControl
 	* @extends moon.IconButton
@@ -58,7 +57,7 @@
 			/**
 			* The side of the control where the button will be.
 			*
-			* Supported values are `'top'`, `'right'`, `'bottom'`, `'left'`.
+			* Supported values are `'top'`, `'right'`, `'bottom'`, and `'left'`.
 			*
 			* @type {String}
 			* @default null
@@ -119,7 +118,7 @@
 		/**
 		* @private
 		*/
-		maxDelta: 100,
+		maxDelta: 45,
 
 		/**
 		* @private
@@ -141,8 +140,8 @@
 
 		/**
 		* Stops scrolling animation and triggers
-		* [`onPaginate`]{@link moon.PagingControl#event:onPaginate} event with a delta value for the
-		* bounceback effect.
+		* [onPaginate]{@link moon.PagingControl#event:onPaginate} event with a delta
+		* value for the bounceback effect.
 		*
 		* @fires moon.PagingControl#onPaginate
 		* @public
@@ -165,7 +164,8 @@
 		},
 
 		/**
-		* Set this control's CSS class based on its [`side`]{@link moon.PagingControl#side} value.
+		* Set this control's CSS class based on its [side]{@link moon.PagingControl#side}
+		* value.
 		*
 		* @private
 		*/
@@ -286,7 +286,8 @@
 		},
 
 		/**
-		* Override default focused handling to make sure scroller doesn't scroll to this button.
+		* Overrides default focused handling to make sure scroller doesn't scroll to
+		* this button.
 		*
 		* @private
 		*/

@@ -14,7 +14,7 @@ enyo.kind({
 				{kind: 'moon.Button', small: true, content: 'How to use', ontap: 'howToUseMedium'}
 			]},
 			{classes: 'moon-1v'},
-			{kind: 'moon.Header', name: 'smallHeader', content: 'Small Header', type: 'small', titleAbove: '04', titleBelow: 'Sub Header', subTitleBelow: 'Sub-sub Header', components: [
+			{kind: 'moon.Header', name: 'smallHeader', content: 'Small Header', type: 'small', titleAbove: '04', subTitle: "Sub Title", titleBelow: 'Sub Header', subTitleBelow: 'Sub-sub Header', components: [
 				{kind: 'moon.Button', small: true, content: 'Description', ontap: 'describeSmall'},
 				{kind: 'moon.Button', small: true, content: 'How to use', ontap: 'howToUseSmall'}
 			]},
@@ -31,7 +31,7 @@ enyo.kind({
 			]},
 			{kind: 'moon.Header', name: 'inputHeaderDismiss', inputMode: true, dismissOnEnter: true, content: 'Input-style Header', placeholder: 'Dismiss on Enter', titleAbove: '03', titleBelow: 'InputHeader blurs-focus when pressing Enter.', subTitleBelow: '', onchange: 'handleChange'},
 			{classes: 'moon-1v'},
-			{kind: 'moon.Header', name: 'imageHeader', content: 'Header with Image', titleAbove: '02', titleBelow: 'Sub Header', subTitleBelow: 'Sub-sub Header', fullBleedBackground: false, backgroundSrc: 'http://lorempixel.com/g/1920/360/abstract/2/', components: [
+			{kind: 'moon.Header', name: 'imageHeader', content: 'Header with Image', subTitle: "Sub title can be seen only in small header. And can flow with title when marquee starts.", titleAbove: '02', titleBelow: 'Sub Header', subTitleBelow: 'Sub-sub Header', fullBleedBackground: false, backgroundSrc: 'http://lorempixel.com/g/1920/360/abstract/2/', components: [
 				{kind: 'moon.ToggleButton', small: true, toggleOnLabel: 'Full Bleed: true', toggleOffLabel: 'Full Bleed: false', ontap: 'handleToggle', classes: 'moon-header-left'},
 				{kind: 'moon.Button', small: true, content: 'large', ontap: 'resizeImageHeader'},
 				{kind: 'moon.Button', small: true, content: 'medium', ontap: 'resizeImageHeader'},

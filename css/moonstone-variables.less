@@ -40,7 +40,7 @@
 @moon-icon-pauseforward:      "\0F001B";
 @moon-icon-pausebackward:     "\0F001C";
 @moon-icon-pausejumpforward:  "\0F001D";
-@moon-icon-pausejumpbackward: "\0F001E"; 
+@moon-icon-pausejumpbackward: "\0F001E";
 @moon-icon-jumpforward:       "\0F001F";
 @moon-icon-jumpbackward:      "\0F0020";
 @moon-icon-arrowextend:       "\0F0021";
@@ -59,7 +59,8 @@
 @moon-button-large-font-size:       33px;
 @moon-button-small-font-size:       27px;
 @moon-header-font-size:             126px;
-@moon-small-header-font-size:       60px;
+@moon-small-header-font-size:   	60px;
+@moon-small-header-sub-header-font-size:   	27px;
 @moon-clock-minute-font-size:       61px;
 @moon-clock-text-font-size:         54px;
 @moon-clock-meridiem-font-size:     24px;
@@ -168,6 +169,7 @@
 @moon-icon-button-small-size: 60px;
 @moon-icon-sprite-size: (@moon-icon-button-size - (@moon-button-border-width * 2));
 @moon-icon-sprite-small-size: (@moon-icon-button-small-size - (@moon-button-border-width * 2));
+@moon-icon-tap-area-offset: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
 
 /* Spotlight */
 /* ---------------------------------------*/
@@ -189,7 +191,11 @@
 
 /* Header */
 /* ---------------------------------------*/
+@moon-header-height-large: 360px;
+@moon-header-height-medium: 240px;
+@moon-header-height-small: 120px;
 @moon-header-indent-width: 20px;
+@moon-header-title-subtitle-gap: 40px;
 @moon-header-border-top-width: 2px;
 @moon-header-border-bottom-width: 6px;
 @moon-input-header-icon: url(../images/input-header-icon.png);
@@ -337,3 +343,9 @@
 /* ----------------------------------------*/
 @moon-panels-handle-width: 130px;
 @moon-panel-handle-icon-font-size: 144px;
+
+
+/* Progress Button */
+/* ----------------------------------------*/
+@moon-progress-button-bar-border-radius: @moon-button-border-radius;
+@moon-progress-button-border-width: @moon-button-border-width;

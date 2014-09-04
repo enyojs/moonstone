@@ -1,9 +1,9 @@
 (function (enyo, scope) {
 	/**
-	* `moon.Spinner` is a [control]{@link enyo.Control} that shows a spinning animation to indicate
-	* that activity is taking place. By default, the spinner is light-colored and suitable for
-	* displaying against a dark background. If you need a dark spinner (to be shown on a lighter
-	* background), add the `moon-light` CSS class:
+	* {@link moon.Spinner} is a [control]{@link enyo.Control} that shows a spinning animation
+	* to indicate that activity is taking place. By default, the spinner is light-colored and
+	* suitable for displaying against a dark background. If you need a dark spinner (to be
+	* shown on a lighter background), apply the `moon-light` CSS class:
 	*
 	* ```javascript
 	* // Normal
@@ -17,14 +17,14 @@
 	* ```
 	*
 	* Typically, a spinner is shown to indicate activity and hidden to indicate that the activity
-	* has ended. The animation automatically starts when the spinner is shown. If you wish, you may
-	* control the animation directly by calling the [`start()`]{@link moon.Spinner#start},
-	* [`stop()`]{@link moon.Spinner#stop}, and [`toggle()`]{@link moon.Spinner#toggle} methods.
+	* has ended. The animation automatically starts when the spinner is shown. If you wish, you
+	* may control the animation directly by calling the [start()]{@link moon.Spinner#start},
+	* [stop()]{@link moon.Spinner#stop}, and [toggle()]{@link moon.Spinner#toggle} methods.
 	*
-	* `moon.Spinner` supports both `content` text and alternatively a `components` block. You may
-	* only use one method at a time. Using a components block may be desirable if, for example,
-	* the text in the content section needs to [marquee]{@link moon.MarqueeSupport} or you'd like to
-	* include a {@link moon.Icon} in the message.
+	* `moon.Spinner` supports both `content` text and a `components` block. Note that you
+	* may only use one of these at a time. Using a `components` block may be desirable if,
+	* for example, the text in the content section needs [marquee]{@link moon.MarqueeSupport}
+	* functionality or you'd like to include an [icon]{@link moon.Icon} in the message.
 	*
 	* @class moon.Spinner
 	* @extends enyo.Control
@@ -50,19 +50,35 @@
 		classes: 'moon-spinner',
 
 		/**
-		* @private
-		* @lends moon.Spinner.prototype
+		* Determines whether spinner's background is transparent.
+		*
+		* @type {Boolean}
+		* @default false
+		* @public
 		*/
-		published: {
-			/**
-			* Determines whether spinner's background is transparent.
-			*
-			* @type {Boolean}
-			* @default false
-			* @public
-			*/
-			transparent: false
-		},
+		transparent: false,
+
+		/**
+		* Sets the spinner to be horizontally centered, relative to its containing control. Use in
+		* combination with [moon.Spinner#center]{@link moon.Spinner#middle} to center this spinner
+		* both horizontally and vertically, or just horizontally.
+		*
+		* @type {Boolean}
+		* @default false
+		* @public
+		*/
+		center: false,
+
+		/**
+		* When `true`, sets the spinner to be vertically centered inside its container. This option
+		* has no effect if [moon.Spinner#center]{@link moon.Spinner#center} is `false`. Setting this
+		* to false allows the spinner to only be horizontally centered, and not vertically centered.
+		*
+		* @type {Boolean}
+		* @default true
+		* @public
+		*/
+		middle: true,
 
 		/**
 		* @private
@@ -118,6 +134,8 @@
 			this.inherited(arguments);
 			this.contentChanged();
 			this.transparentChanged();
+			this.centerChanged();
+			this.middleChanged();
 			this.addClass('running');
 		},
 
@@ -166,6 +184,20 @@
 			}
 			this.$.client.set('showing', !!this.content);
 			this.addRemoveClass('content', this.hasContent());
+		},
+
+		/**
+		* @private
+		*/
+		centerChanged: function(old) {
+			this.addRemoveClass('center',this.get('center'));
+		},
+
+		/**
+		* @private
+		*/
+		middleChanged: function(old) {
+			this.addRemoveClass('middle',this.get('middle'));
 		},
 
 		/**

@@ -4,7 +4,15 @@
 	position: relative;
 	text-align: center;
 }
+
+/*disabled*/
+.moon-scroll-picker-container.disabled {
+  cursor: default;
+  opacity: @moon-disabled-opacity;
+}
+
 .moon-scroll-picker {
+	direction: ltr;
 	height: @moon-integer-picker-height;
 	border-top: solid 30px transparent;
 	border-bottom: solid 30px transparent;
@@ -33,18 +41,18 @@
 	height: @moon-integer-picker-overlay-height;
 	font-family: @moon-icon-font-family;
 
-	&.top {
+	&.next {
 		top: 0;
 	}
-	&.top-image:after {
+	&.next:after {
 		content: @moon-icon-arrowsmallup;
 		font-size: @moon-integer-picker-caret-font-size;
 		line-height: @moon-integer-picker-caret-font-size/2 + 4;
 	}
-	&.bottom {
+	&.previous {
 		bottom: 0;
 	}
-	&.bottom-image:after {
+	&.previous:after {
 		content: @moon-icon-arrowsmalldown;
 		font-size: @moon-integer-picker-caret-font-size;
 		line-height: @moon-integer-picker-caret-font-size/2 - 8;
@@ -54,11 +62,11 @@
 .spotlight .moon-scroll-picker-overlay-container {
 	color: @moon-white;
 
-	&.top-image:after {
+	&.next:after {
 		content: @moon-icon-arrowlargeup;
 		line-height: @moon-integer-picker-caret-font-size/2 + 8;
 	}
-	&.bottom-image:after {
+	&.previous:after {
 		content: @moon-icon-arrowlargedown;
 		line-height: @moon-integer-picker-caret-font-size/2 - 12;
 	}
@@ -70,22 +78,30 @@
 	width: 100%;
 	background-color: @moon-accent;
 	
-	&.top {
+	&.next {
 	 	top: 0;
-		border-top: solid @moon-integer-picker-shadow-width rgba(0,0,0,0.2);
+		border-style: solid;
+		border-width: 0;
+		border-color: rgba(0,0,0,0.2);
+
+		border-top-width: @moon-integer-picker-shadow-width;
 		border-radius: @moon-integer-picker-radius @moon-integer-picker-radius 0 0;
 	}
-	&.top:after {
+	&.next:after {
 		content: @moon-icon-arrowsmallup;
 		font-size: @moon-integer-picker-caret-font-size;
 		line-height: @moon-integer-picker-caret-font-size/2 - 4;
 	}
-	&.bottom {
+	&.previous {
 	 	bottom: 0;
-		border-bottom: solid @moon-integer-picker-shadow-width rgba(0,0,0,0.2);
+		border-style: solid;
+		border-width: 0;
+		border-color: rgba(0,0,0,0.2);
+
+		border-bottom-width: @moon-integer-picker-shadow-width;
 		border-radius: 0 0 @moon-integer-picker-radius @moon-integer-picker-radius;
 	}
-	&.bottom:after {
+	&.previous:after {
 		content: @moon-icon-arrowsmalldown;
 		font-size: @moon-integer-picker-caret-font-size;
 		line-height: @moon-integer-picker-caret-font-size/2 + 8;

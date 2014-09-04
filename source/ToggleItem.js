@@ -1,6 +1,6 @@
 (function (enyo, scope) {
 	/**
-	* `moon.ToggleItem` is a control that combines a [`moon.ToggleSwitch`]{@link moon.ToggleSwitch}
+	* {@link moon.ToggleItem} is a control that combines a {@link moon.ToggleSwitch}
 	* with a text label.
 	*
 	* @class moon.ToggleItem
