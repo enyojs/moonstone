@@ -138,6 +138,11 @@
 		/**
 		* @private
 		*/
+		thaiExtraYear: 543,
+
+		/**
+		* @private
+		*/
 		components: [
 			{name: 'headerWrapper', kind: 'moon.Item', classes: 'moon-date-picker-header-wrapper', onSpotlightFocus: 'headerFocus', ontap: 'expandContract', components: [
 				// headerContainer required to avoid bad scrollWidth returned in RTL for certain text widths (webkit bug)
@@ -244,7 +249,12 @@
 		valueChanged: function (inOld) {
 			this.setChildPickers(inOld);
 			if (this.value) {
-				this.doChange({name:this.name, value:this.value});
+				if(this.locale == 'th-TH'){
+					this.value.setFullYear(this.value.getFullYear() + this.thaiExtraYear);
+					this.doChange({name:this.name, value:this.value});
+				} else {
+					this.doChange({name:this.name, value:this.value});
+				}
 			} else {
 				this.noneTextChanged();
 			}
@@ -358,7 +368,7 @@
 			if (this._tf) {
 				delete this._tf;
 			}
-			this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
+			//this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
 			this.initDefaults();
 			this.render();
 		}

@@ -63,7 +63,11 @@ enyo.kind({
 		var year = isNaN(parseInt(this.$.yearInput.getValue(), 0)) ? this.$.picker.value.getFullYear() : parseInt(this.$.yearInput.getValue(), 0);
 		var month = isNaN(parseInt(this.$.monthInput.getValue(), 0)) ? this.$.picker.value.getMonth() : parseInt(this.$.monthInput.getValue(), 0) - 1;
 		var day = isNaN(parseInt(this.$.dayInput.getValue(), 0)) ? this.$.picker.value.getDate() : parseInt(this.$.dayInput.getValue(), 0);
-		this.$.picker.setValue(new Date(year, month, day));
+		if(this.$.picker.getLocale() == 'th-TH'){
+			this.$.picker.setValue(new Date(year-543, month, day));
+		} else{
+			this.$.picker.setValue(new Date(year, month, day));
+		}
 	},
 	resetDate: function() {
 		this.$.picker.setValue(new Date());

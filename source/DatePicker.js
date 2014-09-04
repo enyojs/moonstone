@@ -105,6 +105,8 @@
 		*/
 		create: function () {
 			this.inherited(arguments);
+			this.thaiMinYear = this.minYear + this.thaiExtraYear;
+			this.thaiMaxYear = this.maxYear + this.thaiExtraYear;
 		},
 		
 		/**
@@ -232,6 +234,7 @@
 					break;
 				}
 			}
+			this.formatThaiYear();
 			this.inherited(arguments);
 		},
 
@@ -257,6 +260,9 @@
 				month = this.$.month.getValue(),
 				year = this.$.year.getValue(),
 				maxDays;
+			if (this.locale == "th-TH") {
+				year = year - this.thaiExtraYear;
+			}
 			var valueHours = this.value ? this.value.getHours() : 0;
 			var valueMinutes = this.value ? this.value.getMinutes() : 0;
 			var valueSeconds = this.value ? this.value.getSeconds() : 0;
@@ -295,12 +301,36 @@
 					value = this.localeValue.getJSDate();
 				}
 
-				this.$.year.setValue(value.getFullYear());
+				if (this.locale !== "th-TH") {
+					this.$.year.setValue(value.getFullYear());
+				}
 				this.$.month.setValue(value.getMonth() + 1);
 				this.$.day.setValue(value.getDate());
 				this.$.day.setMax(this.monthLength(value.getFullYear(), value.getMonth() + 1));
+				this.formatThaiYear();
 			}
 			this.$.currentValue.setContent(this.formatValue());
+		},
+
+		/**
+		* @private
+		*/
+		formatThaiYear: function () {
+			var valueFullYear;
+			if (this.locale == "th-TH") {
+				this.$.year.setMin(this.thaiMinYear);
+				this.$.year.setMax(this.thaiMaxYear);
+				if (typeof ilib !== 'undefined') {
+					if (this.localeValue) {
+						valueFullYear = this.localeValue.getYears() + this.thaiExtraYear;
+					}
+				} else {
+					if (this.value) {
+						valueFullYear = this.value.getFullYear() + this.thaiExtraYear;
+					}
+				}
+				this.$.year.setValue(valueFullYear);
+			}
 		},
 
 		/**
