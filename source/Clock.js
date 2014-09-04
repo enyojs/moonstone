@@ -37,12 +37,7 @@
 		/**
 		* @private
 		*/
-		kind: 'enyo.Control',
-
-		/**
-		* @private
-		*/
-		classes: 'moon-clock moon-header-font',
+		classes: 'moon-clock',
 
 		/**
 		* @private
@@ -93,9 +88,7 @@
 		* @private
 		*/
 		components: [
-			{name: 'right', classes: 'moon-clock-right mini', components: [
-				{kind: 'enyo.Control', name: 'top', classes: 'moon-header-font moon-clock-top-text'}
-			]},
+			{name: 'clock', classes: 'moon-bold-text'},
 			{kind: 'enyo.Signals', onlocalechange: 'handleLocaleChangeEvent'}
 		],
 
@@ -278,7 +271,7 @@
 																			: ilib.Date.newInstance(this.parseStaticDate(inDate)))
 								: (this.mode === 'normal')	? this._formatNumber(inDate.getMinutes())
 															: this._formatNumber(inDate.min);
-			this.$.top.setContent(time);
+			this.$.clock.setContent(time);
 		},
 
 		/**
