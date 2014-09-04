@@ -49,7 +49,7 @@
 	&.disabled {
 		border-color: transparent;
 	}
-	
+
 	// No-background + no-background and all states
 	&.no-background {
 		&:not(.spotlight),
@@ -60,20 +60,15 @@
 		}
 	}
 
-	//'Selected+Focus' state
-	&.active.spotlight,
-	&.small.active.spotlight {
+	// 'Selected+Focus' state
+	&.active.spotlight {
 		border-color: @moon-active-spotlight-border-color;
 		background-color: @moon-icon-button-spotlight-bg-color;
 		color:@moon-spotlight-text-color;
-	}
 
-	&.active.spotlight:active,
-	&.small.active.spotlight:active,
-	&.active.spotlight.pressed,
-	&.small.active.spotlight.pressed {
-		border-color: @moon-icon-button-active-border-color;
-		background-color: @moon-icon-button-active-bg-color;
-		color: @moon-icon-button-font-color;
+		&:active,
+		&.pressed {
+			border-color: @moon-icon-button-active-border-color;
+		}
 	}
 }
