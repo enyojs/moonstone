@@ -1177,7 +1177,7 @@
 		*/
 		brandingSrcChanged: function () {
 			if (this.pattern === 'activity') {
-				this.$.scrim.applyStyle('background-image', (this.brandingSrc && this.getPanelInfo(0, this.index).breadcrumb) ? 'url(' + this.brandingSrc + ')' : 'none');
+				this.$.scrim.applyStyle('background-image', (this.brandingSrc && this.getPanelInfo(0, this.index).breadcrumb) ? 'url(' + enyo.path.rewrite(this.brandingSrc) + ')' : 'none');
 			}
 		}
 	});

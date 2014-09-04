@@ -10,7 +10,7 @@ enyo.kind({
 			]},
 			{kind: "moon.InputDecorator", components: [
 				{kind: "moon.Input", placeholder: "Search term", oninput:"handleInput", onchange:"handleChange"},
-				{kind: "Image", src: "assets/search-input-search.png"}
+				{kind: "Image", src: "$lib/moonstone/samples/assets/search-input-search.png"}
 			]},
 			{kind: "moon.InputDecorator", components: [
 				{kind: "moon.Input", type:"password", placeholder: "Enter password", oninput:"handleInput", onchange:"handleChange"}
@@ -42,7 +42,7 @@ enyo.kind({
 			]},
 			{kind: "moon.InputDecorator", components: [
 				{kind: "moon.RichText", style: "width: 240px;", oninput:"handleInput", onchange:"handleChange"},
-				{kind: "Image", src: "assets/search-input-search.png"}
+				{kind: "Image", src: "$lib/moonstone/samples/assets/search-input-search.png"}
 			]},
 			{kind: "moon.InputDecorator", disabled: true, components: [
 				{kind: "moon.RichText", disabled: true, style: "width: 240px;"}

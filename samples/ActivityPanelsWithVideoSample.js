@@ -2,7 +2,7 @@ enyo.kind({
 	name: "moon.sample.ActivityPanelsWithVideoSample",
 	classes: "moon enyo-fit enyo-unselectable",
 	components: [
-        {name: "player", kind: "moon.VideoPlayer", src: "http://media.w3.org/2010/05/bunny/movie.mp4", poster: "assets/video-poster.png", autoplay: true, infoComponents: [
+        {name: "player", kind: "moon.VideoPlayer", src: "http://media.w3.org/2010/05/bunny/movie.mp4", poster: "$lib/moonstone/samples/assets/video-poster.png", autoplay: true, infoComponents: [
 			{kind: "moon.VideoInfoBackground", orient: "left", background: true, fit: true, components: [
 				{
 					kind: "moon.ChannelInfo",
@@ -27,16 +27,16 @@ enyo.kind({
 				{kind:"moon.Clock"}
 			]}
 		], components: [
-			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"}
+			{kind: "moon.IconButton", classes: "moon-icon-video-round-controls-style"},
+			{kind: "moon.IconButton", classes: "moon-icon-video-round-controls-style"},
+			{kind: "moon.IconButton", classes: "moon-icon-video-round-controls-style"},
+			{kind: "moon.IconButton", classes: "moon-icon-video-round-controls-style"},
+			{kind: "moon.IconButton", classes: "moon-icon-video-round-controls-style"},
+			{kind: "moon.IconButton", classes: "moon-icon-video-round-controls-style"},
+			{kind: "moon.IconButton", classes: "moon-icon-video-round-controls-style"},
+			{kind: "moon.IconButton", classes: "moon-icon-video-round-controls-style"},
+			{kind: "moon.IconButton", classes: "moon-icon-video-round-controls-style"},
+			{kind: "moon.IconButton", classes: "moon-icon-video-round-controls-style"}
 		]},
 		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", useHandle: true, components: [
 			{title: "First Panel", classes: "moon-7h", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
