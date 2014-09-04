@@ -1,7 +1,7 @@
 /* IconButton.css */
 .moon-icon-button {
+	.border-box;
 	color: @moon-icon-button-font-color;
-	box-sizing: border-box;
 	width: @moon-icon-button-size;
 	height: @moon-icon-button-size;
 	border-radius: @moon-icon-button-size / 2;
@@ -64,11 +64,16 @@
 	&.active.spotlight {
 		border-color: @moon-active-spotlight-border-color;
 		background-color: @moon-icon-button-spotlight-bg-color;
-		color:@moon-spotlight-text-color;
+		color: @moon-spotlight-text-color;
 
 		&:active,
 		&.pressed {
 			border-color: @moon-icon-button-active-border-color;
+			background-position: center -@moon-icon-sprite-size;
+
+			&.small {
+				background-position: center -@moon-icon-sprite-small-size;
+			}
 		}
 	}
 }
