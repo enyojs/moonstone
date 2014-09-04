@@ -46,7 +46,7 @@
 	}
 
 	// 'Selected+Focus' state
-	&.active.spotlight {
+	&.active.spotlight:not(.contextual-popup-button) {
 		border-color: @moon-active-spotlight-border-color;
 		background-color: @moon-spotlight-border-color;
 		color: @moon-spotlight-text-color;
@@ -93,8 +93,12 @@
 		color: @moon-neutral-button-text-color;
 	}
 
-	&.spotlight * {
-		color: @moon-spotlight-text-color;
+	&.spotlight {
+    	background-color: @moon-spotlight-color;
+
+    	* {
+			color: @moon-spotlight-text-color;
+    	}
 	}
 
 	&.active,
