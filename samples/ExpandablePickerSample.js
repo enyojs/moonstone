@@ -43,7 +43,12 @@ enyo.kind({
 						{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", disabled:true, autoCollapse: true, content: "Disabled Integer Picker", value: 2, min: 1, max: 15, unit: "sec"},
 						{kind: "moon.DatePicker", noneText: "Pick a Date", content: "Date Picker"},
 						{kind: "moon.TimePicker", noneText: "Pick a Date", content: "Time Picker"},
-						{kind: "moon.ExpandableInput", noneText: "Enter text", content: "Expandable Input", placeholder: "Enter text"}
+						{kind: "moon.ExpandableInput", noneText: "Enter text", content: "Expandable Input", placeholder: "Enter text"},
+						{kind: "moon.ExpandableDataPicker", content: "Expandable Data Picker", noneText: "Nothing Selected", components: [
+							{bindings: [
+								{from: ".model.label", to: ".content"}
+							]}
+						]}
 					]}
 				]}
 			]},
@@ -88,13 +93,34 @@ enyo.kind({
 							{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", disabled:true, autoCollapse: true, content: "Disabled Integer Picker", value: 2, min: 1, max: 15, unit: "sec"},
 							{kind: "moon.DatePicker", noneText: "Pick a Date", content: "Date Picker"},
 							{kind: "moon.TimePicker", noneText: "Pick a Date", content: "Time Picker"},
-							{kind: "moon.ExpandableInput", noneText: "Enter text", content: "Expandable Input", placeholder: "Enter text"}
+							{kind: "moon.ExpandableInput", noneText: "Enter text", content: "Expandable Input", placeholder: "Enter text"},
+							{kind: "moon.ExpandableDataPicker", content: "Expandable Data Picker", noneText: "Nothing Selected", components: [
+								{bindings: [
+									{from: ".model.label", to: ".content"}
+								]}
+							]}
 						]}
 					]}
 				]}
 			]}
 		]}
 	],
+	create: enyo.inherit(function (sup) {
+		return function () {
+			sup.apply(this, arguments);
+
+			var c = new enyo.Collection([
+				{label: "Item 1"},
+				{label: "Item 2"},
+				{label: "Item 3"},
+				{label: "Item 4"},
+				{label: "Item 5"}
+			]);
+
+			this.$.expandableDataPicker.set("collection", c);
+			this.$.expandableDataPicker2.set("collection", c);
+		};
+	}),
 	pickerChanged: function(inSender, inEvent) {
 		var value,
 			picker = inEvent.originator.getContent();
@@ -133,7 +159,9 @@ enyo.kind({
 			// disabled "expandablePicker11",
 			"expandablePicker12",
 			"timePicker",
-			"timePicker2"
+			"timePicker2",
+			"expandableDataPicker",
+			"expandableDataPicker2"
 		];
 		var index = 0;
 		var opened = false;
