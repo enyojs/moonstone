@@ -788,18 +788,18 @@
 .moon-icon-button.no-background.hover:hover:active {
   background-color: transparent;
 }
-.moon-icon-button.active.spotlight {
+.moon-icon-button.active.spotlight:not(.contextual-popup-button) {
   border-color: #ffffff;
   background-color: #cf0652;
   color: #ffffff;
 }
-.moon-icon-button.active.spotlight:active,
-.moon-icon-button.active.spotlight.pressed {
+.moon-icon-button.active.spotlight:not(.contextual-popup-button):active,
+.moon-icon-button.active.spotlight:not(.contextual-popup-button).pressed {
   border-color: #cf0652;
   background-position: center -75px;
 }
-.moon-icon-button.active.spotlight:active.small,
-.moon-icon-button.active.spotlight.pressed.small {
+.moon-icon-button.active.spotlight:not(.contextual-popup-button):active.small,
+.moon-icon-button.active.spotlight:not(.contextual-popup-button).pressed.small {
   background-position: center -50px;
 }
 .moon-marquee {
@@ -1283,13 +1283,13 @@
   background-color: #404040;
   color: #a6a6a6;
 }
-.moon-button.active.spotlight {
+.moon-button.active.spotlight:not(.contextual-popup-button) {
   border-color: #ffffff;
   background-color: #cf0652;
   color: #ffffff;
 }
-.moon-button.active.spotlight:active,
-.moon-button.active.spotlight.pressed {
+.moon-button.active.spotlight:not(.contextual-popup-button):active,
+.moon-button.active.spotlight:not(.contextual-popup-button).pressed {
   border-color: #cf0652;
 }
 .moon-button[disabled] {
@@ -1321,6 +1321,9 @@
 }
 .moon-neutral .moon-button * {
   color: #4b4b4b;
+}
+.moon-neutral .moon-button.spotlight {
+  background-color: #cf0652;
 }
 .moon-neutral .moon-button.spotlight * {
   color: #ffffff;
