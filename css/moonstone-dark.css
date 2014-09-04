@@ -2731,6 +2731,7 @@
 .moon-list-actions-drawer {
   overflow: hidden;
   z-index: 1;
+  -webkit-transform: translateZ(1px);
   pointer-events: none;
 }
 .moon-list-actions-drawer * {
