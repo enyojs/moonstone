@@ -91,7 +91,7 @@ enyo.kind(
 	getListComponent: function (comps) {
 		var list = {
 			name: 'list',
-			kind: 'DataRepeater',
+			kind: 'enyo.DataRepeater',
 			components: comps,
 			owner: this
 		};
@@ -99,7 +99,7 @@ enyo.kind(
 		// could use defaultProps on the repeater but they'll also get added to the repeater's
 		// container which may not be desirable
 		if(comps.length === 1 && !comps[0].kind) {
-			comps[0].kind = 'moon.CheckboxItem';
+			comps[0].kind = this.defaultKind;
 		}
 
 		return list;
