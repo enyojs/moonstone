@@ -1287,6 +1287,13 @@
   color: #4d4d4d;
   background-color: #262626;
 }
+.moon-button > .button-tap-area {
+  position: absolute;
+  top: -5px;
+  bottom: -5px;
+  left: -5px;
+  right: -5px;
+}
 .moon-button.small {
   height: 60px;
   min-width: 60px;
@@ -1298,7 +1305,7 @@
 .moon-button.small.min-width {
   min-width: 130px;
 }
-.moon-button.small > .small-button-tap-area {
+.moon-button.small > .button-tap-area {
   position: absolute;
   top: -14px;
   bottom: -14px;

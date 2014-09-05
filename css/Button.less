@@ -63,6 +63,14 @@
 		background-color: @moon-button-disabled-bg-color;
 	}
 
+   > .button-tap-area {
+		position: absolute;
+		top: -(@moon-button-border-width);
+		bottom: -(@moon-button-border-width);
+		left: -(@moon-button-border-width);
+		right: -(@moon-button-border-width);
+  }
+
 	&.small {
 		height: @moon-button-small-height;
 		min-width: @moon-button-small-height;
@@ -75,7 +83,7 @@
 			min-width: @moon-button-small-min-width;
 		}
 
-		> .small-button-tap-area {
+		> .button-tap-area {
 			position: absolute;
 			top: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
 			bottom: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
