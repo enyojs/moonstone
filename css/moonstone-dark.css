@@ -3487,7 +3487,7 @@
   height: 22px;
   background-color: #404040;
 }
-.moon-drawers-activator:after {
+.moon-drawers-activator .moon-drawers-activator-icon {
   margin: -12px auto 0;
   width: 60px;
   height: 36px;
@@ -3499,17 +3499,16 @@
   content: "\0F0006";
   color: #a6a6a6;
   text-align: center;
+  font-size: inherit;
+  line-height: inherit;
 }
 .moon-drawers-activator.open:before,
-.moon-drawers-activator.open:after {
+.moon-drawers-activator.open .moon-drawers-activator-icon {
   color: #4b4b4b;
   background-color: #ffffff;
 }
-.moon-drawers-activator.open:after {
-  content: "\0F0005";
-}
 .moon-drawers-activator.spotlight:before,
-.moon-drawers-activator.spotlight:after {
+.moon-drawers-activator.spotlight .moon-drawers-activator-icon {
   color: #ffffff;
   background-color: #cf0652;
 }
