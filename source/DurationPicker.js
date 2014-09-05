@@ -34,7 +34,7 @@
 			*/
 			onCountdownExpired: ''
 		},
-		
+
 		/**
 		* @private
 		* @lends moon.DurationPicker.prototype
@@ -69,21 +69,21 @@
 			secondText: moon.$L('second'),	// i18n 'MERIDIEM' label in moon.TimePicker widget
 
 			/**
-			* @type {Number}
+			* @type {String}
 			* @default ''
 			* @public
 			*/
 			valueHour: '',
 			
 			/**
-			* @type {Number}
+			* @type {String}
 			* @default ''
 			* @public
 			*/
 			valueMinute: '',
 
 			/**
-			* @type {Number}
+			* @type {String}
 			* @default ''
 			* @public
 			*/
@@ -173,15 +173,14 @@
 		* @private
 		*/
 		valueHourChanged: function() {
-			this.valueHour =  Math.round(this.valueHour);
 			if (this.valueHour === '') {
 				this.noneTextCheck();
-				this.$.hour.setValue(this.min);
 			} else if(this.valueHour <= 23 && this.valueHour >= this.min) {
+				this.valueHour = Math.round(this.valueHour);
 				this.$.currentValue.setContent(this.formatValue());
 				this.$.hour.set('value',this.valueHour);
 			} else {
-				this.set('valueHour', '');
+				this.set('valueHour', 0);
 				this.$.currentValue.setContent(this.formatValue());
 			}
 		},
@@ -190,16 +189,15 @@
 		* @private
 		*/
 		valueMinuteChanged: function() {
-			this.valueMinute =  Math.round(this.valueMinute);
 			if(this.valueMinute === ''){
 				this.noneTextCheck();
-				this.$.minute.setValue(this.min);
 			}
 			else if(this.valueMinute <= this.max && this.valueMinute >= this.min) {
+				this.valueMinute = Math.round(this.valueMinute);
 				this.$.currentValue.setContent(this.formatValue());
 				this.$.minute.setValue(this.valueMinute);
 			} else {
-				this.set('valueMinute', '');
+				this.set('valueMinute', 0);
 				this.$.currentValue.setContent(this.formatValue());
 			}
 		},
@@ -208,16 +206,15 @@
 		* @private
 		*/
 		valueSecondChanged: function() {
-			this.valueSecond =  Math.round(this.valueSecond);
 			if(this.valueSecond === '') {
 				this.noneTextCheck();
-				this.$.second.setValue(this.min);
 			}
 			else if(this.valueSecond <= this.max && this.valueSecond >= this.min) {
+				this.valueSecond = Math.round(this.valueSecond);
 				this.$.currentValue.setContent(this.formatValue());
 				this.$.second.setValue(this.valueSecond);
 			} else {
-				this.set('valueSecond', '');
+				this.set('valueSecond', 0);
 				this.$.currentValue.setContent(this.formatValue());
 			}
 		},
@@ -242,16 +239,16 @@
 		* @private
 		*/
 		templateChanged: function () {
-			if(this.template !== null && this.template !== ''){
+			if(this.template){
 				this.hidePickers();
 				var orderingArr = this.template.toLowerCase().split('');
 				var doneArr = [];
 				var o,f,l;
 				for(f = 0, l = orderingArr.length; f < l; f++) {
-					o = orderingArr[f];
+					o = orderingArr[f].toLowerCase();
 
-					//only accepts the hour, minute, second template values 'h', 'H', 'm', 'M', 's' and 'S'
-					if (doneArr.indexOf(o) < 0 && (o === 'h' || o === 'H' || o === 'm' || o === 'M' || o === 's' || o === 'S')) {
+					//only accepts the hour, minute, second template values 'h', 'm' and 's'
+					if (doneArr.indexOf(o) < 0 && (o == 'h' || o == 'm' || o == 's' )) {
 						doneArr.push(o);
 					}
 				}
@@ -260,15 +257,12 @@
 						o = doneArr[f];
 						switch (o){
 						case 'h':
-						case 'H':
 							this.$.hourPicker.setShowing(true);
 							break;
 						case 'm':
-						case 'M':
 							this.$.minutePicker.setShowing(true);
 							break;
 						case 's':
-						case 'S':
 							this.$.secondPicker.setShowing(true);
 							break;
 						default:
@@ -288,13 +282,13 @@
 		*/
 		formatValue: function () {
 			var text = '';
-			if(this.$.hourPicker.getShowing() === true) {
+			if(this.$.hourPicker.getShowing()) {
 				text = (this.valueHour === '' ? this.min : this.valueHour) + ' Hours ';
 			} 
-			if(this.$.minutePicker.getShowing() === true) {
+			if(this.$.minutePicker.getShowing()) {
 				text = text + (this.valueMinute === '' ? this.min : this.valueMinute) + ' Minutes ';
 			} 
-			if(this.$.secondPicker.getShowing() === true) {
+			if(this.$.secondPicker.getShowing()) {
 				text = text + (this.valueSecond === '' ? this.min : this.valueSecond) + ' Seconds';
 			}
 			this.doDurationChange({name:this.name, value: text});
@@ -305,16 +299,16 @@
 		* @private
 		*/
 		tick: function(){
-			var hr = this.get('valueHour');
-			var mn = this.get('valueMinute');
-			var ss = this.get('valueSecond');
-			
-			if(hr === this.min && mn === this.min && ss === this.min){
+			var hr = this.$.hourPicker.getShowing() ? this.get('valueHour') : 0;
+			var mn = this.$.minutePicker.getShowing() ? this.get('valueMinute') : 0;
+			var ss = this.$.secondPicker.getShowing() ? this.get('valueSecond') : 0;
+
+			if(hr <= this.min && mn <= this.min && ss <= this.min){
 				window.clearTimeout(this.timer);
 				this.doCountdownExpired({name:this.name});
 				return;
 			} else {
-				if(ss === this.min ) {
+				if(ss == this.min ) {
 					if(mn > this.min ){
 						mn--;
 					} else {
@@ -329,7 +323,6 @@
 				}
 				this.set('valueSecond', ss);
 			}
-
 		},
 
 		/**
@@ -342,9 +335,9 @@
 			this.set('valueHour', hour);
 			this.set('valueMinute', minute);
 			this.set('valueSecond', second);
-			
+
 			window.clearTimeout(this.timer);
-			if(this.countdown === true){				
+			if(this.countdown){
 				this.timer = window.setInterval(
 					enyo.bind (this, function() {
 						this.tick();

@@ -62,7 +62,7 @@
 			* @public
 			*/
 			noneText: ''
-		},	
+		},
 
 		/**
 		* @private
@@ -111,7 +111,6 @@
 			this.pickers = this.getClientControls();
 		},
 
-		
 		/**
 		* @private
 		*/
@@ -131,7 +130,7 @@
 		updateValue: function (inSender, inEvent) {
 			// implement in subkind
 		},
-		
+
 		/**
 		* If no item is selected, uses [`noneText`]{@link moon.DurationPickerBase#noneText}
 		* as current value and if nonoText value is not provided, use 'Pick Duration' 
@@ -140,10 +139,10 @@
 		* @private
 		*/
 		noneTextChanged: function () {
-			if(this.noneText === '') {
-				this.$.currentValue.setContent('Pick Duration');
-			} else {
+			if(this.noneText) {
 				this.$.currentValue.setContent(this.noneText);
+			} else {
+				this.$.currentValue.setContent('Pick Duration');
 			}
 		},
 
@@ -205,14 +204,5 @@
 				return true;
 			}
 		}
-
-		// /**
-		// * @private
-		// */
-		// refresh: function (){
-		// 	this.destroyClientControls();
-		// 	this.initDefaults();
-		// 	this.render();
-		// }
 	});
 })(enyo, this);
