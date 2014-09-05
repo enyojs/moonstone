@@ -126,6 +126,16 @@
 		/**
 		* @private
 		*/
+		iconClosed: 'arrowsmalldown',
+
+		/**
+		* @private
+		*/
+		iconOpen: 'arrowsmallup',
+
+		/**
+		* @private
+		*/
 		handlers: {
 			//* Handlers to update the activator when the state of the contained drawers changes
 			onActivate: 'drawerActivated',
@@ -138,7 +148,9 @@
 		* @private
 		*/
 		components: [
-			{name: 'activator', classes: 'moon-drawers-activator', spotlight: true, ontap: 'activatorHandler', mixins: ['enyo.StylesheetSupport']},
+			{name: 'activator', classes: 'moon-drawers-activator', spotlight: true, ontap: 'activatorHandler', components: [
+				{name: 'activatorIcon', kind: 'moon.Icon', classes: 'moon-drawers-activator-icon', small: false}
+			]},
 			{name: 'handleContainer', classes: 'moon-drawers-handle-container', kind: 'enyo.Drawer', resizeContainer: false, open: false, spotlightDisabled: true, onpostresize: 'resizeHandleContainer', components: [
 				{name:'handles', classes: 'moon-neutral moon-drawers-handles'}
 			]},
@@ -162,12 +174,6 @@
 			this.inherited(arguments);
 			this.$.drawers.createComponents(this.drawers, {kind: 'moon.Drawer', owner:this.owner});
 			this.setupHandles();
-			if (this.src) {
-				this.srcChanged();
-			}
-			if (this.icon) {
-				this.iconChanged();
-			}
 		},
 
 		/**
@@ -184,39 +190,15 @@
 		/**
 		* @private
 		*/
-		srcChanged: function(old) {
-			// Always change the src, even if its set to NULL because we want to be able to restore
-			// the initial behavior with `inherit`.
-			var src = this.src || 'inherit',
-				id = this.$.activator.id;
-
-			// If src passed is null|none|inherit|initial
-			if (src == 'none' || src == 'inherit' || src == 'initial') {
-				this.$.activator.set('stylesheetContent', '');
-			} else {
-				src = 'url(\'' + enyo.path.rewrite(this.src) + '\')';
-				// If icon exists, add image as background and inherit content
-				if (this.icon) {
-					this.$.activator.set('stylesheetContent', '#' + id + '.moon-drawers-activator:not(.open):after { background-image: ' + src + '; }');
-				} else {
-					// Else no content, only image
-					this.$.activator.set('stylesheetContent', '#' + id + '.moon-drawers-activator:not(.open):after { background-image: ' + src + '; content: ""; }');
-				}
-			}
+		srcChanged: function () {
+			this.updateActivator();
 		},
 
 		/**
 		* @private
 		*/
-		iconChanged: function(old) {
-			if (old) {
-				this.$.activator.removeClass('moon-icon-' + old);
-			}
-			if (this.icon) {
-				this.$.activator.addClass('moon-icon-' + this.icon);
-			}
-			// Run srcChanged() which also does accounting for this.icon's presence.
-			this.srcChanged();
+		iconChanged: function () {
+			this.updateActivator();
 		},
 
 		/**
@@ -243,7 +225,7 @@
 		/**
 		* @private
 		*/
-		activatorHandler: function (){
+		activatorHandler: function () {
 			if (this.drawerOpen()) {
 				this.closeDrawers();
 			} else {
@@ -283,8 +265,8 @@
 		/**
 		* @private
 		*/
-		handleTapped: function (inSender, inEvent) {
-			this.openDrawer(inEvent.originator);
+		handleTapped: function (sender, ev) {
+			this.openDrawer(ev.originator);
 			return true;
 		},
 
@@ -336,9 +318,9 @@
 		/**
 		* @private
 		*/
-		captureSpotFocus: function (inSender, inEvent) {
+		captureSpotFocus: function (sender, ev) {
 			// Only close drawers on 5-way focus in the client (not pointer focus)
-			if (inEvent.dir && inEvent.dispatchTarget.isDescendantOf(this.$.client)) {
+			if (ev.dir && ev.dispatchTarget.isDescendantOf(this.$.client)) {
 				this.closeDrawers();
 				this.closeHandleContainer();
 			}
@@ -347,9 +329,9 @@
 		/**
 		* @private
 		*/
-		captureTapSelect: function (inSender, inEvent) {
+		captureTapSelect: function (sender, ev) {
 			// Any tap or select in the client area closes the dresser/drawer
-			if (inEvent.dispatchTarget.isDescendantOf(this.$.client)) {
+			if (ev.dispatchTarget.isDescendantOf(this.$.client)) {
 				this.closeDrawers();
 				this.closeHandleContainer();
 			}
@@ -358,11 +340,11 @@
 		/**
 		* @private
 		*/
-		drawerActivated: function (inSender, inEvent) {
-			if (inEvent.originator instanceof moon.Drawer) {
+		drawerActivated: function (sender, ev) {
+			if (ev.originator instanceof moon.Drawer) {
 				this.updateActivator(true);
 				// Hide client when fullscreen drawer is open so it is not focusable
-				if (inEvent.originator.getOpen()) {
+				if (ev.originator.getOpen()) {
 					this.$.client.hide();
 				}
 			}
@@ -371,13 +353,13 @@
 		/**
 		* @private
 		*/
-		drawerDeactivated: function (inSender, inEvent) {
-			if (inEvent.originator instanceof moon.Drawer) {
-				if (!inEvent.originator.getOpen() && !inEvent.originator.getControlsOpen()) {
+		drawerDeactivated: function (sender, ev) {
+			if (ev.originator instanceof moon.Drawer) {
+				if (!ev.originator.getOpen() && !ev.originator.getControlsOpen()) {
 					this.updateActivator(false);
 				}
 				// Re-show client when closing fullscreen drawer
-				if (!inEvent.originator.getOpen()) {
+				if (!ev.originator.getOpen()) {
 					this.$.client.show();
 				}
 			}
@@ -387,7 +369,19 @@
 		* @private
 		*/
 		updateActivator: function (up) {
+			var icon = this.get('icon'),
+				src = this.get('src');
 			this.$.activator.addRemoveClass('open', up);
+			if (up) {
+				// Drawer is open
+				this.$.activatorIcon.set('src', '');
+				this.$.activatorIcon.set('icon', this.iconOpen);
+			} else {
+				this.$.activatorIcon.set('src', src);
+				// If there is a src, but no icon, set icon to ''.
+				// Otherwise fall back to assigned icon or the default closed icon
+				this.$.activatorIcon.set('icon', (src && !icon) ? '' : (icon || this.iconClosed));
+			}
 		},
 
 		/**
@@ -407,8 +401,8 @@
 		*
 		* @private
 		*/
-		resizeHandleContainer: function (inSender, inEvent) {
-			enyo.asyncMethod(inEvent.delegate.bindSafely(function () {
+		resizeHandleContainer: function (sender, ev) {
+			enyo.asyncMethod(ev.delegate.bindSafely(function () {
 				if (!this.$.animator.isAnimating()) {
 					this.parent.$.activator.addRemoveClass('drawer-open', this.parent.drawerOpen() ? true : false);
 				}
@@ -418,8 +412,8 @@
 		/**
 		* @private
 		*/
-		handleAtIndex: function (inIndex) {
-			return this.$.handles.getControls()[inIndex];
+		handleAtIndex: function (index) {
+			return this.$.handles.getControls()[index];
 		},
 
 		/**
