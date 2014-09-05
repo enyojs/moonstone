@@ -2060,6 +2060,7 @@
   overflow: hidden;
   border: 5px solid transparent;
   transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 .moon-progress-button.in-progress:active:hover:not([disabled]),
 .moon-progress-button.in-progress {
@@ -2069,12 +2070,15 @@
 }
 .moon-progress-button.completed .moon-progress-button-bar {
   transform: translateX(103%);
+  -webkit-transform: translateX(103%);
 }
 .moon-progress-button.animated .moon-progress-button-bar {
   transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -webkit-transition: -webkit-transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .moon-progress-button.animated.completed {
   transition: transform 0.2s ease-in;
+  -webkit-transition: -webkit-transform 0.2s ease-in;
 }
 .moon-progress-button-bar {
   height: 100%;
@@ -2085,11 +2089,13 @@
   border-radius: 9999px;
   background-color: #cf0652;
   transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 .moon-progress-button-progresspercent {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
 }
 .moon-slider-taparea {
   position: absolute;
