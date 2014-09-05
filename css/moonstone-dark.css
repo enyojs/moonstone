@@ -1289,6 +1289,7 @@
 }
 .moon-button > .button-tap-area {
   position: absolute;
+  border-radius: 9999px;
   top: -5px;
   bottom: -5px;
   left: -5px;
@@ -1307,6 +1308,7 @@
 }
 .moon-button.small > .button-tap-area {
   position: absolute;
+  border-radius: 0;
   top: -14px;
   bottom: -14px;
   left: -14px;
