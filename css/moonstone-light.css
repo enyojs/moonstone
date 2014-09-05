@@ -3539,6 +3539,97 @@
 .moon-drawers-client > * {
   pointer-events: all;
 }
+/* moonstone-icons.css */
+.moon-icon-arrowlargeup:after {
+  content: "\0F0002";
+}
+.moon-icon-arrowlargedown:after {
+  content: "\0F0001";
+}
+.moon-icon-arrowlargeleft:after {
+  content: "\0F0003";
+}
+.moon-icon-arrowlargeright:after {
+  content: "\0F0004";
+}
+.moon-icon-arrowsmallup:after {
+  content: "\0F0005";
+}
+.moon-icon-arrowsmalldown:after {
+  content: "\0F0006";
+}
+.moon-icon-arrowsmallleft:after {
+  content: "\0F0007";
+}
+.moon-icon-arrowsmallright:after {
+  content: "\0F0008";
+}
+.moon-icon-closex:after {
+  content: "\0F0009";
+}
+.moon-icon-check:after {
+  content: "\0F000A";
+}
+.moon-icon-search:after {
+  content: "\0F000B";
+}
+.moon-icon-drawer:after {
+  content: "\0F0000";
+}
+.moon-icon-fullscreen:after {
+  content: "\0F0012";
+}
+.moon-icon-circle:after {
+  content: "\0F0013";
+}
+.moon-icon-stop:after {
+  content: "\0F0014";
+}
+.moon-icon-play:after {
+  content: "\0F0015";
+}
+.moon-icon-pause:after {
+  content: "\0F0016";
+}
+.moon-icon-forward:after {
+  content: "\0F0017";
+}
+.moon-icon-backward:after {
+  content: "\0F0018";
+}
+.moon-icon-skipforward:after {
+  content: "\0F0019";
+}
+.moon-icon-skipbackward:after {
+  content: "\0F001A";
+}
+.moon-icon-pauseforward:after {
+  content: "\0F001B";
+}
+.moon-icon-pausebackward:after {
+  content: "\0F001C";
+}
+.moon-icon-pausejumpforward:after {
+  content: "\0F001D";
+}
+.moon-icon-pausejumpbackward:after {
+  content: "\0F001E";
+}
+.moon-icon-jumpforward:after {
+  content: "\0F001F";
+}
+.moon-icon-jumpbackward:after {
+  content: "\0F0020";
+}
+.moon-icon-arrowextend:after {
+  content: "\0F0021";
+}
+.moon-icon-arrowshrink:after {
+  content: "\0F0022";
+}
+.moon-icon-exitfullscreen:after {
+  content: "\0F0011";
+}
 /* Scrim.css */
 .moon-scrim {
   z-index: 1;
