@@ -197,6 +197,7 @@
 				}
 				// The value is so small that it should not be visible.
 				this.$.bar.applyStyle('transform', 'translateX(-100%)');
+				this.$.bar.applyStyle('-webkit-transform', 'translateX(-100%)');
 				progress = 0;
 			} else if (percent >= 5 && percent < 100) {
 				// Disable spotlight: you can't click a button once it's in progress
@@ -212,10 +213,12 @@
 				// Only change the progress bar if it's different from the last time this was run
 				if (progress != this._visibleProgress) {
 					this.$.bar.applyStyle('transform', 'translateX(-' + (100 + offset - progress) + '%)');
+					this.$.bar.applyStyle('-webkit-transform', 'translateX(-' + (100 + offset - progress) + '%)');
 				}
 			} else if (percent >= 100) {
 				// Make it spottable again, now that it's finished.
 				this.$.bar.applyStyle('transform', null);
+				this.$.bar.applyStyle('-webkit-transform', null);
 				this.setPostContent();
 				progress = 100;
 			}
