@@ -1287,6 +1287,14 @@
   color: #b3b3b3;
   background-color: #ffffff;
 }
+.moon-button > .button-tap-area {
+  position: absolute;
+  border-radius: 9999px;
+  top: -5px;
+  bottom: -5px;
+  left: -5px;
+  right: -5px;
+}
 .moon-button.small {
   height: 60px;
   min-width: 60px;
@@ -1298,8 +1306,8 @@
 .moon-button.small.min-width {
   min-width: 130px;
 }
-.moon-button.small > .small-button-tap-area {
-  position: absolute;
+.moon-button.small > .button-tap-area {
+  border-radius: 0;
   top: -14px;
   bottom: -14px;
   left: -14px;
