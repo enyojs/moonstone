@@ -1307,7 +1307,6 @@
   min-width: 130px;
 }
 .moon-button.small > .button-tap-area {
-  position: absolute;
   border-radius: 0;
   top: -14px;
   bottom: -14px;
