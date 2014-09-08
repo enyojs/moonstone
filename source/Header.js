@@ -38,11 +38,6 @@
 		/**
 		* @private
 		*/
-		kind: 'enyo.Control',
-
-		/**
-		* @private
-		*/
 		classes: 'moon-header',
 
 		/**
@@ -258,7 +253,6 @@
 		* @private
 		*/
 		components: [
-			{name: 'client', classes: 'moon-hspacing moon-header-client'},
 			{name: 'titleAbove', classes: 'moon-super-header-text moon-header-title-above'},
 			{name: 'titleWrapper', classes: 'moon-header-title-wrapper', components: [
 				{name: 'title', kind: 'moon.MarqueeText', classes: 'moon-header-text moon-header-title', canGenerate: false},
@@ -268,6 +262,7 @@
 			]},
 			{name: 'titleBelow', kind: 'moon.MarqueeText', classes: 'moon-sub-header-text moon-header-title-below'},
 			{name: 'subTitleBelow', kind: 'moon.MarqueeText', classes: 'moon-body-text moon-header-sub-title-below'},
+			{name: 'client', classes: 'moon-hspacing moon-header-client'},
 			{name: 'animator', kind: 'enyo.StyleAnimator', onComplete: 'animationComplete'}
 		],
 
@@ -559,7 +554,25 @@
 		typeChanged: function () {
 			this.addRemoveClass('moon-medium-header', this.get('type') == 'medium');
 			this.addRemoveClass('moon-small-header', this.get('type') == 'small');
+			this.adjustTitleWidth();
 			this.contentChanged();
+		},
+
+		/**
+		* @private
+		*/
+		adjustTitleWidth: function() {
+			//get header width and header client width
+			var hwWidth = this.$.titleWrapper.getAbsoluteBounds().width,
+				hcWidth = this.$.client.getAbsoluteBounds().width;
+			if (this.get('type') == 'small' || this.small) {
+				// FIXME extra 70px is needed because of the scroller
+				this.$.title.applyStyle('width', (hwWidth - hcWidth - 40 - 70) + 'px');
+			}
+			if (this.get('type') == 'medium') {
+				this.$.titleBelow.applyStyle('width', (hwWidth - hcWidth - 40 - 70) + 'px');
+				this.$.subTitleBelow.applyStyle('width', (hwWidth - hcWidth - 40 - 70) + 'px');
+			}
 		},
 
 		/**
