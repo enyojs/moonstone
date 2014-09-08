@@ -1,3 +1,13 @@
 .radioItemFont{
 	font-size: 20px;
+	line-height: 35px;
+}
+
+/* The following two rules are for Sampler, please do not remove */
+.onyx button.moon-button {
+	line-height: 75px;
+}
+
+.onyx button.moon-button.small {
+	line-height: 50px;
 }
