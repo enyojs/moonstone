@@ -175,7 +175,8 @@
 				type: this.iLibFormatType,
 				useNative: false,
 				timezone: 'local',
-				length: 'full'
+				length: 'full',
+				date: 'dmwy'
 			};
 			if (this.locale) {
 				fmtParams.locale = this.locale;
