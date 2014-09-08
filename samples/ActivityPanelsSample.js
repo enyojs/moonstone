@@ -8,6 +8,7 @@ enyo.kind({
 				{kind: "moon.ToggleButton", small:true, content:"Small", name:"smallHeaderToggle", ontap: "smallTapped"}
 			], components: [
 				{kind: "moon.Scroller", fit:true, components: [
+				{kind: "moon.ToggleButton", small:true, content:"Large", name:"largeHeaderToggle", ontap: "largeTapped"},
 					{kind: "moon.Item", content: "Item One", ontap: "next1"},
 					{kind: "moon.Item", content: "Item Two", ontap: "next1"},
 					{kind: "moon.Item", content: "Item Three", ontap: "next1"},
@@ -102,6 +103,14 @@ enyo.kind({
 	inputChanged: function(inSender, inEvent) {
 		if (inEvent.originator.getValue() == "go") {
 			this.next3();
+		}
+	},
+	largeTapped: function(inSender, inEvent) {
+		if (this.$.largeHeaderToggle.value) {
+			this.$.smallHeaderToggle.setValue(false);
+			this.$.panel.setHeaderType("large");
+		} else {
+			this.$.panel.setHeaderType("large");
 		}
 	},
 	mediumTapped: function(inSender, inEvent) {

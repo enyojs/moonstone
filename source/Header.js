@@ -565,13 +565,19 @@
 			//get header width and header client width
 			var hwWidth = this.$.titleWrapper.getAbsoluteBounds().width,
 				hcWidth = this.$.client.getAbsoluteBounds().width;
+			if (this.get('type') == 'large') {
+				this.$.title.applyStyle('width', '100%');
+				this.$.titleBelow.applyStyle('width', '100%');
+				this.$.subTitleBelow.applyStyle('width', '100%');
+			}
+			if (this.get('type') == 'medium') {
+				this.$.title.applyStyle('width', '100%');
+				this.$.titleBelow.applyStyle('width', (hwWidth - hcWidth - 40 - 70) + 'px');
+				this.$.subTitleBelow.applyStyle('width', (hwWidth - hcWidth - 40 - 70) + 'px');
+			}
 			if (this.get('type') == 'small' || this.small) {
 				// FIXME extra 70px is needed because of the scroller
 				this.$.title.applyStyle('width', (hwWidth - hcWidth - 40 - 70) + 'px');
-			}
-			if (this.get('type') == 'medium') {
-				this.$.titleBelow.applyStyle('width', (hwWidth - hcWidth - 40 - 70) + 'px');
-				this.$.subTitleBelow.applyStyle('width', (hwWidth - hcWidth - 40 - 70) + 'px');
 			}
 		},
 
