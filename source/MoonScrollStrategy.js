@@ -614,7 +614,7 @@
 		* @private
 		*/
 		requestSetupBounds: function(sender, event) {
-			if (this.hasNode()) {
+			if (this.generated) {
 				this.scrollBounds = this._getScrollBounds();
 				this.setupBounds();
 				this.scrollBounds = null;
