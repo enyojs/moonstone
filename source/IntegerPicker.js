@@ -631,9 +631,7 @@
 		* @private
 		*/
 		minWidthChanged: function() {
-			if (this.hasNode()) {
-				this.applyStyle('min-width', this.minWidth + 'px');
-			}
+			this.applyStyle('min-width', this.minWidth + 'px');
 		}
 	});
 
