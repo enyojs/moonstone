@@ -98,7 +98,7 @@ enyo.kind({
 		this.changeValue();
 	},
 	changeProgress: function(inSender, inEvent) {
-		var v = this.$.progressInput.getValue();
+		var v = parseInt(this.$.progressInput.getValue());
 
 		for (var i in this.$) {
 			if (this.$[i].kind == "moon.Slider") {
@@ -107,7 +107,7 @@ enyo.kind({
 		}
 	},
 	changeIncrement: function(inSender, inEvent) {
-		var v = this.$.incrementInput.getValue();
+		var v = parseInt(this.$.incrementInput.getValue(), 10);
 
 		for (var i in this.$) {
 			if (this.$[i].kind == "moon.Slider") {
