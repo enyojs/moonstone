@@ -128,7 +128,18 @@
 			* @default false
 			* @public
 			*/
-			wrap: false
+			wrap: false,
+
+			/**
+			* specifies the min-width of the picker. If not set or set to a low value, the width
+			* of the picker will fluctuate slightly depending on the rendered width of the value
+			*
+			* @type {Number}
+			* @default 50
+			* @public
+			*/
+			minWidth: 50
+
 		},
 
 		/**
@@ -225,6 +236,7 @@
 			this.inherited(arguments);
 			this.width = null;
 			this.rangeChanged();
+			this.minWidthChanged();
 			this.scrollToValue();
 			this.$.scroller.getStrategy().setFixedTime(false);
 			this.$.scroller.getStrategy().setFrame(this.scrollFrame);
@@ -613,6 +625,15 @@
 			// Make sure scrollers that container integer pickers don't scroll
 			inEvent.preventDefault();
 			return true;
+		},
+
+		/**
+		* @private
+		*/
+		minWidthChanged: function() {
+			if (this.hasNode()) {
+				this.applyStyle('min-width', this.minWidth + 'px');
+			}
 		}
 	});
 
