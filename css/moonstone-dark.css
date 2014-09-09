@@ -984,7 +984,6 @@
 .moon-divider {
   border-bottom: 2px solid #a6a6a6;
   margin: 0 10px 20px 10px;
-  text-transform: capitalize;
   padding-bottom: 3px;
 }
 .moon-neutral .moon-divider {
