@@ -262,9 +262,9 @@
 		* Options for the [moon.Panels.pushPanels()]{@link moon.Panels.pushPanels} method.
 		*
 		* @typedef {Object} moon.Panels.pushPanels~options
-		* @property {Number} setIndex - The panel index number to immediately switch to. Leaving
-		*	this blank or not setting it will preform the default setIndex, which transitions to the
-		*	first of the new panels. Setting this to a negative and other "out of bounds" values
+		* @property {Number} targetIndex - The panel index number to immediately switch to. Leaving
+		*	this blank or not setting it will preform the default targetIndex, which transitions to
+		*	the first of the new panels. Setting this to a negative and other "out of bounds" values
 		*	work in conjunction with the `wrap: true` property. Nagative values count backward from
 		*	the end, while indexes greater than the total Panels' panel length wrap around and start
 		*	counting again from the beginning.
@@ -300,8 +300,8 @@
 				oPanels[nPanel].resize();
 			}
 
-			if (options.setIndex || options.setIndex === 0) {
-				lastIndex = options.setIndex;
+			if (options.targetIndex || options.targetIndex === 0) {
+				lastIndex = options.targetIndex;
 			} else {
 				lastIndex++;
 			}

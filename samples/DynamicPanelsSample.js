@@ -60,10 +60,10 @@ enyo.kind({
 					]}
 				]}
 			]}
-			// setIndex with a negative value works in conjunction with the wrap:true property.
+			// targetIndex with a negative value works in conjunction with the wrap:true property.
 			// Nagative values count backward from the end while indexes greater than the length
 			// wrap around and start counting again from the beginning.
-		], {owner: this}, {setIndex: -1});
+		], {owner: this}, {targetIndex: -1});
 	},
 	next: function() {
 		var index = this.$.panels.getIndex();
