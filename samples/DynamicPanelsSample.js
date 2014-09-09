@@ -61,7 +61,7 @@ enyo.kind({
 				]}
 			]}
 			// targetIndex with a negative value works in conjunction with the wrap:true property.
-			// Nagative values count backward from the end while indexes greater than the length
+			// Negative values count backward from the end while indices greater than the length
 			// wrap around and start counting again from the beginning.
 		], {owner: this}, {targetIndex: -1});
 	},

@@ -263,10 +263,10 @@
 		*
 		* @typedef {Object} moon.Panels.pushPanels~options
 		* @property {Number} targetIndex - The panel index number to immediately switch to. Leaving
-		*	this blank or not setting it will preform the default targetIndex, which transitions to
-		*	the first of the new panels. Setting this to a negative and other "out of bounds" values
-		*	work in conjunction with the `wrap: true` property. Nagative values count backward from
-		*	the end, while indexes greater than the total Panels' panel length wrap around and start
+		*	this blank or not setting it will perform the default action, which transitions to the 
+		*	first of the new panels. Setting this to a negative and other "out of bounds" values
+		*	work in conjunction with the `wrap: true` property. Negative values count backward from
+		*	the end, while indices greater than the total Panels' panel length wrap around and start
 		*	counting again from the beginning.
 		* @property {Boolean} transition - Whether to transition or jump directly to the next panel.
 		* @public
