@@ -33,7 +33,7 @@
 			filesLoaded: false,
 			sample: null,
 			locale: 'local',
-			location: function() {
+			location: function () {
 				var s = this.get('sample'),
 					locale = this.get('locale');
 				return s + ((!locale || locale == 'local') ? '' : '/' + locale);
@@ -90,12 +90,12 @@
 		computed: {
 			location: ['sample', 'locale']
 		},
-		initComponents: function() {
+		initComponents: function () {
 			this.inherited(arguments);
 			this.files = {};
 			this.haijackPackage();
 		},
-		createList: function() {
+		createList: function () {
 			var fs = this.get('files'),
 				sortedFiles = Object.keys(fs).sort(),
 				dataList = [];
@@ -112,15 +112,15 @@
 			}
 			this.$.list.set('collection', c);
 		},
-		localeGroupChanged: function(inSender, inEvent) {
-			var locale = inEvent.toggledControl.get('value');
+		localeGroupChanged: function (sender, ev) {
+			var locale = ev.toggledControl.get('value');
 			if (locale) {
 				this.set('locale', locale);
 			}
 		},
-		handleRoute: function(inSender, inEvent) {
-			this.set('sample', inEvent.sampleName);
-			this.set('locale', inEvent.locale);
+		handleRoute: function (sender, ev) {
+			this.set('sample', ev.sampleName);
+			this.set('locale', ev.locale);
 		},
 		localeChanged: function () {
 			enyo.log('Setting Locale:', this.get('locale'));
@@ -232,7 +232,7 @@
 				})
 			}) );
 		},
-		// getQueryObject: function(queryString) {
+		// getQueryObject: function (queryString) {
 		// 	queryString = queryString || window.location.search;
 		// 	if (!queryString || queryString.length <= 1) {
 		// 		return {};
@@ -250,7 +250,7 @@
 		// 	}
 		// 	return query;
 		// },
-		createNode: function(tagName, attrs) {
+		createNode: function (tagName, attrs) {
 			var key, node = document.createElement(tagName);
 			if (attrs && Object.keys(attrs)) {
 				for (key in attrs) {
@@ -265,8 +265,8 @@
 			}
 			return node;
 		},
-		appendToHead: function(node) {
-			if (typeof node === 'string') {
+		appendToHead: function (node) {
+			if (typeof node == 'string') {
 				document.head.insertAdjacentHTML('beforeend', node );
 			} else {
 				document.head.appendChild( node );
@@ -286,11 +286,11 @@
 		events: {
 			onRouteChange: ''
 		},
-		handleRoute: function (inSampleName, inLocale) {
-			this.doRouteChange({sampleName: inSampleName, locale: inLocale});
+		handleRoute: function (sampleName, locale) {
+			this.doRouteChange({sampleName: sampleName, locale: locale});
 		},
-		handleRouteLocaleOnly: function (inLocale) {
-			this.handleRoute({sampleName: null, locale: inLocale});
+		handleRouteLocaleOnly: function (locale) {
+			this.handleRoute({sampleName: null, locale: locale});
 		}
 	});
 
