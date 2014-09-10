@@ -566,9 +566,9 @@
 			var hwWidth = this.$.titleWrapper.getAbsoluteBounds().width,
 				hcWidth = this.$.client.getAbsoluteBounds().width;
 
-			this.$.title.applyStyle('width', Boolean(this.get('type') == 'small') ? hwWidth - hcWidth - 40 - 70 + 'px' : '100%');
-			this.$.titleBelow.applyStyle('width', Boolean(this.get('type') == 'medium') ? hwWidth - hcWidth - 40 - 70 + 'px' : '100%');
-			this.$.subTitleBelow.applyStyle('width', Boolean(this.get('type') == 'medium') ? hwWidth - hcWidth - 40 - 70 + 'px' : '100%');
+			this.$.title.applyStyle('width', this.get('type') == 'small' ? hwWidth - hcWidth - 40 - 70 + 'px' : '100%');
+			this.$.titleBelow.applyStyle('width', this.get('type') == 'medium' ? hwWidth - hcWidth - 40 - 70 + 'px' : '100%');
+			this.$.subTitleBelow.applyStyle('width', this.get('type') == 'medium' ? hwWidth - hcWidth - 40 - 70 + 'px' : '100%');
 		},
 
 		/**
