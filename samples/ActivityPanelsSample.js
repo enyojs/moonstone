@@ -8,7 +8,6 @@ enyo.kind({
 				{kind: "moon.ToggleButton", small:true, content:"Small", name:"smallHeaderToggle", ontap: "typeTapped"}
 			], components: [
 				{kind: "moon.Scroller", fit:true, components: [
-				{kind: "moon.ToggleButton", small:true, content:"Large", name:"largeHeaderToggle", ontap: "typeTapped"},
 					{kind: "moon.Item", content: "Item One", ontap: "next1"},
 					{kind: "moon.Item", content: "Item Two", ontap: "next1"},
 					{kind: "moon.Item", content: "Item Three", ontap: "next1"},
@@ -106,15 +105,17 @@ enyo.kind({
 		}
 	},
 	typeTapped: function(inSender, inEvent) {
-			if (inSender.value == true) {
-			this.$.panel.set('headerType', inSender.content.toLowerCase());
-			var buttonType = inSender.content.toLowerCase(),
-				typeArray = ['small', 'medium', 'large'],
-				i;
-			for (i = 0; i < typeArray.length; i++) {
-				if (buttonType !== typeArray[i]) {
-					this.$[typeArray[i] + 'HeaderToggle'].set('value', false);
-				}
+		var i,
+			val = inSender.get('value'),
+			buttonType = inSender.content.toLowerCase(),
+			types = ['large', 'medium', 'small'];
+
+		// If our button was `true`, use that type, otherwise revert to large.
+		this.$.panel.set('headerType', val ? buttonType.toLowerCase() : types[0]);
+		// Unset all other buttons
+		for (i = 0; i < types.length; i++) {
+			if (buttonType != types[i] && this.$[types[i] + 'HeaderToggle']) {
+				this.$[types[i] + 'HeaderToggle'].set('value', false);
 			}
 		}
 	}
