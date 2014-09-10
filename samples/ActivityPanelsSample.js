@@ -4,11 +4,11 @@ enyo.kind({
 	components: [
 		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", style: "z-index: 1000;", brandingSrc: "$lib/moonstone/samples/assets/default-movie.png", components: [
 			{title: "First Panel", classes: "moon-7h", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", headerComponents: [
-				{kind: "moon.ToggleButton", small:true, content:"Medium", name:"mediumHeaderToggle", ontap: "mediumTapped"},
-				{kind: "moon.ToggleButton", small:true, content:"Small", name:"smallHeaderToggle", ontap: "smallTapped"}
+				{kind: "moon.ToggleButton", small:true, content:"Medium", name:"mediumHeaderToggle", ontap: "typeTapped"},
+				{kind: "moon.ToggleButton", small:true, content:"Small", name:"smallHeaderToggle", ontap: "typeTapped"}
 			], components: [
 				{kind: "moon.Scroller", fit:true, components: [
-				{kind: "moon.ToggleButton", small:true, content:"Large", name:"largeHeaderToggle", ontap: "largeTapped"},
+				{kind: "moon.ToggleButton", small:true, content:"Large", name:"largeHeaderToggle", ontap: "typeTapped"},
 					{kind: "moon.Item", content: "Item One", ontap: "next1"},
 					{kind: "moon.Item", content: "Item Two", ontap: "next1"},
 					{kind: "moon.Item", content: "Item Three", ontap: "next1"},
@@ -105,28 +105,17 @@ enyo.kind({
 			this.next3();
 		}
 	},
-	largeTapped: function(inSender, inEvent) {
-		if (this.$.largeHeaderToggle.value) {
-			this.$.smallHeaderToggle.setValue(false);
-			this.$.panel.setHeaderType("large");
-		} else {
-			this.$.panel.setHeaderType("large");
-		}
-	},
-	mediumTapped: function(inSender, inEvent) {
-		if (this.$.mediumHeaderToggle.value) {
-			this.$.smallHeaderToggle.setValue(false);
-			this.$.panel.setHeaderType("medium");
-		} else {
-			this.$.panel.setHeaderType("large");
-		}
-	},
-	smallTapped: function(inSender, inEvent) {
-		if (this.$.smallHeaderToggle.value) {
-			this.$.mediumHeaderToggle.setValue(false);
-			this.$.panel.setHeaderType("small");
-		} else {
-			this.$.panel.setHeaderType("large");
+	typeTapped: function(inSender, inEvent) {
+			if (inSender.value == true) {
+			this.$.panel.set('headerType', inSender.content.toLowerCase());
+			var buttonType = inSender.content.toLowerCase(),
+				typeArray = ['small', 'medium', 'large'],
+				i;
+			for (i = 0; i < typeArray.length; i++) {
+				if (buttonType !== typeArray[i]) {
+					this.$[typeArray[i] + 'HeaderToggle'].set('value', false);
+				}
+			}
 		}
 	}
 });
