@@ -562,13 +562,20 @@
 		* @private
 		*/
 		adjustTitleWidth: function() {
-			//get header width and header client width
-			var hwWidth = this.$.titleWrapper.getAbsoluteBounds().width,
-				hcWidth = this.$.client.getAbsoluteBounds().width;
+			var type = this.get('type'),
+				// Measure client area's width + 40px of spacing
+				clientSpace = (this.$.client.getAbsoluteBounds().width + 40) + 'px',
+				rtl = this.rtl;
 
-			this.$.title.applyStyle('width', this.get('type') == 'small' ? hwWidth - hcWidth - 40 - 70 + 'px' : '100%');
-			this.$.titleBelow.applyStyle('width', this.get('type') == 'medium' ? hwWidth - hcWidth - 40 - 70 + 'px' : '100%');
-			this.$.subTitleBelow.applyStyle('width', this.get('type') == 'medium' ? hwWidth - hcWidth - 40 - 70 + 'px' : '100%');
+			// Set the margin on the correct side for the correct control, otherwise set it to nothing
+			this.$.title.applyStyle('margin-right', (type == 'small' && !rtl) ? clientSpace : null);
+			this.$.title.applyStyle('margin-left', (type == 'small' && rtl) ? clientSpace : null);
+
+			this.$.titleBelow.applyStyle('margin-right', (type == 'medium' && !rtl) ? clientSpace : null);
+			this.$.titleBelow.applyStyle('margin-left', (type == 'medium' && rtl) ? clientSpace : null);
+
+			this.$.subTitleBelow.applyStyle('margin-right', (type == 'medium' && !rtl) ? clientSpace : null);
+			this.$.subTitleBelow.applyStyle('margin-left', (type == 'medium' && rtl) ? clientSpace : null);
 		},
 
 		/**
