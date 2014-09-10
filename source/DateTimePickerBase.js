@@ -192,6 +192,7 @@
 		*/
 		initDefaults: function () {
 			var ordering;
+			this.value = this.value || new Date();
 			//Attempt to use the ilib lib (assuming that it is loaded)
 			if (typeof ilib !== 'undefined') {
 				this.initILib();

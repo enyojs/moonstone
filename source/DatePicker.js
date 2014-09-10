@@ -103,6 +103,11 @@
 		/**
 		* @private
 		*/
+		yearOffset: 0,
+
+		/**
+		* @private
+		*/
 		create: function () {
 			this.inherited(arguments);
 		},
@@ -114,6 +119,10 @@
 			this.inherited(arguments);
 			if (typeof ilib !== 'undefined' && this.value) {
 				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
+				var time = this.value.getTime();
+				var gregYear = new ilib.Date.newInstance({type: "gregorian", unixtime: time, timezone:"UTC"}).getYears();
+				var localeYear = new ilib.Date.newInstance({type: this._tf.getCalendar(), unixtime: time, timezone:"UTC"}).getYears();
+				this.yearOffset = gregYear - localeYear;
 			}
 		},
 
@@ -224,7 +233,7 @@
 				case 'y':
 					this.createComponent(
 						{classes: 'moon-date-picker-wrap year', components:[
-							{kind:'moon.IntegerPicker', name:'year', classes:'moon-date-picker-field year', value:valueFullYear, min:this.getMinYear(), max:this.getMaxYear()},
+							{kind:'moon.IntegerPicker', name:'year', classes:'moon-date-picker-field year', value:valueFullYear-this.yearOffset, min:this.getMinYear()-this.yearOffset, max:this.getMaxYear()-this.yearOffset},
 							{name: 'yearLabel', content: this.yearText, classes: 'moon-date-picker-label moon-divider-text'}
 						]});
 					break;
@@ -255,7 +264,7 @@
 		updateValue: function (inSender, inEvent) {
 			var day = this.$.day.getValue(),
 				month = this.$.month.getValue(),
-				year = this.$.year.getValue(),
+				year = this.$.year.getValue() + this.yearOffset,
 				maxDays;
 			var valueHours = this.value ? this.value.getHours() : 0;
 			var valueMinutes = this.value ? this.value.getMinutes() : 0;
@@ -295,7 +304,7 @@
 					value = this.localeValue.getJSDate();
 				}
 
-				this.$.year.setValue(value.getFullYear());
+				this.$.year.setValue(value.getFullYear() - this.yearOffset);
 				this.$.month.setValue(value.getMonth() + 1);
 				this.$.day.setValue(value.getDate());
 				this.$.day.setMax(this.monthLength(value.getFullYear(), value.getMonth() + 1));
