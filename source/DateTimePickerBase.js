@@ -192,7 +192,6 @@
 		*/
 		initDefaults: function () {
 			var ordering;
-			this.value = this.value || new Date();
 			//Attempt to use the ilib lib (assuming that it is loaded)
 			if (typeof ilib !== 'undefined') {
 				this.initILib();
@@ -331,6 +330,7 @@
 		*/
 		localeChanged: function () {
 			// Our own locale property has changed, so we need to rebuild our child pickers
+			this.value = this.value || new Date();
 			this.refresh();
 		},
 
@@ -361,6 +361,7 @@
 				delete this._tf;
 			}
 			if (this.value){
+				ilib.setLocale(this.locale);
 				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
 			}
 			this.initDefaults();
