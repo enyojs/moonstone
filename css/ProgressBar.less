@@ -7,15 +7,17 @@
 	min-width: 128px;
 	direction: ltr;
 }
-.moon-progress-bg-bar {
+
+.moon-progress-bg-bar, .moon-progress-bar-bar {
 	height: 100%;
-	background-color: @moon-progress-bar-bg-color;
 	position: absolute;
 	top: 0;
 }
+
+.moon-progress-bg-bar {
+	background-color: @moon-progress-bar-bg-color;
+}
+
 .moon-progress-bar-bar {
-	height: 100%;
 	background-color: @moon-progress-bar-bar-bg-color;
-	position: absolute;
-	top: 0;
 }

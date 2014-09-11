@@ -39,6 +39,8 @@
 /* ---------------------------------------*/
 /* Expandable Text */
 /* ---------------------------------------*/
+/* Progress Bar */
+/* ---------------------------------------*/
 /* Slider Knob */
 /* ---------------------------------------*/
 /* Items */
@@ -2049,17 +2051,17 @@
   min-width: 128px;
   direction: ltr;
 }
-.moon-progress-bg-bar {
+.moon-progress-bg-bar,
+.moon-progress-bar-bar {
   height: 100%;
-  background-color: #7d7d7d;
   position: absolute;
   top: 0;
 }
+.moon-progress-bg-bar {
+  background-color: #7d7d7d;
+}
 .moon-progress-bar-bar {
-  height: 100%;
   background-color: #cf0652;
-  position: absolute;
-  top: 0;
 }
 /* ProgressButton.css */
 .moon-progress-button {
@@ -2104,31 +2106,9 @@
   transform: translateX(-50%);
   -webkit-transform: translateX(-50%);
 }
-.moon-slider-taparea {
-  position: absolute;
-  top: -14px;
-  height: 32px;
-  width: 100%;
-}
-.moon-slider-knob,
-.moon-slider-knob.disabled:active:hover {
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  position: absolute;
-  height: 60px;
-  width: 60px;
-  border-radius: 30px;
-  margin: -30px;
-  background-color: #ffffff;
-  top: 3px;
-}
-.moon-slider-knob.active,
-.moon-slider-knob.spotselect,
-.moon-slider-knob:active:hover {
-  height: 86px;
-  width: 86px;
-  border-radius: 43px;
-  margin: -43px;
+/* Slider Bar */
+.moon-slider {
+  margin: 60px 45px;
 }
 .moon-slider.spotlight > .moon-progress-bar-bar {
   background-color: #cf0652;
@@ -2137,83 +2117,79 @@
   background-color: #cf0652;
 }
 .moon-slider.spotlight > .moon-slider-knob.spotselect {
-  height: 60px;
-  width: 60px;
-  border-radius: 30px;
-  margin: -30px;
   background-color: #ffffff;
   border: 5px solid #cf0652;
 }
 .moon-slider.disabled {
   cursor: default;
   opacity: 0.35;
-  filter: alpha(opacity=35);
 }
-.moon-progress-bar.moon-slider {
-  margin: 60px 45px !important;
-}
-.moon-slider-popup {
+/* Slider Knob */
+.moon-slider-knob {
   position: absolute;
-  display: block;
+  height: 60px;
+  width: 60px;
+  border-radius: 60px;
+  margin: -30px;
+  background-color: #ffffff;
+  top: 5px;
+  border: solid 5px transparent;
+  box-sizing: border-box;
+}
+.moon-slider-knob:not(.spotselect).active,
+.moon-slider-knob:not(.spotselect).spotselect,
+.moon-slider-knob:not(.spotselect):active:not(.disabled) {
+  width: 86px;
+  height: 86px;
+  border-radius: 43px;
+  margin: -43px;
+  border: solid 5px transparent;
+  box-sizing: border-box;
+}
+.moon-slider-taparea {
+  position: absolute;
+  top: -14px;
+  height: 32px;
+  width: 100%;
+}
+/* Slider Popup */
+.moon-slider-popup {
   white-space: nowrap;
   z-index: 20;
   left: 50%;
 }
-.moon-slider-popup.moon-slider-popup-flip-h {
-  left: auto;
-  right: 50%;
-}
-.moon-slider-popup-left {
-  position: relative;
-  display: inline-block;
-  margin: 0 -1px 0 0;
-  padding: 0;
-}
-.moon-slider-popup-center {
+.moon-slider-popup > * {
   position: relative;
   display: inline-block;
   vertical-align: top;
-  margin: 0px 0 0 0;
-  padding: 0;
+}
+.moon-slider-popup .moon-slider-popup-left {
+  margin: 0 -1px 0 0;
+}
+.moon-slider-popup .moon-slider-popup-center {
   z-index: 21;
 }
-.moon-slider-popup-right {
-  position: relative;
-  display: inline-block;
-  vertical-align: top;
+.moon-slider-popup .moon-slider-popup-right {
   margin: 0 0 0 -1px;
-  padding: 0;
 }
-.moon-slider-popup-label {
-  font-family: "Moonstone Miso Bold";
-  font-size: 33px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: normal;
-  -webkit-font-kerning: normal;
-  white-space: nowrap;
+.moon-slider-popup .moon-slider-popup-label {
   color: #ffffff;
   text-align: center;
 }
-.enyo-locale-non-latin .moon-slider-popup-label {
-  font-family: "Moonstone LG Display Bold";
-  font-size: 36px;
-  font-weight: normal;
-  font-size: 30px;
-}
-.enyo-locale-non-latin .moon-slider-popup-label {
-  font-family: "Moonstone LG Display";
+.moon-slider-popup.moon-slider-popup-flip-h {
+  left: auto;
+  right: 50%;
 }
 .moon-slider-popup-flip-h {
   transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
   -moz-transform: scaleX(-1);
 }
-.moon-slider-focus {
-  background-color: #cf0652;
+.enyo-locale-non-latin .moon-slider-popup-label {
+  font-size: 30px;
 }
-.moon-slider-nofocus {
-  background-color: #ffffff;
+.enyo-locale-right-to-left .moon-slider-popup-center {
+  direction: rtl;
 }
 /* RichText.css */
 .moon-richtext {
