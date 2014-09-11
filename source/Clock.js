@@ -248,16 +248,16 @@
 		* @private
 		*/
 		updateTime: function (inDate, inHour) {
-			var timeStr = '';
+			var time = '';
 			if (this._tf) {
-				timeStr = this._tf.format((this.mode === 'normal')	? ilib.Date.newInstance({unixtime: inDate.getTime(), timezone:'Etc/UTC'})
+				time = this._tf.format((this.mode === 'normal')	? ilib.Date.newInstance({unixtime: inDate.getTime(), timezone:'Etc/UTC'})
 																	: ilib.Date.newInstance(this.parseStaticDate(inDate)));
 			} else {
-				timeStr += (inHour > 12 ? inHour-12: inHour) || 12;
-				timeStr += ':' + ('00' + inDate.getMinutes()).slice(-2);
-				timeStr += inHour > 11 ? 'pm' : 'am';
+				time += (inHour > 12 ? inHour-12: inHour) || 12;
+				time += ':' + ('00' + inDate.getMinutes()).slice(-2);
+				time += inHour > 11 ? 'pm' : 'am';
 			}
-			this.$.clock.setContent(timeStr);
+			this.$.clock.setContent(time);
 		},
 
 		/**
