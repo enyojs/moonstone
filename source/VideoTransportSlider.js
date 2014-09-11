@@ -670,6 +670,7 @@
 					// TODO : action in dummy area
 					this.dummyAction = true;
 				} else {
+					// the call to the super class freezes spotlight, so it needs to be unfrozen in dragfinish
 					var dragstart = this.inherited(arguments);
 					if (dragstart) {
 						this.doSeekStart();
@@ -744,6 +745,7 @@
 				e.preventTap();
 				// this.hideKnobStatus();
 				this.doSeekFinish({value: v});
+				enyo.Spotlight.unfreeze();
 			}
 			this.$.knob.removeClass('active');
 			this.dummyAction = false;
