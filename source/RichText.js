@@ -41,13 +41,6 @@
 		/**
 		* @private
 		*/
-		handlers: {
-			onblur: 'blurred'
-		},
-
-		/**
-		* @private
-		*/
 		create: function () {
 			this.inherited(arguments);
 			this.disabledChanged();
@@ -80,11 +73,17 @@
 		},
 
 		/**
+		* Piggyback onto enyo.RichText blurHandler.
+		*
 		* @private
+		* @method
 		*/
-		blurred: function () {
-			this.hasNode().scrollTop = 0;
-		},
+		blurHandler: enyo.inherit(function (sup) {
+			return function () {
+				sup.apply(this, arguments);
+				this.hasNode().scrollTop = 0;
+			};
+		}),
 
 		/**
 		* @private
