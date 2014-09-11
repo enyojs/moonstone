@@ -513,6 +513,25 @@
 		},
 
 		/**
+		* according to the value, adjust the year bounds and update the year picker 
+		*
+		* @private
+		*/
+		adjustYearBounds: function(){
+			var i,yearDiff,
+				count = this.$.yearPicker.$.client.children.length,
+				year = this.value instanceof Date ? this.value.getFullYear() : this.startYear;
+
+			this.startYear = year < this.startYear ? year : this.startYear;
+			this.endYear = year > this.endYear ? year : this.endYear;
+			yearDiff = this.endYear - this.startYear;
+			for(i = 0; i <= yearDiff - count; i++) {
+				this.$.yearPicker.createComponent({content: i, classes: 'picker-content'});
+			}
+			this.updateYearPicker();
+		},
+
+		/**
 		 * When [iLib]{@glossary ilib} is supported, calculates the start year in
 		 * the current calendar. Otherwise, returns the value of the 
 		 * [startYear]{@link moon.Calendar#startYear} published property.
@@ -520,8 +539,6 @@
 		 * @private
 		 */
 		getStartYear: function() {
-			var year = this.value instanceof Date ? this.value.getFullYear() : new Date().getFullYear();
-			this.startYear  = year < this.startYear ? year : this.startYear;
 			if (typeof ilib !== 'undefined') {
 				var greg = ilib.Date.newInstance({
 					type: "gregorian",
@@ -548,8 +565,6 @@
 		 * @private
 		 */
 		getEndYear: function() {
-			var year = this.value instanceof Date ? this.value.getFullYear() : new Date().getFullYear();
-			this.endYear  = year > this.endYear ? year : this.endYear;
 			if (typeof ilib !== 'undefined') {
 				var greg = ilib.Date.newInstance({
 					type: "gregorian",
@@ -659,7 +674,7 @@
 		*/
 		valueChanged: function (inOld) {
 			var month, year;
-			
+			this.adjustYearBounds();
 			if (typeof ilib !== 'undefined') {
 				this.localeValue = ilib.Date.newInstance({
 					unixtime: this.value.getTime(),
@@ -693,7 +708,7 @@
 			var yearPickerControls = this.$.yearPicker.getClientControls(),
 				startYear = this.getStartYear(),
 				endYear = this.getEndYear();
-			for (var i = 0; i < endYear - startYear; i++) {
+			for (var i = 0; i <= endYear - startYear; i++) {
 				yearPickerControls[i].setContent(i + startYear);
 			}
 			var year = (typeof ilib !== 'undefined') ? this.localeValue.getYears() : this.value.getFullYear();
