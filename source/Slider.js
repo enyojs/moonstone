@@ -610,7 +610,7 @@
 
 			this.$.knob.applyStyle('left', percent + '%');
 			this.$.popup.addRemoveClass('moon-slider-popup-flip-h', percent > 50);
-			 this.$.popupLabel.addRemoveClass('moon-slider-popup-flip-h', percent > 50);
+			this.$.popupLabel.addRemoveClass('moon-slider-popup-flip-h', percent > 50);
 
 			this.updatePopupLabel(knobValue);
 		},
