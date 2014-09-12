@@ -181,6 +181,7 @@
 			if (this.locale) {
 				fmtParams.locale = this.locale;
 				this.iLibLocale = null;
+				ilib.setLocale(this.locale);
 			} else {
 				this.iLibLocale = ilib.getLocale();
 			}
@@ -330,6 +331,9 @@
 		*/
 		localeChanged: function () {
 			// Our own locale property has changed, so we need to rebuild our child pickers
+			if (typeof ilib !== 'undefined') {
+				ilib.setLocale(this.locale);
+			}
 			this.refresh();
 		},
 
@@ -339,7 +343,7 @@
 		handleLocaleChangeEvent: function () {
 			// We've received a localechange event from the system, which means either the system
 			// locale or the timezone may have changed.
-			if (ilib && ilib.getLocale() !== this.iLibLocale) {
+			if (typeof ilib !== 'undefined' && ilib.getLocale() !== this.iLibLocale) {
 				// We're using iLib locale, and it has changed, so we'll rebuild the child pickers
 				// entirely
 				this.refresh();
@@ -359,7 +363,7 @@
 			if (this._tf) {
 				delete this._tf;
 			}
-			if (this.value){
+			if (this.value && typeof ilib !== 'undefined'){
 				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
 			}
 			this.initDefaults();
