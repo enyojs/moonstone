@@ -704,7 +704,7 @@
 		* @private
 		*/
 		shouldShowPageControls: function() {
-			return (enyo.Spotlight.getPointerMode() && this.hovering);
+			return (enyo.Spotlight.getPointerMode() && this.hovering && !this.spotlightPagingControls);
 		},
 
 		/**
