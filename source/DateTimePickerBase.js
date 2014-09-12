@@ -330,7 +330,6 @@
 		*/
 		localeChanged: function () {
 			// Our own locale property has changed, so we need to rebuild our child pickers
-			this.value = this.value || new Date();
 			this.refresh();
 		},
 
@@ -360,8 +359,7 @@
 			if (this._tf) {
 				delete this._tf;
 			}
-			if (this.value){
-				ilib.setLocale(this.locale);
+			if(this.value){
 				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
 			}
 			this.initDefaults();
