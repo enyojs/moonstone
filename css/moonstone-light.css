@@ -88,7 +88,7 @@
 }
 @font-face {
   font-family: "Moonstone Miso";
-  src: local("Moon Miso Medium"), url("../fonts/miso/miso-regular.ttf") format("truetype"), url("../fonts/miso/miso-regular.woff") format("woff");
+  src: local("Moon Miso Medium"), url("../fonts/miso/miso-regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+0D, U+20-7E, U+A1-FF, U+131, U+141-142, U+152-153, U+160-161, U+178, U+17D-17E, U+192, U+2C6, U+2DC, U+3C6, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+20AC, U+2122;
@@ -101,7 +101,7 @@
 }
 @font-face {
   font-family: "Moonstone Miso Bold";
-  src: local("Moon Miso Bold"), url("../fonts/miso/miso-bold.ttf") format("truetype"), url("../fonts/miso/miso-bold.woff") format("woff");
+  src: local("Moon Miso Bold"), url("../fonts/miso/miso-bold.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+0D, U+20-7E, U+A1-FF, U+131, U+141-142, U+152-153, U+160-161, U+178, U+17D-17E, U+192, U+2C6, U+2DC, U+3C6, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+20AC, U+2122;
@@ -114,7 +114,7 @@
 }
 @font-face {
   font-family: "Moonstone Miso Light";
-  src: local("Moon Miso Light"), url("../fonts/miso/miso-light.ttf") format("truetype"), url("../fonts/miso/miso-light.woff") format("woff");
+  src: local("Moon Miso Light"), url("../fonts/miso/miso-light.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+0D, U+20-7E, U+A1-FF, U+131, U+141-142, U+152-153, U+160-161, U+178, U+17D-17E, U+192, U+2C6, U+2DC, U+3C6, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+20AC, U+2122;
@@ -128,7 +128,7 @@
 }
 @font-face {
   font-family: "MuseoSans";
-  src: local("Moon Museo Sans Medium"), url("../fonts/MuseoSans/Museo SansDemiBold.ttf") format("truetype"), url("../fonts/MuseoSans/Museo SansDemiBold.woff") format("woff");
+  src: local("Moon Museo Sans Medium"), url("../fonts/MuseoSans/MuseoSansMedium.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
@@ -141,7 +141,7 @@
 }
 @font-face {
   font-family: "MuseoSans 100";
-  src: local("Moon Museo Sans Thin"), url("../fonts/MuseoSans/Museo SansLight.ttf") format("truetype"), url("../fonts/MuseoSans/Museo SansLight.woff") format("woff");
+  src: local("Moon Museo Sans Thin"), url("../fonts/MuseoSans/MuseoSansThin.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
@@ -154,7 +154,7 @@
 }
 @font-face {
   font-family: "MuseoSans 300";
-  src: local("Moon Museo Sans Light"), url("../fonts/MuseoSans/Museo SansNormal.ttf") format("truetype"), url("../fonts/MuseoSans/Museo SansNormal.woff") format("woff");
+  src: local("Moon Museo Sans Light"), url("../fonts/MuseoSans/MuseoSansLight.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
@@ -167,7 +167,7 @@
 }
 @font-face {
   font-family: "MuseoSans 500";
-  src: local("Moon Museo Sans Medium"), url("../fonts/MuseoSans/Museo SansDemiBold.ttf") format("truetype"), url("../fonts/MuseoSans/Museo SansDemiBold.woff") format("woff");
+  src: local("Moon Museo Sans Medium"), url("../fonts/MuseoSans/MuseoSansMedium.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
@@ -180,7 +180,7 @@
 }
 @font-face {
   font-family: "MuseoSans 500 Italic";
-  src: local("Moon Museo Medium Italic"), url("../fonts/MuseoSans/Museo SansDemiBoldItalic.ttf") format("truetype"), url("../fonts/MuseoSans/Museo SansDemiBoldItalic.woff") format("woff");
+  src: local("Moon Museo Medium Italic"), url("../fonts/MuseoSans/MuseoSansMediumItalic.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
@@ -193,7 +193,7 @@
 }
 @font-face {
   font-family: "MuseoSans 700";
-  src: local("Moon Museo Sans Bold"), url("../fonts/MuseoSans/Museo SansBold.ttf") format("truetype"), url("../fonts/MuseoSans/Museo SansBold.woff") format("woff");
+  src: local("Moon Museo Sans Bold"), url("../fonts/MuseoSans/MuseoSansBold.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
@@ -206,7 +206,7 @@
 }
 @font-face {
   font-family: "MuseoSans 700 Italic";
-  src: local("Moon Museo Sans Bold Italic"), url("../fonts/MuseoSans/Museo SansBoldItalic.ttf") format("truetype"), url("../fonts/MuseoSans/Museo SansBoldItalic.woff") format("woff");
+  src: local("Moon Museo Sans Bold Italic"), url("../fonts/MuseoSans/MuseoSansBoldItalic.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
@@ -219,7 +219,7 @@
 }
 @font-face {
   font-family: "MuseoSans 900";
-  src: local("Moon Museo Sans Black"), url("../fonts/MuseoSans/Museo SansBlack.ttf") format("truetype"), url("../fonts/MuseoSans/Museo SansBlack.woff") format("woff");
+  src: local("Moon Museo Sans Black"), url("../fonts/MuseoSans/MuseoSansBlack.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
@@ -232,7 +232,7 @@
 }
 @font-face {
   font-family: "MuseoSans 900 Italic";
-  src: local("Moon Museo Sans Black Italic"), url("../fonts/MuseoSans/Museo SansBlackItalic.ttf") format("truetype"), url("../fonts/MuseoSans/Museo SansBlackItalic.woff") format("woff");
+  src: local("Moon Museo Sans Black Italic"), url("../fonts/MuseoSans/MuseoSansBlackItalic.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
@@ -240,7 +240,7 @@
 /* ----- Moonstone ------ */
 @font-face {
   font-family: "Moonstone Icons";
-  src: local("Moonstone "), url("../fonts/moonstone.ttf") format("truetype"), url("../fonts/moonstone.woff") format("woff");
+  src: local("Moonstone "), url("../fonts/moonstone.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
