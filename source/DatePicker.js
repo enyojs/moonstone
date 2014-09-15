@@ -273,7 +273,8 @@
 					second: valueSeconds,
 					millisecond: valueMilliseconds
 				});
-				this.setValue(new Date(this.localeValue.getTime()));
+				var l = this.localeValue;
+				this.setValue(new Date(l.year, l.month-1, l.day, l.hour, l.minute, l.second, l.millisecond));
 			} else {
 				maxDays = this.monthLength(year, month);
 				this.setValue(new Date(year, month-1, (day <= maxDays) ? day : maxDays,
@@ -292,9 +293,9 @@
 				var value = this.value;
 				if (typeof ilib !== 'undefined') {
 					this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
-					value = this.localeValue.getJSDate();
+					var l = this.localeValue;
+					value = new Date(l.year, l.month-1, l.day, l.hour, l.minute, l.second, l.millisecond);
 				}
-
 				this.$.year.setValue(value.getFullYear());
 				this.$.month.setValue(value.getMonth() + 1);
 				this.$.day.setValue(value.getDate());
