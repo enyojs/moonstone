@@ -121,7 +121,7 @@
 			* @default 'moon-slider-popup-label'
 			* @public
 			*/
-			popupLabelClasses: 'moon-slider-popup-label',
+			popupLabelClasses: 'moon-large-button-text moon-slider-popup-label',
 
 			/**
 			* CSS classes to apply to the tap area.
@@ -417,7 +417,7 @@
 		* @private
 		*/
 		updatePopupOffset: function() {
-			this.$.popup.applyStyle('top', -(this.getPopupHeight() + this.getPopupOffset()) + 'px');
+			this.$.popup.applyStyle('top', -(this.getPopupHeight() + this.getPopupOffset() + 5) + 'px');
 		},
 
 		/**
