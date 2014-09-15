@@ -291,6 +291,11 @@
 		setChildPickers: function (inOld) {
 			if (this.value) {
 				var value = this.value;
+				if (typeof ilib !== 'undefined') {
+					this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
+					var l = this.localeValue;
+					value = new Date(l.year, l.month-1, l.day, l.hour, l.minute, l.second, l.millisecond);
+				}
 				this.$.year.setValue(value.getFullYear());
 				this.$.month.setValue(value.getMonth() + 1);
 				this.$.day.setValue(value.getDate());
