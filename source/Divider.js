@@ -41,7 +41,8 @@
 		* @private
 		*/
 		contentChanged: function () {
-			this.set('content', this.content.split(' ').map(enyo.cap).join(' '));
+			this.inherited(arguments);
+			this.content = this.content.split(' ').map(enyo.cap).join(' ');
 		}
 	});
 
