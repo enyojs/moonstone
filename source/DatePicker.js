@@ -113,6 +113,7 @@
 		initILib: function () {
 			this.inherited(arguments);
 			if (typeof ilib !== 'undefined' && this.value) {
+				ilib.setLocale(this.locale);
 				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
 			}
 		},
@@ -186,6 +187,7 @@
 			var valueFullYear = 0, valueMonth = 0, valueDate = 0, maxMonths = 12;
 
 			if (typeof ilib !== 'undefined') {
+				ilib.setLocale(this.locale);
 				if (this.localeValue) {
 					valueFullYear = this.localeValue.getYears();
 					valueMonth = this.localeValue.getMonths();
@@ -294,11 +296,14 @@
 					this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
 					value = this.localeValue.getJSDate();
 				}
-
-				this.$.year.setValue(value.getFullYear());
-				this.$.month.setValue(value.getMonth() + 1);
-				this.$.day.setValue(value.getDate());
-				this.$.day.setMax(this.monthLength(value.getFullYear(), value.getMonth() + 1));
+				if(value){
+					this.$.year.setValue(this.localeValue.getYears());
+					this.$.month.setValue(this.localeValue.getMonths());
+					this.$.day.setValue(this.localeValue.getDays());
+					this.$.day.setMax(this.monthLength(this.localeValue.getYears(), this.localeValue.getMonths()));
+				} else {
+					return;
+				}
 			}
 			this.$.currentValue.setContent(this.formatValue());
 		},
