@@ -2181,9 +2181,9 @@
   right: 50%;
 }
 .moon-slider-popup-flip-h {
-  transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
   -moz-transform: scaleX(-1);
+  transform: scaleX(-1);
 }
 .enyo-locale-non-latin .moon-slider-popup-label {
   font-size: 30px;
