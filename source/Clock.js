@@ -132,14 +132,7 @@
 			var clockPref = this.ilibLocaleInfo.getClock();
 			var clock = clockPref !== 'locale' ? clockPref : undefined;
 
-			var fmtHourParams = {
-				locale: this.locale,
-				type: 'time',
-				time: 'h',
-				clock: clock,
-				timezone: (this.mode === 'normal') ? 'local' : 'Etc/UTC'
-			};
-			var fmtMinuteParams = {
+			var fmtParams = {
 				locale: this.locale,
 				type: 'time',
 				time: 'hma',
@@ -147,8 +140,7 @@
 				timezone: (this.mode === 'normal') ? 'local' : 'Etc/UTC'
 			};
 
-			this._hf = new ilib.DateFmt(fmtHourParams);
-			this._mf = new ilib.DateFmt(fmtMinuteParams);
+			this._tf = new ilib.DateFmt(fmtParams);
 		},
 
 		/**
@@ -197,14 +189,6 @@
 		/**
 		* @private
 		*/
-		_formatNumber: function (inValue) {
-			// Used when ilib is not present
-			return (inValue) ? (String(inValue).length < 2) ? '0'+inValue : inValue : '00';
-		},
-
-		/**
-		* @private
-		*/
 		localeChanged: function () {
 			this._refresh();
 			this.updateDate();
@@ -221,11 +205,8 @@
 		* @private
 		*/
 		_refresh: function () {
-			if (this._hf) {
-				delete this._hf;
-			}
-			if (this._mf) {
-				delete this._mf;
+			if (this._tf) {
+				delete this._tf;
 			}
 			this.initDefaults();
 		},
@@ -260,17 +241,22 @@
 				d = this.date;
 				h = (this.date.hour) ? this.date.hour : 0;
 			}
-			this.updateMinute(d, h);
+			this.updateTime(d, h);
 		},
 
 		/**
 		* @private
 		*/
-		updateMinute: function (inDate, inHour) {
-			var time = this._mf ? this._mf.format((this.mode === 'normal')	? ilib.Date.newInstance({unixtime: inDate.getTime(), timezone:'Etc/UTC'})
-																			: ilib.Date.newInstance(this.parseStaticDate(inDate)))
-								: (this.mode === 'normal')	? this._formatNumber(inDate.getMinutes())
-															: this._formatNumber(inDate.min);
+		updateTime: function (inDate, inHour) {
+			var time = '';
+			if (this._tf) {
+				time = this._tf.format((this.mode === 'normal')	? ilib.Date.newInstance({unixtime: inDate.getTime(), timezone:'Etc/UTC'})
+																	: ilib.Date.newInstance(this.parseStaticDate(inDate)));
+			} else {
+				time += (inHour > 12 ? inHour-12: inHour) || 12;
+				time += ':' + ('00' + inDate.getMinutes()).slice(-2);
+				time += inHour > 11 ? 'pm' : 'am';
+			}
 			this.$.clock.setContent(time);
 		},
 
