@@ -42,8 +42,8 @@
 		*/
 		contentChanged: enyo.inherit(function (sup) {
 			return function () {
-				sup.apply(this, arguments);
 				this.content = this.content.split(' ').map(enyo.cap).join(' ');
+				sup.apply(this, arguments);
 			};
 		})
 	});
