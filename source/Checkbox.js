@@ -93,11 +93,13 @@
 		/**
 		* @private
 		*/
-		rendered: function () {
-			this.iconChanged();
-			this.srcChanged();
-		},
-
+		rendered: enyo.inherit(function (sup) {
+			return function() {
+				sup.apply(this, arguments);
+				this.srcChanged();
+				this.iconChanged();
+			};
+		}),
 		/**
 		* @fires enyo.Checkbox#onChange
 		* @private

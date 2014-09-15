@@ -121,6 +121,7 @@
 		initComponents: function () {
 			if (!(this.components && this.components.length > 0)) {
 				this.createComponent({name: 'client', kind:'moon.MarqueeText', isChrome: true});
+				this.createComponent({name: 'tapArea', classes: 'button-tap-area', isChrome: true});
 			}
 			this.smallChanged();
 			this.minWidthChanged();
@@ -158,21 +159,13 @@
 		},
 
 		/**
-		* If `this.small` is `true`, adds a child that increases the tap area.
+		* If `this.small` is `true`, `taparea` dimensions are increased
 		* @private
 		*/
 		smallChanged: function () {
-			if (this.$.tapArea) {
-				this.$.tapArea.destroy();
-			}
-
 			if (this.small) {
 				this.addClass('small');
 				this.addClass('moon-small-button-text');
-				var ta = this.createComponent({name: 'tapArea', classes: 'small-button-tap-area', isChrome: true});
-				if (this.generated) {
-					ta.render();
-				}
 			} else {
 				this.removeClass('small');
 				this.removeClass('moon-small-button-text');

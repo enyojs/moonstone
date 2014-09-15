@@ -468,7 +468,7 @@
 					hour += 12;
 				}
 				this.$.hour.setScrollTop(inEvent.originator.scrollBounds.clientHeight * (hour-1));
-				this.$.hour.setValue(hour);
+				this.$.hour.setValue(hour%24);
 			}
 	
 			if (inEvent.originator.kind == 'moon.HourPicker') {

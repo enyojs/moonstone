@@ -75,12 +75,25 @@
 	> * {
 		display: inline-block;
 	}
+	// Horizontally centered
+	&.center {
+		margin: 0;
+		margin-left: 50%;
+		transform: translateX(-50%);
+
+		// Vertically centered
+		&.middle {
+			position: absolute;
+			top: 50%;
+			transform: translateX(-50%) translateY(-50%);
+		}
+	}
 	&.moon-spinner-transparent-background {
 		background-color: transparent;
 	}
 	&.content {
 		padding: ((@moon-button-height - @moon-spinner-size) / 2);
-		
+
 		.moon-spinner-client {
 			max-width: 400px;
 		}

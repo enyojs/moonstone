@@ -1,7 +1,7 @@
 /* IconButton.css */
 .moon-icon-button {
+	.border-box;
 	color: @moon-icon-button-font-color;
-	box-sizing: border-box;
 	width: @moon-icon-button-size;
 	height: @moon-icon-button-size;
 	border-radius: @moon-icon-button-size / 2;
@@ -19,6 +19,9 @@
 		background-size: @moon-icon-sprite-small-size @moon-icon-sprite-small-size * 2;
 		background-position: center 0;
 		line-height: @moon-icon-sprite-small-size;
+		> .small-icon-tap-area {
+			line-height: @moon-button-small-tap-area-height;
+		}
 	}
 
 	&.hover:hover:not(.disabled),
@@ -49,7 +52,7 @@
 	&.disabled {
 		border-color: transparent;
 	}
-	
+
 	// No-background + no-background and all states
 	&.no-background {
 		&:not(.spotlight),
@@ -57,6 +60,23 @@
 		&.pressed,
 		&.hover:hover:active {
 			background-color: transparent;
+		}
+	}
+
+	// 'Selected+Focus' state
+	&.active.spotlight:not(.contextual-popup-button) {
+		border-color: @moon-active-spotlight-border-color;
+		background-color: @moon-icon-button-spotlight-bg-color;
+		color: @moon-spotlight-text-color;
+
+		&:active,
+		&.pressed {
+			border-color: @moon-icon-button-active-border-color;
+			background-position: center -@moon-icon-sprite-size;
+
+			&.small {
+				background-position: center -@moon-icon-sprite-small-size;
+			}
 		}
 	}
 }

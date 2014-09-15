@@ -15,22 +15,18 @@
 		cursor: default;
 		background-color: transparent;
 		left: 0px;
-	}
-	.moon-icon:after {
 		color: @moon-checkbox-toggle-switch-color;
 	}
 	&[checked] {
 		background-color: @moon-checkbox-toggle-switch-checked-bg-color;
 		.moon-icon {
 			left:  @moon-toggleswitch-image-width / 2;
-		}
-		.moon-icon:after {
 			color: @moon-checkbox-toggle-switch-checked-color;
 		}
 	}
 	&[disabled] {
 		background-color: @moon-checkbox-toggle-switch-bg-color;
-		.moon-icon:after {
+		.moon-icon {
 			color: @moon-checkbox-toggle-switch-color;
 		}
 	}

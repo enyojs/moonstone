@@ -236,7 +236,7 @@
 			if (!this.multipleSelection) {
 				return;
 			}
-			var controls = this.getClientControls();
+			var controls = this.getCheckboxControls();
 			var str = '';
 			this.selectedIndex.sort();
 			for (var i=0; i < this.selectedIndex.length; i++) {
@@ -262,7 +262,7 @@
 		*/
 		selectedChanged: function (inOldValue) {
 			var selected = this.getSelected(),
-			controls = this.getClientControls(),
+			controls = this.getCheckboxControls(),
 			index = -1,
 			i; //declaring i here to fix travis error
 
@@ -317,7 +317,7 @@
 		*/
 		selectedIndexChanged: function () {
 			var selected = this.getSelected(),
-			controls = this.getClientControls(),
+			controls = this.getCheckboxControls(),
 			index = this.getSelectedIndex();
 
 			if (this.multipleSelection) {
@@ -452,7 +452,7 @@
 		* @private
 		*/
 		initializeActiveItem: function () {
-			var controls = this.getClientControls();
+			var controls = this.getCheckboxControls();
 
 			for (var i=0; i<controls.length; i++) {
 				if (!controls[i].active) {
@@ -488,7 +488,7 @@
 				return;
 			}
 
-			index = this.getClientControls().indexOf(toggledControl);
+			index = this.getCheckboxControls().indexOf(toggledControl);
 
 			if (this.multipleSelection) {
 				if (index >= 0) {
@@ -512,6 +512,15 @@
 			}
 
 			return true;
+		},
+		
+		/**
+		* Returns the picker items. Override point for child kinds altering the source of the items.
+		* 
+		* @private
+		*/
+		getCheckboxControls: function () {
+			return this.getClientControls();
 		},
 
 		/**

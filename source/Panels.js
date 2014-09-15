@@ -259,18 +259,35 @@
 		},
 
 		/**
+		* Options for the [moon.Panels.pushPanels()]{@link moon.Panels.pushPanels} method.
+		*
+		* @typedef {Object} moon.Panels.pushPanels~options
+		* @property {Number} targetIndex - The panel index number to immediately switch to. Leaving
+		*	this blank or not setting it will perform the default action, which transitions to the 
+		*	first of the new panels. Setting this to a negative and other "out of bounds" values
+		*	work in conjunction with the `wrap: true` property. Negative values count backward from
+		*	the end, while indices greater than the total Panels' panel length wrap around and start
+		*	counting again from the beginning.
+		* @property {Boolean} transition - Whether to transition or jump directly to the next panel.
+		* @public
+		*/
+
+		/**
 		* Creates multiple panels on top of the stack and updates index to select the last one
-		* created.
+		* created. Supports an optional `options` object as the third parameter.
 		*
 		* @param {Object[]} info - The declarative {@glossary kind} definitions.
 		* @param {Object} commonInfo - Additional properties to be applied (defaults).
+		* @param {Object} options - Additional options for pushPanels.
 		* @return {null|Object[]} Array of the panels that were created on top of the stack, or
 		*	`null` if panels could not be created.
 		* @public
 		*/
-		pushPanels: function (info, commonInfo) { // added
-			if (this.transitionInProgress || this.isModifyingPanels) {return null;}
+		pushPanels: function(info, commonInfo, options) { // added
+			if (this.transitionInProgress || this.isModifyingPanels) { return null; }
 			this.isModifyingPanels = true;
+
+			if (!options) { options = {}; }
 			var lastIndex = this.getPanels().length - 1,
 				oPanels = this.createComponents(info, commonInfo),
 				nPanel;
@@ -282,7 +299,19 @@
 			for (nPanel = 0; nPanel < oPanels.length; ++nPanel) {
 				oPanels[nPanel].resize();
 			}
-			this.setIndex(lastIndex+1);
+
+			if (options.targetIndex || options.targetIndex === 0) {
+				lastIndex = options.targetIndex;
+			} else {
+				lastIndex++;
+			}
+			// If transition was explicitly set to false, since null or undefined indicate "never set" or unset
+			if (options.transition === false) {
+				this.setIndexDirect(lastIndex);
+			} else {
+				this.setIndex(lastIndex);
+			}
+
 			this.isModifyingPanels = false;
 			return oPanels;
 		},
@@ -782,7 +811,7 @@
 		/**
 		* Suppresses firing `onTransitionStart` when a transition is in progress, because
 		* it was already fired in [setIndex()]{@link moon.Panels#setIndex}.
-		* 
+		*
 		* @private
 		*/
 		startTransition: function(sendEvents) {
@@ -1177,7 +1206,7 @@
 		*/
 		brandingSrcChanged: function () {
 			if (this.pattern === 'activity') {
-				this.$.scrim.applyStyle('background-image', (this.brandingSrc && this.getPanelInfo(0, this.index).breadcrumb) ? 'url(' + this.brandingSrc + ')' : 'none');
+				this.$.scrim.applyStyle('background-image', (this.brandingSrc && this.getPanelInfo(0, this.index).breadcrumb) ? 'url(' + enyo.path.rewrite(this.brandingSrc) + ')' : 'none');
 			}
 		}
 	});

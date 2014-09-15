@@ -27,7 +27,7 @@ enyo.kind({
 					]},
 					{action:"category1", components: [
 						{kind: "moon.Divider", content:"Category 1 (Static)"},
-						{kind: "moon.Scroller", fit: true, components: [
+						{kind: "moon.Scroller", classes: "fittable-scroller", fit: true, components: [
 							{kind: "enyo.Group", name:"group", highlander: true, defaultKind: "moon.SelectableItem", components: [
 								{content:"Just Released"},
 								{content:"Recommended"},
@@ -41,7 +41,7 @@ enyo.kind({
 				{kind:"moon.Tooltip", position: "above", content: "Dummy List Actions"},
 
 				//* List actions with proportional width
-				{kind: "moon.ListActions", proportionalWidth: true, iconSrc: "./assets/icon-list.png", listActions: [
+				{kind: "moon.ListActions", proportionalWidth: true, iconSrc: "$lib/moonstone/samples/assets/icon-list.png", listActions: [
 					{action: "Cost", components: [
 						{kind: "moon.Divider", content:"Cost"},
 						{kind: "moon.Scroller", defaultKind: "moon.ToggleItem", fit: true, components: [
@@ -69,7 +69,7 @@ enyo.kind({
 				{kind:"moon.Tooltip", position: "above", content: "Test Auto Collapse"},
 
 				//* List actions with auto-collapsing
-				{kind: "moon.ListActions", autoCollapse: true, iconSrc: "./assets/icon-list.png", listActions: [
+				{kind: "moon.ListActions", autoCollapse: true, iconSrc: "$lib/moonstone/samples/assets/icon-list.png", listActions: [
 					{action: "AutoCollapseTest", components: [
 						{kind: "moon.Divider", content:"Try Auto-collapse"},
 						{kind: "moon.Scroller", fit: true, components: [

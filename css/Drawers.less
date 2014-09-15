@@ -2,7 +2,7 @@
 .moon-drawers-activator {
 	z-index: 100;
 	font-family: @moon-icon-font-family;
-	font-size: 50px;
+	font-size: 43px;
 	// adjust the caret to line-up with the bottom edge of the activator bar
 	line-height: @moon-icon-font-size / 2 - 4;
 	// Height must be less than or equal to the distance from the edge of the screen to the content
@@ -17,7 +17,7 @@
 		height: @moon-drawers-activator-bar-height;
 		background-color: @moon-drawer-bg-color;
 	}
-	&:after {
+	.moon-drawers-activator-icon {
 		margin: -12px auto 0;
 		width: @moon-drawer-nub-width;
 		height: @moon-drawer-nub-height;
@@ -29,28 +29,24 @@
 		content: @moon-icon-arrowsmalldown;
 		color: @moon-drawer-activator-font-color;
 		text-align: center;
+		font-size: inherit;
+		line-height: inherit;
 	}
 
 	/* The activator & nub are white when a drawer is open */
 	&.open {
 		&:before,
-		&:after {
+		.moon-drawers-activator-icon {
 			color: @moon-drawer-activator-open-font-color;
 			background-color: @moon-drawer-open-bg-color;
-		}
-		&:after {
-			content: @moon-icon-arrowsmallup;
 		}
 	}
 
 	// Cursor is hovering over the activator, but it hasn't moved yet.
-	// Prevents a blink-to-white on-click.
-	&.open:hover,
 	/* Activator is spotlight focused */
 	&.spotlight {
-
 		&:before,
-		&:after {
+		.moon-drawers-activator-icon {
 			color: @moon-spotlight-text-color;
 			background-color: @moon-spotlight-color;
 		}

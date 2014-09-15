@@ -10,7 +10,7 @@ enyo.kind({
 		{kind: 'moon.Scroller', fit: true, components: [
 			{kind: "Repeater", count:20, onSetupItem:"setupItem", components: [
 				{kind: "moon.ObjectActionDecorator", orientation: "horizontal", components: [
-					{kind: "moon.ImageItem", source: "assets/default-music.png"}
+					{kind: "moon.ImageItem", source: "$lib/moonstone/samples/assets/default-music.png"}
 				], actionComponents: [
 					{kind: "moon.IconButton", name: "Icon1"},
 					{kind: "moon.IconButton", name: "Icon2"},

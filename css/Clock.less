@@ -1,66 +1,11 @@
+// temporarily set the margin as follow so it looks ok with the old design, will adjust after the new  video player is rebuild
 .moon-clock {
-	display: block;
-	vertical-align: top;
-	width: auto;
-}
-.moon-clock-hour {
-  vertical-align:center;
-  display: inline-block;
-  margin-right:15px;
-  color:@moon-clock-color;
-}
-.moon-clock-right {
-	display: inline-block;
-	position:relative;
-  top:5px;
-}
-.moon-clock-top {
-  font-size: @moon-clock-minute-font-size;
-  color:@moon-clock-color;
-  vertical-align: bottom;
-  display: inline-block;
-  line-height:60px;
-  white-space: nowrap;
-  font-size: 61px;
-  line-height: 62px;
-  line-height: 96px;
-  height: 72px;
-}
-.moon-clock-meridiem {
-  .moon-bold-text;
-  color:@moon-clock-color;
-  display: inline-block;
-  text-transform: none;
-  margin-left: 10px;
-  font-size: @moon-clock-meridiem-font-size;
-}
-.moon-clock-bottom {
-  color:@moon-clock-color;
-  text-transform: none;
-  white-space: normal;
-  vertical-align: top;
-  display: inline-block;
-  height:28px;
-  width: 100%;
-}
-.moon-clock-divider {
-  height: 2px;
-  width: 100%;
-  margin:5px 0;
-  background-color: @moon-clock-color;
-}
-.moon-clock-right.mini {
-  padding: 20px 0;
-}
-.moon-clock-right.mini > .moon-clock-divider {
-  background-color: transparent;
-  height: 6px;
-}
-.moon-clock-right.mini > .moon-clock-top {
-  font-size: @moon-clock-top-font-size;
-  text-align: right;
-}
-.moon-clock-right.mini > .moon-clock-bottom {
-  font-size: @moon-clock-bottom-font-size;
-  text-align: right;
+	margin: 30px 20px 30px 40px;
+
+	.moon-bold-text {
+		font-size: @moon-clock-text-font-size;
+		text-transform: uppercase;
+		line-height: normal;
+		color: @moon-white;
+	}
 }

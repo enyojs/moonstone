@@ -105,7 +105,7 @@
 			if (!this.source || this.source === '') {
 				return;
 			}
-			this.$.image.setAttribute('src', this.source);
+			this.$.image.setAttribute('src', enyo.path.rewrite(this.source));
 		},
 
 		/**
