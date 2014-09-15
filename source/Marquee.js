@@ -793,6 +793,8 @@
 			this.$.marqueeText.addClass('animate-marquee');
 			this.$.marqueeText.applyStyle('transition-duration', duration + 's');
 			this.$.marqueeText.applyStyle('-webkit-transition-duration', duration + 's');
+			this.$.marqueeText.applyStyle('transition-timing-function', 'linear');
+			this.$.marqueeText.applyStyle('-webkit-transition-timing-function', 'linear');
 
 			enyo.dom.transform(this, {translateZ: '-0.1px'});
 
