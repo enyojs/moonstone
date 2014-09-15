@@ -102,9 +102,9 @@
 		*/
 		onKeyUp: function (oSender, oEvent) {
 			if (this.dismissOnEnter) {
-				if (oEvent.keyCode == 13) {
-					if (this._bFocused) {
-						this.blur();
+				if (oEvent.keyCode == 13 && this._bFocused) {
+					this.blur();
+					if (enyo.Spotlight.getPointerMode()) {
 						enyo.Spotlight.unspot();
 					}
 				}
