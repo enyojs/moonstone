@@ -119,6 +119,14 @@
 		/**
 		* @private
 		*/
+		create: function () {
+			this.inherited(arguments);
+			this.createComponent({kind: 'enyo.Signals', onSpotlightCurrentChanged: 'spotChanged'});
+		},
+
+		/**
+		* @private
+		*/
 		autoShowChanged: function () {
 			if (!this.autoShow) {
 				this.requestHideTooltip();
@@ -150,6 +158,13 @@
 		* @private
 		*/
 		spotBlur: function () {
+			this.requestHideTooltip();
+		},
+
+		/**
+		* @private
+		*/
+		spotChanged: function (sender, event) {
 			this.requestHideTooltip();
 		},
 
