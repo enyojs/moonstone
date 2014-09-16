@@ -148,7 +148,7 @@
 		* @private
 		*/
 		setupItem: function (inSender, inEvent) {
-			var hour = this.format(inEvent.index);
+			var hour = this.format(inEvent.index % this.range);
 			this.$.item.setContent(hour);
 		},
 
