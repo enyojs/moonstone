@@ -257,7 +257,8 @@
 			// to prevent the default 5-way behavior (which is to focus on the control nearest
 			// to the pointer in the chosen direction)...
 			var last = enyo.Spotlight.getLastControl(),
-				cur = enyo.Spotlight.getCurrent();
+				cur = enyo.Spotlight.getCurrent(),
+				focusCapturedControl = event.originator;
 			// There are two cases where we want to focus back on ourselves...
 			// NOTE: The logic used here to detect these cases is highly dependent on certain
 			// nuances of how Spotlight currently tracks the "last" and "current" focus. It will
@@ -267,7 +268,7 @@
 				// the popup, which means a 5-way press will likely focus some control outside the
 				// popup, unless we prevent it by re-spotting ourselves.
 				//(last === this && !cur.isDescendantOf(this)) ||
-				(last === this && cur === this.activator) ||
+				(last === this && !focusCapturedControl.isDescendantOf(this)) ||
 				// Case 2: We were probably opened in 5-way mode and then the pointer was moved
 				// (likely due to incidental movement of the magic remote). It's possible that the
 				// user actually wants to exit the popup by focusing on something outside, but more
