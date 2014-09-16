@@ -191,7 +191,7 @@
 		*/
 		inputBlur: function (inSender, inEvent) {
 			var eventType = enyo.Spotlight.getLastEvent().type;
-			if (enyo.Spotlight.getPointerMode() && eventType !== 'onSpotlightFocus' && eventType !== 'mouseover') {
+			if (enyo.Spotlight.getPointerMode() && eventType === 'down') {
 				this.toggleActive();
 			}
 		},
