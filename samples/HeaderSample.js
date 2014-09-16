@@ -15,7 +15,7 @@ enyo.kind({
 			]},
 			{classes: 'moon-1v'},
 			{kind: 'moon.Header', name: 'smallHeader', content: 'Small Header', type: 'small', titleAbove: '04', subTitle: "Sub Title", titleBelow: 'Sub Header', subTitleBelow: 'Sub-sub Header', components: [
-				{kind: 'moon.Button', content: 'Description', ontap: 'describeSmall'},
+				{kind: 'moon.Button', small: true, content: 'Description', ontap: 'describeSmall'},
 				{kind: 'moon.Button', small: true, content: 'How to use', ontap: 'howToUseSmall'}
 			]},
 			{classes: 'moon-1v'},
@@ -57,7 +57,7 @@ enyo.kind({
 		this.$.mediumHeader.setTitleBelow('Medium header flattens the button area and the titleBelow areas together for a more compact header.');
 	},
 	howToUseMedium: function(inSender, inEvent) {
-		this.$.mediumHeader.setSubTitleBelow('Set `type` property to "medium" to use the medium header and long very subTitleBelow.');
+		this.$.mediumHeader.setSubTitleBelow('Set `type` property to "medium" to use the medium header.');
 	},
 	describeSmall: function(inSender, inEvent) {
 		this.$.smallHeader.setTitle('Small header flattens the buttons down to the title area, uses a smaller title font, and has no `titleBelow`.');

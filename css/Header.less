@@ -37,6 +37,16 @@
 		height: 44px;
 	}
 
+	.moon-header-client {
+		position: absolute;
+		bottom: 14px;
+		left: 0;
+		right: 0;
+		text-align: right;	/* fallback in case text-align:end isn't supported */
+		text-align: end;	/* CSS3 for RTL support */
+		z-index: 1;         /* Fixme: Inverse component stack order */
+	}
+
 	&.full-bleed {
 		padding: 0 @moon-header-indent-width @moon-spotlight-outset @moon-header-indent-width;
 		border: 0;
@@ -45,11 +55,6 @@
 			left: @moon-header-indent-width;
 			right: @moon-header-indent-width;
 		}
-	}
-
-	// adjust child elements of .moon-hsacing so that large and small buttons/icon buttons all align to the bottom
-	.moon-hspacing > * {
-		vertical-align: bottom;
 	}
 
 	// Medium Header
@@ -78,7 +83,7 @@
 		}
 
 		.moon-header-title {
-			padding: 26px 0 0 0;
+			margin: 26px 0 0 0;
 			line-height: @moon-small-header-line-height;
 			font-size: @moon-small-header-font-size;
 			height: 84px;
@@ -87,23 +92,19 @@
 		.moon-header-sub-title {
 			font-size: @moon-small-header-sub-header-font-size;
 		}
+
+		.moon-header-client {
+			position: relative;
+			float: right;
+			bottom: inherit;
+			margin: 38px 0 0 @moon-header-title-subtitle-gap;
+		}
+
+		&.full-bleed .moon-header-client {
+			margin: 38px @moon-header-indent-width 0 @moon-header-title-subtitle-gap;
+		}
 	}
 
-	.moon-header-client {
-		position: absolute;
-		bottom: 14px;
-		left: 0;
-		right: 0;
-		text-align: right;	/* fallback in case text-align:end isn't supported */
-		text-align: end;	/* CSS3 for RTL support */
-		z-index: 1;         /* Fixme: Inverse component stack order */
-	}
-
-	&.moon-medium-header .moon-header-client,
-	&.moon-small-header .moon-header-client {
-		display: inline-block;
-		left: auto;
-	}
 }
 
 // neutral
@@ -122,11 +123,14 @@
 }
 
 // enyo-locale-right-to-left
-.enyo-locale-right-to-left {
-	.moon-small-header .moon-header-client,
-	.moon-medium-header .moon-header-client {
-		right: auto;
-		left: 0;
+.enyo-locale-right-to-left .moon-small-header {
+	.moon-header-client {
+		float: left;
+		margin: 38px @moon-header-title-subtitle-gap 0 0;
+	}
+
+	&.full-bleed .moon-header-client {
+		margin: 38px @moon-header-title-subtitle-gap 0 20px;
 	}
 }
 
