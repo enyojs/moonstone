@@ -174,6 +174,7 @@
 			this.inherited(arguments);
 			this.$.drawers.createComponents(this.drawers, {kind: 'moon.Drawer', owner:this.owner});
 			this.setupHandles();
+			this.updateActivator();
 		},
 
 		/**
