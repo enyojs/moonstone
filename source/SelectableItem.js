@@ -81,7 +81,18 @@
 			* @default false
 			* @public
 			*/
-			active: false
+			active: false,
+			
+			/**
+			* If used as the base control within a {@link moon.DataList} or {@glossary subkind},
+			* this should be set to `false` so that selection support can be synchronized to the
+			* checked state of this control.
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
+			handleTapEvent: true
 		},
 		
 		/**
@@ -132,9 +143,10 @@
 			if (this.disabled) {
 				return true;
 			}
-
-			this.setActive(!this.getActive());
-			this.bubble('onchange');
+			if (this.handleTapEvent) {
+				this.setActive(!this.getActive());
+				this.bubble('onchange');
+			}
 		},
 
 		/**
