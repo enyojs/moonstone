@@ -270,7 +270,7 @@
 		*
 		* @private
 		*/
-		_marquee_spotlightFocus: function (inSender, inEvent) {
+		_marquee_spotlightFocus: function (sender, ev) {
 			this._marquee_isFocused = true;
 			if (this.marqueeOnSpotlight) {
 				this.startMarquee();
@@ -282,7 +282,7 @@
 		*
 		* @private
 		*/
-		_marquee_spotlightBlur: function (inSender, inEvent) {
+		_marquee_spotlightBlur: function (sender, ev) {
 			this._marquee_isFocused = false;
 			if (this.marqueeOnSpotlight) {
 				this.stopMarquee();
@@ -292,9 +292,9 @@
 		/**
 		* @private
 		*/
-		_marquee_enter: function (inSender, inEvent) {
+		_marquee_enter: function (sender, ev) {
 			this._marquee_isHovered = true;
-			if ((this.marqueeOnHover && !this.marqueeOnSpotlight) || 
+			if ((this.marqueeOnHover && !this.marqueeOnSpotlight) ||
 			(this.disabled && this.marqueeOnSpotlight)) {
 				this.startMarquee();
 			}
@@ -303,7 +303,7 @@
 		/**
 		* @private
 		*/
-		_marquee_leave: function (inSender, inEvent) {
+		_marquee_leave: function (sender, ev) {
 			this._marquee_isHovered = false;
 			if ((this.marqueeOnHover && !this.marqueeOnSpotlight) || (this.disabled && this.marqueeOnSpotlight)) {
 				this.stopMarquee();
@@ -313,8 +313,8 @@
 		/**
 		* @private
 		*/
-		_marquee_stopPropagation: function (inSender, inEvent) {
-			if (inEvent.originator != this) {
+		_marquee_stopPropagation: function (sender, ev) {
+			if (ev.originator != this) {
 				return true;
 			}
 		},
@@ -325,9 +325,9 @@
 		*
 		* @private
 		*/
-		_marquee_marqueeEnded: function (inSender, inEvent) {
+		_marquee_marqueeEnded: function (sender, ev) {
 			if (this._marquee_active) {
-				enyo.remove(inEvent.originator, this.marqueeWaitList);
+				enyo.remove(ev.originator, this.marqueeWaitList);
 				if (this.marqueeWaitList.length === 0) {
 					this._marquee_startHold();
 					this._marquee_active = false;
@@ -339,7 +339,7 @@
 		/**
 		* @private
 		*/
-		_marquee_resize: function (inSender, inEvent) {
+		_marquee_resize: function (sender, ev) {
 			if (this.marqueeOnSpotlight && this._marquee_active) {
 				this._marquee_active = false;
 				this._marquee_startHold();
@@ -540,7 +540,7 @@
 		observers: {
 			_marquee_contentChanged: ['content'],
 			_marquee_centeredChanged: ['centered'],
-			_marquee_wrapInsteadOfMarqueeChanged: ["wrapInsteadOfMarquee"]
+			_marquee_wrapInsteadOfMarqueeChanged: ['wrapInsteadOfMarquee']
 		},
 
 		/**
@@ -655,16 +655,16 @@
 		*
 		* @private
 		*/
-		_marquee_requestMarquee: function (inSender, inEvent) {
-			if (!inEvent || !this.showing || this._marquee_fits) {
+		_marquee_requestMarquee: function (sender, ev) {
+			if (!ev || !this.showing || this._marquee_fits) {
 				return;
 			}
 
-			this._marquee_puppetMaster = inEvent.originator;
-			inEvent.originator.addMarqueeItem(this);
+			this._marquee_puppetMaster = ev.originator;
+			ev.originator.addMarqueeItem(this);
 
-			this.marqueePause = inEvent.marqueePause || 1000;
-			this.marqueeSpeed = inEvent.marqueeSpeed || 60;
+			this.marqueePause = ev.marqueePause || 1000;
+			this.marqueeSpeed = ev.marqueeSpeed || 60;
 		},
 
 		/**
@@ -672,7 +672,7 @@
 		*
 		* @private
 		*/
-		_marquee_startAnimation: function (inSender, inEvent) {
+		_marquee_startAnimation: function (sender, ev) {
 			var distance = this._marquee_calcDistance();
 
 			// If there is no need to animate, return early
@@ -712,7 +712,7 @@
 		* @fires moon.MarqueeItem#onMarqueeEnded
 		* @private
 		*/
-		_marquee_stopAnimation: function (inSender, inEvent) {
+		_marquee_stopAnimation: function (sender, ev) {
 			this.stopJob('stopMarquee');
 			this._marquee_removeAnimationStyles();
 			this.doMarqueeEnded();
@@ -723,8 +723,8 @@
 		*
 		* @private
 		*/
-		_marquee_animationEnded: function (inSender, inEvent) {
-			if (inEvent.originator !== this.$.marqueeText) {
+		_marquee_animationEnded: function (sender, ev) {
+			if (ev.originator !== this.$.marqueeText) {
 				return;
 			}
 
@@ -737,9 +737,9 @@
 		*
 		* @private
 		*/
-		_marquee_shouldAnimate: function (inDistance) {
-			inDistance = (inDistance && inDistance >= 0) ? inDistance : this._marquee_calcDistance();
-			return (inDistance > 0);
+		_marquee_shouldAnimate: function (distance) {
+			distance = (distance && distance >= 0) ? distance : this._marquee_calcDistance();
+			return (distance > 0);
 		},
 
 		/**
@@ -757,12 +757,12 @@
 		},
 
 		/**
-		* Returns duration based on `inDistance` and `this.marqueeSpeed`.
+		* Returns duration based on `distance` and `this.marqueeSpeed`.
 		*
 		* @private
 		*/
-		_marquee_calcDuration: function (inDistance) {
-			return inDistance / this.marqueeSpeed;
+		_marquee_calcDuration: function (distance) {
+			return distance / this.marqueeSpeed;
 		},
 
 		/**
@@ -771,15 +771,15 @@
 		* @private
 		*/
 		_marquee_createMarquee: function () {
-			var marqueeText = {name: "marqueeText", classes: "moon-marquee-text", allowHtml: this.allowHtml, content: this.content},
+			var marqueeText = {name: 'marqueeText', classes: 'moon-marquee-text', allowHtml: this.allowHtml, content: this.content},
 				highlightText = null;
 
 			if (this instanceof moon.HighlightText) {
-				enyo.dom.setInnerHtml(this.hasNode(), "");
+				enyo.dom.setInnerHtml(this.hasNode(), '');
 				highlightText = {renderDelegate: this.renderDelegate, highlightClasses: this.highlightClasses, search: this.search};
 				marqueeText = enyo.mixin(marqueeText, highlightText);
 			}
-			this.createComponent({name:"marqueeTextWrapper", classes: "moon-marquee-text-wrapper", components: [marqueeText]});
+			this.createComponent({name: 'marqueeTextWrapper', classes: 'moon-marquee-text-wrapper', components: [marqueeText]});
 			this.render();
 			return true;
 		},
@@ -787,18 +787,18 @@
 		/**
 		* @private
 		*/
-		_marquee_addAnimationStyles: function (inDistance) {
-			var duration = this._marquee_calcDuration(inDistance);
+		_marquee_addAnimationStyles: function (distance) {
+			var duration = this._marquee_calcDuration(distance);
 
 			this.$.marqueeText.addClass('animate-marquee');
-			this.$.marqueeText.applyStyle('transition-duration', duration + 's');
-			this.$.marqueeText.applyStyle('-webkit-transition-duration', duration + 's');
+			this.$.marqueeText.applyStyle('transition', 'transform ' + duration + 's linear');
+			this.$.marqueeText.applyStyle('-webkit-transition', '-webkit-transform ' + duration + 's linear');
 
 			enyo.dom.transform(this, {translateZ: '-0.1px'});
 
 			// Need this timeout for FF!
 			setTimeout(this.bindSafely(function () {
-				enyo.dom.transform(this.$.marqueeText, {translateX: this._marquee_adjustDistanceForRTL(inDistance) + 'px'});
+				enyo.dom.transform(this.$.marqueeText, {translateX: this._marquee_adjustDistanceForRTL(distance) + 'px'});
 			}), enyo.platform.firefox ? 100 : 0);
 		},
 
@@ -829,8 +829,8 @@
 		*
 		* @private
 		*/
-		_marquee_adjustDistanceForRTL: function (inDistance) {
-			return this.rtl ? inDistance : inDistance * -1;
+		_marquee_adjustDistanceForRTL: function (distance) {
+			return this.rtl ? distance : distance * -1;
 		},
 
 		/**
@@ -855,15 +855,15 @@
 		*/
 		_marquee_wrapInsteadOfMarqueeChanged: function(old) {
 			if (this.wrapInsteadOfMarquee) {
-				this.addClass("allow-wrap");
+				this.addClass('allow-wrap');
 				if (this.$.marqueeText) {
 					this.$.marqueeTextWrapper.destroy();
 					this.render();
 				}
 			}
 			if (old && !this.wrapInsteadOfMarquee) {
-				this.removeClass("allow-wrap");
-				// FIXME: Performing creation here to workaround potential WebKit measuring issue 
+				this.removeClass('allow-wrap');
+				// FIXME: Performing creation here to workaround potential WebKit measuring issue
 				// with scrollWidth (under-measures by 10px when marquee components are destroyed
 				// when we switch wrapInsteadofMarquee from `false` to `true`, and back to `false`).
 				this._marquee_createMarquee();
