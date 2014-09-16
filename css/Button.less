@@ -31,11 +31,6 @@
 		min-width: @moon-button-large-min-width;
 	}
 
-	&.spotlight {
-		background-color: @moon-spotlight-border-color;
-		color: @moon-spotlight-text-color;
-	}
-
 	&.active,
 	&.pressed,
 	&.spotlight.pressed,
@@ -43,6 +38,11 @@
 		border: @moon-button-border-width solid @moon-spotlight-border-color;
 		background-color: @moon-button-background-color;
 		color: @moon-button-text-color;
+	}
+
+	&.spotlight {
+		background-color: @moon-spotlight-border-color;
+		color: @moon-spotlight-text-color;
 	}
 
 	// 'Selected+Focus' state
