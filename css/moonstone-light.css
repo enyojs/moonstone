@@ -6,79 +6,6 @@
 /* minifier to fall back to using CSS files in place of the same-name       */
 /* LESS file.                                                               */
 
-/* Moonstone colors defined here */
-/* Moonstone Light Theme */
-/*toggle colors */
-/* Disabled Opacity */
-/* ---------------------------------------*/
-/* Moonstone default parameters defined here */
-/* App */
-/* ---------------------------------------*/
-/* Icon Font */
-/* ---------------------------------------*/
-/* Font Sizes */
-/* Other Font Properties */
-/* Body text line heights must be speified in px, since moon.ExpandableText requires precise line measurement */
-/* Drawer */
-/* ---------------------------------------*/
-/* Images */
-/* ---------------------------------------*/
-/* Icon Sizes */
-/* ---------------------------------------*/
-/* Spotlight */
-/* ---------------------------------------*/
-/* Button */
-/* ---------------------------------------*/
-/* Header */
-/* ---------------------------------------*/
-/* Input */
-/* ---------------------------------------*/
-/* Pickers */
-/* ---------------------------------------*/
-/* Expandable Pickers */
-/* ---------------------------------------*/
-/* Expandable Text */
-/* ---------------------------------------*/
-/* Progress Bar */
-/* ---------------------------------------*/
-/* Slider Knob */
-/* ---------------------------------------*/
-/* Items */
-/* ---------------------------------------*/
-/* Divider */
-/* Breadcrumb */
-/* ---------------------------------------*/
-/* Selectable Item */
-/* ---------------------------------------*/
-/* Spinner */
-/* ---------------------------------------*/
-/* ToggleSwitch */
-/* ---------------------------------------*/
-/* Tooltip */
-/* ---------------------------------------*/
-/* IntegerPicker */
-/* ---------------------------------------*/
-/* Grid Dimensions */
-/* ---------------------------------------*/
-/* ObjectActionDecorator */
-/* ---------------------------------------*/
-/* Video Player */
-/* ---------------------------------------*/
-/* Caret */
-/* ---------------------------------------*/
-/* ContextualPopupButton */
-/* ---------------------------------------*/
-/* ContextualPopupButton */
-/* ---------------------------------------*/
-/* Panel */
-/* ----------------------------------------*/
-/* Panels */
-/* ----------------------------------------*/
-/* Progress Button */
-/* ----------------------------------------*/
-/* Moonstone rules defined here */
-/* Import font styles */
-/* ----- SYSTEM FONT NAMES ------ */
 /* ----- MISO ------ */
 @font-face {
   font-family: "Moonstone Miso";
@@ -237,7 +164,7 @@
   font-style: normal;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
 }
-/* ----- Moonstone ------ */
+/* ----- Moonstone (Icons) ------ */
 @font-face {
   font-family: "Moonstone Icons";
   src: local("Moonstone "), url("../fonts/moonstone.ttf") format("truetype");
@@ -272,7 +199,6 @@
   font-weight: normal;
   font-style: normal;
 }
-/* Import grid classes/mixins */
 /* ------- Horizontal Dimensioning (columns) ------- */
 .moon-1h {
   width: 60px;
@@ -583,11 +509,6 @@
   font-size: 72px;
   color: #ffffff;
 }
-.enyo-locale-non-latin {
-  /* Medium weighted classes */
-  /* Light weighted classes */
-  /* Bold weighted classes */
-}
 .enyo-locale-non-latin .moon,
 .enyo-locale-non-latin .moon input,
 .enyo-locale-non-latin .moon textarea,
@@ -664,8 +585,6 @@
   box-sizing: border-box;
   -moz-box-sizing: border-box;
 }
-/* LESS pre-calculations */
-/* Individual widget CSS */
 /* Icon.css */
 .moon-icon,
 .moon-icon-toggle {
