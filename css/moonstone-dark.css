@@ -1262,10 +1262,6 @@
 .moon-button.min-width {
   min-width: 180px;
 }
-.moon-button.spotlight {
-  background-color: #cf0652;
-  color: #ffffff;
-}
 .moon-button.active,
 .moon-button.pressed,
 .moon-button.spotlight.pressed,
@@ -1273,6 +1269,10 @@
   border: 5px solid #cf0652;
   background-color: #404040;
   color: #a6a6a6;
+}
+.moon-button.spotlight {
+  background-color: #cf0652;
+  color: #ffffff;
 }
 .moon-button.active.spotlight:not(.contextual-popup-button) {
   border-color: #ffffff;
