@@ -144,12 +144,9 @@
 				return true;
 			}
 			if (this.handleTapEvent) {
-				if (sender != this.$.input) {
-					this.waterfallDown('ontap', e, sender);
-				}
+				this.setActive(!this.getActive());
+				this.bubble('onchange');
 			}
-			this.setActive(!this.getActive());
-			this.bubble('onchange');
 		},
 
 		/**
