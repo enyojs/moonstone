@@ -201,7 +201,7 @@
 		*/
 		rendered: function () {
 			this.inherited(arguments);
-			if (this.src || this.icon) {
+			if (this.hasOwnProperty('src') || this.hasOwnProperty('icon')) {
 				this.srcChanged();
 				this.iconChanged();
 			}
