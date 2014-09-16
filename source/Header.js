@@ -282,6 +282,7 @@
 			// Note: This smallchanged() line will be deprecated soon. For backward compatiblity, I leave it for a
 			// while.
 			this.smallChanged();
+			this.typeChanged();
 			this.titleChanged();
 			this.titleAboveChanged();
 			this.titleBelowChanged();
@@ -296,7 +297,7 @@
 
 		rendered: function() {
 			this.inherited(arguments);
-			this.typeChanged();
+			this.adjustTitleWidth();
 		},
 
 		/**
@@ -554,7 +555,6 @@
 		typeChanged: function () {
 			this.addRemoveClass('moon-medium-header', this.get('type') == 'medium');
 			this.addRemoveClass('moon-small-header', this.get('type') == 'small');
-			this.adjustTitleWidth();
 			this.contentChanged();
 		},
 
@@ -617,7 +617,6 @@
 		*/
 		titleChanged: function () {
 			this.contentChanged();
-			this.placeholderChanged();
 		},
 
 		/**
@@ -650,6 +649,7 @@
 		*/
 		titleBelowChanged: function () {
 			this.$.titleBelow.set('content', this.titleBelow || '');
+			this.contentChanged();
 		},
 
 		/**
