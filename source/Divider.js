@@ -35,7 +35,17 @@
 		/**
 		* @private
 		*/
-		marqueeOnRender: true
+		marqueeOnRender: true,
+
+		/**
+		* @private
+		*/
+		contentChanged: enyo.inherit(function (sup) {
+			return function () {
+				this.content = this.content.split(' ').map(enyo.cap).join(' ');
+				sup.apply(this, arguments);
+			};
+		})
 	});
 
 })(enyo, this);
