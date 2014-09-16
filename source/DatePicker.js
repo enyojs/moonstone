@@ -176,29 +176,15 @@
 		setupPickers: function (ordering) {
 			var orderingArr = ordering.split('');
 			var doneArr = [];
-			var o, f, l, digits;
+			var o, f, l, digits, values;
 			for(f = 0, l = orderingArr.length; f < l; f++) {
 				o = orderingArr[f];
 				if (doneArr.indexOf(o) < 0) {
 					doneArr.push(o);
 				}
 			}
-			var valueFullYear = 0, valueMonth = 0, valueDate = 0, maxMonths = 12;
 
-			if (typeof ilib !== 'undefined') {
-				if (this.localeValue) {
-					valueFullYear = this.localeValue.getYears();
-					valueMonth = this.localeValue.getMonths();
-					valueDate = this.localeValue.getDays();
-				}
-				maxMonths = this._tf.cal.getNumMonths(valueFullYear);
-			} else {
-				if (this.value) {
-					valueFullYear = this.value.getFullYear();
-					valueMonth = this.value.getMonth()+1;
-					valueDate = this.value.getDate();
-				}
-			}
+			values = this.calcPickerValues();
 
 			for(f = 0, l = doneArr.length; f < l; f++) {
 				o = doneArr[f];
@@ -209,7 +195,7 @@
 					this.createComponent(
 						{classes: 'moon-date-picker-wrap', components:[
 							{kind:'moon.IntegerPicker', name:'day', classes:'moon-date-picker-field', wrap:true, digits:digits, min:1,
-							max:this.monthLength(valueFullYear, valueMonth), value: valueDate},
+							max:this.monthLength(values.fullYear, values.month), value: values.date},
 							{name: 'dayLabel', content: this.dayText, classes: 'moon-date-picker-label moon-divider-text'}
 						]});
 					break;
@@ -217,14 +203,14 @@
 					digits = (ordering.indexOf('MM') > -1) ? 2 : null;
 					this.createComponent(
 						{classes: 'moon-date-picker-wrap', components:[
-							{kind:'moon.IntegerPicker', name:'month', classes:'moon-date-picker-field', wrap:true, min:1, max:maxMonths, value:valueMonth},
+							{kind:'moon.IntegerPicker', name:'month', classes:'moon-date-picker-field', wrap:true, min:1, max:values.maxMonths, value:values.month},
 							{name: 'monthLabel', content: this.monthText, classes: 'moon-date-picker-label moon-divider-text'}
 						]});
 					break;
 				case 'y':
 					this.createComponent(
 						{classes: 'moon-date-picker-wrap year', components:[
-							{kind:'moon.IntegerPicker', name:'year', classes:'moon-date-picker-field year', value:valueFullYear, min:this.getMinYear(), max:this.getMaxYear()},
+							{kind:'moon.IntegerPicker', name:'year', classes:'moon-date-picker-field year', value:values.fullYear, min:this.getMinYear(), max:this.getMaxYear()},
 							{name: 'yearLabel', content: this.yearText, classes: 'moon-date-picker-label moon-divider-text'}
 						]});
 					break;
@@ -289,19 +275,37 @@
 		* @private
 		*/
 		setChildPickers: function (inOld) {
-			if (this.value) {
-				var value = this.value;
-				if (typeof ilib !== 'undefined') {
-					this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
-					var l = this.localeValue;
-					value = new Date(l.year, l.month-1, l.day, l.hour, l.minute, l.second, l.millisecond);
-				}
-				this.$.year.setValue(value.getFullYear());
-				this.$.month.setValue(value.getMonth() + 1);
-				this.$.day.setValue(value.getDate());
-				this.$.day.setMax(this.monthLength(value.getFullYear(), value.getMonth() + 1));
+			if (this.value && typeof ilib !== 'undefined') {
+				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
 			}
+			var values = this.calcPickerValues();
+
+			this.$.year.set('value', values.fullYear);
+			this.$.month.set('value', values.month);
+			this.$.day.set('value', values.date);
+			this.$.month.set('max', values.maxMonths);
+			this.$.day.set('max', this.monthLength(values.fullYear, values.month));
 			this.$.currentValue.setContent(this.formatValue());
+		},
+
+		calcPickerValues: function () {
+			var values = {};
+			if (typeof ilib !== 'undefined') {
+				if (this.localeValue) {
+					values.fullYear = this.localeValue.getYears();
+					values.month = this.localeValue.getMonths();
+					values.date = this.localeValue.getDays();
+				}
+				values.maxMonths = this._tf.cal.getNumMonths(values.fullYear);
+			} else {
+				if (this.value) {
+					values.fullYear = this.value.getFullYear();
+					values.month = this.value.getMonth()+1;
+					values.date = this.value.getDate();
+				}
+				values.maxMonths = 12;
+			}
+			return values;
 		},
 
 		/**
