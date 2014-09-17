@@ -715,6 +715,12 @@
 .moon-icon-button.active.spotlight:not(.contextual-popup-button).pressed.small {
   background-position: center -50px;
 }
+.spotlight .moon-icon-button {
+  background-position: center -75px;
+}
+.spotlight .moon-icon-button.small {
+  background-position: center -50px;
+}
 .moon-marquee {
   width: auto;
   text-overflow: ellipsis;
