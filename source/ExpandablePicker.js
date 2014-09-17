@@ -25,9 +25,9 @@
 	* ```
 	* {kind: 'moon.ExpandablePicker', noneText: 'None Selected', content: 'Choose City',
 	* components: [
-	* 	{content: 'San Francisco'},
-	* 	{content: 'Boston'},
-	* 	{content: 'Tokyo'}
+	*	{content: 'San Francisco'},
+	*	{content: 'Boston'},
+	*	{content: 'Tokyo'}
 	* ]}
 	* ```
 	*
@@ -492,10 +492,16 @@
 
 			if (this.multipleSelection) {
 				if (index >= 0) {
+					// initially, this.selected could be null
+					if (!this.selected) {
+						this.selected = [];
+					}
+					// toggledControl is checked but is out of this.selected, then push it
 					if (inEvent.checked && (this.selected.indexOf(toggledControl) == -1)) {
 						this.selected.push(toggledControl);
 						this.selectedChanged();
 					}
+					// toggledControl is not checked but is in this.selected, then pull it out
 					if (!inEvent.checked && (this.selected.indexOf(toggledControl) >= 0)) {
 						this.selected.splice(this.selected.indexOf(toggledControl), 1);
 						this.selectedChanged();
@@ -505,7 +511,7 @@
 				if (inEvent.checked && index >= 0) {
 					this.setSelected(toggledControl);
 				}
-			}
+			}	
 
 			if (this.getAutoCollapseOnSelect() && this.isRendered && this.getOpen()) {
 				this.startJob('selectAndClose', 'selectAndClose', this.selectAndCloseDelayMS);
