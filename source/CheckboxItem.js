@@ -192,8 +192,8 @@
 		* @private
 		*/
 		bindings: [
-			{from: '.allowHtml', to: '.$.client.allowHtml'},
-			{from: '.active', to: '.$.input.active', oneWay: false}
+			{from: 'allowHtml', to: '$.client.allowHtml'},
+			{from: 'active', to: '$.input.active', oneWay: false}
 		],
 
 		/**

@@ -511,7 +511,7 @@
 				if (inEvent.checked && index >= 0) {
 					this.setSelected(toggledControl);
 				}
-			}	
+			}
 
 			if (this.getAutoCollapseOnSelect() && this.isRendered && this.getOpen()) {
 				this.startJob('selectAndClose', 'selectAndClose', this.selectAndCloseDelayMS);
