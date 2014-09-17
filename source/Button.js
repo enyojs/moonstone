@@ -51,7 +51,7 @@
 			small: false,
 
 			/**
-			* A boolean parameter affecting the minimum width of the button. If `true`,
+			* A boolean parameter affecting the minimum width of the button. When `true`,
 			* the minimum width will be set to 180px (or 130px if [small]{@link moon.Button#small}
 			* is `true`). If `false`, the minimum width will be set to the current value of
 			* `@moon-button-height` (thus forcing the button to be no smaller than a circle with
@@ -90,12 +90,14 @@
 
 			/**
 			* `onSpotlightSelect` simulates `mousedown`.
+			*
 			* @private
 			*/
 			onSpotlightKeyDown	: 'depress',
 
 			/**
 			* `onSpotlightKeyUp` simulates `mouseup`.
+			*
 			* @private
 			*/
 			onSpotlightKeyUp	: 'undepress',
@@ -103,12 +105,14 @@
 			/**
 			* Also make sure we remove the pressed class if focus is removed from
 			* this item before it receives a keyup.
+			*
 			* @private
 			*/
 			onSpotlightBlur		: 'undepress',
 
 			/**
-			* `onSpotlightFocus` bubble `requestScrollIntoView` event
+			* The handler for `onSpotlightFocused` bubbles a `requestScrollIntoView` event.
+			*
 			* @private
 			*/
 			onSpotlightFocused	: 'spotFocused'
@@ -116,6 +120,7 @@
 
 		/**
 		* On creation, updates based on value of `this.small`.
+		*
 		* @private
 		*/
 		initComponents: function () {
@@ -130,6 +135,7 @@
 
 		/**
 		* Adds `pressed` CSS class.
+		*
 		* @private
 		*/
 		depress: function (inSender, inEvent) {
@@ -152,6 +158,7 @@
 
 		/**
 		* Removes `pressed` CSS class.
+		*
 		* @private
 		*/
 		undepress: function () {
@@ -159,7 +166,8 @@
 		},
 
 		/**
-		* If `this.small` is `true`, `taparea` dimensions are increased
+		* If `this.small` is `true`, `taparea` dimensions are increased.
+		*
 		* @private
 		*/
 		smallChanged: function () {
@@ -175,6 +183,7 @@
 
 		/**
 		* Override to handle potential child components.
+		*
 		* @private
 		*/
 		contentChanged: function () {

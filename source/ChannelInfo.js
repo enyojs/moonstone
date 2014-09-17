@@ -82,7 +82,7 @@
 			channelName: '',
 
 			/**
-			* When true, [channelNo]{@link moon.ChannelInfo#channelNo} will have locale-safe
+			* When `true`, [channelNo]{@link moon.ChannelInfo#channelNo} will have locale-safe
 			* uppercasing applied.
 			*
 			* @type {Boolean}
