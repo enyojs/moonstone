@@ -7,8 +7,8 @@
 	* @property {Boolean} checked - Whether the checkbox is currently checked.
 	* @property {Object} toggledControl - A reference to the {@link moon.CheckboxItem}
 	*	whose state changed. (Note that the originator of this event is actually the
-	*	{@link moon.Checkbox} contained within the `CheckboxItem`, so use this property
-	* to reference the `CheckboxItem`.)
+	*	{@link moon.Checkbox} contained within the CheckboxItem, so use this property
+	* to reference the CheckboxItem itself.)
 	*
 	* @public
 	*/

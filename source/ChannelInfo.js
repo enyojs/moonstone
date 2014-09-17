@@ -139,8 +139,8 @@
 
 	/**
 	* {@link moon.ChannelInfoBadge} is a simple kind used to display a badge
-	* containing channel info. It is the default kind for components added to
-	* {@link moon.ChannelInfo}.
+	* containing channel information. It is the default kind for components added
+	* to {@link moon.ChannelInfo}.
 	*
 	* @class moon.ChannelInfoBadge
 	* @extends enyo.Control

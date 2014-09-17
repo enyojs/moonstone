@@ -3,12 +3,12 @@
 	* Used to set a static time for {@link moon.Clock} to display.
 	*
 	* @typedef {Object} moon.Clock~DateTimeObject
-	* @property {Number} year - Year to display.
-	* @property {Number} month - Month to display.
-	* @property {Number} day - Day to display.
-	* @property {Number} hour - Hour to display.
-	* @property {Number} minute - Minute to display.
-	* @property {Number} second - Second to display.
+	* @property {Number} year - The year to display.
+	* @property {Number} month - The month to display.
+	* @property {Number} day - The day to display.
+	* @property {Number} hour - The hour to display.
+	* @property {Number} minute - The minute to display.
+	* @property {Number} second - The second to display.
 	* @public
 	*/
 
@@ -55,9 +55,9 @@
 			refresh: 1000,
 
 			/**
-			* User-provided date; if `undefined`, system date is used. Can be either a
+			* A user-provided date; if `undefined`, system date is used. May be either a
 			* JavaScript {@glossary Date} object or a {@link moon.Clock~DateTimeObject}
-			* detailing the static date/time to use.
+			* describing a static date/time to be displayed.
 			*
 			* @type {Date|moon.Clock~DateTimeObject}
 			* @default undefined
