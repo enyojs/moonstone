@@ -112,7 +112,6 @@ enyo.kind({
 
 		// If our button was `true`, use that type, otherwise revert to large.
 		this.$.panel.set('headerType', val ? buttonType.toLowerCase() : types[0]);
-		this.$.panel.$.header.adjustTitleWidth();
 		// Unset all other buttons
 		for (i = 0; i < types.length; i++) {
 			if (buttonType != types[i] && this.$[types[i] + 'HeaderToggle']) {

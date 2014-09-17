@@ -1648,6 +1648,7 @@
   line-height: normal;
   font-size: 60px;
   height: 84px;
+  border: solid 1px tan;
 }
 .moon-header.moon-small-header .moon-header-sub-title {
   font-size: 27px;

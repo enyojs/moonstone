@@ -14,7 +14,12 @@ enyo.kind({
 				{kind: 'moon.Button', small: true, content: 'How to use', ontap: 'howToUseMedium'}
 			]},
 			{classes: 'moon-1v'},
-			{kind: 'moon.Header', name: 'smallHeader', content: 'Small Header', type: 'small', titleAbove: '04', subTitle: "Sub Title", titleBelow: 'Sub Header', subTitleBelow: 'Sub-sub Header', components: [
+			{kind: 'moon.Header', name: 'rtlSmallHeader', content: 'رأس صغير', type: 'small', titleAbove: '04', subTitle: "العنوان الفرعي", titleBelow: 'مرحبا اسمي بروك.', subTitleBelow: 'الباطن رأس', components: [
+				{kind: 'moon.Button', content: 'Description', ontap: 'describeSmall'},
+				{kind: 'moon.Button', small: true, content: 'How to use', ontap: 'howToUseSmall'}
+			]},
+
+			{kind: 'moon.Header', name: 'smallHeader2', content: 'LTR Small Header add it very very long very long', type: 'small', titleAbove: '05', subTitle: "LTR Sub Title", titleBelow: 'This is a very long subtitle', subTitleBelow: 'Sub-sub Header', components: [
 				{kind: 'moon.Button', content: 'Description', ontap: 'describeSmall'},
 				{kind: 'moon.Button', small: true, content: 'How to use', ontap: 'howToUseSmall'}
 			]},
@@ -60,7 +65,7 @@ enyo.kind({
 		this.$.mediumHeader.setSubTitleBelow('Set `type` property to "medium" to use the medium header and long very subTitleBelow.');
 	},
 	describeSmall: function(inSender, inEvent) {
-		this.$.smallHeader.setTitle('Small header flattens the buttons down to the title area, uses a smaller title font, and has no `titleBelow`.');
+		this.$.smallHeader.setTitle('مرحبا اسمي بروك، واسم صديقي هو ادوين. يرجى تعطينا غداء أفضل.');
 	},
 	howToUseSmall: function(inSender, inEvent) {
 		this.$.smallHeader.setTitle('Set `type` property to "small" to use the small header.');

@@ -565,7 +565,7 @@
 			var type = this.get('type'),
 				// Measure client area's width + 40px of spacing
 				clientSpace = (this.$.client.getAbsoluteBounds().width + 40) + 'px',
-				rtl = this.rtl;
+				rtl = this.$.title.rtl;
 
 			// Set the margin on the correct side for the correct control, otherwise set it to nothing
 			this.$.title.applyStyle('margin-right', (type == 'small' && !rtl) ? clientSpace : null);
@@ -598,11 +598,7 @@
 				subtitle = this.get('titleBelow');
 			if ((this.get('type') == 'small') && subtitle) {
 				this.$.title.set('allowHtml', true);
-				if (this.rtl) {
-					this.$.title.set('content', '<span class="moon-sub-header-text moon-header-sub-title">' + subtitle + '</span>' + '   ' + title);
-				} else {
-					this.$.title.set('content', title + '   ' + '<span class="moon-sub-header-text moon-header-sub-title">' + subtitle + '</span>');
-				}
+				this.$.title.set('content', title + '   ' + '<span class="moon-sub-header-text moon-header-sub-title">' + subtitle + '</span>');
 			} else {
 				this.$.title.set('allowHtml', this.get('allowHtml') );
 				this.$.title.set('content', title);
@@ -658,15 +654,6 @@
 		subTitleBelowChanged: function () {
 			this.$.subTitleBelow.set('content', this.subTitleBelow || '');
 		},
-
-		/**
-		* Placeholder
-		*
-		* @private
-		*/
-		// animationComplete: function (inSender, inEvent) {
-			// Do something?
-		// },
 
 		/**
 		* @private
