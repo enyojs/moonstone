@@ -84,15 +84,15 @@
 			*
 			* When `iLib` is not present, U.S. English `(en-US)` formatting is applied.
 			*
-			* When `iLib` is present and `locale` is set to the default value (`null`),
+			* When `iLib` is present and `locale` is set to the default value `(null)`,
 			* the picker uses `iLib`'s current locale (which `iLib` tries to determine
 			* from the system).
 			*
 			* When `iLib` is present and an explicit `locale` is provided, that locale
 			* will be used (regardless of `iLib`'s current locale).
 			*
-			* `locale` may be changed after the picker is created, in which case the
-			* picker will be reformatted to match the new setting.
+			* The `locale` value may be changed after the picker is created; if this happens,
+			* the picker will be reformatted to reflect the new setting.
 			*
 			* @type {Object}
 			* @default null
@@ -111,7 +111,7 @@
 			value: null,
 
 			/**
-			* When `true`, the picker uses a 12-hour clock (this value is ignored when
+			* If `true`, the picker will use a 12-hour clock (this value is ignored when
 			* `iLib` is loaded, since the meridiem will be set by the current locale).
 			*
 			* @type {Boolean}
@@ -122,14 +122,14 @@
 		},
 
 		/**
-		* set in subkind
+		* Set in subkind.
 		*
 		* @private
 		*/
 		iLibFormatType: null,
 
 		/**
-		* set in subkind
+		* Set in subkind.
 		*
 		* @private
 		*/
@@ -260,7 +260,7 @@
 		},
 
 		/**
-		* If no item is selected, uses [noneText]{@link moon.DateTimePickerBase#noneText}
+		* If no item is selected, sets [noneText]{@link moon.DateTimePickerBase#noneText}
 		* as current value.
 		*
 		* @private

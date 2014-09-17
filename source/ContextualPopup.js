@@ -1,5 +1,7 @@
 (function (enyo, scope) {
 	/**
+	* Fires when the contextual popup is to be shown.
+	*
 	* @event moon.ContextualPopup#onRequestShowPopup
 	* @type {Object}
 	* @property {Object} activator - A reference to the activating object.
@@ -7,13 +9,16 @@
 	*/
 	
 	/**
+	* Fires when the contextual popup is to be hidden. No additional data is included
+	* with this event.
+	*
 	* @event moon.ContextualPopup#onRequestHidePopup
 	* @type {Object}
 	* @public
 	*/
 	
 	/**
-	* Extends {@link enyo.Popup#event:onActivate}
+	* Fires when the contextual popup is activated. Extends {@link enyo.Popup#event:onActivate}.
 	*
 	* @event moon.ContextualPopup#onActivate
 	* @type {Object}
@@ -79,7 +84,7 @@
 		published: {
 
 			/**
-			* When `true`, focus cannot leave the constraints of the popup unless the
+			* If `true`, focus cannot leave the constraints of the popup unless the
 			* popup is explicitly closed.
 			*
 			* @type {Boolean}
@@ -89,9 +94,9 @@
 			spotlightModal: false,
 
 			/**
-			* When `false`, the close button is hidden; when `true`, it is shown. When
-			* this property is set to `'auto'` (the default), the close button is shown
-			* when [spotlightModal]{@link moon.ContextualPopup#spotlightModal} is `true`.
+			* If `false`, the close button is hidden; if `true`, it is shown. When this
+			* property is set to `'auto'` (the default), the close button is shown when
+			* [spotlightModal]{@link moon.ContextualPopup#spotlightModal} is `true`.
 			*
 			* @type {String}
 			* @default 'auto'

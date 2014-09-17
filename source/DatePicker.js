@@ -1,6 +1,6 @@
 (function (enyo, scope) {
 	/**
-	* {@link moon.DatePicker} is a control used to allow the selection of (or to simply
+	* {@link moon.DatePicker} is a control used to allow the selection of (or simply
 	* display) a day, month, and year.
 	*
 	* ```
@@ -69,7 +69,6 @@
 			*/
 			dayText: moon.$L('day'),			// i18n 'DAY' label in moon.DatePicker widget
 
-
 			/**
 			* Optional label for month.
 			*
@@ -81,7 +80,6 @@
 
 			/**
 			* Optional label for year.
-
 			*
 			* @type {String}
 			* @default 'year'
