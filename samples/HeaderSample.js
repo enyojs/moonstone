@@ -14,9 +14,19 @@ enyo.kind({
 				{kind: 'moon.Button', small: true, content: 'How to use', ontap: 'howToUseMedium'}
 			]},
 			{classes: 'moon-1v'},
-			{kind: 'moon.Header', name: 'smallHeader', content: 'Small Header', type: 'small', titleAbove: '04', subTitle: "Sub Title", titleBelow: 'Sub Header', subTitleBelow: 'Sub-sub Header', components: [
-				{kind: 'moon.Button', small: true, content: 'Description', ontap: 'describeSmall'},
+			{kind: 'moon.Header', name: 'rtlMediumHeader', content: 'رأس المتوسطة', type: 'medium', titleAbove: '04', titleBelow: 'هذا هو العنوان الفرعي جدا جدا طويلة جدا طالما أنها سوف سرادق وأنه لا ينبغي أن تتداخل مع عنصر رأس', subTitleBelow: 'هذا هو جدا جدا جدا طويلة لقب آخر الباطن طالما أنها سوف سرادق وأنه لا ينبغي أن تتداخل مع العنصر رأس وأنا أستخدم يقم هامش لوضع نفسي', components: [
+				{kind: 'moon.Button', small: true, content: 'Description', ontap: 'describeRtlMedium'},
+				{kind: 'moon.Button', small: true, content: 'How to use', ontap: 'howToUseRtlMedium'}
+			]},
+			{classes: 'moon-1v'},
+			{kind: 'moon.Header', name: 'smallHeader', content: 'LTR Small Header add it very very long very long', type: 'small', titleAbove: '05', subTitle: "LTR Sub Title", titleBelow: 'This is a very long subtitle', subTitleBelow: 'Sub-sub Header', components: [
+				{kind: 'moon.Button', content: 'Description', ontap: 'describeSmall'},
 				{kind: 'moon.Button', small: true, content: 'How to use', ontap: 'howToUseSmall'}
+			]},
+			{classes: 'moon-1v'},
+			{kind: 'moon.Header', name: 'rtlSmallHeader', content: 'رأس صغير', type: 'small', titleAbove: '04', subTitle: "العنوان الفرعي", titleBelow: 'مرحبا اسمي بروك.', subTitleBelow: 'الباطن رأس', components: [
+				{kind: 'moon.Button', content: 'Description', ontap: 'describeRtlSmall'},
+				{kind: 'moon.Button', small: true, content: 'How to use', ontap: 'howToUseRtlSmall'}
 			]},
 			{classes: 'moon-1v'},
 			{kind: 'moon.Header', content: 'Varied Alignment', titleAbove: '02', titleBelow: 'Panel actions can be positioned on left or right', components: [
@@ -56,14 +66,23 @@ enyo.kind({
 	describeMedium: function(inSender, inEvent) {
 		this.$.mediumHeader.setTitleBelow('Medium header flattens the button area and the titleBelow areas together for a more compact header.');
 	},
-	howToUseMedium: function(inSender, inEvent) {
-		this.$.mediumHeader.setSubTitleBelow('Set `type` property to "medium" to use the medium header.');
+	describeRtlMedium: function(inSender, inEvent) {
+		this.$.rtlMediumHeader.setTitleBelow('Add class enyo-locale-right-to-left on body the RTL Medium Header will look correct!');
+	},
+	howToUseRtlMedium: function(inSender, inEvent) {
+		this.$.rtlMediumHeader.setSubTitleBelow('titleBelow and subTitleBelow are warpped in marquee, its direction is taken care of in marquee.js and control.js');
 	},
 	describeSmall: function(inSender, inEvent) {
 		this.$.smallHeader.setTitle('Small header flattens the buttons down to the title area, uses a smaller title font, and has no `titleBelow`.');
 	},
+	describeRtlSmall: function(inSender, inEvent) {
+		this.$.rtlSmallHeader.setTitle('رأس صغير يسطح الأزرار وصولا الى منطقة العنوان، يستخدم خط لقب أصغر، وليس لديه لقب تحت ارتفاع رأس صغير أقل بكثير من متوسط ​​رأس ورأس كبير');
+	},
 	howToUseSmall: function(inSender, inEvent) {
 		this.$.smallHeader.setTitle('Set `type` property to "small" to use the small header.');
+	},
+	howToUseRtlSmall: function(inSender, inEvent) {
+		this.$.rtlSmallHeader.setTitle('تعيين الخاصية نوع للمشاريع الصغيرة لاستخدام رأس صغير.');
 	},
 	handleToggle: function(inSender, inEvent) {
 		this.$.imageHeader.setFullBleedBackground(inSender.value);

@@ -258,7 +258,6 @@
 		* @private
 		*/
 		components: [
-			{name: 'client', classes: 'moon-hspacing moon-header-client'},
 			{name: 'titleAbove', classes: 'moon-super-header-text moon-header-title-above'},
 			{name: 'titleWrapper', classes: 'moon-header-title-wrapper', components: [
 				{name: 'title', kind: 'moon.MarqueeText', classes: 'moon-header-text moon-header-title', canGenerate: false},
@@ -268,6 +267,7 @@
 			]},
 			{name: 'titleBelow', kind: 'moon.MarqueeText', classes: 'moon-sub-header-text moon-header-title-below'},
 			{name: 'subTitleBelow', kind: 'moon.MarqueeText', classes: 'moon-body-text moon-header-sub-title-below'},
+			{name: 'client', classes: 'moon-hspacing moon-header-client'},
 			{name: 'animator', kind: 'enyo.StyleAnimator', onComplete: 'animationComplete'}
 		],
 
@@ -287,6 +287,7 @@
 			// Note: This smallchanged() line will be deprecated soon. For backward compatiblity, I leave it for a
 			// while.
 			this.smallChanged();
+			this.typeChanged();
 			this.titleChanged();
 			this.titleAboveChanged();
 			this.titleBelowChanged();
@@ -301,7 +302,7 @@
 
 		rendered: function() {
 			this.inherited(arguments);
-			this.typeChanged();
+			this.adjustTitleWidth();
 		},
 
 		/**
@@ -563,6 +564,26 @@
 		},
 
 		/**
+		* @private
+		*/
+		adjustTitleWidth: function() {
+			var type = this.get('type'),
+				// Measure client area's width + 40px of spacing
+				clientSpace = (this.$.client.getAbsoluteBounds().width + 40) + 'px';
+
+			// Set the margin on the correct side for the correct control, otherwise set it to nothing
+			this.$.title.applyStyle('margin-right', (type == 'small' && !this.$.title.rtl) ? clientSpace : 0);
+			this.$.title.applyStyle('margin-left', (type == 'small' && this.$.title.rtl) ? clientSpace : 0);
+
+
+			this.$.titleBelow.applyStyle('margin-right', (type == 'medium' && !this.$.titleBelow.rtl) ? clientSpace : 0);
+			this.$.titleBelow.applyStyle('margin-left', (type == 'medium' && this.$.titleBelow.rtl) ? clientSpace : 0);
+
+			this.$.subTitleBelow.applyStyle('margin-right', (type == 'medium' && !this.$.subTitleBelow.rtl) ? clientSpace : 0);
+			this.$.subTitleBelow.applyStyle('margin-left', (type == 'medium' && this.$.subTitleBelow.rtl) ? clientSpace : 0);
+		},
+
+		/**
 		* Note that this method will be deprecated soon. For now, it is being left in for
 		* backward compatibility.
 		*
@@ -582,8 +603,8 @@
 				subtitle = this.get('titleBelow');
 			if ((this.get('type') == 'small') && subtitle) {
 				this.$.title.set('allowHtml', true);
-				if (this.rtl) {
-					this.$.title.set('content', '<span class="moon-sub-header-text moon-header-sub-title">' + subtitle + '</span>' + '   ' + title);
+				if(this.rtl) {
+				this.$.title.set('content', '<span class="moon-sub-header-text moon-header-sub-title">' + subtitle + '</span>' + '   ' + title);
 				} else {
 					this.$.title.set('content', title + '   ' + '<span class="moon-sub-header-text moon-header-sub-title">' + subtitle + '</span>');
 				}
@@ -601,7 +622,6 @@
 		*/
 		titleChanged: function () {
 			this.contentChanged();
-			this.placeholderChanged();
 		},
 
 		/**
@@ -634,6 +654,7 @@
 		*/
 		titleBelowChanged: function () {
 			this.$.titleBelow.set('content', this.titleBelow || '');
+			this.contentChanged();
 		},
 
 		/**
@@ -642,15 +663,6 @@
 		subTitleBelowChanged: function () {
 			this.$.subTitleBelow.set('content', this.subTitleBelow || '');
 		},
-
-		/**
-		* Placeholder
-		*
-		* @private
-		*/
-		// animationComplete: function (inSender, inEvent) {
-			// Do something?
-		// },
 
 		/**
 		* @private
