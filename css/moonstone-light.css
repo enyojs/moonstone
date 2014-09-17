@@ -1530,18 +1530,6 @@
 .moon-header .moon-header-sub-title-below {
   height: 44px;
 }
-.moon-header .moon-header-client {
-  position: absolute;
-  bottom: 14px;
-  left: 0;
-  right: 0;
-  text-align: right;
-  /* fallback in case text-align:end isn't supported */
-  text-align: end;
-  /* CSS3 for RTL support */
-  z-index: 1;
-  /* Fixme: Inverse component stack order */
-}
 .moon-header.full-bleed {
   padding: 0 20px 10px 20px;
   border: 0;
@@ -1549,6 +1537,9 @@
 .moon-header.full-bleed .moon-header-client {
   left: 20px;
   right: 20px;
+}
+.moon-header .moon-hspacing > * {
+  vertical-align: bottom;
 }
 .moon-header.moon-medium-header {
   height: 240px;
@@ -1572,7 +1563,7 @@
   display: none;
 }
 .moon-header.moon-small-header .moon-header-title {
-  margin: 26px 0 0 0;
+  padding: 26px 0 0 0;
   line-height: normal;
   font-size: 60px;
   height: 84px;
@@ -1580,14 +1571,22 @@
 .moon-header.moon-small-header .moon-header-sub-title {
   font-size: 27px;
 }
-.moon-header.moon-small-header .moon-header-client {
-  position: relative;
-  float: right;
-  bottom: inherit;
-  margin: 38px 0 0 40px;
+.moon-header .moon-header-client {
+  position: absolute;
+  bottom: 14px;
+  left: 0;
+  right: 0;
+  text-align: right;
+  /* fallback in case text-align:end isn't supported */
+  text-align: end;
+  /* CSS3 for RTL support */
+  z-index: 1;
+  /* Fixme: Inverse component stack order */
 }
-.moon-header.moon-small-header.full-bleed .moon-header-client {
-  margin: 38px 20px 0 40px;
+.moon-header.moon-medium-header .moon-header-client,
+.moon-header.moon-small-header .moon-header-client {
+  display: inline-block;
+  left: auto;
 }
 .moon-neutral .moon-header {
   border-top: 2px solid #ffffff;
@@ -1600,12 +1599,10 @@
 .enyo-locale-non-latin.enyo-locale-ja .moon-input-header .moon-input-header-input-decorator > .moon-input {
   line-height: 1.25em;
 }
-.enyo-locale-right-to-left .moon-small-header .moon-header-client {
-  float: left;
-  margin: 38px 40px 0 0;
-}
-.enyo-locale-right-to-left .moon-small-header.full-bleed .moon-header-client {
-  margin: 38px 40px 0 20px;
+.enyo-locale-right-to-left .moon-small-header .moon-header-client,
+.enyo-locale-right-to-left .moon-medium-header .moon-header-client {
+  right: auto;
+  left: 0;
 }
 .moon-header:not(.moon-small-header):not(.moon-medium-header) .moon-header-left {
   float: left;
