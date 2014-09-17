@@ -201,11 +201,11 @@
 		/**
 		* @private
 		*/
-		rendered: function() {
+		rendered: function(inSender, inEvent) {
 			this.inherited(arguments);
 			if (this.open) {
 				// Perform post-open work
-				this.drawerAnimationEnd();
+				this.drawerAnimationEnd(inSender, enyo.Mixin(inEvent, {skipSpot: true}));
 				// Update stacking
 				this.resizeDrawer();
 			}
@@ -347,10 +347,10 @@
 		* @fires moon.TooltipDecorator#onRequestUnmuteTooltip
 		* @private
 		*/
-		drawerAnimationEnd: function() {
+		drawerAnimationEnd: function(inSender, inEvent) {
 			//on closed, hide drawer and spot _this.$.activator_
 			if (!this.getOpen()) {
-				if (this.generated) {
+				if (this.generated && (inEvent && inEvent.skipSpot !== true)) {
 					enyo.Spotlight.spot(this.$.activator);
 				}
 				this.bubble('onRequestUnmuteTooltip');
@@ -576,7 +576,7 @@
 			// Re-enable animation
 			this.applyAnimatedMode(true);
 			// Let any watchers know we've finished our preparation
-			this.doComplete();
+			this.doComplete({skipSpot: true});
 		},
 
 		/**
