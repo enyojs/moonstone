@@ -94,6 +94,16 @@
 			*/
 			contentUpperCase: true
 		},
+		statics: {
+			lastTooltip: null,
+			resetPrevious: function() {
+				var t = moon.Tooltip;
+				if (!t.lastTooltip) return;
+				t.lastTooltip.cancelShow(); // clear previous job
+				t.lastTooltip.hide(); // close previous tooltip
+				t.lastTooltip = null;
+			}
+		},
 
 		/**
 		* @private
@@ -159,8 +169,10 @@
 		* @private
 		*/
 		requestShow: function (inSender, inEvent) {
+			moon.Tooltip.resetPrevious(); // close previous tooltip and stop job
 			this.activator = inSender;
 			this.startJob('showJob', 'show', this.showDelay);
+			moon.Tooltip.lastTooltip = this;
 			return true;
 		},
 
