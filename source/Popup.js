@@ -199,7 +199,7 @@
 			this.addRemoveClass('animate', this.animate);
 			if (!this.animate) {
 				this.applyStyle('bottom', null);
-				enyo.dom.transform(this, {translateY: null});
+				enyo.dom.transform(this, {translateY: null, translateZ: '2px'});
 			}
 		},
 
@@ -560,7 +560,7 @@
 		animateShow: function () {
 			this._bounds = this.getBounds();
 			this.applyStyle('bottom', -this._bounds.height + 'px');
-			enyo.dom.transform(this, {translateY: -this._bounds.height + 'px'});
+			enyo.dom.transform(this, {translateY: -this._bounds.height + 'px', translateZ: '2px'});
 		},
 
 		/**
@@ -571,7 +571,7 @@
 				this.isAnimatingHide = true;
 				var prevHeight = this._bounds.height;
 				this._bounds = this.getBounds();
-				enyo.dom.transform(this, {translateY: this._bounds.height - prevHeight + 'px'});
+				enyo.dom.transform(this, {translateY: this._bounds.height - prevHeight + 'px', translateZ: '2px'});
 			}
 		},
 
