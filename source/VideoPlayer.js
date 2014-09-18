@@ -1039,9 +1039,13 @@
 		* @private
 		*/
 		panelsHidden: function(sender, e) {
+			var current;
+
 			this._panelsShowing = false;
 			this.updateSpotability();
-			if (!enyo.Spotlight.getCurrent().isDescendantOf(this)) {
+
+			current = enyo.Spotlight.getCurrent();
+			if (!current || !current.isDescendantOf(this)) {
 				enyo.Spotlight.spot(this);
 			}
 		},
