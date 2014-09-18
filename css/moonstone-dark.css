@@ -1726,6 +1726,7 @@
   display: inline-block;
   position: relative;
   text-align: center;
+  vertical-align: top;
 }
 /*disabled*/
 .moon-scroll-picker-container.disabled {
