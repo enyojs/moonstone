@@ -674,7 +674,6 @@
 		*/
 		valueChanged: function (inOld) {
 			var month, year;
-			this.adjustYearBounds();
 			if (typeof ilib !== 'undefined') {
 				this.localeValue = ilib.Date.newInstance({
 					unixtime: this.value.getTime(),
@@ -686,7 +685,8 @@
 				month = this.value.getMonth();
 				year = this.value.getFullYear();
 			}
-				
+			this.adjustYearBounds();
+			this.$.yearPicker.render();
 			if (!this.generated || this.$.monthPicker.getSelectedIndex() != month) {
 				this.$.monthPicker.setSelectedIndex(month);
 			}
