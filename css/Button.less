@@ -63,14 +63,14 @@
 		background-color: @moon-button-disabled-bg-color;
 	}
 
-   > .button-tap-area {
+	> .button-tap-area {
 		position: absolute;
 		border-radius: @moon-button-border-radius;
 		top: -(@moon-button-border-width);
 		bottom: -(@moon-button-border-width);
 		left: -(@moon-button-border-width);
 		right: -(@moon-button-border-width);
-  }
+	}
 
 	&.small {
 		height: @moon-button-small-height;
@@ -95,19 +95,19 @@
 }
 
 .moon-neutral .moon-button {
-    color: @moon-neutral-button-text-color;
-    background-color: @moon-neutral-button-bg-color;
+	color: @moon-neutral-button-text-color;
+	background-color: @moon-neutral-button-bg-color;
 
 	* {
-		color: @moon-neutral-button-text-color;
+		color: inherit;
 	}
 
 	&.spotlight {
-    	background-color: @moon-spotlight-color;
+		background-color: @moon-spotlight-color;
 
-    	* {
+		* {
 			color: @moon-spotlight-text-color;
-    	}
+		}
 	}
 
 	&.active,
@@ -122,7 +122,13 @@
 		}
 	}
 
-	&[disabled] * {
+	&[disabled] {
+		cursor: default;
 		color: @moon-button-disabled-text-color;
+		background-color: @moon-button-disabled-bg-color;
+
+		* {
+			color: inherit;
+		}
 	}
 }
