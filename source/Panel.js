@@ -435,6 +435,7 @@
 		*/
 		headerTypeChanged: function () {
 			this.$.header.setType(this.headerType);
+			this.$.header.adjustTitleWidth();
 			if (this.generated) {
 				this.$.contentWrapper.resize();
 			}
@@ -487,7 +488,7 @@
 		*/
 		addSpottableBreadcrumbProps: function () {
 			this.$.breadcrumbBackground.set('spotlight', true);
-		},	
+		},
 
 		/**
 		* @private
@@ -659,7 +660,7 @@
 		growAnimation: function () {
 			this.growing = true;
 			this.shrinking = false;
-			this.addClass('growing');	
+			this.addClass('growing');
 			this.removeClass('shrunken');
 		},
 
