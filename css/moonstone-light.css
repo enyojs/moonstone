@@ -1244,7 +1244,7 @@
   background-color: #ffffff;
 }
 .moon-neutral .moon-button * {
-  color: #4b4b4b;
+  color: inherit;
 }
 .moon-neutral .moon-button.spotlight {
   background-color: #cf0652;
@@ -1265,8 +1265,13 @@
 .moon-neutral .moon-button.spotlight:active * {
   color: #4b4b4b;
 }
-.moon-neutral .moon-button[disabled] * {
+.moon-neutral .moon-button[disabled] {
+  cursor: default;
   color: #b3b3b3;
+  background-color: #ffffff;
+}
+.moon-neutral .moon-button[disabled] * {
+  color: inherit;
 }
 /* Caption Decorator */
 .moon-button-caption-decorator {
