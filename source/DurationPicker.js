@@ -175,13 +175,13 @@
 		valueHourChanged: function() {
 			if (this.valueHour === '') {
 				this.noneTextCheck();
+				this.$.hour.set('value', 0);
 			} else if(this.valueHour <= 23 && this.valueHour >= this.min) {
 				this.valueHour = Math.round(this.valueHour);
 				this.$.currentValue.setContent(this.formatValue());
 				this.$.hour.set('value',this.valueHour);
 			} else {
-				this.set('valueHour', 0);
-				this.$.currentValue.setContent(this.formatValue());
+				this.set('valueHour', 0);				
 			}
 		},
 
@@ -191,14 +191,14 @@
 		valueMinuteChanged: function() {
 			if(this.valueMinute === ''){
 				this.noneTextCheck();
+				this.$.minute.set('value', 0);
 			}
 			else if(this.valueMinute <= this.max && this.valueMinute >= this.min) {
 				this.valueMinute = Math.round(this.valueMinute);
 				this.$.currentValue.setContent(this.formatValue());
 				this.$.minute.setValue(this.valueMinute);
 			} else {
-				this.set('valueMinute', 0);
-				this.$.currentValue.setContent(this.formatValue());
+				this.set('valueMinute', 0);				
 			}
 		},
 
@@ -207,15 +207,15 @@
 		*/
 		valueSecondChanged: function() {
 			if(this.valueSecond === '') {
-				this.noneTextCheck();
+				this.noneTextCheck();				
+				this.$.second.set('value', 0);
 			}
 			else if(this.valueSecond <= this.max && this.valueSecond >= this.min) {
 				this.valueSecond = Math.round(this.valueSecond);
 				this.$.currentValue.setContent(this.formatValue());
 				this.$.second.setValue(this.valueSecond);
 			} else {
-				this.set('valueSecond', 0);
-				this.$.currentValue.setContent(this.formatValue());
+				this.set('valueSecond', 0);				
 			}
 		},
 
