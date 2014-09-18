@@ -2062,6 +2062,21 @@
 		* @private
 		*/
 		remoteKeyHandler: function(sender, e) {
+			if (enyo.platform.webos >= 4) {
+				var KEY_POINTER_SHOW = 1536,
+					KEY_POINTER_HIDE = 1537;
+
+				if (this.isOverlayShowing()) {
+					if (e.keyCode == KEY_POINTER_SHOW && this.shakeAndWake) {
+						this.showFSControls();
+					}
+				} else {
+					if (e.keyCode == KEY_POINTER_HIDE) {
+						this.hideFSControls();
+					}
+				}
+			}
+
 			if (this.handleRemoteControlKey && !this.disablePlaybackControls) {
 				var showControls = false;
 				switch (e.keySymbol) {
