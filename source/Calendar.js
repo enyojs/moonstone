@@ -513,6 +513,28 @@
 		},
 
 		/**
+		* according to the value, adjust the year bounds and update the year picker 
+		*
+		* @private
+		*/
+		adjustYearBounds: function(){
+			var i, yearDiff,
+				count = this.$.yearPicker.getClientControls().length,
+				year = this.value instanceof Date ? this.value.getFullYear() : this.startYear;
+
+			this.startYear = year < this.startYear ? year : this.startYear;
+			this.endYear = year > this.endYear ? year : this.endYear;
+			yearDiff = this.endYear - this.startYear;
+			if(count <= yearDiff){
+				for(i = count; i <= yearDiff; i++) {
+					this.$.yearPicker.createComponent({classes: 'picker-content'});
+				}
+				this.updateYearPicker();
+				this.$.yearPicker.render();
+			}
+		},
+
+		/**
 		 * When [iLib]{@glossary ilib} is supported, calculates the start year in
 		 * the current calendar. Otherwise, returns the value of the 
 		 * [startYear]{@link moon.Calendar#startYear} published property.
@@ -655,7 +677,6 @@
 		*/
 		valueChanged: function (inOld) {
 			var month, year;
-			
 			if (typeof ilib !== 'undefined') {
 				this.localeValue = ilib.Date.newInstance({
 					unixtime: this.value.getTime(),
@@ -667,7 +688,7 @@
 				month = this.value.getMonth();
 				year = this.value.getFullYear();
 			}
-				
+			this.adjustYearBounds();
 			if (!this.generated || this.$.monthPicker.getSelectedIndex() != month) {
 				this.$.monthPicker.setSelectedIndex(month);
 			}
@@ -686,10 +707,11 @@
 		* @private
 		*/
 		updateYearPicker: function () {
-			var yearPickerControls = this.$.yearPicker.getClientControls(),
+			var i, l,
+				yearPickerControls = this.$.yearPicker.getClientControls(),
 				startYear = this.getStartYear(),
 				endYear = this.getEndYear();
-			for (var i = 0; i < endYear - startYear; i++) {
+			for (i = 0, l = endYear - startYear; i <= l; i++) {
 				yearPickerControls[i].setContent(i + startYear);
 			}
 			var year = (typeof ilib !== 'undefined') ? this.localeValue.getYears() : this.value.getFullYear();
