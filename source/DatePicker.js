@@ -257,8 +257,7 @@
 					second: valueSeconds,
 					millisecond: valueMilliseconds
 				});
-				var l = this.localeValue;
-				this.setValue(new Date(l.year, l.month-1, l.day, l.hour, l.minute, l.second, l.millisecond));
+				this.setValue(this.localeValue.getJSDate());
 			} else {
 				maxDays = this.monthLength(year, month);
 				this.setValue(new Date(year, month-1, (day <= maxDays) ? day : maxDays,
