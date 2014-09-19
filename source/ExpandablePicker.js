@@ -269,7 +269,6 @@
 			if (this.multipleSelection) {
 				index = this.selectedIndex = [];
 				for (i=0;i<controls.length;i++) {
-					controls[i].silence();
 					var selIndex = index.indexOf(i);
 					if (selected.indexOf(controls[i]) >= 0) {
 						controls[i].setChecked(true);
@@ -297,7 +296,6 @@
 					} else {
 						controls[i].setChecked(false);
 					}
-					controls[i].unsilence();
 				}
 				if (index > -1 && selected !== inOldValue) {
 					this.setSelectedIndex(index);
@@ -322,7 +320,6 @@
 
 			if (this.multipleSelection) {
 				for (var i=0;i<controls.length;i++) {
-					controls[i].silence();
 					var selIndex = selected.indexOf(controls[i]);
 					if (index.indexOf(i) >= 0) {
 						controls[i].setChecked(true);
@@ -335,7 +332,6 @@
 							selected.splice(selIndex, 1);
 						}
 					}
-					controls[i].unsilence();
 				}
 				this.$.currentValue.setContent(this.multiSelectCurrentValue());
 				if(this.hasNode()) {
