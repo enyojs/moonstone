@@ -171,6 +171,18 @@
 		initialDuration: null,
 
 		/**
+		* The moon.Popup is shifted by this amount in the z-axis to account for moon.Scroller
+		* currently being shifted by 1px in the z-axis (via matrix3d transform that was originally
+		* put into place for performance reasons). This allows a moon.Popup overlayed on top
+		* of a moon.Scroller to properly receive pointer events to allow interaction with moon.Popup
+		* child components. moon.ListActions also has a similar change that is defined in its CSS 
+		* styling.
+		* 
+		* @private
+		*/
+		_shiftZ: '1px',
+
+		/**
 		* Creates chrome components.
 		*
 		* @private
@@ -199,7 +211,7 @@
 			this.addRemoveClass('animate', this.animate);
 			if (!this.animate) {
 				this.applyStyle('bottom', null);
-				enyo.dom.transform(this, {translateY: null, translateZ: '1px'});
+				enyo.dom.transform(this, {translateY: null, translateZ: this._shiftZ});
 			}
 		},
 
@@ -560,7 +572,7 @@
 		animateShow: function () {
 			this._bounds = this.getBounds();
 			this.applyStyle('bottom', -this._bounds.height + 'px');
-			enyo.dom.transform(this, {translateY: -this._bounds.height + 'px', translateZ: '1px'});
+			enyo.dom.transform(this, {translateY: -this._bounds.height + 'px', translateZ: this._shiftZ});
 		},
 
 		/**
@@ -571,7 +583,7 @@
 				this.isAnimatingHide = true;
 				var prevHeight = this._bounds.height;
 				this._bounds = this.getBounds();
-				enyo.dom.transform(this, {translateY: this._bounds.height - prevHeight + 'px', translateZ: '1px'});
+				enyo.dom.transform(this, {translateY: this._bounds.height - prevHeight + 'px', translateZ: this._shiftZ});
 			}
 		},
 
