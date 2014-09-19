@@ -588,8 +588,7 @@
 				this.isHandleFocused = false;
 				if (!enyo.Spotlight.getPointerMode()) {
 					if (!this.showing) {
-						// Use asyncMethod to prevent blur/focus bounce as onPanelsHandleBlurred signal is also being sent
-						enyo.asyncMethod(this, 'panelsHiddenAsync');
+						this.panelsHiddenAsync();
 					}
 				}
 			}
