@@ -519,16 +519,19 @@
 		*/
 		adjustYearBounds: function(){
 			var i,yearDiff,
-				count = this.$.yearPicker.$.client.children.length,
+				count = this.$.yearPicker.getClientControls().length,
 				year = this.value instanceof Date ? this.value.getFullYear() : this.startYear;
 
 			this.startYear = year < this.startYear ? year : this.startYear;
 			this.endYear = year > this.endYear ? year : this.endYear;
 			yearDiff = this.endYear - this.startYear;
-			for(i = 0; i <= yearDiff - count; i++) {
-				this.$.yearPicker.createComponent({content: i, classes: 'picker-content'});
+			if(count <= yearDiff){
+				for(i = count; i <= yearDiff; i++) {
+					this.$.yearPicker.createComponent({classes: 'picker-content'});
+				}
+				this.updateYearPicker();
+				this.$.yearPicker.render();
 			}
-			this.updateYearPicker();
 		},
 
 		/**
@@ -686,7 +689,6 @@
 				year = this.value.getFullYear();
 			}
 			this.adjustYearBounds();
-			this.$.yearPicker.render();
 			if (!this.generated || this.$.monthPicker.getSelectedIndex() != month) {
 				this.$.monthPicker.setSelectedIndex(month);
 			}
