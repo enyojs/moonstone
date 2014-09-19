@@ -3182,37 +3182,40 @@
   position: absolute;
   top: 0;
   left: auto;
-  right: -120px;
+  right: -130px;
   height: 100%;
   width: 130px;
   z-index: 100;
+}
+.moon-panels-handle:before {
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 100%;
+  line-height: 100vh;
+  margin-left: -10px;
   background-color: #4b4b4b;
+  font-family: "Moonstone Icons";
+  font-size: 144px;
+  content: "\0F0003";
+  color: #ffffff;
   -webkit-transform: translate3d(0, 0, 0);
   transition: -webkit-transform 0.2s linear, opacity 0.2s linear;
   opacity: 1;
   text-align: center;
 }
-.moon-panels-handle:before {
-  position: absolute;
-  top: 50%;
-  margin: -72px 0 0 -15px;
-  font-family: "Moonstone Icons";
-  font-size: 144px;
-  content: "\0F0003";
-  color: #ffffff;
-}
 .moon-panels-handle.right:before {
   content: "\0F0004";
 }
-.moon-panels-handle.spotlight {
+.moon-panels-handle.spotlight:before {
   background-color: #cf0652;
   -webkit-transform: translate3d(-120px, 0, 0);
 }
+.moon-panels-handle.stashed:before {
+  opacity: 0;
+}
 .moon-panels-handle.hidden {
   display: none;
-}
-.moon-panels-handle.stashed {
-  opacity: 0;
 }
 /* Header Accordion*/
 .moon-accordion .moon-expandable-list-item-header {

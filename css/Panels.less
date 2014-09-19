@@ -66,40 +66,43 @@
 	position: absolute;
 	top: 0;
 	left: auto;
-	right: -(@moon-panels-handle-width - 10);
+	right: -(@moon-panels-handle-width);
 	height: 100%;
 	width: @moon-panels-handle-width;
 	z-index: 100;
-	background-color: @moon-panels-handle-bg-color;
-	-webkit-transform: translate3d(0, 0, 0);
-	transition: -webkit-transform 0.2s linear, opacity 0.2s linear;
-	opacity: 1;
-	text-align: center;
 
 	&:before {
 		position: absolute;
-		top: 50%;
-		margin: -(@moon-panel-handle-icon-font-size / 2) 0 0 -15px;
+		display: block;
+		height: 100%;
+		width: 100%;
+		line-height: 100vh;
+		margin-left: -10px;
+		background-color: @moon-panels-handle-bg-color;
 		font-family: @moon-icon-font-family;
 		font-size: @moon-panel-handle-icon-font-size;
 		content: @moon-icon-arrowlargeleft;
 		color: @moon-spotlight-text-color;
+		-webkit-transform: translate3d(0, 0, 0);
+		transition: -webkit-transform 0.2s linear, opacity 0.2s linear;
+		opacity: 1;
+		text-align: center;
 	}
 
 	&.right:before {
 		content: @moon-icon-arrowlargeright;
 	}
 
-	&.spotlight {
+	&.spotlight:before {
 		background-color: @moon-panels-spot-fg-color;
 		-webkit-transform: translate3d(-(@moon-panels-handle-width - 10), 0, 0);
 	}
 
-	&.hidden {
-		display: none;
+	&.stashed:before {
+		opacity: 0;
 	}
 
-	&.stashed {
-		opacity: 0;
+	&.hidden {
+		display: none;
 	}
 }
