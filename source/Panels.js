@@ -603,7 +603,7 @@
 		* @private
 		*/
 		panelsHiddenAsync: function () {
-			enyo.Signals.send('onPanelsHidden');
+			enyo.asyncMethod(enyo.Signals, 'send', 'onPanelsHidden');
 		},
 
 		/**
@@ -1116,7 +1116,7 @@
 			}
 			this.$.showHideHandle.removeClass('right');
 			this.applyHideAnimation();
-			enyo.Signals.send('onPanelsHidden');
+			this.panelsHiddenAsync();
 		},
 
 		/**

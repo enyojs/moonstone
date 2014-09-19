@@ -1068,7 +1068,7 @@
 					this.showFSInfo();
 				}
 				if (this._controlsShowing) {
-					this.showFSBottomControls();
+					enyo.asyncMethod(this, 'showFSBottomControls');
 				}
 			}
 		},
