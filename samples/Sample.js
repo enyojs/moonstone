@@ -72,7 +72,7 @@
 								{name: 'label', kind: 'moon.Item', ontap: 'doChooseSample'}
 							],
 							bindings: [
-								{from: 'model.sampleName', to: 'sampleName'},
+								{from: 'model.sampleName', to: '$.label.sampleName'},
 								{from: 'model.label', to: '$.label.content'}
 							],
 							events: {
