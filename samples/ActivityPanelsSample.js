@@ -4,8 +4,8 @@ enyo.kind({
 	components: [
 		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", style: "z-index: 1000;", brandingSrc: "$lib/moonstone/samples/assets/default-movie.png", components: [
 			{title: "First Panel", classes: "moon-7h", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", headerComponents: [
-				{kind: "moon.ToggleButton", small:true, content:"Medium", name:"mediumHeaderToggle", ontap: "mediumTapped"},
-				{kind: "moon.ToggleButton", small:true, content:"Small", name:"smallHeaderToggle", ontap: "smallTapped"}
+				{kind: "moon.ToggleButton", small:true, content:"Medium", name:"mediumHeaderToggle", ontap: "typeTapped"},
+				{kind: "moon.ToggleButton", small:true, content:"Small", name:"smallHeaderToggle", ontap: "typeTapped"}
 			], components: [
 				{kind: "moon.Scroller", fit:true, components: [
 					{kind: "moon.Item", content: "Item One", ontap: "next1"},
@@ -104,20 +104,19 @@ enyo.kind({
 			this.next3();
 		}
 	},
-	mediumTapped: function(inSender, inEvent) {
-		if (this.$.mediumHeaderToggle.value) {
-			this.$.smallHeaderToggle.setValue(false);
-			this.$.panel.setHeaderType("medium");
-		} else {
-			this.$.panel.setHeaderType("large");
-		}
-	},
-	smallTapped: function(inSender, inEvent) {
-		if (this.$.smallHeaderToggle.value) {
-			this.$.mediumHeaderToggle.setValue(false);
-			this.$.panel.setHeaderType("small");
-		} else {
-			this.$.panel.setHeaderType("large");
+	typeTapped: function(inSender, inEvent) {
+		var i,
+			val = inSender.get('value'),
+			buttonType = inSender.content.toLowerCase(),
+			types = ['large', 'medium', 'small'];
+
+		// If our button was `true`, use that type, otherwise revert to large.
+		this.$.panel.set('headerType', val ? buttonType.toLowerCase() : types[0]);
+		// Unset all other buttons
+		for (i = 0; i < types.length; i++) {
+			if (buttonType != types[i] && this.$[types[i] + 'HeaderToggle']) {
+				this.$[types[i] + 'HeaderToggle'].set('value', false);
+			}
 		}
 	}
 });
