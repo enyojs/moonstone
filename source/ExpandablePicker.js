@@ -281,7 +281,6 @@
 							index.splice(selIndex,1);
 						}
 					}
-					controls[i].unsilence();
 				}
 				this.$.currentValue.setContent(this.multiSelectCurrentValue());
 				if(this.hasNode()) {
@@ -289,7 +288,6 @@
 				}
 			} else {
 				for (i=0;i<controls.length;i++) {
-					controls[i].silence();
 					if(controls[i] === selected) {
 						controls[i].setChecked(true);
 						index = i;
