@@ -1,4 +1,39 @@
 (function (enyo, scope) {
+	// To prevent lingering tooltips, we're monitoring spotlight changes and tooltip display
+	// to ensure that only 1 tooltip is active.
+	// see BHV-14524, ENYO-247
+	var observer = new enyo.Component({
+
+		/**
+		* Last active tooltip
+		* @private
+		*/
+		active: null,
+
+		/**
+		* @private
+		*/
+		components: [
+			{kind: 'enyo.Signals', onSpotlightCurrentChanged: 'spotChanged'}
+		],
+
+		/**
+		* @private
+		*/
+		activeChanged: function (was) {
+			if(was) {
+				was.waterfall('onRequestHideTooltip');
+			}
+		},
+
+		/**
+		* @private
+		*/
+		spotChanged: function (sender, event) {
+			this.set('active', null);
+		}
+	});
+
 	/**
 	* {@link moon.Tooltip} is a popup that works in conjunction with
 	* {@link moon.TooltipDecorator}. The tooltip is automatically displayed when the
@@ -159,6 +194,7 @@
 		* @private
 		*/
 		requestShow: function (inSender, inEvent) {
+			observer.set('active', this);
 			this.activator = inSender;
 			this.startJob('showJob', 'show', this.showDelay);
 			return true;
