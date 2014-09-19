@@ -518,7 +518,7 @@
 		* @private
 		*/
 		adjustYearBounds: function(){
-			var i,yearDiff,
+			var i, yearDiff,
 				count = this.$.yearPicker.getClientControls().length,
 				year = this.value instanceof Date ? this.value.getFullYear() : this.startYear;
 
@@ -707,10 +707,11 @@
 		* @private
 		*/
 		updateYearPicker: function () {
-			var yearPickerControls = this.$.yearPicker.getClientControls(),
+			var i, l,
+				yearPickerControls = this.$.yearPicker.getClientControls(),
 				startYear = this.getStartYear(),
 				endYear = this.getEndYear();
-			for (var i = 0; i <= endYear - startYear; i++) {
+			for (i = 0, l = endYear - startYear; i <= l; i++) {
 				yearPickerControls[i].setContent(i + startYear);
 			}
 			var year = (typeof ilib !== 'undefined') ? this.localeValue.getYears() : this.value.getFullYear();
