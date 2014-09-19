@@ -351,7 +351,7 @@
 			this.hovering = true;
 			this.setupBounds();
 			this.showHideScrollColumns(true);
-			this.updateHoverOnPagingControls(true);
+			this.updateHoverOnPagingControls(enyo.Spotlight.getCurrent() ? false : true);
 		},
 
 		/**
