@@ -205,7 +205,7 @@
 			this.inherited(arguments);
 			if (this.open) {
 				// Perform post-open work
-				this.drawerAnimationEnd();
+				this.drawerOpened(true);
 				// Update stacking
 				this.resizeDrawer();
 			}
@@ -347,26 +347,42 @@
 		* @fires moon.TooltipDecorator#onRequestUnmuteTooltip
 		* @private
 		*/
-		drawerAnimationEnd: function() {
+		drawerAnimationEnd: function(sender, event) {
+			var rendered = event && event.rendered;
+			
 			//on closed, hide drawer and spot _this.$.activator_
 			if (!this.getOpen()) {
-				if (this.generated) {
-					enyo.Spotlight.spot(this.$.activator);
-				}
-				this.bubble('onRequestUnmuteTooltip');
+				this.drawerClosed(rendered);
 			}
 			//on open, move top and spot _this.$.closeButton_
 			else {
-				if (this.resetScroller) {
-					this.$.listActions.scrollTo(0, 0);
-					this.resetScroller = false;
-				}
-				if (this.generated) {
-					enyo.Spotlight.spot(this.$.closeButton);
-				}
-				this.bubble('onRequestMuteTooltip');
+				this.drawerOpened(rendered);
 			}
 			return true;
+		},
+		
+		/**
+		* @private
+		*/
+		drawerClosed: function (rendered) {
+			if (this.generated && !rendered) {
+				enyo.Spotlight.spot(this.$.activator);
+			}
+			this.bubble('onRequestUnmuteTooltip');
+		},
+		
+		/**
+		* @private
+		*/
+		drawerOpened: function (rendered) {
+			if (this.resetScroller) {
+				this.$.listActions.scrollTo(0, 0);
+				this.resetScroller = false;
+			}
+			if (this.generated && !rendered) {
+				enyo.Spotlight.spot(this.$.closeButton);
+			}
+			this.bubble('onRequestMuteTooltip');
 		},
 
 		/**
@@ -576,7 +592,7 @@
 			// Re-enable animation
 			this.applyAnimatedMode(true);
 			// Let any watchers know we've finished our preparation
-			this.doComplete();
+			this.doComplete({rendered: true});
 		},
 
 		/**

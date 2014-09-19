@@ -16,6 +16,17 @@ enyo.kind({
 						{kind: "moon.Item", content: "Dummy Item", ontap: "next"}
 					]}
 				]}
+			], headerComponents: [
+				{kind:"moon.TooltipDecorator", components: [
+					{kind:"moon.Tooltip", position:"above", content:"Test Dynamic Lists"},
+					{kind: "moon.ListActions", icon:"drawer", listActions: [
+						{action:"category3", components: [
+							{kind: "moon.Divider", content: "Dynamic List Action"},
+							{kind: "moon.Item", content: "Dummy Item 1"},
+							{kind: "moon.Item", content: "Dummy Item 2"}
+						]}
+					]}
+				]}
 			]}
 		], {owner: this});
 	},
