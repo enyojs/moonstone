@@ -674,10 +674,8 @@
 		* @public
 		*/
         setIndexDirect: function(inIndex) {
-            //this.toIndex = inIndex;
-            //this.skipArrangerAnimation();
-            this._setIndex(inIndex);
-            this.completed();
+            this.toIndex = inIndex;
+            this.skipArrangerAnimation();
         },
 
 		/**
@@ -762,10 +760,25 @@
 
 		/**
 		* Skips animation and jumps to next arrangement.
+        * Ensures that Panels with indices under the
+        * current panel, grow without animation
 		*
 		* @private
 		*/
 		skipArrangerAnimation: function () {
+
+            //if we are doing a direct transition
+            //we want to see if we should grow panels
+            //without animating
+            var panels = this.getPanels();
+            if(this.toIndex < this.index) {
+                //we need to shrink panels with indices
+                //under the current one
+                for (i = 0; i < this.index; i++) {
+                    panels[i].grow();
+                }
+            }
+
 			this._setIndex(this.toIndex);
 			this.completed();
 		},
