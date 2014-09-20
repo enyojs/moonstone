@@ -161,4 +161,17 @@
 		margin-left: 2.6ex;
 		margin-right: 0;
 	}
+	// Horizontally centered
+	&.center {
+		margin: 0;
+		margin-right: 50%;
+		-webkit-transform: translateX(50%);
+		transform: translateX(50%);
+
+		// Vertically centered
+		&.middle {
+			-webkit-transform: translateX(50%) translateY(-50%);
+			transform: translateX(50%) translateY(-50%);
+		}
+	}
 }
