@@ -772,8 +772,9 @@
             //without animating
             var panels = this.getPanels();
             if(this.toIndex < this.index) {
-                //we need to shrink panels with indices
-                //under the current one
+                //we need to grow panels with indices
+                //under the current one, to prevent
+                //animating later
                 for (var i = 0; i < this.index; i++) {
                     panels[i].grow();
                 }
