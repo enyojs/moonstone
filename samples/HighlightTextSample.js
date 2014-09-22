@@ -54,18 +54,18 @@ enyo.kind({
 	],
 	create: function() {
 		this.controller = new enyo.Collection(this.data);
-        this.filteredController = new enyo.ProgressiveFilter({
-            collection: this.controller,
-            method: function (model) {
-                return model.get("text").indexOf(this.text) >= 0;
-            }
-        });
+		this.filteredController = new enyo.ProgressiveFilter({
+			collection: this.controller,
+			method: function (model) {
+				return model.get("text").indexOf(this.text) >= 0;
+			}
+		});
 		this.inherited(arguments);
 	},
 	search: function(inSender, inEvent) {
-        this.filteredController.reset();
-        this.filteredController.text = inEvent.originator.getValue();
-        this.filteredController.filter();
+		this.filteredController.reset();
+		this.filteredController.text = inEvent.originator.getValue();
+		this.filteredController.filter();
 
 		inSender.waterfall("onHighlight", {highlight: inEvent.originator.getValue()});
 	},
