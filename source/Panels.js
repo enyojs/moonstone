@@ -809,7 +809,9 @@
 			if (this.animate) {
 				this.triggerPostTransitions();
 			}
-			else {
+			else if(!this.arrangerKind == 'CardArranger') {
+                //Card Arranger has no transitions to finish
+                //Does this feel hackish?
 				this.finishTransition(true);
 			}
 			return true;
