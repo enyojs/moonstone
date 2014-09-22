@@ -382,6 +382,8 @@
 				this.spotlightDisabled = true;
 				this.removeSpottableProps();
 				this.removeSpottableBreadcrumbProps();
+				// Check to ensure panel does not have the active element when offscreen.
+				this.blurActiveElement();
 			} else {
 				if (this.isBreadcrumb) {
 					this.spotlightDisabled = true;
@@ -395,6 +397,17 @@
 						this.$.spotlightDummy.spotlight = true;
 					}
 				}
+			}
+		},
+
+		/**
+		* @private
+		*/
+		blurActiveElement: function() {
+			var activeElement = document.activeElement,
+				activeComponent = activeElement ? enyo.$[activeElement.id] : null;
+			if (activeComponent && activeComponent.isDescendantOf(this)) {
+				document.activeElement.blur();
 			}
 		},
 
