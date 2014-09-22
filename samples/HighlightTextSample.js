@@ -49,14 +49,24 @@ enyo.kind({
 		]}
 	],
 	bindings: [
-		{from: ".controller", to: ".$.list.collection"},
+		{from: ".filteredController", to: ".$.list.collection"},
 		{from: ".$.inputPanel.$.header.value", to: ".controller.text"}
 	],
 	create: function() {
 		this.controller = new enyo.Collection(this.data);
+        this.filteredController = new enyo.ProgressiveFilter({
+            collection: this.controller,
+            method: function (model) {
+                return model.get("text").indexOf(this.text) >= 0;
+            }
+        });
 		this.inherited(arguments);
 	},
 	search: function(inSender, inEvent) {
+        this.filteredController.reset();
+        this.filteredController.text = inEvent.originator.getValue();
+        this.filteredController.filter();
+
 		inSender.waterfall("onHighlight", {highlight: inEvent.originator.getValue()});
 	},
 	changeContent: function() {
