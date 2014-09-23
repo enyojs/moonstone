@@ -263,7 +263,7 @@
 		selectedChanged: function (inOldValue) {
 			var selected = this.getSelected(),
 			controls = this.getCheckboxControls(),
-			index = -1,
+			index = oldIndex = -1,
 			i; //declaring i here to fix travis error
 
 			if (this.multipleSelection) {
@@ -291,9 +291,15 @@
 					if(controls[i] === selected) {
 						controls[i].setChecked(true);
 						index = i;
-					} else {
-						controls[i].setChecked(false);
+					} else if (controls[i].checked) {
+						oldIndex = i;
 					}
+				}
+				// to guarantee same behavior between tapping item
+				// and direct calling of setSelectedIndex(), 
+				// delay unchecking job until checking finished
+				if (oldIndex > -1) {
+					controls[oldIndex].setChecked(false);
 				}
 				if (index > -1 && selected !== inOldValue) {
 					this.setSelectedIndex(index);
