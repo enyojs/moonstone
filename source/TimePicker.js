@@ -478,23 +478,19 @@
 				// Excludes illegal hours based on DST rules by adding hour offset directly
 				this.setValue(new Date(valueTime + ((hour - valueHours)*60*60*1000)));
 			} else {
-				var valueFullYear = this.value ? this.value.getFullYear() : 0;
-				var valueMonth = this.value ? this.value.getMonth() : 0;
-				var valueDate = this.value ? this.value.getDate() : 0;
+				var valueMinutes = this.value ? this.value.getMinutes() : 0;
 				var valueSeconds = this.value ? this.value.getSeconds() : 0;
 				var valueMilliseconds = this.value ? this.value.getMilliseconds() : 0;
-	
-				this.setValue(
-					new Date(
-						valueFullYear,
-						valueMonth,
-						valueDate,
-						hour, 
-						minute,
-						valueSeconds,
-						valueMilliseconds
-					)
-				);
+
+				/** 
+				* This calculation is done as a workaround for potentially incorrect DST handling on
+				* the part of JavaScript. We get the base hour by subtracting the value of minutes,
+				* seconds, and milliseconds, and then add the desired minutes (in addition to the
+				* pre-existing seconds and milliseconds) to arrive at our desired date in unixtime
+				* format.
+				*/
+				var baseHourDate = this.value.getTime() - (valueMinutes*60*1000 + valueSeconds*1000 + valueMilliseconds);
+				this.setValue(new Date(baseHourDate + minute*60*1000 + valueSeconds*1000 + valueMilliseconds));
 			}
 		},
 
