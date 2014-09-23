@@ -263,7 +263,8 @@
 		selectedChanged: function (inOldValue) {
 			var selected = this.getSelected(),
 			controls = this.getCheckboxControls(),
-			index = oldIndex = -1,
+			index = -1,
+			oldIndex = -1,
 			i; //declaring i here to fix travis error
 
 			if (this.multipleSelection) {
