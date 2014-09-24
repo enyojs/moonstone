@@ -99,6 +99,8 @@
 		* @private
 		*/
 		tools: [
+			{name: 'closeButton', kind: 'moon.IconButton', icon: 'closex', classes: 'moon-popup-close', ontap: 'closePopup', showing:false},
+
 			{
 				layoutKind: 'FittableColumnsLayout',
 				components: [
