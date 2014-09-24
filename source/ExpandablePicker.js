@@ -416,7 +416,7 @@
 					break;
 				}
 			}
-			// have to call selectedChanged because indexes will change			
+			// have to call selectedChanged because indexes will change
 			this.selectedChanged();
 			this.removingControl = false;
 		},
@@ -433,7 +433,7 @@
 					if (this.multipleSelection) {
 						// in case of multipleSection, removing control could change
 						// selected array.
-						this.rebuildSelected(inControl)				
+						this.rebuildSelected(inControl);
 					} else {
 						if (this.selected === inControl) {
 							this.setSelected(null);
