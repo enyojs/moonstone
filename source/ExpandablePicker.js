@@ -267,27 +267,8 @@
 			i; //declaring i here to fix travis error
 
 			if (this.multipleSelection) {
-				index = this.selectedIndex = [];
-				for (i = 0; i < controls.length; i++) {
-					var selIndex = index.indexOf(i);
-					if (selected.indexOf(controls[i]) >= 0) {
-						controls[i].setChecked(true);
-						if (selIndex == -1) {
-							index.push(i);
-						}
-					} else {
-						controls[i].silence();
-						controls[i].setChecked(false);
-						controls[i].unsilence();
-						if (selIndex >= 0) {
-							index.splice(selIndex,1);
-						}						
-					}
-				}
-				this.$.currentValue.setContent(this.multiSelectCurrentValue());
-				// if selecetdChanged is called from removeControl(), 
-				// we do not need to emit 'onChange' event
-				if(!this.removingControl && this.hasNode()) {
+				this.rebuildSelected(selected, controls);
+				if(this.hasNode()) {
 					this.fireChangeEvent();
 				}
 			} else {
@@ -408,17 +389,28 @@
 		* @method
 		* @private
 		*/
-		rebuildSelected: function(inControl) {
-			this.removingControl = true;
-			for (var i = 0; i < this.selected.length; i++) {
-				if (this.selected[i] === inControl) {
-					this.selected.splice(i, 1);
-					break;
+		rebuildSelected: function(sel, ctls) {
+			var selected = sel ? sel : this.getSelected(),
+				controls = ctls ? ctls : this.getCheckboxControls(),
+				indices = this.selectedIndex = [];
+
+			for (var i = 0; i < controls.length; i++) {
+				var selIndex = indices.indexOf(i);
+				if (selected.indexOf(controls[i]) >= 0) {
+					controls[i].setChecked(true);
+					if (selIndex == -1) {
+						indices.push(i);
+					}
+				} else {
+					controls[i].silence();
+					controls[i].setChecked(false);
+					controls[i].unsilence();
+					if (selIndex >= 0) {
+						indices.splice(selIndex,1);
+					}
 				}
 			}
-			// have to call selectedChanged because indexes will change
-			this.selectedChanged();
-			this.removingControl = false;
+			this.$.currentValue.setContent(this.multiSelectCurrentValue());
 		},
 
 		/**
@@ -431,9 +423,15 @@
 				if (!this.destroying) {
 					// set currentValue, selected and selectedIndex to defaults value
 					if (this.multipleSelection) {
+						for (var i = 0; i < this.selected.length; i++) {
+							if (this.selected[i] === inControl) {
+								this.selected.splice(i, 1);
+								break;
+							}
+						}
 						// in case of multipleSection, removing control could change
 						// selected array.
-						this.rebuildSelected(inControl);
+						this.rebuildSelected();
 					} else {
 						if (this.selected === inControl) {
 							this.setSelected(null);
