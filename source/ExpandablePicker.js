@@ -269,7 +269,7 @@
 
 			if (this.multipleSelection) {
 				index = this.selectedIndex = [];
-				for (i=0;i<controls.length;i++) {
+				for (i = 0; i < controls.length; i++) {
 					var selIndex = index.indexOf(i);
 					if (selected.indexOf(controls[i]) >= 0) {
 						controls[i].setChecked(true);
@@ -324,7 +324,7 @@
 			index = this.getSelectedIndex();
 
 			if (this.multipleSelection) {
-				for (var i=0;i<controls.length;i++) {
+				for (var i = 0; i < controls.length; i++) {
 					var selIndex = selected.indexOf(controls[i]);
 					if (index.indexOf(i) >= 0) {
 						controls[i].setChecked(true);
@@ -415,7 +415,7 @@
 				if (!this.destroying) {
 					// set currentValue, selected and selectedIndex to defaults value
 					if (this.multipleSelection) {
-						for (var i=0;i<this.selected;i++) {
+						for (var i = 0; i < this.selected.length; i++) {
 							if (this.selected[i] === inControl) {
 								this.selected.splice(i, 1);
 								break;
