@@ -408,23 +408,32 @@
 		* @method
 		* @private
 		*/
+		rebuildSelected: function(inControl) {
+			this.removingControl = true;
+			for (var i = 0; i < this.selected.length; i++) {
+				if (this.selected[i] === inControl) {
+					this.selected.splice(i, 1);
+					break;
+				}
+			}
+			// have to call selectedChanged because indexes will change			
+			this.selectedChanged();
+			this.removingControl = false;
+		},
+
+		/**
+		* @method
+		* @private
+		*/
 		removeControl: enyo.inherit(function (sup) {
 			return function (inControl) {
 				// Skip extra work during panel destruction.
 				if (!this.destroying) {
 					// set currentValue, selected and selectedIndex to defaults value
 					if (this.multipleSelection) {
-						for (var i = 0; i < this.selected.length; i++) {
-							if (this.selected[i] === inControl) {
-								this.selected.splice(i, 1);
-								break;
-							}
-						}
-						// have to call selectedChanged in all cases for multipleSelection because
-						// indexes will change
-						this.removingControl = true;
-						this.selectedChanged();
-						this.removingControl = false;
+						// in case of multipleSection, removing control could change
+						// selected array.
+						this.rebuildSelected(inControl)				
 					} else {
 						if (this.selected === inControl) {
 							this.setSelected(null);
