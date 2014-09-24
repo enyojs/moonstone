@@ -260,7 +260,7 @@
 		* @fires moon.ExpandablePicker#onChange
 		* @private
 		*/
-		selectedChanged: function (inOldValue, inNewValue) {
+		selectedChanged: function (inOldValue) {
 			var selected = this.getSelected(),
 			controls = this.getCheckboxControls(),
 			index = -1,
@@ -286,10 +286,8 @@
 				}
 				this.$.currentValue.setContent(this.multiSelectCurrentValue());
 				// if selecetdChanged is called from removeControl(), 
-				// then inOldValue and inNewValue are both undefined.
-				// in this case, we do not need to emit 'onChange' event
-				if(!(typeof inOldValue == 'undefined' && typeof inNewValue == 'undefined')
-					&& this.hasNode()) {
+				// we do not need to emit 'onChange' event
+				if(!this.removingControl && this.hasNode()) {
 					this.fireChangeEvent();
 				}
 			} else {
@@ -424,7 +422,9 @@
 						}
 						// have to call selectedChanged in all cases for multipleSelection because
 						// indexes will change
+						this.removingControl = true;
 						this.selectedChanged();
+						this.removingControl = false;
 					} else {
 						if (this.selected === inControl) {
 							this.setSelected(null);
