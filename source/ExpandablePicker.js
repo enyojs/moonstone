@@ -389,25 +389,23 @@
 		* @method
 		* @private
 		*/
-		rebuildSelected: function(sel, ctls) {
-			var selected = sel ? sel : this.getSelected(),
-				controls = ctls ? ctls : this.getCheckboxControls(),
-				indices = this.selectedIndex = [];
+		rebuildSelected: function(selected, controls) {
+			this.selectedIndex = [];
+			if (!selected) {
+				selected = this.getSelected();
+			}
+			if (!controls) {
+				controls = this.getCheckboxControls();
+			}
 
 			for (var i = 0; i < controls.length; i++) {
-				var selIndex = indices.indexOf(i);
 				if (selected.indexOf(controls[i]) >= 0) {
 					controls[i].setChecked(true);
-					if (selIndex == -1) {
-						indices.push(i);
-					}
+					this.selectedIndex.push(i);
 				} else {
 					controls[i].silence();
 					controls[i].setChecked(false);
 					controls[i].unsilence();
-					if (selIndex >= 0) {
-						indices.splice(selIndex,1);
-					}
 				}
 			}
 			this.$.currentValue.setContent(this.multiSelectCurrentValue());
