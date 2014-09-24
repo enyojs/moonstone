@@ -267,22 +267,7 @@
 			i; //declaring i here to fix travis error
 
 			if (this.multipleSelection) {
-				index = this.selectedIndex = [];
-				for (i=0;i<controls.length;i++) {
-					var selIndex = index.indexOf(i);
-					if (selected.indexOf(controls[i]) >= 0) {
-						controls[i].setChecked(true);
-						if (selIndex == -1) {
-							index.push(i);
-						}
-					} else {
-						controls[i].setChecked(false);
-						if (selIndex >= 0) {
-							index.splice(selIndex,1);
-						}
-					}
-				}
-				this.$.currentValue.setContent(this.multiSelectCurrentValue());
+				this.rebuildSelectedIndices(selected, controls);
 				if(this.hasNode()) {
 					this.fireChangeEvent();
 				}
@@ -291,8 +276,10 @@
 					if(controls[i] === selected) {
 						controls[i].setChecked(true);
 						index = i;
-					} else {
+					} else if (controls[i].checked) {
+						controls[i].silence();
 						controls[i].setChecked(false);
+						controls[i].unsilence();
 					}
 				}
 				if (index > -1 && selected !== inOldValue) {
@@ -317,7 +304,7 @@
 			index = this.getSelectedIndex();
 
 			if (this.multipleSelection) {
-				for (var i=0;i<controls.length;i++) {
+				for (var i = 0; i < controls.length; i++) {
 					var selIndex = selected.indexOf(controls[i]);
 					if (index.indexOf(i) >= 0) {
 						controls[i].setChecked(true);
@@ -402,21 +389,43 @@
 		* @method
 		* @private
 		*/
+		rebuildSelectedIndices: function(selected, controls) {
+			this.selectedIndex = [];
+			selected = selected || this.getSelected();
+			controls = controls || this.getCheckboxControls();
+
+			for (var i = 0; i < controls.length; i++) {
+				if (selected.indexOf(controls[i]) >= 0) {
+					controls[i].setChecked(true);
+					this.selectedIndex.push(i);
+				} else {
+					controls[i].silence();
+					controls[i].setChecked(false);
+					controls[i].unsilence();
+				}
+			}
+			this.$.currentValue.setContent(this.multiSelectCurrentValue());
+		},
+
+		/**
+		* @method
+		* @private
+		*/
 		removeControl: enyo.inherit(function (sup) {
 			return function (inControl) {
 				// Skip extra work during panel destruction.
 				if (!this.destroying) {
 					// set currentValue, selected and selectedIndex to defaults value
 					if (this.multipleSelection) {
-						for (var i=0;i<this.selected;i++) {
+						for (var i = 0; i < this.selected.length; i++) {
 							if (this.selected[i] === inControl) {
 								this.selected.splice(i, 1);
 								break;
 							}
 						}
-						// have to call selectedChanged in all cases for multipleSelection because
-						// indexes will change
-						this.selectedChanged();
+						// in case of multipleSection, removing control could change
+						// selected array.
+						this.rebuildSelectedIndices();
 					} else {
 						if (this.selected === inControl) {
 							this.setSelected(null);
