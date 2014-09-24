@@ -277,10 +277,12 @@
 							index.push(i);
 						}
 					} else {
+						controls[i].silence();
 						controls[i].setChecked(false);
+						controls[i].unsilence();
 						if (selIndex >= 0) {
 							index.splice(selIndex,1);
-						}
+						}						
 					}
 				}
 				this.$.currentValue.setContent(this.multiSelectCurrentValue());
@@ -300,7 +302,9 @@
 				// and direct calling of setSelectedIndex(), 
 				// delay unchecking job until checking finished
 				if (oldIndex > -1) {
+					controls[oldIndex].silence();
 					controls[oldIndex].setChecked(false);
+					controls[oldIndex].unsilence();
 				}
 				if (index > -1 && selected !== inOldValue) {
 					this.setSelectedIndex(index);
