@@ -267,7 +267,7 @@
 			i; //declaring i here to fix travis error
 
 			if (this.multipleSelection) {
-				this.rebuildSelected(selected, controls);
+				this.rebuildSelectedIndices(selected, controls);
 				if(this.hasNode()) {
 					this.fireChangeEvent();
 				}
@@ -389,14 +389,10 @@
 		* @method
 		* @private
 		*/
-		rebuildSelected: function(selected, controls) {
+		rebuildSelectedIndices: function(selected, controls) {
 			this.selectedIndex = [];
-			if (!selected) {
-				selected = this.getSelected();
-			}
-			if (!controls) {
-				controls = this.getCheckboxControls();
-			}
+			selected = selected || this.getSelected();
+			controls = controls || this.getCheckboxControls();
 
 			for (var i = 0; i < controls.length; i++) {
 				if (selected.indexOf(controls[i]) >= 0) {
@@ -429,7 +425,7 @@
 						}
 						// in case of multipleSection, removing control could change
 						// selected array.
-						this.rebuildSelected();
+						this.rebuildSelectedIndices();
 					} else {
 						if (this.selected === inControl) {
 							this.setSelected(null);
