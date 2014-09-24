@@ -260,7 +260,7 @@
 		* @fires moon.ExpandablePicker#onChange
 		* @private
 		*/
-		selectedChanged: function (inOldValue) {
+		selectedChanged: function (inOldValue, inNewValue) {
 			var selected = this.getSelected(),
 			controls = this.getCheckboxControls(),
 			index = -1,
@@ -286,7 +286,11 @@
 					}
 				}
 				this.$.currentValue.setContent(this.multiSelectCurrentValue());
-				if(this.hasNode()) {
+				// if selecetdChanged is called from removeControl(), 
+				// then inOldValue and inNewValue are both undefined.
+				// in this case, we do not need to emit 'onChange' event
+				if(!(typeof inOldValue == 'undefined' && typeof inNewValue == 'undefined')
+					&& this.hasNode()) {
 					this.fireChangeEvent();
 				}
 			} else {
