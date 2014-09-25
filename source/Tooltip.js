@@ -243,12 +243,18 @@
 				var b = this.node.getBoundingClientRect(),
 					moonDefaultPadding = 20,
 					pBounds = this.parent.getAbsoluteBounds(),
-					acBounds =null;
+					acBounds = null;
 
 				// Sometimes enyo.Spotlight.getCurrent() is null.
 				// In this case, we can rely on onRequestShowTooltip event sender.
 				this.activator = enyo.Spotlight.getCurrent() || this.activator;
 				acBounds = this.activator.getAbsoluteBounds();
+
+                //if the parent of the activator is not the parent of the
+                //tooltip do not change position
+                if(this.parent != this.activator.parent) {
+                    return;
+                };
 
 				//* Calculate the difference between decorator and activating
 				//* control's top, left, right differences, position tooltip against
