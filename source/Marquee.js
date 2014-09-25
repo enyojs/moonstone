@@ -273,6 +273,7 @@
 		_marquee_spotlightFocus: function (sender, ev) {
 			this._marquee_isFocused = true;
 			if (this.marqueeOnSpotlight) {
+				this._marquee_originator = ev.originator;
 				this.startMarquee();
 			}
 		},
@@ -284,7 +285,8 @@
 		*/
 		_marquee_spotlightBlur: function (sender, ev) {
 			this._marquee_isFocused = false;
-			if (this.marqueeOnSpotlight) {
+			if (this.marqueeOnSpotlight && this._marquee_originator === ev.originator) {
+				this._marquee_originator = null;
 				this.stopMarquee();
 			}
 		},
