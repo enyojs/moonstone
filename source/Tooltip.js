@@ -250,6 +250,12 @@
 				this.activator = enyo.Spotlight.getCurrent() || this.activator;
 				acBounds = this.activator.getAbsoluteBounds();
 
+                //if the parent of the activator is not the parent of the
+                //tooltip do not change position
+                if(this.parent != this.activator.parent) {
+                    return;
+                }
+
 				//* Calculate the difference between decorator and activating
 				//* control's top, left, right differences, position tooltip against
 				//* the activating control instead of the decorator accordingly.
