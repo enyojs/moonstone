@@ -167,6 +167,7 @@
 			} else {
 				this.setActive(true);
 				enyo.Spotlight.unspot();
+				this.focusInput();
 			}
 		},
 
@@ -251,16 +252,6 @@
 				this.closeDrawerAndHighlightHeader();
 			}
 			return true;
-		},
-
-		/**
-		* @private
-		*/
-		drawerAnimationEnd: function () {
-			if (this.getOpen()) {
-				this.focusInput();
-			}
-			this.inherited(arguments);
 		},
 
 		/**
