@@ -181,7 +181,7 @@ enyo.kind({
 			{
 				kind: 'moon.ContextualPopup',
 				name: 'directionContext',
-				classes: 'moon-6h moon-4v',
+				classes: 'moon-4v',
 				components: [
 					{kind: moon.Scroller, horizontal: 'auto', classes: 'enyo-fill', components: [
 						{kind: moon.Button, content: 'Button 1'},
