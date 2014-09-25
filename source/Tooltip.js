@@ -254,7 +254,7 @@
                 //tooltip do not change position
                 if(this.parent != this.activator.parent) {
                     return;
-                };
+                }
 
 				//* Calculate the difference between decorator and activating
 				//* control's top, left, right differences, position tooltip against
