@@ -296,6 +296,10 @@
 		},
 
 		rendered: function() {
+			// Evaluate the value change before the rendered method, but after the create method
+			if (this.inputMode) {
+				this.valueChanged();
+			}
 			this.inherited(arguments);
 			this.adjustTitleWidth();
 		},
@@ -561,6 +565,13 @@
 		/**
 		* @private
 		*/
+		valueChanged: function () {
+			this.$.titleInput.detectTextDirectionality(this.$.titleInput.value);
+		},
+
+		/**
+		* @private
+		*/
 		adjustTitleWidth: function() {
 			var type = this.get('type'),
 				// Measure client area's width + 40px of spacing
@@ -623,6 +634,7 @@
 			this.$.titleInput.set('placeholder', this.getTitleUpperCase()
 					? enyo.toUpperCase(this.placeholder || this.title || this.content)
 					: (this.placeholder || this.title || this.content) );
+			this.$.titleInput.detectTextDirectionality(this.$.titleInput.get('placeholder'));
 		},
 
 		/**
