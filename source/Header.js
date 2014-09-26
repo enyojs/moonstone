@@ -291,13 +291,11 @@
 			this.backgroundSrcChanged();
 			this.backgroundPositionChanged();
 			this.inputModeChanged();
+			this.placeholderChanged();
 			this.fullBleedBackgroundChanged();
 		},
 
 		rendered: function() {
-			// Evaluate the placeholder (and value) change before the rendered method, but after the create method
-			this.placeholderChanged();
-
 			this.inherited(arguments);
 			this.adjustTitleWidth();
 		},
