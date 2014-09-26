@@ -382,8 +382,6 @@
 				this.spotlightDisabled = true;
 				this.removeSpottableProps();
 				this.removeSpottableBreadcrumbProps();
-				// Check to ensure panel does not have the active element when offscreen.
-				this.blurActiveElement();
 			} else {
 				if (this.isBreadcrumb) {
 					this.spotlightDisabled = true;
@@ -397,17 +395,6 @@
 						this.$.spotlightDummy.spotlight = true;
 					}
 				}
-			}
-		},
-
-		/**
-		* @private
-		*/
-		blurActiveElement: function() {
-			var activeElement = document.activeElement,
-				activeComponent = activeElement ? enyo.$[activeElement.id] : null;
-			if (activeComponent && activeComponent.isDescendantOf(this)) {
-				document.activeElement.blur();
 			}
 		},
 
@@ -589,7 +576,7 @@
 		*/
 		preTransition: function (info) {
 			this.disableMarquees();
-
+			this.addClass('transitioning');
 			if (!this.shrinking && info.breadcrumb && (!this.isBreadcrumb || this.growing)) {
 				this.shrinkAnimation();
 				return true;
@@ -603,6 +590,7 @@
 		* @private
 		*/
 		postTransition: function (info) {
+			this.removeClass('transitioning');
 			if (!this.growing && !info.breadcrumb && (this.isBreadcrumb || this.shrinking)) {
 				this.growAnimation();
 				return true;
