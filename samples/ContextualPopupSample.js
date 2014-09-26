@@ -176,7 +176,7 @@ enyo.kind({
 				{content: 'bottom', classes: 'radioItemFont'}
 			]}
 		]},
-		{kind: 'moon.ContextualPopupDecorator', name: 'directionButton', style: 'position: absolute; left: 40%; top: 75%;', components: [
+		{kind: 'moon.ContextualPopupDecorator', name: 'directionButton', style: 'position: absolute; left: 40%; top: 70%;', components: [
 			{content: 'Direction'},
 			{
 				kind: 'moon.ContextualPopup',
