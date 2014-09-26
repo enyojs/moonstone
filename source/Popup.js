@@ -374,6 +374,7 @@
 					this.animateShow();
 					this.animationEnd = this.bindSafely(function(inSender, inEvent) {
 						if (inEvent.originator === this) {
+							this.showHideScrim(this.showing);
 							if (this.directShowHide) {
 								this.setDirectShowHide(false);
 							}
@@ -395,7 +396,6 @@
 				this.inherited(arguments);
 			}
 
-			this.showHideScrim(this.showing);
 			if (this.showing) {
 				this.configCloseButton();
 				// Spot ourselves, unless we're already spotted
