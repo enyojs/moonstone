@@ -247,14 +247,12 @@
 
 				// Sometimes enyo.Spotlight.getCurrent() is null.
 				// In this case, we can rely on onRequestShowTooltip event sender.
-				this.activator = enyo.Spotlight.getCurrent() || this.activator;
-				acBounds = this.activator.getAbsoluteBounds();
+                // We also check that the spotlight hasn't skipped away from
+                // the activator, and place the tooltip on the wrong control
+                var c = enyo.Spotlight.getCurrent();
+				this.activator = (this.parent != c.parent) ? this.activator : enyo.Spotlight.getCurrent() || this.activator;
 
-                //if the parent of the activator is not the parent of the
-                //tooltip do not change position
-                if(this.parent != this.activator.parent) {
-                    return;
-                }
+				acBounds = this.activator.getAbsoluteBounds();
 
 				//* Calculate the difference between decorator and activating
 				//* control's top, left, right differences, position tooltip against
