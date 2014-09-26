@@ -653,8 +653,20 @@
 		* @private
 		*/
 		_marquee_detectAlignment: function (forceAnimate, forceRtl) {
-			var alignment = this.centered ? 'center' : null;
-			this.applyStyle('text-align', ((forceAnimate || this._marquee_shouldAnimate()) && !(forceRtl || this.rtl)) ? 'left' : alignment);
+			var alignment = null;
+			// If we will be marqueeing, we know the alignment needs to be set based on directionality.
+			if (forceAnimate || this._marquee_shouldAnimate()) {
+				if (forceRtl || this.rtl) {
+					alignment = 'right';
+				} else {
+					alignment = 'left';
+				}
+			}
+			// Alignment wasn't set yet, so we know we don't need to animate. Now we can center the text if we're supposed to.
+			if (!alignment && this.centered) {
+				alignment = 'center';
+			}
+			this.applyStyle('text-align', alignment);
 		},
 
 		/**
