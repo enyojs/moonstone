@@ -612,9 +612,12 @@
 		rendered: enyo.inherit(function (sup) {
 			return function () {
 				sup.apply(this, arguments);
-				enyo.asyncMethod(this, function () {
-					this._marquee_detectAlignment();
-				});
+				// There is a known issue where a parent control that modifies the layout will 
+				// invalidate the measurements used to detect the proper alignment, which can
+				// result in the appropriate text-align rule not being applied. For example, this
+				// can occur with a moon.Header that is located inside a moon.Scroller which has
+				// vertical scrollbars visible.
+				this._marquee_detectAlignment();
 			};
 		}),
 
