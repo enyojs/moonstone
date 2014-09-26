@@ -291,15 +291,14 @@
 			this.backgroundSrcChanged();
 			this.backgroundPositionChanged();
 			this.inputModeChanged();
-			this.placeholderChanged();
 			this.fullBleedBackgroundChanged();
 		},
 
 		rendered: function() {
 			// Evaluate the value change before the rendered method, but after the create method
-			if (this.inputMode) {
-				this.valueChanged();
-			}
+			this.placeholderChanged();
+			this.valueChanged();
+
 			this.inherited(arguments);
 			this.adjustTitleWidth();
 		},
@@ -634,7 +633,7 @@
 			this.$.titleInput.set('placeholder', this.getTitleUpperCase()
 					? enyo.toUpperCase(this.placeholder || this.title || this.content)
 					: (this.placeholder || this.title || this.content) );
-			this.$.titleInput.detectTextDirectionality(this.$.titleInput.get('placeholder'));
+			this.$.titleInput.detectTextDirectionality(this.$.titleInput.value || this.$.titleInput.get('placeholder'));
 		},
 
 		/**
