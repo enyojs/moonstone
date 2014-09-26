@@ -149,10 +149,7 @@
 		*/
 		handlers: {
 			onSpotlightScrollUp:'spotlightWheel',
-			onSpotlightScrollDown:'spotlightWheel',
-			onSpotlightContainerEnter: 'spotlightHello',
-			onSpotlightFocus: 'spotlightHello',
-			onSpotlightContainerLeave: 'spotlightGoodbye'
+			onSpotlightScrollDown:'spotlightWheel'
 		},
 
 		/**
@@ -269,29 +266,6 @@
 						return true;
 					}
 				}
-			}
-		},
-
-		/**
-		* When scroller is entered or one of its children is focused
-		* in 5-way mode, make sure that we're showing the scroll columns.
-		*
-		* @private
-		*/
-		spotlightHello: function (inSender, inEvent) {
-			if (this.$.strategy.showHideScrollColumns) {
-				this.$.strategy.showHideScrollColumns(true);
-			}
-		},
-
-		/**
-		* When 5-way focus leaves scroller, hide the scroll columns.
-		*
-		* @private
-		*/
-		spotlightGoodbye: function (inSender, inEvent) {
-			if (inEvent.originator.owner === this.$.strategy && this.$.strategy.showHideScrollColumns) {
-				this.$.strategy.showHideScrollColumns(false);
 			}
 		},
 
