@@ -601,8 +601,20 @@
 			return function () {
 				sup.apply(this, arguments);
 				this.detectTextDirectionality();
-				this._marquee_centeredChanged();
 				this._marquee_wrapInsteadOfMarqueeChanged();
+			};
+		}),
+
+		/**
+		* @method
+		* @private
+		*/
+		rendered: enyo.inherit(function (sup) {
+			return function () {
+				sup.apply(this, arguments);
+				enyo.asyncMethod(this, function () {
+					this._marquee_detectAlignment();
+				});
 			};
 		}),
 
@@ -627,6 +639,35 @@
 				this._marquee_reset();
 			};
 		}),
+
+		/**
+		* We must measure the content (after render) to determine if it's marqueeable, then to set
+		* its alignment to left if the content was explicitly set to LTR earlier. This happens when
+		* the locale is set to a RTL language, but your string contains no RTL characters in it.
+		* Therefore it's LTR, and if it's marqueeable, should be left aligned, so it marquees in the
+		* natural marqueeing direction.
+		*
+		* @param {Boolean} [forceAnimate]  Override the animation check (only accepts `true`). Use
+		*	this if you know already, because you've already measured that you will need to marquee.
+		* @param {Boolean} [forceRtl]  Override the internal RTL property, in case you know better.
+		* @private
+		*/
+		_marquee_detectAlignment: function (forceAnimate, forceRtl) {
+			var alignment = null;
+			// If we will be marqueeing, we know the alignment needs to be set based on directionality.
+			if (forceAnimate || this._marquee_shouldAnimate()) {
+				if (forceRtl || this.rtl) {
+					alignment = 'right';
+				} else {
+					alignment = 'left';
+				}
+			}
+			// Alignment wasn't set yet, so we know we don't need to animate. Now we can center the text if we're supposed to.
+			if (!alignment && this.centered) {
+				alignment = 'center';
+			}
+			this.applyStyle('text-align', alignment);
+		},
 
 		/**
 		* @private
@@ -687,6 +728,8 @@
 				this._marquee_createMarquee();
 			}
 
+			// We know we need to animate, so tell _marquee_detectAlignment to skip the animate check.
+			this._marquee_detectAlignment(true);
 			this._marquee_addAnimationStyles(distance);
 			return true;
 		},
@@ -847,7 +890,7 @@
 		* @private
 		*/
 		_marquee_centeredChanged: function () {
-			this.applyStyle('text-align', this.centered ? 'center' : null);
+			this._marquee_detectAlignment();
 		},
 
 		/**
