@@ -60,17 +60,25 @@
 		* @private
 		*/
 		handleSpotlightFocus: function (inSender, inEvent) {
-			var zIndex = parseInt(enyo.dom.getComputedStyleValue(inEvent.originator.hasNode(), 'z-index'), 10) || 0;
-			inEvent.originator.applyStyle('z-index', zIndex + 1);
+			var c = inEvent.originator;
+			var isClientControl = this.getClientControls().indexOf(c) >= 0;
+			if(isClientControl) {
+				var zIndex = parseInt(enyo.dom.getComputedStyleValue(c.hasNode(), 'z-index'), 10) || 0;
+				c.applyStyle('z-index', zIndex + 1);
+			}
 		},
 
 		/**
 		* @private
 		*/
 		handleSpotlightBlur: function (inSender, inEvent) {
-			setTimeout(this.bindSafely(function () {
-				inEvent.originator.applyStyle('z-index', null);
-			}), 0);
+			var c = inEvent.originator;
+			var isClientControl = this.getClientControls().indexOf(c) >= 0;
+			if(isClientControl) {
+				setTimeout(this.bindSafely(function () {
+					c.applyStyle('z-index', null);
+				}), 0);
+			}
 		},
 
 		/**

@@ -170,6 +170,11 @@
 		strategyKind: 'moon.ScrollStrategy',
 
 		/**
+		* @private
+		*/
+		spotlight: 'container',
+
+		/**
 		* Scrolls until the specified [control]{@link enyo.Control} is in view. If
 		* `scrollFullPage` is set, scrolls until the edge of `control` is aligned with
 		* the edge of the visible scroll area. Optional third parameter indicates
@@ -224,6 +229,12 @@
 			this.inherited(arguments);
 			this.spotlightPagingControlsChanged();
 			this.scrollWheelMovesFocusChanged();
+
+			// workaround because the bootstrapping code isn't attached to constructors that have
+			// finished setup before the hook is declared
+			if(enyo.Spotlight && this.spotlight === 'container') {
+				enyo.Spotlight.Container.initContainer(this);
+			}
 		},
 
 		/**
