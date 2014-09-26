@@ -61,7 +61,8 @@
 		*/
 		handleSpotlightFocus: function (inSender, inEvent) {
 			var c = inEvent.originator;
-			if(c !== this.$.scroller) {
+			var isClientControl = this.getClientControls().indexOf(c) >= 0;
+			if(isClientControl) {
 				var zIndex = parseInt(enyo.dom.getComputedStyleValue(c.hasNode(), 'z-index'), 10) || 0;
 				c.applyStyle('z-index', zIndex + 1);
 			}
@@ -72,7 +73,8 @@
 		*/
 		handleSpotlightBlur: function (inSender, inEvent) {
 			var c = inEvent.originator;
-			if(c !== this.$.scroller) {
+			var isClientControl = this.getClientControls().indexOf(c) >= 0;
+			if(isClientControl) {
 				setTimeout(this.bindSafely(function () {
 					c.applyStyle('z-index', null);
 				}), 0);
