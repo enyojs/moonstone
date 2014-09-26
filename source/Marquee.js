@@ -104,7 +104,7 @@
 		*/
 		_marquee_Handlers: {
 			onRequestStartMarquee: '_marquee_requestStartMarquee',
-			onSpotlightFocus: '_marquee_spotlightFocus',
+			onSpotlightFocused: '_marquee_spotlightFocused',
 			onSpotlightBlur: '_marquee_spotlightBlur',
 			onenter: '_marquee_enter',
 			onleave: '_marquee_leave',
@@ -270,7 +270,7 @@
 		*
 		* @private
 		*/
-		_marquee_spotlightFocus: function (sender, ev) {
+		_marquee_spotlightFocused: function (sender, ev) {
 			this._marquee_isFocused = true;
 			if (this.marqueeOnSpotlight) {
 				this.startMarquee();
