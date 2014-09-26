@@ -564,7 +564,7 @@
 		* @private
 		*/
 		valueChanged: function () {
-			this.$.titleInput.detectTextDirectionality(this.$.titleInput.value);
+			this.$.titleInput.detectTextDirectionality((this.$.titleInput.value || this.$.titleInput.value === 0 || this.$.titleInput.value === '0') ? this.$.titleInput.value : this.$.titleInput.get('placeholder'));
 		},
 
 		/**
@@ -632,7 +632,7 @@
 			this.$.titleInput.set('placeholder', this.getTitleUpperCase()
 					? enyo.toUpperCase(this.placeholder || this.title || this.content)
 					: (this.placeholder || this.title || this.content) );
-			this.$.titleInput.detectTextDirectionality((this.$.titleInput.value || this.$.titleInput.value === 0 || this.$.titleInput.value === '0') ? this.$.titleInput.value : this.$.titleInput.get('placeholder'));
+			this.valueChanged();
 		},
 
 		/**
