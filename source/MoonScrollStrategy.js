@@ -81,7 +81,9 @@
 		handlers: {
 			onRequestScrollIntoView : 'requestScrollIntoView',
 			onRequestSetupBounds	: 'requestSetupBounds',
+			onSpotlightFocused      : 'enter',
 			onenter                 : 'enter',
+			onSpotlightBlur         : 'leave',
 			onleave                 : 'leave'
 		},
 
