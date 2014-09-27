@@ -576,7 +576,7 @@
 		*/
 		preTransition: function (info) {
 			this.disableMarquees();
-
+			this.addClass('transitioning');
 			if (!this.shrinking && info.breadcrumb && (!this.isBreadcrumb || this.growing)) {
 				this.shrinkAnimation();
 				return true;
@@ -590,6 +590,7 @@
 		* @private
 		*/
 		postTransition: function (info) {
+			this.removeClass('transitioning');
 			if (!this.growing && !info.breadcrumb && (this.isBreadcrumb || this.shrinking)) {
 				this.growAnimation();
 				return true;
