@@ -1597,7 +1597,6 @@
 .moon-header.moon-medium-header .moon-header-client,
 .moon-header.moon-small-header .moon-header-client {
   display: inline-block;
-  left: auto;
 }
 .moon-neutral .moon-header {
   border-top: 2px solid #ffffff;
