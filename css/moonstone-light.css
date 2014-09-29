@@ -1599,6 +1599,9 @@
   display: inline-block;
   left: auto;
 }
+.moon-header .moon-header-client-text {
+  line-height: 60px;
+}
 .moon-neutral .moon-header {
   border-top: 2px solid #ffffff;
   border-bottom: 6px solid #ffffff;

@@ -3,7 +3,7 @@ enyo.kind({
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: "moon.Panel", classes: "enyo-fit", headerType: "medium", title: "Vertical Scroller", headerComponents: [
-			{content: "Spacing: "},
+			{content: "Spacing: ", classes: "moon-header-client-text"},
 			{kind: "moon.SimplePicker", name: "spacingPicker", classes: "moon-4h", onChange: "spacingChanged", components: [
 				{content: "default", spacingClass: ""},
 				{content: "small", spacingClass: "moon-vspacing-s", active:true},
