@@ -7,7 +7,7 @@ enyo.kind({
 		{classes: "moon-1v"},
 		{kind: "moon.ToggleButton", content: "Showing", name: "showingToggle"},
 		{kind: "moon.ToggleButton", content: "Animate", name: "animateToggle"},
-		{kind: "moon.ToggleButton", content: "SpotlightModal", name: "spotlightModalToggle"},
+		{kind: "moon.ToggleButton", content: "SpotlightModal", ontap: "buttonToggled"},
 		{
 			name: "dialog", 
 			kind: "moon.Dialog",
@@ -22,9 +22,12 @@ enyo.kind({
 	],
 	bindings: [
 		{from: ".$.showingToggle.value", to: ".$.dialog.showing", oneWay:false},
-		{from: ".$.spotlightModalToggle.value", to: ".$.dialog.spotlightModal", oneWay:false},
 		{from: ".$.dialog.animate", to: ".$.animateToggle.value", oneWay:false}
 	],
+	buttonToggled: function(inSender, inEvent) {
+		this.$.dialog.setSpotlightModal(inSender.getActive());
+		this.$.dialog.setAutoDismiss(!inSender.getActive());
+	},
 	showDialog: function(inSender) {
 		this.$.dialog.show();
 	},
