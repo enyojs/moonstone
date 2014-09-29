@@ -9,6 +9,7 @@
 	*
 	* @class moon.ToggleText
 	* @extends moon.Checkbox
+	* @deprecated Replaced by {@link moon.ToggleButton} and {@link moon.ToggleItem}
 	* @ui
 	* @public
 	*/
