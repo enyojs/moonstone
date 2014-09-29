@@ -2607,6 +2607,9 @@
 .moon-list-actions-drawer * {
   pointer-events: auto;
 }
+.moon-list-actions-drawer.stacked .moon-list-actions-menu {
+  display: block;
+}
 .moon-list-actions-drawer-client {
   position: absolute;
   width: 100%;
