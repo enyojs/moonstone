@@ -697,6 +697,7 @@
 		* @private
 		*/
 		showHideVerticalScrollColumns: function(show) {
+			this.$.vthumb.update(this);
 			this.$.vColumn.addRemoveClass('visible', show || this.spotlightPagingControls);
 		},
 
