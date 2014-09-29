@@ -316,7 +316,7 @@
 		beforeOpenDrawer: function(standardHeight, type) {
 			this.standardHeight = standardHeight;
 			if (type !== 'large') {
-				this.set(this.stacked, 'false');
+				this.set('stacked', false);
 			}
 		},
 
@@ -428,7 +428,6 @@
 			var optionGroup, i;
 
 			for (i = 0; (optionGroup = this.listActionComponents[i]); i++) {
-				optionGroup.applyStyle('display', 'block');
 				// Stacked contols get natural height (which prevents scrolling), such that they stack
 				// within outer scroller which is allowed to scroll all controls; this is a problem for
 				// DataLists, which require an explicit height, making them unsuitable for use in
@@ -448,7 +447,6 @@
 			containerHeight = this.getContainerBounds().height;
 
 			for (i = 0; (optionGroup = this.listActionComponents[i]); i++) {
-				optionGroup.applyStyle('display', 'inline-block');
 				optionGroup.applyStyle('height', containerHeight + 'px');
 			}
 		},
