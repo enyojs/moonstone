@@ -73,7 +73,21 @@
 		checkedChanged: function () {
 			this.inherited(arguments);
 			this.$.label.setContent(this.getChecked() ? this.onContent : this.offContent);
-		}
+		},
+
+		/**
+		 * src is not supported
+		 *
+		 * @private
+		 */
+		srcChanged: function () {},
+
+		/**
+		 * icon is not supported
+		 *
+		 * @private
+		 */
+		iconChanged: function () {}
 	});
 
 })(enyo, this);
