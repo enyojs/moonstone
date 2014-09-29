@@ -5,6 +5,8 @@
 	* it switches its state and fires an [onChange]{@link enyo.Checkbox#event:onChange}
 	* event.
 	*
+	* **Note:** {@link moon.Checkbox#icon} and {@link moon.Checkbox#src} are not supported.
+	*
 	* @class moon.ToggleText
 	* @extends moon.Checkbox
 	* @ui
@@ -46,6 +48,16 @@
 			*/
 			offContent: moon.$L('off')  // i18n 'OFF' label in moon.ToggleText widget
 		},
+
+		/**
+		* @private
+		*/
+		icon: null,
+
+		/**
+		* @private
+		*/
+		src: null,
 
 		/**
 		* @private
