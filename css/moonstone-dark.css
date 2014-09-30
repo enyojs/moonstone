@@ -347,7 +347,9 @@
 .moon {
   font-family: "MuseoSans 700";
   font-size: 30px;
-  letter-spacing: 0;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: normal;
   padding: 20px;
   color: #a6a6a6;
   background-color: #000000;
@@ -393,50 +395,32 @@
 .moon-header-text {
   font-family: "Moonstone Miso";
   font-size: 126px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: normal;
   -webkit-font-kerning: normal;
   font-kerning: normal;
 }
 .moon-sub-header-text {
   font-family: "MuseoSans 700";
   font-size: 30px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #a6a6a6;
 }
 .moon-super-header-text {
   font-family: "Moonstone Miso";
   font-size: 32px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: normal;
   -webkit-font-kerning: normal;
 }
 .moon-popup-header-text {
   font-family: "Moonstone Miso";
   font-size: 73px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: normal;
   -webkit-font-kerning: normal;
 }
 .moon-divider-text {
   font-family: "MuseoSans 700 Italic";
   font-size: 22px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #a6a6a6;
 }
 .moon-body-text {
   font-family: "MuseoSans 300";
   font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #a6a6a6;
   line-height: 32px;
 }
@@ -463,9 +447,6 @@
 .moon-bold-text {
   font-family: "MuseoSans 900";
   font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #a6a6a6;
   line-height: 32px;
 }
@@ -491,17 +472,11 @@
 .moon-large-button-text {
   font-family: "Moonstone Miso Bold";
   font-size: 33px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: normal;
   -webkit-font-kerning: normal;
 }
 .moon-small-button-text {
   font-family: "Moonstone Miso Bold";
   font-size: 27px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: normal;
   -webkit-font-kerning: normal;
 }
 .moon-icon-text {
@@ -1110,9 +1085,6 @@
 .moon-item {
   font-family: "MuseoSans 700";
   font-size: 30px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #a6a6a6;
   line-height: 1.2em;
   padding: 10px;
@@ -1392,9 +1364,6 @@
 .moon-expandable-list-item-client .moon-item {
   font-family: "MuseoSans 300";
   font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #a6a6a6;
   line-height: 32px;
 }
@@ -1467,9 +1436,6 @@
 .moon-expandable-picker-current-value {
   font-family: "MuseoSans 300";
   font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   line-height: 32px;
   color: #a6a6a6;
   margin: 0px;
@@ -1636,17 +1602,11 @@
 .moon-gridlist-imageitem .caption {
   font-family: "MuseoSans 700";
   font-size: 30px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #a6a6a6;
 }
 .moon-gridlist-imageitem .sub-caption {
   font-family: "MuseoSans 300";
   font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #a6a6a6;
   line-height: 32px;
 }
@@ -1854,9 +1814,6 @@
 .moon-input {
   font-family: "MuseoSans 300";
   font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #a6a6a6;
   line-height: 32px;
   margin: 0px;
@@ -1920,9 +1877,6 @@
 .moon-input-decorator:not(.moon-input-header-input-decorator) {
   font-family: "MuseoSans 700 Italic";
   font-size: 22px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #a6a6a6;
   margin: 5px;
   padding: 9px 30px;
@@ -1941,9 +1895,6 @@
 .moon-textarea-decorator {
   font-family: "MuseoSans 700 Italic";
   font-size: 22px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #a6a6a6;
   margin: 5px;
   padding: 9px 14px;
@@ -2126,9 +2077,6 @@
 .moon-richtext {
   font-family: "MuseoSans 300";
   font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #a6a6a6;
   line-height: 32px;
   margin: 0px;
@@ -2469,9 +2417,6 @@
 .moon-textarea {
   font-family: "MuseoSans 300";
   font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #a6a6a6;
   line-height: 32px;
   margin: 0px;
@@ -2650,9 +2595,6 @@
 .moon-labeledtextitem .label {
   font-family: "MuseoSans 700";
   font-size: 30px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #a6a6a6;
   border-top: 2px solid #a6a6a6;
   margin: 0px 0px 3px 0px;
@@ -2671,9 +2613,6 @@
 .moon-labeledtextitem .text {
   font-family: "MuseoSans 300";
   font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #a6a6a6;
   line-height: 32px;
   text-transform: none;
@@ -3291,9 +3230,6 @@
 .moon-calendar-picker .moon-calendar-picker-day {
   font-family: "MuseoSans 700";
   font-size: 30px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #a6a6a6;
   text-align: center;
   vertical-align: middle;
@@ -3315,9 +3251,6 @@
 .moon-calendar-picker-date {
   font-family: "MuseoSans 700";
   font-size: 30px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #ffffff;
   width: 60px;
   line-height: 60px;
@@ -3364,9 +3297,6 @@
 .moon-input-header .moon-input-header-input-decorator > .moon-input {
   font-family: "Moonstone Miso";
   font-size: 126px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: normal;
   -webkit-font-kerning: normal;
   font-kerning: normal;
   margin: 0px;
@@ -3582,9 +3512,6 @@
 .moon-tooltip-label {
   font-family: "Moonstone Miso Bold";
   font-size: 27px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: normal;
   -webkit-font-kerning: normal;
   height: 59px;
   line-height: 59px;
@@ -3825,9 +3752,6 @@
 .moon-video-transport-slider-popup-label {
   font-family: "Moonstone Miso Bold";
   font-size: 33px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: normal;
   -webkit-font-kerning: normal;
   white-space: nowrap;
   color: #4b4b4b;
@@ -4266,9 +4190,6 @@
 .moon-video-player-info-subtitle {
   font-family: "MuseoSans 700";
   font-size: 30px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #ffffff;
   margin-bottom: 22px;
   white-space: nowrap;
@@ -4281,9 +4202,6 @@
 .moon-video-player-info-subsubtitle {
   font-family: "MuseoSans 300";
   font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #a6a6a6;
   line-height: 32px;
   font-style: italic;
@@ -4318,9 +4236,6 @@
 .moon-video-player-info-description {
   font-family: "MuseoSans 300";
   font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #a6a6a6;
   line-height: 32px;
   color: #ffffff;
@@ -4381,9 +4296,6 @@
 .moon-video-player-channel-info-no {
   font-family: "Moonstone Miso";
   font-size: 126px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: normal;
   -webkit-font-kerning: normal;
   font-kerning: normal;
   white-space: nowrap;
@@ -4396,9 +4308,6 @@
 .moon-video-player-channel-info-name {
   font-family: "MuseoSans 700";
   font-size: 30px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #ffffff;
   margin-bottom: 22px;
   white-space: nowrap;
@@ -4409,9 +4318,6 @@
 .moon-video-player-info-icon {
   font-family: "MuseoSans 700";
   font-size: 20px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #000000;
   background-color: #ffffff;
   border-radius: 5px;
@@ -4794,9 +4700,6 @@
 .moon-expandable-text .moon-expandable-text-button {
   font-family: "MuseoSans 300";
   font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #a6a6a6;
   line-height: 32px;
   float: right;
