@@ -1,7 +1,7 @@
 (function (enyo, scope) {
 	/**
 	* `moon.DurationPicker` is a [control]{@link enyo.Control} that can display -- or allow the
-	* selection of -- a duration expressed in hours, minutes and seconds, the selection 
+	* selection of -- a duration expressed in hours, minutes and seconds, the selection
 	* display is configurable using template.
 	*
 
@@ -74,7 +74,7 @@
 			* @public
 			*/
 			valueHour: '',
-			
+
 			/**
 			* @type {String}
 			* @default ''
@@ -121,15 +121,15 @@
 		/**
 		* @private
 		*/
-		create: function(){
+		create: function () {
 			this.inherited(arguments);
-			this.initDefault();	
+			this.initDefault();
 		},
 
 		/**
 		* @private
 		*/
-		initDefault: function(){
+		initDefault: function () {
 			this.templateChanged();
 			this.valueHourChanged();
 			this.valueMinuteChanged();
@@ -139,31 +139,31 @@
 		/**
 		* @private
 		*/
-		hidePickers: function(){
-			this.$.hourPicker.setShowing(false);
-			this.$.minutePicker.setShowing(false);
-			this.$.secondPicker.setShowing(false);
+		hidePickers: function () {
+			this.$.hourPicker.set('showing', false);
+			this.$.minutePicker.set('showing', false);
+			this.$.secondPicker.set('showing', false);
 		},
 
 		/**
 		* @private
 		*/
-		setupPickers: function(){
+		setupPickers: function () {
 			this.createComponent(
 				{name: 'hourPicker', classes: 'moon-date-picker-wrap', components:[
-					{kind: 'moon.IntegerPicker', name:'hour', min: this.min, max: 23, wrap: true, digits: 2, value: this.valueHour},
+					{kind: 'moon.IntegerPicker', name: 'hour', min: this.min, max: 23, wrap: true, digits: 2, value: this.valueHour},
 					{name: 'hourLabel', content: this.hourText, classes: 'moon-date-picker-label moon-divider-text'}
 				]}
 			);
 			this.createComponent(
 				{name: 'minutePicker', classes: 'moon-date-picker-wrap', components:[
-					{kind: 'moon.IntegerPicker', name:'minute', classes:'moon-date-picker-field', min: this.min, max: this.max, wrap: true, digits: 2, value: this.valueMinute},
+					{kind: 'moon.IntegerPicker', name: 'minute', classes: 'moon-date-picker-field', min: this.min, max: this.max, wrap: true, digits: 2, value: this.valueMinute},
 					{name: 'minuteLabel', content: this.minuteText, classes: 'moon-date-picker-label moon-divider-text'}
 				]}
 			);
 			this.createComponent(
 				{name: 'secondPicker', classes: 'moon-date-picker-wrap', components:[
-					{kind:'moon.IntegerPicker', name:'second', classes:'moon-date-picker-field', min: this.min, max: this.max, wrap: true, digits: 2, value: this.valueSecond},
+					{kind: 'moon.IntegerPicker', name: 'second', classes: 'moon-date-picker-field', min: this.min, max: this.max, wrap: true, digits: 2, value: this.valueSecond},
 					{name: 'secondLabel', content: this.secondText, classes: 'moon-date-picker-label moon-divider-text'}
 				]}
 			);
@@ -172,58 +172,58 @@
 		/**
 		* @private
 		*/
-		valueHourChanged: function() {
+		valueHourChanged: function () {
 			if (this.valueHour === '') {
 				this.noneTextCheck();
 				this.$.hour.set('value', 0);
-			} else if(this.valueHour <= 23 && this.valueHour >= this.min) {
+			} else if (this.valueHour <= 23 && this.valueHour >= this.min) {
 				this.valueHour = Math.round(this.valueHour);
-				this.$.currentValue.setContent(this.formatValue());
+				this.$.currentValue.set('content', this.formatValue());
 				this.$.hour.set('value',this.valueHour);
 			} else {
-				this.set('valueHour', 0);				
+				this.set('valueHour', 0);
 			}
 		},
 
 		/**
 		* @private
 		*/
-		valueMinuteChanged: function() {
-			if(this.valueMinute === ''){
+		valueMinuteChanged: function () {
+			if (this.valueMinute === '') {
 				this.noneTextCheck();
 				this.$.minute.set('value', 0);
 			}
-			else if(this.valueMinute <= this.max && this.valueMinute >= this.min) {
+			else if (this.valueMinute <= this.max && this.valueMinute >= this.min) {
 				this.valueMinute = Math.round(this.valueMinute);
-				this.$.currentValue.setContent(this.formatValue());
-				this.$.minute.setValue(this.valueMinute);
+				this.$.currentValue.set('content', this.formatValue());
+				this.$.minute.set('value', this.valueMinute);
 			} else {
-				this.set('valueMinute', 0);				
+				this.set('valueMinute', 0);
 			}
 		},
 
 		/**
 		* @private
 		*/
-		valueSecondChanged: function() {
-			if(this.valueSecond === '') {
-				this.noneTextCheck();				
+		valueSecondChanged: function () {
+			if (this.valueSecond === '') {
+				this.noneTextCheck();
 				this.$.second.set('value', 0);
 			}
-			else if(this.valueSecond <= this.max && this.valueSecond >= this.min) {
+			else if (this.valueSecond <= this.max && this.valueSecond >= this.min) {
 				this.valueSecond = Math.round(this.valueSecond);
-				this.$.currentValue.setContent(this.formatValue());
-				this.$.second.setValue(this.valueSecond);
+				this.$.currentValue.set('content', this.formatValue());
+				this.$.second.set('value', this.valueSecond);
 			} else {
-				this.set('valueSecond', 0);				
+				this.set('valueSecond', 0);
 			}
 		},
 
 		/**
 		* @private
 		*/
-		noneTextCheck: function(){
-			if(this.valueHour === '' && this.valueMinute === '' && this.valueSecond === ''){
+		noneTextCheck: function () {
+			if (this.valueHour === '' && this.valueMinute === '' && this.valueSecond === '') {
 				this.noneTextChanged();
 			}
 		},
@@ -231,7 +231,7 @@
 		/**
 		* @private
 		*/
-		countdownChanged: function() {
+		countdownChanged: function () {
 			this.updateValue();
 		},
 
@@ -239,7 +239,7 @@
 		* @private
 		*/
 		templateChanged: function () {
-			if(this.template){
+			if (this.template) {
 				this.hidePickers();
 				var orderingArr = this.template.toLowerCase().split('');
 				var doneArr = [];
@@ -252,27 +252,27 @@
 						doneArr.push(o);
 					}
 				}
-				if(doneArr.length > 0){
+				if (doneArr.length > 0) {
 					for(f = 0, l = doneArr.length; f < l; f++) {
 						o = doneArr[f];
-						switch (o){
+						switch (o) {
 						case 'h':
-							this.$.hourPicker.setShowing(true);
+							this.$.hourPicker.set('showing', true);
 							break;
 						case 'm':
-							this.$.minutePicker.setShowing(true);
+							this.$.minutePicker.set('showing', true);
 							break;
 						case 's':
-							this.$.secondPicker.setShowing(true);
+							this.$.secondPicker.set('showing', true);
 							break;
 						default:
 							break;
 						}
 					}
 				} else {
-					this.$.hourPicker.setShowing(true);
-					this.$.minutePicker.setShowing(true);
-					this.$.secondPicker.setShowing(true);
+					this.$.hourPicker.set('showing', true);
+					this.$.minutePicker.set('showing', true);
+					this.$.secondPicker.set('showing', true);
 				}
 			}
 		},
@@ -282,34 +282,34 @@
 		*/
 		formatValue: function () {
 			var text = '';
-			if(this.$.hourPicker.getShowing()) {
+			if (this.$.hourPicker.get('showing')) {
 				text = (this.valueHour === '' ? this.min : this.valueHour) + ' Hours ';
-			} 
-			if(this.$.minutePicker.getShowing()) {
+			}
+			if (this.$.minutePicker.get('showing')) {
 				text = text + (this.valueMinute === '' ? this.min : this.valueMinute) + ' Minutes ';
-			} 
-			if(this.$.secondPicker.getShowing()) {
+			}
+			if (this.$.secondPicker.get('showing')) {
 				text = text + (this.valueSecond === '' ? this.min : this.valueSecond) + ' Seconds';
 			}
-			this.doDurationChange({name:this.name, value: text});
+			this.doDurationChange({name: this.name, value: text});
 			return text;
 		},
 
 		/**
 		* @private
 		*/
-		tick: function(){
-			var hr = this.$.hourPicker.getShowing() ? this.get('valueHour') : 0;
-			var mn = this.$.minutePicker.getShowing() ? this.get('valueMinute') : 0;
-			var ss = this.$.secondPicker.getShowing() ? this.get('valueSecond') : 0;
+		tick: function () {
+			var hr = this.$.hourPicker.get('showing') ? this.get('valueHour') : 0;
+			var mn = this.$.minutePicker.get('showing') ? this.get('valueMinute') : 0;
+			var ss = this.$.secondPicker.get('showing') ? this.get('valueSecond') : 0;
 
-			if(hr <= this.min && mn <= this.min && ss <= this.min){
+			if (hr <= this.min && mn <= this.min && ss <= this.min) {
 				window.clearTimeout(this.timer);
 				this.doCountdownExpired({name:this.name});
 				return;
 			} else {
-				if(ss == this.min ) {
-					if(mn > this.min ){
+				if (ss == this.min ) {
+					if (mn > this.min ) {
 						mn--;
 					} else {
 						mn = this.max;
@@ -329,17 +329,17 @@
 		* @private
 		*/
 		updateValue: function (inSender, inEvent) {
-			var hour = this.$.hour.getValue();
-			var minute = this.$.minute.getValue();
-			var second = this.$.second.getValue();
+			var hour = this.$.hour.get('value');
+			var minute = this.$.minute.get('value');
+			var second = this.$.second.get('value');
 			this.set('valueHour', hour);
 			this.set('valueMinute', minute);
 			this.set('valueSecond', second);
 
 			window.clearTimeout(this.timer);
-			if(this.countdown){
+			if (this.countdown) {
 				this.timer = window.setInterval(
-					enyo.bind (this, function() {
+					enyo.bind (this, function () {
 						this.tick();
 					}), 1000);
 			}
@@ -349,21 +349,21 @@
 		* @private
 		*/
 		hourTextChanged: function (inOldvalue, inNewValue) {
-			this.$.hourLabel.setContent(inNewValue);
+			this.$.hourLabel.set('content', inNewValue);
 		},
 
 		/**
 		* @private
 		*/
 		minuteTextChanged: function (inOldvalue, inNewValue) {
-			this.$.minuteLabel.setContent(inNewValue);
+			this.$.minuteLabel.set('content', inNewValue);
 		},
 
 		/**
 		* @private
 		*/
 		secondTextChanged: function (inOldvalue, inNewValue) {
-			this.$.secondLabel.setContent(inNewValue);
+			this.$.secondLabel.set('content', inNewValue);
 		}
 	});
 })(enyo, this);

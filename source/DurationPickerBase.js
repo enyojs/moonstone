@@ -75,8 +75,8 @@
 				]},
 				{name: 'currentValue', kind: 'moon.MarqueeText', classes: 'moon-expandable-picker-current-value'}
 			]},
-			{name: 'drawer', kind: 'enyo.Drawer', resizeContainer:false, classes:'moon-expandable-list-item-client indented', components: [
-				{name: 'client', kind: 'enyo.Control', classes: 'enyo-tool-decorator moon-date-picker-client', onSpotlightLeft:'closePicker', onSpotlightSelect: 'closePicker'}
+			{name: 'drawer', kind: 'enyo.Drawer', resizeContainer: false, classes: 'moon-expandable-list-item-client indented', components: [
+				{name: 'client', kind: 'enyo.Control', classes: 'enyo-tool-decorator moon-date-picker-client', onSpotlightLeft: 'closePicker', onSpotlightSelect: 'closePicker'}
 			]}
 		],
 
@@ -114,12 +114,12 @@
 		/**
 		* @private
 		*/
-		handleChangeEvent: function (inSender, inEvent) {
-			if (inEvent && inEvent.originator === this) {
+		handleChangeEvent: function (sender, ev) {
+			if (ev && ev.originator === this) {
 				// Don't handle our own change events
 				return;
 			} else {
-				this.updateValue(inSender, inEvent);
+				this.updateValue(sender, ev);
 				return true;
 			}
 		},
@@ -127,23 +127,19 @@
 		/**
 		* @private
 		*/
-		updateValue: function (inSender, inEvent) {
+		// updateValue: function (sender, ev) {
 			// implement in subkind
-		},
+		// },
 
 		/**
 		* If no item is selected, uses [`noneText`]{@link moon.DurationPickerBase#noneText}
-		* as current value and if nonoText value is not provided, use 'Pick Duration' 
+		* as current value and if nonoText value is not provided, use 'Pick Duration'
 		* as default.
 		*
 		* @private
 		*/
 		noneTextChanged: function () {
-			if(this.noneText) {
-				this.$.currentValue.setContent(this.noneText);
-			} else {
-				this.$.currentValue.setContent('Pick Duration');
-			}
+			this.$.currentValue.set('content', this.noneText || 'Pick Duration');
 		},
 
 		/**
@@ -163,8 +159,8 @@
 						p = p.getClientControls()[0];
 					}
 					if (open) {
-						//Force the pickers to update their scroll positions (they don't update
-						//while the drawer is closed)
+						// Force the pickers to update their scroll positions (they don't update
+						// while the drawer is closed)
 						p.refreshScrollState();
 					} else {
 						// If one of the pickers is animating when the drawer closes, it won't
@@ -179,26 +175,26 @@
 		* @private
 		*/
 		toggleActive: function () {
-			if (this.getOpen()) {
-				this.setActive(false);
+			if (this.get('open')) {
+				this.set('active', false);
 				if (!enyo.Spotlight.getPointerMode()) {
 					enyo.Spotlight.spot(this.$.headerWrapper);
 				}
 			} else {
-				this.setActive(true);
+				this.set('active', true);
 			}
 		},
 
 		/**
 		* @private
 		*/
-		closePicker: function (inSender, inEvent) {
+		closePicker: function (sender, ev) {
 			/**
 			* If select/enter is pressed on any date picker item or the left key is pressed on the
 			* first item, close the drawer
 			*/
-			if (inEvent.type == 'onSpotlightSelect' ||
-				this.$.client.children[0].id == inEvent.originator.id) {
+			if (ev.type == 'onSpotlightSelect' ||
+				this.$.client.children[0].id == ev.originator.id) {
 				this.expandContract();
 				this.noneTextChanged();
 				return true;
