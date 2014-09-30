@@ -194,19 +194,18 @@
 		* @private
 		*/
 		requestShow: function (inSender, inEvent) {
+			observer.set('active', this);
 
-            observer.set('active', this);
-
-            //if the event has no type, and is in pointer mode
-            //otherwise spotlight moved, and trigged another
-            //event on another control
-            if(!inEvent.type || enyo.Spotlight.getPointerMode()){
-                //initiated by spotlight
-                //using the originator ensures the touch
-                //target is passed
-                this.activator = inEvent.originator;
-                this.startJob('showJob', 'show', this.showDelay);
-            }
+			//if the event has no type, and is in pointer mode
+			//otherwise spotlight moved, and trigged another
+			//event on another control
+			if(!inEvent.type || enyo.Spotlight.getPointerMode()){
+				//initiated by spotlight
+				//using the originator ensures the touch
+				//target is passed
+				this.activator = inEvent.originator;
+				this.startJob('showJob', 'show', this.showDelay);
+			}
 
 			return true;
 		},
@@ -256,7 +255,7 @@
 					pBounds = this.parent.getAbsoluteBounds(),
 					acBounds = null;
 
-                // Sometimes enyo.Spotlight.getCurrent() is null.
+				// Sometimes enyo.Spotlight.getCurrent() is null.
 				// In this case, we can rely on onRequestShowTooltip event sender.
 				this.activator = enyo.Spotlight.getCurrent() || this.activator;
 				acBounds = this.activator.getAbsoluteBounds();
