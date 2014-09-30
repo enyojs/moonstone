@@ -2546,7 +2546,6 @@
 .moon-list-actions-drawer {
   overflow: hidden;
   z-index: 1;
-  -webkit-transform: translateZ(1px);
   pointer-events: none;
 }
 .moon-list-actions-drawer * {
@@ -3504,7 +3503,7 @@
 .moon-tooltip {
   z-index: 20;
   height: 68px;
-  transform: translatez(0);
+  -webkit-transform: translateZ(0);
 }
 .moon-tooltip-label {
   font-family: "Moonstone Miso Bold";
