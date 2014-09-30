@@ -265,9 +265,10 @@
 		* @private
 		*/
 		mouseEntered: function(sender,event) {
-			var dt = event.dispatchTarget
-			if(this.showing && !dt.isDescendantOf(this))
+			var dt = event.dispatchTarget;
+			if(this.showing && !dt.isDescendantOf(this)) {
 				return true;
+			}
 		},
 
 		/**
