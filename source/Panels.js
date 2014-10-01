@@ -773,13 +773,15 @@
 			//if we are doing a direct transition
 			//we want to see if we should grow panels
 			//without animating
-			var panels = this.getPanels();
-			if(this.toIndex < this.index) {
-				//we need to grow panels with indices
-				//under the current one, to prevent
-				//animating later
-				for (var i = 0; i < this.index; i++) {
-						panels[i].grow();
+			if(this.shouldArrange){
+				var panels = this.getPanels();
+				if(this.toIndex < this.index) {
+					//we need to grow panels with indices
+					//under the current one, to prevent
+					//animating later
+					for (var i = 0; i < this.index; i++) {
+							panels[i].grow();
+					}
 				}
 			}
 
