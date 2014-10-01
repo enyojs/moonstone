@@ -47,12 +47,12 @@ enyo.kind({
 			//Bottom row of buttons
 			{components:[
 				{kind: "moon.TooltipDecorator", components: [
-					{kind: "moon.IconButton", src: "$lib/moonstone/samples/assets/icon-button-enyo-logo.png", style: "top: -40px; left: 100px"},
+					{kind: "moon.IconButton", src: "$lib/moonstone/samples/assets/icon-button-enyo-logo.png"},
 					{kind: "moon.Tooltip", floating: true, content: "Floating tooltip for an IconButton."}
 				]},
 
 				{kind: "moon.TooltipDecorator", style: "float:right;", components: [
-					{kind: "moon.IconButton", src: "$lib/moonstone/samples/assets/icon-button-enyo-logo.png", style: "right: 50px"},
+					{kind: "moon.IconButton", src: "$lib/moonstone/samples/assets/icon-button-enyo-logo.png"},
 					{kind: "moon.Tooltip", floating: false, content: "I'm a tooltip for an IconButton."}
 				]}
 			]}
