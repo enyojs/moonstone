@@ -667,18 +667,18 @@
 			}
 		},
 
-        /**
+		/**
 		* Sets the index of the active panel, skips animation.
 		*
 		* @param {number} index - Index of the panel to make active.
 		* @public
 		*/
-        setIndexDirect: function(inIndex) {
-            //set the toIndex
-            if(typeof inIndex == 'number') this.toIndex = inIndex;
-            //change index of panel without animation
-            this.skipArrangerAnimation();
-        },
+		setIndexDirect: function(inIndex) {
+			//set the toIndex
+			if(typeof inIndex == 'number') this.toIndex = inIndex;
+			//change index of panel without animation
+			this.skipArrangerAnimation();
+		},
 
 		/**
 		* Sets the index of the active panel, possibly transitioning the panel into view.
@@ -762,31 +762,31 @@
 
 		/**
 		* Skips animation and jumps to next arrangement.
-        * Ensures that Panels with indices under the
-        * current panel, grow without animation
+		* Ensures that Panels with indices under the
+		* current panel, grow without animation
 		*
 		* @private
 		*/
 		skipArrangerAnimation: function () {
 			this._setIndex(this.toIndex);
 
-            //if we are doing a direct transition
-            //we want to see if we should grow panels
-            //without animating
-            var panels = this.getPanels();
-            if(this.toIndex < this.index) {
-                //we need to grow panels with indices
-                //under the current one, to prevent
-                //animating later
-                for (var i = 0; i < this.index; i++) {
-                        panels[i].grow();
-                }
-            }
+			//if we are doing a direct transition
+			//we want to see if we should grow panels
+			//without animating
+			var panels = this.getPanels();
+			if(this.toIndex < this.index) {
+				//we need to grow panels with indices
+				//under the current one, to prevent
+				//animating later
+				for (var i = 0; i < this.index; i++) {
+						panels[i].grow();
+				}
+			}
 
-            if(this.animate){
-			    //call to complete transitions
-                this.completed();
-            }
+			if(this.animate){
+				//call to complete transitions
+				this.completed();
+			}
 		},
 
 		/**
@@ -815,8 +815,8 @@
 				this.triggerPostTransitions();
 			}
 			else {
-                //Card Arranger has no transitions to finish
-                //Does this feel hackish?
+				//Card Arranger has no transitions to finish
+				//Does this feel hackish?
 				this.finishTransition(true);
 			}
 			return true;
