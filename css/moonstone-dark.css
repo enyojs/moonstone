@@ -901,13 +901,6 @@
   margin: 0;
   padding: 0;
 }
-.moon-checkbox .moon-icon > .small-icon-tap-area {
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  line-height: 32px;
-}
 .moon-checkbox[checked] .moon-icon {
   visibility: visible;
 }
@@ -940,6 +933,10 @@
 .moon-checkbox-item.left-handed .moon-checkbox-item-label-wrapper {
   margin-right: 0px;
   margin-left: 32px;
+}
+.moon-checkbox-item .moon-icon.small > .small-icon-tap-area {
+  left: 0;
+  right: 0;
 }
 .moon-neutral .moon-checkbox[checked]:after {
   color: #ffffff;
