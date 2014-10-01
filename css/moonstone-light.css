@@ -3449,9 +3449,16 @@
   padding: 40px;
   box-sizing: border-box;
   overflow: hidden;
+  -webkit-transform: translateY(100%) translateZ(0);
+  transform: translateY(100%) translateZ(0);
 }
 .moon-popup.animate {
   -webkit-transition: -webkit-transform 0.4s ease;
+  transition: transform 0.4s ease;
+}
+.moon-popup.showing {
+  -webkit-transform: translateY(0) translateZ(0);
+  transform: translateY(0) translateZ(0);
 }
 .moon-popup.reserve-close {
   padding-right: 70px;

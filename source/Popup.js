@@ -171,6 +171,18 @@
 		initialDuration: null,
 
 		/**
+		* The moon.Popup is shifted by this amount in the z-axis to account for moon.Scroller
+		* currently being shifted by 1px in the z-axis (via matrix3d transform that was originally
+		* put into place for performance reasons). This allows a moon.Popup overlayed on top
+		* of a moon.Scroller to properly receive pointer events to allow interaction with moon.Popup
+		* child components. moon.ListActions also has a similar change that is defined in its CSS
+		* styling.
+		*
+		* @private
+		*/
+		_shiftZ: '1px',
+
+		/**
 		* Creates chrome components.
 		*
 		* @private
@@ -186,7 +198,7 @@
 		create: function () {
 			this.inherited(arguments);
 			this.animateChanged();
-			this.initialDuration = this.getComputedStyleValue("-webkit-transition-duration", "0.4s");
+			this.initialDuration = this.getComputedStyleValue('-webkit-transition-duration', '0.4s');
 		},
 
 		/**
@@ -199,7 +211,7 @@
 			this.addRemoveClass('animate', this.animate);
 			if (!this.animate) {
 				this.applyStyle('bottom', null);
-				enyo.dom.transform(this, {translateY: null});
+				enyo.dom.transform(this, {translateY: null, translateZ: this._shiftZ});
 			}
 		},
 
@@ -244,7 +256,7 @@
 		* @private
 		*/
 		capturedTap: function(sender, event) {
-			if (!this.downEvent || (this.downEvent.type !== 'onSpotlightSelect')) {
+			if (!this.downEvent || (this.downEvent.type != 'onSpotlightSelect')) {
 				return this.inherited(arguments);
 			}
 		},
@@ -360,23 +372,21 @@
 				if (this.showing) {
 					this.inherited(arguments);
 					this.animateShow();
-					this.animationEnd = this.bindSafely(function(inSender, inEvent) {
-						if (inEvent.originator === this) {
-							// TODO (see comment below) 
-							this.showHideScrim(this.showing);
+					this.animationEnd = this.bindSafely(function(sender, ev) {
+						if (ev.originator === this) {
 							if (this.directShowHide) {
-								this.setDirectShowHide(false);
+								this.set('directShowHide', false);
 							}
 						}
 					});
 				} else {
 					this.animateHide();
-					this.animationEnd = this.bindSafely(function(sender, event) {
-						if (event.originator === this) {
+					this.animationEnd = this.bindSafely(function(sender, ev) {
+						if (ev.originator === this) {
 							this.inherited(args);
 							this.isAnimatingHide = false;
 							if (this.directShowHide) {
-								this.setDirectShowHide(false);
+								this.set('directShowHide', false);
 							}
 						}
 					});
@@ -385,11 +395,7 @@
 				this.inherited(arguments);
 			}
 
-			// Temporarily moving this call to showHideScrim() into the animationEnd
-			// callback as a quick fix for BHV-15102. We can undo this after a more
-			// fundamental fix to scrim (now in progress) is completed.
-
-			//this.showHideScrim(this.showing);
+			this.showHideScrim(this.showing);
 			if (this.showing) {
 				this.configCloseButton();
 				// Spot ourselves, unless we're already spotted
@@ -427,7 +433,7 @@
 		*/
 		showDirect: function() {
 			if (this.animate) {
-				this.setDirectShowHide(true);
+				this.set('directShowHide', true);
 			}
 			this.show();
 		},
@@ -439,7 +445,7 @@
 		*/
 		hideDirect: function() {
 			if (this.animate) {
-				this.setDirectShowHide(true);
+				this.set('directShowHide', true);
 			}
 			this.hide();
 		},
@@ -447,11 +453,8 @@
 		/**
 		* @private
 		*/
-		setDirectShowHide: function(value) {
-			this.directShowHide = value;
-			// setting duration to "0" does not work, nor does toggling animate property
-			var duration = (value) ? "0.0001s" : this.initialDuration;
-			this.applyStyle("-webkit-transition-duration", duration);
+		directShowHideChanged: function (old, val) {
+			this.addRemoveClass('animate', !val);
 		},
 
 		/**
@@ -564,21 +567,20 @@
 		* @private
 		*/
 		animateShow: function () {
-			this._bounds = this.getBounds();
-			this.applyStyle('bottom', -this._bounds.height + 'px');
-			enyo.dom.transform(this, {translateY: -this._bounds.height + 'px'});
+			// Gathering the computed value forces the browser to re-evaluate the state of the
+			// control before applying the upcoming class-change.
+			this.getComputedStyleValue('display');
+			if (this.showing) {
+				this.addClass('showing');
+			}
 		},
 
 		/**
 		* @private
 		*/
 		animateHide: function () {
-			if (this._bounds) {
-				this.isAnimatingHide = true;
-				var prevHeight = this._bounds.height;
-				this._bounds = this.getBounds();
-				enyo.dom.transform(this, {translateY: this._bounds.height - prevHeight + 'px'});
-			}
+			this.isAnimatingHide = true;
+			this.removeClass('showing');
 		},
 
 		/**
