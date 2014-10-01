@@ -226,12 +226,6 @@
 			this.inherited(arguments);
 			this.spotlightPagingControlsChanged();
 			this.scrollWheelMovesFocusChanged();
-
-			// workaround because the bootstrapping code isn't attached to constructors that have
-			// finished setup before the hook is declared
-			if(enyo.Spotlight && this.spotlight === 'container') {
-				enyo.Spotlight.Container.initContainer(this);
-			}
 		},
 
 		/**
