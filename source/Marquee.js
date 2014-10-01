@@ -612,7 +612,7 @@
 		rendered: enyo.inherit(function (sup) {
 			return function () {
 				sup.apply(this, arguments);
-				// There is a known issue where a parent control that modifies the layout will 
+				// There is a known issue where a parent control that modifies the layout will
 				// invalidate the measurements used to detect the proper alignment, which can
 				// result in the appropriate text-align rule not being applied. For example, this
 				// can occur with a moon.Header that is located inside a moon.Scroller which has
@@ -669,7 +669,18 @@
 			if (!alignment && this.centered) {
 				alignment = 'center';
 			}
-			this.applyStyle('text-align', alignment);
+			this.set('_marquee_alignment', alignment);
+		},
+
+		/**
+		* Reset the marquee distance if the alignment changes, since now we'll have to calculate the
+		* size again.
+		*
+		* @private
+		*/
+		_marquee_alignmentChanged: function () {
+			this.applyStyle('text-align', this._marquee_alignment);
+			this._marquee_distance = null;
 		},
 
 		/**
@@ -731,8 +742,6 @@
 				this._marquee_createMarquee();
 			}
 
-			// We know we need to animate, so tell _marquee_detectAlignment to skip the animate check.
-			this._marquee_detectAlignment(true);
 			this._marquee_addAnimationStyles(distance);
 			return true;
 		},
