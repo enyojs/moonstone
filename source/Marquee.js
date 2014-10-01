@@ -742,8 +742,6 @@
 				this._marquee_createMarquee();
 			}
 
-			// We know we need to animate, so tell _marquee_detectAlignment to skip the animate check.
-			this._marquee_detectAlignment(true);
 			this._marquee_addAnimationStyles(distance);
 			return true;
 		},
