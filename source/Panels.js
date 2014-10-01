@@ -815,8 +815,6 @@
 				this.triggerPostTransitions();
 			}
 			else {
-				//Card Arranger has no transitions to finish
-				//Does this feel hackish?
 				this.finishTransition(true);
 			}
 			return true;
