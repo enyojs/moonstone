@@ -5,8 +5,11 @@
 	* it switches its state and fires an [onChange]{@link enyo.Checkbox#event:onChange}
 	* event.
 	*
+	* **Note:** {@link moon.Checkbox#icon} and {@link moon.Checkbox#src} are not supported.
+	*
 	* @class moon.ToggleText
 	* @extends moon.Checkbox
+	* @deprecated Replaced by {@link moon.ToggleButton} and {@link moon.ToggleItem}
 	* @ui
 	* @public
 	*/
@@ -50,6 +53,16 @@
 		/**
 		* @private
 		*/
+		icon: null,
+
+		/**
+		* @private
+		*/
+		src: null,
+
+		/**
+		* @private
+		*/
 		classes: 'moon-toggle-text',
 
 		/**
@@ -73,7 +86,21 @@
 		checkedChanged: function () {
 			this.inherited(arguments);
 			this.$.label.setContent(this.getChecked() ? this.onContent : this.offContent);
-		}
+		},
+
+		/**
+		 * src is not supported
+		 *
+		 * @private
+		 */
+		srcChanged: function () {},
+
+		/**
+		 * icon is not supported
+		 *
+		 * @private
+		 */
+		iconChanged: function () {}
 	});
 
 })(enyo, this);

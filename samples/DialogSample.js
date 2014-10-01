@@ -7,9 +7,10 @@ enyo.kind({
 		{classes: "moon-1v"},
 		{kind: "moon.ToggleButton", content: "Showing", name: "showingToggle"},
 		{kind: "moon.ToggleButton", content: "Animate", name: "animateToggle"},
+		{kind: "moon.ToggleButton", content: "SpotlightModal", ontap: "buttonToggled"},
 		{
 			name: "dialog", 
-			kind: "moon.Dialog", 
+			kind: "moon.Dialog",
 			title: "You've been watching TV for a very long time so let's do a quick check-in.",
 			subTitle: "This TV has been active for 10 hours.",
 			message: "Perhaps it is time to take a break and get some fresh air. There is a nice coffee shop around the corner", 
@@ -23,6 +24,10 @@ enyo.kind({
 		{from: ".$.showingToggle.value", to: ".$.dialog.showing", oneWay:false},
 		{from: ".$.dialog.animate", to: ".$.animateToggle.value", oneWay:false}
 	],
+	buttonToggled: function(inSender, inEvent) {
+		this.$.dialog.setSpotlightModal(inSender.getActive());
+		this.$.dialog.setAutoDismiss(!inSender.getActive());
+	},
 	showDialog: function(inSender) {
 		this.$.dialog.show();
 	},

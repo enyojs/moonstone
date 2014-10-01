@@ -176,12 +176,12 @@ enyo.kind({
 				{content: 'bottom', classes: 'radioItemFont'}
 			]}
 		]},
-		{kind: 'moon.ContextualPopupDecorator', name: 'directionButton', style: 'position: absolute; left: 40%; top: 75%;', components: [
+		{kind: 'moon.ContextualPopupDecorator', name: 'directionButton', style: 'position: absolute; left: 40%; top: 70%;', components: [
 			{content: 'Direction'},
 			{
 				kind: 'moon.ContextualPopup',
 				name: 'directionContext',
-				classes: 'moon-6h moon-4v',
+				classes: 'moon-4v',
 				components: [
 					{kind: moon.Scroller, horizontal: 'auto', classes: 'enyo-fill', components: [
 						{kind: moon.Button, content: 'Button 1'},

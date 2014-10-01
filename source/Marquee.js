@@ -104,7 +104,7 @@
 		*/
 		_marquee_Handlers: {
 			onRequestStartMarquee: '_marquee_requestStartMarquee',
-			onSpotlightFocus: '_marquee_spotlightFocus',
+			onSpotlightFocused: '_marquee_spotlightFocused',
 			onSpotlightBlur: '_marquee_spotlightBlur',
 			onenter: '_marquee_enter',
 			onleave: '_marquee_leave',
@@ -270,7 +270,7 @@
 		*
 		* @private
 		*/
-		_marquee_spotlightFocus: function (sender, ev) {
+		_marquee_spotlightFocused: function (sender, ev) {
 			this._marquee_isFocused = true;
 			if (this.marqueeOnSpotlight) {
 				this.startMarquee();
@@ -601,8 +601,23 @@
 			return function () {
 				sup.apply(this, arguments);
 				this.detectTextDirectionality();
-				this._marquee_centeredChanged();
 				this._marquee_wrapInsteadOfMarqueeChanged();
+			};
+		}),
+
+		/**
+		* @method
+		* @private
+		*/
+		rendered: enyo.inherit(function (sup) {
+			return function () {
+				sup.apply(this, arguments);
+				// There is a known issue where a parent control that modifies the layout will
+				// invalidate the measurements used to detect the proper alignment, which can
+				// result in the appropriate text-align rule not being applied. For example, this
+				// can occur with a moon.Header that is located inside a moon.Scroller which has
+				// vertical scrollbars visible.
+				this._marquee_detectAlignment();
 			};
 		}),
 
@@ -627,6 +642,46 @@
 				this._marquee_reset();
 			};
 		}),
+
+		/**
+		* We must measure the content (after render) to determine if it's marqueeable, then to set
+		* its alignment to left if the content was explicitly set to LTR earlier. This happens when
+		* the locale is set to a RTL language, but your string contains no RTL characters in it.
+		* Therefore it's LTR, and if it's marqueeable, should be left aligned, so it marquees in the
+		* natural marqueeing direction.
+		*
+		* @param {Boolean} [forceAnimate]  Override the animation check (only accepts `true`). Use
+		*	this if you know already, because you've already measured that you will need to marquee.
+		* @param {Boolean} [forceRtl]  Override the internal RTL property, in case you know better.
+		* @private
+		*/
+		_marquee_detectAlignment: function (forceAnimate, forceRtl) {
+			var alignment = null;
+			// If we will be marqueeing, we know the alignment needs to be set based on directionality.
+			if (forceAnimate || this._marquee_shouldAnimate()) {
+				if (forceRtl || this.rtl) {
+					alignment = 'right';
+				} else {
+					alignment = 'left';
+				}
+			}
+			// Alignment wasn't set yet, so we know we don't need to animate. Now we can center the text if we're supposed to.
+			if (!alignment && this.centered) {
+				alignment = 'center';
+			}
+			this.set('_marquee_alignment', alignment);
+		},
+
+		/**
+		* Reset the marquee distance if the alignment changes, since now we'll have to calculate the
+		* size again.
+		*
+		* @private
+		*/
+		_marquee_alignmentChanged: function () {
+			this.applyStyle('text-align', this._marquee_alignment);
+			this._marquee_distance = null;
+		},
 
 		/**
 		* @private
@@ -847,7 +902,7 @@
 		* @private
 		*/
 		_marquee_centeredChanged: function () {
-			this.applyStyle('text-align', this.centered ? 'center' : null);
+			this._marquee_detectAlignment();
 		},
 
 		/**
