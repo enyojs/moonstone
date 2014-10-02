@@ -83,7 +83,7 @@
 			onRequestSetupBounds	: 'requestSetupBounds',
 			onSpotlightFocused      : 'enter',
 			onenter                 : 'enter',
-			onSpotlightBlur         : 'leave',
+			onSpotlightBlur         : 'spotlightBlur',
 			onleave                 : 'leave'
 		},
 
@@ -354,6 +354,20 @@
 			this.setupBounds();
 			this.showHideScrollColumns(true);
 			this.updateHoverOnPagingControls(true);
+		},
+
+		/**
+		* If the user 5-ways away from a control, call `leave` knowing that onSpotlightFocused
+		* will call `enter` if the next spotted control is within the scroller.
+		*
+		* If the user is in pointer mode, do nothing; they need to `leave` the scroller.
+		*
+		* @private
+		*/
+		spotlightBlur: function (sender, event) {
+			if(!enyo.Spotlight.getPointerMode()) {
+				this.leave(sender, event);
+			}
 		},
 
 		/**
