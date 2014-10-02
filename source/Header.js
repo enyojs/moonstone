@@ -575,7 +575,8 @@
 		adjustTitleWidth: function() {
 			var type = this.get('type'),
 				// Measure client area's width + 40px of spacing
-				clientWidth = this.$.client.getBounds().width,
+				client = this.$.client.hasNode(),
+				clientWidth = client ? client.offsetWidth : null,
 				clientSpace = (clientWidth + 40) + 'px',
 				rtl = this.rtl;
 
