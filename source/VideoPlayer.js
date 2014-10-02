@@ -1712,7 +1712,7 @@
 		* @private
 		*/
 		updatePosition: function() {
-			this.inline ? this.updateInlinePosition() :	this.updateFullscreenPosition();			
+			this.inline ? this.updateInlinePosition(); : this.updateFullscreenPosition();			
 		},
 		
 		/** 
