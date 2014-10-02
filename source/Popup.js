@@ -211,8 +211,10 @@
 			this.addRemoveClass('animate', this.animate);
 			if (!this.animate) {
 				this.applyStyle('bottom', null);
-				enyo.dom.transform(this, {translateY: null, translateZ: this._shiftZ});
 			}
+			// If we're animating, nullify our local transforms, and fall back to the CSS class rules.
+			// If we are, manually set our transform which will override our classes.
+			enyo.dom.transform(this, {translateY: null, translateZ: this.animate ? null : this._shiftZ});
 		},
 
 		/**
