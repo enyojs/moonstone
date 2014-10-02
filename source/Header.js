@@ -297,7 +297,11 @@
 
 		rendered: function() {
 			this.inherited(arguments);
-			this.adjustTitleWidth();
+			// We must delay the adjustment calculation until all the `rendered`s are finished with
+			// an async method. This will allow the calculation to measured after the size is established.
+			enyo.asyncMethod(this, function () {
+				this.adjustTitleWidth();
+			});
 		},
 
 		/**
@@ -571,18 +575,19 @@
 		adjustTitleWidth: function() {
 			var type = this.get('type'),
 				// Measure client area's width + 40px of spacing
-				clientSpace = (this.$.client.getAbsoluteBounds().width + 40) + 'px',
+				clientWidth = this.$.client.getBounds().width,
+				clientSpace = (clientWidth + 40) + 'px',
 				rtl = this.rtl;
 
 			// Set the margin on the correct side for the correct control, otherwise set it to nothing
-			this.$.title.applyStyle('margin-right', (type == 'small' && !rtl) ? clientSpace : null);
-			this.$.title.applyStyle('margin-left', (type == 'small' && rtl) ? clientSpace : null);
+			this.$.title.applyStyle('margin-right', (type == 'small' && !rtl && clientWidth) ? clientSpace : null);
+			this.$.title.applyStyle('margin-left', (type == 'small' && rtl && clientWidth) ? clientSpace : null);
 
-			this.$.titleBelow.applyStyle('margin-right', (type == 'medium' && !rtl) ? clientSpace : null);
-			this.$.titleBelow.applyStyle('margin-left', (type == 'medium' && rtl) ? clientSpace : null);
+			this.$.titleBelow.applyStyle('margin-right', (type == 'medium' && !rtl && clientWidth) ? clientSpace : null);
+			this.$.titleBelow.applyStyle('margin-left', (type == 'medium' && rtl && clientWidth) ? clientSpace : null);
 
-			this.$.subTitleBelow.applyStyle('margin-right', (type == 'medium' && !rtl) ? clientSpace : null);
-			this.$.subTitleBelow.applyStyle('margin-left', (type == 'medium' && rtl) ? clientSpace : null);
+			this.$.subTitleBelow.applyStyle('margin-right', (type == 'medium' && !rtl && clientWidth) ? clientSpace : null);
+			this.$.subTitleBelow.applyStyle('margin-left', (type == 'medium' && rtl && clientWidth) ? clientSpace : null);
 		},
 
 		/**
