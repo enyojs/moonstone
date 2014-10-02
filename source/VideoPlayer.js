@@ -1712,8 +1712,7 @@
 		* @private
 		*/
 		updatePosition: function() {
-			this.updateFullscreenPosition();
-			this.updateInlinePosition();
+			this.inline ? this.updateInlinePosition() :	this.updateFullscreenPosition();			
 		},
 		
 		/** 
