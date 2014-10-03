@@ -675,7 +675,7 @@
 		*/
 		setIndexDirect: function(inIndex) {
 			//set the toIndex
-			if(typeof inIndex == 'number') this.toIndex = inIndex;
+			if(typeof inIndex == 'number') this.toIndex = this.clamp(inIndex);
 			//change index of panel without animation
 			this.skipArrangerAnimation();
 		},
