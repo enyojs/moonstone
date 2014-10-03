@@ -297,11 +297,16 @@
 
 		rendered: function() {
 			this.inherited(arguments);
-			// We must delay the adjustment calculation until all the `rendered`s are finished with
-			// an async method. This will allow the calculation to measured after the size is established.
-			enyo.asyncMethod(this, function () {
+			// At the first render, the fonts may not have finished loading yet. We delay the first
+			// time using an async method, and set a flag so we know the deed is done at subsequent calls.
+			if (this._delayedMeasurmentFinished) {
 				this.adjustTitleWidth();
-			});
+			} else {
+				enyo.asyncMethod(this, function () {
+					this.adjustTitleWidth();
+					this._delayedMeasurmentFinished = true;
+				});
+			}
 		},
 
 		/**
