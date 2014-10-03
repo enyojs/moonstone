@@ -74,10 +74,10 @@
 		* @private
 		*/
 		handlers: {
-			onenter: 'enter',
-			onleave: 'leave',
-			onSpotlightFocused: 'spotFocused',
-			onSpotlightBlur: 'spotBlur',
+			onenter: 'requestShowTooltip',
+			onleave: 'requestHideTooltip',
+			onSpotlightFocused: 'requestShowTooltip',
+			onSpotlightBlur: 'requestHideTooltip',
 			onRequestMuteTooltip: 'mute',
 			onRequestUnmuteTooltip: 'unmute'
 		},
@@ -128,34 +128,6 @@
 		/**
 		* @private
 		*/
-		enter: function (inSender, inEvent) {
-			this.requestShowTooltip(inSender, inEvent);
-		},
-
-		/**
-		* @private
-		*/
-		leave: function () {
-			this.requestHideTooltip();
-		},
-
-		/**
-		* @private
-		*/
-		spotFocused: function () {
-			this.requestShowTooltip();
-		},
-
-		/**
-		* @private
-		*/
-		spotBlur: function () {
-			this.requestHideTooltip();
-		},
-
-		/**
-		* @private
-		*/
 		tap: function () {
 			this.requestHideTooltip();
 		},
@@ -165,7 +137,7 @@
 		*/
 		requestShowTooltip: function (inSender, inEvent) {
 			if (this.autoShow && !enyo.Spotlight.isFrozen()) {
-				this.waterfallDown("onRequestShowTooltip", inEvent, inSender);
+				this.waterfallDown("onRequestShowTooltip", {originator: inSender}, this);
 			}
 		},
 
