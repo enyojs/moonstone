@@ -1490,8 +1490,7 @@
 		*/
 		updateInlinePosition: function() {
 			var percentComplete = this.duration ? Math.round(this._currentTime * 1000 / this.duration) / 10 : 0;
-			var prStatus = this.$.progressStatus;
-			if (prStatus.hasNode()) prStatus.applyStyle('width', percentComplete + '%');
+			this.$.progressStatus.applyStyle('width', percentComplete + '%');
 			this.$.currTime.setContent(this.formatTime(this._currentTime) + ' / ' + this.formatTime(this.duration));
 		},
 
@@ -1713,8 +1712,11 @@
 		* @private
 		*/
 		updatePosition: function() {
-			this.updateFullscreenPosition();
-			this.updateInlinePosition();
+			if (this.isFullscreen() || !this.getInline()) {
+				this.updateFullscreenPosition();
+			} else {
+				this.updateInlinePosition();
+			}
 		},
 		
 		/** 
