@@ -1490,7 +1490,8 @@
 		*/
 		updateInlinePosition: function() {
 			var percentComplete = this.duration ? Math.round(this._currentTime * 1000 / this.duration) / 10 : 0;
-			this.$.progressStatus.applyStyle('width', percentComplete + '%');
+			var prStatus = this.$.progressStatus;
+			if (prStatus.hasNode()) prStatus.applyStyle('width', percentComplete + '%');
 			this.$.currTime.setContent(this.formatTime(this._currentTime) + ' / ' + this.formatTime(this.duration));
 		},
 
