@@ -1991,28 +1991,28 @@
 		* @private
 		*/
 		_fastforward: function(sender, e) {
-			this.sendFeedback('Fastforward', {playbackRate: e.playbackRate}, true);
+			this.sendFeedback('Fastforward', {playbackRate: e.originalEvent.playbackRate}, true);
 		},
 
 		/**
 		* @private
 		*/
 		_slowforward: function(sender, e) {
-			this.sendFeedback('Slowforward', {playbackRate: e.playbackRate}, true);
+			this.sendFeedback('Slowforward', {playbackRate: e.originalEvent.playbackRate}, true);
 		},
 
 		/**
 		* @private
 		*/
 		_rewind: function(sender, e) {
-			this.sendFeedback('Rewind', {playbackRate: e.playbackRate}, true);
+			this.sendFeedback('Rewind', {playbackRate: e.originalEvent.playbackRate}, true);
 		},
 
 		/**
 		* @private
 		*/
 		_slowrewind: function(sender, e) {
-			this.sendFeedback('Slowrewind', {playbackRate: e.playbackRate}, true);
+			this.sendFeedback('Slowrewind', {playbackRate: e.originalEvent.playbackRate}, true);
 		},
 
 		/**
