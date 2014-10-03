@@ -5,7 +5,7 @@
 	.moon-checkbox {
 		position: absolute;
 		top: @moon-spotlight-outset - 2;
-		right: @moon-spotlight-outset + 4;
+		right: @moon-spotlight-outset - 4;
 	}
 	// Label 
 	.moon-checkbox-item-label-wrapper {
@@ -26,6 +26,10 @@
 		}
 	}
 
+	.moon-icon.small > .small-icon-tap-area {
+		left: 0;
+		right: 0;
+	}
 }
 
 .moon-neutral .moon-checkbox[checked]:after {

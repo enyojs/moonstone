@@ -171,18 +171,6 @@
 		initialDuration: null,
 
 		/**
-		* The moon.Popup is shifted by this amount in the z-axis to account for moon.Scroller
-		* currently being shifted by 1px in the z-axis (via matrix3d transform that was originally
-		* put into place for performance reasons). This allows a moon.Popup overlayed on top
-		* of a moon.Scroller to properly receive pointer events to allow interaction with moon.Popup
-		* child components. moon.ListActions also has a similar change that is defined in its CSS
-		* styling.
-		*
-		* @private
-		*/
-		_shiftZ: '1px',
-
-		/**
 		* Creates chrome components.
 		*
 		* @private
@@ -214,7 +202,7 @@
 			}
 			// If we're animating, nullify our local transforms, and fall back to the CSS class rules.
 			// If we are, manually set our transform which will override our classes.
-			enyo.dom.transform(this, {translateY: null, translateZ: this.animate ? null : this._shiftZ});
+			enyo.dom.transform(this, {translateY: null});
 		},
 
 		/**
