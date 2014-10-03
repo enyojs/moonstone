@@ -370,7 +370,7 @@
 			if (!this.disabled) {
 				this.addClass('visible');
 				this.startPreview();
-				this.doEnterTapArea(e);
+				this.doEnterTapArea();
 			}
 		},
 
@@ -381,7 +381,7 @@
 		leaveTapArea: function(sender, e) {
 			this.removeClass('visible');
 			this.endPreview();
-			this.doLeaveTapArea(e);
+			this.doLeaveTapArea();
 		},
 
 		/**

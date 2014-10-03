@@ -705,7 +705,7 @@
 		* @private
 		*/
 		handleInput: function (inSender, inEvent) {
-			this.doInputHeaderInput(inEvent);
+			this.doInputHeaderInput({originalEvent: enyo.clone(inEvent, true)});
 		},
 
 		/**
@@ -716,7 +716,7 @@
 		* @private
 		*/
 		handleChange: function (inSender, inEvent) {
-			this.doInputHeaderChange(inEvent);
+			this.doInputHeaderChange({originalEvent: enyo.clone(inEvent, true)});
 		},
 
 

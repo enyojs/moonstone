@@ -100,6 +100,7 @@ enyo.kind({
 		return true;
 	},
 	inputChanged: function(inSender, inEvent) {
+		inEvent = inEvent.originalEvent;
 		if (inEvent.originator.getValue() == "go") {
 			this.next3();
 		}
