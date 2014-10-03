@@ -72,9 +72,9 @@
 			if (inEvent.originator.active) {
 				this.activator = inEvent.originator;
 				// if this ContextualPopup is already activated
-				if (this.popupActived) {
+				if (this.popupActivated) {
 					inEvent.originator.active = false;
-					this.popupActived = false;
+					this.popupActivated = false;
 				} else {
 					this.activator.addClass('active');
 					this.requestShowPopup();
@@ -103,7 +103,7 @@
 		*/
 		popupHidden: function () {
 			if (this.activator) {
-				this.popupActived = this.popup.popupActived;
+				this.popupActivated = this.popup.popupActivated;
 				this.activator.active = false;
 				this.activator.removeClass('active');
 				this.activator.removeClass('pressed');
