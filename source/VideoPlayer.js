@@ -1712,8 +1712,11 @@
 		* @private
 		*/
 		updatePosition: function() {
-			this.updateFullscreenPosition();
-			this.updateInlinePosition();
+			if (this.inline) {
+				this.updateInlinePosition();
+			} else {
+				this.updateFullscreenPosition();
+			}
 		},
 		
 		/** 
