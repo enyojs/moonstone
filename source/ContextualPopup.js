@@ -458,6 +458,7 @@
 		onLeave: function (oSender, oEvent) {
 			if (oEvent.originator == this) {
 				enyo.Spotlight.spot(this.activator);
+				this.popupActived = false;
 				this.hide();
 			}
 		},
