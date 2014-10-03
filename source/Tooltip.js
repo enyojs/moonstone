@@ -258,7 +258,7 @@
 				// Sometimes enyo.Spotlight.getCurrent() is null.
 				// In this case, we can rely on onRequestShowTooltip event sender.
 				this.activator = enyo.Spotlight.getCurrent() || this.activator;
-				acBounds = this.activator.getAbsoluteBounds();
+				acBounds = this.activator.parent.getAbsoluteBounds();
 
 				//* Calculate the difference between decorator and activating
 				//* control's top, left, right differences, position tooltip against
