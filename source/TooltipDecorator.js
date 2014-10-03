@@ -129,7 +129,8 @@
 		* @private
 		*/
 		enter: function (inSender, inEvent) {
-			this.requestShowTooltip(inSender, inEvent);
+			if(!enyo.Spotlight.hasCurrent())
+				this.requestShowTooltip(inSender, inEvent);
 		},
 
 		/**
