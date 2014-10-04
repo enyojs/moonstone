@@ -1,4 +1,7 @@
 (function (enyo, scope) {
+
+	var _delayedMeasurementFinished;
+
 	/**
 	* Custom input event to allow apps to distinguish header inputs from regular inputs.
 	* See {@link enyo.Input#event:oninput} for more event information.
@@ -297,7 +300,16 @@
 
 		rendered: function() {
 			this.inherited(arguments);
-			this.adjustTitleWidth();
+			// At the first render, the fonts may not have finished loading yet. We delay the first
+			// time using an async method, and set a flag so we know the deed is done at subsequent calls.
+			if (_delayedMeasurementFinished) {
+				this.adjustTitleWidth();
+			} else {
+				enyo.asyncMethod(this, function () {
+					this.adjustTitleWidth();
+					_delayedMeasurementFinished = true;
+				});
+			}
 		},
 
 		/**
@@ -571,18 +583,20 @@
 		adjustTitleWidth: function() {
 			var type = this.get('type'),
 				// Measure client area's width + 40px of spacing
-				clientSpace = (this.$.client.getAbsoluteBounds().width + 40) + 'px',
+				client = this.$.client.hasNode(),
+				clientWidth = client ? client.offsetWidth : null,
+				clientSpace = (clientWidth + 40) + 'px',
 				rtl = this.rtl;
 
 			// Set the margin on the correct side for the correct control, otherwise set it to nothing
-			this.$.title.applyStyle('margin-right', (type == 'small' && !rtl) ? clientSpace : null);
-			this.$.title.applyStyle('margin-left', (type == 'small' && rtl) ? clientSpace : null);
+			this.$.title.applyStyle('margin-right', (type == 'small' && !rtl && clientWidth) ? clientSpace : null);
+			this.$.title.applyStyle('margin-left', (type == 'small' && rtl && clientWidth) ? clientSpace : null);
 
-			this.$.titleBelow.applyStyle('margin-right', (type == 'medium' && !rtl) ? clientSpace : null);
-			this.$.titleBelow.applyStyle('margin-left', (type == 'medium' && rtl) ? clientSpace : null);
+			this.$.titleBelow.applyStyle('margin-right', (type == 'medium' && !rtl && clientWidth) ? clientSpace : null);
+			this.$.titleBelow.applyStyle('margin-left', (type == 'medium' && rtl && clientWidth) ? clientSpace : null);
 
-			this.$.subTitleBelow.applyStyle('margin-right', (type == 'medium' && !rtl) ? clientSpace : null);
-			this.$.subTitleBelow.applyStyle('margin-left', (type == 'medium' && rtl) ? clientSpace : null);
+			this.$.subTitleBelow.applyStyle('margin-right', (type == 'medium' && !rtl && clientWidth) ? clientSpace : null);
+			this.$.subTitleBelow.applyStyle('margin-left', (type == 'medium' && rtl && clientWidth) ? clientSpace : null);
 		},
 
 		/**
