@@ -64,7 +64,8 @@
 		* @private
 		*/
 		eventsToCapture: {
-			onSpotlightFocus: 'capturedFocus'
+			onSpotlightFocus: 'capturedFocus',
+			onenter: 'mouseEntered'
 		},
 
 		/**
@@ -246,6 +247,15 @@
 		capturedTap: function(sender, event) {
 			if (!this.downEvent || (this.downEvent.type !== 'onSpotlightSelect')) {
 				return this.inherited(arguments);
+			}
+		},
+		/**
+		* @private
+		*/
+		mouseEntered: function(sender,event) {
+			var dt = event.dispatchTarget;
+			if(this.showing && !dt.isDescendantOf(this)) {
+				return true;
 			}
 		},
 
