@@ -1,4 +1,7 @@
 (function (enyo, scope) {
+
+	var _delayedMeasurementFinished;
+
 	/**
 	* Custom input event to allow apps to distinguish header inputs from regular inputs.
 	* See {@link enyo.Input#event:oninput} for more event information.
@@ -299,12 +302,12 @@
 			this.inherited(arguments);
 			// At the first render, the fonts may not have finished loading yet. We delay the first
 			// time using an async method, and set a flag so we know the deed is done at subsequent calls.
-			if (this._delayedMeasurmentFinished) {
+			if (_delayedMeasurementFinished) {
 				this.adjustTitleWidth();
 			} else {
 				enyo.asyncMethod(this, function () {
 					this.adjustTitleWidth();
-					this._delayedMeasurmentFinished = true;
+					_delayedMeasurementFinished = true;
 				});
 			}
 		},
