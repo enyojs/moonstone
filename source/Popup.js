@@ -374,6 +374,7 @@
 					this.animateShow();
 					this.animationEnd = this.bindSafely(function(inSender, inEvent) {
 						if (inEvent.originator === this) {
+							// TODO (see comment below) 
 							this.showHideScrim(this.showing);
 							if (this.directShowHide) {
 								this.setDirectShowHide(false);
@@ -396,6 +397,11 @@
 				this.inherited(arguments);
 			}
 
+			// Temporarily moving this call to showHideScrim() into the animationEnd
+			// callback as a quick fix for BHV-15102. We can undo this after a more
+			// fundamental fix to scrim (now in progress) is completed.
+
+			//this.showHideScrim(this.showing);
 			if (this.showing) {
 				this.configCloseButton();
 				// Spot ourselves, unless we're already spotted
