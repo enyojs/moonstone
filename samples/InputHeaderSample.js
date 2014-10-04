@@ -40,8 +40,10 @@ enyo.kind({
 	],
 	handleInput: function(inSender, inEvent) {
 		this.$.console.setContent("Input: " + inEvent.originator.getValue());
+		return true;
 	},
 	handleChange: function(inSender, inEvent) {
 		this.$.console.setContent("Change: " + inEvent.originator.getValue());
+		return true;
 	}
 });

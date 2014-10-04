@@ -4,19 +4,22 @@
 
 	/**
 	* Custom input event to allow apps to distinguish header inputs from regular inputs.
-	* See {@link enyo.Input#event:oninput} for more event information.
 	*
 	* @event moon.Header#onInputHeaderInput
 	* @type {Object}
+	* @property {Object} originalEvent - The original event fired from the input. See 
+	*	{@link enyo.Input#event:oninput} for more event information.
 	* @public
 	*/
 
 	/**
 	* Custom input change event to allow apps to distinguish header input changes from
-	* regular input changes. See {@link enyo.Input#event:onchange} for more event information.
+	* regular input changes.
 	*
 	* @event moon.Header#onInputHeaderChange
 	* @type {Object}
+	* @property {Object} originalEvent - The original event fired from the input. See 
+	*	{@link enyo.Input#event:onchange} for more event information.
 	* @public
 	*/
 
@@ -719,7 +722,7 @@
 		* @private
 		*/
 		handleInput: function (inSender, inEvent) {
-			this.doInputHeaderInput(inEvent);
+			this.doInputHeaderInput({originalEvent: enyo.clone(inEvent, true)});
 		},
 
 		/**
@@ -730,7 +733,7 @@
 		* @private
 		*/
 		handleChange: function (inSender, inEvent) {
-			this.doInputHeaderChange(inEvent);
+			this.doInputHeaderChange({originalEvent: enyo.clone(inEvent, true)});
 		},
 
 
