@@ -976,6 +976,8 @@
 			this.addRemoveClass('enyo-fullscreen enyo-fit', !this.inline);
 			// Padding-bottom contains inline controls
 			this.addRemoveClass('moon-video-inline', this.inline);
+			// set exitfullscreen icon to small: true
+			this.$.ilFullscreen.setSmall(true);
 			// show hide controls visibility
 			this.$.inlineControl.setShowing(this.inline);
 			this.$.fullscreenControl.setShowing(!this.inline);

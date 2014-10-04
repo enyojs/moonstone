@@ -27,16 +27,16 @@ enyo.kind({
 				{kind:"moon.Clock"}
 			]}
 		], components: [
-			{kind: "moon.IconButton", classes: "moon-icon-video-round-controls-style"},
-			{kind: "moon.IconButton", classes: "moon-icon-video-round-controls-style"},
-			{kind: "moon.IconButton", classes: "moon-icon-video-round-controls-style"},
-			{kind: "moon.IconButton", classes: "moon-icon-video-round-controls-style"},
-			{kind: "moon.IconButton", classes: "moon-icon-video-round-controls-style"},
-			{kind: "moon.IconButton", classes: "moon-icon-video-round-controls-style"},
-			{kind: "moon.IconButton", classes: "moon-icon-video-round-controls-style"},
-			{kind: "moon.IconButton", classes: "moon-icon-video-round-controls-style"},
-			{kind: "moon.IconButton", classes: "moon-icon-video-round-controls-style"},
-			{kind: "moon.IconButton", classes: "moon-icon-video-round-controls-style"}
+			{kind: "moon.IconButton", small: false, classes: "moon-icon-video-round-controls-style"},
+			{kind: "moon.IconButton", small: false, classes: "moon-icon-video-round-controls-style"},
+			{kind: "moon.IconButton", small: false, classes: "moon-icon-video-round-controls-style"},
+			{kind: "moon.IconButton", small: false, classes: "moon-icon-video-round-controls-style"},
+			{kind: "moon.IconButton", small: false, classes: "moon-icon-video-round-controls-style"},
+			{kind: "moon.IconButton", small: false, classes: "moon-icon-video-round-controls-style"},
+			{kind: "moon.IconButton", small: false, classes: "moon-icon-video-round-controls-style"},
+			{kind: "moon.IconButton", small: false, classes: "moon-icon-video-round-controls-style"},
+			{kind: "moon.IconButton", small: false, classes: "moon-icon-video-round-controls-style"},
+			{kind: "moon.IconButton", small: false, classes: "moon-icon-video-round-controls-style"}
 		]},
 		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", useHandle: true, components: [
 			{title: "First Panel", classes: "moon-7h", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
