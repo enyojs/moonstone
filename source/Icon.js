@@ -199,7 +199,7 @@
 			*
 			* @private
 			*/
-			onenter: "doNothing"
+			onenter: 'doNothing'
 		},
 
 		/**
