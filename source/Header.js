@@ -1,19 +1,22 @@
 (function (enyo, scope) {
 	/**
 	* Custom input event to allow apps to distinguish header inputs from regular inputs.
-	* See {@link enyo.Input#event:oninput} for more event information.
 	*
 	* @event moon.Header#onInputHeaderInput
 	* @type {Object}
+	* @property {Object} originalEvent - The original event fired from the input. See 
+	*	{@link enyo.Input#event:oninput} for more event information.
 	* @public
 	*/
 
 	/**
 	* Custom input change event to allow apps to distinguish header input changes from
-	* regular input changes. See {@link enyo.Input#event:onchange} for more event information.
+	* regular input changes.
 	*
 	* @event moon.Header#onInputHeaderChange
 	* @type {Object}
+	* @property {Object} originalEvent - The original event fired from the input. See 
+	*	{@link enyo.Input#event:onchange} for more event information.
 	* @public
 	*/
 
