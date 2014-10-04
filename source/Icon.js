@@ -185,6 +185,24 @@
 		},
 
 		/**
+		* @private
+		*/
+		handlers: {
+			/**
+			* This is a horrible hack to prevent event bubble caching from messing up
+			* moon.Tooltip positioning (BHV-13377). In short, we don't need to do anything
+			* with onenter ourselves, but we need it to pass through us on the way to
+			* moon.TooltipDecorator, which uses inSender to figure out who the tooltip
+			* activator should be.
+			*
+			* TODO: Something better.
+			*
+			* @private
+			*/
+			onenter: "doNothing"
+		},
+
+		/**
 		* @returns {String} The value of the [src]{@link moon.Icon#src} property.
 		* @public
 		*/

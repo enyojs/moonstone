@@ -195,7 +195,7 @@
 		*/
 		requestShow: function (inSender, inEvent) {
 			observer.set('active', this);
-			this.activator = inSender;
+			this.activator = inEvent.originator;
 			this.startJob('showJob', 'show', this.showDelay);
 			return true;
 		},
@@ -221,7 +221,6 @@
 		showingChanged: function () {
 			this.cancelShow();
 			this.inherited(arguments);
-			this.adjustPosition(true);
 		},
 
 		/**
@@ -245,9 +244,6 @@
 					pBounds = this.parent.getAbsoluteBounds(),
 					acBounds =null;
 
-				// Sometimes enyo.Spotlight.getCurrent() is null.
-				// In this case, we can rely on onRequestShowTooltip event sender.
-				this.activator = enyo.Spotlight.getCurrent() || this.activator;
 				acBounds = this.activator.getAbsoluteBounds();
 
 				//* Calculate the difference between decorator and activating
