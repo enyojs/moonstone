@@ -591,7 +591,9 @@
 		*/
 		postTransition: function (info) {
 			this.removeClass('transitioning');
-			if (!this.growing && !info.breadcrumb && (this.isBreadcrumb || this.shrinking)) {
+
+			if (!this.growing && !info.breadcrumb && (this.isBreadcrumb || this.shrinking) && this.hasClass('shrunk')) {
+                //only grow if it has been shrunk before
 				this.growAnimation();
 				return true;
 			}
@@ -606,14 +608,16 @@
 		updatePanel: function (info) {
 			if (!info.animate) {
 				this.disableMarquees();
-
-				if (this.isBreadcrumb === true && info.breadcrumb === false) {
-					this.grow();
-				}
-				if (this.isBreadcrumb === false && info.breadcrumb === true) {
-					this.shrink();
-				}
 			}
+
+            if (this.isBreadcrumb && !info.breadcrumb) {
+                this.grow();
+            }
+
+            if (!this.isBreadcrumb && info.breadcrumb) {
+                this.shrink();
+            }
+
 			this.set('isBreadcrumb', info.breadcrumb);
 			this.set('isOffscreen', info.offscreen);
 			this.updateSpotability();

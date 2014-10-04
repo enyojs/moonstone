@@ -263,7 +263,7 @@
 		*
 		* @typedef {Object} moon.Panels.pushPanels~options
 		* @property {Number} targetIndex - The panel index number to immediately switch to. Leaving
-		*	this blank or not setting it will perform the default action, which transitions to the 
+		*	this blank or not setting it will perform the default action, which transitions to the
 		*	first of the new panels. Setting this to a negative and other "out of bounds" values
 		*	work in conjunction with the `wrap: true` property. Negative values count backward from
 		*	the end, while indices greater than the total Panels' panel length wrap around and start
@@ -668,6 +668,19 @@
 		},
 
 		/**
+		* Sets the index of the active panel, skips animation.
+		*
+		* @param {number} index - Index of the panel to make active.
+		* @public
+		*/
+		setIndexDirect: function(inIndex) {
+			//set the toIndex
+			if(typeof inIndex == 'number') this.toIndex = this.clamp(inIndex);
+			//change index of panel without animation
+			this.skipArrangerAnimation();
+		},
+
+		/**
 		* Sets the index of the active panel, possibly transitioning the panel into view.
 		*
 		* @param {number} index - Index of the panel to make active.
@@ -749,12 +762,17 @@
 
 		/**
 		* Skips animation and jumps to next arrangement.
+		* Ensures that Panels with indices under the
+		* current panel, grow without animation
 		*
 		* @private
 		*/
 		skipArrangerAnimation: function () {
 			this._setIndex(this.toIndex);
-			this.completed();
+			if(this.animate){
+				//call to complete transitions
+				this.completed();
+			}
 		},
 
 		/**
