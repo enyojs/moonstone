@@ -39,12 +39,10 @@ enyo.kind({
 		{kind: "moon.BodyText", name: "console", content: "Input: "}
 	],
 	handleInput: function(inSender, inEvent) {
-		inEvent = inEvent.originalEvent;
 		this.$.console.setContent("Input: " + inEvent.originator.getValue());
 		return true;
 	},
 	handleChange: function(inSender, inEvent) {
-		inEvent = inEvent.originalEvent;
 		this.$.console.setContent("Change: " + inEvent.originator.getValue());
 		return true;
 	}
