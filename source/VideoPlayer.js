@@ -1542,6 +1542,7 @@
 				this.spotlight = false;
 				this.spotlightModal = false;
 			}
+			this.updatePosition();
 		},
 
 		/** 
