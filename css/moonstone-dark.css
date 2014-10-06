@@ -3456,6 +3456,8 @@
   overflow: hidden;
   -webkit-transform: translateY(100%) translateZ(0);
   transform: translateY(100%) translateZ(0);
+  -webkit-transition: -webkit-transform 0.0001s ease;
+  transition: transform 0.0001s ease;
 }
 .moon-popup.animate {
   -webkit-transition: -webkit-transform 0.4s ease;

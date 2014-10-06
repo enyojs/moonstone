@@ -171,18 +171,6 @@
 		initialDuration: null,
 
 		/**
-		* The moon.Popup is shifted by this amount in the z-axis to account for moon.Scroller
-		* currently being shifted by 1px in the z-axis (via matrix3d transform that was originally
-		* put into place for performance reasons). This allows a moon.Popup overlayed on top
-		* of a moon.Scroller to properly receive pointer events to allow interaction with moon.Popup
-		* child components. moon.ListActions also has a similar change that is defined in its CSS
-		* styling.
-		*
-		* @private
-		*/
-		_shiftZ: '1px',
-
-		/**
 		* Creates chrome components.
 		*
 		* @private
@@ -205,16 +193,10 @@
 		* @private
 		*/
 		animateChanged: function() {
-			if (this.animate) {
-				this.animateShow();
-			}
 			this.addRemoveClass('animate', this.animate);
 			if (!this.animate) {
 				this.applyStyle('bottom', null);
 			}
-			// If we're animating, nullify our local transforms, and fall back to the CSS class rules.
-			// If we are, manually set our transform which will override our classes.
-			enyo.dom.transform(this, {translateY: null, translateZ: this.animate ? null : this._shiftZ});
 		},
 
 		/**
@@ -358,10 +340,11 @@
 				}
 				this.activator = enyo.Spotlight.getCurrent();
 				moon.Popup.count++;
+				this.genereateNextZIndex();
 				this.applyZIndex();
 			}
 			else {
-				if(moon.Popup.count > 0) {
+				if (moon.Popup.count > 0) {
 					moon.Popup.count--;
 				}
 				if (this.generated) {
@@ -369,35 +352,33 @@
 				}
 			}
 
-			if (this.animate) {
-				var args = arguments;
-				if (this.showing) {
-					this.inherited(arguments);
-					this.animateShow();
-					this.animationEnd = this.bindSafely(function(sender, ev) {
+			if (this.showing) {
+				// Run inherited immediately
+				this.inherited(arguments);
+				this.show();
+			} else {
+				this.hide();
+				if (this.animate) {
+					this.isAnimatingHide = true;
+					// Instead of hiding the scrim with the inherited enyo method, when the
+					// animation is finished, fire it now, so the control is returned to the
+					// applicaiton while our popup is animating to the closed position.
+					// this.hide();
+					this.showHideScrim(this.showing);
+					var args = arguments;
+					this.animationEnd = this.bindSafely(function (sender, ev) {
 						if (ev.originator === this) {
-							if (this.directShowHide) {
-								this.set('directShowHide', false);
-							}
+							// Delay inherited until animationEnd
+							this.inherited(args);
+							this.isAnimatingHide = false;
 						}
 					});
 				} else {
-					this.animateHide();
-					this.animationEnd = this.bindSafely(function(sender, ev) {
-						if (ev.originator === this) {
-							this.inherited(args);
-							this.isAnimatingHide = false;
-							if (this.directShowHide) {
-								this.set('directShowHide', false);
-							}
-						}
-					});
+					// Run inherited immediately
+					this.inherited(arguments);
 				}
-			} else {
-				this.inherited(arguments);
 			}
 
-			this.showHideScrim(this.showing);
 			if (this.showing) {
 				this.configCloseButton();
 				// Spot ourselves, unless we're already spotted
@@ -412,6 +393,22 @@
 					}
 				}
 			}
+		},
+
+		/**
+		* Overrides the default `getShowing()` behavior to avoid setting `this.showing` based on the
+		* CSS `display` property.
+		*
+		* @private
+		*/
+		show: function() {
+			this.inherited(arguments);
+			this.addClass('showing');
+		},
+
+		hide: function() {
+			this.inherited(arguments);
+			this.removeClass('showing');
 		},
 
 		/**
@@ -435,7 +432,7 @@
 		*/
 		showDirect: function() {
 			if (this.animate) {
-				this.set('directShowHide', true);
+				this.set('animate', false);
 			}
 			this.show();
 		},
@@ -447,7 +444,7 @@
 		*/
 		hideDirect: function() {
 			if (this.animate) {
-				this.set('directShowHide', true);
+				this.set('animate', false);
 			}
 			this.hide();
 		},
@@ -456,7 +453,7 @@
 		* @private
 		*/
 		directShowHideChanged: function (old, val) {
-			this.addRemoveClass('animate', !val);
+			this.set('animate', !val);
 		},
 
 		/**
@@ -473,7 +470,7 @@
 				} else {
 					scrim.hideAtZIndex(this._scrimZ);
 				}
-				enyo.call(scrim, 'addRemoveClass', [this.scrimClassName, scrim.showing]);
+				scrim.addRemoveClass(this.scrimClassName, scrim.showing);
 			}
 		},
 
@@ -498,30 +495,25 @@
 		},
 
 		/**
+		* Calculate what the next z-index should be, set it, and return it.
+		*
+		* @private
+		*/
+		genereateNextZIndex: function() {
+			this._zIndex = (moon.Popup.count * 2) + (this.findZIndex() + 1);
+			return this._zIndex;
+		},
+
+		/**
 		* @private
 		*/
 		applyZIndex: function() {
-			// Adjust the zIndex so that popups will properly stack on each other.
-			this._zIndex = moon.Popup.count * 2 + this.findZIndex() + 1;
-			// leave room for scrim
 			this.applyStyle('z-index', this._zIndex);
 		},
 
 		/**
 		* @private
 		*/
-		findZIndex: function() {
-			// a default z value
-			var z = this.defaultZ;
-			if (this._zIndex) {
-				z = this._zIndex;
-			} else if (this.hasNode()) {
-				// Re-use existing zIndex if it has one
-				z = Number(enyo.dom.getComputedStyleValue(this.node, 'z-index')) || z;
-			}
-			this._zIndex = z;
-			return this._zIndex;
-		},
 
 		/**
 		* Removes focused style from close button and hides the popup.
@@ -568,22 +560,10 @@
 		/**
 		* @private
 		*/
-		animateShow: function () {
-			// Gathering the computed value forces the browser to re-evaluate the state of the
-			// control before applying the upcoming class-change.
-			this.getComputedStyleValue('display');
-			if (this.showing) {
-				this.addClass('showing');
-			}
-		},
 
 		/**
 		* @private
 		*/
-		animateHide: function () {
-			this.isAnimatingHide = true;
-			this.removeClass('showing');
-		},
 
 		/**
 		* @private
