@@ -88,8 +88,8 @@
 		/**
 		* @private
 		*/
-		removeZIndex: function (inControl) {
-			enyo.remove(inControl, this.zStack);
+		removeZIndex: function (zIndex) {
+			enyo.remove(zIndex, this.zStack);
 		},
 
 		/**
