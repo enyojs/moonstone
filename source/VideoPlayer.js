@@ -651,7 +651,7 @@
 					{name: 'currTime', content: '00:00 / 00:00'}
 				]},
 				{name: 'ilPlayPause', kind: 'moon.IconButton', ontap: 'playPause'},
-				{name: 'ilFullscreen', kind: 'moon.VideoFullscreenToggleButton'}
+				{name: 'ilFullscreen', small: true, kind: 'moon.VideoFullscreenToggleButton'}
 			]}
 		],
 
@@ -976,8 +976,6 @@
 			this.addRemoveClass('enyo-fullscreen enyo-fit', !this.inline);
 			// Padding-bottom contains inline controls
 			this.addRemoveClass('moon-video-inline', this.inline);
-			// set exitfullscreen icon to small: true
-			this.$.ilFullscreen.setSmall(true);
 			// show hide controls visibility
 			this.$.inlineControl.setShowing(this.inline);
 			this.$.fullscreenControl.setShowing(!this.inline);
