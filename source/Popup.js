@@ -361,9 +361,8 @@
 				if (this.animate) {
 					this.isAnimatingHide = true;
 					// Instead of hiding the scrim with the inherited enyo method, when the
-					// animation is finished, fire it now, so the control is returned to the
+					// animation is finished, fire it now, so interactive control is returned to the
 					// applicaiton while our popup is animating to the closed position.
-					// this.hide();
 					this.showHideScrim(this.showing);
 					var args = arguments;
 					this.animationEnd = this.bindSafely(function (sender, ev) {
@@ -396,16 +395,22 @@
 		},
 
 		/**
-		* Overrides the default `getShowing()` behavior to avoid setting `this.showing` based on the
-		* CSS `display` property.
+		* Show the popup. This respects the current state of the
+		* [animate]{@link moon.Popup#animate} property, showing with or without animation.
 		*
-		* @private
+		* @public
 		*/
 		show: function() {
 			this.inherited(arguments);
 			this.addClass('showing');
 		},
 
+		/**
+		* Hide the popup. This respects the current state of the
+		* [animate]{@link moon.Popup#animate} property, hiding with or without animation.
+		*
+		* @public
+		*/
 		hide: function() {
 			this.inherited(arguments);
 			this.removeClass('showing');
@@ -556,14 +561,6 @@
 		_preventEventBubble: function(sender, event) {
 			return true;
 		},
-
-		/**
-		* @private
-		*/
-
-		/**
-		* @private
-		*/
 
 		/**
 		* @private
