@@ -13,7 +13,7 @@
 	* Child controls may bubble this event to toggle the fullscreen state of the video player.
 	* No additional data needs to be sent with this event.
 	*
-	* @event moon.VideoPlayer#onRequestFullscreen
+	* @event moon.VideoPlayer#onRequestToggleFullscreen
 	* @type {Object}
 	* @public
 	*/
@@ -255,8 +255,8 @@
 
 			/**
 			* When `false`, the player starts in fullscreen mode; when `true`, it starts in inline 
-			* mode. Meant to be initialized on startup, use moon.VideoPlayer#onRequestFullscreen to
-			* dynamically toggle between fullscreen and inline.
+			* mode. Meant to be initialized on startup, use moon.VideoPlayer#onRequestToggleFullscreen
+			* to dynamically toggle between fullscreen and inline.
 			*
 			* @type {Boolean}
 			* @default false
