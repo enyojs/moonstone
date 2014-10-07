@@ -255,7 +255,8 @@
 
 			/**
 			* When `false`, the player starts in fullscreen mode; when `true`, it starts in inline 
-			* mode.
+			* mode. Meant to be initialized on startup, use moon.VideoPlayer#onRequestFullscreen to
+			* dynamically toggle between fullscreen and inline.
 			*
 			* @type {Boolean}
 			* @default false
