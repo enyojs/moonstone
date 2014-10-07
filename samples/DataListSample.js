@@ -37,7 +37,7 @@ enyo.kind({
 			, add = []
 			, i = records.length
 			, len = (i + (!isNaN(amount)? amount: 0));
-		
+
 		for (; i<len; ++i) {
 			add.push({
 				on: false,
@@ -46,7 +46,7 @@ enyo.kind({
 				label: "Label " + i
 			});
 		}
-		
+
 		return add;
 	},
 	scrollToIndex: function (sender, event) {
@@ -54,7 +54,7 @@ enyo.kind({
 		if (this.isScrolled || newIndex !== this.currentIndex) {
 			this.currentIndex = newIndex;
 			this.$.drawers.closeDrawers();
-			this.$.repeater.scrollToIndex(newIndex);
+			this.$.repeater.focusOnIndex(newIndex);
 			this.isScrolled = false;
 		}
 	},
