@@ -632,7 +632,20 @@
 		*/
 		minWidthChanged: function() {
 			this.applyStyle('min-width', this.minWidth + 'px');
-		}
+		},
+
+		/**
+		* @method
+		* @private
+		*/
+		showingChangedHandler: enyo.inherit(function (sup) {
+			return function () {
+				sup.apply(this, arguments);
+				if(this.showing) {
+					this.scrollToValue();
+				}
+			};
+		})
 	});
 
 	/**
