@@ -76,7 +76,7 @@
 
 			/**
 			* Determines if the viewport of the scroller should also
-			* be a Spotlight container, and assume container responsbilities
+			* be a Spotlight container, and assume container responsibilities
 			*
 			* @type {Boolean}
 			* @default false
@@ -150,7 +150,7 @@
 		*/
 		rendered: function() {
 			// if the viewport should be a spotlight container
-			// set it up, so it assume responsbilities like remembering last spotted child
+			// set it up, so it assumes responsibilities like remembering last spotted child
 			if(enyo.Spotlight && this.viewportIsSpotlightContainer) {
 				this.$.viewport.spotlight = 'container'
 				enyo.Spotlight.Container.initContainer(this.$.viewport);
