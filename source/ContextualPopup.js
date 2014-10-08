@@ -200,9 +200,9 @@
 		*
 		* @private
 		*/
-		requestShow: function (inSender, inEvent) {
-			var n = inEvent.activator.hasNode();
-			this.activator = inEvent.activator;
+		requestShow: function (sender, event) {
+			var n = event.activator.hasNode();
+			this.activator = event.activator;
 			if (n) {
 				this.activatorOffset = this.getPageOffset(n);
 			}
@@ -219,17 +219,17 @@
 		* @fires enyo.Popup#onActivate
 		* @private
 		*/
-		decorateActivateEvent: function (inSender, inEvent) {
-			inEvent.sentFromPopup = this;
+		decorateActivateEvent: function (sender, event) {
+			event.sentFromPopup = this;
 		},
 
 		/**
 		* @private
 		*/
-		getPageOffset: function (inNode) {
+		getPageOffset: function (node) {
 			// getBoundingClientRect returns top/left values which are relative to the viewport and
 			// not absolute
-			var r = inNode.getBoundingClientRect();
+			var r = node.getBoundingClientRect();
 
 			var pageYOffset = (window.pageYOffset === undefined) ? document.documentElement.scrollTop : window.pageYOffset;
 			var pageXOffset = (window.pageXOffset === undefined) ? document.documentElement.scrollLeft : window.pageXOffset;
@@ -365,8 +365,8 @@
 		*
 		* @private
 		*/
-		keydown: function (inSender, inEvent) {
-			if (this.showing && this.autoDismiss && inEvent.keyCode == 27 /* escape */) {
+		keydown: function (sender, event) {
+			if (this.showing && this.autoDismiss && event.keyCode == 27 /* escape */) {
 				enyo.Spotlight.spot(this.activator);
 				this.hide();
 			}
@@ -375,7 +375,7 @@
 		/**
 		* @private
 		*/
-		closePopup: function (inSender, inEvent) {
+		closePopup: function (sender, event) {
 			enyo.Spotlight.spot(this.activator);
 			this.$.closeButton.removeClass('pressed');
 			this.hide();
@@ -433,10 +433,10 @@
 		/**
 		* @private
 		*/
-		capturedKeyDown: function (inSender, inEvent) {
-			if (inEvent.keyCode == 13) {
-				this.downEvent = inEvent;
-				if (!inEvent.dispatchTarget.isDescendantOf(this.activator)) {
+		capturedKeyDown: function (sender, event) {
+			if (event.keyCode == 13) {
+				this.downEvent = event;
+				if (!event.dispatchTarget.isDescendantOf(this.activator)) {
 					// We are selecting something outside of this popup.
 					this._activated = false;
 				}
@@ -447,10 +447,10 @@
 		/**
 		* @private
 		*/
-		capturedTap: function (inSender, inEvent) {
+		capturedTap: function (sender, event) {
 			if (this.autoDismiss) {
 				// If same activator tapped sequentially, we notice that this popup is already activated.
-				if (!inEvent.dispatchTarget.isDescendantOf(this.activator)) {
+				if (!event.dispatchTarget.isDescendantOf(this.activator)) {
 					this._activated = false;
 				}
 				this.inherited(arguments);
@@ -464,8 +464,8 @@
 		/**
 		* @private
 		*/
-		onLeave: function (oSender, oEvent) {
-			if (oEvent.originator == this) {
+		onLeave: function (sender, event) {
+			if (sender.originator == this) {
 				enyo.Spotlight.spot(this.activator);
 				this._activated = false;
 				this.hide();
@@ -475,17 +475,17 @@
 		/**
 		* @private
 		*/
-		_preventEventBubble: function (inSender, inEvent) {
+		_preventEventBubble: function (sender, event) {
 			return true;
 		},
 
 		/**
 		* @private
 		*/
-		showHideScrim: function (inShow) {
+		showHideScrim: function (show) {
 			if (this.floating && (this.scrim || (this.modal && this.scrimWhenModal))) {
 				var scrim = this.getScrim();
-				if (inShow && this.modal && this.scrimWhenModal) {
+				if (show && this.modal && this.scrimWhenModal) {
 					// move scrim to just under the popup to obscure rest of screen
 					var i = this.getScrimZIndex();
 					this._scrimZ = i;

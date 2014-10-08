@@ -62,14 +62,14 @@
 		* @fires enyo.Control#onActivate
 		* @private
 		*/
-		activated: function (inSender, inEvent) {
+		activated: function (sender, event) {
 			// Don't process activate events that came from inside this decorator
-			if (inEvent.sentFromPopup && inEvent.sentFromPopup.isDescendantOf(this)) {
+			if (event.sentFromPopup && event.sentFromPopup.isDescendantOf(this)) {
 				return;
 			}
 
-			if (inEvent.originator.active) {
-				this.activator = inEvent.originator;
+			if (event.originator.active) {
+				this.activator = event.originator;
 				// if this ContextualPopup is already activated
 				if (this.popupActivated) {
 					this.activator.active = false;
@@ -85,13 +85,13 @@
 		* Handles `onShow` event.  Since the popup is a 'client control' of the decorator,
 		* we should provide a connector between them.
 		*
-		* @param {Object} inSender - The component that most recently propagated the `onShow` event.
-		* @param {Object} inEvent - An object containing event information.
+		* @param {Object} sender - The component that most recently propagated the `onShow` event.
+		* @param {Object} event - An object containing event information.
 		* @private
 		*/
-		popupShown: function (inSender, inEvent) {
+		popupShown: function (sender, event) {
 			if (this.popup === undefined) {
-				this.popup = inEvent.originator;
+				this.popup = event.originator;
 			}
 		},
 
