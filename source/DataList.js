@@ -478,6 +478,8 @@
 
 		/**
 		* @private
+		* set the viewport to be a spotlight container, so that it can be used
+		* to calculate nearest neighbor based on scroll position
 		*/
 		scrollerOptions: { kind: 'moon.Scroller', horizontal: 'hidden', viewportIsSpotlightContainer: true }
 	});
