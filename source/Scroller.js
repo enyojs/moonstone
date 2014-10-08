@@ -1,6 +1,6 @@
 (function (enyo, scope) {
 	/**
-	* Fires when a control explicitly requests to be scrolled into view. Handled by the 
+	* Fires when a control explicitly requests to be scrolled into view. Handled by the
 	* [scroll strategy]{@link enyo.Scroller#strategyKind}.
 	*
 	* @event enyo.Scroller#onRequestScrollIntoView
@@ -208,6 +208,7 @@
 			this.$.strategy.scrollTo(x, y, animate);
 		},
 
+			viewportIsSpotlightContainer: false,
 		/**
 		* @private
 		*/
@@ -216,7 +217,8 @@
 			{from: '.scrollWheelMultiplier',		to:'.$.strategy.scrollWheelMultiplier'},
 			{from: '.scrollWheelPageMultiplier',	to:'.$.strategy.scrollWheelPageMultiplier'},
 			{from: '.paginationPageMultiplier',		to:'.$.strategy.paginationPageMultiplier'},
-			{from: '.paginationScrollMultiplier',	to:'.$.strategy.paginationScrollMultiplier'}
+			{from: '.paginationScrollMultiplier',	to:'.$.strategy.paginationScrollMultiplier'},
+			{from: '.viewportIsSpotlightContainer',	to:'.$.strategy.viewportIsSpotlightContainer'}
 		],
 
 		/**

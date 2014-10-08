@@ -169,7 +169,7 @@
 				var pagesForIndex = this.delegate.pageForIndex(this, inEvent.index),
 					pageCount = this.delegate.pageCount(this),
 					lastPageIndex = pages.lastPage.index;
-			
+
 				// If current selected index is lastPage and there is no page
 				// then lower bound of scrollThreshold is undefined because it is useless
 				// However after models are added then more pages could be generated
@@ -479,7 +479,7 @@
 		/**
 		* @private
 		*/
-		scrollerOptions: { kind: 'moon.Scroller', horizontal: 'hidden' }
+		scrollerOptions: { kind: 'moon.Scroller', horizontal: 'hidden', viewportIsSpotlightContainer: true }
 	});
 
 	/**
