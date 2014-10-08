@@ -2905,18 +2905,17 @@
 .moon-panel.enyo-fit {
   height: auto;
 }
-/*scrim to prevent receiving user input while transitioning*/
 .moon-panel:after {
-  content: '';
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
-  z-index: -1;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 .moon-panel.transitioning:after {
-  z-index: auto;
+  content: '';
 }
 .moon-panel-viewport {
   -webkit-transform: scale3d(1, 1, 1);
