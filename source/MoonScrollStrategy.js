@@ -152,7 +152,7 @@
 			// if the viewport should be a spotlight container
 			// set it up, so it assumes responsibilities like remembering last spotted child
 			if(enyo.Spotlight && this.viewportIsSpotlightContainer) {
-				this.$.viewport.spotlight = 'container'
+				this.$.viewport.spotlight = 'container';
 				enyo.Spotlight.Container.initContainer(this.$.viewport);
 			}
 			enyo.TouchScrollStrategy.prototype.rendered._inherited.apply(this, arguments);
