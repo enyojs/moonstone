@@ -3429,6 +3429,8 @@
 		to set pointer events to auto or scrim will not function as expected.
 	*/
   pointer-events: none;
+  -webkit-transform: translateZ(0px);
+  transform: translateZ(0px);
 }
 .moon-scrim.moon-scrim-translucent {
   pointer-events: auto;
@@ -3448,9 +3450,18 @@
   padding: 40px;
   box-sizing: border-box;
   overflow: hidden;
+  -webkit-transform: translateY(100%) translateZ(0);
+  transform: translateY(100%) translateZ(0);
+  -webkit-transition: -webkit-transform 0.0001s ease;
+  transition: transform 0.0001s ease;
 }
 .moon-popup.animate {
   -webkit-transition: -webkit-transform 0.4s ease;
+  transition: transform 0.4s ease;
+}
+.moon-popup.showing {
+  -webkit-transform: translateY(0) translateZ(0);
+  transform: translateY(0) translateZ(0);
 }
 .moon-popup.reserve-close {
   padding-right: 70px;

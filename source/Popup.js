@@ -186,20 +186,16 @@
 		create: function () {
 			this.inherited(arguments);
 			this.animateChanged();
-			this.initialDuration = this.getComputedStyleValue("-webkit-transition-duration", "0.4s");
+			this.initialDuration = this.getComputedStyleValue('-webkit-transition-duration', '0.4s');
 		},
 
 		/**
 		* @private
 		*/
 		animateChanged: function() {
-			if (this.animate) {
-				this.animateShow();
-			}
 			this.addRemoveClass('animate', this.animate);
 			if (!this.animate) {
 				this.applyStyle('bottom', null);
-				enyo.dom.transform(this, {translateY: null});
 			}
 		},
 
@@ -244,7 +240,7 @@
 		* @private
 		*/
 		capturedTap: function(sender, event) {
-			if (!this.downEvent || (this.downEvent.type !== 'onSpotlightSelect')) {
+			if (!this.downEvent || (this.downEvent.type != 'onSpotlightSelect')) {
 				return this.inherited(arguments);
 			}
 		},
@@ -344,10 +340,11 @@
 				}
 				this.activator = enyo.Spotlight.getCurrent();
 				moon.Popup.count++;
+				this.genereateNextZIndex();
 				this.applyZIndex();
 			}
 			else {
-				if(moon.Popup.count > 0) {
+				if (moon.Popup.count > 0) {
 					moon.Popup.count--;
 				}
 				if (this.generated) {
@@ -355,41 +352,32 @@
 				}
 			}
 
-			if (this.animate) {
-				var args = arguments;
-				if (this.showing) {
-					this.inherited(arguments);
-					this.animateShow();
-					this.animationEnd = this.bindSafely(function(inSender, inEvent) {
-						if (inEvent.originator === this) {
-							// TODO (see comment below) 
-							this.showHideScrim(this.showing);
-							if (this.directShowHide) {
-								this.setDirectShowHide(false);
-							}
+			if (this.showing) {
+				// Run inherited immediately
+				this.inherited(arguments);
+				this.show();
+			} else {
+				this.hide();
+				if (this.animate) {
+					this.isAnimatingHide = true;
+					// Instead of hiding the scrim with the inherited enyo method, when the
+					// animation is finished, fire it now, so interactive control is returned to the
+					// applicaiton while our popup is animating to the closed position.
+					this.showHideScrim(this.showing);
+					var args = arguments;
+					this.animationEnd = this.bindSafely(function (sender, ev) {
+						if (ev.originator === this) {
+							// Delay inherited until animationEnd
+							this.inherited(args);
+							this.isAnimatingHide = false;
 						}
 					});
 				} else {
-					this.animateHide();
-					this.animationEnd = this.bindSafely(function(sender, event) {
-						if (event.originator === this) {
-							this.inherited(args);
-							this.isAnimatingHide = false;
-							if (this.directShowHide) {
-								this.setDirectShowHide(false);
-							}
-						}
-					});
+					// Run inherited immediately
+					this.inherited(arguments);
 				}
-			} else {
-				this.inherited(arguments);
 			}
 
-			// Temporarily moving this call to showHideScrim() into the animationEnd
-			// callback as a quick fix for BHV-15102. We can undo this after a more
-			// fundamental fix to scrim (now in progress) is completed.
-
-			//this.showHideScrim(this.showing);
 			if (this.showing) {
 				this.configCloseButton();
 				// Spot ourselves, unless we're already spotted
@@ -404,6 +392,28 @@
 					}
 				}
 			}
+		},
+
+		/**
+		* Show the popup. This respects the current state of the
+		* [animate]{@link moon.Popup#animate} property, showing with or without animation.
+		*
+		* @public
+		*/
+		show: function() {
+			this.inherited(arguments);
+			this.addClass('showing');
+		},
+
+		/**
+		* Hide the popup. This respects the current state of the
+		* [animate]{@link moon.Popup#animate} property, hiding with or without animation.
+		*
+		* @public
+		*/
+		hide: function() {
+			this.inherited(arguments);
+			this.removeClass('showing');
 		},
 
 		/**
@@ -426,10 +436,18 @@
 		* @public
 		*/
 		showDirect: function() {
-			if (this.animate) {
-				this.setDirectShowHide(true);
+			var anim = this.animate;
+			if (anim) {
+				this.set('animate', false);
 			}
 			this.show();
+			if (anim) {
+				// getComputedStyleValue forces the browser to update the style rules before
+				// proceeding. Otherwise the removal and addition of the "animate" class happens in
+				// one rendering-pass, which will have no visual difference.
+				this.getComputedStyleValue('display');
+				this.set('animate', anim);
+			}
 		},
 
 		/**
@@ -438,20 +456,21 @@
 		* @public
 		*/
 		hideDirect: function() {
-			if (this.animate) {
-				this.setDirectShowHide(true);
+			var anim = this.animate;
+			if (anim) {
+				this.set('animate', false);
 			}
 			this.hide();
+			if (anim) {
+				this.set('animate', anim);
+			}
 		},
 
 		/**
 		* @private
 		*/
-		setDirectShowHide: function(value) {
-			this.directShowHide = value;
-			// setting duration to "0" does not work, nor does toggling animate property
-			var duration = (value) ? "0.0001s" : this.initialDuration;
-			this.applyStyle("-webkit-transition-duration", duration);
+		directShowHideChanged: function (old, val) {
+			this.set('animate', !val);
 		},
 
 		/**
@@ -468,7 +487,7 @@
 				} else {
 					scrim.hideAtZIndex(this._scrimZ);
 				}
-				enyo.call(scrim, 'addRemoveClass', [this.scrimClassName, scrim.showing]);
+				scrim.addRemoveClass(this.scrimClassName, scrim.showing);
 			}
 		},
 
@@ -493,30 +512,25 @@
 		},
 
 		/**
+		* Calculate what the next z-index should be, set it, and return it.
+		*
+		* @private
+		*/
+		genereateNextZIndex: function() {
+			this._zIndex = (moon.Popup.count * 2) + (this.findZIndex() + 1);
+			return this._zIndex;
+		},
+
+		/**
 		* @private
 		*/
 		applyZIndex: function() {
-			// Adjust the zIndex so that popups will properly stack on each other.
-			this._zIndex = moon.Popup.count * 2 + this.findZIndex() + 1;
-			// leave room for scrim
 			this.applyStyle('z-index', this._zIndex);
 		},
 
 		/**
 		* @private
 		*/
-		findZIndex: function() {
-			// a default z value
-			var z = this.defaultZ;
-			if (this._zIndex) {
-				z = this._zIndex;
-			} else if (this.hasNode()) {
-				// Re-use existing zIndex if it has one
-				z = Number(enyo.dom.getComputedStyleValue(this.node, 'z-index')) || z;
-			}
-			this._zIndex = z;
-			return this._zIndex;
-		},
 
 		/**
 		* Removes focused style from close button and hides the popup.
@@ -558,27 +572,6 @@
 		*/
 		_preventEventBubble: function(sender, event) {
 			return true;
-		},
-
-		/**
-		* @private
-		*/
-		animateShow: function () {
-			this._bounds = this.getBounds();
-			this.applyStyle('bottom', -this._bounds.height + 'px');
-			enyo.dom.transform(this, {translateY: -this._bounds.height + 'px'});
-		},
-
-		/**
-		* @private
-		*/
-		animateHide: function () {
-			if (this._bounds) {
-				this.isAnimatingHide = true;
-				var prevHeight = this._bounds.height;
-				this._bounds = this.getBounds();
-				enyo.dom.transform(this, {translateY: this._bounds.height - prevHeight + 'px'});
-			}
 		},
 
 		/**
