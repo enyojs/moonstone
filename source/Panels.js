@@ -940,8 +940,7 @@
 
 			this.inherited(arguments);
 
-			// Can't check isPanelJoined on non-generated components
-			if (this.pattern === 'activity' && this.generated && !this.layout.isPanelJoined(this.index, 0)) {
+			if (this.pattern === 'activity' && this.getPanelInfo(0, this.index).breadcrumb) {
 				this.$.branding.show();
 			} else {
 				this.$.branding.hide();
