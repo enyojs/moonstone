@@ -30,6 +30,11 @@
 		/**
 		* @private
 		*/
+		small: false,
+
+		/**
+		* @private
+		*/
 		classes : 'moon-icon-video-round-controls-style moon-icon-exitfullscreen-font-style',
 		
 		/**

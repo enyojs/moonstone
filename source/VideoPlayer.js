@@ -651,7 +651,7 @@
 					{name: 'currTime', content: '00:00 / 00:00'}
 				]},
 				{name: 'ilPlayPause', kind: 'moon.IconButton', ontap: 'playPause'},
-				{name: 'ilFullscreen', kind: 'moon.VideoFullscreenToggleButton'}
+				{name: 'ilFullscreen', small: true, kind: 'moon.VideoFullscreenToggleButton'}
 			]}
 		],
 
