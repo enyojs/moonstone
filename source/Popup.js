@@ -436,10 +436,18 @@
 		* @public
 		*/
 		showDirect: function() {
-			if (this.animate) {
+			var anim = this.animate;
+			if (anim) {
 				this.set('animate', false);
 			}
 			this.show();
+			if (anim) {
+				// getComputedStyleValue forces the browser to update the style rules before
+				// proceeding. Otherwise the removal and addition of the "animate" class happens in
+				// one rendering-pass, which will have no visual difference.
+				this.getComputedStyleValue('display');
+				this.set('animate', anim);
+			}
 		},
 
 		/**
@@ -448,10 +456,14 @@
 		* @public
 		*/
 		hideDirect: function() {
-			if (this.animate) {
+			var anim = this.animate;
+			if (anim) {
 				this.set('animate', false);
 			}
 			this.hide();
+			if (anim) {
+				this.set('animate', anim);
+			}
 		},
 
 		/**
