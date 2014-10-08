@@ -42,22 +42,22 @@
 		/**
 		* @private
 		*/
-		name : 'moon.ContextualPopup',
+		name: 'moon.ContextualPopup',
 
 		/**
 		* @private
 		*/
-		kind : 'enyo.Popup',
+		kind: 'enyo.Popup',
 
 		/**
 		* @private
 		*/
-		layoutKind : 'ContextualLayout',
+		layoutKind: 'ContextualLayout',
 
 		/**
 		* @private
 		*/
-		classes    : 'moon-body-text moon-contextual-popup',
+		classes: 'moon-body-text moon-contextual-popup',
 
 		/**
 		* @private
@@ -113,7 +113,7 @@
 		/**
 		* @private
 		*/
-		floating:true,
+		floating: true,
 
 		/**
 		* Determines whether a scrim will appear when the popup is modal.
@@ -130,14 +130,14 @@
 		*
 		* @private
 		*/
-		vertFlushMargin:0,
+		vertFlushMargin: 0,
 
 		/**
 		* Horizontal flush layout margin.
 		*
 		* @private
 		*/
-		horizFlushMargin:0,
+		horizFlushMargin: 0,
 
 		/**
 		* Popups wider than this value are considered wide (for layout purposes).
@@ -211,6 +211,7 @@
 			if (enyo.Spotlight.isSpottable(this)) {
 				enyo.Spotlight.spot(this);
 			}
+			this._activated = true;
 			return true;
 		},
 
@@ -435,6 +436,10 @@
 		capturedKeyDown: function (inSender, inEvent) {
 			if (inEvent.keyCode == 13) {
 				this.downEvent = inEvent;
+				if (!inEvent.dispatchTarget.isDescendantOf(this.activator)) {
+					// We are selecting something outside of this popup.
+					this._activated = false;
+				}
 			}
 			return this.modal;
 		},
@@ -443,13 +448,17 @@
 		* @private
 		*/
 		capturedTap: function (inSender, inEvent) {
-			// If same activator tapped sequentially, we notice that this popup is already activeted.
-			if (inEvent.dispatchTarget.isDescendantOf(this.activator)) {
-				this.popupActivated = true;
+			if (this.autoDismiss) {
+				// If same activator tapped sequentially, we notice that this popup is already activated.
+				if (!inEvent.dispatchTarget.isDescendantOf(this.activator)) {
+					this._activated = false;
+				}
+				this.inherited(arguments);
 			} else {
-				this.popupActivated = false;
+				// Handle the case where autoDismiss is false - we still want to hide the popup.
+				this.hide();
+				this._activated = false;
 			}
-			this.inherited(arguments);
 		},
 
 		/**
@@ -458,7 +467,7 @@
 		onLeave: function (oSender, oEvent) {
 			if (oEvent.originator == this) {
 				enyo.Spotlight.spot(this.activator);
-				this.popupActivated = false;
+				this._activated = false;
 				this.hide();
 			}
 		},
@@ -539,6 +548,14 @@
 		*/
 		directionChanged: function () {
 			this.alterDirection();
+		},
+
+		/**
+		* @return {Boolean} Whether or not this control has been activated.
+		* @public
+		*/
+		isActivated: function () {
+			return this._activated;
 		}
 	});
 

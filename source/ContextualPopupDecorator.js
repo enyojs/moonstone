@@ -68,12 +68,11 @@
 				return;
 			}
 
-			this.requestHidePopup();
 			if (inEvent.originator.active) {
 				this.activator = inEvent.originator;
 				// if this ContextualPopup is already activated
 				if (this.popupActivated) {
-					inEvent.originator.active = false;
+					this.activator.active = false;
 					this.popupActivated = false;
 				} else {
 					this.activator.addClass('active');
@@ -103,7 +102,7 @@
 		*/
 		popupHidden: function () {
 			if (this.activator) {
-				this.popupActivated = this.popup.popupActivated;
+				this.popupActivated = this.popup.isActivated();
 				this.activator.active = false;
 				this.activator.removeClass('active');
 				this.activator.removeClass('pressed');
