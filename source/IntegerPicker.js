@@ -434,8 +434,8 @@
 		* @private
 		*/
 		updateOverlays: function () {
-			this.$.previousOverlay.applyStyle('visibility', (this.wrap || (this.value !== this.min)) ? 'visible' : 'hidden');
-			this.$.nextOverlay.applyStyle('visibility', (this.wrap || (this.value !== this.max)) ? 'visible' : 'hidden');
+			this.$.previousOverlay.applyStyle('visibility', (this.wrap || this.value - this.step >= this.min) ? 'visible' : 'hidden');
+			this.$.nextOverlay.applyStyle('visibility', (this.wrap || this.value + this.step <= this.max) ? 'visible' : 'hidden');
 		},
 
 		/**
