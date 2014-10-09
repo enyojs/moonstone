@@ -1021,6 +1021,10 @@
 		* @private
 		*/
 		panelsShown: function(sender, e) {
+			if(e.pattern == 'activity') {
+				this.hide();
+			}
+
 			this._panelsShowing = true;
 			this._controlsShowing = false;
 			this._infoShowing = false;
@@ -1041,6 +1045,7 @@
 		panelsHidden: function(sender, e) {
 			var current;
 
+			this.show();
 			this._panelsShowing = false;
 			this.updateSpotability();
 
