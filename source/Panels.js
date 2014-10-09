@@ -156,7 +156,9 @@
 		handleTools: [
 			{name: 'backgroundScrim', kind: 'enyo.Control', classes: 'moon-panels-background-scrim'},
 			{name: 'clientWrapper', kind: 'enyo.Control', classes: 'enyo-fill enyo-arranger moon-panels-client', components: [
-				{name: 'scrim', classes: 'moon-panels-panel-scrim'},
+				{name: 'scrim', classes: 'moon-panels-panel-scrim', components: [
+					{name: 'branding', kind: 'enyo.Image', sizing: 'contain', classes: 'moon-panels-branding'}
+				]},
 				{name: 'client', tag: null}
 			]},
 			{name: 'showHideHandle', kind: 'enyo.Control', classes: 'moon-panels-handle hidden', canGenerate: false, ontap: 'handleTap', onSpotlightLeft: 'handleSpotLeft', onSpotlightRight: 'handleSpotRight', onSpotlightFocused: 'handleFocused', onSpotlightBlur: 'handleBlur'},
@@ -417,6 +419,7 @@
 				// we need to ensure our handler has the opportunity to modify the flow during
 				// initialization
 				this.showingChanged();
+				this.brandingSrcChanged();
 			};
 		}),
 
@@ -444,6 +447,7 @@
 					this._directHide();
 				}
 			}
+			this.indexChanged();
 		},
 
 		/**
@@ -928,7 +932,7 @@
 		*
 		* @private
 		*/
-		indexChanged: function (inPrevious) {
+		indexChanged: function () {
 			var activePanel = this.getActive();
 
 			if (activePanel && activePanel.isBreadcrumb) {
@@ -937,9 +941,10 @@
 
 			this.inherited(arguments);
 
-			// Update display of branding image
-			if (this.getPanelInfo(0, this.index).breadcrumb !== this.getPanelInfo(0, this.inPrevious).breadcrumb) {
-				this.brandingSrcChanged();
+			if (this.pattern === 'activity' && this.getPanelInfo(0, this.index).breadcrumb) {
+				this.$.branding.show();
+			} else {
+				this.$.branding.hide();
 			}
 		},
 
@@ -1222,9 +1227,7 @@
 		* @private
 		*/
 		brandingSrcChanged: function () {
-			if (this.pattern === 'activity') {
-				this.$.scrim.applyStyle('background-image', (this.brandingSrc && this.getPanelInfo(0, this.index).breadcrumb) ? 'url(' + enyo.path.rewrite(this.brandingSrc) + ')' : 'none');
-			}
+			this.$.branding.set('src', this.brandingSrc);
 		}
 	});
 
