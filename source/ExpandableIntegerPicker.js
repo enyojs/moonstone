@@ -153,8 +153,8 @@
 		* @private
 		*/
 		bindings: [
-			{from: '.min', to: '.$.picker.min'},
-			{from: '.max', to: '.$.picker.max'},
+			{from: '.min', to: '.$.picker.min', oneWay: false},
+			{from: '.max', to: '.$.picker.max', oneWay: false},
 			{from: '.step', to: '.$.picker.step'},
 			{from: '.unit', to: '.$.picker.unit'},
 			{from: '.value', to: '.$.picker.value', oneWay: false},
@@ -195,6 +195,16 @@
 			if (this.value < this.min || this.value > this.max) {
 				this.value = inOld;
 			}
+
+			this.$.picker.set('value', this.value);
+
+			// picker may have clamped the value based on its step value so check it and notify
+			// currentValueText if it changed
+			if(this.$.picker.value !== this.value) {
+				this.value = this.$.picker.value;
+				this.notifyObservers('currentValueText');
+			}
+
 			this.fireChangeEvent();
 		},
 
