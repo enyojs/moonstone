@@ -13,7 +13,7 @@
 	* Child controls may bubble this event to toggle the fullscreen state of the video player.
 	* No additional data needs to be sent with this event.
 	*
-	* @event moon.VideoPlayer#onRequestFullscreen
+	* @event moon.VideoPlayer#onRequestToggleFullscreen
 	* @type {Object}
 	* @public
 	*/
@@ -255,7 +255,11 @@
 
 			/**
 			* When `false`, the player starts in fullscreen mode; when `true`, it starts in inline 
-			* mode.
+			* mode. As this is meant to be initialized on startup, fire the 
+			* [onRequestToggleFullscreen]{@link enyo.VideoPlayer#event:onRequestToggleFullscreen}
+			* event from a child control or call 
+			* [toggleFullScreen]{@link enyo.VideoPlayer#toggleFullScreen} to dynamically toggle
+			* between fullscreen and inline mode.
 			*
 			* @type {Boolean}
 			* @default false
@@ -1542,6 +1546,7 @@
 				this.spotlight = false;
 				this.spotlightModal = false;
 			}
+			this.updatePosition();
 		},
 
 		/** 
