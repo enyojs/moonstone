@@ -306,7 +306,7 @@
 		* @private
 		*/
 		valueChanged: function (old) {
-			this.value -= (this.value-this.min)%this.step;
+			this.clampValue();
 			if (this.value < this.min) {
 				this.setMin(this.value);
 			} else if (this.value > this.max) {
@@ -317,10 +317,20 @@
 			this.updateOverlays();
 		},
 
+		/**
+		* @private
+		*/
 		stepChanged: function (old) {
 			var step = parseInt(this.step, 10);
 			this.step = isNaN(step)? 1 : step;
-			this.valueChanged(this.value);
+			this.clampValue();
+		},
+
+		/**
+		* @private
+		*/
+		clampValue: function () {
+			this.set('value', this.value - (this.value-this.min)%this.step);
 		},
 
 		/**
