@@ -447,6 +447,7 @@
 					this._directHide();
 				}
 			}
+			this.indexChanged();
 		},
 
 		/**
@@ -931,7 +932,7 @@
 		*
 		* @private
 		*/
-		indexChanged: function (inPrevious) {
+		indexChanged: function () {
 			var activePanel = this.getActive();
 
 			if (activePanel && activePanel.isBreadcrumb) {
