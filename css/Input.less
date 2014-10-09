@@ -17,27 +17,47 @@
 .enyo-locale-non-latin .moon-input {
 	.enyo-locale-non-latin .moon-body-text;
 }
-//test thai character with higher and lower accents: ไััุุ
-.enyo-locale-non-latin.enyo-locale-th .moon-input {
-	font-size: 24px;
-	line-height: 52px;
-}
 .moon-neutral .moon-input {
    color: @moon-input-font-color;
 }
-.moon-input-decorator.moon-focused .moon-input {
-	cursor: text;
+.moon-input-decorator {
+	.moon-focused .moon-input {
+		cursor: text;
+	}
+	.moon-disabled .moon-input {
+		cursor: default;
+	}
+	> input::-webkit-input-placeholder {
+		color: @moon-input-placeholder-color;
+	}
+	> input:-moz-placeholder {
+		color: @moon-input-placeholder-color;
+	}
+	// IE10
+	> input:-ms-input-placeholder {
+		color: @moon-input-placeholder-color;
+	}
 }
-.moon-input-decorator.moon-disabled .moon-input {
-	cursor: default;
-}
-.moon-input-decorator > input::-webkit-input-placeholder {
-	color: @moon-input-placeholder-color;
-}
-.moon-input-decorator > input:-moz-placeholder {
-	color: @moon-input-placeholder-color;
-}
-/* IE10 */
-.moon-input-decorator > input:-ms-input-placeholder {
-	color: @moon-input-placeholder-color;
+
+.enyo-locale-non-latin {
+	// Languages with combining accent characters
+	&.enyo-locale-th, // Thai - Test Chars: ฟิ้ไััุุ
+	&.enyo-locale-ar, // Arabic
+	&.enyo-locale-fa, // Farsi
+	&.enyo-locale-ur, // Urdu
+	&.enyo-locale-ku, // Kurdish
+	&.enyo-locale-he, // Hebrew
+	&.enyo-locale-hi, // Hindi
+	&.enyo-locale-ta, // Tamil
+	&.enyo-locale-te, // Telugu
+	&.enyo-locale-kn, // Kannada
+	&.enyo-locale-ml, // Malayalam
+	&.enyo-locale-mr, // Marathi
+	&.enyo-locale-bn, // Bengali
+	&.enyo-locale-pa {// Panjabi
+		.moon-input-decorator .moon-input {
+			font-size: 24px;
+			line-height: 48px
+		}
+	}
 }
