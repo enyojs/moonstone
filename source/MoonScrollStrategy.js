@@ -166,13 +166,6 @@
 		},
 
 		/**
-		* @private
-		*/
-		setLastFocusedChild: function(control) {
-			enyo.Spotlight.Container.setLastFocusedChild(this.$.viewport, control);
-		},
-
-		/**
 		* Gets the left scroll position within the scroller.
 		*
 		* @returns {Number} The left scroll position.
