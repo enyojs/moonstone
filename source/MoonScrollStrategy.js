@@ -353,6 +353,7 @@
 			this.hovering = true;
 			this.calcBoundaries();
 			this.enableDisableScrollColumns();
+			this._getScrollBounds();
 			this.showHideScrollColumns(true);
 			this.updateHoverOnPagingControls(true);
 		},
