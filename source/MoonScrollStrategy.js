@@ -72,7 +72,17 @@
 			* @default 8
 			* @public
 			*/
-			paginationScrollMultiplier: 8
+			paginationScrollMultiplier: 8,
+
+			/**
+			* Determines if the viewport of the scroller should also
+			* be a Spotlight container, and assume container responsibilities
+			*
+			* @type {Boolean}
+			* @default false
+			* @public
+			*/
+			viewportIsSpotlightContainer: false
 		},
 
 		/**
@@ -139,6 +149,12 @@
 		* @private
 		*/
 		rendered: function() {
+			// if the viewport should be a spotlight container
+			// set it up, so it assumes responsibilities like remembering last spotted child
+			if(enyo.Spotlight && this.viewportIsSpotlightContainer) {
+				this.$.viewport.spotlight = 'container';
+				enyo.Spotlight.Container.initContainer(this.$.viewport);
+			}
 			enyo.TouchScrollStrategy.prototype.rendered._inherited.apply(this, arguments);
 			this.setupBounds();
 			this.spotlightPagingControlsChanged();
@@ -583,7 +599,7 @@
 
 		/**
 		* Decorate spotlight events from paging controls so user can 5-way out of container
-		* 
+		*
 		* @private
 		*/
 		spotPaging: function (sender, event) {
