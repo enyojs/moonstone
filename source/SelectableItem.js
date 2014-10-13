@@ -96,20 +96,6 @@
 		},
 		
 		/**
-		* @private
-		*/
-		components: [
-			{name: 'client', kind: 'moon.MarqueeText'}
-		],
-
-		/**
-		* @private
-		*/
-		bindings: [
-			{from: '.allowHtml', to: '.$.client.allowHtml'}
-		],
-		
-		/**
 		* @method
 		* @private
 		*/
@@ -144,6 +130,7 @@
 				return true;
 			}
 			if (this.handleTapEvent) {
+				this.resetMarquee();
 				this.setActive(!this.getActive());
 				this.bubble('onchange');
 			}
@@ -157,6 +144,7 @@
 			this.addRemoveClass('selected', selected);
 			this.setNodeProperty('selected', selected);
 			this.setAttribute('selected', selected ? 'selected' : '');
+			this.reflow();
 		},
 
 		/**
@@ -164,7 +152,6 @@
 		*/
 		updateActiveValue: function() {
 			this.setActive(this.getSelected());
-			this.resetMarquee();
 		},
 
 		/**
@@ -188,13 +175,6 @@
 			this.active = enyo.isTrue(this.active);
 			this.setSelected(this.active);
 			this.bubble('onActivate');
-		},
-
-		/**
-		* @private
-		*/
-		contentChanged: function() {
-			this.$.client.setContent(this.content);
 		}
 	});
 
