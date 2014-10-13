@@ -941,10 +941,12 @@
 
 			this.inherited(arguments);
 
-			if (this.pattern === 'activity' && this.getPanelInfo(0, this.index).breadcrumb) {
-				this.$.branding.show();
-			} else {
-				this.$.branding.hide();
+			if (this.$.branding) {
+				if (this.pattern == 'activity' && this.getPanelInfo(0, this.index).breadcrumb) {
+					this.$.branding.show();
+				} else {
+					this.$.branding.hide();
+				}
 			}
 		},
 
@@ -1227,7 +1229,9 @@
 		* @private
 		*/
 		brandingSrcChanged: function () {
-			this.$.branding.set('src', this.brandingSrc);
+			if (this.$.branding) {
+				this.$.branding.set('src', this.brandingSrc);
+			}
 		}
 	});
 
