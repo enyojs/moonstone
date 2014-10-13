@@ -323,7 +323,7 @@
 		/**
 		* @private
 		*/
-		showingChanged: function() {
+		showHideMethod: function() {
 			if (this.showing) {
 				if (this.animate) {
 					// need to call this early to prevent race condition where animationEnd
