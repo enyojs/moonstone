@@ -137,7 +137,9 @@
 		*/
 		requestShowTooltip: function (inSender, inEvent) {
 			if (this.autoShow && !enyo.Spotlight.isFrozen()) {
-				this.waterfallDown("onRequestShowTooltip", {originator: inSender}, this);
+				if (inEvent.type == 'onSpotlightFocused' || enyo.Spotlight.getPointerMode()) {
+					this.waterfallDown('onRequestShowTooltip', {originator: inSender}, this);
+				}
 			}
 		},
 

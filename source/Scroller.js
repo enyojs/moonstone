@@ -16,13 +16,13 @@
 	* (Spotlight) and pagination buttons.
 	*
 	* It responds when controls explicitly request to be scrolled into view by emitting the
-	* [onRequestScrollIntoView]{@link moon.Scroller#event:onRequestScrollIntoView} event. This
-	* typically happens when a control handles an
-	* [onSpotlightFocused]{@link Spotlight:event#onSpotlightFocused} event, ensuring that 5-way
-	* ({@glossary Spotlight}) focused controls remain in view.
+	* [onRequestScrollIntoView]{@link enyo.Scroller#onRequestScrollIntoView} event. This
+	* typically happens when a control handles an `onSpotlightFocused` event, ensuring that
+	* 5-way ({@glossary Spotlight}) focused controls remain in view.
 	*
 	* For more information, see the documentation on
-	* [Scrollers](building-apps/layout/scrollers.html) in the Enyo Developer Guide.
+	* [Scrollers]{@linkplain docs/building-apps/layout/scrollers.html} in the
+	* Enyo Developer Guide.
 	*
 	* @class moon.Scroller
 	* @extends enyo.Scroller

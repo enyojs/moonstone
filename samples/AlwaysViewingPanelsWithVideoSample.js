@@ -43,15 +43,15 @@ enyo.kind({
 				]},
 				{kind: "moon.Tooltip", floating:true, content: "I'm a tooltip for a button."}
 			]},
-			{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
-			{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
-			{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
-			{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
-			{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
-			{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
-			{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
-			{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
-			{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"}
+			{kind: "moon.IconButton", small: false, classes:"moon-icon-video-round-controls-style"},
+			{kind: "moon.IconButton", small: false, classes:"moon-icon-video-round-controls-style"},
+			{kind: "moon.IconButton", small: false, classes:"moon-icon-video-round-controls-style"},
+			{kind: "moon.IconButton", small: false, classes:"moon-icon-video-round-controls-style"},
+			{kind: "moon.IconButton", small: false, classes:"moon-icon-video-round-controls-style"},
+			{kind: "moon.IconButton", small: false, classes:"moon-icon-video-round-controls-style"},
+			{kind: "moon.IconButton", small: false, classes:"moon-icon-video-round-controls-style"},
+			{kind: "moon.IconButton", small: false, classes:"moon-icon-video-round-controls-style"},
+			{kind: "moon.IconButton", small: false, classes:"moon-icon-video-round-controls-style"}
 		]},
         {name: "panels", kind: "moon.Panels", pattern: "alwaysviewing", classes: "enyo-fit", showing: false, components: [
             {title: "First Panel", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", classes: "moon-7h", components: [

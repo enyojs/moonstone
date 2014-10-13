@@ -4,7 +4,8 @@
 	* The color of the button may be customized by specifying a background color.
 	*
 	* For more information, see the documentation on
-	* [Buttons]{@link building-apps/controls/buttons.html} in the Enyo Developer Guide.
+	* [Buttons]{@linkplain docs/building-apps/controls/buttons.html} in the
+	* Enyo Developer Guide.
 	*
 	* @class moon.Button
 	* @extends enyo.Button

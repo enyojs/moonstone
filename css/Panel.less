@@ -9,18 +9,21 @@
 	}
 }
 
-/*scrim to prevent receiving user input while transitioning*/
+// Base set of styling for scrim to prevent receiving user input while transitioning
 .moon-panel:after {
-	content: '';
 	position: absolute;
 	top: 0;
 	left: 0;
 	bottom: 0;
 	right: 0;
-	z-index: -1;
+	-webkit-transform: translateZ(0);
+	transform: translateZ(0);
 }
+// Adding the content property here, instead of above, means that this element will only appear in
+// the DOM during ".transitioning". This was altered to improve marquee animation performance.
+// Pseudo-elements without a content property cannot receive styling.
 .moon-panel.transitioning:after {
-	z-index: auto;
+	content: '';
 }
 
 .moon-panel-viewport {
@@ -43,7 +46,7 @@
 .moon-panel-breadcrumb {
 	-webkit-transform: scale3d(1,1,1);
 	width: @moon-panel-breadcrumb-inner-width + (@moon-spotlight-outset * 2);
-	height: 370px;
+	height: @moon-panel-breadcrumb-height;
 	position: absolute;
 	top: 0px;
 	left: 0px;
@@ -147,7 +150,7 @@
 @-webkit-keyframes breadcrumb-inner {
 	0%        {-webkit-transform: translateZ(0) translateY(0%);}
 	36%, 100% {-webkit-transform: translateZ(0) translateY(-100%);}
-} 
+}
 
 .moon-panel {
 	.moon-panel-viewport,

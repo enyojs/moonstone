@@ -2902,18 +2902,17 @@
 .moon-panel.enyo-fit {
   height: auto;
 }
-/*scrim to prevent receiving user input while transitioning*/
 .moon-panel:after {
-  content: '';
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
-  z-index: -1;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 .moon-panel.transitioning:after {
-  z-index: auto;
+  content: '';
 }
 .moon-panel-viewport {
   -webkit-transform: scale3d(1, 1, 1);
@@ -3138,9 +3137,14 @@
   left: 0;
   width: 100%;
   background-color: #ededed;
-  background-position: bottom 20px left 20px;
-  background-repeat: no-repeat;
-  background-size: 210px;
+}
+.moon-panels.activity .moon-panels-panel-scrim .moon-panels-branding {
+  position: absolute;
+  top: 380px;
+  width: 210px;
+  bottom: 20px;
+  left: 20px;
+  background-position: bottom center;
 }
 .moon-panels.always-viewing .moon-panels-panel-scrim {
   left: 50%;
@@ -3430,6 +3434,8 @@
 		to set pointer events to auto or scrim will not function as expected.
 	*/
   pointer-events: none;
+  -webkit-transform: translateZ(0px);
+  transform: translateZ(0px);
 }
 .moon-scrim.moon-scrim-translucent {
   pointer-events: auto;
@@ -3449,9 +3455,18 @@
   padding: 40px;
   box-sizing: border-box;
   overflow: hidden;
+  -webkit-transform: translateY(100%) translateZ(0);
+  transform: translateY(100%) translateZ(0);
+  -webkit-transition: -webkit-transform 0.0001s ease;
+  transition: transform 0.0001s ease;
 }
 .moon-popup.animate {
   -webkit-transition: -webkit-transform 0.4s ease;
+  transition: transform 0.4s ease;
+}
+.moon-popup.showing {
+  -webkit-transform: translateY(0) translateZ(0);
+  transform: translateY(0) translateZ(0);
 }
 .moon-popup.reserve-close {
   padding-right: 70px;
@@ -4766,7 +4781,6 @@
 }
 .moon-icon-exitfullscreen.moon-icon-exitfullscreen-font-style {
   font-size: 100px;
-  line-height: 85px;
 }
 /* Put this at the end because we want these to take precedence over others */
 .moon-neutral {
