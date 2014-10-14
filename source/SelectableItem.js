@@ -179,7 +179,7 @@
 		* For use with the [Enyo Group API]{@link enyo.Group}, which is supported by this object.
 		* Called when the active item within the group changes. The
 		* [active]{@link enyo.SelectableItem#active} property and
-		* [onActivate]{@link enyo.SelectableItem#event:onActivate} event are both part of the
+		* [onActivate]{@link enyo.SelectableItem#onActivate} event are both part of the
 		* Group API.
 		*
 		* @private

@@ -2,7 +2,7 @@
 	/**
 	* {@link moon.ContextualPopupDecorator} is a control that loosely couples a
 	* {@link moon.ContextualPopup} with an activating control, which may be a button
-	* or any other control that fires an [onActivate]{@link enyo.Control#event:onActivate}
+	* or any other control that fires an [onActivate]{@link enyo.Control#onActivate}
 	* event. The decorator surrounds both the activating control and the contextual popup.
 	*
 	* When the control is activated, the popup shows itself in the correct position

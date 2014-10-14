@@ -121,12 +121,12 @@
 		events: {
 
 			/**
-			* {@link moon.Drawer#event:onActivate}
+			* {@link moon.Drawer#onActivate}
 			*/
 			onActivate: '',
 
 			/**
-			* {@link moon.Drawer#event:onDeactivate}
+			* {@link moon.Drawer#onDeactivate}
 			*/
 			onDeactivate: ''
 		},
@@ -264,6 +264,7 @@
 	*
 	* @class moon.FullScreenDrawer
 	* @extends enyo.Drawer
+	* @ui
 	* @protected
 	*/
 	enyo.kind({

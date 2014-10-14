@@ -42,7 +42,7 @@
 		*/
 		events: {
 			/**
-			* {@link moon.VideoPlayer#event:onRequestToggleFullscreen}
+			* {@link moon.VideoPlayer#onRequestToggleFullscreen}
 			*/
 			onRequestToggleFullscreen:''
 		},

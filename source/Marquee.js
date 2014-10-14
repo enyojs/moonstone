@@ -348,7 +348,7 @@
 
 		/**
 		* Starts timer to waterfall an
-		* [onRequestMarqueeStart]{@link moon.MarqueeSupport#event:onRequestMarqueeStart} event
+		* [onRequestMarqueeStart]{@link moon.MarqueeSupport#onRequestMarqueeStart} event
 		* that kicks off marquee animation on all child marquees.
 		*
 		* @public
@@ -358,7 +358,7 @@
 		},
 
 		/**
-		* Waterfalls an [onRequestMarqueeStop]{@link moon.MarqueeSupport#event:onRequestMarqueeStop}
+		* Waterfalls an [onRequestMarqueeStop]{@link moon.MarqueeSupport#onRequestMarqueeStop}
 		* event to halt all running child marquees.
 		*
 		* @public
@@ -517,7 +517,7 @@
 		events: {
 
 			/**
-			* {@link moon.MarqueeItem#event:onMarqueeEnded}
+			* {@link moon.MarqueeItem#onMarqueeEnded}
 			*/
 			onMarqueeEnded:''
 		},

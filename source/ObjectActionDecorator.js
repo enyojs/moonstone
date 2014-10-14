@@ -28,6 +28,7 @@
 	*
 	* @class moon.ObjectActionDecorator
 	* @extends enyo.Control
+	* @ui
 	* @public
 	*/
 	enyo.kind(

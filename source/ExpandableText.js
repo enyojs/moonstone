@@ -17,7 +17,7 @@
 	* content: 'I left my heart in San Francisco.'}
 	* ```
 	*
-	* The [onExpandCollapse]{@link moon.ExpandableText#event:onExpandCollapse} event is fired
+	* The [onExpandCollapse]{@link moon.ExpandableText#onExpandCollapse} event is fired
 	* when the control is either expanded or collapsed.
 	*
 	* @class moon.ExpandableText
@@ -90,7 +90,7 @@
 		events: {
 
 			/**
-			* {@link moon.ExpandableText#event:onExpandCollapse}
+			* {@link moon.ExpandableText#onExpandCollapse}
 			*/
 			onExpandCollapse: ''
 		},
@@ -223,7 +223,7 @@
 		/**
 		* When [collapsed]{@link moon.ExpandableText#collapsed} changes, adds/removes the
 		* line clamp, and pushes state to `this.$.button`. If the node has rendered, bubbles
-		* [onExpandCollapse]{@link moon.ExpandableText#event:onExpandCollapse} event.
+		* [onExpandCollapse]{@link moon.ExpandableText#onExpandCollapse} event.
 		*
 		* @fires moon.ExpandableText#onExpandCollapse
 		* @fires moon.Scroller#onRequestScrollIntoView
@@ -382,8 +382,8 @@
 		handlers: {
 
 			/**
-			* {@link enyo.Spotlight#event:onSpotlightFocus}, the handler bubbles a
-			* [requestScrollIntoView]{@link moon.Scroller#event:requestScrollIntoView} event.
+			* {@link enyo.Spotlight#onSpotlightFocus}, the handler bubbles a
+			* [requestScrollIntoView]{@link moon.Scroller#requestScrollIntoView} event.
 			*/
 			onSpotlightFocused	: 'spotFocused'
 
@@ -408,7 +408,7 @@
 		},
 
 		/**
-		* Bubbles a [requestScrollIntoView]{@link moon.Scroller#event:requestScrollIntoView}
+		* Bubbles a [requestScrollIntoView]{@link moon.Scroller#requestScrollIntoView}
 		* event.
 		*
 		* @fires moon.Scroller#requestScrollIntoView

@@ -48,7 +48,7 @@
 	/**
 	* {@link moon.HighlightText} is a control that displays highlighted text.  When
 	* the [highlight]{@link moon.HighlightText#highlight} property is set or an
-	* [onHighlight]{@link moon.HighlightText#event:onHighlight} event is received,
+	* [onHighlight]{@link moon.HighlightText#onHighlight} event is received,
 	* it will highlight a specified string if that string is found within the
 	* control's content.
 	*
@@ -71,7 +71,7 @@
 	* the word 'Hello' will be highlighted.
 	*
 	* The highlighting will be turned off when an
-	* [onUnHighlight]{@link moon.HighlightText#event:onUnHighlight} event is received.
+	* [onUnHighlight]{@link moon.HighlightText#onUnHighlight} event is received.
 	*
 	* ```
 	* this.waterfall('onUnHighlight');

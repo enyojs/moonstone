@@ -50,7 +50,7 @@
 		events: {
 
 			/**
-			* {@link moon.ExpandableIntegerPicker#event:onChange}
+			* {@link moon.ExpandableIntegerPicker#onChange}
 			*/
 			onChange: ''
 		},
@@ -256,7 +256,7 @@
 		},
 
 		/**
-		* @fires moon.ExpandableIntegerPicker#event:onChange
+		* @fires moon.ExpandableIntegerPicker#onChange
 		* @private
 		*/
 		fireChangeEvent: function () {

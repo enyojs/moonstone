@@ -1,6 +1,6 @@
 (function (enyo, scope) {
 	/**
-	* Fires when the current text changes. This passes through {@link enyo.Input#event:onChange}.
+	* Fires when the current text changes. This passes through {@link enyo.Input#onChange}.
 	*
 	* @event moon.ExpandableInput#onChange
 	* @type {Object}
@@ -40,7 +40,7 @@
 		*/
 		events: {
 
-			/** {@link moon.ExpandableInput#event:onChange} */
+			/** {@link moon.ExpandableInput#onChange} */
 			onChange: ''
 		},
 

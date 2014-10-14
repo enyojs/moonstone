@@ -346,7 +346,7 @@
 		/*
 		* When the picker is initialized, looks for any items with the `active` flag set to
 		* `true`; if one is found, it is set as the currently selected item. This is done
-		* without triggering an [onChange]{@link moon.SimplePicker#event:onChange} event, as
+		* without triggering an [onChange]{@link moon.SimplePicker#onChange} event, as
 		* it happens during initialization.
 		*
 		* @private

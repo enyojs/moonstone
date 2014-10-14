@@ -527,6 +527,7 @@
 	*
 	* @class moon.ListActionsDrawer
 	* @extends enyo.Control
+	* @ui
 	* @public
 	*/
 	enyo.kind(
