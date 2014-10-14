@@ -471,7 +471,7 @@
 			if (typeof ilib !== 'undefined') {
 				this.cal = ilib.Cal.newInstance();
 				this.localeValue = ilib.Date.newInstance({timezone: 'local'});
-				this._dateFormatter = new ilib.DateFmt({
+				this._dateFmt = new ilib.DateFmt({
 					type: 'date',	// only format the date component, not the time
 					date: 'd',		// 'd' is the date of month
 					useNative: false,
@@ -507,7 +507,7 @@
 					this.$.dates.createComponent({
 						kind: 'moon.CalendarDate', 
 						onDateSelected:'selectDate',
-						formatter: this._dateFormatter // undefined if ilib is not available
+						formatter: this._dateFmt // undefined if ilib is not available
 					}, {owner:this});
 				}
 			}
@@ -614,7 +614,7 @@
 
 				// notify each date instance as well
 				var dates = this.$.dates.getControls();
-				this._dateFormatter = new ilib.DateFmt({
+				this._dateFmt = new ilib.DateFmt({
 					type: 'date',	// only format the date component, not the time
 					date: 'd',		// 'd' is the date of month
 					useNative: false,
@@ -622,12 +622,12 @@
 					timezone: 'local'
 				});
 				for (var i = 0; i < this.$.dates.controls.length; i++) {
-					dates[i].setDateFormatter(this._dateFormatter);
+					dates[i].setDateFormatter(this._dateFmt);
 				}
 			}
 			this.updateYearPicker();
 			this.updateMonthPicker();
-			this.setDayOfWeekLength(this._dateFormatter.length);
+			this.setDayOfWeekLength(this._dateFmt.length);
 			this.doChange({value: this.value});
 		},
 
