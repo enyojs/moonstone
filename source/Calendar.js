@@ -113,7 +113,7 @@
 			this.inherited(arguments);
 			if (typeof ilib !== 'undefined' && arguments.length > 0 && typeof(arguments[0].formatter) !== 'undefined') {
 				// re-use this formatter to avoid creating a new one for each calendar date instance
-				this._tf = arguments[0].formatter;
+				this._dateFmt = arguments[0].formatter;
 			}
 		},
 
@@ -134,7 +134,7 @@
 						unixtime: this.value.getTime(),
 						timezone: 'local'
 					});
-					this.setContent(this._tf.format(this.localeValue));
+					this.setContent(this._dateFmt.format(this.localeValue));
 				} else {
 					this.setContent(this.value.getDate());
 				}
@@ -158,8 +158,8 @@
 			});
 
 			// reformat the number with the new timezone/calendar/locale
-			this._tf = formatter;
-			this.setContent(this._tf.format(this.localeValue));
+			this._dateFmt = formatter;
+			this.setContent(this._dateFmt.format(this.localeValue));
 		},
 		
 		/**
