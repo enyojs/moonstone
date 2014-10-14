@@ -390,13 +390,14 @@
 			*
 			* Length of abbreviation to use for day of the week.
 			* Accepted values are `'short'`, `'medium'`, `'long'`, and `'full'`.
+			* Or you can use the first char of values because ilib can accept it.
 			* Only valid if [iLib]{@glossary ilib} is loaded.
 			*
 			* @type {String}
-			* @default 'short'
+			* @default 'short' || 's'
 			* @public
 			*/
-			dayOfWeekLength: 'short'
+			dayOfWeekLength: 's'	//short
 		},
 
 		/**
@@ -616,7 +617,7 @@
 					type: 'date',	// only format the date component, not the time
 					date: 'd',		// 'd' is the date of month
 					useNative: false,
-					length: 'short',	//it uses 2 chars to abbreviate properly
+					length: 's',	//"short" uses 2 chars to abbreviate properly
 					timezone: 'local'
 				});
 				for (var i = 0; i < this.$.dates.controls.length; i++) {
@@ -625,7 +626,7 @@
 			}
 			this.updateYearPicker();
 			this.updateMonthPicker();
-			this.dayOfWeekLengthChanged();
+			this.setDayOfWeekLength(this._dateFormatter.length);
 			this.doChange({value: this.value});
 		},
 
