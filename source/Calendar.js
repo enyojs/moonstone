@@ -607,6 +607,7 @@
 				});
 
 				this._monthFmt = undefined; // force it to recreate the formatter
+				this._dayFmt = undefined;
 				this.calendarChanged();
 				this.firstDayOfWeek = -1; // Force change handler when locale changes
 				this.setFirstDayOfWeek(new ilib.LocaleInfo(this.locale).getFirstDayOfWeek());
@@ -771,6 +772,16 @@
 		* @private
 		*/
 		updateDays: function () {
+			if (typeof(this._dayFmt) === 'undefined' && typeof ilib !== 'undefined') {
+				this._dayFmt = new ilib.DateFmt({					
+					type: 'date',	//only format the date component, not the time
+					date: 'w',		//'w' is the day of the week
+					useNative: false,
+					length: this.dayOfWeekLength,
+					locale: this.locale					
+				});
+			}
+
 			var daysControls = this.$.days.getClientControls();
 			for(var i = 0; i < 7; i++) {
 				if (typeof ilib !== 'undefined') {
@@ -782,7 +793,7 @@
 						hour: 12,
 						locale: this.locale
 					});
-					var day = this._tf.format(date);
+					var day = this._dayFmt.format(date);
 					daysControls[i].setContent(enyo.toUpperCase(day));
 				} else {
 					daysControls[i].setContent(this.days[(this.firstDayOfWeek + i) % 7]);
