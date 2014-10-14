@@ -446,13 +446,6 @@
 			this.initCalendar();
 			this.set('value', this.value || new Date(), true);
 			if (typeof ilib !== 'undefined') {
-				this._tf = new ilib.DateFmt({
-					type: 'date',	//only format the date component, not the time
-					date: 'w',		//'w' is the day of the week
-					useNative: false,
-					length: this.dayOfWeekLength,
-					timezone: 'local'
-				});
 				this.setLocale(new ilib.LocaleInfo().locale);
 			}
 		},
@@ -786,7 +779,7 @@
 			for(var i = 0; i < 7; i++) {
 				if (typeof ilib !== 'undefined') {
 					var date = ilib.Date.newInstance({
-						type: this._tf.getCalendar(),
+						type: this._dayFmt.getCalendar(),
 						year: 1584,
 						month: 1,
 						day:  1 + i + this.getFirstDayOfWeek(),
@@ -1145,16 +1138,8 @@
 		* @private
 		*/
 		dayOfWeekLengthChanged: function () {
-			if (typeof ilib !== 'undefined') {
-				this._tf = new ilib.DateFmt({
-					type: 'date',	//only format the date component, not the time
-					date: 'w',		//'w' is the day of the week
-					useNative: false,
-					length: this.dayOfWeekLength,
-					timezone: "local"
-				});
-				this.updateDays();
-			}
+			this._dayFmt = undefined;
+			this.updateDays();
 		}
 	});
 
