@@ -82,6 +82,13 @@
 			if (inEvent.originator === this) {
 				this.bubble('onRequestScrollIntoView');
 			}
+		},
+
+		/**
+		* @private
+		*/
+		tap: function () {
+			return this.disabled;
 		}
 	});
 
