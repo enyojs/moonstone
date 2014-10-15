@@ -91,8 +91,8 @@
 			* More than one option group may be added to the `listActions` block, in which options
 			* are laid out horizontally by default, with the height of each `FittableRows` being
 			* constrained to the height of the parent [Header]{@link moon.Header}. However, a
-			* minimum width (300px) is enforced for each group, and if there are more groups than
-			* will fit in the available horizontal space, all controls will instead be stacked
+			* minimum width (300px + 10px margin) is enforced for each group, and if there are more
+			* groups than will fit in the available horizontal space, all controls will instead be stacked
 			* vertically. In this case, an outer scroller is enabled; the outer scroller scrolls
 			* all groups vertically, and the `FittableRows` are reset to natural size based on
 			* their content, effectively disabling any scrollers contained within, to prevent
@@ -134,7 +134,7 @@
 			icon: '',
 
 			/**
-			* By default, list action menus are 300px wide. Set this to `true` to instead have
+			* By default, list action menus are 300px wide + 10px margin. Set this to `true` to instead have
 			* the menus be proportionally sized within the available space. Note that a minimum
 			* width of 300px is still respected; if all menus don't fit horizontally, they will
 			* be stacked vertically.
@@ -398,8 +398,8 @@
 		* @private
 		*/
 		shouldStack: function() {
-			// Assumption: min-width of all listActionsComponents set to 300px in CSS
-			return this.$.listActions.getBounds().width < (300 * this.listActionComponents.length);
+			// Assumption: min-width of all listActionsComponents set to 300px in CSS with 10px margin
+			return this.$.listActions.getBounds().width < (310 * this.listActionComponents.length);
 		},
 
 		/**
@@ -477,7 +477,8 @@
 		*/
 		optionSelected: function(sender, e) {
 			if (this.getOpen() && this.autoCollapse && !this.noAutoCollapse) {
-				this.startJob('expandContract', 'expandContract', 300);
+				// 300px width set in CSS with 10px margin
+				this.startJob('expandContract', 'expandContract', 310);
 			}
 		},
 
