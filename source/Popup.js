@@ -360,7 +360,6 @@
 					// animation is finished, fire it now, so interactive control is returned to the
 					// applicaiton while our popup is animating to the closed position.
 					this.showHideScrim(this.showing);
-					var args = arguments;
 				} else {
 					// Run inherited immediately
 					this.inherited(arguments);
