@@ -392,7 +392,7 @@
 		/**
 		* @private
 		*/
-		classes: 'moon-item moon-expandable-text-button',
+		classes: 'moon-body-text moon-expandable-text-button',
 
 		/**
 		* @private
