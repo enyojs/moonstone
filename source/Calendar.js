@@ -632,8 +632,8 @@
 		/**
 		* Sometimes the first day of week changes because of a locale change.
 		* When this happens, we destroy the day label and reconstruct it.
-		* We create a new {@link ilib.Date} instance with the time of the given day, and get
-		* a Gregorian date instance that represents the first day of the week.
+		* We create a new `ilib.Date` instance with the time of the given day, and
+		* get a Gregorian date instance that represents the first day of the week.
 		*
 		* @private
 		*/

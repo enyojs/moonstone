@@ -321,7 +321,7 @@
 
 		/**
 		* When a child marquee animation completes, removes the child from
-		* [marqueeWaitList]{@link moon.marqueeSupport#marqueeWaitList}.
+		* [marqueeWaitList]{@link moon.MarqueeSupport#marqueeWaitList}.
 		*
 		* @private
 		*/

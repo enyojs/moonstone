@@ -231,7 +231,7 @@
 		},
 
 		/**
-		* Sets [value]{@link @moon.ExpandableIntegerPicker#value} to `this.$.clientInput.value`.
+		* Sets [value]{@link moon.ExpandableIntegerPicker#value} to `this.$.clientInput.value`.
 		*
 		* @private
 		*/
