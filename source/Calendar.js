@@ -390,7 +390,7 @@
 			*
 			* Length of abbreviation to use for day of the week.
 			* Accepted values are `'short'`, `'medium'`, `'long'`, and `'full'`.
-			* Or you can use the first char of values because ilib can accept it.
+			* Or you can use the first char of it because ilib stores its first char only.
 			* Only valid if [iLib]{@glossary ilib} is loaded.
 			*
 			* @type {String}
