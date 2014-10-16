@@ -106,11 +106,14 @@
 					dataList.push({sampleName: sampleName, label: sampleName.replace(/(Sample)$/i, ' $1')});
 				}
 			}
-			var c = new enyo.Collection(dataList);
 			if (!this.$.list) {
 				this.createComponents(this.listTools);
 			}
-			this.$.list.set('collection', c);
+			this.$.list.render();
+			if (dataList.length) {
+				var c = new enyo.Collection(dataList);
+				this.$.list.set('collection', c);
+			}
 		},
 		localeGroupChanged: function (sender, ev) {
 			var locale = ev.toggledControl.get('value');
@@ -132,7 +135,7 @@
 		},
 		sampleChanged: function () {
 			if (this.get('sample')) {
-				this.loadSample();
+				this.openSample();
 			} else {
 				// We have no sample, just render out the list.
 				enyo.log('%cList all of the Samples', 'color:green');
@@ -145,48 +148,59 @@
 			var sampleName = ev.originator.get('sampleName');
 			this.set('sample', sampleName);
 		},
+		openSample: function () {
+			var s = this.get('sample'),
+				fs = this.get('files');
+
+			// Check if the key exists. We don't really care what the value is for this right now
+			if (Object.keys(fs).length) {
+				this.disableAllStylesheets();
+
+				if (s) {
+					// Check if the enyo.constructorForKind(s) throws an exception.
+					try {
+						enyo.constructorForKind('moon.sample.' + s);
+						// We haven't thrown yet, so it must have returned safely.
+
+						// Enable the stylesheet
+						this.enableStylesheet(s);
+
+						this.launchSample();
+						return true;
+					}
+					catch(err) {
+						// It threw an exception, so that sample isn't loaded.
+						return this.loadSample();
+					}
+				}
+				this.createList();
+				return false;
+			}
+		},
 		loadSample: function () {
 			var s = this.get('sample'),
 				fs = this.get('files'),
 				jsFile = s + '.js',
 				cssFile = s + '.css',
-				// Check if the key exists. We don't really care what the value is for this.
+				// Do we have JS and CSS
 				hasJs = (typeof fs[jsFile] != 'undefined'),
 				hasCss = (typeof fs[cssFile] != 'undefined');
 
-			if (Object.keys(fs).length) {
-				// Check if the enyo.constructorForKind(s) throws an exception.
-
-				this.disableAllStylesheets();
-
-				try {
-					enyo.constructorForKind('moon.sample.' + s);
-					// We haven't thrown yet, so it must have returned safely.
-
-					// Enable the stylesheet
-					this.enableStylesheet(s);
-
-					this.launchSample();
-					return true;
+			if (hasCss) {
+				// Enable the stylesheet if it's already here. If it isn't, load it.
+				if (!this.enableStylesheet(s)) {
+					this.appendToHead( this.createNode('link', {'class': 'sample-style ' + s, rel: 'stylesheet', href: cssFile, type: 'text/css'}) );
 				}
-				catch(err) {
-					// If it does throw an exception, we haven't loaded this sample yet. Lets load it.
-					if (hasCss) {
-						// Enable the stylesheet if it's already here. If it isn't, load it.
-						if (!this.enableStylesheet(s)) {
-							this.appendToHead( this.createNode('link', {'class': 'sample-style ' + s, rel: 'stylesheet', href: cssFile, type: 'text/css'}) );
-						}
-					}
-					if (hasJs) {
-						this.appendToHead( this.createNode('script', {type: 'text/javascript', src: jsFile, onload: this.bindSafely(this.launchSample, null) }) );
-					}
-					if (hasJs || hasCss) {
-						return true;
-					} else {
-						this.createList();
-						return false;
-					}
-				}
+			}
+			if (hasJs) {
+				this.appendToHead( this.createNode('script', {type: 'text/javascript', src: jsFile, onload: this.bindSafely(this.launchSample, null) }) );
+			}
+
+			if (hasJs || hasCss) {
+				return true;
+			} else {
+				this.createList();
+				return false;
 			}
 		},
 		enableStylesheet: function (name) {
@@ -211,7 +225,6 @@
 		},
 		haijackPackage: function () {
 			// Maybe we want to save this off and restore it after we've stolen it?
-			// var localDepends = enyo.depends;
 			var localDepends = enyo.depends;
 			enyo.depends = this.bindSafely(function() {
 				var i, file,
@@ -221,7 +234,7 @@
 					files[file] = (file || '').match(/\.js$/i) && file != 'package.js' && file != 'Sample.js';
 				}
 				this.set('files', files);
-				this.loadSample();
+				this.openSample();
 			});
 
 			this.appendToHead( this.createNode('script', {
@@ -287,7 +300,7 @@
 			onRouteChange: ''
 		},
 		handleRoute: function (sampleName, locale) {
-			this.doRouteChange({sampleName: sampleName, locale: locale});
+			this.doRouteChange({sampleName: sampleName, locale: locale || 'local'});
 		},
 		handleRouteLocaleOnly: function (locale) {
 			this.handleRoute({sampleName: null, locale: locale});
