@@ -129,8 +129,8 @@
 				this.createComponent({name: 'client', kind:'moon.MarqueeText', isChrome: true});
 				this.createComponent({name: 'tapArea', classes: 'button-tap-area', isChrome: true});
 			}
-			this.smallChanged();
-			this.minWidthChanged();
+			if (this.small) this.smallChanged();
+			if (this.minWidth) this.minWidthChanged();
 			this.contentChanged();
 			this.inherited(arguments);
 		},
