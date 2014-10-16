@@ -131,6 +131,7 @@
 			}
 			this.smallChanged();
 			this.minWidthChanged();
+			this.contentChanged();
 			this.inherited(arguments);
 		},
 
@@ -178,8 +179,7 @@
 			} else {
 				this.removeClass('small');
 				this.removeClass('moon-small-button-text');
-			}
-			this.contentChanged();
+			}			
 		},
 
 		/**
