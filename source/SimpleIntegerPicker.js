@@ -116,7 +116,7 @@
 		/**
 		* Appends unit to content, forming label for display.
 		*
-		* @see moon.IntegerPicker#labelForValue
+		* @see moon.IntegerPicker.labelForValue
 		* @private
 		* @method
 		*/
@@ -130,7 +130,7 @@
 		/**
 		* Calculates width of the picker when the first item is rendered.
 		*
-		* @see moon.IntegerPicker#updateRepeater
+		* @see moon.IntegerPicker.updateRepeater
 		* @private
 		* @method
 		*/
@@ -169,7 +169,7 @@
 		/**
 		* Forces recalculation of the width of the picker.
 		*
-		* @see enyo.UiComponent#reflow
+		* @see enyo.UiComponent.reflow
 		* @private
 		* @method
 		*/
