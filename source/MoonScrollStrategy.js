@@ -506,6 +506,16 @@
 		/**
 		* @private
 		*/
+		scrollMathStop: enyo.inherit(function (sup) {
+			return function () {
+				sup.apply(this, arguments);
+				this.updatePagingControlState();
+			};
+		}),
+
+		/**
+		* @private
+		*/
 		calcBoundaries: function() {
 			var s = this.$.scrollMath || this,
 				b = this._getScrollBounds()
