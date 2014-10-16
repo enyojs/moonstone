@@ -145,7 +145,7 @@
 				{name: 'currentValue', kind: 'moon.MarqueeText', classes: 'moon-expandable-picker-current-value'}
 			]},
 			{name: 'drawer', kind: 'enyo.Drawer', resizeContainer:false, classes:'moon-expandable-list-item-client indented', components: [
-				{name: 'picker', kind: 'moon.SimpleIntegerPicker', deferInitialization: true, onSelect: 'toggleActive'}
+				{name: 'picker', kind: 'moon.SimpleIntegerPicker', deferInitialization: true, onSelect: 'toggleActive', onChange: 'pickerValueChanged'}
 			]}
 		],
 
@@ -155,9 +155,9 @@
 		bindings: [
 			{from: '.min', to: '.$.picker.min', oneWay: false},
 			{from: '.max', to: '.$.picker.max', oneWay: false},
+			{from: '.value', to: '.$.picker.value'},
 			{from: '.step', to: '.$.picker.step'},
 			{from: '.unit', to: '.$.picker.unit'},
-			{from: '.value', to: '.$.picker.value', oneWay: false},
 			{from: '.showCurrentValue', to: '.$.currentValue.showing'},
 			{from: '.currentValueText', to: '.$.currentValue.content'},
 			{from: '.disabled', to: '.$.headerWrapper.disabled'}
@@ -184,28 +184,6 @@
 		*/
 		requestPickerReflow: function () {
 			this._needsPickerReflow = true;
-		},
-
-		/**
-		* Change handler
-		*
-		* @private
-		*/
-		valueChanged: function (inOld) {
-			if (this.value < this.min || this.value > this.max) {
-				this.value = inOld;
-			}
-
-			this.$.picker.set('value', this.value);
-
-			// picker may have clamped the value based on its step value so check it and notify
-			// currentValueText if it changed
-			if(this.$.picker.value !== this.value) {
-				this.value = this.$.picker.value;
-				this.notifyObservers('currentValueText');
-			}
-
-			this.fireChangeEvent();
 		},
 
 		/**
@@ -241,15 +219,6 @@
 		},
 
 		/**
-		* Sets [value]{@link @moon.ExpandableIntegerPicker#value} to `this.$.clientInput.value`.
-		*
-		* @private
-		*/
-		updateValue: function () {
-			this.setValue(this.$.picker.getValue());
-		},
-
-		/**
 		* If picker is open, closes and spots header; if picker is closed, opens and unspots.
 		*
 		* @private
@@ -266,11 +235,13 @@
 		},
 
 		/**
-		* @fires moon.ExpandableIntegerPicker#event:onChange
+		* Catch onChange events from the picker and update the value as it may have been clamped
+		* by the picker's `step` property
+		*
 		* @private
 		*/
-		fireChangeEvent: function () {
-			this.doChange({value: this.value, content: this.content});
+		pickerValueChanged: function (sender, event) {
+			this.set('value', event.value);
 		},
 
 		/**
