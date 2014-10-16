@@ -1173,7 +1173,7 @@
 		*/
 		applyShowAnimation: function (direct) {
 			this.$.clientWrapper.applyStyle('-webkit-transition', direct ? null : '-webkit-transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)');
-			this.$.clientWrapper.applyStyle('-webkit-transform', 'translateX(0)');
+			enyo.dom.transform(this.$.clientWrapper, {translateX: 0});
 		},
 
 		/**
@@ -1181,7 +1181,7 @@
 		*/
 		applyHideAnimation: function (direct) {
 			this.$.clientWrapper.applyStyle('-webkit-transition', direct ? null : '-webkit-transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)');
-			this.$.clientWrapper.applyStyle('-webkit-transform', 'translateX(100%)');
+			enyo.dom.transform(this.$.clientWrapper, {translateX: '100%'});
 		},
 
 		/**
