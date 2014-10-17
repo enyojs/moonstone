@@ -4717,30 +4717,10 @@
   -webkit-box-orient: vertical;
 }
 .moon-expandable-text .moon-expandable-text-button {
-  font-family: "MuseoSans 300";
-  font-size: 26px;
-  color: #4b4b4b;
-  line-height: 32px;
   float: right;
   display: inline-block;
-  padding-right: 42px;
+  padding: 10px 42px 10px 10px;
   position: relative;
-}
-.moon-expandable-text .moon-expandable-text-button a:link {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-expandable-text .moon-expandable-text-button a:visited {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-expandable-text .moon-expandable-text-button a:hover {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-expandable-text .moon-expandable-text-button a:active {
-  color: #cf0652;
-  text-decoration: none;
 }
 .moon-expandable-text .moon-expandable-text-button:after {
   position: absolute;
@@ -4751,6 +4731,7 @@
   font-size: 48px;
 }
 .moon-expandable-text .moon-expandable-text-button.spotlight {
+  background-color: #cf0652;
   color: #ffffff;
 }
 .moon-expandable-text .moon-expandable-text-button.collapsed:after {
@@ -4759,18 +4740,12 @@
 .moon-expandable-text .moon-expandable-text-button.hidden {
   display: none;
 }
-.enyo-locale-non-latin .moon-expandable-text .moon-expandable-text-button {
-  font-family: "Moonstone LG Display Light";
-  font-size: 26px;
-  line-height: 32px;
-}
 .enyo-locale-non-latin .moon-expandable-text .moon-expandable-text-button:after {
   top: 11px;
 }
 .enyo-locale-right-to-left .moon-expandable-text .moon-expandable-text-button {
   float: left;
-  padding-left: 42px;
-  padding-right: 10px;
+  padding: 10px 10px 10px 42px;
 }
 .enyo-locale-right-to-left .moon-expandable-text .moon-expandable-text-button:after {
   left: 11px;

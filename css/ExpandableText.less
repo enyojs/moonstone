@@ -10,21 +10,21 @@
 		-webkit-box-orient: vertical;
 	}
 	.moon-expandable-text-button {
-		.moon-body-text;
 		float: right;
 		display: inline-block;
-		padding-right: @moon-expandable-text-button-padding;
+		padding: @moon-spotlight-outset @moon-expandable-text-button-padding @moon-spotlight-outset @moon-spotlight-outset;
 		position: relative;
 
 		&:after {
 			position: absolute;
 			top: @moon-spotlight-outset;
-			right: @moon-spotlight-outset + 1px;
+			right: @moon-spotlight-outset + 1;
 			font-family: @moon-icon-font-family;
 			content: @moon-icon-arrowlargeup;
 			font-size: @moon-expandable-caret-icon-font-size;
 		}
 		&.spotlight {
+			background-color: @moon-accent;
 			color: @moon-white;
 		}
 		&.collapsed:after {
@@ -37,20 +37,17 @@
 }
 
 .enyo-locale-non-latin .moon-expandable-text .moon-expandable-text-button {
-	.enyo-locale-non-latin .moon-body-text;
-
 	&:after {
-		top: @moon-spotlight-outset + 1px;
+		top: @moon-spotlight-outset + 1;
 	}
 }
 
 .enyo-locale-right-to-left .moon-expandable-text .moon-expandable-text-button {
 	float: left;
-	padding-left: @moon-expandable-text-button-padding;
-	padding-right: @moon-spotlight-outset;
+	padding: @moon-spotlight-outset @moon-spotlight-outset @moon-spotlight-outset @moon-expandable-text-button-padding;
 
 	&:after {
-		left: @moon-spotlight-outset + 1px;
+		left: @moon-spotlight-outset + 1;
 		right: auto;
 	}
 }
