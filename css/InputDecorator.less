@@ -1,48 +1,65 @@
 /* InputDecorator.css */
-.moon-input-decorator:not(.moon-input-header-input-decorator) {
+.moon-input-decorator:not(.moon-input-header-input-decorator),
+.moon-textarea-decorator {
 	.moon-divider-text;
 	margin: 5px;
-	padding: 9px 30px;
-	border-radius: 34px;
 	border: @moon-input-border-width solid transparent;
 	background-color: @moon-input-decorator-bg-color;
-	box-sizing:border-box;
-}
+	box-sizing: border-box;
 
-
-.enyo-locale-non-latin .moon-input-decorator:not(.moon-input-header-input-decorator){
-  padding:5px 30px 9px;
+	&.spotlight {
+		border-color: @moon-spotlight-border-color;
+	}
+	&.moon-focused {
+		border-color: @moon-active-border-color;
+	}
 }
-.enyo-locale-non-latin.enyo-locale-th .moon-input-decorator:not(.moon-input-header-input-decorator) {
-	padding: 1px 30px;
-	height: 60px;
+.moon-input-decorator,
+.moon-textarea-decorator {
+	&.moon-disabled {
+		opacity: @moon-disabled-opacity;
+	}
+}
+.moon-input-decorator:not(.moon-input-header-input-decorator) {
+	padding: 9px 30px;
+	border-radius: 34px;
 }
 .moon-textarea-decorator {
-  .moon-divider-text;
-  margin: 5px;
-  padding: 9px 14px;
-  border-radius: 10px;
-  border: @moon-input-border-width solid transparent;
-  background-color: @moon-input-decorator-bg-color;
-  box-sizing:border-box;
+	padding: 9px 14px;
+	border-radius: 10px;
 }
 
-
-.enyo-locale-non-latin .moon-input-decorator:not(.moon-input-header-input-decorator), .enyo-locale-non-latin .moon-textarea-decorator {
-	.enyo-locale-non-latin .moon-divider-text;
+.moon-expandable-input .moon-input-decorator:not(.moon-input-header-input-decorator) {
+	margin: 5px 0;
 }
 
+.enyo-locale-non-latin {
+	.moon-input-decorator:not(.moon-input-header-input-decorator),
+	.moon-textarea-decorator {
+		.enyo-locale-non-latin .moon-divider-text;
+	}
+	.moon-input-decorator:not(.moon-input-header-input-decorator) {
+		padding-top: 5px;
+	}
 
-.moon-input-decorator:not(.moon-input-header-input-decorator).spotlight, .moon-textarea-decorator.spotlight {
-	border: @moon-input-border-width solid @moon-spotlight-border-color;
-}
-.moon-input-decorator.moon-disabled, .moon-textarea-decorator.moon-disabled {
-	opacity: @moon-disabled-opacity;
-}
-.moon-input-decorator:not(.moon-input-header-input-decorator).moon-focused, .moon-textarea-decorator.moon-focused {
-	border: @moon-input-border-width solid @moon-active-border-color;
-}
-
-.moon-expandable-input .moon-input-decorator:not(.moon-input-header-input-decorator){
-  margin:5px 0;
+	// Languages with combining accent characters
+	&.enyo-locale-th, // Thai
+	&.enyo-locale-ar, // Arabic
+	&.enyo-locale-fa, // Farsi
+	&.enyo-locale-ur, // Urdu
+	&.enyo-locale-ku, // Kurdish
+	&.enyo-locale-he, // Hebrew
+	&.enyo-locale-hi, // Hindi
+	&.enyo-locale-ta, // Tamil
+	&.enyo-locale-te, // Telugu
+	&.enyo-locale-kn, // Kannada
+	&.enyo-locale-ml, // Malayalam
+	&.enyo-locale-mr, // Marathi
+	&.enyo-locale-bn, // Bengali
+	&.enyo-locale-pa {// Panjabi
+		.moon-input-decorator:not(.moon-input-header-input-decorator) {
+			padding-top: 1px;
+			padding-bottom: 1px;
+		}
+	}
 }
