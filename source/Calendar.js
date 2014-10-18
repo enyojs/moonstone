@@ -113,7 +113,7 @@
 			this.inherited(arguments);
 			if (typeof ilib !== 'undefined' && arguments.length > 0 && typeof(arguments[0].formatter) !== 'undefined') {
 				// re-use this formatter to avoid creating a new one for each calendar date instance
-				this._tf = arguments[0].formatter;
+				this._dateFmt = arguments[0].formatter;
 			}
 		},
 
@@ -134,7 +134,7 @@
 						unixtime: this.value.getTime(),
 						timezone: 'local'
 					});
-					this.setContent(this._tf.format(this.localeValue));
+					this.setContent(this._dateFmt.format(this.localeValue));
 				} else {
 					this.setContent(this.value.getDate());
 				}
@@ -158,8 +158,8 @@
 			});
 
 			// reformat the number with the new timezone/calendar/locale
-			this._tf = formatter;
-			this.setContent(this._tf.format(this.localeValue));
+			this._dateFmt = formatter;
+			this.setContent(this._dateFmt.format(this.localeValue));
 		},
 		
 		/**
@@ -390,13 +390,14 @@
 			*
 			* Length of abbreviation to use for day of the week.
 			* Accepted values are `'short'`, `'medium'`, `'long'`, and `'full'`.
+			* Or you can use the first char of it because ilib stores its first char only.
 			* Only valid if [iLib]{@glossary ilib} is loaded.
 			*
 			* @type {String}
-			* @default 'short'
+			* @default 'short' || 's'
 			* @public
 			*/
-			dayOfWeekLength: 'short'
+			dayOfWeekLength: 's'	//short
 		},
 
 		/**
@@ -445,13 +446,6 @@
 			this.initCalendar();
 			this.set('value', this.value || new Date(), true);
 			if (typeof ilib !== 'undefined') {
-				this._tf = new ilib.DateFmt({
-					type: 'date',	//only format the date component, not the time
-					date: 'w',		//'w' is the day of the week
-					useNative: false,
-					length: this.dayOfWeekLength,
-					timezone: 'local'
-				});
 				this.setLocale(new ilib.LocaleInfo().locale);
 			}
 		},
@@ -470,7 +464,7 @@
 			if (typeof ilib !== 'undefined') {
 				this.cal = ilib.Cal.newInstance();
 				this.localeValue = ilib.Date.newInstance({timezone: 'local'});
-				this._dateFormatter = new ilib.DateFmt({
+				this._dateFmt = new ilib.DateFmt({
 					type: 'date',	// only format the date component, not the time
 					date: 'd',		// 'd' is the date of month
 					useNative: false,
@@ -506,7 +500,7 @@
 					this.$.dates.createComponent({
 						kind: 'moon.CalendarDate', 
 						onDateSelected:'selectDate',
-						formatter: this._dateFormatter // undefined if ilib is not available
+						formatter: this._dateFmt // undefined if ilib is not available
 					}, {owner:this});
 				}
 			}
@@ -606,26 +600,27 @@
 				});
 
 				this._monthFmt = undefined; // force it to recreate the formatter
+				this._dayFmt = undefined;
 				this.calendarChanged();
 				this.firstDayOfWeek = -1; // Force change handler when locale changes
 				this.setFirstDayOfWeek(new ilib.LocaleInfo(this.locale).getFirstDayOfWeek());
 
 				// notify each date instance as well
 				var dates = this.$.dates.getControls();
-				this._dateFormatter = new ilib.DateFmt({
+				this._dateFmt = new ilib.DateFmt({
 					type: 'date',	// only format the date component, not the time
 					date: 'd',		// 'd' is the date of month
 					useNative: false,
-					length: 'short',	//it uses 2 chars to abbreviate properly
+					length: 's',	//"short" uses 2 chars to abbreviate properly
 					timezone: 'local'
 				});
 				for (var i = 0; i < this.$.dates.controls.length; i++) {
-					dates[i].setDateFormatter(this._dateFormatter);
+					dates[i].setDateFormatter(this._dateFmt);
 				}
 			}
 			this.updateYearPicker();
 			this.updateMonthPicker();
-			this.dayOfWeekLengthChanged();
+			this.setDayOfWeekLength(this._dateFmt.length);
 			this.doChange({value: this.value});
 		},
 
@@ -770,18 +765,28 @@
 		* @private
 		*/
 		updateDays: function () {
+			if (typeof(this._dayFmt) === 'undefined' && typeof ilib !== 'undefined') {
+				this._dayFmt = new ilib.DateFmt({					
+					type: 'date',	//only format the date component, not the time
+					date: 'w',		//'w' is the day of the week
+					useNative: false,
+					length: this.dayOfWeekLength,
+					locale: this.locale					
+				});
+			}
+
 			var daysControls = this.$.days.getClientControls();
 			for(var i = 0; i < 7; i++) {
 				if (typeof ilib !== 'undefined') {
 					var date = ilib.Date.newInstance({
-						type: this._tf.getCalendar(),
+						type: this._dayFmt.getCalendar(),
 						year: 1584,
 						month: 1,
 						day:  1 + i + this.getFirstDayOfWeek(),
 						hour: 12,
 						locale: this.locale
 					});
-					var day = this._tf.format(date);
+					var day = this._dayFmt.format(date);
 					daysControls[i].setContent(enyo.toUpperCase(day));
 				} else {
 					daysControls[i].setContent(this.days[(this.firstDayOfWeek + i) % 7]);
@@ -1133,16 +1138,8 @@
 		* @private
 		*/
 		dayOfWeekLengthChanged: function () {
-			if (typeof ilib !== 'undefined') {
-				this._tf = new ilib.DateFmt({
-					type: 'date',	//only format the date component, not the time
-					date: 'w',		//'w' is the day of the week
-					useNative: false,
-					length: this.dayOfWeekLength,
-					timezone: "local"
-				});
-				this.updateDays();
-			}
+			this._dayFmt = undefined;
+			this.updateDays();
 		}
 	});
 
