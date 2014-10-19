@@ -1,48 +1,41 @@
 /* TextArea.css */
-.moon-textarea {
-	.moon-body-text;
-	margin: 0px;
-	padding: 0px;
-	border: none;
-	outline: none;
+.moon-textarea, .moon-richtext {
+	padding: 0;
+	border: 0;
 	cursor: pointer;
 	background: transparent;
-	box-shadow: none;
 	height: 3 * @moon-body-line-height;
 	width: 300px;
 	color: @moon-input-textarea-color;
+	// Remove scrollbars and resize handle
+	resize: none;
+	overflow: auto;
+
 	&::selection {
 		color: @moon-spotlight-text-color;
 		background-color: @moon-spotlight-background-color;
 	}
+
+	&::-webkit-scrollbar {
+		width: 4px;
+	}
+
+	&::-webkit-scrollbar-track-piece {
+		border-radius: 10px;
+	}
+
+	&::-webkit-scrollbar-thumb:vertical {
+		background-color: @moon-active-border-color;
+		border-radius: 10px;
+	}
 }
-.enyo-locale-non-latin .moon-textarea {
-	.enyo-locale-non-latin .moon-body-text;
-}
-.moon-textarea-decorator > .moon-textarea {
-	/* Remove scrollbars and resize handle */
-	resize: none;
-	overflow: auto;
-	/* FIXME: hack for styling reset on Android */
-	/* -webkit-appearance: caret;*/
-}
-.moon-textarea-decorator.moon-focused .moon-textarea {
-	cursor: text;
-}
-.moon-textarea-decorator.moon-disabled .moon-textarea {
-	cursor: default;
-}
-.moon-textarea-decorator .moon-textarea:focus::-webkit-scrollbar {
-  width: 4px;
-}
-.moon-textarea-decorator .moon-textarea:focus::-webkit-scrollbar-track-piece {
-  margin-top: 4px;
-  margin-bottom: 0px;
-  background-color: @moon-input-decorator-bg-color;
-  -webkit-border-radius: 10px;
-}
-.moon-textarea-decorator .moon-textarea:focus::-webkit-scrollbar-thumb:vertical {
-  height: 10px;
-  background-color: @moon-active-border-color;
-  -webkit-border-radius: 10px;
+
+.moon-textarea-decorator {
+	&.moon-focused .moon-textarea, .moon-focused .moon-richtext {
+		cursor: text;
+	}
+
+	&.moon-disabled .moon-textarea, .moon-disabled .moon-richtext {
+		cursor: default;
+	}
 }

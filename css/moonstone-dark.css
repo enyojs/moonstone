@@ -1815,46 +1815,15 @@
 }
 /* Input.css */
 .moon-input {
-  font-family: "MuseoSans 300";
-  font-size: 26px;
-  color: #a6a6a6;
-  line-height: 32px;
-  margin: 0px;
-  padding: 0px;
-  border: none;
-  outline: none;
+  padding: 0;
+  border: 0;
   cursor: pointer;
   background: transparent;
-  box-shadow: none;
   color: #4b4b4b;
-}
-.moon-input a:link {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-input a:visited {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-input a:hover {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-input a:active {
-  color: #cf0652;
-  text-decoration: none;
 }
 .moon-input::selection {
   color: #ffffff;
   background-color: #cf0652;
-}
-.enyo-locale-non-latin .moon-input {
-  font-family: "Moonstone LG Display Light";
-  font-size: 26px;
-  line-height: 32px;
-}
-.moon-neutral .moon-input {
-  color: #4b4b4b;
 }
 .moon-input-decorator .moon-focused .moon-input {
   cursor: text;
@@ -1868,8 +1837,8 @@
 .moon-input-decorator > input:-moz-placeholder {
   color: #868686;
 }
-.moon-input-decorator > input:-ms-input-placeholder {
-  color: #868686;
+.moon-neutral .moon-input {
+  color: #4b4b4b;
 }
 .enyo-locale-non-latin.enyo-locale-th .moon-input-decorator .moon-input,
 .enyo-locale-non-latin.enyo-locale-ar .moon-input-decorator .moon-input,
@@ -1891,9 +1860,6 @@
 /* InputDecorator.css */
 .moon-input-decorator:not(.moon-input-header-input-decorator),
 .moon-textarea-decorator {
-  font-family: "MuseoSans 700 Italic";
-  font-size: 22px;
-  color: #a6a6a6;
   margin: 5px;
   border: 5px solid transparent;
   background-color: #ffffff;
@@ -1906,6 +1872,14 @@
 .moon-input-decorator:not(.moon-input-header-input-decorator).moon-focused,
 .moon-textarea-decorator.moon-focused {
   border-color: #a6a6a6;
+}
+.moon-input-decorator:not(.moon-input-header-input-decorator) .moon-icon.small,
+.moon-textarea-decorator .moon-icon.small,
+.moon-input-decorator:not(.moon-input-header-input-decorator) .spotlight .moon-icon.small,
+.moon-textarea-decorator .spotlight .moon-icon.small {
+  width: 20px;
+  margin: 0;
+  color: #4b4b4b;
 }
 .moon-input-decorator.moon-disabled,
 .moon-textarea-decorator.moon-disabled {
@@ -1922,14 +1896,8 @@
 .moon-expandable-input .moon-input-decorator:not(.moon-input-header-input-decorator) {
   margin: 5px 0;
 }
-.enyo-locale-non-latin .moon-input-decorator:not(.moon-input-header-input-decorator),
-.enyo-locale-non-latin .moon-textarea-decorator {
-  font-family: "Moonstone LG Display Bold";
-  font-size: 28px;
-  font-style: normal;
-}
 .enyo-locale-non-latin .moon-input-decorator:not(.moon-input-header-input-decorator) {
-  padding-top: 5px;
+  padding: 5px 30px 9px;
 }
 .enyo-locale-non-latin.enyo-locale-th .moon-input-decorator:not(.moon-input-header-input-decorator),
 .enyo-locale-non-latin.enyo-locale-ar .moon-input-decorator:not(.moon-input-header-input-decorator),
@@ -1945,8 +1913,7 @@
 .enyo-locale-non-latin.enyo-locale-mr .moon-input-decorator:not(.moon-input-header-input-decorator),
 .enyo-locale-non-latin.enyo-locale-bn .moon-input-decorator:not(.moon-input-header-input-decorator),
 .enyo-locale-non-latin.enyo-locale-pa .moon-input-decorator:not(.moon-input-header-input-decorator) {
-  padding-top: 1px;
-  padding-bottom: 1px;
+  padding: 1px 30px;
 }
 /* ProgressBar.css */
 .moon-progress-bar {
@@ -2098,75 +2065,10 @@
   direction: rtl;
 }
 /* RichText.css */
-.moon-richtext {
-  font-family: "MuseoSans 300";
-  font-size: 26px;
-  color: #a6a6a6;
-  line-height: 32px;
-  margin: 0px;
-  padding: 0px;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  background: transparent;
-  box-shadow: none;
-  height: 96px;
-  width: 300px;
-  color: #4b4b4b;
-}
-.moon-richtext a:link {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-richtext a:visited {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-richtext a:hover {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-richtext a:active {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-richtext::selection {
-  color: #ffffff;
-  background-color: #cf0652;
-}
-.enyo-locale-non-latin .moon-richtext {
-  font-family: "Moonstone LG Display Light";
-  font-size: 26px;
-  line-height: 32px;
-}
 .moon-textarea-decorator > .moon-richtext {
-  resize: none;
-  overflow: auto;
   background-image: none;
   box-shadow: none;
   text-transform: none;
-  /* FIXME: hack for styling reset on Android */
-  /* -webkit-appearance: caret;*/
-}
-.moon-textarea-decorator.moon-focused .moon-richtext {
-  cursor: text;
-}
-.moon-textarea-decorator.moon-disabled .moon-richtext {
-  cursor: default;
-}
-.moon-textarea-decorator .moon-richtext:focus::-webkit-scrollbar {
-  width: 4px;
-}
-.moon-textarea-decorator .moon-richtext:focus::-webkit-scrollbar-track-piece {
-  margin-top: 4px;
-  margin-bottom: 0px;
-  background-color: #ffffff;
-  -webkit-border-radius: 10px;
-}
-.moon-textarea-decorator .moon-richtext:focus::-webkit-scrollbar-thumb:vertical {
-  height: 10px;
-  background-color: #a6a6a6;
-  -webkit-border-radius: 10px;
 }
 /* ContextualPopupButton.css */
 .moon-button.contextual-popup-button {
@@ -2438,73 +2340,42 @@
   overflow: hidden;
 }
 /* TextArea.css */
-.moon-textarea {
-  font-family: "MuseoSans 300";
-  font-size: 26px;
-  color: #a6a6a6;
-  line-height: 32px;
-  margin: 0px;
-  padding: 0px;
-  border: none;
-  outline: none;
+.moon-textarea,
+.moon-richtext {
+  border: 0;
   cursor: pointer;
   background: transparent;
-  box-shadow: none;
   height: 96px;
   width: 300px;
   color: #4b4b4b;
+  resize: none;
+  overflow: auto;
 }
-.moon-textarea a:link {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-textarea a:visited {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-textarea a:hover {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-textarea a:active {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-textarea::selection {
+.moon-textarea::selection,
+.moon-richtext::selection {
   color: #ffffff;
   background-color: #cf0652;
 }
-.enyo-locale-non-latin .moon-textarea {
-  font-family: "Moonstone LG Display Light";
-  font-size: 26px;
-  line-height: 32px;
-}
-.moon-textarea-decorator > .moon-textarea {
-  /* Remove scrollbars and resize handle */
-  resize: none;
-  overflow: auto;
-  /* FIXME: hack for styling reset on Android */
-  /* -webkit-appearance: caret;*/
-}
-.moon-textarea-decorator.moon-focused .moon-textarea {
-  cursor: text;
-}
-.moon-textarea-decorator.moon-disabled .moon-textarea {
-  cursor: default;
-}
-.moon-textarea-decorator .moon-textarea:focus::-webkit-scrollbar {
+.moon-textarea::-webkit-scrollbar,
+.moon-richtext::-webkit-scrollbar {
   width: 4px;
 }
-.moon-textarea-decorator .moon-textarea:focus::-webkit-scrollbar-track-piece {
-  margin-top: 4px;
-  margin-bottom: 0px;
-  background-color: #ffffff;
-  -webkit-border-radius: 10px;
+.moon-textarea::-webkit-scrollbar-track-piece,
+.moon-richtext::-webkit-scrollbar-track-piece {
+  border-radius: 10px;
 }
-.moon-textarea-decorator .moon-textarea:focus::-webkit-scrollbar-thumb:vertical {
-  height: 10px;
+.moon-textarea::-webkit-scrollbar-thumb:vertical,
+.moon-richtext::-webkit-scrollbar-thumb:vertical {
   background-color: #a6a6a6;
-  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+.moon-textarea-decorator.moon-focused .moon-textarea,
+.moon-textarea-decorator .moon-focused .moon-richtext {
+  cursor: text;
+}
+.moon-textarea-decorator.moon-disabled .moon-textarea,
+.moon-textarea-decorator .moon-disabled .moon-richtext {
+  cursor: default;
 }
 /* List Actions */
 .moon-list-actions {
