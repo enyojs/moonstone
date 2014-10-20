@@ -702,6 +702,7 @@
 			if (this.$.marqueeText) {
 				this.$.marqueeText.setContent(this.content);
 			}
+			this._marquee_detectAlignment();
 			this._marquee_reset();
 		},
 
