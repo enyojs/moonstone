@@ -147,9 +147,6 @@
 		* @private
 		*/
 		expandContract: function () {
-			if (this.disabled) {
-				return true;
-			}
 			if (this.getOpen()) {
 				this.closeDrawerAndHighlightHeader();
 			} else {

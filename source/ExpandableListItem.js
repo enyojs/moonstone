@@ -226,10 +226,6 @@
 		* @private
 		*/
 		expandContract: function (inSender, inEvent) {
-			if (this.disabled) {
-				return true;
-			}
-
 			this.toggleActive();
 
 			if (this.getActive() && !enyo.Spotlight.getPointerMode()) {
