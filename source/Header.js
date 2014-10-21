@@ -309,7 +309,7 @@
 				this.adjustTitleWidth();
 			} else {
 				enyo.asyncMethod(this, function () {
-					if (this.hasNode()) {
+					if (!this.destroyed && this.hasNode()) {
 						this.adjustTitleWidth();
 						_delayedMeasurementFinished = true;
 					}
