@@ -96,20 +96,6 @@
 		},
 		
 		/**
-		* @private
-		*/
-		components: [
-			{name: 'client', kind: 'moon.MarqueeText'}
-		],
-
-		/**
-		* @private
-		*/
-		bindings: [
-			{from: '.allowHtml', to: '.$.client.allowHtml'}
-		],
-		
-		/**
 		* @method
 		* @private
 		*/
@@ -157,6 +143,7 @@
 			this.addRemoveClass('selected', selected);
 			this.setNodeProperty('selected', selected);
 			this.setAttribute('selected', selected ? 'selected' : '');
+			this.reflow();
 		},
 
 		/**
@@ -164,7 +151,6 @@
 		*/
 		updateActiveValue: function() {
 			this.setActive(this.getSelected());
-			this.resetMarquee();
 		},
 
 		/**
@@ -187,14 +173,8 @@
 		activeChanged: function() {
 			this.active = enyo.isTrue(this.active);
 			this.setSelected(this.active);
+			this.resetMarquee();
 			this.bubble('onActivate');
-		},
-
-		/**
-		* @private
-		*/
-		contentChanged: function() {
-			this.$.client.setContent(this.content);
 		}
 	});
 
