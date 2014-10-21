@@ -68,13 +68,10 @@
 				return;
 			}
 
-			this.requestHidePopup();
 			if (inEvent.originator.active) {
 				this.activator = inEvent.originator;
-				// if this ContextualPopup is already activated
 				if (this.popupActivated) {
-					inEvent.originator.active = false;
-					this.popupActivated = false;
+					this.requestHidePopup();
 				} else {
 					this.activator.addClass('active');
 					this.requestShowPopup();
@@ -94,6 +91,7 @@
 			if (this.popup === undefined) {
 				this.popup = inEvent.originator;
 			}
+			this.popupActivated = true;
 		},
 
 		/**
@@ -103,11 +101,13 @@
 		*/
 		popupHidden: function () {
 			if (this.activator) {
-				this.popupActivated = this.popup.popupActivated;
-				this.activator.active = false;
 				this.activator.removeClass('active');
 				this.activator.removeClass('pressed');
+				enyo.asyncMethod(this.bindSafely(function () {
+					this.activator.active = false;
+				}));
 			}
+			this.popupActivated = false;
 		},
 
 		/**

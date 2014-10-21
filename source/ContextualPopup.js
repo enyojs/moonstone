@@ -442,23 +442,9 @@
 		/**
 		* @private
 		*/
-		capturedTap: function (inSender, inEvent) {
-			// If same activator tapped sequentially, we notice that this popup is already activeted.
-			if (inEvent.dispatchTarget.isDescendantOf(this.activator)) {
-				this.popupActivated = true;
-			} else {
-				this.popupActivated = false;
-			}
-			this.inherited(arguments);
-		},
-
-		/**
-		* @private
-		*/
 		onLeave: function (oSender, oEvent) {
 			if (oEvent.originator == this) {
 				enyo.Spotlight.spot(this.activator);
-				this.popupActivated = false;
 				this.hide();
 			}
 		},
