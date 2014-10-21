@@ -130,7 +130,6 @@
 				return true;
 			}
 			if (this.handleTapEvent) {
-				this.resetMarquee();
 				this.setActive(!this.getActive());
 				this.bubble('onchange');
 			}
@@ -174,6 +173,7 @@
 		activeChanged: function() {
 			this.active = enyo.isTrue(this.active);
 			this.setSelected(this.active);
+			this.resetMarquee();
 			this.bubble('onActivate');
 		}
 	});
