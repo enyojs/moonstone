@@ -7,7 +7,7 @@
 	*
 	* @event moon.Header#onInputHeaderInput
 	* @type {Object}
-	* @property {Object} originalEvent - The original event fired from the input. See 
+	* @property {Object} originalEvent - The original event fired from the input. See
 	*	{@link enyo.Input#oninput} for more event information.
 	* @public
 	*/
@@ -18,7 +18,7 @@
 	*
 	* @event moon.Header#onInputHeaderChange
 	* @type {Object}
-	* @property {Object} originalEvent - The original event fired from the input. See 
+	* @property {Object} originalEvent - The original event fired from the input. See
 	*	{@link enyo.Input#onchange} for more event information.
 	* @public
 	*/
@@ -586,20 +586,22 @@
 		adjustTitleWidth: function() {
 			var type = this.get('type'),
 				// Measure client area's width + 40px of spacing
-				client = this.$.client.hasNode(),
+				client = this.$.client ? this.$.client.hasNode() : null,
 				clientWidth = client ? client.offsetWidth : null,
 				clientSpace = (clientWidth + 40) + 'px',
 				rtl = this.rtl;
 
-			// Set the margin on the correct side for the correct control, otherwise set it to nothing
-			this.$.title.applyStyle('margin-right', (type == 'small' && !rtl && clientWidth) ? clientSpace : null);
-			this.$.title.applyStyle('margin-left', (type == 'small' && rtl && clientWidth) ? clientSpace : null);
+			if (client) {
+				// Set the margin on the correct side for the correct control, otherwise set it to nothing
+				this.$.title.applyStyle('margin-right', (type == 'small' && !rtl && clientWidth) ? clientSpace : null);
+				this.$.title.applyStyle('margin-left', (type == 'small' && rtl && clientWidth) ? clientSpace : null);
 
-			this.$.titleBelow.applyStyle('margin-right', (type == 'medium' && !rtl && clientWidth) ? clientSpace : null);
-			this.$.titleBelow.applyStyle('margin-left', (type == 'medium' && rtl && clientWidth) ? clientSpace : null);
+				this.$.titleBelow.applyStyle('margin-right', (type == 'medium' && !rtl && clientWidth) ? clientSpace : null);
+				this.$.titleBelow.applyStyle('margin-left', (type == 'medium' && rtl && clientWidth) ? clientSpace : null);
 
-			this.$.subTitleBelow.applyStyle('margin-right', (type == 'medium' && !rtl && clientWidth) ? clientSpace : null);
-			this.$.subTitleBelow.applyStyle('margin-left', (type == 'medium' && rtl && clientWidth) ? clientSpace : null);
+				this.$.subTitleBelow.applyStyle('margin-right', (type == 'medium' && !rtl && clientWidth) ? clientSpace : null);
+				this.$.subTitleBelow.applyStyle('margin-left', (type == 'medium' && rtl && clientWidth) ? clientSpace : null);
+			}
 		},
 
 		/**
