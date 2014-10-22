@@ -447,7 +447,7 @@
 					this._directHide();
 				}
 			}
-			this.indexChanged();
+			this.displayBranding();
 		},
 
 		/**
@@ -941,13 +941,7 @@
 
 			this.inherited(arguments);
 
-			if (this.$.branding) {
-				if (this.pattern == 'activity' && this.getPanelInfo(0, this.index).breadcrumb) {
-					this.$.branding.show();
-				} else {
-					this.$.branding.hide();
-				}
-			}
+			this.displayBranding();
 		},
 
 		/**
@@ -1222,6 +1216,19 @@
 		hideAnimationComplete: function () {
 			if (this.handleShowing) {
 				this.$.showHideHandle.removeClass('hidden');
+			}
+		},
+
+		/**
+		* @private
+		*/
+		displayBranding: function () {
+			if (this.$.branding) {
+				if (this.pattern == 'activity' && this.getPanelInfo(0, this.index).breadcrumb) {
+					this.$.branding.show();
+				} else {
+					this.$.branding.hide();
+				}
 			}
 		},
 
