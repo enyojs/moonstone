@@ -309,8 +309,10 @@
 				this.adjustTitleWidth();
 			} else {
 				enyo.asyncMethod(this, function () {
-					this.adjustTitleWidth();
-					_delayedMeasurementFinished = true;
+					if (!this.destroyed && this.hasNode()) {
+						this.adjustTitleWidth();
+						_delayedMeasurementFinished = true;
+					}
 				});
 			}
 		},
