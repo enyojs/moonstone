@@ -39,11 +39,10 @@
 		published: {
 
 			/**
-			*
 			* A boolean parameter affecting the size of the button. If `true`, the
 			* button's diameter will be set to 60px. However, the button's tap target
-			* will still have a diameter of 78px, with an invisible DOM element wrapping the small
-			* button to provide the larger tap zone.
+			* will still have a diameter of 78px, with an invisible DOM element
+			* wrapping the small button to provide the larger tap zone.
 			*
 			* @type {Boolean}
 			* @default false
