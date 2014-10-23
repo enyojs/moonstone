@@ -148,6 +148,11 @@
 		/**
 		* @private
 		*/
+		statics: { count: 0 },
+
+		/**
+		* @private
+		*/
 		defaultZ: 120,
 
 		/**
@@ -334,13 +339,13 @@
 					}
 				}
 				this.activator = enyo.Spotlight.getCurrent();
-				enyo.Popup.count++;
+				moon.Popup.count++;
 				this.genereateNextZIndex();
 				this.applyZIndex();
 			}
 			else {
-				if (enyo.Popup.count > 0) {
-					enyo.Popup.count--;
+				if (moon.Popup.count > 0) {
+					moon.Popup.count--;
 				}
 				if (this.generated) {
 					this.respotActivator();
@@ -512,7 +517,7 @@
 		* @private
 		*/
 		genereateNextZIndex: function() {
-			this._zIndex = (enyo.Popup.count * 2) + (this.findZIndex() + 1);
+			this._zIndex = (moon.Popup.count * 2) + (this.findZIndex() + 1);
 			return this._zIndex;
 		},
 
