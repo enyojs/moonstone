@@ -281,7 +281,9 @@
 				}
 
 				//* When there is not enough room on the left, using right-arrow for the tooltip
-				if (window.innerWidth - moonDefaultPadding - pBounds.left - pBounds.width / 2 < b.width){
+				var pBLeft = Math.abs(pBounds.left),
+				    pBRight = Math.abs(pBounds.right);
+				if (window.innerWidth - moonDefaultPadding - pBLeft - pBounds.width / 2 < b.width || b.width < pBounds.left && window.innerWidth > pBRight - pBLeft) {
 					//* use the right-arrow
 					this.removeClass('left-arrow');
 					this.addClass('right-arrow');
