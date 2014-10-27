@@ -263,7 +263,7 @@
 		* @private
 		*/
 		verifyValue: function () {
-			this.value = this.getVerifiedValue();
+			this.set('value', this.getVerifiedValue());
 		},
 
 		/**
@@ -315,6 +315,7 @@
 
 			this.scrollToValue(old);
 			this.updateOverlays();
+			this.fireChangeEvent();
 		},
 
 		stepChanged: function (old) {
@@ -370,7 +371,7 @@
 
 			this.direction = -1;
 
-			if (this.value > this.min) {
+			if (this.value - this.step >= this.min) {
 				this.setValue(this.value - this.step);
 			} else if (this.wrap) {
 				this.setValue(this.max);
@@ -381,7 +382,6 @@
 			if (inEvent.originator != this.$.upArrow) {
 				this.startJob('hideBottomOverlay', 'hideBottomOverlay', 350);
 			}
-			this.fireChangeEvent();
 
 			this.direction = 0;
 			return true;
@@ -397,7 +397,7 @@
 
 			this.direction = 1;
 
-			if (this.value < this.max) {
+			if (this.value + this.step <= this.max) {
 				this.setValue(this.value + this.step);
 			} else if (this.wrap) {
 				this.setValue(this.min);
@@ -408,7 +408,6 @@
 			if (inEvent.originator != this.$.downArrow) {
 				this.startJob('hideTopOverlay', 'hideTopOverlay', 350);
 			}
-			this.fireChangeEvent();
 
 			this.direction = 0;
 			return true;
@@ -434,8 +433,8 @@
 		* @private
 		*/
 		updateOverlays: function () {
-			this.$.previousOverlay.applyStyle('visibility', (this.wrap || (this.value !== this.min)) ? 'visible' : 'hidden');
-			this.$.nextOverlay.applyStyle('visibility', (this.wrap || (this.value !== this.max)) ? 'visible' : 'hidden');
+			this.$.previousOverlay.applyStyle('visibility', (this.wrap || this.value - this.step >= this.min) ? 'visible' : 'hidden');
+			this.$.nextOverlay.applyStyle('visibility', (this.wrap || this.value + this.step <= this.max) ? 'visible' : 'hidden');
 		},
 
 		/**
@@ -632,7 +631,20 @@
 		*/
 		minWidthChanged: function() {
 			this.applyStyle('min-width', this.minWidth + 'px');
-		}
+		},
+
+		/**
+		* @method
+		* @private
+		*/
+		showingChangedHandler: enyo.inherit(function (sup) {
+			return function () {
+				sup.apply(this, arguments);
+				if(this.showing) {
+					this.scrollToValue();
+				}
+			};
+		})
 	});
 
 	/**
