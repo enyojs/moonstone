@@ -2553,6 +2553,10 @@
   /* Do not change - used in JS */
   min-width: 300px;
   /* Do not change - used in JS */
+  margin: 0 5px;
+  /* FIXME: margin added to work around slight browser mismeasurement issue. */
+  /* The nearest neighbor algorithm was skipping items because calls to */
+  /* getAbsoluteBounds() made adjacent items apppear to be overlapping */
   float: right;
   box-sizing: border-box;
 }
@@ -2562,9 +2566,15 @@
 .moon-list-actions-drawer.proportional-width.stacked .moon-list-actions-menu {
   width: 100% !important;
 }
+.moon-list-actions-drawer.proportional-width .moon-list-actions-menu {
+  margin: 0;
+}
 .moon-list-actions-drawer.stacked .moon-list-actions-menu {
   margin-bottom: 20px;
   clear: both;
+}
+.moon-list-actions-menu .enyo-scroller {
+  max-width: 100%;
 }
 /* Drawer */
 .moon-list-actions-drawer {
