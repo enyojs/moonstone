@@ -15,8 +15,8 @@ enyo.kind({
 			subTitle: "This TV has been active for 10 hours.",
 			message: "Perhaps it is time to take a break and get some fresh air. There is a nice coffee shop around the corner", 
 			components: [
-				{kind: "moon.Button", content: "Go get a coffee", ontap: "addMessage"},
-				{kind: "moon.Button", content: "Keep watching TV", ontap: "hideDialog"}
+				{kind: "moon.Button", content: "Go get a coffee", ontap: "hideDialog"},
+				{kind: "moon.Button", content: "Keep watching TV", ontap: "addMessage"}
 			]
 		}
 	],

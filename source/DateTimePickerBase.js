@@ -11,12 +11,13 @@
 	*/
 
 	/**
-	* {@link moon.DateTimePickerBase} is a base kind implementing fuctionality shared
-	* by {@link moon.DatePicker} and {@link moon.TimePicker}.
-	* It is not intended to be used directly.
+	* {@link moon.DateTimePickerBase} is a base kind implementing fuctionality shared by
+	* {@link moon.DatePicker} and {@link moon.TimePicker}. It is not intended to be used
+	* directly.
 	*
 	* @class moon.DateTimePickerBase
 	* @extends moon.ExpandableListItem
+	* @ui
 	* @protected
 	*/
 
@@ -49,7 +50,7 @@
 		events: {
 
 			/**
-			* {@link moon.DateTimePickerBase#event:onChange}
+			* {@link moon.DateTimePickerBase#onChange}
 			*/
 			onChange: ''
 		},

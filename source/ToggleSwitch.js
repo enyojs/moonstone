@@ -3,7 +3,7 @@
 	* {@link moon.ToggleSwitch}, which extends {@link moon.Checkbox}, is a control
 	* that looks like a switch with 'on' and 'off' states. When the toggle switch is
 	* tapped, it switches its state and fires an
-	* [onChange]{@link enyo.Checkbox#event:onChange} event.
+	* [onChange]{@link enyo.Checkbox#onChange} event.
 	*
 	* @class moon.ToggleSwitch
 	* @extends moon.Checkbox

@@ -131,8 +131,8 @@
 			wrap: false,
 
 			/**
-			* specifies the min-width of the picker. If not set or set to a low value, the width
-			* of the picker will fluctuate slightly depending on the rendered width of the value
+			* The minimum width of the picker. If not set, or set to a low value, the width
+			* of the picker will fluctuate slightly depending on the rendered width of the value.
 			*
 			* @type {Number}
 			* @default 50
@@ -159,7 +159,7 @@
 		*/
 		events: {
 			/**
-			* {@link moon.IntegerPicker#event:onChange}
+			* {@link moon.IntegerPicker#onChange}
 			*/
 			onChange: ''
 		},

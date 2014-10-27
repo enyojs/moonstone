@@ -19,7 +19,7 @@
 
 	/**
 	* {@link moon.Drawer}, a control designed for use with {@link moon.Drawers},
-	* consists of two drawers and a {@link moon.DrawerHandle}.
+	* consists of two drawers and a handle.
 	* The main drawer is populated with any child components that are specified in
 	* the constructor; the optional second drawer (control drawer) is populated
 	* with components passed into the
@@ -39,7 +39,7 @@
 	* 		{
 	* 			name: 'musicDrawer',
 	* 			kind: 'moon.Drawer',
-	* 			handle: {kind: 'moon.DrawerHandle', content: 'Handle'},
+	* 			handle: {name: 'handleButton', content: 'Handle'},
 	* 			components: [
 	* 				{content: 'Drawer Content'}
 	* 			],
@@ -88,7 +88,7 @@
 			controlDrawerComponents: null,
 
 			/**
-			* Typically set to an instance of {@link moon.DrawerHandle}.
+			* Control that acts a "handle" for the drawer.
 			*
 			* @type {Object}
 			* @default null
@@ -121,12 +121,12 @@
 		events: {
 
 			/**
-			* {@link moon.Drawer#event:onActivate}
+			* {@link moon.Drawer#onActivate}
 			*/
 			onActivate: '',
 
 			/**
-			* {@link moon.Drawer#event:onDeactivate}
+			* {@link moon.Drawer#onDeactivate}
 			*/
 			onDeactivate: ''
 		},
@@ -264,6 +264,7 @@
 	*
 	* @class moon.FullScreenDrawer
 	* @extends enyo.Drawer
+	* @ui
 	* @protected
 	*/
 	enyo.kind({

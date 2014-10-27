@@ -18,7 +18,7 @@
 	*/
 	
 	/**
-	* Fires when the contextual popup is activated. Extends {@link enyo.Popup#event:onActivate}.
+	* Fires when the contextual popup is activated. Extends {@link enyo.Popup#onActivate}.
 	*
 	* @event moon.ContextualPopup#onActivate
 	* @type {Object}
@@ -193,6 +193,20 @@
 			this.allowHtmlChanged();
 			this.contentChanged();
 			this.inherited(arguments);
+		},
+		/**
+		FixMe: overriding the control's default hide method to support the existing sequential tapping
+		and the dependent decorator code inorder to handle some special cases.
+		*/
+		hide: function(inSender, e) {
+			
+			 if (this.tapCaptured) {
+				this.tapCaptured = false;			
+			} else {
+				this.popupActivated = false;
+			}
+			this.inherited(arguments);
+
 		},
 
 		/**
@@ -446,6 +460,7 @@
 			// If same activator tapped sequentially, we notice that this popup is already activeted.
 			if (inEvent.dispatchTarget.isDescendantOf(this.activator)) {
 				this.popupActivated = true;
+				this.tapCaptured = true;
 			} else {
 				this.popupActivated = false;
 			}

@@ -9,14 +9,16 @@
 	pointer-events: none;
 	-webkit-transform: translateZ(0px);
 	transform: translateZ(0px);
-}
-.moon-scrim.moon-scrim-translucent {
-	pointer-events: auto;
-	background-color: @moon-scrim-translucent-bg-color;
-	opacity: 0.3;
-	filter: alpha(opacity=30);
-}
-.moon-scrim.moon-scrim-transparent {
-	pointer-events: auto;
-	background: transparent;
+
+	&.moon-scrim-translucent {
+		pointer-events: auto;
+		background-color: @moon-scrim-translucent-bg-color;
+		opacity: 0.3;
+		filter: alpha(opacity=30);
+	}
+
+	&.moon-scrim-transparent {
+		pointer-events: auto;
+		background: transparent;
+	}
 }

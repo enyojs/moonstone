@@ -96,20 +96,6 @@
 		},
 		
 		/**
-		* @private
-		*/
-		components: [
-			{name: 'client', kind: 'moon.MarqueeText'}
-		],
-
-		/**
-		* @private
-		*/
-		bindings: [
-			{from: '.allowHtml', to: '.$.client.allowHtml'}
-		],
-		
-		/**
 		* @method
 		* @private
 		*/
@@ -157,6 +143,7 @@
 			this.addRemoveClass('selected', selected);
 			this.setNodeProperty('selected', selected);
 			this.setAttribute('selected', selected ? 'selected' : '');
+			this.reflow();
 		},
 
 		/**
@@ -164,7 +151,6 @@
 		*/
 		updateActiveValue: function() {
 			this.setActive(this.getSelected());
-			this.resetMarquee();
 		},
 
 		/**
@@ -178,8 +164,8 @@
 		/**
 		* For use with the [Enyo Group API]{@link enyo.Group}, which is supported by this object.
 		* Called when the active item within the group changes. The
-		* [active]{@link enyo.SelectableItem#active} property and
-		* [onActivate]{@link enyo.SelectableItem#event:onActivate} event are both part of the
+		* [active]{@link moon.SelectableItem#active} property and
+		* [onActivate]{@link moon.SelectableItem#onActivate} event are both part of the
 		* Group API.
 		*
 		* @private
@@ -187,14 +173,8 @@
 		activeChanged: function() {
 			this.active = enyo.isTrue(this.active);
 			this.setSelected(this.active);
+			this.resetMarquee();
 			this.bubble('onActivate');
-		},
-
-		/**
-		* @private
-		*/
-		contentChanged: function() {
-			this.$.client.setContent(this.content);
 		}
 	});
 

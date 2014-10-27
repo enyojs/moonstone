@@ -1,4 +1,9 @@
-/** @namespace moon */
+/**
+	A library of UI widgets designed for use alongside Enyo core in the
+	development of smart TV applications.
+
+	@namespace moon
+*/
 if (enyo && enyo.version) {
-	enyo.version.moonstone = "2.5.1-pre.9";
+	enyo.version.moonstone = "2.5.2-pre.3";
 }

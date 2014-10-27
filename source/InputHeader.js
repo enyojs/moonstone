@@ -11,8 +11,8 @@
 	* The [title]{@link moon.Header#title} property is used as the input placeholder,
 	* while the [value]{@link moon.Header#value} property contains the contents of the
 	* input. Developers may listen for
-	* [onInputHeaderInput]{@link moon.Header#event:onInputHeaderInput} and
-	* [onInputHeaderChange]{@link moon.Header#event:onInputHeaderChange} events from the
+	* [onInputHeaderInput]{@link moon.Header#onInputHeaderInput} and
+	* [onInputHeaderChange]{@link moon.Header#onInputHeaderChange} events from the
 	* embedded input to respond to changes.
 	*
 	* ```

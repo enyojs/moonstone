@@ -40,7 +40,7 @@
 	* to `true`, `selected` contains an array of selected items, and `selectedIndex`
 	* contains an array of the selected items' index values.
 	*
-	* The [onChange]{@link moon.ExpandablePicker#event:onChange} event is fired when the
+	* The [onChange]{@link moon.ExpandablePicker#onChange} event is fired when the
 	* selected item changes.
 	*
 	* The picker's options may be modified programmatically in the standard manner, by
@@ -87,7 +87,7 @@
 		*/
 		events: {
 			/**
-			* {@link moon.ExpandablePicker#event:onChange}
+			* {@link moon.ExpandablePicker#onChange}
 			*/
 			onChange: ''
 		},
@@ -255,7 +255,7 @@
 		/**
 		* When the [selected]{@link moon.ExpandablePicker#selected} control changes,
 		* updates [checked]{@link moon.CheckboxItem#checked} values appropriately and
-		* fires an [onChange]{@link moon.ExpandablePicker#event:onChange} event.
+		* fires an [onChange]{@link moon.ExpandablePicker#onChange} event.
 		*
 		* @fires moon.ExpandablePicker#onChange
 		* @private
@@ -449,7 +449,7 @@
 		/**
 		* When the picker is initialized, looks for any items with `active` flag set to
 		* `true`; if one is found, it is set as the currently selected item. This is done
-		* without triggering an [onChange]{@link moon.ExpandablePicker#event:onChange}
+		* without triggering an [onChange]{@link moon.ExpandablePicker#onChange}
 		* event, as it happens during initialization.
 		*
 		* @private

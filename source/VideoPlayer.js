@@ -1,6 +1,6 @@
 (function (enyo, scope) {
 	/**
-	* Fires when [disablePlaybackControls]{@link enyo.VideoPlayer#disablePlaybackControls} 
+	* Fires when [disablePlaybackControls]{@link moon.VideoPlayer#disablePlaybackControls} 
 	* is `true` and the user taps one of the [controls]{@link enyo.Control}; may be handled to 
 	* re-enable the controls, if desired. No event-specific information is sent with this event.
 	*
@@ -13,7 +13,7 @@
 	* Child controls may bubble this event to toggle the fullscreen state of the video player.
 	* No additional data needs to be sent with this event.
 	*
-	* @event moon.VideoPlayer#onRequestFullscreen
+	* @event moon.VideoPlayer#onRequestToggleFullscreen
 	* @type {Object}
 	* @public
 	*/
@@ -254,8 +254,12 @@
 			showInfo: false,
 
 			/**
-			* When `false`, the player starts in fullscreen mode; when `true`, it starts in inline 
-			* mode.
+			* When `false`, the player starts in fullscreen mode; when `true`, it starts in
+			* inline mode. As this is meant to be initialized on startup, fire the
+			* [onRequestToggleFullscreen]{@link moon.VideoPlayer#onRequestToggleFullscreen}
+			* event from a child control or call
+			* [toggleFullscreen()]{@link moon.VideoPlayer#toggleFullscreen} to dynamically
+			* toggle between fullscreen and inline mode.
 			*
 			* @type {Boolean}
 			* @default false
@@ -352,7 +356,7 @@
 			/**
 			* If `true`, the slider and playback controls are disabled. If the user taps the 
 			* controls, an 
-			* [onPlaybackControlsTapped]{@link enyo.VideoPlayer#event:onPlaybackControlsTapped} 
+			* [onPlaybackControlsTapped]{@link moon.VideoPlayer#onPlaybackControlsTapped} 
 			* event will be bubbled.
 			*
 			* @type {Boolean}
@@ -1542,6 +1546,7 @@
 				this.spotlight = false;
 				this.spotlightModal = false;
 			}
+			this.updatePosition();
 		},
 
 		/** 

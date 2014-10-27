@@ -1,12 +1,12 @@
 (function(enyo, scope) {
 	/**
-	* Instantiate and load {@link iLib} and its resources
+	* Instantiates and loads [iLib]{@link ilib} and its resources.
 	*
 	* @private
 	*/
 	window.moon = window.moon || {};
 	/**
-	* Localized strings from {@link iLib} translations.
+	* Localized strings from [iLib]{@link ilib} translations.
 	*
 	* @param {String} string - String to be localized.
 	* @returns {String} Localized string.

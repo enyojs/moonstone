@@ -21,14 +21,13 @@
 	/**
 	* {@link moon.Drawers} is a container kind designed to hold a set of {@link moon.Drawer}
 	* objects and client content. The [drawers]{@link moon.Drawers#drawers} property accepts
-	* an array of Drawer controls. The associated [handles]{@link moon.DrawerHandle} are
-	* positioned in their own small drawer, centered at the top of the "dresser" (the region
-	* containing the array of Drawer controls and the activator nub).
+	* an array of Drawer controls. The associated handles are positioned in their own small
+	* drawer, centered at the top of the "dresser" (the region containing the array of Drawer
+	* controls and the activator nub).
 	*
 	* When a handle is selected, it opens the corresponding Drawer object's main drawer or
 	* control drawer, depending on how the Drawer object is configured. The control's child
-	* components may
-	* be of any kind.
+	* components may be of any kind.
 	*
 	* ```
 	* {

@@ -80,6 +80,10 @@ enyo.kind({
 				length: "short"
 			});
 		}
+
+		if (this.$.localePicker.selected) {
+			this.setLocale(null, {selected: this.$.localePicker.selected});
+		}
 	},
 
 	updateCurrentString: function (date) {

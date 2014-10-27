@@ -176,7 +176,7 @@
 		 * If the formatted new and old values are the same, skip animating by not passing
 		 * the old value to `IntegerPicker.scrollToValue`. 
 		 * 
-		 * @see moon.IntegerPicker#scrollToValue
+		 * @see moon.IntegerPicker.scrollToValue
 		 * @private
 		 */
 		scrollToValue: enyo.inherit(function (sup) {

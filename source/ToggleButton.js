@@ -11,7 +11,7 @@
 	/**
 	* {@link moon.ToggleButton}, which extends {@link moon.Button}, is a button with two
 	* states, 'on' and 'off'. When the toggle button is tapped, it switches its state
-	* and fires an [onChange]{@link moon.ToggleButton#event:onChange} event.
+	* and fires an [onChange]{@link moon.ToggleButton#onChange} event.
 	*
 	* You may show the same text for both toggle states (via the
 	* [content]{@link enyo.Control#content} property), or different text for each state,

@@ -42,10 +42,10 @@
 	*
 	* Automatic hiding and showing of tooltips may be disabled by calling
 	* [mute()]{@link moon.TooltipDecorator#mute} or by bubbling the
-	* [onRequestMuteTooltip]{@link moon.TooltipDecorator#event:onRequestMuteTooltip} event;
+	* [onRequestMuteTooltip]{@link moon.TooltipDecorator#onRequestMuteTooltip} event;
 	* it may be re-enabled by calling [unmute()]{@link moon.TooltipDecorator#unmute}
 	* or by bubbling the
-	* [onRequestUnmuteTooltip]{@link moon.TooltipDecorator#event:onRequestUnmuteTooltip} event.
+	* [onRequestUnmuteTooltip]{@link moon.TooltipDecorator#onRequestUnmuteTooltip} event.
 	*
 	* @class moon.TooltipDecorator
 	* @extends enyo.Control
@@ -137,7 +137,9 @@
 		*/
 		requestShowTooltip: function (inSender, inEvent) {
 			if (this.autoShow && !enyo.Spotlight.isFrozen()) {
-				this.waterfallDown("onRequestShowTooltip", {originator: inSender}, this);
+				if (inEvent.type == 'onSpotlightFocused' || enyo.Spotlight.getPointerMode()) {
+					this.waterfallDown('onRequestShowTooltip', {originator: inSender}, this);
+				}
 			}
 		},
 
