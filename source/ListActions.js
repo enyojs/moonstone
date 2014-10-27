@@ -150,6 +150,10 @@
 		* @private
 		*/
 		events: {
+			onShow: "",
+			onShown: "",
+			onHide: "",
+			onHidden: "",
 			onRequestCreateListActions: '',
 			onListActionOpenChanged: ''
 		},
@@ -337,8 +341,10 @@
 				// Capture onSpotlightFocus happening outside the drawer, so that we can prevent focus
 				// from landing in the header beneath the drawer
 				enyo.dispatcher.capture(this.$.drawer, {onSpotlightFocus: 'capturedSpotlightFocus'}, this);
+				this.doShow({originator: this.$.drawer});
 			} else {
 				enyo.dispatcher.release(this.$.drawer);
+				this.doHide({originator: this.$.drawer});
 			}
 		},
 
@@ -349,14 +355,15 @@
 		*/
 		drawerAnimationEnd: function(sender, event) {
 			var rendered = event && event.rendered;
-			
+			var originator = event && event.originator;
+
 			//on closed, hide drawer and spot _this.$.activator_
 			if (!this.getOpen()) {
-				this.drawerClosed(rendered);
+				this.drawerClosed(rendered, originator);
 			}
 			//on open, move top and spot _this.$.closeButton_
 			else {
-				this.drawerOpened(rendered);
+				this.drawerOpened(rendered, originator);
 			}
 			return true;
 		},
@@ -364,17 +371,19 @@
 		/**
 		* @private
 		*/
-		drawerClosed: function (rendered) {
+		drawerClosed: function (rendered, originator) {
 			if (this.generated && !rendered) {
 				enyo.Spotlight.spot(this.$.activator);
 			}
 			this.bubble('onRequestUnmuteTooltip');
+
+			this.doHidden({originator: originator});
 		},
 		
 		/**
 		* @private
 		*/
-		drawerOpened: function (rendered) {
+		drawerOpened: function (rendered, originator) {
 			if (this.resetScroller) {
 				this.$.listActions.scrollTo(0, 0);
 				this.resetScroller = false;
@@ -383,6 +392,8 @@
 				enyo.Spotlight.spot(this.$.closeButton);
 			}
 			this.bubble('onRequestMuteTooltip');
+
+			this.doShown({originator: originator});
 		},
 
 		/**
