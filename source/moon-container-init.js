@@ -12,7 +12,6 @@
 						{kind: 'moon.Image'},
 						{kind: 'moon.SelectableItem'},
 						{kind: 'moon.ProgressBar'},
-						{kind: 'moon.Slider'},
 						{kind: 'moon.Spinner'},
 						{kind: 'moon.BodyText'},
 						{kind: 'moon.LabeledTextItem'},
