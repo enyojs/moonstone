@@ -1,6 +1,42 @@
 (function (enyo, scope) {
 
-	/**
+    /**
+     * Fires when the drawer open animation begins.
+     *
+     * @event moon.ListActions#onShow
+     * @type {Object}
+     * @property {Object} originator - The event's originator.
+     * @public
+     */
+
+    /**
+     * Fires when the drawer open animation ends.
+     *
+     * @event moon.ListActions#onShown
+     * @type {Object}
+     * @property {Object} originator - The event's originator.
+     * @public
+     */
+
+    /**
+     * Fires when the drawer close animation begins.
+     *
+     * @event moon.ListActions#onHide
+     * @type {Object}
+     * @property {Object} originator - The event's originator.
+     * @public
+     */
+
+    /**
+     * Fires when the drawer close animation ends.
+     *
+     * @event moon.ListActions#onHidden
+     * @type {Object}
+     * @property {Object} originator - The event's originator.
+     * @public
+     */
+
+    /**
 	* Used internally by [ListActions]{@link moon.ListActions} to ask
 	* {@link moon.Header} to add fitting components to itself. Not intended for use
 	* by end-developers.
