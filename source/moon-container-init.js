@@ -31,7 +31,7 @@
 
 	moon.initContainer = function () {
 		var initializer = new moon.ContainerInitializer();
-		initializer.renderInto(document.body);
+		initializer.renderInto(document.body, true);
 		initializer.destroy();
 	};	
 })(enyo, this);
