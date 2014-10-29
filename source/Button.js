@@ -128,8 +128,9 @@
 				this.createComponent({name: 'client', kind:'moon.MarqueeText', isChrome: true});
 				this.createComponent({name: 'tapArea', classes: 'button-tap-area', isChrome: true});
 			}
-			this.smallChanged();
-			this.minWidthChanged();
+			if (this.small) this.smallChanged();
+			if (this.minWidth) this.minWidthChanged();
+			this.contentChanged();
 			this.inherited(arguments);
 		},
 
@@ -177,8 +178,7 @@
 			} else {
 				this.removeClass('small');
 				this.removeClass('moon-small-button-text');
-			}
-			this.contentChanged();
+			}			
 		},
 
 		/**
@@ -189,7 +189,7 @@
 		contentChanged: function () {
 			var content = this.getContent();
 			if (this.$.client) {
-				this.$.client.setContent( this.getContentUpperCase() ? enyo.toUpperCase(content) : content );
+				this.$.client.content = this.getContentUpperCase() ? enyo.toUpperCase(content) : content;
 			} else {
 				this.inherited(arguments);
 			}
