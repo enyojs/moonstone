@@ -82,6 +82,15 @@
 			checked: false,
 
 			/**
+			* Boolean value indicating whether checkbox is currently active item in group.
+			*
+			* @type {Boolean}
+			* @default false
+			* @public
+			*/
+			active: false,
+
+			/**
 			* If `true`, checkbox will be displayed on the right side of the checkbox item;
 			* otherwise, it will be displayed on the left side.
 			*
@@ -183,7 +192,8 @@
 		* @private
 		*/
 		bindings: [
-			{from: '.allowHtml', to: '.$.client.allowHtml'}
+			{from: 'allowHtml', to: '$.client.allowHtml'},
+			{from: 'active', to: '$.input.active', oneWay: false}
 		],
 
 		/**
