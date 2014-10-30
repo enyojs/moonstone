@@ -41,23 +41,26 @@
 		},
 		components: [
 
-			{classes: 'moon-sample-persistant-frame enyo-untouchable', components: [
-				{name: 'back', kind: 'moon.Button', content: 'Back to List', small: true, classes: 'moon-sample-persistant-locale-button', ontap: 'backToList'},
-				{kind: 'moon.ContextualPopupDecorator', components: [
-					// {name: 'caption', kind: 'moon.CaptionDecorator', content: 'Set Locale', side: 'left', components: [
-					{kind: 'moon.Button', content: 'Set Locale', small: true, classes: 'moon-sample-persistant-locale-button'},
-					// ]},
-					{name: 'localePopup', kind: 'moon.ContextualPopup', components: [
-						{content: 'Set Locale', kind: 'moon.Divider'},
-						{kind: 'moon.Scroller', classes: 'enyo-fill', components: [
-							{kind: 'Group', onActivate: 'localeGroupChanged', components: [
-								{value: '', content:'local', kind: 'moon.ToggleItem', checked: true},
-								{value: 'en-US', content:'en-US <span style="font-family: \'MuseoSans 300\';">- US English</span>', kind: 'moon.ToggleItem', allowHtml: true},
-								{value: 'ko-KR', content:'ko-KR <span style="font-family: \'MuseoSans 300\';">- Korean</span>', kind: 'moon.ToggleItem', allowHtml: true},
-								{value: 'ar-SA', content:'ar-SA <span style="font-family: \'MuseoSans 300\';">- RTL and standard font</span>', kind: 'moon.ToggleItem', allowHtml: true},
-								{value: 'ur-PK', content:'ur-PK <span style="font-family: \'MuseoSans 300\';">- RTL and custom Urdu font</span>', kind: 'moon.ToggleItem', allowHtml: true},
-								{value: 'zh-Hant-HK', content:'zh-Hant-HK <span style="font-family: \'MuseoSans 300\';">- custom Hong Kong font</span>', kind: 'moon.ToggleItem', allowHtml: true},
-								{value: 'ja-JP', content:'ja-JP <span style="font-family: \'MuseoSans 300\';">- custom Japanese font</span>', kind: 'moon.ToggleItem', allowHtml: true}
+			{classes: 'moon-sample-persistant-hotspot', components: [
+				{classes: 'moon-sample-persistant-frame', spotlight: 'container', components: [
+					{kind: 'moon.Button', content: 'Reload', small: true, spotlight: false, classes: 'moon-sample-persistant-locale-button', ontap: 'reload'},
+					{kind: 'moon.Button', content: 'Back to List', small: true, spotlight: false, classes: 'moon-sample-persistant-locale-button', ontap: 'backToList'},
+					{kind: 'moon.ContextualPopupDecorator', components: [
+						// {name: 'caption', kind: 'moon.CaptionDecorator', content: 'Set Locale', side: 'left', components: [
+						{kind: 'moon.Button', content: 'Set Locale', small: true, spotlight: false, classes: 'moon-sample-persistant-locale-button'},
+						// ]},
+						{name: 'localePopup', kind: 'moon.ContextualPopup', components: [
+							{content: 'Set Locale', kind: 'moon.Divider'},
+							{kind: 'moon.Scroller', classes: 'enyo-fill', components: [
+								{kind: 'Group', onActivate: 'localeGroupChanged', components: [
+									{value: '', content:'local', kind: 'moon.ToggleItem', checked: true},
+									{value: 'en-US', content:'en-US <span style="font-family: \'MuseoSans 300\';">- US English</span>', kind: 'moon.ToggleItem', allowHtml: true},
+									{value: 'ko-KR', content:'ko-KR <span style="font-family: \'MuseoSans 300\';">- Korean</span>', kind: 'moon.ToggleItem', allowHtml: true},
+									{value: 'ar-SA', content:'ar-SA <span style="font-family: \'MuseoSans 300\';">- RTL and standard font</span>', kind: 'moon.ToggleItem', allowHtml: true},
+									{value: 'ur-PK', content:'ur-PK <span style="font-family: \'MuseoSans 300\';">- RTL and custom Urdu font</span>', kind: 'moon.ToggleItem', allowHtml: true},
+									{value: 'zh-Hant-HK', content:'zh-Hant-HK <span style="font-family: \'MuseoSans 300\';">- custom Hong Kong font</span>', kind: 'moon.ToggleItem', allowHtml: true},
+									{value: 'ja-JP', content:'ja-JP <span style="font-family: \'MuseoSans 300\';">- custom Japanese font</span>', kind: 'moon.ToggleItem', allowHtml: true}
+								]}
 							]}
 						]}
 					]}
@@ -153,7 +156,7 @@
 				this.$.sample.destroy();
 			}
 			this.$.home.show();
-			if (!this.$.home.hasNode()) {
+			if (!this.$.home.hasNode() || !this.$.home.hasNode().children.length) {
 				// We've never been generated, lets fix that.
 				this.createList();
 			}
@@ -161,6 +164,10 @@
 		},
 		backToList: function () {
 			this.set('sample', '');
+			this.$.router.trigger({location: this.get('location'), change: true});
+		},
+		reload: function () {
+			window.location.reload();
 		},
 		chooseSample: function (sender, ev) {
 			var sampleName = ev.originator.get('sampleName');

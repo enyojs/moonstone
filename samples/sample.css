@@ -1,16 +1,35 @@
-.moon-sample-persistant-frame {
+.moon-sample-persistant-hotspot {
 	position: fixed;
 	top: 0;
 	right: 0;
 	z-index: 9999;
+	height: 20px;
+	width: 20px;
+}
+.moon-sample-persistant-frame {
+	position: absolute;
+	top: 0;
+	right: 0;
 	opacity: 0.8;
-}
-.moon-sample-persistant-locale-button {
+	padding-top: 10px;
+	text-align: center;
+	background-color: rgba(0,0,0, 0.5);
+	box-shadow: 0 0 15px 10px rgba(0,0,0, 0.5);
+	border-bottom-left-radius: 20px;
 	-webkit-transition: -webkit-transform 0.4s ease;
-	-webkit-transform: translateY(-100%);
+	-webkit-transform: translateY(-150%);
 }
-.moon-sample-persistant-frame:hover .moon-sample-persistant-locale-button {
-	-webkit-transform: translateY(10%);
+.moon-sample-persistant-hotspot:hover .moon-sample-persistant-frame,
+.moon-sample-persistant-frame:hover {
+	-webkit-transform: translateY(0%);
+}
+.moon-sample-persistant-frame .moon-button {
+	margin-bottom: 10px;
+}
+.moon-sample-persistant-frame .moon-button:hover {
+	/* Simulate spotlight for the mouse, even though we've intentionally disabled it */
+	background-color: #cf0652;
+	color: #fff;
 }
 
 .moon-sample-padded {
