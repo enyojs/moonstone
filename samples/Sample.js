@@ -26,7 +26,7 @@
 	* @namespace moon.sample
 	*/
 	enyo.kind({
-		name: 'moon.sample.home',
+		name: 'moon.sample.app',
 		classes: 'moon enyo-unselectable enyo-fit',
 		published: {
 			files: null,
@@ -40,32 +40,37 @@
 			}
 		},
 		components: [
+
+			{classes: 'moon-sample-persistant-frame enyo-untouchable', components: [
+				{name: 'back', kind: 'moon.Button', content: 'Back to List', small: true, classes: 'moon-sample-persistant-locale-button', ontap: 'backToList'},
+				{kind: 'moon.ContextualPopupDecorator', components: [
+					// {name: 'caption', kind: 'moon.CaptionDecorator', content: 'Set Locale', side: 'left', components: [
+					{kind: 'moon.Button', content: 'Set Locale', small: true, classes: 'moon-sample-persistant-locale-button'},
+					// ]},
+					{name: 'localePopup', kind: 'moon.ContextualPopup', components: [
+						{content: 'Set Locale', kind: 'moon.Divider'},
+						{kind: 'moon.Scroller', classes: 'enyo-fill', components: [
+							{kind: 'Group', onActivate: 'localeGroupChanged', components: [
+								{value: '', content:'local', kind: 'moon.ToggleItem', checked: true},
+								{value: 'en-US', content:'en-US <span style="font-family: \'MuseoSans 300\';">- US English</span>', kind: 'moon.ToggleItem', allowHtml: true},
+								{value: 'ko-KR', content:'ko-KR <span style="font-family: \'MuseoSans 300\';">- Korean</span>', kind: 'moon.ToggleItem', allowHtml: true},
+								{value: 'ar-SA', content:'ar-SA <span style="font-family: \'MuseoSans 300\';">- RTL and standard font</span>', kind: 'moon.ToggleItem', allowHtml: true},
+								{value: 'ur-PK', content:'ur-PK <span style="font-family: \'MuseoSans 300\';">- RTL and custom Urdu font</span>', kind: 'moon.ToggleItem', allowHtml: true},
+								{value: 'zh-Hant-HK', content:'zh-Hant-HK <span style="font-family: \'MuseoSans 300\';">- custom Hong Kong font</span>', kind: 'moon.ToggleItem', allowHtml: true},
+								{value: 'ja-JP', content:'ja-JP <span style="font-family: \'MuseoSans 300\';">- custom Japanese font</span>', kind: 'moon.ToggleItem', allowHtml: true}
+							]}
+						]}
+					]}
+				]}
+			]},
+			{name: 'home'},
 			{name: 'router', kind: 'moon.sample.appRouter', history: true, triggerOnStart: true}
 		],
 		listTools: [
 			{kind: 'moon.Panels', pattern: 'activity', classes: 'enyo-fit', components: [
 				{kind: 'moon.Panel', title: 'Samples', headerType: 'small',
-					headerComponents: [
-						{kind: 'moon.ContextualPopupDecorator', components: [
-							// {name: 'caption', kind: 'moon.CaptionDecorator', content: 'Set Locale', side: 'left', components: [
-							{kind: 'moon.Button', content: 'Set Locale'},
-							// ]},
-							{name: 'localePopup', kind: 'moon.ContextualPopup', components: [
-								{content: 'Set Locale', kind: 'moon.Divider'},
-								{kind: 'moon.Scroller', classes: 'enyo-fill', components: [
-									{kind: 'Group', onActivate: 'localeGroupChanged', components: [
-										{value: '', content:'local', kind: 'moon.ToggleItem', checked: true},
-										{value: 'en-US', content:'en-US <span style="font-family: \'MuseoSans 300\';">- US English</span>', kind: 'moon.ToggleItem', allowHtml: true},
-										{value: 'ko-KR', content:'ko-KR <span style="font-family: \'MuseoSans 300\';">- Korean</span>', kind: 'moon.ToggleItem', allowHtml: true},
-										{value: 'ar-SA', content:'ar-SA <span style="font-family: \'MuseoSans 300\';">- RTL and standard font</span>', kind: 'moon.ToggleItem', allowHtml: true},
-										{value: 'ur-PK', content:'ur-PK <span style="font-family: \'MuseoSans 300\';">- RTL and custom Urdu font</span>', kind: 'moon.ToggleItem', allowHtml: true},
-										{value: 'zh-Hant-HK', content:'zh-Hant-HK <span style="font-family: \'MuseoSans 300\';">- custom Hong Kong font</span>', kind: 'moon.ToggleItem', allowHtml: true},
-										{value: 'ja-JP', content:'ja-JP <span style="font-family: \'MuseoSans 300\';">- custom Japanese font</span>', kind: 'moon.ToggleItem', allowHtml: true}
-									]}
-								]}
-							]}
-						]}
-					],
+					// headerComponents: [
+					// ],
 					components: [
 						{name: 'list', kind: 'moon.DataList', components: [
 							{classes: 'enyo-border-box', components: [
@@ -106,13 +111,13 @@
 					dataList.push({sampleName: sampleName, label: sampleName.replace(/(Sample)$/i, ' $1')});
 				}
 			}
-			if (!this.$.list) {
-				this.createComponents(this.listTools);
+			if (!this.$.home.$.list) {
+				this.$.home.createComponents(this.listTools);
 			}
-			this.$.list.render();
+			this.render();
 			if (dataList.length) {
 				var c = new enyo.Collection(dataList);
-				this.$.list.set('collection', c);
+				this.$.home.$.list.set('collection', c);
 			}
 		},
 		localeGroupChanged: function (sender, ev) {
@@ -138,18 +143,24 @@
 				this.openSample();
 			} else {
 				// We have no sample, just render out the list.
-				enyo.log('%cList all of the Samples', 'color:green');
-				this.disableAllStylesheets();
-				if (this.app && this.app.$.sample) {
-					this.app.$.sample.destroy();
-				}
-				this.show();
-				if (!this.hasNode()) {
-					// We've never been generated, lets fix that.
-					this.createList();
-				}
-				this.render();
+				this.activateList();
 			}
+		},
+		activateList: function () {
+			enyo.log('%cList all of the Samples', 'color:green');
+			this.disableAllStylesheets();
+			if (this.$.sample) {
+				this.$.sample.destroy();
+			}
+			this.$.home.show();
+			if (!this.$.home.hasNode()) {
+				// We've never been generated, lets fix that.
+				this.createList();
+			}
+			this.render();
+		},
+		backToList: function () {
+			this.set('sample', '');
 		},
 		chooseSample: function (sender, ev) {
 			var sampleName = ev.originator.get('sampleName');

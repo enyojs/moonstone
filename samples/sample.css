@@ -1,3 +1,18 @@
+.moon-sample-persistant-frame {
+	position: fixed;
+	top: 0;
+	right: 0;
+	z-index: 9999;
+	opacity: 0.8;
+}
+.moon-sample-persistant-locale-button {
+	-webkit-transition: -webkit-transform 0.4s ease;
+	-webkit-transform: translateY(-100%);
+}
+.moon-sample-persistant-frame:hover .moon-sample-persistant-locale-button {
+	-webkit-transform: translateY(10%);
+}
+
 .moon-sample-padded {
 	padding: 15px;
 }

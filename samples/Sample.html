@@ -15,14 +15,15 @@
 	<script src="../package.js" type="text/javascript"></script>
 	<script src="../../spotlight/package.js" type="text/javascript"></script>
 	<!-- -->
-	<!-- <link href="HeaderSample.css" rel="stylesheet"> -->
+	<link href="Sample.css" rel="stylesheet">
 	<script src="Sample.js" type="text/javascript"></script>
 	<!-- -->
 	<script type="text/javascript"><!--
 enyo.ready(function () {
 	// Create a most-basic container for rendering our home and samples.
-	var a = new enyo.Control({name: 'app'}).renderInto(document.body);
-	a.createComponent({name: 'home', kind: moon.sample.home, app: a});
+	var a = new moon.sample.app({name: 'app'}).renderInto(document.body);
+	// a.createComponent({name: 'home', kind: moon.sample.home, app: a});
+	// a.$.createComponent({name: 'home', kind: moon.sample.home, app: a});
 });
 --></script>
 </head>
