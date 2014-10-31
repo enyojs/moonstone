@@ -214,7 +214,6 @@
 				this.selectedIndex = (this.selectedIndex != -1) ? this.selectedIndex : [];
 				this.$.client.setHighlander(false);
 			}
-			this.initializeActiveItem();
 			this.selectedIndexChanged();
 			this.noneTextChanged();
 			this.helpTextChanged();
@@ -441,39 +440,6 @@
 		generateHelpText: function () {
 			this.$.helpText.canGenerate = true;
 			this.$.helpText.render();
-		},
-
-		/**
-		* When the picker is initialized, looks for any items with `active` flag set to
-		* `true`; if one is found, it is set as the currently selected item. This is done
-		* without triggering an [onChange]{@link moon.ExpandablePicker#event:onChange}
-		* event, as it happens during initialization.
-		*
-		* @private
-		*/
-		initializeActiveItem: function () {
-			var controls = this.getCheckboxControls();
-
-			for (var i=0; i<controls.length; i++) {
-				if (!controls[i].active) {
-					continue;
-				}
-
-				if (this.multipleSelection) {
-					this.selectedIndex.push(i);
-					this.selected.push(controls[i]);
-					controls[i].setChecked(true);
-				} else {
-					this.selectedIndex = i;
-					this.selected = controls[i];
-					this.$.currentValue.setContent(controls[i].getContent());
-					controls[i].setChecked(true);
-					return;
-				}
-			}
-			if (this.multipleSelection) {
-				this.$.currentValue.setContent(this.multiSelectCurrentValue());
-			}
 		},
 
 		/**
