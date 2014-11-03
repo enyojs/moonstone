@@ -1721,6 +1721,12 @@
   text-align: center;
   background: transparent;
 }
+.moon-scroll-picker-buffer {
+  white-space: nowrap;
+  padding: 0 5px 2px 5px;
+  height: 0;
+  opacity: 0;
+}
 .moon-scroll-picker-overlay-container {
   position: absolute;
   z-index: 1;

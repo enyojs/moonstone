@@ -190,7 +190,8 @@
 			{kind: 'enyo.Scroller', strategyKind: 'TouchScrollStrategy', thumb:false, touch:true, useMouseWheel: false, classes: 'moon-scroll-picker', components:[
 				{name:'repeater', kind:'enyo.FlyweightRepeater', classes: 'moon-scroll-picker-repeater', ondragstart: 'dragstart', onSetupItem: 'setupItem', noSelect: true, components: [
 					{name: 'item', classes: 'moon-scroll-picker-item'}
-				]}
+				]},
+				{name: 'buffer', classes: 'moon-scroll-picker-buffer'}
 			]},
 			{name:'previousOverlay', ondown:'downPrevious', onholdpulse:'previous', classes:'moon-scroll-picker-overlay-container previous', components:[
 				{classes:'moon-scroll-picker-overlay previous'},
@@ -294,9 +295,19 @@
 		/**
 		* @private
 		*/
+		setupBuffer: function(value) {
+			var digits = Math.log10(value)+1,
+				buffer = '00000000000000000000'.substring(0,digits);
+			this.$.buffer.setContent(buffer);
+		},
+
+		/**
+		* @private
+		*/
 		rangeChanged: function () {
 			this.verifyValue();
 			this.range = this.valueToIndex(this.max) - this.valueToIndex(this.min) + 1;
+			this.setupBuffer(this.value);
 		},
 
 		/**
