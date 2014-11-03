@@ -1,10 +1,11 @@
 /* TextArea.css */
-.moon-textarea, .moon-richtext {
+.moon-textarea,
+.moon-richtext {
 	padding: 0;
 	border: 0;
 	cursor: pointer;
 	background: transparent;
-	height: 3 * @moon-body-line-height;
+	height: (3 * @moon-body-line-height);
 	width: 300px;
 	color: @moon-input-textarea-color;
 	// Remove scrollbars and resize handle
@@ -31,11 +32,13 @@
 }
 
 .moon-textarea-decorator {
-	&.moon-focused .moon-textarea, .moon-focused .moon-richtext {
+	&.moon-focused .moon-textarea,
+	.moon-focused .moon-richtext {
 		cursor: text;
 	}
 
-	&.moon-disabled .moon-textarea, .moon-disabled .moon-richtext {
+	&.moon-disabled .moon-textarea,
+	.moon-disabled .moon-richtext {
 		cursor: default;
 	}
 }
