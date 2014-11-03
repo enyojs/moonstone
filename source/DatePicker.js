@@ -183,10 +183,11 @@
 			}
 
 			values = this.calcPickerValues();
+			this.silence();
 
 			for(f = 0, l = doneArr.length; f < l; f++) {
 				o = doneArr[f];
-				
+
 				switch (o) {
 				case 'd':
 					digits = (ordering.indexOf('dd') > -1) ? 2 : null;
@@ -216,6 +217,8 @@
 					break;
 				}
 			}
+
+			this.unsilence();
 			this.inherited(arguments);
 		},
 
