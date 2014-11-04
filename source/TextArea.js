@@ -35,7 +35,7 @@
 		/**
 		* @private
 		*/
-		classes: 'moon-textarea',
+		classes: 'moon-body-text moon-textarea',
 
 		/**
 		* @private

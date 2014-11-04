@@ -10,7 +10,7 @@ enyo.kind({
 			]},
 			{kind: "moon.InputDecorator", components: [
 				{kind: "moon.Input", placeholder: "Search term", oninput:"handleInput", onchange:"handleChange"},
-				{kind: "Image", src: "$lib/moonstone/samples/assets/search-input-search.png"}
+				{kind: "moon.Icon", icon: "search"}
 			]},
 			{kind: "moon.InputDecorator", components: [
 				{kind: "moon.Input", type:"password", placeholder: "Enter password", oninput:"handleInput", onchange:"handleChange"}
@@ -22,7 +22,7 @@ enyo.kind({
 				{kind: "moon.Input", placeholder: "Dismiss on Enter", dismissOnEnter:true, oninput:"handleInput", onchange:"handleChange"}
 			]},
 			{kind: "moon.InputDecorator", disabled: true, components: [
-				{kind: "moon.Input", disabled: true, value: "Disabled input"}
+				{kind: "moon.Input", disabled: true, placeholder: "Disabled input"}
 			]},
 
 			{kind: "moon.Divider", content: "TextAreas"},
@@ -33,7 +33,7 @@ enyo.kind({
 				{kind: "moon.TextArea", placeholder: "JUST TYPE", oninput:"handleInput", onchange:"handleChange"}
 			]},
 			{kind: "moon.InputDecorator", disabled: true, components: [
-				{kind: "moon.TextArea", disabled: true, placeholder: "Deactivated input", oninput:"handleInput", onchange:"handleChange"}
+				{kind: "moon.TextArea", disabled: true, placeholder: "Deactivated TextArea", oninput:"handleInput", onchange:"handleChange"}
 			]},
 
 			{kind: "moon.Divider", content: "RichTexts"},
@@ -42,7 +42,7 @@ enyo.kind({
 			]},
 			{kind: "moon.InputDecorator", components: [
 				{kind: "moon.RichText", style: "width: 240px;", oninput:"handleInput", onchange:"handleChange"},
-				{kind: "Image", src: "$lib/moonstone/samples/assets/search-input-search.png"}
+				{kind: "moon.Icon", icon: "search"}
 			]},
 			{kind: "moon.InputDecorator", disabled: true, components: [
 				{kind: "moon.RichText", disabled: true, style: "width: 240px;"}
