@@ -17,7 +17,7 @@
 	* @extends enyo.Component
 	* @public
 	*/
-	enyo.kind({
+	enyo.kind(
 		/** @lends moon.Theme.prototype */ {
 
 		/**
