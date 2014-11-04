@@ -296,9 +296,16 @@
 		* @private
 		*/
 		setupBuffer: function(value) {
-			var digits = Math.log10(value)+1,
+			var digits = Math.max(Math.log10(value)+1, this.digits),
 				buffer = '00000000000000000000'.substring(0,digits);
 			this.$.buffer.setContent(buffer);
+		},
+
+		/**
+		* @private
+		*/
+		digitsChanged: function () {
+			this.setupBuffer(this.value);
 		},
 
 		/**
