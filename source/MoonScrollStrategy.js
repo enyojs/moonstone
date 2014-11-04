@@ -506,12 +506,24 @@
 		/**
 		* @private
 		*/
+		scrollMathStop: enyo.inherit(function (sup) {
+			return function () {
+				sup.apply(this, arguments);
+				this.updatePagingControlState();
+			};
+		}),
+
+		/**
+		* @private
+		*/
 		calcBoundaries: function() {
 			var s = this.$.scrollMath || this,
 				b = this._getScrollBounds()
 			;
 			s.bottomBoundary = -1 * b.maxTop;
 			s.rightBoundary = -1 * b.maxLeft;
+
+			this.updatePagingControlState();
 		},
 
 		/**
@@ -579,6 +591,22 @@
 			], function(c) {
 				c.addRemoveClass('hover', hover);
 			}, this);
+		},
+
+		/**
+		* @private
+		*/
+		updatePagingControlState: function () {
+			// Update disabled state of paging controls based on bounds
+			var m = this.$.scrollMath,
+				b = this._getScrollBounds(),
+				canVScroll = b.height > b.clientHeight,
+				canHScroll = b.width > b.clientWidth;
+
+			this.$.pageUpControl.setDisabled((b.top <= 0) || !canVScroll);
+			this.$.pageDownControl.setDisabled((b.top >= -1 * m.bottomBoundary) || !canVScroll);
+			this.$.pageLeftControl.setDisabled((b.left <= 0) || !canHScroll);
+			this.$.pageRightControl.setDisabled((b.left >= -1 * m.rightBoundary) || !canHScroll);
 		},
 
 		/**
@@ -772,16 +800,6 @@
 
 			b.maxLeft = Math.max(0, b.width - b.clientWidth);
 			b.maxTop = Math.max(0, b.height - b.clientHeight);
-
-			// Update disabled state of paging controls based on bounds
-			var m = this.$.scrollMath,
-				canVScroll = b.height > b.clientHeight,
-				canHScroll = b.width > b.clientWidth
-			;
-			this.$.pageUpControl.setDisabled((b.top <= 0) || !canVScroll);
-			this.$.pageDownControl.setDisabled((b.top >= -1 * m.bottomBoundary) || !canVScroll);
-			this.$.pageLeftControl.setDisabled((b.left <= 0) || !canHScroll);
-			this.$.pageRightControl.setDisabled((b.left >= -1 * m.rightBoundary) || !canHScroll);
 
 			enyo.mixin(b, this.getOverScrollBounds());
 
