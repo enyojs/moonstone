@@ -759,8 +759,11 @@
 		* means Sunday and `'1'` means Monday.
 		* An offset is applied to make the displayed day names behave as expected.
 		*
-		* Reference date is the 1st of JAN 1584. It is the 2nd year of gregorian calendar.
-		* And it is Sunday.
+		* Reference date for gregorian calendar is the 1st of JAN 1584. 
+		* It is Sunday.
+		*
+		* Reference date for persian calendar is the 3rd of JAN 1393. 
+		* It is Sunday.
 		*
 		* @private
 		*/
@@ -778,15 +781,29 @@
 			var daysControls = this.$.days.getClientControls();
 			for(var i = 0; i < 7; i++) {
 				if (typeof ilib !== 'undefined') {
-					var date = ilib.Date.newInstance({
-						type: this._dayFmt.getCalendar(),
-						year: 1584,
-						month: 1,
-						day:  1 + i + this.getFirstDayOfWeek(),
-						hour: 12,
-						locale: this.locale
-					});
-					var day = this._dayFmt.format(date);
+					var type = this._dayFmt.getCalendar(),
+						date, day;
+					
+					if (type == "gregorian") {
+						date = ilib.Date.newInstance({
+							type: type,
+							year: 1584,
+							month: 1,
+							day:  1 + i + this.getFirstDayOfWeek(),
+							hour: 12,
+							locale: this.locale
+						});
+					} else if (type == "persian") {
+						date = ilib.Date.newInstance({
+							type: type,
+							year: 1393,
+							month: 1,
+							day:  3 + i + this.getFirstDayOfWeek(),
+							hour: 24,
+							locale: this.locale
+						});
+					}
+					day = this._dayFmt.format(date);
 					daysControls[i].setContent(enyo.toUpperCase(day));
 				} else {
 					daysControls[i].setContent(this.days[(this.firstDayOfWeek + i) % 7]);
