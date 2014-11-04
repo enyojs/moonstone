@@ -83,5 +83,6 @@ enyo.depends(
 	'ImageBadge.js',
 	'ExpandableText.js',
 	'keymap.js',
-	'moon-container-init.js'
+	'moon-container-init.js',
+	'Theme.js'
 );
