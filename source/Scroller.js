@@ -21,7 +21,7 @@
 	* 5-way ({@glossary Spotlight}) focused controls remain in view.
 	*
 	* For more information, see the documentation on
-	* [Scrollers]{@linkplain docs/building-apps/layout/scrollers.html} in the
+	* [Scrollers]{@linkplain $dev-guide/building-apps/layout/scrollers.html} in the
 	* Enyo Developer Guide.
 	*
 	* @class moon.Scroller
