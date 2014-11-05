@@ -1242,8 +1242,8 @@
 }
 .moon-neutral .moon-button[disabled] {
   cursor: default;
-  color: #4d4d4d;
-  background-color: #262626;
+  color: #b3b3b3;
+  background-color: #ffffff;
 }
 .moon-neutral .moon-button[disabled] * {
   color: inherit;
