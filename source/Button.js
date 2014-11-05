@@ -189,7 +189,7 @@
 		contentChanged: function () {
 			var content = this.getContent();
 			if (this.$.client) {
-				this.$.client.content = this.getContentUpperCase() ? enyo.toUpperCase(content) : content;
+				this.$.client.setContent( this.getContentUpperCase() ? enyo.toUpperCase(content) : content );
 			} else {
 				this.inherited(arguments);
 			}
