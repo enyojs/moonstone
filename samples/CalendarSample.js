@@ -93,9 +93,16 @@ enyo.kind({
 
 	setLocale: function(inSender, inEvent){
 		if (ilib) {
-			ilib.setLocale(inEvent.selected.content);
-			this.$.calendar.setLocale(inEvent.selected.content);
-			this.$.picker.setLocale(inEvent.selected.content);
+			var locale = inEvent.selected.content;
+			ilib.setLocale(locale);
+			this.$.calendar.setLocale(locale);
+			this.$.picker.setLocale(locale);
+
+			if (locale == "fa-IR" && !(enyo.platform.webos || window.PalmSystem)) {
+				enyo.Control.prototype.rtl = true;
+				enyo.dom.addBodyClass('enyo-locale-right-to-left');
+			}			
+
 			this.df = new ilib.DateFmt({
 				type: "datetime",
 				time: "hmsa",

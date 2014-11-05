@@ -591,10 +591,6 @@
 		localeChanged: function () {
 			if (typeof ilib !== 'undefined') {
 				ilib.setLocale(this.locale);
-				// when setLocale is called, enyo.updateI18NClasses should be called
-				// to update Body classes. But current ilib does not do that
-				// remove this function call when ilib support is again
-				enyo.updateI18NClasses();
 				// the new locale may use a different calendar,
 				// so redo the local date in that new calendar 
 				// The this.value does not change, but the local date does.
