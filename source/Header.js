@@ -576,13 +576,6 @@
 		/**
 		* @private
 		*/
-		valueChanged: function () {
-			this.$.titleInput.detectTextDirectionality((this.$.titleInput.value || this.$.titleInput.value === 0 || this.$.titleInput.value === '0') ? this.$.titleInput.value : this.$.titleInput.get('placeholder'));
-		},
-
-		/**
-		* @private
-		*/
 		adjustTitleWidth: function() {
 			var type = this.get('type'),
 				// Measure client area's width + 40px of spacing
@@ -649,7 +642,6 @@
 			this.$.titleInput.set('placeholder', this.getTitleUpperCase()
 					? enyo.toUpperCase(this.placeholder || this.title || this.content)
 					: (this.placeholder || this.title || this.content) );
-			this.valueChanged();
 		},
 
 		/**
