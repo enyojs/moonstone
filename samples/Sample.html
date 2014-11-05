@@ -20,7 +20,9 @@
 	<!-- -->
 	<script type="text/javascript"><!--
 enyo.ready(function () {
-	new moon.sample.app({name: "app"}).renderInto(document.body);
+	// Create a most-basic container for rendering our home and samples.
+	var a = new enyo.Control({name: 'app'}).renderInto(document.body);
+	a.createComponent({name: 'home', kind: moon.sample.home, app: a});
 });
 --></script>
 </head>

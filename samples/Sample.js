@@ -26,7 +26,7 @@
 	* @namespace moon.sample
 	*/
 	enyo.kind({
-		name: 'moon.sample.app',
+		name: 'moon.sample.home',
 		classes: 'moon enyo-unselectable enyo-fit',
 		published: {
 			files: null,
@@ -140,8 +140,15 @@
 				// We have no sample, just render out the list.
 				enyo.log('%cList all of the Samples', 'color:green');
 				this.disableAllStylesheets();
-				this.createList();
-				this.renderInto(document.body);
+				if (this.app && this.app.$.sample) {
+					this.app.$.sample.destroy();
+				}
+				this.show();
+				if (!this.hasNode()) {
+					// We've never been generated, lets fix that.
+					this.createList();
+				}
+				this.render();
 			}
 		},
 		chooseSample: function (sender, ev) {
@@ -219,7 +226,7 @@
 		launchSample: function (sample) {
 			var s = sample || this.get('sample'),
 				loc = this.get('location'),
-				script = ' new moon.sample.' + s + '().renderInto(document.body); console.log(\'%c%s Launched.\', \'color:green;\', \'' + s + '\')';
+				script = ' enyo.$.app.$.home.hide(); enyo.$.app.createComponent({name: "sample", kind: "moon.sample.' + s + '"}).render(); console.log(\'%c%s Launched.\', \'color:green;\', \'' + s + '\')';
 			this.$.router.trigger({location: loc, change: true});
 			this.appendToHead( this.createNode('script', {type: 'text/javascript', content: script}) );
 		},

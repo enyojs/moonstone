@@ -4,8 +4,8 @@
 	* a {@link moon.RadioItemGroup}.
 	*
 	* For more information, see the documentation on
-	* [Radio Items]{@linkplain docs/building-apps/controls/radio-items.html} in
-	* the Enyo Developer Guide.
+	* [Radio Items]{@linkplain $dev-guide/building-apps/controls/radio-items.html}
+	* in the Enyo Developer Guide.
 	*
 	* @class moon.RadioItem
 	* @extends moon.SelectableItem

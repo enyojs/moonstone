@@ -525,8 +525,12 @@
 		* @private
 		*/
 		optionSelected: function(sender, e) {
+			this.startJob('expandContractJob', 'expandContractJob', 300);
+		},
+
+		expandContractJob: function(sender, e) {
 			if (this.getOpen() && this.autoCollapse && !this.noAutoCollapse) {
-				this.startJob('expandContract', 'expandContract', 300);
+				this.expandContract();
 			}
 		},
 

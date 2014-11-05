@@ -244,7 +244,7 @@
 			* Optional label for hour.
 			*
 			* @type {String}
-			* @default moon.$L('hour')
+			* @default 'moon.$L('hour')'
 			* @public
 			*/
 			hourText: moon.$L('hour'),			// i18n 'HOUR' label in moon.TimePicker widget
@@ -253,7 +253,7 @@
 			* Optional label for minute.
 			*
 			* @type {String}
-			* @default moon.$L('minute')
+			* @default 'moon.$L('minute')'
 			* @public
 			*/
 			minuteText: moon.$L('minute'),		// i18n 'MINUTE' label in moon.TimePicker widget
@@ -262,7 +262,7 @@
 			* Optional label for meridiem.
 			*
 			* @type {String}
-			* @default moon.$L('meridiem')
+			* @default 'moon.$L('meridiem')'
 			* @public
 			*/
 

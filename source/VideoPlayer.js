@@ -923,6 +923,14 @@
 				!this._loaded || 
 				(this.disablePlaybackControlsOnUnload && (this._errorCode || (!this.getSrc() && !this.getSources()) ));
 			this.$.slider.setDisabled(disabled);
+			// We need an explicit call to showKnobStatus as moon.Slider's disabledChanged method
+			// only handles hiding of the knob status. This behavior should not be changed in
+			// disabledChanged, as the normal behavior of moon.Slider is to display the knob status
+			// upon dragging, whereas moon.VideoPlayer is forcing the knob status to be shown when
+			// the slider is visible.
+			if (!disabled) {
+				this.$.slider.showKnobStatus();
+			}
 		},
 
 		/**

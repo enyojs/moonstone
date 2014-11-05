@@ -35,7 +35,7 @@
 			* Text label for the 'on' state.
 			*
 			* @type {String}
-			* @default moon.$L('on')
+			* @default 'moon.$L('on')'
 			* @public
 			*/
 			onContent: moon.$L('on'),   // i18n 'ON' label in moon.ToggleText widget
@@ -44,7 +44,7 @@
 			* Text label for the 'off' state.
 			*
 			* @type {String}
-			* @default moon.$L('off')
+			* @default 'moon.$L('off')'
 			* @public
 			*/
 			offContent: moon.$L('off')  // i18n 'OFF' label in moon.ToggleText widget

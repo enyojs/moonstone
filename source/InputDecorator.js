@@ -126,10 +126,10 @@
 			this.updateFocus(false);
 			this._oInputControl = this._findInputControl();
 			if (this._oInputControl instanceof moon.Input) {
-				this.addClass('moon-input-decorator');
+				this.addClass('moon-divider-text moon-input-decorator');
 			}
 			if (this._oInputControl instanceof moon.TextArea || this._oInputControl instanceof moon.RichText) {
-				this.addClass('moon-textarea-decorator');
+				this.addClass('moon-divider-text moon-textarea-decorator');
 			}
 		},
 

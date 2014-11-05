@@ -1,7 +1,6 @@
 /* InputDecorator.css */
 .moon-input-decorator:not(.moon-input-header-input-decorator),
 .moon-textarea-decorator {
-	.moon-divider-text;
 	margin: 5px;
 	border: @moon-input-border-width solid transparent;
 	background-color: @moon-input-decorator-bg-color;
@@ -13,17 +12,27 @@
 	&.moon-focused {
 		border-color: @moon-active-border-color;
 	}
+	// for icons used inside of InputDecorator and TextareaDecorator (e.g. search icon)
+	.moon-icon.small,
+	.spotlight .moon-icon.small {
+		width: 20px;
+		margin: 0;
+		color: @moon-input-font-color;
+	}
 }
+
 .moon-input-decorator,
 .moon-textarea-decorator {
 	&.moon-disabled {
 		opacity: @moon-disabled-opacity;
 	}
 }
+
 .moon-input-decorator:not(.moon-input-header-input-decorator) {
 	padding: 9px 30px;
 	border-radius: 34px;
 }
+
 .moon-textarea-decorator {
 	padding: 9px 14px;
 	border-radius: 10px;
@@ -34,12 +43,8 @@
 }
 
 .enyo-locale-non-latin {
-	.moon-input-decorator:not(.moon-input-header-input-decorator),
-	.moon-textarea-decorator {
-		.enyo-locale-non-latin .moon-divider-text;
-	}
 	.moon-input-decorator:not(.moon-input-header-input-decorator) {
-		padding-top: 5px;
+		padding: 5px 30px 9px;
 	}
 
 	// Languages with combining accent characters
@@ -58,8 +63,7 @@
 	&.enyo-locale-bn, // Bengali
 	&.enyo-locale-pa {// Panjabi
 		.moon-input-decorator:not(.moon-input-header-input-decorator) {
-			padding-top: 1px;
-			padding-bottom: 1px;
+			padding: 1px 30px;
 		}
 	}
 }

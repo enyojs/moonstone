@@ -4,7 +4,7 @@
 	* The color of the button may be customized by specifying a background color.
 	*
 	* For more information, see the documentation on
-	* [Buttons]{@linkplain docs/building-apps/controls/buttons.html} in the
+	* [Buttons]{@linkplain $dev-guide/building-apps/controls/buttons.html} in the
 	* Enyo Developer Guide.
 	*
 	* @class moon.Button
@@ -128,8 +128,9 @@
 				this.createComponent({name: 'client', kind:'moon.MarqueeText', isChrome: true});
 				this.createComponent({name: 'tapArea', classes: 'button-tap-area', isChrome: true});
 			}
-			this.smallChanged();
-			this.minWidthChanged();
+			if (this.small) this.smallChanged();
+			if (this.minWidth) this.minWidthChanged();
+			this.contentChanged();
 			this.inherited(arguments);
 		},
 
@@ -177,8 +178,7 @@
 			} else {
 				this.removeClass('small');
 				this.removeClass('moon-small-button-text');
-			}
-			this.contentChanged();
+			}			
 		},
 
 		/**

@@ -11,8 +11,8 @@
 	* ```
 	*
 	* For more information, see the documentation on
-	* [Text Fields]{@linkplain docs/building-apps/controls/text-fields.html} in
-	* the Enyo Developer Guide.
+	* [Text Fields]{@linkplain $dev-guide/building-apps/controls/text-fields.html}
+	* in the Enyo Developer Guide.
 	*
 	* @class moon.Input
 	* @extends enyo.Input
@@ -36,7 +36,7 @@
 		/**
 		* @private
 		*/
-		classes: 'moon-input',
+		classes: 'moon-body-text moon-input',
 
 		/**
 		* 13==Enter, 16777221==KeypadEnter
