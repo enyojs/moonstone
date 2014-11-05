@@ -757,52 +757,28 @@
 		* Updates days of the week from first day to last day.
 		* If [iLib]{@glossary ilib} is loaded, a `'0'` value for `this.firstDayOfweek`
 		* means Sunday and `'1'` means Monday.
-		* An offset is applied to make the displayed day names behave as expected.
-		*
-		* Reference date for gregorian calendar is the 1st of JAN 1584. 
-		* It is Sunday.
-		*
-		* Reference date for persian calendar is the 3rd of JAN 1393. 
-		* It is Sunday.
 		*
 		* @private
 		*/
 		updateDays: function () {
 			if (typeof(this._dayFmt) === 'undefined' && typeof ilib !== 'undefined') {
-				this._dayFmt = new ilib.DateFmt({					
+				this._dayFmt = new ilib.DateFmt({
 					type: 'date',	//only format the date component, not the time
 					date: 'w',		//'w' is the day of the week
 					useNative: false,
 					length: this.dayOfWeekLength,
-					locale: this.locale					
+					locale: this.locale
 				});
 			}
 
-			var daysControls = this.$.days.getClientControls();
+			var daysControls = this.$.days.getClientControls(),
+				date, day;
 			for(var i = 0; i < 7; i++) {
 				if (typeof ilib !== 'undefined') {
-					var type = this._dayFmt.getCalendar(),
-						date, day;
-					
-					if (type == "gregorian") {
-						date = ilib.Date.newInstance({
-							type: type,
-							year: 1584,
-							month: 1,
-							day:  1 + i + this.getFirstDayOfWeek(),
-							hour: 12,
-							locale: this.locale
-						});
-					} else if (type == "persian") {
-						date = ilib.Date.newInstance({
-							type: type,
-							year: 1393,
-							month: 1,
-							day:  3 + i + this.getFirstDayOfWeek(),
-							hour: 24,
-							locale: this.locale
-						});
-					}
+					date = ilib.Date.newInstance({
+						julianday: 2299603.5 + i,
+						timezone: "Etc/UTC"
+					});
 					day = this._dayFmt.format(date);
 					daysControls[i].setContent(enyo.toUpperCase(day));
 				} else {
