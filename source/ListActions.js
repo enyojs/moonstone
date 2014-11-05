@@ -360,6 +360,8 @@
 			}
 		},
 
+		//TODO: Remove the onListActionOpenChanged event. It will be deprecated in favor of the onShow/onHide events
+		// once we communicate to SmartShare (the only app we could find that's handling this event).
 		/**
 		* @fires moon.ListActions#onListActionOpenChanged
 		* @private
@@ -377,10 +379,10 @@
 				// Capture onSpotlightFocus happening outside the drawer, so that we can prevent focus
 				// from landing in the header beneath the drawer
 				enyo.dispatcher.capture(this.$.drawer, {onSpotlightFocus: 'capturedSpotlightFocus'}, this);
-				this.doShow({originator: this.$.drawer});
+				this.doShow({originator: this});
 			} else {
 				enyo.dispatcher.release(this.$.drawer);
-				this.doHide({originator: this.$.drawer});
+				this.doHide({originator: this});
 			}
 		},
 
@@ -413,7 +415,7 @@
 			}
 			this.bubble('onRequestUnmuteTooltip');
 
-			this.doHidden({originator: originator});
+			this.doHidden({originator: originator.owner});
 		},
 		
 		/**
@@ -429,7 +431,7 @@
 			}
 			this.bubble('onRequestMuteTooltip');
 
-			this.doShown({originator: originator});
+			this.doShown({originator: originator.owner});
 		},
 
 		/**
