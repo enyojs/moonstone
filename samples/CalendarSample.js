@@ -101,7 +101,10 @@ enyo.kind({
 			if (locale == "fa-IR" && !(enyo.platform.webos || window.PalmSystem)) {
 				enyo.Control.prototype.rtl = true;
 				enyo.dom.addBodyClass('enyo-locale-right-to-left');
-			}			
+			} else {
+				enyo.Control.prototype.rtl = false;
+				enyo.dom.removeClass(document.body, 'enyo-locale-right-to-left');
+			}
 
 			this.df = new ilib.DateFmt({
 				type: "datetime",
