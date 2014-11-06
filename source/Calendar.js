@@ -762,25 +762,20 @@
 		*/
 		updateDays: function () {
 			if (typeof(this._dayFmt) === 'undefined' && typeof ilib !== 'undefined') {
-				this._dayFmt = new ilib.DateFmt({
+				this._dayFmt = new ilib.DateFmt({					
 					type: 'date',	//only format the date component, not the time
 					date: 'w',		//'w' is the day of the week
 					useNative: false,
 					length: this.dayOfWeekLength,
-					locale: this.locale
+					locale: this.locale					
 				});
 			}
 
 			var daysControls = this.$.days.getClientControls(),
-				date, day;
+				daysOfWeek = this._dayFmt.getDaysOfWeek();
 			for(var i = 0; i < 7; i++) {
 				if (typeof ilib !== 'undefined') {
-					date = ilib.Date.newInstance({
-						julianday: 2299603.5 + i,
-						timezone: "Etc/UTC"
-					});
-					day = this._dayFmt.format(date);
-					daysControls[i].setContent(enyo.toUpperCase(day));
+					daysControls[i].setContent(enyo.toUpperCase(daysOfWeek[(this.firstDayOfWeek + i) % 7]));
 				} else {
 					daysControls[i].setContent(this.days[(this.firstDayOfWeek + i) % 7]);
 				}
