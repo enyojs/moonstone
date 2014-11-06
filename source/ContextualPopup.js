@@ -7,7 +7,7 @@
 	* @property {Object} activator - A reference to the activating object.
 	* @public
 	*/
-	
+
 	/**
 	* Fires when the contextual popup is to be hidden. No additional data is included
 	* with this event.
@@ -16,7 +16,7 @@
 	* @type {Object}
 	* @public
 	*/
-	
+
 	/**
 	* Fires when the contextual popup is activated. Extends {@link enyo.Popup#onActivate}.
 	*
@@ -25,7 +25,7 @@
 	* @property {Object} sentFromPopup - A reference to the popup.
 	* @public
 	*/
-	
+
 	/**
 	* {@link moon.ContextualPopup} is a popup window control with Moonstone visual
 	* styling applied. It extends {@link enyo.Popup} and is designed to be used with
@@ -249,7 +249,7 @@
 			var rHeight = (r.height === undefined) ? (r.bottom - r.top) : r.height;
 			var rWidth = (r.width === undefined) ? (r.right - r.left) : r.width;
 
-			return {top: r.top + pageYOffset, left: r.left + pageXOffset, height: rHeight, width: rWidth, bottom: r.top + pageYOffset + rHeight, right: r.left + pageXOffset + rWidth};			
+			return {top: r.top + pageYOffset, left: r.left + pageXOffset, height: rHeight, width: rWidth, bottom: r.top + pageYOffset + rHeight, right: r.left + pageXOffset + rWidth};
 		},
 
 		/**
@@ -281,7 +281,7 @@
 				var bounds = {top: null, left: null};
 
 				if(this.direction === 'left') {
-					if(clientRect.width + popupMargin < this.activatorOffset.left) { 
+					if(clientRect.width + popupMargin < this.activatorOffset.left) {
 						this.resetDirection();
 						this.addClass('right');
 
@@ -449,6 +449,8 @@
 		capturedKeyDown: function (inSender, inEvent) {
 			if (inEvent.keyCode == 13) {
 				this.downEvent = inEvent;
+			} else {
+				enyo.Spotlight.spot(this);
 			}
 			return this.modal;
 		},
