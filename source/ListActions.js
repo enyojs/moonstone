@@ -165,7 +165,7 @@
 		* @private
 		*/
 		drawerComponents: [
-			{name: 'drawer', spotlightDisabled: true, kind: 'moon.ListActionsDrawer', classes: 'list-actions-drawer', onComplete: 'drawerAnimationEnd', open: false, spotlight: 'container', spotlightModal:true, components: [
+			{name: 'drawer', spotlightDisabled: true, kind: 'moon.ListActionsDrawer', classes: 'list-actions-drawer', onComplete: 'drawerAnimationEnd', open: false, spotlight: 'container', components: [
 				{name: 'closeButton', kind: 'moon.IconButton', icon: 'closex', classes: 'moon-popup-close moon-list-actions-close moon-neutral', ontap: 'expandContract', defaultSpotlightDown:'listActions'},
 				{name: 'listActionsClientContainer', classes: 'enyo-fit moon-list-actions-client-container moon-neutral', components: [
 					{name: 'listActions', kind: 'moon.Scroller', classes: 'enyo-fit moon-list-actions-scroller', horizontal:'hidden', vertical:'hidden', onActivate: 'optionSelected', defaultSpotlightUp:'closeButton'}
