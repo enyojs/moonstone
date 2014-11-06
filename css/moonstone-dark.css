@@ -1840,6 +1840,9 @@
 .moon-neutral .moon-input {
   color: #4b4b4b;
 }
+.enyo-locale-right-to-left .moon-input {
+  text-align: right;
+}
 .enyo-locale-non-latin.enyo-locale-th .moon-input-decorator .moon-input,
 .enyo-locale-non-latin.enyo-locale-ar .moon-input-decorator .moon-input,
 .enyo-locale-non-latin.enyo-locale-fa .moon-input-decorator .moon-input,
@@ -2069,6 +2072,9 @@
   background-image: none;
   box-shadow: none;
   text-transform: none;
+}
+.enyo-locale-right-to-left .moon-richtext {
+  text-align: right;
 }
 /* ContextualPopupButton.css */
 .moon-button.contextual-popup-button {
@@ -2377,6 +2383,9 @@
 .moon-textarea-decorator.moon-disabled .moon-textarea,
 .moon-textarea-decorator .moon-disabled .moon-richtext {
   cursor: default;
+}
+.enyo-locale-right-to-left .moon-textarea {
+  text-align: right;
 }
 /* List Actions */
 .moon-list-actions {
