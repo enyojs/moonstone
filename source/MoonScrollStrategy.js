@@ -276,6 +276,7 @@
 		*/
 		down: function(sender, event) {
 			if (!this.isPageControl(event.originator) && this.isScrolling() && !this.isOverscrolling()) {
+				event.preventTap();
 				this.stop();
 			}
 		},
