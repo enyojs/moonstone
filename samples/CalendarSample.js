@@ -11,13 +11,13 @@ enyo.kind({
 				{kind:"moon.Divider", content:"Set value:"},
 				{classes:"moon-hspacing", components: [
 					{kind: "moon.InputDecorator", classes: "moon-2h", components: [
-						{kind: "moon.Input", name:"yearInput", placeholder: "Year"}
+						{kind: "moon.Input", name:"yearInput", classes: "moon-calendar-sample-input", placeholder: "Year"}
 					]},
 					{kind: "moon.InputDecorator", classes: "moon-2h", components: [
-						{kind: "moon.Input", name:"monthInput", placeholder: "Month"}
+						{kind: "moon.Input", name:"monthInput", classes: "moon-calendar-sample-input", placeholder: "Month"}
 					]},
 					{kind: "moon.InputDecorator", classes: "moon-2h", components: [
-						{kind: "moon.Input", name:"dayInput", placeholder: "Day"}
+						{kind: "moon.Input", name:"dayInput", classes: "moon-calendar-sample-input", placeholder: "Day"}
 					]}
 				]},
 				{classes:"moon-hspacing", components: [

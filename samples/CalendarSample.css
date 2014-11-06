@@ -2,3 +2,7 @@
 .moon-calendar-dow-lable-nodisplay {
 	display: none;
 }
+
+.moon-calendar-sample-input {
+	width: 100%;
+}
