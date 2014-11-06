@@ -299,8 +299,8 @@
 		* @private
 		*/
 		setupBuffer: function() {
-			var bmin = Math.log10(Math.abs(this.min)) + (this.min < 0 ? 2 : 1), // consider '-' on min
-				bmax = Math.max(bmin, Math.log10(this.max)+1),
+			var bmin = ('' + this.min).length,
+				bmax = Math.max(bmin, ('' + this.max).length),
 				digits = this.digits + (this.min < 0 ? 1 : 0),
 				buffer = Math.max(bmax, digits),
 				content = '00000000000000000000'.substring(0, buffer);
