@@ -336,7 +336,10 @@
 				}
 				// Capture onSpotlightFocus happening outside the drawer, so that we can prevent focus
 				// from landing in the header beneath the drawer
-				enyo.dispatcher.capture(this.$.drawer, {onSpotlightFocus: 'capturedSpotlightFocus'}, this);
+				enyo.dispatcher.capture(this.$.drawer, {
+					onSpotlightFocus: 'capturedSpotlightFocus',
+					ontap: 'capturedtap',
+				}, this);
 			} else {
 				enyo.dispatcher.release(this.$.drawer);
 			}
@@ -510,6 +513,15 @@
 			if (e.originator.isDescendantOf(this.$.drawer.parent) &&
 				!e.originator.isDescendantOf(this.$.drawer)) {
 				enyo.Spotlight.spot(this.$.drawer);
+				return true;
+			}
+			if (this.getOpen() && !e.originator.isDescendantOf(this.$.drawer)) {
+				enyo.Spotlight.spot(this.$.drawer);
+				return true;
+			}
+		},
+		capturedtap: function(sender, e) {
+			if (this.getOpen() && e.dispatchTarget && !e.dispatchTarget.isDescendantOf(this.$.drawer)) {
 				return true;
 			}
 		}
