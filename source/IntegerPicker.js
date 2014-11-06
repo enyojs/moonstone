@@ -190,7 +190,8 @@
 			{kind: 'enyo.Scroller', strategyKind: 'TouchScrollStrategy', thumb:false, touch:true, useMouseWheel: false, classes: 'moon-scroll-picker', components:[
 				{name:'repeater', kind:'enyo.FlyweightRepeater', classes: 'moon-scroll-picker-repeater', ondragstart: 'dragstart', onSetupItem: 'setupItem', noSelect: true, components: [
 					{name: 'item', classes: 'moon-scroll-picker-item'}
-				]}
+				]},
+				{name: 'buffer', classes: 'moon-scroll-picker-buffer'}
 			]},
 			{name:'previousOverlay', ondown:'downPrevious', onholdpulse:'previous', classes:'moon-scroll-picker-overlay-container previous', components:[
 				{classes:'moon-scroll-picker-overlay previous'},
@@ -263,7 +264,10 @@
 		* @private
 		*/
 		verifyValue: function () {
+			var animate = this.animate;
+			this.animate = false;
 			this.set('value', this.getVerifiedValue());
+			this.animate = animate;
 		},
 
 		/**
@@ -294,9 +298,29 @@
 		/**
 		* @private
 		*/
+		setupBuffer: function() {
+			var bmin = ('' + this.min).length,
+				bmax = Math.max(bmin, ('' + this.max).length),
+				digits = this.digits + (this.min < 0 ? 1 : 0),
+				buffer = Math.max(bmax, digits),
+				content = '00000000000000000000'.substring(0, buffer);
+			this.$.buffer.setContent(content);
+		},
+
+		/**
+		* @private
+		*/
+		digitsChanged: function () {
+			this.setupBuffer();
+		},
+
+		/**
+		* @private
+		*/
 		rangeChanged: function () {
 			this.verifyValue();
 			this.range = this.valueToIndex(this.max) - this.valueToIndex(this.min) + 1;
+			this.setupBuffer();
 		},
 
 		/**
