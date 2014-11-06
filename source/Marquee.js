@@ -680,7 +680,7 @@
 		*/
 		_marquee_alignmentChanged: function () {
 			this.applyStyle('text-align', this._marquee_alignment);
-			this._marquee_distance = null;
+			this._marquee_invalidateMetrics();
 		},
 
 		/**
@@ -702,7 +702,9 @@
 			if (this.$.marqueeText) {
 				this.$.marqueeText.setContent(this.content);
 			}
-			this._marquee_detectAlignment();
+			if (this.generated) {
+				this._marquee_detectAlignment();
+			}
 			this._marquee_reset();
 		},
 
@@ -785,7 +787,7 @@
 			}
 
 			this.startJob('stopMarquee', '_marquee_stopAnimation', this.marqueePause);
-	        return true;
+			return true;
 		},
 
 		/**
