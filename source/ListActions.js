@@ -516,8 +516,12 @@
 				return true;
 			}
 		},
+		
+		/**
+		* @private
+		*/
 		capturedTap: function(sender, e) {
-			if (this.getOpen() && e.dispatchTarget && !e.dispatchTarget.isDescendantOf(this.$.drawer)) {
+			if (this.get('open') && e.dispatchTarget && !e.dispatchTarget.isDescendantOf(this.$.drawer)) {
 				return true;
 			}
 		}
