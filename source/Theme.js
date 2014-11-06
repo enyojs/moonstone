@@ -1,11 +1,14 @@
 (function (enyo, scope) {
+
+	var defaultThemeName = 'dark';
+
 	/**
 	* {@link moon.Theme}, which extends {@link enyo.Component}, is
 	* a runtime theme switcher.
-	* 
+	*
 	* ```
 	* enyo.kind({
-	*	name: 'app', 
+	*	name: 'app',
 	*	components: [
 	*		{kind: 'moon.Theme', theme: 'light'},
 	*		{kind: ...}
@@ -34,7 +37,7 @@
 		* @private
 		*/
 		themes: {
-			'dark': 'moonstone-dark.css',
+			'dark': 'moonstone.css',
 			'light': 'moonstone-light.css'
 		},
 
@@ -43,7 +46,7 @@
 		* @private
 		*/
 		published: {
-			theme: null
+			theme: defaultThemeName
 		},
 
 		/**
@@ -51,7 +54,7 @@
 		* @private
 		*/
 		constructed: function () {
-			this.themeChanged();
+			this.themeChanged(defaultThemeName, this.theme);
 			this.inherited(arguments);
 		},
 
@@ -59,22 +62,27 @@
 		* @method
 		* @private
 		*/
-		themeChanged: function() {
-			var themes = this.get('themes'),
-				defaultCssFile = themes['dark'],
-				targetCssFile = themes[this.get('theme')];
+		themeChanged: function(from, to) {
+			if (from == to) return;
 
-			if (!defaultCssFile || !targetCssFile) return;
-			this.replaceTheme(defaultCssFile, targetCssFile);
+			var themes = this.get('themes'),
+				currentCssFile = themes[from],
+				targetCssFile = themes[to];
+
+			if (!currentCssFile || !targetCssFile) return;
+			this.changeLink(currentCssFile, targetCssFile);
 		},
 
 		/**
 		* @method
 		* @private
 		*/
-		replaceTheme: function(from, to) {
-			var cs = document.getElementsByTagName("link");
-			for(var i=0; i<cs.length; i++) {
+		changeLink: function(from, to) {
+			if (from == to) return;
+
+			var i, cs = document.getElementsByTagName('link');
+
+			for (i = 0; i < cs.length; i++) {
 				if (cs[i].href.indexOf(from) > 0) {
 					cs[i].href = cs[i].href.replace(from, to);
 					break;
@@ -82,4 +90,5 @@
 			}
 		}
 	});
+
 })(enyo, this);
