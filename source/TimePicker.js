@@ -458,8 +458,8 @@
 			var minute = this.$.minute.getValue();
 	
 			if (inEvent.originator.kind == 'moon.MeridiemPicker') {
-				hour = this.value.getHours();
-				minute = this.value.getMinutes();
+				hour = this.value ? this.value.getHours() : hour;
+				minute = this.value ? this.value.getMinutes() : minute;
 				if (hour < 12 && inEvent.originator.value == 1 ) {
 					hour += 12;
 				} else if ( hour > 12 && hour != 24 && inEvent.originator.value === 0) {
