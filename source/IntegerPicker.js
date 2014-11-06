@@ -53,6 +53,17 @@
 		* @lends moon.IntegerPicker.prototype
 		*/
 		published: {
+			/**
+			*
+			* Current locale used for formatting. May be set after the control is
+			* created, in which case the control will be updated to reflect the
+			* new value.  Only valid if [iLib]{@glossary ilib} is loaded.
+			*
+			* @type {String}
+			* @default ''
+			* @public
+			*/
+			locale: '',
 
 			/**
 			* When `true`, button is shown as disabled and does not generate tap events.
@@ -226,6 +237,9 @@
 		create: function () {
 			this.inherited(arguments);
 			this.verifyValue();
+			if (typeof ilib !== 'undefined') {
+				this.initILib();
+			}
 			this.updateOverlays();
 		},
 
@@ -269,9 +283,26 @@
 		/**
 		* @private
 		*/
+		initILib: function () {
+			this.locale = this.locale || new ilib.LocaleInfo(this.locale || undefined).locale;
+
+			var fmtParams = {
+				locale: this.locale,
+				type: "number"
+			};
+
+			this._numFmt = new ilib.NumFmt(fmtParams);
+		},
+
+		/**
+		* @private
+		*/
 		setupItem: function (inSender, inEvent) {
 			var index = inEvent.index;
 			var content = this.labelForValue(this.indexToValue(index % this.range));
+			if (typeof ilib !== 'undefined') {
+				content = this._numFmt.format(content);
+			}
 			this.$.item.setContent(content);
 		},
 
@@ -289,6 +320,13 @@
 			}
 
 			return value;
+		},
+		/**
+		* @private
+		*/
+		localeChanged: function () {
+			this.initILib();
+			//this.$.repeater.render();
 		},
 
 		/**
