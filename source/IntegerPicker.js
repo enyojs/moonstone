@@ -264,7 +264,10 @@
 		* @private
 		*/
 		verifyValue: function () {
+			var animate = this.animate;
+			this.animate = false;
 			this.set('value', this.getVerifiedValue());
+			this.animate = animate;
 		},
 
 		/**
