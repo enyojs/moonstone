@@ -295,8 +295,10 @@
 		/**
 		* @private
 		*/
-		setupBuffer: function(value) {
-			var digits = Math.max(Math.log10(value)+1, this.digits),
+		setupBuffer: function() {
+			var digits = Math.log10(Math.abs(this.min)) + (this.min < 0 ? 2 : 1), // consider '-' on min
+				digits = Math.max(Math.log10(this.max)+1, digits),
+				digits = Math.max(digits, this.digits),
 				buffer = '00000000000000000000'.substring(0,digits);
 			this.$.buffer.setContent(buffer);
 		},
@@ -305,7 +307,7 @@
 		* @private
 		*/
 		digitsChanged: function () {
-			this.setupBuffer(this.value);
+			this.setupBuffer();
 		},
 
 		/**
@@ -314,7 +316,7 @@
 		rangeChanged: function () {
 			this.verifyValue();
 			this.range = this.valueToIndex(this.max) - this.valueToIndex(this.min) + 1;
-			this.setupBuffer(this.value);
+			this.setupBuffer();
 		},
 
 		/**
