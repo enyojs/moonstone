@@ -298,7 +298,7 @@
 		* @private
 		*/
 		setupItem: function (inSender, inEvent) {
-			var index = inEvent.index;
+			var index = this._index = inEvent.index;
 			var content = this.labelForValue(this.indexToValue(index % this.range));
 			if (typeof ilib !== 'undefined') {
 				content = this._numFmt.format(content);
@@ -326,7 +326,7 @@
 		*/
 		localeChanged: function () {
 			this.initILib();
-			//this.$.repeater.render();
+			this.$.repeater.renderRow(this._index);
 		},
 
 		/**
