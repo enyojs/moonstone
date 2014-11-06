@@ -504,11 +504,11 @@
 		setChildPickers: function (inOld) {
 			if (this.value) {
 				var hour = this.value.getHours();
+				this.$.hour.setValue(hour);
+				this.$.minute.setValue(this.value.getMinutes());
 				if (this.meridiemEnable === true) {
 					this.$.meridiem.setValue(hour > 11 ? 1 : 0);
 				}
-				this.$.hour.setValue(this.value.getHours());
-				this.$.minute.setValue(this.value.getMinutes());
 			}
 			this.$.currentValue.setContent(this.formatValue());
 		},
