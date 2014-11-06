@@ -776,7 +776,7 @@
 			for(var i = 0; i < 7; i++) {
 				if (typeof ilib !== 'undefined') {
 					date = ilib.Date.newInstance({
-						julianday: 2299604.5 + i,
+						julianday: 2299603.5 + i,
 						timezone: "Etc/UTC"
 					});
 					day = this._dayFmt.format(date);
