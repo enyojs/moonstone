@@ -2073,6 +2073,9 @@
   box-shadow: none;
   text-transform: none;
 }
+.enyo-locale-right-to-left .moon-richtext {
+  text-align: right;
+}
 /* ContextualPopupButton.css */
 .moon-button.contextual-popup-button {
   padding-right: 50px;
@@ -2380,6 +2383,9 @@
 .moon-textarea-decorator.moon-disabled .moon-textarea,
 .moon-textarea-decorator .moon-disabled .moon-richtext {
   cursor: default;
+}
+.enyo-locale-right-to-left .moon-textarea {
+  text-align: right;
 }
 /* List Actions */
 .moon-list-actions {
