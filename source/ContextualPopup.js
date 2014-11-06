@@ -74,7 +74,8 @@
 		* @private
 		*/
 		eventsToCapture: {
-			onSpotlightKeyDown: 'capturedKeyDown'
+			onSpotlightKeyDown: 'capturedKeyDown',
+			onSpotlightFocus: 'capturedFocus'
 		},
 
 		/**
@@ -450,7 +451,13 @@
 			if (inEvent.keyCode == 13) {
 				this.downEvent = inEvent;
 			}
-			return this.modal;
+			return this.modal && this.spotlightModal;
+		},
+		capturedFocus: function(inSender, inEvent) {
+			if(this.spotlightModal) {
+				enyo.Spotlight.spot(this);
+				return true;
+			}
 		},
 
 		/**
