@@ -338,7 +338,7 @@
 				// from landing in the header beneath the drawer
 				enyo.dispatcher.capture(this.$.drawer, {
 					onSpotlightFocus: 'capturedSpotlightFocus',
-					ontap: 'capturedtap',
+					ontap: 'capturedtap'
 				}, this);
 			} else {
 				enyo.dispatcher.release(this.$.drawer);
