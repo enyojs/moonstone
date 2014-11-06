@@ -1120,7 +1120,10 @@
 				this.$.showHideHandle.addClass('right');
 				this.applyShowAnimation();
 			}
-			enyo.Signals.send('onPanelsShown', {initialization: init});
+			enyo.Signals.send('onPanelsShown', {
+				initialization: init,
+				pattern: this.pattern
+			});
 		},
 
 		/**
