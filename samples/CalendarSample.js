@@ -101,7 +101,7 @@ enyo.kind({
 			var li = new ilib.LocaleInfo(locale);
 			var script = new ilib.ScriptInfo(li.getScript());
 
-			if (script.getScriptDirection() === "rtl" && !(enyo.platform.webos || window.PalmSystem)) {
+			if (script.getScriptDirection() === "rtl") {
 				enyo.Control.prototype.rtl = true;
 				enyo.dom.addBodyClass('enyo-locale-right-to-left');
 			} else {
