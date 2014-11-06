@@ -299,11 +299,12 @@
 		* @private
 		*/
 		setupBuffer: function() {
-			var digits = Math.log10(Math.abs(this.min)) + (this.min < 0 ? 2 : 1), // consider '-' on min
-				digits = Math.max(Math.log10(this.max)+1, digits),
-				digits = Math.max(digits, this.digits),
-				buffer = '00000000000000000000'.substring(0,digits);
-			this.$.buffer.setContent(buffer);
+			var bmin = Math.log10(Math.abs(this.min)) + (this.min < 0 ? 2 : 1); // consider '-' on min
+				bmax = Math.max(bmin, Math.log10(this.max)+1),
+				digits = this.digits + (this.min < 0 ? 1 : 0);
+				buffer = Math.max(bmax, digits),
+				content = '00000000000000000000'.substring(0, buffer);
+			this.$.buffer.setContent(content);
 		},
 
 		/**
