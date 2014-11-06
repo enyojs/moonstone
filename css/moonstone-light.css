@@ -1840,6 +1840,9 @@
 .moon-neutral .moon-input {
   color: #4b4b4b;
 }
+.enyo-locale-right-to-left .moon-input {
+  text-align: right;
+}
 .enyo-locale-non-latin.enyo-locale-th .moon-input-decorator .moon-input,
 .enyo-locale-non-latin.enyo-locale-ar .moon-input-decorator .moon-input,
 .enyo-locale-non-latin.enyo-locale-fa .moon-input-decorator .moon-input,
