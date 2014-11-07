@@ -1,4 +1,16 @@
 (function (enyo, scope) {
+
+	var locales = [
+		{locale: 'local', title: '', selected: true},
+		{locale: 'en-US', title: '<span class="light">- US English</span>'},
+		{locale: 'ko-KR', title: '<span class="light">- Korean</span>'},
+		{locale: 'th-TH', title: '<span class="light">- Thai, with tall characters</span>'},
+		{locale: 'ar-SA', title: '<span class="light">- Arabic, RTL and standard font</span>'},
+		{locale: 'ur-PK', title: '<span class="light">- Urdu, RTL and custom Urdu font</span>'},
+		{locale: 'zh-Hant-HK', title: '<span class="light">- Traditional Chinese, custom Hant font</span>'},
+		{locale: 'ja-JP', title: '<span class="light">- Japanese, custom Japanese font</span>'}
+	];
+
 	/**
 	* _Moonstone Sample_ is a tool for displaying and interacting with sample code in the Moonstone
 	* user interface library. This tool can display a list of all samples and load individual
@@ -40,26 +52,19 @@
 			}
 		},
 		components: [
-
 			{classes: 'moon-sample-persistant-hotspot', components: [
 				{classes: 'moon-sample-persistant-frame', spotlight: 'container', components: [
 					{kind: 'moon.Button', content: 'Reload', small: true, spotlight: false, classes: 'moon-sample-persistant-locale-button', ontap: 'reload'},
 					{kind: 'moon.Button', content: 'Back to List', small: true, spotlight: false, classes: 'moon-sample-persistant-locale-button', ontap: 'backToList'},
 					{kind: 'moon.ContextualPopupDecorator', components: [
-						// {name: 'caption', kind: 'moon.CaptionDecorator', content: 'Set Locale', side: 'left', components: [
 						{kind: 'moon.Button', content: 'Set Locale', small: true, spotlight: false, classes: 'moon-sample-persistant-locale-button'},
-						// ]},
-						{name: 'localePopup', kind: 'moon.ContextualPopup', components: [
+						{name: 'localePopup', kind: 'moon.ContextualPopup', classes: 'moon-sample-locale-popup', components: [
 							{content: 'Set Locale', kind: 'moon.Divider'},
-							{kind: 'moon.Scroller', classes: 'enyo-fill', components: [
-								{kind: 'Group', onActivate: 'localeGroupChanged', components: [
-									{value: '', content:'local', kind: 'moon.ToggleItem', checked: true},
-									{value: 'en-US', content:'en-US <span style="font-family: \'MuseoSans 300\';">- US English</span>', kind: 'moon.ToggleItem', allowHtml: true},
-									{value: 'ko-KR', content:'ko-KR <span style="font-family: \'MuseoSans 300\';">- Korean</span>', kind: 'moon.ToggleItem', allowHtml: true},
-									{value: 'ar-SA', content:'ar-SA <span style="font-family: \'MuseoSans 300\';">- RTL and standard font</span>', kind: 'moon.ToggleItem', allowHtml: true},
-									{value: 'ur-PK', content:'ur-PK <span style="font-family: \'MuseoSans 300\';">- RTL and custom Urdu font</span>', kind: 'moon.ToggleItem', allowHtml: true},
-									{value: 'zh-Hant-HK', content:'zh-Hant-HK <span style="font-family: \'MuseoSans 300\';">- custom Hong Kong font</span>', kind: 'moon.ToggleItem', allowHtml: true},
-									{value: 'ja-JP', content:'ja-JP <span style="font-family: \'MuseoSans 300\';">- custom Japanese font</span>', kind: 'moon.ToggleItem', allowHtml: true}
+							{name: 'localeRepeater', kind: 'enyo.DataRepeater', ontap: 'localeListTapped', selection: true, groupSelection: true, selectionProperty: 'selected', containerOptions: {kind: 'moon.Scroller', classes: 'enyo-fill'}, fit: true, components: [
+								{kind: 'moon.sample.LocaleItem', allowHtml: true, bindings: [
+									{from:'model.locale', to: 'locale'},
+									{from:'model.title', to: 'title'},
+									{from:'model.selected', to: 'checked'}
 								]}
 							]}
 						]}
@@ -69,11 +74,12 @@
 			{name: 'home'},
 			{name: 'router', kind: 'moon.sample.appRouter', history: true, triggerOnStart: true}
 		],
+		bindings: [
+			{from: 'locales', to: '$.localeRepeater.collection'}
+		],
 		listTools: [
 			{kind: 'moon.Panels', pattern: 'activity', classes: 'enyo-fit', components: [
 				{kind: 'moon.Panel', title: 'Samples', headerType: 'small',
-					// headerComponents: [
-					// ],
 					components: [
 						{name: 'list', kind: 'moon.DataList', components: [
 							{classes: 'enyo-border-box', components: [
@@ -98,11 +104,19 @@
 		computed: {
 			location: ['sample', 'locale']
 		},
-		initComponents: function () {
-			this.inherited(arguments);
-			this.files = {};
-			this.haijackPackage();
-		},
+		initComponents: enyo.inherit(function (sup) {
+			return function () {
+				sup.apply(this, arguments);
+				this.files = {};
+				this.haijackPackage();
+			};
+		}),
+		create: enyo.inherit(function (sup) {
+			return function () {
+				this.locales = new enyo.Collection(locales);
+				sup.apply(this, arguments);
+			};
+		}),
 		createList: function () {
 			var fs = this.get('files'),
 				sortedFiles = Object.keys(fs).sort(),
@@ -123,8 +137,8 @@
 				this.$.home.$.list.set('collection', c);
 			}
 		},
-		localeGroupChanged: function (sender, ev) {
-			var locale = ev.toggledControl.get('value');
+		localeListTapped: function (sender, ev) {
+			var locale = ev.model.get('locale');
 			if (locale) {
 				this.set('locale', locale);
 			}
@@ -133,12 +147,13 @@
 			this.set('sample', ev.sampleName);
 			this.set('locale', ev.locale);
 		},
-		localeChanged: function () {
-			enyo.log('Setting Locale:', this.get('locale'));
-			if (this.$.localePopup) {
+		localeChanged: function (oldLocale, newLocale) {
+			enyo.log('Setting Locale:', newLocale);
+			if (this.$.localePopup && this.$.localePopup.get('showing')) {
 				this.$.localePopup.hide();
 			}
-			enyo.updateLocale(this.get('locale'));
+			this.locales.find(function(elem) { return elem.get('locale') == newLocale; }).set('selected', true);
+			enyo.updateLocale(newLocale);
 			this.$.router.trigger({location: this.get('location'), change: true});
 		},
 		sampleChanged: function () {
@@ -309,6 +324,18 @@
 			} else {
 				document.head.appendChild( node );
 			}
+		}
+	});
+
+	enyo.kind({
+		name: 'moon.sample.LocaleItem',
+		kind: 'moon.ToggleItem',
+		handleTapEvent: false,
+		observers: {
+			updateTitle: ['locale', 'title']
+		},
+		updateTitle: function() {
+			this.set('content', this.locale + ' ' + this.title);
 		}
 	});
 
