@@ -560,6 +560,7 @@
 		* @private
 		*/
 		initPanel: function (info) {
+			this.reflow();
 			this.set('isBreadcrumb', info.breadcrumb);
 			this.set('isOffscreen', info.offscreen);
 			this.updateSpotability();
