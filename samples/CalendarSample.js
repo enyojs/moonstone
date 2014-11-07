@@ -11,13 +11,13 @@ enyo.kind({
 				{kind:"moon.Divider", content:"Set value:"},
 				{classes:"moon-hspacing", components: [
 					{kind: "moon.InputDecorator", classes: "moon-2h", components: [
-						{kind: "moon.Input", name:"yearInput", placeholder: "Year"}
+						{kind: "moon.Input", name:"yearInput", classes: "moon-calendar-sample-input", placeholder: "Year"}
 					]},
 					{kind: "moon.InputDecorator", classes: "moon-2h", components: [
-						{kind: "moon.Input", name:"monthInput", placeholder: "Month"}
+						{kind: "moon.Input", name:"monthInput", classes: "moon-calendar-sample-input", placeholder: "Month"}
 					]},
 					{kind: "moon.InputDecorator", classes: "moon-2h", components: [
-						{kind: "moon.Input", name:"dayInput", placeholder: "Day"}
+						{kind: "moon.Input", name:"dayInput", classes: "moon-calendar-sample-input", placeholder: "Day"}
 					]}
 				]},
 				{classes:"moon-hspacing", components: [
@@ -93,9 +93,22 @@ enyo.kind({
 
 	setLocale: function(inSender, inEvent){
 		if (ilib) {
-			ilib.setLocale(inEvent.selected.content);
-			this.$.calendar.setLocale(inEvent.selected.content);
-			this.$.picker.setLocale(inEvent.selected.content);
+			var locale = inEvent.selected.content;
+			ilib.setLocale(locale);
+			this.$.calendar.setLocale(locale);
+			this.$.picker.setLocale(locale);
+
+			var li = new ilib.LocaleInfo(locale);
+			var script = new ilib.ScriptInfo(li.getScript());
+
+			if (script.getScriptDirection() === "rtl") {
+				enyo.Control.prototype.rtl = true;
+				enyo.dom.addBodyClass('enyo-locale-right-to-left');
+			} else {
+				enyo.Control.prototype.rtl = false;
+				enyo.dom.removeClass(document.body, 'enyo-locale-right-to-left');
+			}
+
 			this.df = new ilib.DateFmt({
 				type: "datetime",
 				time: "hmsa",

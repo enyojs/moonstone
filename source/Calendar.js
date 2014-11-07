@@ -591,9 +591,9 @@
 		localeChanged: function () {
 			if (typeof ilib !== 'undefined') {
 				ilib.setLocale(this.locale);
-				// the new locale may use a different calendar, so
-				// redo the local date in that new calendar. The this.value
-				// does not change, but the local date does.
+				// the new locale may use a different calendar,
+				// so redo the local date in that new calendar 
+				// The this.value does not change, but the local date does.
 				this.localeValue = ilib.Date.newInstance({
 					unixtime: this.value.getTime(),
 					timezone: 'local'
@@ -757,10 +757,6 @@
 		* Updates days of the week from first day to last day.
 		* If [iLib]{@glossary ilib} is loaded, a `'0'` value for `this.firstDayOfweek`
 		* means Sunday and `'1'` means Monday.
-		* An offset is applied to make the displayed day names behave as expected.
-		*
-		* Reference date is the 1st of JAN 1584. It is the 2nd year of gregorian calendar.
-		* And it is Sunday.
 		*
 		* @private
 		*/
@@ -775,19 +771,11 @@
 				});
 			}
 
-			var daysControls = this.$.days.getClientControls();
+			var daysControls = this.$.days.getClientControls(),
+				daysOfWeek = this._dayFmt.getDaysOfWeek();
 			for(var i = 0; i < 7; i++) {
 				if (typeof ilib !== 'undefined') {
-					var date = ilib.Date.newInstance({
-						type: this._dayFmt.getCalendar(),
-						year: 1584,
-						month: 1,
-						day:  1 + i + this.getFirstDayOfWeek(),
-						hour: 12,
-						locale: this.locale
-					});
-					var day = this._dayFmt.format(date);
-					daysControls[i].setContent(enyo.toUpperCase(day));
+					daysControls[i].setContent(enyo.toUpperCase(daysOfWeek[(this.firstDayOfWeek + i) % 7]));
 				} else {
 					daysControls[i].setContent(this.days[(this.firstDayOfWeek + i) % 7]);
 				}
