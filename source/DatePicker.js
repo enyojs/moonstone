@@ -183,42 +183,42 @@
 			}
 
 			values = this.calcPickerValues();
-			this.silence();
 
-			for(f = 0, l = doneArr.length; f < l; f++) {
-				o = doneArr[f];
+			this.muzzle(function () {
+				for(f = 0, l = doneArr.length; f < l; f++) {
+					o = doneArr[f];
 
-				switch (o) {
-				case 'd':
-					digits = (ordering.indexOf('dd') > -1) ? 2 : null;
-					this.createComponent(
-						{classes: 'moon-date-picker-wrap', components:[
-							{kind:'moon.IntegerPicker', name:'day', classes:'moon-date-picker-field', wrap:true, digits:digits, min:1,
-							max:this.monthLength(values.fullYear, values.month), value: values.date},
-							{name: 'dayLabel', content: this.dayText, classes: 'moon-date-picker-label moon-divider-text'}
-						]});
-					break;
-				case 'M':
-					digits = (ordering.indexOf('MM') > -1) ? 2 : null;
-					this.createComponent(
-						{classes: 'moon-date-picker-wrap', components:[
-							{kind:'moon.IntegerPicker', name:'month', classes:'moon-date-picker-field', wrap:true, min:1, max:values.maxMonths, value:values.month},
-							{name: 'monthLabel', content: this.monthText, classes: 'moon-date-picker-label moon-divider-text'}
-						]});
-					break;
-				case 'y':
-					this.createComponent(
-						{classes: 'moon-date-picker-wrap year', components:[
-							{kind:'moon.IntegerPicker', name:'year', classes:'moon-date-picker-field year', value:values.fullYear, min:this.getMinYear(), max:this.getMaxYear()},
-							{name: 'yearLabel', content: this.yearText, classes: 'moon-date-picker-label moon-divider-text'}
-						]});
-					break;
-				default:
-					break;
+					switch (o) {
+					case 'd':
+						digits = (ordering.indexOf('dd') > -1) ? 2 : null;
+						this.createComponent(
+							{classes: 'moon-date-picker-wrap', components:[
+								{kind:'moon.IntegerPicker', name:'day', classes:'moon-date-picker-field', wrap:true, digits:digits, min:1,
+								max:this.monthLength(values.fullYear, values.month), value: values.date},
+								{name: 'dayLabel', content: this.dayText, classes: 'moon-date-picker-label moon-divider-text'}
+							]});
+						break;
+					case 'M':
+						digits = (ordering.indexOf('MM') > -1) ? 2 : null;
+						this.createComponent(
+							{classes: 'moon-date-picker-wrap', components:[
+								{kind:'moon.IntegerPicker', name:'month', classes:'moon-date-picker-field', wrap:true, min:1, max:values.maxMonths, value:values.month},
+								{name: 'monthLabel', content: this.monthText, classes: 'moon-date-picker-label moon-divider-text'}
+							]});
+						break;
+					case 'y':
+						this.createComponent(
+							{classes: 'moon-date-picker-wrap year', components:[
+								{kind:'moon.IntegerPicker', name:'year', classes:'moon-date-picker-field year', value:values.fullYear, min:this.getMinYear(), max:this.getMaxYear()},
+								{name: 'yearLabel', content: this.yearText, classes: 'moon-date-picker-label moon-divider-text'}
+							]});
+						break;
+					default:
+						break;
+					}
 				}
-			}
+			});
 
-			this.unsilence();
 			this.inherited(arguments);
 		},
 
