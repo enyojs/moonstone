@@ -40,11 +40,16 @@
 	enyo.kind({
 		name: 'moon.sample.app',
 		classes: 'moon enyo-unselectable enyo-fit',
+		themes: {
+			'dark': 'moonstone-dark.css',
+			'light': 'moonstone-light.css'
+		},
 		published: {
 			files: null,
 			filesLoaded: false,
 			sample: null,
 			locale: 'local',
+			theme: 'dark',
 			location: function () {
 				var s = this.get('sample'),
 					locale = this.get('locale');
@@ -68,7 +73,8 @@
 								]}
 							]}
 						]}
-					]}
+					]},
+					{kind: 'moon.ToggleButton', toggleOffLabel: 'Dark Theme', toggleOnLabel: 'Light Theme', small: true, ontap: 'handleThemeTap'}
 				]}
 			]},
 			{name: 'home'},
@@ -115,6 +121,8 @@
 			return function () {
 				this.locales = new enyo.Collection(locales);
 				sup.apply(this, arguments);
+
+				this.findThemeNode();
 			};
 		}),
 		createList: function () {
@@ -303,6 +311,33 @@
 		// 	}
 		// 	return query;
 		// },
+		findThemeNode: function () {
+			var i,
+				theme = this.get('theme'),
+				cs = document.getElementsByTagName('link');
+
+			for (i = 0; i < cs.length; i++) {
+				if (cs[i].href.indexOf(this.themes[theme]) > 0) {
+					this._themeNode = cs[i];
+					return this._themeNode;
+				}
+			}
+		},
+		changeLink: function (from, to) {
+			if (from == to) return;
+
+			var themeNode = this._themeNode || this.findThemeNode();
+
+			if (themeNode.href.indexOf(from) > 0) {
+				themeNode.href = themeNode.href.replace(from, to);
+			}
+		},
+		themeChanged: function (oldTheme, newTheme) {
+			this.changeLink(this.themes[oldTheme], this.themes[newTheme]);
+		},
+		handleThemeTap: function (sender, ev) {
+			this.set('theme', ev.originator.owner.get('value') ? 'light' : 'dark');
+		},
 		createNode: function (tagName, attrs) {
 			var key, node = document.createElement(tagName);
 			if (attrs && Object.keys(attrs)) {
