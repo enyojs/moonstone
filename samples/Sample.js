@@ -114,6 +114,7 @@
 			return function () {
 				sup.apply(this, arguments);
 				this.files = {};
+				this.themeNodeStore = {};
 				this.haijackPackage();
 			};
 		}),
@@ -122,7 +123,7 @@
 				this.locales = new enyo.Collection(locales);
 				sup.apply(this, arguments);
 
-				this.findThemeNode();
+				this.initializeThemes();
 			};
 		}),
 		createList: function () {
@@ -311,29 +312,36 @@
 		// 	}
 		// 	return query;
 		// },
-		findThemeNode: function () {
+		initializeThemes: function () {
 			var i,
 				theme = this.get('theme'),
 				cs = document.getElementsByTagName('link');
 
 			for (i = 0; i < cs.length; i++) {
 				if (cs[i].href.indexOf(this.themes[theme]) > 0) {
-					this._themeNode = cs[i];
-					return this._themeNode;
+					// Save our current theme's node
+					this.themeNodeStore[theme] = cs[i];
+					// Setup the other themes' nodes
+					for (var t in this.themes) {
+						if (t != theme) {
+							// Generate the new theme paths based on the existing (found) theme path
+							var tn = this.createNode('link', {
+								href: cs[i].href.replace(this.themes[theme], this.themes['light']),
+								rel: 'stylesheet',
+								disabled: true
+							});
+							// Add it to the store and append to the head, already disabled
+							this.themeNodeStore[t] = tn;
+							this.appendToHead(tn);
+						}
+					}
+					return this.themeNodeStore[theme];
 				}
 			}
 		},
-		changeLink: function (from, to) {
-			if (from == to) return;
-
-			var themeNode = this._themeNode || this.findThemeNode();
-
-			if (themeNode.href.indexOf(from) > 0) {
-				themeNode.href = themeNode.href.replace(from, to);
-			}
-		},
 		themeChanged: function (oldTheme, newTheme) {
-			this.changeLink(this.themes[oldTheme], this.themes[newTheme]);
+			this.themeNodeStore[oldTheme].disabled = true;
+			this.themeNodeStore[newTheme].disabled = false;
 		},
 		handleThemeTap: function (sender, ev) {
 			this.set('theme', ev.originator.owner.get('value') ? 'light' : 'dark');
@@ -342,7 +350,7 @@
 			var key, node = document.createElement(tagName);
 			if (attrs && Object.keys(attrs)) {
 				for (key in attrs) {
-					if (key.match(/^on\w/)) {
+					if (key.match(/^on\w/) || key == 'disabled') {
 						node[key] = attrs[key];
 					} else if (key == 'content') {
 						node.innerHTML = attrs[key];
