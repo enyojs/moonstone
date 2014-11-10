@@ -534,22 +534,6 @@
 		/**
 		* @private
 		*/
-		findZIndex: function () {
-			// a default z value
-			var z = this.defaultZ;
-			if (this._zIndex) {
-				z = this._zIndex;
-			} else if (this.hasNode()) {
-				// Re-use existing zIndex if it has one
-				z = Number(enyo.dom.getComputedStyleValue(this.node, 'z-index')) || z;
-			}
-			this._zIndex = z;
-			return this._zIndex;
-		},
-
-		/**
-		* @private
-		*/
 		showingChanged: function () {
 			this.inherited(arguments);
 			this.alterDirection();

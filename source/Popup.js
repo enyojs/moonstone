@@ -340,7 +340,6 @@
 				}
 				this.activator = enyo.Spotlight.getCurrent();
 				moon.Popup.count++;
-				this.genereateNextZIndex();
 				this.applyZIndex();
 			}
 			else {
@@ -509,23 +508,6 @@
 				return moon.scrimTransparent.make();
 			}
 			return moon.scrim.make();
-		},
-
-		/**
-		* Calculate what the next z-index should be, set it, and return it.
-		*
-		* @private
-		*/
-		genereateNextZIndex: function() {
-			this._zIndex = (moon.Popup.count * 2) + (this.findZIndex() + 1);
-			return this._zIndex;
-		},
-
-		/**
-		* @private
-		*/
-		applyZIndex: function() {
-			this.applyStyle('z-index', this._zIndex);
 		},
 
 		/**
