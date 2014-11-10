@@ -1,4 +1,16 @@
 (function (enyo, scope) {
+
+	var locales = [
+		{locale: 'local', title: '', selected: true},
+		{locale: 'en-US', title: '<span class="light">- US English</span>'},
+		{locale: 'ko-KR', title: '<span class="light">- Korean</span>'},
+		{locale: 'th-TH', title: '<span class="light">- Thai, with tall characters</span>'},
+		{locale: 'ar-SA', title: '<span class="light">- Arabic, RTL and standard font</span>'},
+		{locale: 'ur-PK', title: '<span class="light">- Urdu, RTL and custom Urdu font</span>'},
+		{locale: 'zh-Hant-HK', title: '<span class="light">- Traditional Chinese, custom Hant font</span>'},
+		{locale: 'ja-JP', title: '<span class="light">- Japanese, custom Japanese font</span>'}
+	];
+
 	/**
 	* _Moonstone Sample_ is a tool for displaying and interacting with sample code in the Moonstone
 	* user interface library. This tool can display a list of all samples and load individual
@@ -26,13 +38,18 @@
 	* @namespace moon.sample
 	*/
 	enyo.kind({
-		name: 'moon.sample.home',
+		name: 'moon.sample.app',
 		classes: 'moon enyo-unselectable enyo-fit',
+		themes: {
+			'dark': 'moonstone-dark.css',
+			'light': 'moonstone-light.css'
+		},
 		published: {
 			files: null,
 			filesLoaded: false,
 			sample: null,
 			locale: 'local',
+			theme: 'dark',
 			location: function () {
 				var s = this.get('sample'),
 					locale = this.get('locale');
@@ -40,32 +57,35 @@
 			}
 		},
 		components: [
+			{classes: 'moon-sample-persistant-hotspot', components: [
+				{classes: 'moon-sample-persistant-frame', spotlight: 'container', components: [
+					{kind: 'moon.Button', content: 'Reload', small: true, spotlight: false, classes: 'moon-sample-persistant-locale-button', ontap: 'reload'},
+					{kind: 'moon.Button', content: 'Back to List', small: true, spotlight: false, classes: 'moon-sample-persistant-locale-button', ontap: 'backToList'},
+					{kind: 'moon.ContextualPopupDecorator', components: [
+						{kind: 'moon.Button', content: 'Set Locale', small: true, spotlight: false, classes: 'moon-sample-persistant-locale-button'},
+						{name: 'localePopup', kind: 'moon.ContextualPopup', classes: 'moon-sample-locale-popup', components: [
+							{content: 'Set Locale', kind: 'moon.Divider'},
+							{name: 'localeRepeater', kind: 'enyo.DataRepeater', ontap: 'localeListTapped', selection: true, groupSelection: true, selectionProperty: 'selected', containerOptions: {kind: 'moon.Scroller', classes: 'enyo-fill'}, fit: true, components: [
+								{kind: 'moon.sample.LocaleItem', allowHtml: true, bindings: [
+									{from:'model.locale', to: 'locale'},
+									{from:'model.title', to: 'title'},
+									{from:'model.selected', to: 'checked'}
+								]}
+							]}
+						]}
+					]},
+					{kind: 'moon.ToggleButton', toggleOffLabel: 'Dark Theme', toggleOnLabel: 'Light Theme', small: true, ontap: 'handleThemeTap'}
+				]}
+			]},
+			{name: 'home'},
 			{name: 'router', kind: 'moon.sample.appRouter', history: true, triggerOnStart: true}
+		],
+		bindings: [
+			{from: 'locales', to: '$.localeRepeater.collection'}
 		],
 		listTools: [
 			{kind: 'moon.Panels', pattern: 'activity', classes: 'enyo-fit', components: [
 				{kind: 'moon.Panel', title: 'Samples', headerType: 'small',
-					headerComponents: [
-						{kind: 'moon.ContextualPopupDecorator', components: [
-							// {name: 'caption', kind: 'moon.CaptionDecorator', content: 'Set Locale', side: 'left', components: [
-							{kind: 'moon.Button', content: 'Set Locale'},
-							// ]},
-							{name: 'localePopup', kind: 'moon.ContextualPopup', components: [
-								{content: 'Set Locale', kind: 'moon.Divider'},
-								{kind: 'moon.Scroller', classes: 'enyo-fill', components: [
-									{kind: 'Group', onActivate: 'localeGroupChanged', components: [
-										{value: '', content:'local', kind: 'moon.ToggleItem', checked: true},
-										{value: 'en-US', content:'en-US <span style="font-family: \'MuseoSans 300\';">- US English</span>', kind: 'moon.ToggleItem', allowHtml: true},
-										{value: 'ko-KR', content:'ko-KR <span style="font-family: \'MuseoSans 300\';">- Korean</span>', kind: 'moon.ToggleItem', allowHtml: true},
-										{value: 'ar-SA', content:'ar-SA <span style="font-family: \'MuseoSans 300\';">- RTL and standard font</span>', kind: 'moon.ToggleItem', allowHtml: true},
-										{value: 'ur-PK', content:'ur-PK <span style="font-family: \'MuseoSans 300\';">- RTL and custom Urdu font</span>', kind: 'moon.ToggleItem', allowHtml: true},
-										{value: 'zh-Hant-HK', content:'zh-Hant-HK <span style="font-family: \'MuseoSans 300\';">- custom Hong Kong font</span>', kind: 'moon.ToggleItem', allowHtml: true},
-										{value: 'ja-JP', content:'ja-JP <span style="font-family: \'MuseoSans 300\';">- custom Japanese font</span>', kind: 'moon.ToggleItem', allowHtml: true}
-									]}
-								]}
-							]}
-						]}
-					],
 					components: [
 						{name: 'list', kind: 'moon.DataList', components: [
 							{classes: 'enyo-border-box', components: [
@@ -90,11 +110,22 @@
 		computed: {
 			location: ['sample', 'locale']
 		},
-		initComponents: function () {
-			this.inherited(arguments);
-			this.files = {};
-			this.haijackPackage();
-		},
+		initComponents: enyo.inherit(function (sup) {
+			return function () {
+				sup.apply(this, arguments);
+				this.files = {};
+				this.themeNodeStore = {};
+				this.haijackPackage();
+			};
+		}),
+		create: enyo.inherit(function (sup) {
+			return function () {
+				this.locales = new enyo.Collection(locales);
+				sup.apply(this, arguments);
+
+				this.initializeThemes();
+			};
+		}),
 		createList: function () {
 			var fs = this.get('files'),
 				sortedFiles = Object.keys(fs).sort(),
@@ -106,17 +137,17 @@
 					dataList.push({sampleName: sampleName, label: sampleName.replace(/(Sample)$/i, ' $1')});
 				}
 			}
-			if (!this.$.list) {
-				this.createComponents(this.listTools);
+			if (!this.$.home.$.list) {
+				this.$.home.createComponents(this.listTools);
 			}
-			this.$.list.render();
+			this.render();
 			if (dataList.length) {
 				var c = new enyo.Collection(dataList);
-				this.$.list.set('collection', c);
+				this.$.home.$.list.set('collection', c);
 			}
 		},
-		localeGroupChanged: function (sender, ev) {
-			var locale = ev.toggledControl.get('value');
+		localeListTapped: function (sender, ev) {
+			var locale = ev.model.get('locale');
 			if (locale) {
 				this.set('locale', locale);
 			}
@@ -125,12 +156,13 @@
 			this.set('sample', ev.sampleName);
 			this.set('locale', ev.locale);
 		},
-		localeChanged: function () {
-			enyo.log('Setting Locale:', this.get('locale'));
-			if (this.$.localePopup) {
+		localeChanged: function (oldLocale, newLocale) {
+			enyo.log('Setting Locale:', newLocale);
+			if (this.$.localePopup && this.$.localePopup.get('showing')) {
 				this.$.localePopup.hide();
 			}
-			enyo.updateLocale(this.get('locale'));
+			this.locales.find(function(elem) { return elem.get('locale') == newLocale; }).set('selected', true);
+			enyo.updateLocale(newLocale);
 			this.$.router.trigger({location: this.get('location'), change: true});
 		},
 		sampleChanged: function () {
@@ -138,18 +170,28 @@
 				this.openSample();
 			} else {
 				// We have no sample, just render out the list.
-				enyo.log('%cList all of the Samples', 'color:green');
-				this.disableAllStylesheets();
-				if (this.app && this.app.$.sample) {
-					this.app.$.sample.destroy();
-				}
-				this.show();
-				if (!this.hasNode()) {
-					// We've never been generated, lets fix that.
-					this.createList();
-				}
-				this.render();
+				this.activateList();
 			}
+		},
+		activateList: function () {
+			enyo.log('%cList all of the Samples', 'color:green');
+			this.disableAllStylesheets();
+			if (this.$.sample) {
+				this.$.sample.destroy();
+			}
+			this.$.home.show();
+			if (!this.$.home.hasNode() || !this.$.home.hasNode().children.length) {
+				// We've never been generated, lets fix that.
+				this.createList();
+			}
+			this.render();
+		},
+		backToList: function () {
+			this.set('sample', '');
+			this.$.router.trigger({location: this.get('location'), change: true});
+		},
+		reload: function () {
+			window.location.reload();
 		},
 		chooseSample: function (sender, ev) {
 			var sampleName = ev.originator.get('sampleName');
@@ -270,11 +312,45 @@
 		// 	}
 		// 	return query;
 		// },
+		initializeThemes: function () {
+			var i,
+				theme = this.get('theme'),
+				cs = document.getElementsByTagName('link');
+
+			for (i = 0; i < cs.length; i++) {
+				if (cs[i].href.indexOf(this.themes[theme]) > 0) {
+					// Save our current theme's node
+					this.themeNodeStore[theme] = cs[i];
+					// Setup the other themes' nodes
+					for (var t in this.themes) {
+						if (t != theme) {
+							// Generate the new theme paths based on the existing (found) theme path
+							var tn = this.createNode('link', {
+								href: cs[i].href.replace(this.themes[theme], this.themes['light']),
+								rel: 'stylesheet',
+								disabled: true
+							});
+							// Add it to the store and append to the head, already disabled
+							this.themeNodeStore[t] = tn;
+							this.appendToHead(tn);
+						}
+					}
+					return this.themeNodeStore[theme];
+				}
+			}
+		},
+		themeChanged: function (oldTheme, newTheme) {
+			this.themeNodeStore[oldTheme].disabled = true;
+			this.themeNodeStore[newTheme].disabled = false;
+		},
+		handleThemeTap: function (sender, ev) {
+			this.set('theme', ev.originator.owner.get('value') ? 'light' : 'dark');
+		},
 		createNode: function (tagName, attrs) {
 			var key, node = document.createElement(tagName);
 			if (attrs && Object.keys(attrs)) {
 				for (key in attrs) {
-					if (key.match(/^on\w/)) {
+					if (key.match(/^on\w/) || key == 'disabled') {
 						node[key] = attrs[key];
 					} else if (key == 'content') {
 						node.innerHTML = attrs[key];
@@ -291,6 +367,18 @@
 			} else {
 				document.head.appendChild( node );
 			}
+		}
+	});
+
+	enyo.kind({
+		name: 'moon.sample.LocaleItem',
+		kind: 'moon.ToggleItem',
+		handleTapEvent: false,
+		observers: {
+			updateTitle: ['locale', 'title']
+		},
+		updateTitle: function() {
+			this.set('content', this.locale + ' ' + this.title);
 		}
 	});
 
