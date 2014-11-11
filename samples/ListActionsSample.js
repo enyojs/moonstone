@@ -27,7 +27,7 @@ enyo.kind({
 					]},
 					{action:"category1", components: [
 						{kind: "moon.Divider", content:"Category 1 (Static)"},
-						{kind: "moon.Scroller", classes: "fittable-scroller", fit: true, components: [
+						{kind: "moon.Scroller", fit: true, components: [
 							{kind: "enyo.Group", name:"group", highlander: true, defaultKind: "moon.SelectableItem", components: [
 								{content:"Just Released"},
 								{content:"Recommended"},

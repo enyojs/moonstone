@@ -1673,6 +1673,7 @@
   position: absolute;
   z-index: 150;
   margin: 0;
+  overflow: hidden;
 }
 .moon-icon-button.moon-paging-button.top {
   top: 0;
@@ -2455,6 +2456,9 @@
 .moon-list-actions-drawer.stacked .moon-list-actions-menu {
   margin-bottom: 20px;
   clear: both;
+}
+.moon-list-actions-menu .enyo-scroller {
+  max-width: 100%;
 }
 /* Drawer */
 .moon-list-actions-drawer {
