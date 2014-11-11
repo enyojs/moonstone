@@ -356,7 +356,7 @@
 		updateViewportSize: function () {
 			var node = this.hasNode();
 
-			if (!node || this.isBreadcrumb) {
+			if (!node) {
 				return;
 			}
 
@@ -743,6 +743,14 @@
 				this.resize();
 				break;
 			}
+		},
+
+		/**
+	 * @private
+	 */
+		handleResize: function() {
+			this.inherited(arguments);
+			this.reflow();
 		}
 	});
 })(enyo, this);
