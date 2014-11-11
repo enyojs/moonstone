@@ -415,7 +415,7 @@
 			}
 			this.bubble('onRequestUnmuteTooltip');
 
-			this.doHidden({originator: originator.owner});
+			if (!rendered) this.doHidden({originator: originator.owner});
 		},
 
 		/**
