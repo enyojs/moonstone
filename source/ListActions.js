@@ -186,10 +186,10 @@
 		* @private
 		*/
 		events: {
-			onShow: "",
-			onShown: "",
-			onHide: "",
-			onHidden: "",
+			onShow: '',
+			onShown: '',
+			onHide: '',
+			onHidden: '',
 			onRequestCreateListActions: '',
 			onListActionOpenChanged: ''
 		},
