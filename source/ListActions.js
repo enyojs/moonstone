@@ -347,7 +347,9 @@
 			if (this.disabled) {
 				return true;
 			}
-			this.setOpen(!this.getOpen());
+			var open = !this.getOpen();
+			open ? this.doShow({originator: this}) : this.doHide({originator: this});
+			this.setOpen(open);
 		},
 
 		/**
@@ -379,10 +381,8 @@
 				// Capture onSpotlightFocus happening outside the drawer, so that we can prevent focus
 				// from landing in the header beneath the drawer
 				enyo.dispatcher.capture(this.$.drawer, {onSpotlightFocus: 'capturedSpotlightFocus'}, this);
-				this.doShow({originator: this});
 			} else {
 				enyo.dispatcher.release(this.$.drawer);
-				this.doHide({originator: this});
 			}
 		},
 
