@@ -190,7 +190,7 @@
 		*/
 		scrollToControl: function (control, scrollFullPage, animate, setLastFocusedChild) {
 			if (setLastFocusedChild) {
-				this.$.strategy.setLastFocusedChild(control);
+				this.setLastFocusedChild(control);
 			}
 			this.$.strategy.animateToControl(control, scrollFullPage, animate);
 		},
@@ -232,6 +232,13 @@
 			if(enyo.Spotlight && this.spotlight === 'container') {
 				enyo.Spotlight.Container.initContainer(this);
 			}
+		},
+
+		/**
+		* @private
+		*/
+		setLastFocusedChild: function(control) {
+			enyo.Spotlight.Container.setLastFocusedChild(this, control);
 		},
 
 		/**
