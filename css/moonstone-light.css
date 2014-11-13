@@ -3450,6 +3450,7 @@
   height: 68px;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
+  pointer-events: none;
 }
 .moon-tooltip-label {
   font-family: "Moonstone Miso Bold";
