@@ -8,8 +8,8 @@ enyo.kind({
 				kind: "moon.Panel",
 				classes: "moon-10h",
 				headerOptions: {kind: "moon.InputHeader", components: [
-					{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-like.png"},
-					{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-next.png"}
+					{kind: "moon.IconButton", icon: "check"},
+					{kind: "moon.IconButton", icon: "arrowlargeright"}
 				]},
 				onInputHeaderInput: "handleInput",
 				onInputHeaderChange: "handleChange",
@@ -23,8 +23,8 @@ enyo.kind({
 				classes: "moon-8h",
 				joinToPrev: true,
 				headerOptions: {kind: "moon.InputHeader", components: [
-					{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-like.png"},
-					{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-next.png"}
+					{kind: "moon.IconButton", icon: "check"},
+					{kind: "moon.IconButton", icon: "arrowlargeright"}
 				]},
 				onInputHeaderInput: "handleInput",
 				onInputHeaderChange: "handleChange",
