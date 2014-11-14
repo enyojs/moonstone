@@ -182,7 +182,7 @@
 			if (this.locale) {
 				fmtParams.locale = this.locale;
 				this.iLibLocale = null;
-				ilib.setLocale(this.locale);
+				ilib.setLocale(this.locale || 'local');
 			} else {
 				this.iLibLocale = ilib.getLocale();
 			}
