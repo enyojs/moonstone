@@ -42,18 +42,25 @@ enyo.kind({
 		if (!window.ilib) {
 			this.$.pickerLocale.hide();
 			this.log("iLib not present -- hiding locale picker");
+		} else {
+			this.setPickerLocale(null);
 		}
+
 		this.set("value", new Date("Mar 09 2014 01:59"));
 	},
 	pickerHandler: function(inSender, inEvent){
 		var opt = inEvent.selected.content,
 			val = (opt == "Use Default Locale") ? null : opt;
+		this.setPickerLocale(val);
+		this.$.result.setContent("locale changed to " + opt);
+		return true;
+	},
+	setPickerLocale: function (val) {
+		val = val || 'local';
 		this.$.pickerDateLinked.setLocale(val);
 		this.$.pickerTimeLinked.setLocale(val);
 		this.$.pickerTime.setLocale(val);
 		this.$.pickerDisabled.setLocale(val);
-		this.$.result.setContent("locale changed to " + opt);
-		return true;
 	},
 	timeChanged: function(inSender, inEvent) {
 		if (this.$.result && inEvent.value){
