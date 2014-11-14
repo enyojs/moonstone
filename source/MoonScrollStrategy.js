@@ -528,7 +528,7 @@
 				this.scrollLeft = (x !== null && !isNaN(x))? x: (this.scrollLeft || 0);
 				this.scrollTop  = (y !== null && !isNaN(y))? y: (this.scrollTop  || 0);
 				enyo.dom.transformValue(this.$.client, this.translation, this.generateMatrix());
-				enyo.log('transform', x, y);
+				enyo.log('transform', this.scrollLeft, this.scrollTop);
 			}
 		},
 
