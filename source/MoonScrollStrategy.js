@@ -524,12 +524,12 @@
 		* @private
 		*/
 		effectScroll: function(x, y) {
-			if (x !== this.scrollLeft || y !== this.scrollTop) {
+			/*if (x !== this.scrollLeft || y !== this.scrollTop) {
 				this.scrollLeft = (x !== null && !isNaN(x))? x: (this.scrollLeft || 0);
 				this.scrollTop  = (y !== null && !isNaN(y))? y: (this.scrollTop  || 0);
 				enyo.dom.transformValue(this.$.client, this.translation, this.generateMatrix());
 				enyo.log('transform', this.scrollLeft, this.scrollTop);
-			}
+			}*/
 		},
 
 		/**
