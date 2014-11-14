@@ -25,9 +25,9 @@
 	* ```
 	* {kind: 'moon.ExpandablePicker', noneText: 'None Selected', content: 'Choose City',
 	* components: [
-	* 	{content: 'San Francisco'},
-	* 	{content: 'Boston'},
-	* 	{content: 'Tokyo'}
+	*	{content: 'San Francisco'},
+	*	{content: 'Boston'},
+	*	{content: 'Tokyo'}
 	* ]}
 	* ```
 	*
@@ -199,27 +199,30 @@
 		* @private
 		*/
 		bindings: [
-			{from: '.allowHtml', to: '.$.header.allowHtml'},
-			{from: '.allowHtml', to: '.$.currentValue.allowHtml'},
-			{from: '.disabled', to: '.$.headerWrapper.disabled'}
+			{from: 'allowHtml', to: '$.header.allowHtml'},
+			{from: 'allowHtml', to: '$.currentValue.allowHtml'},
+			{from: 'disabled', to: '$.headerWrapper.disabled'}
 		],
 
 		/**
 		* @private
 		*/
-		create: function () {
-			this.inherited(arguments);
-			if (this.multipleSelection) {
-				this.selected = (this.selected) ? this.selected : [];
-				this.selectedIndex = (this.selectedIndex != -1) ? this.selectedIndex : [];
-				this.$.client.setHighlander(false);
-			}
-			this.initializeActiveItem();
-			this.selectedIndexChanged();
-			this.noneTextChanged();
-			this.helpTextChanged();
-			this.openChanged();
-		},
+		create: enyo.inherit(function (sup) {
+			return function() {
+				if (this.multipleSelection) {
+					this.selected = (this.selected) ? this.selected : [];
+					this.selectedIndex = (this.selectedIndex != -1) ? this.selectedIndex : [];
+				}
+				// super initialization
+				sup.apply(this, arguments);	
+
+				this.$.client.setHighlander(!this.multipleSelection);
+				this.selectedIndexChanged();
+				this.noneTextChanged();
+				this.helpTextChanged();
+				this.openChanged();
+			};
+		}),
 
 		/**
 		* @private
@@ -444,40 +447,7 @@
 		generateHelpText: function () {
 			this.$.helpText.canGenerate = true;
 			this.$.helpText.render();
-		},
-
-		/**
-		* When the picker is initialized, looks for any items with `active` flag set to
-		* `true`; if one is found, it is set as the currently selected item. This is done
-		* without triggering an [onChange]{@link moon.ExpandablePicker#onChange}
-		* event, as it happens during initialization.
-		*
-		* @private
-		*/
-		initializeActiveItem: function () {
-			var controls = this.getCheckboxControls();
-
-			for (var i=0; i<controls.length; i++) {
-				if (!controls[i].active) {
-					continue;
-				}
-
-				if (this.multipleSelection) {
-					this.selectedIndex.push(i);
-					this.selected.push(controls[i]);
-					controls[i].setChecked(true);
-				} else {
-					this.selectedIndex = i;
-					this.selected = controls[i];
-					this.$.currentValue.setContent(controls[i].getContent());
-					controls[i].setChecked(true);
-					return;
-				}
-			}
-			if (this.multipleSelection) {
-				this.$.currentValue.setContent(this.multiSelectCurrentValue());
-			}
-		},
+		},		
 
 		/**
 		* When an item is chosen, marks it as checked and closes the picker.
@@ -495,10 +465,12 @@
 
 			if (this.multipleSelection) {
 				if (index >= 0) {
+					// if toggledControl is checked but it is out of this.selected, them push it
 					if (inEvent.checked && (this.selected.indexOf(toggledControl) == -1)) {
 						this.selected.push(toggledControl);
 						this.selectedChanged();
 					}
+					// if toggledControl is not checked but it is in this.selected, them pull it out
 					if (!inEvent.checked && (this.selected.indexOf(toggledControl) >= 0)) {
 						this.selected.splice(this.selected.indexOf(toggledControl), 1);
 						this.selectedChanged();
