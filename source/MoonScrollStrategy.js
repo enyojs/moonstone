@@ -510,6 +510,18 @@
 		/**
 		* @private
 		*/
+		scrollMathScroll: enyo.inherit(function (sup) {
+			return function () {
+				if (this.isOverscrolling()) {
+					this.updatePagingControlState();
+				}
+				sup.apply(this, arguments);
+			};
+		}),
+
+		/**
+		* @private
+		*/
 		calcBoundaries: function() {
 			var s = this.$.scrollMath || this,
 				b = this._getScrollBounds()
