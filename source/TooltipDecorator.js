@@ -157,11 +157,12 @@
 		*/
 		showingChangedHandler: enyo.inherit(function (sup) {
 			return function (sender, event) {
-				if(!event.showing) {
+				sup.apply(this, arguments);
+				if (!event.showing) {
 					this.requestHideTooltip();
 				}
 			};
-		}),
+		})
 	});
 
 })(enyo, this);
