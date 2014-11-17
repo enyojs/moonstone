@@ -1593,6 +1593,12 @@
 .enyo-locale-right-to-left .moon-header:not(.moon-small-header):not(.moon-medium-header) .moon-header-left {
   float: right;
 }
+.movedown {
+  float: left;
+}
+.moon-header.moon-small-header.increase {
+  height: 180px;
+}
 /*
 	Put anything you reference with "url()" in ../assets/
 	This way, you can minify your application, and just remove the "source" folder for production

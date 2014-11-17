@@ -638,6 +638,13 @@
 		* @private
 		*/
 		titleChanged: function () {
+			var len=this.controls.length;
+			if(this.type==='small' & this.hasNode()!==false) {
+				for(var i=2;i<len;i++) {
+					this.controls[i].addClass('movedown');
+				}
+				this.addClass('increase');
+			}
 			this.contentChanged();
 		},
 
