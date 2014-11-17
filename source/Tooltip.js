@@ -204,7 +204,7 @@
 		* @private
 		*/
 		showTooltip: function(inSender, inEvent) {
-			if (!this.activator.getAbsoluteShowing()) {
+			if (!this.activator || !this.activator.getAbsoluteShowing()) {
 				return;
 			}
 			this.show();
