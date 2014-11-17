@@ -500,22 +500,10 @@
 		/**
 		* @private
 		*/
-		scrollMathStop: enyo.inherit(function (sup) {
+		scrollMathScroll: enyo.inherit(function (sup) {
 			return function () {
 				sup.apply(this, arguments);
 				this.updatePagingControlState();
-			};
-		}),
-
-		/**
-		* @private
-		*/
-		scrollMathScroll: enyo.inherit(function (sup) {
-			return function () {
-				if (this.isOverscrolling()) {
-					this.updatePagingControlState();
-				}
-				sup.apply(this, arguments);
 			};
 		}),
 
