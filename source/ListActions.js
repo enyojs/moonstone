@@ -348,7 +348,11 @@
 				return true;
 			}
 			var open = !this.getOpen();
-			open ? this.doShow({originator: this}) : this.doHide({originator: this});
+			if (open) {
+				this.doShow({originator: this});
+			} else {
+				this.doHide({originator: this});
+			}
 			this.setOpen(open);
 		},
 
