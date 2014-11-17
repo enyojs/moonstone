@@ -148,7 +148,20 @@
 		*/
 		requestHideTooltip: function () {
 			this.waterfallDown('onRequestHideTooltip');
-		}
+		},
+
+		/**
+		* Cancel any pending tooltip showing if the decorator or one of its ancestors is hidden
+		*
+		* @private
+		*/
+		showingChangedHandler: enyo.inherit(function (sup) {
+			return function (sender, event) {
+				if(!event.showing) {
+					this.requestHideTooltip();
+				}
+			};
+		}),
 	});
 
 })(enyo, this);
