@@ -196,8 +196,18 @@
 		requestShow: function (inSender, inEvent) {
 			observer.set('active', this);
 			this.activator = inEvent.originator;
-			this.startJob('showJob', 'show', this.showDelay);
+			this.startJob('showJob', 'showTooltip', this.showDelay);
 			return true;
+		},
+
+		/**
+		* @private
+		*/
+		showTooltip: function(inSender, inEvent) {
+			if (!this.activator.getAbsoluteShowing()) {
+				return;
+			}
+			this.show();
 		},
 
 		/**
