@@ -134,6 +134,7 @@ enyo.kind({
 		}
 		var c = this.$.spacingPicker.getSelected().spacingClass;
 		this.$.wrapper.addClass(c);
+		this.$.wrapper.bubble("onRequestSetupBounds");
 		this.lastSpacingClass = c;
 	}
 });
