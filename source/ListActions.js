@@ -397,15 +397,14 @@
 		*/
 		drawerAnimationEnd: function(sender, event) {
 			var rendered = event && event.rendered;
-			var originator = event && event.originator;
 
 			//on closed, hide drawer and spot _this.$.activator_
 			if (!this.getOpen()) {
-				this.drawerClosed(rendered, originator);
+				this.drawerClosed(rendered);
 			}
 			//on open, move top and spot _this.$.closeButton_
 			else {
-				this.drawerOpened(rendered, originator);
+				this.drawerOpened(rendered);
 			}
 			return true;
 		},
@@ -413,7 +412,7 @@
 		/**
 		* @private
 		*/
-		drawerClosed: function (rendered, originator) {
+		drawerClosed: function (rendered) {
 			if (this.generated && !rendered) {
 				enyo.Spotlight.spot(this.$.activator);
 			}
@@ -425,7 +424,7 @@
 		/**
 		* @private
 		*/
-		drawerOpened: function (rendered, originator) {
+		drawerOpened: function (rendered) {
 			if (this.resetScroller) {
 				this.$.listActions.scrollTo(0, 0);
 				this.resetScroller = false;
