@@ -392,6 +392,9 @@
 			if(this.disabled) {
 				return;
 			}
+			
+			enyo.log(inEvent.originator);
+			enyo.log(this.value);
 
 			this.direction = -1;
 
