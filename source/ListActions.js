@@ -349,9 +349,9 @@
 			}
 			var open = !this.getOpen();
 			if (open) {
-				this.doShow({originator: this});
+				this.doShow();
 			} else {
-				this.doHide({originator: this});
+				this.doHide();
 			}
 			this.setOpen(open);
 		},
@@ -419,7 +419,7 @@
 			}
 			this.bubble('onRequestUnmuteTooltip');
 
-			if (!rendered) this.doHidden({originator: originator.owner});
+			if (!rendered) this.doHidden();
 		},
 
 		/**
@@ -435,7 +435,7 @@
 			}
 			this.bubble('onRequestMuteTooltip');
 
-			this.doShown({originator: originator.owner});
+			this.doShown();
 		},
 
 		/**
