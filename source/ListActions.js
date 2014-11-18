@@ -1,38 +1,34 @@
 (function (enyo, scope) {
 
 	/**
-	* Fires when the drawer open animation begins.
+	* Fires when the drawer open animation begins. No event-specific data is sent with this event.
 	*
 	* @event moon.ListActions#onShow
 	* @type {Object}
-	* @property {Object} originator - The event's originator.
 	* @public
 	*/
 
 	/**
-	* Fires when the drawer open animation ends.
+	* Fires when the drawer open animation ends. No event-specific data is sent with this event.
 	*
 	* @event moon.ListActions#onShown
 	* @type {Object}
-	* @property {Object} originator - The event's originator.
 	* @public
 	*/
 
 	/**
-	* Fires when the drawer close animation begins.
+	* Fires when the drawer close animation begins. No event-specific data is sent with this event.
 	*
 	* @event moon.ListActions#onHide
 	* @type {Object}
-	* @property {Object} originator - The event's originator.
 	* @public
 	*/
 
 	/**
-	* Fires when the drawer close animation ends.
+	* Fires when the drawer close animation ends. No event-specific data is sent with this event.
 	*
 	* @event moon.ListActions#onHidden
 	* @type {Object}
-	* @property {Object} originator - The event's originator.
 	* @public
 	*/
 
