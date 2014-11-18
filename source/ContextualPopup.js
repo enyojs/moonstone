@@ -381,8 +381,8 @@
 		*/
 		keydown: function (inSender, inEvent) {
 			if (this.showing && this.autoDismiss && inEvent.keyCode == 27 /* escape */) {
-				enyo.Spotlight.spot(this.activator);
 				this.hide();
+				enyo.Spotlight.spot(this.activator);
 			}
 		},
 
@@ -390,9 +390,9 @@
 		* @private
 		*/
 		closePopup: function (inSender, inEvent) {
-			enyo.Spotlight.spot(this.activator);
 			this.$.closeButton.removeClass('pressed');
 			this.hide();
+			enyo.Spotlight.spot(this.activator);
 		},
 
 		/**
@@ -453,8 +453,12 @@
 			}
 			return this.modal && this.spotlightModal;
 		},
+
+		/**
+		* @private
+		*/		
 		capturedFocus: function(inSender, inEvent) {
-			if(this.spotlightModal) {
+			if(this.modal && this.spotlightModal) {
 				enyo.Spotlight.spot(this);
 				return true;
 			}
@@ -479,9 +483,9 @@
 		*/
 		onLeave: function (oSender, oEvent) {
 			if (oEvent.originator == this) {
-				enyo.Spotlight.spot(this.activator);
 				this.popupActivated = false;
 				this.hide();
+				enyo.Spotlight.spot(this.activator);
 			}
 		},
 
