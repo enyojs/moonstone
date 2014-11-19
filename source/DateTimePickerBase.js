@@ -182,7 +182,7 @@
 			if (this.locale) {
 				fmtParams.locale = this.locale;
 				this.iLibLocale = null;
-				ilib.setLocale(this.locale);
+				ilib.setLocale(this.locale || 'local');
 			} else {
 				this.iLibLocale = ilib.getLocale();
 			}
@@ -333,7 +333,7 @@
 		localeChanged: function () {
 			// Our own locale property has changed, so we need to rebuild our child pickers
 			if (typeof ilib !== 'undefined') {
-				ilib.setLocale(this.locale);
+				ilib.setLocale(this.locale || 'local');
 			}
 			this.refresh();
 		},
