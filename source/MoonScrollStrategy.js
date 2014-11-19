@@ -194,7 +194,6 @@
 		setScrollLeft: function(left) {
 			var m = this.$.scrollMath;
 			m.setScrollX(-left);
-			m.stabilize();
 		},
 
 		/**
@@ -206,7 +205,6 @@
 		setScrollTop: function(top) {
 			var m = this.$.scrollMath;
 			m.setScrollY(-top);
-			m.stabilize();
 		},
 
 		/**
