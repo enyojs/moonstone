@@ -288,7 +288,8 @@
 
 			var fmtParams = {
 				locale: this.locale,
-				type: "number"
+				type: "number",
+				style: "nogrouping"
 			};
 
 			this._numFmt = new ilib.NumFmt(fmtParams);
