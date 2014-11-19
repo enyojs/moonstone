@@ -1817,7 +1817,10 @@
   padding: 20px 10px;
   white-space: nowrap;
 }
-/* Time/date pickers should always be arranged left-to-right according to the order of the formatter */
+/* Time/date pickers should always be arranged according to the order of the formatter */
+.enyo-locale-right-to-left .moon-date-picker-client {
+  direction: rtl;
+}
 .moon-date-picker-client {
   direction: ltr;
 }
