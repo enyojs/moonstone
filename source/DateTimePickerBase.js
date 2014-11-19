@@ -179,13 +179,10 @@
 				length: 'full',
 				date: 'dmwy'
 			};
-			if (this.locale) {
-				fmtParams.locale = this.locale;
-				this.iLibLocale = null;
-				ilib.setLocale(this.locale);
-			} else {
-				this.iLibLocale = ilib.getLocale();
-			}
+
+			fmtParams.locale = this.locale;
+			this.iLibLocale = null;
+			ilib.setLocale(this.locale);
 			this._tf = new ilib.DateFmt(fmtParams);
 		},
 
