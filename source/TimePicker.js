@@ -174,7 +174,12 @@
 
 		/**
 		 * If the formatted new and old values are the same, skip animating by not passing
-		 * the old value to `IntegerPicker.scrollToValue`. 
+		 * the old value to `IntegerPicker.scrollToValue`.
+		 *
+		 * If the hour is changed by more than 12 but the locale is using 12 hour formatting, this
+		 * will not prevent a big scroll through all intermediate values (e.g. from 3pm to 2am) even
+		 * though it only has to scroll 1 index. This can be seen most easily by selecting a time
+		 * between 2 and 3 pm on day when DST springs forward and then changing the meridiem to AM.
 		 * 
 		 * @see moon.IntegerPicker.scrollToValue
 		 * @private
@@ -373,7 +378,7 @@
 				case 'k':
 					this.createComponent(
 						{classes: 'moon-date-picker-wrap', components:[
-							{kind: 'moon.HourPicker', name:'hour', formatter: this.hourFormatter || this, value: valueHours},
+							{kind: 'moon.HourPicker', name:'hour', formatter: this.hourFormatter || this, value: valueHours, onChange: 'hourPickerChanged'},
 							{name: 'hourLabel', content: this.hourText, classes: 'moon-date-picker-label moon-divider-text'}
 						]}
 					);
@@ -381,7 +386,7 @@
 				case 'm':
 					this.createComponent(
 						{classes: 'moon-date-picker-wrap', components:[
-							{kind: 'moon.IntegerPicker', name:'minute', classes:'moon-date-picker-field', min:0, max:59, wrap:true, digits: 2, value: valueMinutes},
+							{kind: 'moon.IntegerPicker', name:'minute', classes:'moon-date-picker-field', min:0, max:59, wrap:true, digits: 2, value: valueMinutes, onChange: 'minutePickerChanged'},
 							{name: 'minuteLabel', content: this.minuteText, classes: 'moon-date-picker-label moon-divider-text'}
 						]}
 					);
@@ -390,7 +395,7 @@
 					if (this.meridiemEnable === true) {
 						this.createComponent(
 							{classes: 'moon-date-picker-wrap', components:[
-								{kind:'moon.MeridiemPicker', name:'meridiem', classes:'moon-date-picker-field', value: valueHours > 12 ? 1 : 0, meridiems: this.meridiems || ['am','pm'] },
+								{kind:'moon.MeridiemPicker', name:'meridiem', classes:'moon-date-picker-field', value: valueHours > 12 ? 1 : 0, meridiems: this.meridiems || ['am','pm'], onChange: 'meridiemPickerChanged'},
 								{name: 'meridiemLabel', content: this.meridiemText, classes: 'moon-date-picker-label moon-divider-text'}
 							]}
 						);
@@ -450,52 +455,63 @@
 			return hour;
 		},
 
-		/**
-		* @private
-		*/
-		updateValue: function (inSender, inEvent) {
-			var hour = this.$.hour.getValue();
-			var minute = this.$.minute.getValue();
-	
-			if (inEvent.originator.kind == 'moon.MeridiemPicker') {
-				if (hour < 12 && inEvent.originator.value == 1 ) {
+		hourPickerChanged: function (sender, event) {
+			if(this.syncingPickers) return true;
+
+			var hour = event.value,
+				valueTime;
+
+			if (this.value) {
+				valueTime = this.value.getTime();
+				this.value.setHours(hour);
+
+				// in the rare case that the value didn't change because it was snapped back to the
+				// same value due to DST rules, push it back another hour.
+				if (valueTime == this.value.getTime()) {
+					this.value = new Date(valueTime - 3600000);
+				}
+
+				this.set('value', this.value, true);
+			}
+
+			return true;
+		},
+
+		minutePickerChanged: function (sender, event) {
+			if(this.syncingPickers) return true;
+
+			var minutes = event.value;
+
+			if (this.value) {
+				this.value.setMinutes(minutes);
+				this.set('value', this.value, true);
+			}
+
+			return true;
+		},
+
+		meridiemPickerChanged: function (sender, event) {
+			if(this.syncingPickers) return true;
+
+			var hour = this.$.hour.get('value'),
+				value = event.value;
+
+			if (this.value) {
+				if (hour < 12 && value == 1) {
 					hour += 12;
-				} else if ( hour > 12 && hour != 24 && inEvent.originator.value === 0) {
+				} else if ( hour > 12 && hour != 24 && value === 0) {
 					hour -= 12;
-				} else if (hour == 24 && inEvent.originator.value === 1) {
+				} else if (hour == 24 && value === 1) {
 					hour -= 12;
-				} else if (hour == 12 && inEvent.originator.value === 0) {
+				} else if (hour == 12 && value === 0) {
 					hour += 12;
 				}
-				this.$.hour.setScrollTop(inEvent.originator.scrollBounds.clientHeight * (hour-1));
-				this.$.hour.setValue(hour%24);
+
+				this.value.setHours(hour);
+				this.set('value', this.value, true);
 			}
-	
-			if (inEvent.originator.kind == 'moon.HourPicker') {
-				var valueTime = this.value ? this.value.getTime() : 0;
-				var valueHours = this.value ? this.value.getHours() : 0;
-	
-				// Excludes illegal hours based on DST rules by adding hour offset directly
-				this.setValue(new Date(valueTime + ((hour - valueHours)*60*60*1000)));
-			} else {
-				var valueFullYear = this.value ? this.value.getFullYear() : 0;
-				var valueMonth = this.value ? this.value.getMonth() : 0;
-				var valueDate = this.value ? this.value.getDate() : 0;
-				var valueSeconds = this.value ? this.value.getSeconds() : 0;
-				var valueMilliseconds = this.value ? this.value.getMilliseconds() : 0;
-	
-				this.setValue(
-					new Date(
-						valueFullYear,
-						valueMonth,
-						valueDate,
-						hour, 
-						minute,
-						valueSeconds,
-						valueMilliseconds
-					)
-				);
-			}
+
+			return true;
 		},
 
 		/**

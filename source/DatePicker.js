@@ -194,7 +194,7 @@
 					this.createComponent(
 						{classes: 'moon-date-picker-wrap', components:[
 							{kind:'moon.IntegerPicker', name:'day', classes:'moon-date-picker-field', wrap:true, digits:digits, min:1,
-							max:this.monthLength(values.fullYear, values.month), value: values.date},
+							max:this.monthLength(values.fullYear, values.month), value: values.date, onChange: 'pickerChanged'},
 							{name: 'dayLabel', content: this.dayText, classes: 'moon-date-picker-label moon-divider-text'}
 						]});
 					break;
@@ -202,14 +202,14 @@
 					digits = (ordering.indexOf('MM') > -1) ? 2 : null;
 					this.createComponent(
 						{classes: 'moon-date-picker-wrap', components:[
-							{kind:'moon.IntegerPicker', name:'month', classes:'moon-date-picker-field', wrap:true, min:1, max:values.maxMonths, value:values.month},
+							{kind:'moon.IntegerPicker', name:'month', classes:'moon-date-picker-field', wrap:true, min:1, max:values.maxMonths, value:values.month, onChange: 'pickerChanged'},
 							{name: 'monthLabel', content: this.monthText, classes: 'moon-date-picker-label moon-divider-text'}
 						]});
 					break;
 				case 'y':
 					this.createComponent(
 						{classes: 'moon-date-picker-wrap year', components:[
-							{kind:'moon.IntegerPicker', name:'year', classes:'moon-date-picker-field year', value:values.fullYear, min:this.getMinYear(), max:this.getMaxYear()},
+							{kind:'moon.IntegerPicker', name:'year', classes:'moon-date-picker-field year', value:values.fullYear, min:this.getMinYear(), max:this.getMaxYear(), onChange: 'pickerChanged'},
 							{name: 'yearLabel', content: this.yearText, classes: 'moon-date-picker-label moon-divider-text'}
 						]});
 					break;
@@ -239,7 +239,9 @@
 		/**
 		* @private
 		*/
-		updateValue: function (inSender, inEvent) {
+		pickerChanged: function (inSender, inEvent) {
+			if(this.syncingPickers) return true;
+
 			var day = this.$.day.getValue(),
 				month = this.$.month.getValue(),
 				year = this.$.year.getValue(),
@@ -269,6 +271,8 @@
 					valueSeconds,
 					valueMilliseconds));
 			}
+
+			return true;
 		},
 
 		/**
