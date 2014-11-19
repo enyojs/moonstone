@@ -1,6 +1,38 @@
 (function (enyo, scope) {
 
 	/**
+	* Fires when the drawer open animation begins. No event-specific data is sent with this event.
+	*
+	* @event moon.ListActions#onShow
+	* @type {Object}
+	* @public
+	*/
+
+	/**
+	* Fires when the drawer open animation ends. No event-specific data is sent with this event.
+	*
+	* @event moon.ListActions#onShown
+	* @type {Object}
+	* @public
+	*/
+
+	/**
+	* Fires when the drawer close animation begins. No event-specific data is sent with this event.
+	*
+	* @event moon.ListActions#onHide
+	* @type {Object}
+	* @public
+	*/
+
+	/**
+	* Fires when the drawer close animation ends. No event-specific data is sent with this event.
+	*
+	* @event moon.ListActions#onHidden
+	* @type {Object}
+	* @public
+	*/
+
+	/**
 	* Used internally by [ListActions]{@link moon.ListActions} to ask
 	* {@link moon.Header} to add fitting components to itself. Not intended for use
 	* by end-developers.
@@ -21,7 +53,7 @@
 	*/
 
 	/**
-	* {@link moon.ListActions} is a [control]{@link enyo.Control} designed to live within a 
+	* {@link moon.ListActions} is a [control]{@link enyo.Control} designed to live within a
 	* {@link moon.Header}. It is used to perform actions on an associated list of items. A
 	* ListActions [object]{@glossary Object} combines an activating control with a drawer
 	* containing a user-defined menu of selectable options for acting on items in the list.
@@ -77,17 +109,17 @@
 			autoCollapse: false,
 
 			/**
-			* A block of one or more controls to be displayed inside the list actions menu. By 
-			* default, each top-level [ListActions]{@link moon.ListActions} will have a 
-			* [defaultKind]{@link enyo.Control#defaultKind} of 
-			* [FittableRows]{@link enyo.FittableRows}, and should typically contain a 
+			* A block of one or more controls to be displayed inside the list actions menu. By
+			* default, each top-level [ListActions]{@link moon.ListActions} will have a
+			* [defaultKind]{@link enyo.Control#defaultKind} of
+			* [FittableRows]{@link enyo.FittableRows}, and should typically contain a
 			* {@link moon.Divider} identifying the category and a {@link moon.Scroller} with
 			* `fit: true` set on it, containing instances of {@link moon.CheckboxItem},
 			* {@link moon.ToggleItem}, or {@link moon.SelectableItem} for setting options for
 			* the underlying [panel]{@link moon.Panel}. Alternatively, a {@link moon.DataList}
 			* may be used as the `fit: true` control for populating a data-bound list of options
 			* (see below for limitations on using a `moon.DataList`).
-			* 
+			*
 			* More than one option group may be added to the `listActions` block, in which options
 			* are laid out horizontally by default, with the height of each `FittableRows` being
 			* constrained to the height of the parent [Header]{@link moon.Header}. However, a
@@ -97,7 +129,7 @@
 			* all groups vertically, and the `FittableRows` are reset to natural size based on
 			* their content, effectively disabling any scrollers contained within, to prevent
 			* nested scrolling.
-			* 
+			*
 			* Note that the vertical stacking capability poses a limitation on using
 			* `moon.DataList`. Since `moon.DataList` must always be allowed to scroll, it is
 			* not suitable for use in a stacked scenario in which only one outer scroller is
@@ -150,6 +182,10 @@
 		* @private
 		*/
 		events: {
+			onShow: '',
+			onShown: '',
+			onHide: '',
+			onHidden: '',
 			onRequestCreateListActions: '',
 			onListActionOpenChanged: ''
 		},
@@ -307,7 +343,13 @@
 			if (this.disabled) {
 				return true;
 			}
-			this.setOpen(!this.getOpen());
+			var open = !this.getOpen();
+			if (open) {
+				this.doShow();
+			} else {
+				this.doHide();
+			}
+			this.setOpen(open);
 		},
 
 		/**
@@ -320,6 +362,8 @@
 			}
 		},
 
+		//TODO: Remove the onListActionOpenChanged event. It will be deprecated in favor of the onShow/onHide events
+		// once we communicate to SmartShare (the only app we could find that's handling this event).
 		/**
 		* @fires moon.ListActions#onListActionOpenChanged
 		* @private
@@ -349,7 +393,7 @@
 		*/
 		drawerAnimationEnd: function(sender, event) {
 			var rendered = event && event.rendered;
-			
+
 			//on closed, hide drawer and spot _this.$.activator_
 			if (!this.getOpen()) {
 				this.drawerClosed(rendered);
@@ -360,7 +404,7 @@
 			}
 			return true;
 		},
-		
+
 		/**
 		* @private
 		*/
@@ -369,8 +413,10 @@
 				enyo.Spotlight.spot(this.$.activator);
 			}
 			this.bubble('onRequestUnmuteTooltip');
+
+			if (!rendered) this.doHidden();
 		},
-		
+
 		/**
 		* @private
 		*/
@@ -383,6 +429,8 @@
 				enyo.Spotlight.spot(this.$.closeButton);
 			}
 			this.bubble('onRequestMuteTooltip');
+
+			this.doShown();
 		},
 
 		/**
@@ -610,7 +658,7 @@
 		},
 
 		/**
-		* We override `getBubbleTarget()` here so that events emanating from a 
+		* We override `getBubbleTarget()` here so that events emanating from a
 		* [ListActionsDrawer]{@link moon.ListActionsDrawer} instance will bubble to the owner
 		* of the associated [ListActions]{@link moon.ListActions} instance, as expected. This
 		* is necessary because events normally bubble to a control's DOM parent, but we have
