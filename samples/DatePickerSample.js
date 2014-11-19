@@ -55,8 +55,8 @@ enyo.kind({
 	},
 	setLocale: function(inSender, inEvent){
 		if (ilib) {
-			var locale = inEvent.selected.content;
-			val = (locale == "Use Default Locale") ? null : locale;
+			var locale = inEvent.selected.content,
+				val = (locale == "Use Default Locale") ? null : locale;
 			ilib.setLocale(locale);
 			this.$.picker.setLocale(val);
 			this.$.disabledPicker.setLocale(val);
