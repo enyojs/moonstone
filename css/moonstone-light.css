@@ -892,6 +892,7 @@
 }
 .moon-checkbox-item {
   position: relative;
+  overflow: hidden;
 }
 .moon-checkbox-item .moon-checkbox {
   position: absolute;
