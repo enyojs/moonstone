@@ -594,6 +594,12 @@
 		_marquee_puppetMaster: null,
 
 		/**
+		* We avoid small distance of flow by giving a threshold value of distance.
+		* @private
+		*/
+		_marquee_threshold: 2,
+
+		/**
 		* @method
 		* @private
 		*/
@@ -797,7 +803,7 @@
 		*/
 		_marquee_shouldAnimate: function (distance) {
 			distance = (distance && distance >= 0) ? distance : this._marquee_calcDistance();
-			return (distance > 0);
+			return (distance > this._marquee_threshold);
 		},
 
 		/**
