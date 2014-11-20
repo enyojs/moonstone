@@ -641,6 +641,7 @@
 				if (showVertical || showHorizontal) {
 					this.animateToControl(event.originator, event.scrollFullPage, event.scrollInPointerMode || false);
 					if ((showVertical && this.$.scrollMath.bottomBoundary) || (showHorizontal && this.$.scrollMath.rightBoundary)) {
+						this.updatePagingControlState();
 						this.alertThumbs();
 					}
 				} else {
