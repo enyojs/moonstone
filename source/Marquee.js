@@ -703,6 +703,7 @@
 				this.$.marqueeText.setContent(this.content);
 			}
 			if (this.generated) {
+				this._marquee_invalidateMetrics();
 				this._marquee_detectAlignment();
 			}
 			this._marquee_reset();
