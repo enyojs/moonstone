@@ -192,9 +192,17 @@
 		* @public
 		*/
 		setScrollLeft: function(left) {
-			var m = this.$.scrollMath;
+			var m = this.$.scrollMath,
+				p = this.scrollLeft;
+			// This will result in a call to
+			// ScrollMath.stabilize(), ensuring
+			// that we stay in bounds
 			m.setScrollX(-left);
-			m.doScroll();
+			if (p != m.x) {
+				// We won't get a native scroll event,
+				// so need to make one ourselves
+				m.doScroll();
+			}
 		},
 
 		/**
@@ -204,9 +212,17 @@
 		* @public
 		*/
 		setScrollTop: function(top) {
-			var m = this.$.scrollMath;
+			var m = this.$.scrollMath,
+				p = this.scrollTop;
+			// This will result in a call to
+			// ScrollMath.stabilize(), ensuring
+			// that we stay in bounds
 			m.setScrollY(-top);
-			m.doScroll();
+			if (p != m.y) {
+				// We won't get a native scroll event,
+				// so need to make one ourselves
+				m.doScroll();
+			}
 		},
 
 		/**
