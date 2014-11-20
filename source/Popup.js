@@ -323,12 +323,9 @@
 		/**
 		* @private
 		*/
-		showingChanged: function() {
+		showHideMethod: function() {
 			if (this.showing) {
 				if (this.animate) {
-					// need to call this early to prevent race condition where animationEnd
-					// originated from a "hide" context but we are already in a "show" context
-					this.animationEnd = enyo.nop;
 					// if we are currently animating the hide transition, release
 					// the events captured when popup was initially shown
 					if (this.isAnimatingHide) {
@@ -358,19 +355,10 @@
 			} else {
 				this.hide();
 				if (this.animate) {
-					this.isAnimatingHide = true;
 					// Instead of hiding the scrim with the inherited enyo method, when the
 					// animation is finished, fire it now, so interactive control is returned to the
 					// applicaiton while our popup is animating to the closed position.
 					this.showHideScrim(this.showing);
-					var args = arguments;
-					this.animationEnd = this.bindSafely(function (sender, ev) {
-						if (ev.originator === this) {
-							// Delay inherited until animationEnd
-							this.inherited(args);
-							this.isAnimatingHide = false;
-						}
-					});
 				} else {
 					// Run inherited immediately
 					this.inherited(arguments);
