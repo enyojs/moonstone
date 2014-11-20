@@ -630,26 +630,38 @@
 		* @private
 		*/
 		requestScrollIntoView: function(sender, event) {
-			var showVertical, showHorizontal,
-				bubble = false;
 			if (!enyo.Spotlight.getPointerMode() || event.scrollInPointerMode === true) {
-				showVertical = this.showVertical();
-				showHorizontal = this.showHorizontal();
-				this.scrollBounds = this._getScrollBounds();
-				this.setupBounds();
-				this.scrollBounds = null;
-				if (showVertical || showHorizontal) {
-					this.animateToControl(event.originator, event.scrollFullPage, event.scrollInPointerMode || false);
-					if ((showVertical && this.$.scrollMath.bottomBoundary) || (showHorizontal && this.$.scrollMath.rightBoundary)) {
-						this.alertThumbs();
-					}
-				} else {
-					// Scrollers that don't need to scroll bubble their onRequestScrollIntoView,
-					// to allow items in nested scrollers to be scrolled
-					bubble = true;
-				}
+				return this.scrollToView(event);
 			}
-			return !bubble;
+			return true;
+		},
+
+		/**
+		* Updates scroll bounds by scrolling into a view based on 
+		* event of animator control.
+		*
+		* @private
+		*/
+		scrollToView: function (animator) {
+			var showVertical = this.showVertical(),
+				showHorizontal = this.showHorizontal();
+				
+			this.scrollBounds = this._getScrollBounds();
+			this.setupBounds();
+			this.scrollBounds = null;
+			if (showVertical || showHorizontal) {
+				if(animator && animator.originator) {
+					this.animateToControl(animator.originator, animator.scrollFullPage, animator.scrollInPointerMode || false);
+				}
+				if ((showVertical && this.$.scrollMath.bottomBoundary) || (showHorizontal && this.$.scrollMath.rightBoundary)) {
+					this.alertThumbs();
+					this.updatePagingControlState();
+				}
+				return true;
+			}
+			// Scrollers that don't need to scroll bubble their onRequestScrollIntoView,
+			// to allow items in nested scrollers to be scrolled
+			return false;
 		},
 
 		/**
@@ -660,12 +672,7 @@
 		*/
 		requestSetupBounds: function(sender, event) {
 			if (this.generated) {
-				this.scrollBounds = this._getScrollBounds();
-				this.setupBounds();
-				this.scrollBounds = null;
-				if ((this.showVertical() && this.$.scrollMath.bottomBoundary) || (this.showHorizontal() && this.$.scrollMath.rightBoundary)) {
-					this.alertThumbs();
-				}
+				this.scrollToView(false);
 			}
 			return true;
 		},
