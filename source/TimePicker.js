@@ -362,10 +362,6 @@
 					doneArr.push(o);
 				}
 			}
-	
-			if (!this.$.timeWrapper) {
-				this.createComponent({name: "timeWrapper", classes: "moon-time-picker-wrap"});
-			}
 
 			for(f = 0, l = doneArr.length; f < l; f++) {
 				o = doneArr[f];
@@ -375,6 +371,9 @@
 				switch (o){
 				case 'h':
 				case 'k':
+					if (!this.$.timeWrapper) {
+						this.createComponent({name: "timeWrapper", classes: "moon-time-picker-wrap"});
+					}
 					this.$.timeWrapper.createComponent(
 						{classes: 'moon-date-picker-wrap', components:[
 							{kind: 'moon.HourPicker', name:'hour', formatter: this.hourFormatter || this, value: valueHours},
@@ -383,6 +382,9 @@
 					);
 					break;
 				case 'm':
+					if (!this.$.timeWrapper) {
+						this.createComponent({name: "timeWrapper", classes: "moon-time-picker-wrap"});
+					}
 					this.$.timeWrapper.createComponent(
 						{classes: 'moon-date-picker-wrap', components:[
 							{kind: 'moon.IntegerPicker', name:'minute', classes:'moon-date-picker-field', min:0, max:59, wrap:true, digits: 2, value: valueMinutes},
