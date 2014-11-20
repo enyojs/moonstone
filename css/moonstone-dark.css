@@ -1823,6 +1823,16 @@
 .moon-date-picker-client {
   direction: ltr;
 }
+.moon-time-picker-wrap {
+  direction: ltr;
+}
+.moon-time-picker-wrap .moon-date-picker-wrap {
+  display: inline-block;
+  min-width: 100px;
+  text-align: center;
+  margin: 10px 0;
+  vertical-align: top;
+}
 /* Input.css */
 .moon-input {
   padding: 0;
