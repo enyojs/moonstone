@@ -516,16 +516,6 @@
 		/**
 		* @private
 		*/
-		scrollMathScroll: enyo.inherit(function (sup) {
-			return function () {
-				sup.apply(this, arguments);
-				this.updatePagingControlState();
-			};
-		}),
-
-		/**
-		* @private
-		*/
 		calcBoundaries: function() {
 			var s = this.$.scrollMath || this,
 				b = this._getScrollBounds()
@@ -543,6 +533,10 @@
 			this.scrollLeft = (x !== null && !isNaN(x))? x: (this.scrollLeft || 0);
 			this.scrollTop  = (y !== null && !isNaN(y))? y: (this.scrollTop  || 0);
 			enyo.dom.transformValue(this.$.client, this.translation, this.generateMatrix());
+
+			// since effectScroll will happen frequently but paging control status changes
+			// infrequently, throttle the update a tick
+			this.throttleJob('updatePagingControlState', 'updatePagingControlState', 32);
 		},
 
 		/**
