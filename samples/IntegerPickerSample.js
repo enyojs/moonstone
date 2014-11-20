@@ -13,7 +13,8 @@ enyo.kind({
 			{kind: 'moon.FormCheckbox', content: 'Padding (5 digits)', onchange: 'paddingChecked'},
 			{kind: 'moon.FormCheckbox', content: 'Disabled', prop: 'disabled', onchange: 'checked'},
 			{kind: "moon.ExpandablePicker", name:"localePicker", noneText: "No Language Selected", content: "Choose Locale", onChange: "setLocale", components: [
-				{content: "en-US", active:true}, //United States, firstDayOfWeek: 0				
+				{content: 'Use Default Locale', active: true},
+				{content: "en-US"}, //United States, firstDayOfWeek: 0				
 				{content: "fa-IR"}, //Iran persian calendar
 				{content: "th-TH"}, //Thailand
 				{content: "jp-JP"}, //Japan
@@ -43,9 +44,10 @@ enyo.kind({
 	},
 	setLocale: function(sender, inEvent) {
 		if (ilib) {
-			var locale = inEvent.selected.content;
-			ilib.setLocale(locale);
-			this.$.picker.setLocale(locale);			
+			var locale = inEvent.selected.content,
+				val = (locale == "Use Default Locale") ? null : locale;
+			ilib.setLocale(val);
+			this.$.picker.setLocale(val);			
 		}
 		return true;
 	}
