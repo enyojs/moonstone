@@ -956,7 +956,10 @@
 				info,
 				popFrom,
 				toIndex = this.toIndex,
-				fromIndex = this.fromIndex;
+				fromIndex = this.fromIndex,
+				lastSpot = enyo.Spotlight.getLastControl(this),
+				activePanel = this.getActive(),
+				spottable = enyo.Spotlight.Util.isChild(activePanel, lastSpot) ? lastSpot : activePanel;
 
 			// Pop panels starting at this index, plus any that are still onscreen
 			popFrom = toIndex + 1;
@@ -995,12 +998,6 @@
 			}
 
 			enyo.Spotlight.unmute(this);
-
-			// Spot the active panel or the last spotted child of the active panel
-			var lastSpot = enyo.Spotlight.getLastControl(this);
-			var activePanel = this.getActive();
-			var spottable = enyo.Spotlight.Util.isChild(activePanel, lastSpot) ? lastSpot : activePanel;
-
 			enyo.Spotlight.spot(spottable);
 		},
 
