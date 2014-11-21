@@ -91,7 +91,7 @@
 		* @private
 		*/
 		tools: [
-			{kind: 'ScrollMath', onScrollStart: 'scrollMathStart', onScroll: 'scrollMathScroll', onScrollStop: 'scrollMathStop'}
+			{kind: 'ScrollMath', onScrollStart: 'scrollMathStart', onScroll: 'scrollMathScroll', onScrollStop: 'scrollMathStop', onStabilize: 'scrollMathStabilize'}
 		],
 
 		/**
@@ -194,10 +194,8 @@
 		setScrollLeft: function(left) {
 			var m = this.$.scrollMath,
 				p = this.scrollLeft;
-			// This will result in a call to
-			// ScrollMath.stabilize(), ensuring
-			// that we stay in bounds
 			m.setScrollX(-left);
+			m.stabilize();
 			if (p != -m.x) {
 				// We won't get a native scroll event,
 				// so need to make one ourselves
@@ -214,10 +212,8 @@
 		setScrollTop: function(top) {
 			var m = this.$.scrollMath,
 				p = this.scrollTop;
-			// This will result in a call to
-			// ScrollMath.stabilize(), ensuring
-			// that we stay in bounds
 			m.setScrollY(-top);
+			m.stabilize();
 			if (p != -m.y) {
 				// We won't get a native scroll event,
 				// so need to make one ourselves
