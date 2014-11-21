@@ -535,8 +535,14 @@
 			enyo.dom.transformValue(this.$.client, this.translation, this.generateMatrix());
 
 			// since effectScroll will happen frequently but paging control status changes
-			// infrequently, throttle the update a tick
-			this.throttleJob('updatePagingControlState', 'updatePagingControlState', 32);
+			// infrequently, fire it immediately and then throttle the next update
+			if (!this._updatePagingJob) {
+				this.updatePagingControlState();
+			} else {
+				clearTimeout(this._updatePagingJob);
+			}
+
+			this._updatePagingJob = setTimeout(this.bindSafely('updatePagingControlState'), 32);
 		},
 
 		/**
