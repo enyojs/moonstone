@@ -995,9 +995,13 @@
 			}
 
 			enyo.Spotlight.unmute(this);
-			// Spot the active panel
-			enyo.Spotlight.spot(this.getActive());
 
+			// Spot the active panel or the last spotted child of the active panel
+			var lastSpot = enyo.Spotlight.getLastControl(this);
+			var activePanel = this.getActive();
+			var spottable = enyo.Spotlight.Util.isChild(activePanel, lastSpot) ? lastSpot : activePanel;
+
+			enyo.Spotlight.spot(spottable);
 		},
 
 		/**
