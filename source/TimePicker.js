@@ -578,7 +578,7 @@
 				this.$.minute.setValue(this.value.getMinutes());
 				if (this.meridiemEnable === true) {
 					this.$.meridiem.setValue(hour > 11 ? 1 : 0);
-				}				
+				}
 			}
 			this.$.currentValue.setContent(this.formatValue());
 		},
