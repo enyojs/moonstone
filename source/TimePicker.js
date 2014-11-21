@@ -402,10 +402,11 @@
 		},
 
 		wrapComponents: function (wrapperProps, props, owner) {
-			if (!this.$[wrapperProps.name]) {
-				this.createComponent(wrapperProps);
+			var wrapper = this.$[wrapperProps.name];
+			if (!wrapper) {
+				wrapper = this.createComponent(wrapperProps);
 			}
-			this.$[wrapperProps.name].createComponent(props, {owner: owner || this.$[wrapperProps.name]});
+			wrapper.createComponent(props, {owner: owner});
 		},
 
 		/**
