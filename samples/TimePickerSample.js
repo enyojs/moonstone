@@ -67,7 +67,7 @@ enyo.kind({
 		}
 	},
 	resetTapped: function(inSender, inEvent) {
-		this.$.pickerTime.set("open", null);
+		this.$.pickerTime.set("open", false);
 		this.$.pickerTime.set("value", null);
 		return true;
 	}
