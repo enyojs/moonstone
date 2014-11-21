@@ -542,7 +542,10 @@
 				clearTimeout(this._updatePagingJob);
 			}
 
-			this._updatePagingJob = setTimeout(this.bindSafely('updatePagingControlState'), 32);
+			this._updatePagingJob = setTimeout(this.bindSafely(function () {
+				this.updatePagingControlState();
+				this._updatePagingJob = null;
+			}), 32);
 		},
 
 		/**
