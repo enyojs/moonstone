@@ -371,13 +371,13 @@
 				switch (o){
 				case 'h':
 				case 'k':
-					this.wrapComponents('timeWrapper', {classes: 'moon-date-picker-wrap', components:[
+					this.wrapComponents({name: 'timeWrapper', classes: 'moon-time-picker-wrap'}, {classes: 'moon-date-picker-wrap', components:[
 						{kind: 'moon.HourPicker', name:'hour', formatter: this.hourFormatter || this, value: valueHours},
 						{name: 'hourLabel', content: this.hourText, classes: 'moon-date-picker-label moon-divider-text'}
 					]}, this);
 					break;
 				case 'm':
-					this.wrapComponents('timeWrapper', {classes: 'moon-date-picker-wrap', components:[
+					this.wrapComponents({name: 'timeWrapper', classes: 'moon-time-picker-wrap'}, {classes: 'moon-date-picker-wrap', components:[
 						{kind: 'moon.IntegerPicker', name:'minute', classes:'moon-date-picker-field', min:0, max:59, wrap:true, digits: 2, value: valueMinutes},
 						{name: 'minuteLabel', content: this.minuteText, classes: 'moon-date-picker-label moon-divider-text'}
 					]}, this);
@@ -401,11 +401,11 @@
 			this.inherited(arguments);
 		},
 
-		wrapComponents: function (wrapper, props, owner) {
-			if (!this.$[wrapper]) {
-				this.createComponent({name: wrapper, classes: 'moon-time-picker-wrap'});
+		wrapComponents: function (wrapperProps, props, owner) {
+			if (!this.$[wrapperProps.name]) {
+				this.createComponent(wrapperProps);
 			}
-			this.$[wrapper].createComponent(props, {owner: owner || this.$[wrapper]});
+			this.$[wrapperProps.name].createComponent(props, {owner: owner || this.$[wrapperProps.name]});
 		},
 
 		/**
