@@ -996,7 +996,9 @@
 
 			enyo.Spotlight.unmute(this);
 			// Spot the active panel
-			enyo.Spotlight.spot(this.getActive());
+			if (sendEvents) {
+				enyo.Spotlight.spot(this.getActive());
+			}
 
 		},
 
