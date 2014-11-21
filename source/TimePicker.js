@@ -405,7 +405,7 @@
 			if (!this.$[wrapper]) {
 				this.createComponent({name: wrapper, classes: 'moon-time-picker-wrap'});
 			}
-			this.$[wrapper].createComponent(props, {owner: owner || this.$.timeWrapper});
+			this.$[wrapper].createComponent(props, {owner: owner || this.$[wrapper]});
 		},
 
 		/**
