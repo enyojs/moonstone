@@ -455,28 +455,25 @@
 			return hour;
 		},
 
+		/**
+		* @private
+		*/
 		hourPickerChanged: function (sender, event) {
 			if(this.syncingPickers) return true;
 
 			var hour = event.value,
-				valueTime;
+				valueTime, valueHours;
 
 			if (this.value) {
-				valueTime = this.value.getTime();
-				this.value.setHours(hour);
-
-				// in the rare case that the value didn't change because it was snapped back to the
-				// same value due to DST rules, push it back another hour.
-				if (valueTime == this.value.getTime()) {
-					this.value = new Date(valueTime - 3600000);
-				}
-
-				this.set('value', this.value, true);
+				this.updateHours(hour);
 			}
 
 			return true;
 		},
 
+		/**
+		* @private
+		*/
 		minutePickerChanged: function (sender, event) {
 			if(this.syncingPickers) return true;
 
@@ -490,6 +487,9 @@
 			return true;
 		},
 
+		/**
+		* @private
+		*/
 		meridiemPickerChanged: function (sender, event) {
 			if(this.syncingPickers) return true;
 
@@ -497,21 +497,38 @@
 				value = event.value;
 
 			if (this.value) {
-				if (hour < 12 && value == 1) {
-					hour += 12;
-				} else if ( hour > 12 && hour != 24 && value === 0) {
-					hour -= 12;
-				} else if (hour == 24 && value === 1) {
-					hour -= 12;
-				} else if (hour == 12 && value === 0) {
-					hour += 12;
-				}
-
-				this.value.setHours(hour);
-				this.set('value', this.value, true);
+				// value is 0 for am, 1 for pm
+				// reset the hour to < 12 and then add 12 if it's pm
+				hour = hour%12 + value*12;
+				this.updateHours(hour);
 			}
 
 			return true;
+		},
+
+		/**
+		* webOS TVs which rounds down when setting the hour to the skipped hour of DST
+		* whereas other implementations round up. 
+		*
+		* @private
+		*/
+		dstOffset: enyo.platform.webos? 3600000 : -3600000,
+
+		/**
+		* @private
+		*/
+		updateHours: function (hour) {
+			var valueTime = this.value.getTime();
+
+			this.value.setHours(hour);
+
+			// in the rare case that the value didn't change because it was snapped back to the
+			// same value due to DST rules, push it back another hour.
+			if (valueTime == this.value.getTime()) {
+				this.value = new Date(valueTime + this.dstOffset);
+			}
+
+			this.set('value', this.value, true);
 		},
 
 		/**
