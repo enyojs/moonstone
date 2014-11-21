@@ -371,26 +371,16 @@
 				switch (o){
 				case 'h':
 				case 'k':
-					if (!this.$.timeWrapper) {
-						this.createComponent({name: "timeWrapper", classes: "moon-time-picker-wrap"});
-					}
-					this.$.timeWrapper.createComponent(
-						{classes: 'moon-date-picker-wrap', components:[
-							{kind: 'moon.HourPicker', name:'hour', formatter: this.hourFormatter || this, value: valueHours},
-							{name: 'hourLabel', content: this.hourText, classes: 'moon-date-picker-label moon-divider-text'}
-						]}, {owner: this}
-					);
+					this.wrapComponents('timeWrapper', {classes: 'moon-date-picker-wrap', components:[
+						{kind: 'moon.HourPicker', name:'hour', formatter: this.hourFormatter || this, value: valueHours},
+						{name: 'hourLabel', content: this.hourText, classes: 'moon-date-picker-label moon-divider-text'}
+					]}, this);
 					break;
 				case 'm':
-					if (!this.$.timeWrapper) {
-						this.createComponent({name: "timeWrapper", classes: "moon-time-picker-wrap"});
-					}
-					this.$.timeWrapper.createComponent(
-						{classes: 'moon-date-picker-wrap', components:[
-							{kind: 'moon.IntegerPicker', name:'minute', classes:'moon-date-picker-field', min:0, max:59, wrap:true, digits: 2, value: valueMinutes},
-							{name: 'minuteLabel', content: this.minuteText, classes: 'moon-date-picker-label moon-divider-text'}
-						]}, {owner: this}
-					);
+					this.wrapComponents('timeWrapper', {classes: 'moon-date-picker-wrap', components:[
+						{kind: 'moon.IntegerPicker', name:'minute', classes:'moon-date-picker-field', min:0, max:59, wrap:true, digits: 2, value: valueMinutes},
+						{name: 'minuteLabel', content: this.minuteText, classes: 'moon-date-picker-label moon-divider-text'}
+					]}, this);
 					break;
 				case 'a':
 					if (this.meridiemEnable === true) {
@@ -409,6 +399,13 @@
 			}
 	
 			this.inherited(arguments);
+		},
+
+		wrapComponents: function (wrapper, props, owner) {
+			if (!this.$[wrapper]) {
+				this.createComponent({name: wrapper, classes: 'moon-time-picker-wrap'});
+			}
+			this.$[wrapper].createComponent(props, {owner: owner || this.$.timeWrapper});
 		},
 
 		/**
