@@ -57,14 +57,6 @@
 
 		/**
 		* @private
-		*/
-		handlers: {
-			//* Handler for _onChange_ events coming from constituent controls
-			onChange: 'handleChangeEvent'
-		},
-
-		/**
-		* @private
 		* @lends moon.DateTimePickerBase.prototype
 		*/
 		published: {
@@ -217,31 +209,14 @@
 		},
 
 		/**
-		* @private
-		*/
-		handleChangeEvent: function (inSender, inEvent) {
-			if (inEvent && inEvent.originator === this) {
-				// Don't handle our own change events
-				return;
-			} else {
-				this.updateValue(inSender, inEvent);
-				return true;
-			}
-		},
-
-		/**
-		* @private
-		*/
-		updateValue: function (inSender, inEvent) {
-			// implement in subkind
-		},
-
-		/**
 		* @fires moon.DateTimePickerBase#onChange
 		* @private
 		*/
 		valueChanged: function (inOld) {
+			this.syncingPickers = true;
 			this.setChildPickers(inOld);
+			this.syncingPickers = false;
+
 			if (this.value) {
 				this.doChange({name:this.name, value:this.value});
 			} else {
@@ -279,7 +254,7 @@
 			this.inherited(arguments);
 			var pickers = this.pickers,
 				i, p;
-			if (pickers) {
+			if (pickers && this.open) {
 				for (i = 0; i < pickers.length; i++) {
 					p = pickers[i];
 					if (p.getClientControls().length > 0) {
