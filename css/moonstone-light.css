@@ -1817,9 +1817,18 @@
   padding: 20px 10px;
   white-space: nowrap;
 }
-/* Time/date pickers should always be arranged left-to-right according to the order of the formatter */
+/* Time/date pickers should always be arranged according to the order of the formatter */
+.enyo-locale-right-to-left .moon-date-picker-client {
+  direction: rtl;
+}
 .moon-date-picker-client {
   direction: ltr;
+}
+.moon-time-picker-wrap {
+  direction: ltr;
+}
+.moon-time-picker-wrap .moon-date-picker-wrap {
+  display: inline-block;
 }
 /* Input.css */
 .moon-input {
@@ -1828,9 +1837,6 @@
   cursor: pointer;
   background: transparent;
   color: #4b4b4b;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 .moon-input::selection {
   color: #ffffff;

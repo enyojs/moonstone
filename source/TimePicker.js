@@ -441,20 +441,16 @@
 				switch (o){
 				case 'h':
 				case 'k':
-					this.createComponent(
-						{classes: 'moon-date-picker-wrap', components:[
-							{kind: 'moon.HourPicker', name:'hour', formatter: this.hourFormatter || this, value: valueHours},
-							{name: 'hourLabel', content: this.hourText, classes: 'moon-date-picker-label moon-divider-text'}
-						]}
-					);
+					this.wrapComponent({name: 'timeWrapper', classes: 'moon-time-picker-wrap'}, {classes: 'moon-date-picker-wrap', components:[
+						{kind: 'moon.HourPicker', name:'hour', formatter: this.hourFormatter || this, value: valueHours},
+						{name: 'hourLabel', content: this.hourText, classes: 'moon-date-picker-label moon-divider-text'}
+					]}, this);
 					break;
 				case 'm':
-					this.createComponent(
-						{classes: 'moon-date-picker-wrap', components:[
-							{kind: 'moon.MinutePicker', name:'minute', formatter: this.minuteFormatter || this, value: valueMinutes},
-							{name: 'minuteLabel', content: this.minuteText, classes: 'moon-date-picker-label moon-divider-text'}
-						]}
-					);
+					this.wrapComponent({name: 'timeWrapper', classes: 'moon-time-picker-wrap'}, {classes: 'moon-date-picker-wrap', components:[
+						{kind: 'moon.MinutePicker', name:'minute', formatter: this.minuteFormatter || this, value: valueMinutes},
+						{name: 'minuteLabel', content: this.minuteText, classes: 'moon-date-picker-label moon-divider-text'}
+					]}, this);
 					break;
 				case 'a':
 					if (this.meridiemEnable === true) {
@@ -473,6 +469,18 @@
 			}
 	
 			this.inherited(arguments);
+		},
+		/**
+		* @private
+		* wrap hour and minute picker to keep static ordering
+		* although timePicker is in RTL, hourPicker should be placed in left of minutePicker
+		*/
+		wrapComponent: function (wrapperProps, props, owner) {
+			var wrapper = this.$[wrapperProps.name];
+			if (!wrapper) {
+				wrapper = this.createComponent(wrapperProps);
+			}
+			wrapper.createComponent(props, {owner: owner});
 		},
 
 		/**

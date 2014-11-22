@@ -11,21 +11,7 @@ enyo.kind({
 			{kind: 'moon.FormCheckbox', content: 'Animate', checked: true, prop: 'animate', onchange: 'checked'},
 			{kind: 'moon.FormCheckbox', content: 'Wrap', prop: 'wrap', onchange: 'checked'},
 			{kind: 'moon.FormCheckbox', content: 'Padding (5 digits)', onchange: 'paddingChecked'},
-			{kind: 'moon.FormCheckbox', content: 'Disabled', prop: 'disabled', onchange: 'checked'},
-			{kind: "moon.ExpandablePicker", name:"localePicker", noneText: "No Language Selected", content: "Choose Locale", onChange: "setLocale", components: [
-				{content: 'Use Default Locale', active: true},
-				{content: "en-US"}, //United States, firstDayOfWeek: 0				
-				{content: "fa-IR"}, //Iran persian calendar
-				{content: "th-TH"}, //Thailand
-				{content: "jp-JP"}, //Japan
-				{content: "ko-KO"}, //Korea
-				{content: "und-AE"}, //United Arab Emirates
-				{content: "und-AG"}, //Antigua and Barbuda
-				{content: "de-DE"}, // Germany
-				{content: "fr-FR"}, // France
-				{content: "it-IT"}, // Italy
-				{content: "es-ES"} // Spain
-			]}
+			{kind: 'moon.FormCheckbox', content: 'Disabled', prop: 'disabled', onchange: 'checked'}
 		]},
 		{kind: 'moon.Divider', content: 'Result'},
 		{kind: 'moon.BodyText', name: 'value', content: 'No change yet'}
@@ -41,14 +27,5 @@ enyo.kind({
 	paddingChecked: function (sender, event) {
 		this.$.picker.set('digits', sender.checked? 5 : null);
 		this.$.picker.render();
-	},
-	setLocale: function(sender, inEvent) {
-		if (ilib) {
-			var locale = inEvent.selected.content,
-				val = (locale == "Use Default Locale") ? null : locale;
-			ilib.setLocale(val);
-			this.$.picker.setLocale(val);			
-		}
-		return true;
 	}
 });

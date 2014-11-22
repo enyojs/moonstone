@@ -594,12 +594,6 @@
 		_marquee_puppetMaster: null,
 
 		/**
-		* We avoid small distance of flow by giving a threshold value of distance.
-		* @private
-		*/
-		_marquee_threshold: 2,
-
-		/**
 		* @method
 		* @private
 		*/
@@ -709,7 +703,6 @@
 				this.$.marqueeText.setContent(this.content);
 			}
 			if (this.generated) {
-				this._marquee_invalidateMetrics();
 				this._marquee_detectAlignment();
 			}
 			this._marquee_reset();
@@ -804,7 +797,7 @@
 		*/
 		_marquee_shouldAnimate: function (distance) {
 			distance = (distance && distance >= 0) ? distance : this._marquee_calcDistance();
-			return (distance > this._marquee_threshold);
+			return (distance > 0);
 		},
 
 		/**
