@@ -550,7 +550,7 @@
 
 			if (this.value) {
 				this.value.setMinutes(minutes);
-				this.set('value', this.value, true);
+				this.set('value', this.value, {force: true});
 			}
 
 			return true;
@@ -597,7 +597,7 @@
 				this.value = new Date(valueTime + this.dstOffset);
 			}
 
-			this.set('value', this.value, true);
+			this.set('value', this.value, {force: true});
 		},
 
 		/**
