@@ -10,9 +10,12 @@ enyo.kind({
 				{kind: "moon.TimePicker", name: "pickerTime", noneText: "Pick a Time", content: "Time", meridiemEnable: true, onChange: "timeChanged"},
 				{kind: "moon.Button", name: "buttonReset", content: "Reset Time", small: true, ontap: "resetTapped"},
 				{kind: "moon.TimePicker", name:"pickerDisabled", meridiemEnable: true, disabled: true, noneText: "Disabled Time Picker", content: "Disabled Time"},
-				{kind: "moon.ExpandablePicker", name: "pickerLocale", noneText: "No Locale Selected", content: "Choose Locale", onChange:"pickerHandler", components: [
+				{kind: "moon.ExpandablePicker", name: "pickerLocale", noneText: "No Locale Selected", content: "Choose Locale", onChange:"setLocale", components: [
 					{content: "Use Default Locale", active: true},
 					{content: 'jp-JP'},
+					{content: 'fa-IR'},
+					{content: 'ar-SA'},
+					{content: 'ur-IN'},
 					{content: 'en-US'},
 					{content: 'ko-KR'},
 					{content: "th-TH"},	//Thailand
@@ -45,14 +48,28 @@ enyo.kind({
 		}
 		this.set("value", new Date("Mar 09 2014 01:59"));
 	},
-	pickerHandler: function(inSender, inEvent){
-		var opt = inEvent.selected.content,
-			val = (opt == "Use Default Locale") ? null : opt;
-		this.$.pickerDateLinked.setLocale(val);
-		this.$.pickerTimeLinked.setLocale(val);
-		this.$.pickerTime.setLocale(val);
-		this.$.pickerDisabled.setLocale(val);
-		this.$.result.setContent("locale changed to " + opt);
+	setLocale: function(inSender, inEvent){
+		if (window.ilib) {
+			var locale = inEvent.selected.content,
+				val = (locale == "Use Default Locale") ? null : locale;
+			ilib.setLocale(locale);
+			this.$.pickerDateLinked.setLocale(val);
+			this.$.pickerTimeLinked.setLocale(val);
+			this.$.pickerTime.setLocale(val);
+			this.$.pickerDisabled.setLocale(val);
+			this.$.result.setContent("locale changed to " + locale);
+
+			var li = new ilib.LocaleInfo(locale);
+			var script = new ilib.ScriptInfo(li.getScript());
+
+			if (script.getScriptDirection() === "rtl") {
+				enyo.Control.prototype.rtl = true;
+				enyo.dom.addBodyClass('enyo-locale-right-to-left');
+			} else {
+				enyo.Control.prototype.rtl = false;
+				enyo.dom.removeClass(document.body, 'enyo-locale-right-to-left');
+			}
+		}
 		return true;
 	},
 	timeChanged: function(inSender, inEvent) {

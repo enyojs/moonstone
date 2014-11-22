@@ -446,19 +446,23 @@
 				switch (o){
 				case 'h':
 				case 'k':
-					this.createComponent(
+					this.wrapComponent(
+						{name: 'timeWrapper', classes: 'moon-time-picker-wrap'},
 						{classes: 'moon-date-picker-wrap', components:[
 							{kind: 'moon.HourPicker', name:'hour', formatter: this.hourFormatter || this, value: valueHours, onChange: 'hourPickerChanged'},
 							{name: 'hourLabel', content: this.hourText, classes: 'moon-date-picker-label moon-divider-text'}
-						]}
+						]},
+						this
 					);
 					break;
 				case 'm':
-					this.createComponent(
+					this.wrapComponent(
+						{name: 'timeWrapper', classes: 'moon-time-picker-wrap'},
 						{classes: 'moon-date-picker-wrap', components:[
 							{kind: 'moon.MinutePicker', name:'minute', formatter: this.minuteFormatter || this, value: valueMinutes, onChange: 'minutePickerChanged'},
 							{name: 'minuteLabel', content: this.minuteText, classes: 'moon-date-picker-label moon-divider-text'}
-						]}
+						]},
+						this
 					);
 					break;
 				case 'a':
@@ -478,6 +482,17 @@
 			}
 	
 			this.inherited(arguments);
+		},
+
+		/**
+		* @private
+		*/
+		wrapComponent: function (wrapperProps, compProps, owner) {
+			var wrapper = this.$[wrapperProps.name];
+			if (!wrapper) {
+				wrapper = this.createComponent(wrapperProps);
+			}
+			wrapper.createComponent(compProps, {owner: owner});
 		},
 
 		/**
