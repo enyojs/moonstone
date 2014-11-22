@@ -166,18 +166,14 @@
 		initILib: function () {
 			var fmtParams = {
 				type: this.iLibFormatType,
-				useNative: false,
 				timezone: 'local',
 				length: 'full',
 				date: 'dmwy'
 			};
-			if (this.locale) {
-				fmtParams.locale = this.locale;
-				this.iLibLocale = null;
-				ilib.setLocale(this.locale);
-			} else {
-				this.iLibLocale = ilib.getLocale();
-			}
+
+			fmtParams.locale = this.locale;
+			ilib.setLocale(this.locale);
+			this.iLibLocale = ilib.getLocale();
 			this._tf = new ilib.DateFmt(fmtParams);
 		},
 
@@ -309,6 +305,7 @@
 			// Our own locale property has changed, so we need to rebuild our child pickers
 			if (typeof ilib !== 'undefined') {
 				ilib.setLocale(this.locale);
+				this.iLibLocale = ilib.getLocale();
 			}
 			this.refresh();
 		},

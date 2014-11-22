@@ -19,6 +19,12 @@ enyo.kind({
 				{kind: "moon.Input", type:"number", placeholder: "Enter number", oninput:"handleInput", onchange:"handleChange"}
 			]},
 			{kind: "moon.InputDecorator", components: [
+				{kind: "moon.Input", placeholder: "Placeholder for initial value", value: "This is the initial value", oninput:"handleInput", onchange:"handleChange"}
+			]},
+			{kind: "moon.InputDecorator", components: [
+				{kind: "moon.Input", placeholder: "Placeholder for value with ellipsis", value: "This is the initial value that is of a certain length to display an ellipsis.", oninput:"handleInput", onchange:"handleChange"}
+			]},
+			{kind: "moon.InputDecorator", components: [
 				{kind: "moon.Input", placeholder: "Dismiss on Enter", dismissOnEnter:true, oninput:"handleInput", onchange:"handleChange"}
 			]},
 			{kind: "moon.InputDecorator", disabled: true, components: [

@@ -91,7 +91,7 @@
 		* @private
 		*/
 		tools: [
-			{kind: 'ScrollMath', onScrollStart: 'scrollMathStart', onScroll: 'scrollMathScroll', onScrollStop: 'scrollMathStop'}
+			{kind: 'ScrollMath', onScrollStart: 'scrollMathStart', onScroll: 'scrollMathScroll', onScrollStop: 'scrollMathStop', onStabilize: 'scrollMathStabilize'}
 		],
 
 		/**
@@ -192,9 +192,15 @@
 		* @public
 		*/
 		setScrollLeft: function(left) {
-			var m = this.$.scrollMath;
+			var m = this.$.scrollMath,
+				p = this.scrollLeft;
 			m.setScrollX(-left);
 			m.stabilize();
+			if (p != -m.x) {
+				// We won't get a native scroll event,
+				// so need to make one ourselves
+				m.doScroll();
+			}
 		},
 
 		/**
@@ -204,9 +210,15 @@
 		* @public
 		*/
 		setScrollTop: function(top) {
-			var m = this.$.scrollMath;
+			var m = this.$.scrollMath,
+				p = this.scrollTop;
 			m.setScrollY(-top);
 			m.stabilize();
+			if (p != -m.y) {
+				// We won't get a native scroll event,
+				// so need to make one ourselves
+				m.doScroll();
+			}
 		},
 
 		/**
@@ -500,16 +512,6 @@
 		/**
 		* @private
 		*/
-		scrollMathScroll: enyo.inherit(function (sup) {
-			return function () {
-				sup.apply(this, arguments);
-				this.updatePagingControlState();
-			};
-		}),
-
-		/**
-		* @private
-		*/
 		calcBoundaries: function() {
 			var s = this.$.scrollMath || this,
 				b = this._getScrollBounds()
@@ -527,6 +529,19 @@
 			this.scrollLeft = (x !== null && !isNaN(x))? x: (this.scrollLeft || 0);
 			this.scrollTop  = (y !== null && !isNaN(y))? y: (this.scrollTop  || 0);
 			enyo.dom.transformValue(this.$.client, this.translation, this.generateMatrix());
+
+			// since effectScroll will happen frequently but paging control status changes
+			// infrequently, fire it immediately and then throttle the next update
+			if (!this._updatePagingJob) {
+				this.updatePagingControlState();
+			} else {
+				clearTimeout(this._updatePagingJob);
+			}
+
+			this._updatePagingJob = setTimeout(this.bindSafely(function () {
+				this.updatePagingControlState();
+				this._updatePagingJob = null;
+			}), 32);
 		},
 
 		/**
