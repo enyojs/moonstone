@@ -461,8 +461,7 @@
 		hourPickerChanged: function (sender, event) {
 			if(this.syncingPickers) return true;
 
-			var hour = event.value,
-				valueTime, valueHours;
+			var hour = event.value;
 
 			if (this.value) {
 				this.updateHours(hour);
