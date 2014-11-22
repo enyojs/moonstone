@@ -49,7 +49,7 @@ enyo.kind({
 		this.set("value", new Date("Mar 09 2014 01:59"));
 	},
 	setLocale: function(inSender, inEvent){
-		if (ilib) {
+		if (window.ilib) {
 			var locale = inEvent.selected.content,
 				val = (locale == "Use Default Locale") ? null : locale;
 			ilib.setLocale(locale);

@@ -54,7 +54,7 @@ enyo.kind({
 		}
 	},
 	setLocale: function(inSender, inEvent){
-		if (ilib) {
+		if (window.ilib) {
 			var locale = inEvent.selected.content,
 				val = (locale == "Use Default Locale") ? null : locale;
 			ilib.setLocale(locale);
