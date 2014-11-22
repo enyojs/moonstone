@@ -81,21 +81,21 @@
 	});
 	
 	/**
-	* {@link moon.HourPicker} is a helper kind used by {@link moon.TimePicker}. It is
-	*  not intended for use in other contexts.
+	* {@link moon.HourMinutePickerBase} is a helper kind used by {@link moon.TimePicker}. 
+	*  It is not intended for use in other contexts.
 	*
-	* @class moon.HourPicker
+	* @class moon.MinutePicker
 	* @extends moon.IntegerPicker
 	* @ui
 	* @protected
 	*/
 	enyo.kind(
-		/** @lends moon.HourPicker.prototype */ {
+		/** @lends moon.HourMinutePickerBase.prototype */ {
 
 		/**
 		* @private
 		*/
-		name: 'moon.HourPicker',
+		name: 'moon.HourMinutePickerBase',
 
 		/**
 		* @private
@@ -110,28 +110,12 @@
 		/**
 		* @private
 		*/
-		min: 0,
-
-		/**
-		* @private
-		*/
-		max: 23,
-
-		/**
-		* @private
-		*/
-		value: null,
-
-		/**
-		* @private
-		*/
 		formatter: null,
 
 		/**
 		* @private
 		*/
 		wrap: true,
-
 
 		/**
 		* @private
@@ -148,9 +132,94 @@
 		* @private
 		*/
 		setupItem: function (inSender, inEvent) {
-			var hour = this.format(inEvent.index % this.range);
-			this.$.item.setContent(hour);
-		},
+			var value = this.format(inEvent.index % this.range);
+			this.$.item.setContent(value);
+		}
+	});
+	/**
+	* {@link moon.MinutePicker} is a helper kind used by {@link moon.TimePicker}. 
+	*  It is not intended for use in other contexts.
+	*
+	* @class moon.MinutePicker
+	* @extends moon.HourMinutePickerBase
+	* @ui
+	* @protected
+	*/
+	enyo.kind(
+		/** @lends moon.MinutePicker.prototype */ {
+
+		/**
+		* @private
+		*/
+		name: 'moon.MinutePicker',
+		/**
+		* @private
+		*/
+		kind: 'moon.HourMinutePickerBase',
+
+		/**
+		* @private
+		*/
+		min: 0,
+
+		/**
+		* @private
+		*/
+		max: 59,
+
+		/**
+		 * Formats the minute at `index` for the current locale
+		 *
+		 * @param  {Number} index - Minute between 0 and 59
+		 * @return {String}       - Formatted minute
+		 * @private
+		 */
+		format: function (index) {
+			var minute;
+
+			if (this.date) { // ilib enabled
+				this.date.minute = index;
+				minute = this.formatter.format(this.date);
+			} else {	// Have TimePicker format the minutes
+				minute = this.formatter.formatMinute(index);
+			}
+
+			return minute;
+		}
+	});
+
+	/**
+	* {@link moon.HourPicker} is a helper kind used by {@link moon.TimePicker}. It is
+	*  not intended for use in other contexts.
+	*
+	* @class moon.HourPicker
+	* @extends moon.HourMinutePickerBase
+	* @ui
+	* @protected
+	*/
+	enyo.kind(
+		/** @lends moon.HourPicker.prototype */ {
+
+		/**
+		* @private
+		*/
+		name: 'moon.HourPicker',
+
+		/**
+		* @private
+		*/
+		kind: 'moon.HourMinutePickerBase',
+
+		/**
+		* @private
+		*/
+		min: 0,
+
+		/**
+		* @private
+		*/
+		max: 23,
+
 
 		/**
 		 * Formats the hour at `index` for the current locale
@@ -192,7 +261,6 @@
 			};
 		})
 	});
-	
 	/**
 	* {@link moon.TimePicker} is a [control]{@link enyo.Control} used to allow the
 	* selection of (or to simply display) a time expressed in hours and minutes, with an
@@ -323,13 +391,15 @@
 				type: 'time',
 				time: 'h',
 				clock: clockPref !== 'locale' ? clockPref : undefined,
-				useNative: false,
 				timezone: 'local'
 			};
 			if (this.locale) {
 				fmtParams.locale = this.locale;
 			}
 			this.hourFormatter = new ilib.DateFmt(fmtParams);
+
+			fmtParams.time = 'm';
+			this.minuteFormatter = new ilib.DateFmt(fmtParams);
 	
 			// Get localized meridiem values
 			if (this.meridiemEnable) {
@@ -371,16 +441,18 @@
 				switch (o){
 				case 'h':
 				case 'k':
-					this.wrapComponents({name: "timeWrapper", classes: "moon-time-picker-wrap"}, {classes: 'moon-date-picker-wrap', components:[
+					this.wrapComponents({name: 'timeWrapper', classes: 'moon-time-picker-wrap'}, {classes: 'moon-date-picker-wrap', components:[
 						{kind: 'moon.HourPicker', name:'hour', formatter: this.hourFormatter || this, value: valueHours},
 						{name: 'hourLabel', content: this.hourText, classes: 'moon-date-picker-label moon-divider-text'}
-					]}, this);					
+					]}, this);
 					break;
 				case 'm':
-					this.wrapComponents({name: "timeWrapper", classes: "moon-time-picker-wrap"}, {classes: 'moon-date-picker-wrap', components:[
-						{kind: 'moon.IntegerPicker', name:'minute', classes:'moon-date-picker-field', min:0, max:59, wrap:true, digits: 2, value: valueMinutes},
-						{name: 'minuteLabel', content: this.minuteText, classes: 'moon-date-picker-label moon-divider-text'}
-					]}, this);
+					this.createComponent(
+						{classes: 'moon-date-picker-wrap', components:[
+							{kind: 'moon.MinutePicker', name:'minute', formatter: this.minuteFormatter || this, value: valueMinutes},
+							{name: 'minuteLabel', content: this.minuteText, classes: 'moon-date-picker-label moon-divider-text'}
+						]}
+					);
 					break;
 				case 'a':
 					if (this.meridiemEnable === true) {
@@ -400,17 +472,15 @@
 	
 			this.inherited(arguments);
 		},
-		/**
-		* @private
-		* wrap Hour and Minute picker to have static order.
-		* if we do not wrap them, munitePicker can be placed on left of hourPikcer in RTL
-		*/
-		wrapComponents: function(wrapperProps, props, owner) {
-			if (!this.$[wrapperProps.name]) {
-				this.createComponent(wrapperProps);
+
+		wrapComponents: function (wrapperProps, props, owner) {
+			var wrapper = this.$[wrapperProps.name];
+			if (!wrapper) {
+				wrapper = this.createComponent(wrapperProps);
 			}
-			this.$[wrapperProps.name].createComponent(props, {owner: owner || this.$[wrapperProps.name]});
+			wrapper.createComponent(props, {owner: owner});
 		},
+
 		/**
 		* @private
 		*/
