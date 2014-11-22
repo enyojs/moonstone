@@ -472,7 +472,7 @@
 		},
 		/**
 		* @private
-		* wrap hour and minute picker to keep static order
+		* wrap hour and minute picker to keep static ordering
 		* although timePicker is in RTL, hourPicker should be placed in left of minutePicker
 		*/
 		wrapComponent: function (wrapperProps, props, owner) {
