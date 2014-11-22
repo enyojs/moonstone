@@ -21,6 +21,11 @@ enyo.kind({
 				onChanging: "customChanging", onChange: "customChanged", onAnimateFinish: "customAnimateFinish"
 			},
 
+			{kind: "moon.Divider", content: "Slider 4: Negative Values"},
+			{name: "slider4", kind: "moon.Slider",
+				value: 0, min: -100, max: 100, showPercentage: false, onChanging: "sliderChanging", onChange: "sliderChanged"
+			},
+
 			{kind: "moon.Divider", content:"Change Value"},
 			{classes: "moon-hspacing", components: [
 				{kind: "moon.InputDecorator", components: [
