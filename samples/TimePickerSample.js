@@ -53,23 +53,12 @@ enyo.kind({
 		if (window.ilib) {
 			var locale = inEvent.selected.content,
 				val = (locale == "Use Default Locale") ? null : locale;
-			ilib.setLocale(locale);
+			enyo.updateLocale(locale);
 			this.$.pickerDateLinked.setLocale(val);
 			this.$.pickerTimeLinked.setLocale(val);
 			this.$.pickerTime.setLocale(val);
 			this.$.pickerDisabled.setLocale(val);
 			this.$.result.setContent("locale changed to " + locale);
-
-			var li = new ilib.LocaleInfo(locale);
-			var script = new ilib.ScriptInfo(li.getScript());
-
-			if (script.getScriptDirection() === "rtl") {
-				enyo.Control.prototype.rtl = true;
-				enyo.dom.addBodyClass('enyo-locale-right-to-left');
-			} else {
-				enyo.Control.prototype.rtl = false;
-				enyo.dom.removeClass(document.body, 'enyo-locale-right-to-left');
-			}
 		}
 		return true;
 	},
