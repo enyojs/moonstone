@@ -957,7 +957,7 @@
 				popFrom,
 				toIndex = this.toIndex,
 				fromIndex = this.fromIndex,
-				lastSpot = enyo.Spotlight.getLastControl(this),
+				lastSpot = enyo.Spotlight.getLastControl(),
 				activePanel = this.getActive(),
 				spottable = enyo.Spotlight.Util.isChild(activePanel, lastSpot) ? lastSpot : activePanel;
 
