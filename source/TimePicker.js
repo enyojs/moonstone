@@ -540,6 +540,10 @@
 			return hour;
 		},
 
+		formatMinute: function (minute) {
+			return minute;
+		},
+
 		/**
 		* @private
 		*/
