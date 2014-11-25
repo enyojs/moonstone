@@ -4355,6 +4355,7 @@
 .matrix-scroll-client {
   width: auto;
   height: auto;
+  position: relative;
   overflow: visible;
 }
 .matrix3dsurface {
