@@ -543,6 +543,13 @@
 		/**
 		* @private
 		*/
+		formatMinute: function (minute) {
+			return minute;
+		},
+
+		/**
+		* @private
+		*/
 		hourPickerChanged: function (sender, event) {
 			if(this.syncingPickers) return true;
 
