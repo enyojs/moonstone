@@ -236,6 +236,7 @@
 				x = Math.max(Math.min(x, b.maxLeft), 0);
 				y = Math.max(Math.min(y, b.maxTop),  0);
 				this.effectScroll(x, y);
+				this.syncScrollMath();
 				this.bubble('onScroll');
 			} else {
 				this._scrollTo(x, y);
