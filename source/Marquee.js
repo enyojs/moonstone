@@ -662,20 +662,27 @@
 		* @private
 		*/
 		_marquee_detectAlignment: function (forceAnimate, forceRtl) {
-			var alignment = null;
-			// If we will be marqueeing, we know the alignment needs to be set based on directionality.
-			if (forceAnimate || this._marquee_shouldAnimate()) {
-				if (forceRtl || this.rtl) {
-					alignment = 'right';
-				} else {
-					alignment = 'left';
+			var alignment = null,
+				rtl = forceRtl || this.rtl;
+
+			// We only attempt to set the alignment of this control if the locale's directionality
+			// differs from the directionality of our current marqueeable control (as determined by
+			// the control's content or is explicitly specified).
+			if (enyo.Control.prototype.rtl != rtl) {
+				// If we will be marqueeing, we know the alignment needs to be set based on directionality.
+				if (forceAnimate || this._marquee_shouldAnimate()) {
+					if (rtl) {
+						alignment = 'right';
+					} else {
+						alignment = 'left';
+					}
 				}
+				// Alignment wasn't set yet, so we know we don't need to animate. Now we can center the text if we're supposed to.
+				if (!alignment && this.centered) {
+					alignment = 'center';
+				}
+				this.set('_marquee_alignment', alignment);
 			}
-			// Alignment wasn't set yet, so we know we don't need to animate. Now we can center the text if we're supposed to.
-			if (!alignment && this.centered) {
-				alignment = 'center';
-			}
-			this.set('_marquee_alignment', alignment);
 		},
 
 		/**
