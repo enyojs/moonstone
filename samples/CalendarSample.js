@@ -30,7 +30,7 @@ enyo.kind({
 					{kind: "moon.ExpandablePicker", name:"localePicker", noneText: "No Language Selected", content: "Choose Locale", onChange: "setLocale", components: [
 						{content: "Use Default Locale", active: true},
 						{content: "ko-KO"}, //Korea, firstDayOfWeek: 1
-						{content: "zh-TH"}, //Thailand
+						{content: "zh-TW"},
 						{content: "fa-IR"}, // Iran, persian calendar
 						{content: "th-TH"}, //Thailand
 						{content: "en-US"}, //United States, firstDayOfWeek: 0
