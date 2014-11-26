@@ -166,6 +166,7 @@
 		initILib: function () {
 			var fmtParams = {
 				type: this.iLibFormatType,
+				useNative: false,
 				timezone: 'local',
 				length: 'full',
 				date: 'dmwy'
