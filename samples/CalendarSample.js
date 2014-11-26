@@ -28,11 +28,12 @@ enyo.kind({
 				{classes:"moon-7h", components: [
 					{kind: "moon.DatePicker", name: "picker", noneText: "Pick a Date", content: "Pick a Date"},
 					{kind: "moon.ExpandablePicker", name:"localePicker", noneText: "No Language Selected", content: "Choose Locale", onChange: "setLocale", components: [
-						{content: "en-US", active:true}, //United States, firstDayOfWeek: 0
-						{content: "th-TH"}, //Thailand
-						{content: "fa-IR"}, // Iran, persian calendar
-						{content: "en-CA"}, //Canada, firstDayOfWeek: 0
+						{content: "Use Default Locale", active: true},
 						{content: "ko-KO"}, //Korea, firstDayOfWeek: 1
+						{content: "zh-TH"}, //Thailand
+						{content: "fa-IR"}, // Iran, persian calendar
+						{content: "th-TH"}, //Thailand
+						{content: "en-US"}, //United States, firstDayOfWeek: 0
 						{content: "und-AE"}, //United Arab Emirates, firstDayOfWeek: 6
 						{content: "und-AG"}, //Antigua and Barbuda, firstDayOfWeek: 0
 						{content: "und-CA"}, //Canada, firstDayOfWeek: 0
@@ -93,10 +94,11 @@ enyo.kind({
 
 	setLocale: function(inSender, inEvent){
 		if (ilib) {
-			var locale = inEvent.selected.content;
+			var locale = inEvent.selected.content,
+				val = (locale == "Use Default Locale") ? null : locale;
 			ilib.setLocale(locale);
-			this.$.calendar.setLocale(locale);
-			this.$.picker.setLocale(locale);
+			this.$.calendar.setLocale(val);
+			this.$.picker.setLocale(val);
 
 			var li = new ilib.LocaleInfo(locale);
 			var script = new ilib.ScriptInfo(li.getScript());

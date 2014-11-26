@@ -12,13 +12,14 @@ enyo.kind({
 				{kind: "moon.TimePicker", name:"pickerDisabled", meridiemEnable: true, disabled: true, noneText: "Disabled Time Picker", content: "Disabled Time"},
 				{kind: "moon.ExpandablePicker", name: "pickerLocale", noneText: "No Locale Selected", content: "Choose Locale", onChange:"setLocale", components: [
 					{content: "Use Default Locale", active: true},
-					{content: 'jp-JP'},
+					{content: 'ko-KR'},
+					{content: 'zh-TH'},
 					{content: 'fa-IR'},
 					{content: 'ar-SA'},
 					{content: 'ur-IN'},
-					{content: 'en-US'},
-					{content: 'ko-KR'},
 					{content: "th-TH"},	//Thailand
+					{content: 'en-US'},
+					{content: 'jp-JP'},
 					{content: 'en-CA'},
 					{content: 'en-IE'},
 					{content: 'en-GB'},
