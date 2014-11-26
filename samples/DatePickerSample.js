@@ -24,22 +24,26 @@ enyo.kind({
 					{kind: "moon.Button", small:true, content:"Reset to Current", ontap:"resetDate"}
 				]},
 				{name: "localePicker", kind: "moon.ExpandablePicker", noneText: "No Locale Selected", content: "Choose Locale", onChange:"setLocale", components: [
-					{content: 'Use Default Locale', active: true},
-					{content: 'en-US'},
+					{content: "Use Default Locale", active: true},
+					{content: "ko-KR"},
+					{content: "zh-TW"},
+					{content: "fa-IR"},
+					{content: "ar-SA"},
+					{content: "ur-IN"},
 					{content: "th-TH"},	//Thailand
-					{content: 'ko-KR'},
-					{content: 'fa-IR'},
-					{content: 'en-CA'},
-					{content: 'en-IE'},
-					{content: 'en-GB'},
-					{content: 'en-MX'},
-					{content: 'de-DE'},
-					{content: 'fr-FR'},
-					{content: 'fr-CA'},
-					{content: 'it-IT'},
-					{content: 'es-ES'},
-					{content: 'es-MX'},
-					{content: 'es-US'}
+					{content: "en-US"},
+					{content: "jp-JP"},
+					{content: "en-CA"},
+					{content: "en-IE"},
+					{content: "en-GB"},
+					{content: "en-MX"},
+					{content: "de-DE"},
+					{content: "fr-FR"},
+					{content: "fr-CA"},
+					{content: "it-IT"},
+					{content: "es-ES"},
+					{content: "es-MX"},
+					{content: "es-US"}
 				]}
 			]}
 		]},
