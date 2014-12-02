@@ -336,9 +336,7 @@
 		*/
 		create: function() {
 			this.inherited(arguments);
-			if (typeof ilib !== 'undefined') {
-				this._nf = new ilib.NumFmt({type: 'percentage'});
-			}
+			this.showPercentageChanged();
 			this.createComponents(this.moreComponents);
 			this.initValue();
 			this.disabledChanged();
@@ -411,6 +409,21 @@
 		tapAreaClassesChanged: function(was) {
 			this.$.tapArea.removeClass(was);
 			this.$.tapArea.addClass(this.tapAreaClasses);
+		},
+
+		/**
+		* @private
+		*/
+		showPercentageChanged: function(was) {
+			if (enyo.exists(ilib)) {
+				this._nf = new ilib.NumFmt({type: this.showPercentage ? 'percentage' : 'number'});
+			} else {
+				this._nf = {
+					format: this.showPercentage ?
+						function(v) { return v + '%'; } :
+						function(v) { return v; }
+				};
+			}
 		},
 
 		/**
@@ -627,14 +640,8 @@
 		* @private
 		*/
 		calcPopupLabel: function(val) {
-			if (this.showPercentage) {
-				if (typeof ilib !== 'undefined') {
-					val = this._nf.format(Math.round(val));
-				} else {
-					val = Math.round(val) + '%';
-				}
-			}
-			return val;
+			if (this.showPercentage) val = Math.round(val);
+			return this._nf.format(val);
 		},
 
 		/**
