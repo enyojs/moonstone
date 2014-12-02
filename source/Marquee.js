@@ -668,7 +668,7 @@
 			// We only attempt to set the alignment of this control if the locale's directionality
 			// differs from the directionality of our current marqueeable control (as determined by
 			// the control's content or is explicitly specified).
-			if (enyo.Control.prototype.rtl != rtl) {
+			if (enyo.Control.prototype.rtl != rtl || this.centered) {
 				// If we will be marqueeing, we know the alignment needs to be set based on directionality.
 				if (forceAnimate || this._marquee_shouldAnimate()) {
 					if (rtl) {
