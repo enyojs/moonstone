@@ -662,6 +662,7 @@
 		* @private
 		*/
 		_marquee_detectAlignment: function (forceAnimate, forceRtl) {
+			if (!enyo.Control.prototype.rtl) return;
 			var alignment = null;
 			// If we will be marqueeing, we know the alignment needs to be set based on directionality.
 			if (forceAnimate || this._marquee_shouldAnimate()) {
