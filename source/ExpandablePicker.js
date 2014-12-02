@@ -216,12 +216,22 @@
 				// super initialization
 				sup.apply(this, arguments);	
 
-				this.$.client.setHighlander(!this.multipleSelection);
 				this.selectedIndexChanged();
 				this.noneTextChanged();
 				this.helpTextChanged();
 				this.openChanged();
 			};
+		}),
+
+		/**
+		* @private
+		*/
+		initComponents: enyo.inherit(function (sup) {
+			return function() {
+				var override = {client: {highlander: !this.multipleSelection}};
+				this.kindComponents = enyo.Component.overrideComponents(this.kindComponents, override);
+				sup.apply(this, arguments);
+			}
 		}),
 
 		/**
