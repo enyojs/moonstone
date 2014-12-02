@@ -118,6 +118,18 @@
 }
 
 // enyo-locale-non-latin
+.enyo-locale-non-latin .moon-header {
+	.moon-header-title, {
+		line-height: @moon-non-latin-header-text-line-height;
+	}
+	&.moon-medium-header .moon-header-title, {
+		line-height: @moon-non-latin-medium-header-line-height;
+	}
+	&.moon-small-header .moon-header-title, {
+		line-height: @moon-non-latin-small-header-line-height;
+	}
+}
+
 /* Special override for Japanese font (LG Display_JP) which, as of 07-Feb-2014
    has a taller baseline. This corrects both Header and InputHeader. 2014-02-24
    Please remove the line-height rule below if this font file is changed. */
