@@ -72,7 +72,7 @@
 				var bd = this.scrollBounds[this.sizeDimension], sbd = this.scrollBounds[d];
 				var overs = 0, overp = 0, over = 0;
 				var ratio = this.getSizeRatio();
-				if (bd >= sbd) {
+				if (bd > sbd) {
 					this.hide();
 					return;
 				}
