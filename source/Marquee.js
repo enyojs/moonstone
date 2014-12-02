@@ -681,8 +681,9 @@
 				if (!alignment && this.centered) {
 					alignment = 'center';
 				}
-				this.set('_marquee_alignment', alignment);
 			}
+
+			this.set('_marquee_alignment', alignment);
 		},
 
 		/**
