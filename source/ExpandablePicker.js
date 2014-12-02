@@ -231,7 +231,7 @@
 				var override = {client: {highlander: !this.multipleSelection}};
 				this.kindComponents = enyo.Component.overrideComponents(this.kindComponents, override);
 				sup.apply(this, arguments);
-			}
+			};
 		}),
 
 		/**
