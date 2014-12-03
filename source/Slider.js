@@ -337,7 +337,7 @@
 		create: function() {
 			this.inherited(arguments);
 			if (typeof ilib !== 'undefined') {
-				this._nf = new ilib.NumFmt({type: 'percentage'});
+				this._nf = new ilib.NumFmt({type: 'percentage', useNative: false});
 			}
 			this.createComponents(this.moreComponents);
 			this.initValue();
