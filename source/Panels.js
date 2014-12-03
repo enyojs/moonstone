@@ -1015,19 +1015,17 @@
 		*
 		* @private
 		*/
-		getAbsoluteShowing: function () {
-			var b = this.getBounds();
+		getAbsoluteShowing: enyo.inherit(function (sup) {
+			return function() {
+				var b = this.getBounds();
 
-			if ((b.height === 0 && b.width === 0)) {
-				return false;
-			}
+				if ((b.height === 0 && b.width === 0)) {
+					return false;
+				}
 
-			if (this.parent && this.parent.getAbsoluteShowing) {
-				return this.parent.getAbsoluteShowing();
-			} else {
-				return true;
-			}
-		},
+				return sup.apply(this, arguments);
+			};
+		}),
 
 		/**
 		* @private
