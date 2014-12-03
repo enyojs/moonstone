@@ -22,9 +22,8 @@ enyo.kind({
 			},
 
 			{kind: "moon.Divider", content: "Slider 4: Negative Values"},
-			{name: "slider4", kind: "moon.Slider", classes: "rgb-sample-slider", 
-				value: 0, min: -100, max: 100,
-				onChanging: "customChanging", onChange: "customChanged", onAnimateFinish: "customAnimateFinish"
+			{name: "slider4", kind: "moon.Slider",
+				value: 0, min: -100, max: 100, showPercentage: false, onChanging: "sliderChanging", onChange: "sliderChanged"
 			},
 
 			{kind: "moon.Divider", content:"Change Value"},
@@ -81,6 +80,10 @@ enyo.kind({
 		this.changeConstrain();
 		this.changeElastic();
 	},
+	rendered: function() {
+		this.inherited(arguments);
+		this.updateSlider3Popup(this.$.slider3.getValue());
+	},
 	//* @protected
 	changeValue: function(inSender, inEvent) {
 		var v = this.$.valueInput.getValue();
@@ -132,26 +135,20 @@ enyo.kind({
 		this.$.result.setContent(inSender.name + " changed to " + Math.round(inSender.getValue()) + ".");
 	},
 	customChanging: function(inSender, inEvent) {
-		this.updateSliderPopup(inEvent.originator, inEvent.value);
+		this.updateSlider3Popup(inEvent.value);
 		this.sliderChanging(inSender, inEvent);
 	},
 	customChanged: function(inSender, inEvent) {
-		this.updateSliderPopup(inEvent.originator, inSender.getValue());
+		this.updateSlider3Popup(inSender.getValue());
 		this.sliderChanged(inSender, inEvent);
 	},
 	customAnimateFinish: function(inSender, inEvent) {
-		this.updateSliderPopup(inEvent.originator, inEvent.value);
+		this.updateSlider3Popup(inEvent.value);
 	},
-	updateSliderPopup: function(inControl, inValue) {
-		var content;
-		if (inControl === this.$.slider3) {
-			content = "rgb(0, 0, " + Math.round(inValue) + ")";
-			inControl.setPopupColor(content);
-		} else if (inControl === this.$.slider4) {
-			content = Math.round(inValue);
-		}
-
-		inControl.setPopupContent(content);
+	updateSlider3Popup: function(inValue) {
+		var color = "rgb(0, 0, " + Math.round(inValue) + ")";
+		this.$.slider3.setPopupContent(color);
+		this.$.slider3.setPopupColor(color);
 	},
 	changeLockbar: function(inSender, inEvent) {
 		var ck = this.$.lockBarSetting.getChecked();
