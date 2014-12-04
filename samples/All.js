@@ -166,9 +166,6 @@
 			this.$.router.trigger({location: this.get('location'), change: true});
 		},
 		sampleChanged: function () {
-			if (typeof ilib !== 'undefined' && ilib.getLocale() != this.locale) {
-				this.localeChanged(ilib.getLocale(), this.locale);
-			}
 			if (this.get('sample')) {
 				this.openSample();
 			} else {
@@ -192,6 +189,7 @@
 		backToList: function () {
 			this.set('sample', '');
 			this.$.router.trigger({location: this.get('location'), change: true});
+			this.checkLocale();
 		},
 		reload: function () {
 			window.location.reload();
@@ -199,6 +197,7 @@
 		chooseSample: function (sender, ev) {
 			var sampleName = ev.originator.get('sampleName');
 			this.set('sample', sampleName);
+			this.checkLocale();
 		},
 		openSample: function () {
 			var s = this.get('sample'),
@@ -369,6 +368,12 @@
 				document.head.insertAdjacentHTML('beforeend', node );
 			} else {
 				document.head.appendChild( node );
+			}
+		},
+		checkLocale: function () {
+			// Reset locale in the event one of the samples changes it
+			if (typeof ilib !== 'undefined' && ilib.getLocale() != this.locale) {
+				this.localeChanged(ilib.getLocale(), this.locale);
 			}
 		}
 	});
