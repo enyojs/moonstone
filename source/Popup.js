@@ -337,6 +337,9 @@
 		* @private
 		*/
 		showingChanged: function() {
+			// reset flag to prevent hiding popup when Enter pressed on unspottable popup
+			this.preventHide = false;
+			
 			if (this.showing) {
 				if (this.isAnimatingHide) {
 					// need to call this early to prevent race condition where animationEnd
