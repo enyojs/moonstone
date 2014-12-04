@@ -37,9 +37,14 @@ enyo.kind({
 	bindings: [
 		{from: ".collection", to: ".$.dataList.collection"},
 		{from: ".collection", to: ".$.gridList.collection"},
-		{from: ".$.selectionToggle.value", to:".$.gridList.selection", oneWay: false},
-		{from: ".$.multiSelectToggle.value", to:".$.gridList.multipleSelection", oneWay: false},
-		{from: ".$.groupSelectToggle.value", to: ".$.gridList.groupSelection", oneWay: false}
+		{from: ".$.selectionToggle.value", to: ".$.gridList.selection", oneWay: false},
+		{from: ".$.multiSelectToggle.value", to: ".$.gridList.multipleSelection", oneWay: false},
+		{from: ".$.groupSelectToggle.value", to: ".$.gridList.groupSelection", oneWay: false},
+		{from: ".$.multiSelectToggle.value", to: ".$.selectionToggle.value", oneWay: false,
+			transform: function (value, dir) {
+				return dir == 1 ? (value ? value : this.$.selectionToggle.value) : false;
+			}
+		}
 	],
 	create: function () {
 		this.inherited(arguments);
