@@ -166,6 +166,9 @@
 			this.$.router.trigger({location: this.get('location'), change: true});
 		},
 		sampleChanged: function () {
+			if (typeof ilib !== 'undefined' && ilib.getLocale() != this.locale) {
+				this.localeChanged(ilib.getLocale(), this.locale);
+			}
 			if (this.get('sample')) {
 				this.openSample();
 			} else {
