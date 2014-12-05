@@ -68,7 +68,7 @@ enyo.kind({
 	},
 	rtlSmall: function(inSender, inEvent) {
 		this.$.smallHeader.set('title', 'כותרת Small Header');
-		this.$.smallHeader.set('titleBelow', 'כותרת כותרת');
+		this.$.smallHeader.set('titleBelow', 'כתוביות למטה');
 	},
 	handleToggle: function(inSender, inEvent) {
 		this.$.imageHeader.setFullBleedBackground(inSender.value);
