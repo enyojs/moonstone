@@ -443,6 +443,7 @@
 					val = this.scrollLeft - delta;
 					// When we hit the left, bounce and end scrolling
 					if (val <= -this.$.scrollMath.leftBoundary) {
+						this.$.pageRightControl.setDisabled(false);
 						this.setScrollLeft(-this.$.scrollMath.leftBoundary);
 						this.$.pageLeftControl.hitBoundary();
 					} else {
@@ -453,6 +454,7 @@
 					val = this.scrollTop - delta;
 					// When we hit the top, bounce and end scrolling
 					if (val <= -this.$.scrollMath.topBoundary) {
+						this.$.pageDownControl.setDisabled(false);
 						this.setScrollTop(-this.$.scrollMath.topBoundary);
 						this.$.pageUpControl.hitBoundary();
 					} else {
@@ -463,6 +465,7 @@
 					val = this.scrollLeft + delta;
 					// When we hit the right, bounce and end scrolling
 					if (val >= -this.$.scrollMath.rightBoundary) {
+						this.$.pageLeftControl.setDisabled(false);
 						this.setScrollLeft(-this.$.scrollMath.rightBoundary);
 						this.$.pageRightControl.hitBoundary();
 					} else {
@@ -474,6 +477,7 @@
 					val = this.scrollTop + delta;
 					// When we hit the bottom, bounce and end scrolling
 					if (val >= -this.$.scrollMath.bottomBoundary) {
+						this.$.pageUpControl.setDisabled(false);
 						this.setScrollTop(-this.$.scrollMath.bottomBoundary);
 						this.$.pageDownControl.hitBoundary();
 					} else {
