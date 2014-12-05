@@ -117,14 +117,14 @@
 			}),
 
 			/**
+			* Overriding scrollToControl() to specify Moonstone-specific scroller options.
+			* No need to call the super method, so we don't wrap in enyo.inherit().
+			*
 			* @private
 			*/
-			scrollToIndex: enyo.inherit(function (sup) {
-				return function(list, i) {
-					var scrollerArgs = [false, false, true];
-					sup.call(this, list, i, scrollerArgs);
-				};
-			}),
+			scrollToControl: function(list, control) {
+				list.$.scroller.scrollToControl(control, false, false, true);
+			},
 
 			/**
 			* @method
