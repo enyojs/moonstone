@@ -624,7 +624,7 @@
 				subtitle = this.get('titleBelow');
 			if ((this.get('type') == 'small') && subtitle) {
 				this.$.title.set('allowHtml', true);
-				this.$.title.set('content', enyo.Control.prototype.rtl ? 
+				this.$.title.set('content', enyo.Control.prototype.rtl && !enyo.isRtl(subtitle + title) ? 
 					'<span class="moon-sub-header-text moon-header-sub-title">' + subtitle + '</span>' + '   ' + title :
 					title + '   ' + '<span class="moon-sub-header-text moon-header-sub-title">' + subtitle + '</span>');
 			} else {

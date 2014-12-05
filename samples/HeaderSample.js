@@ -16,7 +16,8 @@ enyo.kind({
 			{classes: 'moon-1v'},
 			{kind: 'moon.Header', name: 'smallHeader', content: 'Small Header', type: 'small', titleAbove: '04', subTitle: "Sub Title", titleBelow: 'Sub Header', subTitleBelow: 'Sub-sub Header', components: [
 				{kind: 'moon.Button', content: 'Description', ontap: 'describeSmall'},
-				{kind: 'moon.Button', small: true, content: 'How to use', ontap: 'howToUseSmall'}
+				{kind: 'moon.Button', small: true, content: 'How to use', ontap: 'howToUseSmall'},
+				{kind: 'moon.Button', small: true, content: 'RTL content', ontap: 'rtlSmall'}
 			]},
 			{classes: 'moon-1v'},
 			{kind: 'moon.Header', content: 'Varied Alignment', titleAbove: '02', titleBelow: 'Panel actions can be positioned on left or right', components: [
@@ -64,6 +65,10 @@ enyo.kind({
 	},
 	howToUseSmall: function(inSender, inEvent) {
 		this.$.smallHeader.setTitle('Set `type` property to "small" to use the small header.');
+	},
+	rtlSmall: function(inSender, inEvent) {
+		this.$.smallHeader.set('title', 'כותרת Small Header');
+		this.$.smallHeader.set('titleBelow', 'כתוביות למטה');
 	},
 	handleToggle: function(inSender, inEvent) {
 		this.$.imageHeader.setFullBleedBackground(inSender.value);
