@@ -64,7 +64,8 @@
 		* @private
 		*/
 		eventsToCapture: {
-			onSpotlightFocus: 'capturedFocus'
+			onSpotlightFocus: 'capturedFocus',
+			onkeydown: 'captureKeyDown'
 		},
 
 		/**
@@ -246,6 +247,18 @@
 		},
 
 		/**
+		* If the popup has no spottable children, an [Enter] key down will cause it to be hidden
+		* because Spotlight will try to spot the nearest or last control for a 5-way key down.
+		* Since there isn't a spottable child, a control outside the popup is focused which triggers
+		* `capturedFocus` which hides the Popup.
+		*
+		* @private
+		*/
+		captureKeyDown: function (sender, event) {
+			this.preventHide = (event.keyCode == 13 || event.keyCode == 16777221) && !enyo.Spotlight.isSpottable(this);
+		},
+
+		/**
 		* @private
 		*/
 		capturedFocus: function (sender, event) {
@@ -277,7 +290,7 @@
 			}
 			// In all other cases, the user probably means to exit the popup by moving out, so we
 			// close ourselves.
-			else {
+			else if (!this.preventHide) {
 				this.hide();
 			}
 			return true;
@@ -324,6 +337,9 @@
 		* @private
 		*/
 		showingChanged: function() {
+			// reset flag to prevent hiding popup when Enter pressed on unspottable popup
+			this.preventHide = false;
+			
 			if (this.showing) {
 				if (this.isAnimatingHide) {
 					// need to call this early to prevent race condition where animationEnd
