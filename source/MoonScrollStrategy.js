@@ -465,7 +465,7 @@
 					val = this.scrollLeft + delta;
 					// When we hit the right, bounce and end scrolling
 					if (val >= -this.$.scrollMath.rightBoundary) {
-						this.$.pageRightControl.setDisabled(false);
+						this.$.pageLeftControl.setDisabled(false);
 						this.setScrollLeft(-this.$.scrollMath.rightBoundary);
 						this.$.pageRightControl.hitBoundary();
 					} else {
