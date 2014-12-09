@@ -155,7 +155,6 @@
 		bindings: [
 			{from: '.min', to: '.$.picker.min', oneWay: false},
 			{from: '.max', to: '.$.picker.max', oneWay: false},
-			{from: '.value', to: '.$.picker.value'},
 			{from: '.step', to: '.$.picker.step'},
 			{from: '.unit', to: '.$.picker.unit'},
 			{from: '.showCurrentValue', to: '.$.currentValue.showing'},
@@ -198,6 +197,23 @@
 				this.$.picker.reflow();
 				this._needsPickerReflow = false;
 			}
+
+			// if the picker is value-less when opening, set the value as min
+			if (this.open && !this.hasValue()) {
+				this.$.picker.set('value', this.$.picker.min || 0);
+			}
+		},
+
+		/**
+		* Pass the value down to the contained picker if the value is valid. Note that the
+		* validation only ensures it is truthy or 0.
+		*
+		* @private
+		*/
+		valueChanged: function () {
+			if (this.hasValue()) {
+				this.$.picker.set('value', this.value);
+			}
 		},
 
 		/**
@@ -215,7 +231,16 @@
 		* @private
 		*/
 		currentValueText: function () {
-			return (this.value === '') ? this.noneText : this.value + ' ' + this.unit;
+			return !this.hasValue()? this.noneText : this.value + ' ' + this.unit;
+		},
+
+		/**
+		* Utility method to test if the picker is valued
+		*
+		* @private
+		*/
+		hasValue: function () {
+			return !!(this.value || this.value === 0);
 		},
 
 		/**
