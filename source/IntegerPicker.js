@@ -75,10 +75,10 @@
 			* Current value of the picker.
 			*
 			* @type {Number}
-			* @default null
+			* @default 0
 			* @public
 			*/
-			value: null,
+			value: 0,
 
 			/**
 			* Minimum value of the picker.
