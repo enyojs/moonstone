@@ -6,6 +6,10 @@
 	transform: translateZ(0);
 	-webkit-transform: translateZ(0);
 
+	//fix bad clipping mask issue
+	//https://www.webkit.org/blog/181/css-masks/
+	-webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+
 	// Override the moon-button mouse-click state to suppress the border
 	&.in-progress:active:hover:not([disabled]),
 	&.in-progress {

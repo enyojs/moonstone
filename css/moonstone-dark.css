@@ -1976,6 +1976,7 @@
   border: 5px solid transparent;
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
+  -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
 }
 .moon-progress-button.in-progress:active:hover:not([disabled]),
 .moon-progress-button.in-progress {
