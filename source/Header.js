@@ -193,6 +193,15 @@
 			* @default true
 			* @public
 			*/
+			uppercase: true,
+
+			/**
+			* @deprecated Replaced by [uppercase]{@link moon.Header#uppercase}.
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
 			titleUpperCase: true
 		},
 
@@ -624,7 +633,7 @@
 				subtitle = this.get('titleBelow');
 			if ((this.get('type') == 'small') && subtitle) {
 				this.$.title.set('allowHtml', true);
-				this.$.title.set('content', enyo.Control.prototype.rtl && !enyo.isRtl(subtitle + title) ? 
+				this.$.title.set('content', enyo.Control.prototype.rtl && !enyo.isRtl(subtitle + title) ?
 					'<span class="moon-sub-header-text moon-header-sub-title">' + subtitle + '</span>' + '   ' + title :
 					title + '   ' + '<span class="moon-sub-header-text moon-header-sub-title">' + subtitle + '</span>');
 			} else {
@@ -657,8 +666,15 @@
 		/**
 		* @private
 		*/
-		titleUpperCaseChanged: function () {
+		uppercaseChanged: function () {
 			this.titleChanged();
+		},
+
+		/**
+		* @private
+		*/
+		titleUpperCaseChanged: function () {
+			this.uppercaseChanged();
 		},
 
 		/**

@@ -47,7 +47,16 @@
 			* @default 'moon.$L('off')'
 			* @public
 			*/
-			offContent: moon.$L('off')  // i18n 'OFF' label in moon.ToggleText widget
+			offContent: moon.$L('off'), // i18n 'OFF' label in moon.ToggleText widget
+
+			/**
+			* When `true`, the content will have locale-safe uppercasing applied.
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
+			uppercase: true
 		},
 
 		/**
@@ -100,7 +109,14 @@
 		 *
 		 * @private
 		 */
-		iconChanged: function () {}
+		iconChanged: function () {},
+
+		/**
+		* @private
+		*/
+		uppercaseChanged: function () {
+			this.checkedChanged();
+		}
 	});
 
 })(enyo, this);

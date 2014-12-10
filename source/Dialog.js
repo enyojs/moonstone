@@ -67,6 +67,15 @@
 			* @default true
 			* @public
 			*/
+			uppercase: true,
+
+			/**
+			* @deprecated Replaced by [uppercase]{@link moon.Dialog#uppercase}.
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
 			titleUpperCase: true
 		},
 
@@ -131,14 +140,21 @@
 		*/
 		titleChanged: function () {
 			var title = this.getTitle();
-			this.$.title.setContent( this.getTitleUpperCase() ? enyo.toUpperCase(title) : title );
+			this.$.title.setContent( this.get('uppercase') ? enyo.toUpperCase(title) : title );
+		},
+
+		/**
+		* @private
+		*/
+		uppercaseChanged: function () {
+			this.titleChanged();
 		},
 
 		/**
 		* @private
 		*/
 		titleUpperCaseChanged: function () {
-			this.titleChanged();
+			this.uppercaseChanged();
 		},
 
 		/**

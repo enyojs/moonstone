@@ -22,12 +22,12 @@
 		* @private
 		*/
 		kind: 'enyo.Control',
-		
+
 		/**
 		* @private
 		*/
 		classes: 'moon-video-player-feedback',
-		
+
 		/**
 		* @private
 		* @lends enyo.VideoFeedback.prototype
@@ -42,7 +42,16 @@
 			* @default 2000
 			* @public
 			*/
-			autoTimeoutMS: 2000
+			autoTimeoutMS: 2000,
+
+			/**
+			* When `true`, the content will have locale-safe uppercasing applied.
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
+			uppercase: true
 		},
 
 		/**
@@ -135,7 +144,7 @@
 		* triggered.
 		*
 		* Playback states are mapped to `playbackRate` values according to the following hash:
-		* 
+		*
 		* ```javascript
 		* {
 		*	'fastForward': ['2', '4', '8', '16'],
@@ -167,7 +176,7 @@
 		* Sets the current state for a {@link moon.VideoFeedback} control.
 		*
 		* @param {String} msg - The string to display.
-		* @param {moon.VideoTransportSlider~FeedbackParameterObject} params - A 
+		* @param {moon.VideoTransportSlider~FeedbackParameterObject} params - A
 		*	[hash]{@glossary Object} of parameters accompanying the message.
 		* @param {Boolean} persist - If `true`, the [feedback]{@link moon.VideoFeedback}
 		* control will not be automatically hidden.
@@ -218,12 +227,12 @@
 				break;
 
 			case 'JumpBackward':
-				msg = this.df ? enyo.toUpperCase(this.df.format({second: params.jumpSize})) : params.jumpSize + ' SEC';
+				msg = this.df ? this.df.format({second: params.jumpSize}) : params.jumpSize + ' Sec';
 				leftSrc = this.retriveImgOrIconPath(this._pauseJumpBackImg);
 				break;
 
 			case 'JumpForward':
-				msg = this.df ? enyo.toUpperCase(this.df.format({second: params.jumpSize})) : params.jumpSize + ' SEC';
+				msg = this.df ? this.df.format({second: params.jumpSize}) : params.jumpSize + ' Sec';
 				rightSrc = this.retriveImgOrIconPath(this._pauseJumpForwardImg);
 				break;
 
@@ -255,13 +264,13 @@
 			}
 
 			// Set content as _inMessage_
-			this.$.feedText.setContent( enyo.toUpperCase(msg) );
+			this.$.feedText.setContent( this.get('uppercase') ? enyo.toUpperCase(msg) : msg);
 
 			// Show output controls when video player is not preview mode
 			if (!preview) {
-				this.showFeedback();	
+				this.showFeedback();
 			}
-			
+
 			// Show icons as appropriate
 			this.updateIcons(leftSrc, rightSrc);
 
@@ -277,7 +286,7 @@
 		/**
 		* Determines whether the current feedback message is persistent (i.e., it has no
 		* timeout).
-		* 
+		*
 		* @returns {Boolean} `true` if the current feedback message has no timeout;
 		* otherwise, `false`, meaning that the feedback message has a timeout and is not
 		* persistent.
@@ -287,7 +296,7 @@
 			return this.inPersistShowing;
 		},
 
-		/** 
+		/**
 		* Shows this control.
 		*
 		* @public
@@ -296,7 +305,7 @@
 			this.setShowing(true);
 		},
 
-		/** 
+		/**
 		* Hides this control and sets internal `_showingFeedback` flag to `false`.
 		*
 		* @public
@@ -306,7 +315,7 @@
 			this._showingFeedback = false;
 		},
 
-		/** 
+		/**
 		* Starts job that will hide this control.
 		*
 		* @private
@@ -315,7 +324,7 @@
 			this.hideJob = enyo.job(this.id + 'hide', this.bindSafely('hideFeedback'), this.getAutoTimeoutMS());
 		},
 
-		/** 
+		/**
 		* Clears job that will hide this control.
 		*
 		* @private
@@ -324,7 +333,7 @@
 			enyo.job.stop(this.id + 'hide');
 		},
 
-		/** 
+		/**
 		* Shows or hides icons, and sets sources.
 		*
 		* @private

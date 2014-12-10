@@ -70,6 +70,15 @@
 			* @default true
 			* @public
 			*/
+			uppercase: true,
+
+			/**
+			* @deprecated Replaced by [uppercase]{@link moon.Button#uppercase}.
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
 			contentUpperCase: true
 		},
 
@@ -178,7 +187,7 @@
 			} else {
 				this.removeClass('small');
 				this.removeClass('moon-small-button-text');
-			}			
+			}
 		},
 
 		/**
@@ -189,10 +198,17 @@
 		contentChanged: function () {
 			var content = this.getContent();
 			if (this.$.client) {
-				this.$.client.setContent( this.getContentUpperCase() ? enyo.toUpperCase(content) : content );
+				this.$.client.setContent( this.get('uppercase') ? enyo.toUpperCase(content) : content );
 			} else {
 				this.inherited(arguments);
 			}
+		},
+
+		/**
+		* @private
+		*/
+		uppercaseChanged: function () {
+			this.contentChanged();
 		},
 
 		/**

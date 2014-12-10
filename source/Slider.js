@@ -242,6 +242,15 @@
 			* @default true
 			* @public
 			*/
+			uppercase: true,
+
+			/**
+			* @deprecated Replaced by [uppercase]{@link moon.Slider#uppercase}.
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
 			popupContentUpperCase: true
 		},
 
@@ -491,7 +500,7 @@
 		*/
 		popupContentChanged: function() {
 			var content = this.getPopupContent();
-			this._popupContent = this.getPopupContentUpperCase() ? enyo.toUpperCase(content) : content;
+			this._popupContent = this.get('uppercase') ? enyo.toUpperCase(content) : content;
 			if (this._popupContent !== null) {
 				this.$.popupLabel.setContent(this._popupContent);
 			}
@@ -500,8 +509,15 @@
 		/**
 		* @private
 		*/
-		popupContentUpperCaseChanged: function() {
+		uppercaseChanged: function() {
 			this.popupContentChanged();
+		},
+
+		/**
+		* @private
+		*/
+		popupContentUpperCaseChanged: function() {
+			this.uppercaseChanged();
 		},
 
 		/**

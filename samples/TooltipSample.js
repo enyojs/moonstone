@@ -13,7 +13,7 @@ enyo.kind({
 
 				{kind: "moon.TooltipDecorator", style:"float:right", components: [
 					{kind: "moon.Button", content: "Right Tooltip"},
-					{name: "toolTip", kind: "moon.Tooltip", contentUpperCase: false, content: "I'm a right tooltip."}
+					{name: "toolTip", kind: "moon.Tooltip", uppercase: false, content: "I'm a right tooltip."}
 				]}
 			]},
 			//Second row of buttons
