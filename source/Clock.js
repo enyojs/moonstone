@@ -136,6 +136,7 @@
 				locale: this.locale,
 				type: 'time',
 				time: 'hma',
+				usdNative: false,
 				clock: clock,
 				timezone: (this.mode === 'normal') ? 'local' : 'Etc/UTC'
 			};
