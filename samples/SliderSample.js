@@ -10,7 +10,7 @@ enyo.kind({
 		{kind: "moon.Scroller", fit: true, components: [
 			{classes:"moon-1v"},
 			{kind: "moon.Divider", content: "Slider 1: Default"},
-			{name: "slider1", kind: "moon.Slider", value: 25, bgProgress: 35, onChanging: "sliderChanging", onChange: "sliderChanged"},
+			{name: "slider1", kind: "moon.Slider", showPercentage: false, value: 25, bgProgress: 35, onChanging: "sliderChanging", onChange: "sliderChanged"},
 
 			{kind: "moon.Divider", content:"Slider 2: Disabled, Bound to Slider 1"},
 			{name: "slider2", kind: "moon.Slider", disabled: true},
@@ -65,7 +65,7 @@ enyo.kind({
 				{name: "tapableSetting",        checked: true,     content: "Tapable",         onchange: "changeTapable"},
 				{name: "constrainSetting",      checked: false,    content: "Constrain to Background Progress", onchange: "changeConstrain"},
 				{name: "elasticSetting",        checked: false,    content: "Elastic Effect",  onchange: "changeElastic"},
-				{name: "showPercentageSetting", checked: true,     content: "Show Percentage", onchange: "changePercentage"}
+				{name: "showPercentageSetting", checked: false,     content: "Show Percentage", onchange: "changePercentage"}
 			]}
 		]},
 		{kind:"moon.Divider", content:"Result"},
