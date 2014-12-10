@@ -561,6 +561,9 @@
 		*/
 		handleTap: function () {
 			this.setShowing(!this.showing);
+			if (this.showing) {
+				this.reflow();
+			}
 		},
 
 		/**

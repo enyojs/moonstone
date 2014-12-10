@@ -356,7 +356,7 @@
 		updateViewportSize: function () {
 			var node = this.hasNode();
 
-			if (!node || this.isBreadcrumb) {
+			if (!node) {
 				return;
 			}
 
@@ -560,6 +560,7 @@
 		* @private
 		*/
 		initPanel: function (info) {
+			this.reflow();
 			this.set('isBreadcrumb', info.breadcrumb);
 			this.set('isOffscreen', info.offscreen);
 			this.updateSpotability();
@@ -742,6 +743,14 @@
 				this.resize();
 				break;
 			}
+		},
+
+		/**
+	 * @private
+	 */
+		handleResize: function() {
+			this.inherited(arguments);
+			this.reflow();
 		}
 	});
 })(enyo, this);
