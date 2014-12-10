@@ -3,7 +3,7 @@
 	* {@link moon.VideoInfoHeader} is a [control]{@link enyo.Control} that displays
 	* various information about a video. It is designed to be used within the
 	* [infoComponents]{@link moon.VideoPlayer#infoComponents} block of a {@link moon.VideoPlayer}.
-	* 
+	*
 	* Example:
 	* ```javascript
 	* {
@@ -65,7 +65,7 @@
 		*/
 		published: {
 
-			/** 
+			/**
 			* Title of the `VideoInfoHeader`.
 			*
 			* @type {String}
@@ -74,7 +74,7 @@
 			*/
 			title: '',
 
-			/** 
+			/**
 			* Subtitle of the `VideoInfoHeader`.
 			*
 			* @type {String}
@@ -83,7 +83,7 @@
 			*/
 			subTitle: '',
 
-			/** 
+			/**
 			* Text below subtitle of the `VideoInfoHeader`.
 			*
 			* @type {String}
@@ -92,7 +92,7 @@
 			*/
 			subSubTitle: '',
 
-			/** 
+			/**
 			* Main content of the `VideoInfoHeader`.
 			*
 			* @type {String}
@@ -101,8 +101,17 @@
 			*/
 			description: '',
 
-			/** 
+			/**
 			* When `true`, the title text will have locale-safe uppercasing applied.
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
+			uppercase: true,
+
+			/**
+			* @deprecated Replaced by [uppercase]{@link moon.VideoInfoHeader#uppercase}.
 			*
 			* @type {Boolean}
 			* @default true
@@ -145,14 +154,21 @@
 		* @private
 		*/
 		titleChanged: function() {
-			this.$.title.set('content', this.get('titleUpperCase') ? enyo.toUpperCase(this.get('title')) : this.get('title') );
+			this.$.title.set('content', this.get('uppercase') ? enyo.toUpperCase(this.get('title')) : this.get('title') );
+		},
+
+		/**
+		* @private
+		*/
+		uppercaseChanged: function() {
+			this.titleChanged();
 		},
 
 		/**
 		* @private
 		*/
 		titleUpperCaseChanged: function() {
-			this.titleChanged();
+			this.uppercaseChanged();
 		}
 	});
 

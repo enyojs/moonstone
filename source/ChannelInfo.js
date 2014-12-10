@@ -89,6 +89,15 @@
 			* @default true
 			* @public
 			*/
+			uppercaseChannelNo: true,
+
+			/**
+			* @deprecated Replaced by [uppercaseChannelNo]{@link moon.ChannelInfo#uppercaseChannelNo}.
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
 			channelNoUpperCase: true
 		},
 
@@ -110,7 +119,7 @@
 		* @private
 		*/
 		bindings: [
-			{from: '.channelName', to: '.$.channelName.content'}
+			{from: 'channelName', to: '$.channelName.content'}
 		],
 
 		/**
@@ -126,14 +135,21 @@
 		*/
 		channelNoChanged: function () {
 			var channelNo = this.getChannelNo();
-			this.$.channelNo.setContent(this.getChannelNoUpperCase() ? enyo.toUpperCase(channelNo) : channelNo);
+			this.$.channelNo.setContent(this.get('uppercaseChannelNo') ? enyo.toUpperCase(channelNo) : channelNo);
+		},
+
+		/**
+		* @private
+		*/
+		uppercaseChannelNoChanged: function () {
+			this.channelNoChanged();
 		},
 
 		/**
 		* @private
 		*/
 		channelNoUpperCaseChanged: function () {
-			this.channelNoChanged();
+			this.uppercaseChannelNoChanged();
 		}
 	});
 
