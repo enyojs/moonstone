@@ -34,6 +34,8 @@ enyo.depends(
 	'DateTimePickerBase.js',
 	'DatePicker.js',
 	'TimePicker.js',
+	'DurationPickerBase.js',
+	'DurationPicker.js',
 	'Input.js',
 	'InputDecorator.js',
 	'ProgressBar.js',
