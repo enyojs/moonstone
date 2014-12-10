@@ -361,7 +361,7 @@
 			this.calcBoundaries();
 			this.enableDisableScrollColumns();
 			this.showHideScrollColumns(true);
-			this.updateHoverOnPagingControls(true);
+			this.updateHoverOnPagingControls(!enyo.Spotlight.hasCurrent());
 		},
 
 		/**
