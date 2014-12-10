@@ -21,6 +21,7 @@ enyo.kind({
 					{content: 'en-US'},
 					{content: 'ko-KR'},
 					{content: "th-TH"},	//Thailand
+					{content: "fa-IR"},
 					{content: 'en-CA'},
 					{content: 'en-IE'},
 					{content: 'en-GB'},
