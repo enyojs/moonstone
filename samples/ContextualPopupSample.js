@@ -23,6 +23,16 @@ enyo.kind({
 			{content:"Small", small:true},
 			{kind: "moon.ContextualPopup"}
 		]},
+		{kind: "moon.ContextualPopupDecorator", style:"position: absolute; right: 0px; top: 13%;", components: [
+			{content:"Nested Radio", small:true},
+			{kind: "moon.ContextualPopup", components:[
+				{kind: "moon.RadioItemGroup", onActivate: "buttonActivated", components: [
+					{content: "Creek"},
+					{content: "River"},
+					{content: "Ocean"}
+				]}
+			]}
+		]},
 		{kind: "moon.ContextualPopupDecorator", style:"position: absolute; left: 0px; top: 25%;", components: [
 			{content: "Left"},
 			{
