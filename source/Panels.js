@@ -161,7 +161,7 @@
 				]},
 				{name: 'client', tag: null}
 			]},
-			{name: 'showHideHandle', kind: 'enyo.Control', classes: 'moon-panels-handle hidden', canGenerate: false, ontap: 'handleTap', onSpotlightLeft: 'handleSpotLeft', onSpotlightRight: 'handleSpotRight', onSpotlightFocused: 'handleFocused', onSpotlightBlur: 'handleBlur'},
+			{name: 'showHideHandle', kind: 'moon.PanelsHandle', classes: 'hidden', canGenerate: false, ontap: 'handleTap', onSpotlightLeft: 'handleSpotLeft', onSpotlightRight: 'handleSpotRight', onSpotlightFocused: 'handleFocused', onSpotlightBlur: 'handleBlur'},
 			{name: 'showHideAnimator', kind: 'enyo.StyleAnimator', onComplete: 'animationComplete'}
 		],
 
@@ -1012,23 +1012,6 @@
 		},
 
 		/**
-		* Returns `true` if this and all parents are showing.
-		*
-		* @private
-		*/
-		getAbsoluteShowing: enyo.inherit(function (sup) {
-			return function() {
-				var b = this.getBounds();
-
-				if ((b.height === 0 && b.width === 0)) {
-					return false;
-				}
-
-				return sup.apply(this, arguments);
-			};
-		}),
-
-		/**
 		* @private
 		*/
 		showingChanged: function (inOldValue) {
@@ -1238,6 +1221,51 @@
 			if (this.$.branding) {
 				this.$.branding.set('src', this.brandingSrc);
 			}
+		}
+	});
+
+	/**
+	* `moon.PanelsHandle` is a helper kind for {@link moon.Panels} which implements a spottable
+	*  handle that the user can interact with to hide and show the `moon.Panels` control.
+	*
+	* @class moon.PanelsHandle
+	* @extends enyo.Control
+	* @ui
+	* @public
+	*/
+	enyo.kind(
+		/** @lends moon.PanelsHandle.prototype */ {
+
+		/**
+		* @private
+		*/
+		name: 'moon.PanelsHandle',
+
+		/*
+		* @private
+		*/
+		kind: 'enyo.Control',
+
+		/*
+		* @private
+		*/
+		classes: 'moon-panels-handle',
+
+		/*
+		* We override getAbsoluteShowing so that the handle's spottability is not dependent on the
+		* showing state of its parent, the {@link moon.Panels} control.
+		* 
+		* @private
+		*/
+		getAbsoluteShowing: function (ignoreBounds) {
+			var bounds = !ignoreBounds ? this.getBounds() : null;
+
+			if (!this.generated || this.destroyed || !this.showing || (bounds &&
+				bounds.height === 0 && bounds.width === 0)) {
+				return false;
+			}
+
+			return true;
 		}
 	});
 
