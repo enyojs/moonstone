@@ -16,10 +16,12 @@ enyo.kind({
 		{classes:"moon-1v"},
 		{kind: 'moon.Scroller', fit: true, components: [
 			{classes: "moon-5h", components: [
-				{name: "localePicker", kind: "moon.ExpandablePicker", noneText: $L("No Locale Selected"), content: "Choose Locale", onChange:"pickerHandler", components: [
+				{name: "localePicker", kind: "moon.ExpandablePicker", noneText: $L("No Locale Selected"), content: "Choose Locale", onChange:"setLocale", components: [
 					{content: 'Use Default Locale', active: true},
 					{content: 'en-US'},
 					{content: 'ko-KR'},
+					{content: "zh-TW"},
+					{content: "fa-IR"},
 					{content: "th-TH"},	//Thailand
 					{content: 'en-CA'},
 					{content: 'en-IE'},
@@ -43,9 +45,10 @@ enyo.kind({
 			this.log("iLib not present -- hiding locale picker");
 		}
 	},
-	pickerHandler: function(inSender, inEvent){
-		var opt = inEvent.selected.content,
-			val = (opt == "Use Default Locale") ? null : opt;
+	setLocale: function(inSender, inEvent){
+		var locale = inEvent.selected.content,
+			val = (locale == "Use Default Locale") ? null : locale;
+		enyo.updateLocale(locale);
 		this.$.clock.setLocale(val);
 		return true;
 	},
