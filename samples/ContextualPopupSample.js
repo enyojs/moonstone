@@ -25,14 +25,19 @@ enyo.kind({
 		]},
 		{kind: "moon.ContextualPopupDecorator", style:"position: absolute; right: 0px; top: 13%;", components: [
 			{content:"Nested Radio", small:true},
-			{kind: "moon.ContextualPopup", components:[
-				{kind: "moon.RadioItemGroup", components: [
-					{content: "Creek"},
-					{content: "River"},
-					{content: "Ocean"}
+				{kind: "moon.ContextualPopup", components:[
+					{name:"nestedRadioGroup", kind: "moon.RadioItemGroup", components: [
+						{content: "Creek", selected: true},
+						{content: "River"},
+						{content: "Ocean"}
+					]},
+					{components:[
+						{content: "Radio Group Value"},
+						{name: "nestedRadioValue"}
+					]}
 				]}
-			]}
-		]},
+			]
+		},
 		{kind: "moon.ContextualPopupDecorator", style:"position: absolute; left: 0px; top: 25%;", components: [
 			{content: "Left"},
 			{
@@ -200,6 +205,9 @@ enyo.kind({
 				]
 			}
 		]}
+	],
+	bindings: [
+		{from: ".$.nestedRadioGroup.active.content", to: ".$.nestedRadioValue.content"}
 	],
 	buttonToggled: function(inSender, inEvent) {
 		this.$.buttonPopup.setSpotlightModal(inSender.getActive());
