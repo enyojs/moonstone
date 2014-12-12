@@ -39,8 +39,8 @@ enyo.kind({
 							{content: "Item 2", active: true},
 							{content: "Item 3"}
 						]},
-						{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", autoCollapse: true, content: "Integer Picker", value: 7, min: 3, max: 15, step: 1, unit: "elephants"},
-						{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", disabled:true, autoCollapse: true, content: "Disabled Integer Picker", value: 2, min: 1, max: 15, unit: "sec"},
+						{kind: "moon.ExpandableIntegerPicker", autoCollapse: true, content: "Integer Picker", value: 7, min: 3, max: 15, step: 1, unit: "elephants"},
+						{kind: "moon.ExpandableIntegerPicker", disabled:true, autoCollapse: true, content: "Disabled Integer Picker", value: 2, min: 1, max: 15, unit: "sec"},
 						{kind: "moon.DatePicker", noneText: "Pick a Date", content: "Date Picker"},
 						{kind: "moon.TimePicker", noneText: "Pick a Date", content: "Time Picker"},
 						{kind: "moon.ExpandableInput", noneText: "Enter text", content: "Expandable Input", placeholder: "Enter text"},
@@ -89,8 +89,8 @@ enyo.kind({
 								{content: "Item 2", active: true},
 								{content: "Item 3"}
 							]},
-							{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", autoCollapse: true, content: "Integer Picker", value: 7, min: 3, max: 15, step: 1, unit: "elephants"},
-							{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", disabled:true, autoCollapse: true, content: "Disabled Integer Picker", value: 2, min: 1, max: 15, unit: "sec"},
+							{kind: "moon.ExpandableIntegerPicker", autoCollapse: true, content: "Integer Picker", value: 7, min: 3, max: 15, step: 1, unit: "elephants"},
+							{kind: "moon.ExpandableIntegerPicker", disabled:true, autoCollapse: true, content: "Disabled Integer Picker", value: 2, min: 1, max: 15, unit: "sec"},
 							{kind: "moon.DatePicker", noneText: "Pick a Date", content: "Date Picker"},
 							{kind: "moon.TimePicker", noneText: "Pick a Date", content: "Time Picker"},
 							{kind: "moon.ExpandableInput", noneText: "Enter text", content: "Expandable Input", placeholder: "Enter text"},
