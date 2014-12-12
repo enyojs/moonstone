@@ -41,7 +41,7 @@ enyo.kind({
 					 small: true,
 					 toggleOnLabel: 'select dismiss on',
 					 toggleOffLabel: 'select dismiss off'
-					},
+					}
 				]}
 			]
 		},
