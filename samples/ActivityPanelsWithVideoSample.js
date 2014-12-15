@@ -2,7 +2,7 @@ enyo.kind({
 	name: "moon.sample.ActivityPanelsWithVideoSample",
 	classes: "moon enyo-fit enyo-unselectable",
 	components: [
-        {name: "player", kind: "moon.VideoPlayer", src: "http://media.w3.org/2010/05/bunny/movie.mp4", poster: "$lib/moonstone/samples/assets/video-poster.png", autoplay: true, infoComponents: [
+        {name: "player", kind: "moon.VideoPlayer", src: "http://media.w3.org/2010/05/bunny/movie.mp4", poster: "$lib/moonstone/samples/assets/video-poster.png", autoplay: true, showing: false, infoComponents: [
 			{kind: "moon.VideoInfoBackground", orient: "left", background: true, fit: true, components: [
 				{
 					kind: "moon.ChannelInfo",
@@ -38,7 +38,7 @@ enyo.kind({
 			{kind: "moon.IconButton", small: false, classes: "moon-icon-video-round-controls-style"},
 			{kind: "moon.IconButton", small: false, classes: "moon-icon-video-round-controls-style"}
 		]},
-		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", useHandle: true, components: [
+		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", useHandle: true, onShowingChanged: 'panelsShowingChanged', components: [
 			{title: "First Panel", classes: "moon-7h", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next1"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next1"},
@@ -123,5 +123,10 @@ enyo.kind({
 	},
 	handleShowingChanged: function(inSender, inEvent) {
 		this.$.panels.setHandleShowing(inSender.getChecked());
+	},
+	panelsShowingChanged: function (sender, event) {
+		// Hiding the VideoPlayer when it would be obscured by the Panels avoids UI performance
+		// issues caused by the GPU being occupied rendering video frames that aren't visible.
+		this.$.player.set('showing', !event.showing);
 	}
 });
