@@ -1,28 +1,28 @@
 .moon-video-info-header {
-	display:inline-block; 
+	display:inline-block;
 	vertical-align:top;
-	max-width: 1100px;
+	max-width: rI(1100px);
 }
 .moon-video-player-info-datetime {
-	font-size: @moon-super-header-font-size;
-	margin-bottom: 32px;
+	font-size: rI(@moon-super-header-font-size);
+	margin-bottom: rI(32px);
 	white-space: nowrap;
 }
 .moon-video-player-info-title {
-	font-size: 126px;
-	margin-bottom: 0;
+	font-size: rI(126px);
+	margin-bottom: rI(0);
 	white-space: nowrap;
 	-webkit-font-kerning:normal;
 	font-kerning:normal;
 }
 .enyo-locale-non-latin .moon-video-player-info-title {
-	line-height: @moon-non-latin-header-text-line-height;
+	line-height: rI(@moon-non-latin-header-text-line-height);
 	/* Clip the title box by just a bit to help it fit better */
 	height: 1.4em;
 }
 .moon-video-player-info-subtitle {
 	.moon-sub-header-text-base (@moon-sub-header-font-size, @moon-white);
-	margin-bottom: 22px;
+	margin-bottom: rI(22px);
 	white-space: nowrap;
 }
 .enyo-locale-non-latin .moon-video-player-info-subtitle {
@@ -35,8 +35,8 @@
 	color: @moon-white;
 	display: inline-block;
 	white-space: normal;
-	max-width: 1200px;
-	margin-bottom: 10px;
+	max-width: rI(1200px);
+	margin-bottom: rI(10px);
 }
 .enyo-locale-non-latin .moon-video-player-info-subsubtitle {
 	.enyo-locale-non-latin .moon-body-text;
@@ -46,12 +46,12 @@
 	.moon-body-text;
 	color: @moon-white;
 	white-space: normal;
-	margin-bottom: 25px;
+	margin-bottom: rI(25px);
 	-webkit-line-clamp: 3;
 	display: -webkit-inline-box;
 	overflow: hidden;
 	-webkit-box-orient: vertical;
-	max-height: 96px;
+	max-height: rI(96px);
 }
 .enyo-locale-non-latin .moon-video-player-info-description {
 	.enyo-locale-non-latin .moon-body-text;
@@ -59,12 +59,12 @@
 }
 .moon-video-player-info-client {
 	display: inline-block;
-	margin: 0 0 10px 20px;
+	margin: rI(0) rI(0) rI(10px) rI(20px);
 }
 .enyo-locale-right-to-left .moon-video-player-info-client {
-	margin: 0 20px 10px 0;
+	margin: rI(0) rI(20px) rI(10px) rI(0);
 }
 .moon-video-player-info-client > * {
 	display: inline-block;
-	margin: 0 5px;
+	margin: rI(0) rI(5px);
 }
