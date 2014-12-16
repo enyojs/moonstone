@@ -1,9 +1,9 @@
 .moon-panel {
 	-webkit-transform: scale3d(1,1,1);
 	overflow: hidden;
-	padding: 0;
-	padding: 20px 10px;
+	padding: rI(20px) rI(10px);
 	height: 100%;
+
 	&.enyo-fit {
 		height: auto;
 	}
@@ -12,10 +12,10 @@
 // Base set of styling for scrim to prevent receiving user input while transitioning
 .moon-panel:after {
 	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
+	top: rI(0);
+	left: rI(0);
+	bottom: rI(0);
+	right: rI(0);
 	-webkit-transform: translateZ(0);
 	transform: translateZ(0);
 }
@@ -39,53 +39,53 @@
 .moon-panel-body {
 	overflow: hidden;
 	position: relative;
-	padding-top: 10px;
+	padding-top: rI(10px);
 }
 
 /* Breadcrumb */
 .moon-panel-breadcrumb {
 	-webkit-transform: scale3d(1,1,1);
-	width: @moon-panel-breadcrumb-inner-width + (@moon-spotlight-outset * 2);
-	height: @moon-panel-breadcrumb-height;
+	width: rI(@moon-panel-breadcrumb-inner-width + (@moon-spotlight-outset * 2));
+	height: rI(@moon-panel-breadcrumb-height);
 	position: absolute;
-	top: 0px;
-	left: 0px;
+	top: rI(0);
+	left: rI(0);
 }
 .moon-panel-breadcrumb-viewport {
 	-webkit-transform: scale3d(1,1,1);
 	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
+	bottom: rI(0);
+	left: rI(0);
+	right: rI(0);
 	height: 100%;
 	overflow: hidden;
 }
 .moon-panel-small-header-wrapper {
 	-webkit-transform: scale3d(1,1,1);
-	margin: @moon-spotlight-outset 0 0 0;
+	margin: rI(@moon-spotlight-outset) rI(0) rI(0) rI(0);
 	position: absolute;
-	bottom: 10px;
-	left: 0;
-	height: 360px;
+	bottom: rI(10px);
+	left: rI(0);
+	height: rI(360px);
 	width: 100%;
-	padding: 0 @moon-spotlight-outset @moon-spotlight-outset @moon-spotlight-outset;
+	padding: rI(0) rI(@moon-spotlight-outset) rI(@moon-spotlight-outset) rI(@moon-spotlight-outset);
 	box-sizing: border-box;
 }
 .moon-panel-small-header {
-	margin-top: 25px;
+	margin-top: rI(25px);
 	color: @moon-header-text-color;
 	display: block;
 	overflow: hidden;
-	padding: 0px;
+	padding: rI(0px);
 }
 
 .spotlight .moon-panel-small-header {
-	color:@moon-spotlight-text-color;
+	color: @moon-spotlight-text-color;
 }
 .moon-panel-small-header-title-above {
 	color: @moon-header-text-color;
-	border-top: 2px solid @moon-spotlight-text-color;
-	padding-top: 5px;
+	border-top: rI(2px) solid @moon-spotlight-text-color;
+	padding-top: rI(5px);
 }
 .spotlight .moon-panel-small-header-title-above {
 	color: @moon-spotlight-text-color;
@@ -94,18 +94,19 @@
 .moon-panel .moon-panel-small-header-wrapper.spotlight {
 	background: @moon-accent;
 	color: @moon-white;
+
 	.moon-panel-small-header-title-above {
-		border-top: 2px solid transparent;
+		border-top: rI(2px) solid transparent;
 	}
 }
 
 /* Activity Panels Overrides */
 .moon-panels.activity {
 	.moon-panel {
-		padding: 0;
+		padding: rI(0);
 	}
 	.moon-panel-small-header-title-above {
-		border-top: 2px solid @moon-header-border-color;
+		border-top: rI(2px) solid @moon-header-border-color;
 	}
 	.moon-panel-small-header,
 	.moon-panel-small-header-title-above {
@@ -122,7 +123,7 @@
 /* AlwaysViewing Overrides */
 .moon-panels.always-viewing {
 	.moon-panel {
-		padding: 0;
+		padding: rI(0);
 	}
 	.moon-panel-small-header,
 	.moon-panel-small-header-title-above {

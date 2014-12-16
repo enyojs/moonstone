@@ -6,7 +6,7 @@
 // mixin classes for create the moontone text classes
 .moon-sub-header-text-base (@font-size, @font-color) {
 	font-family: @moon-sub-header-font-family;
-	font-size: @font-size;
+	font-size: rI(@font-size);
 	color: @font-color;
 }
 /* Text definitions */
@@ -15,89 +15,89 @@
 	font-family: @moon-alt-font-family;
 }
 .moon-superscript {
-	font-size: @moon-superscript-text-size;
+	font-size: rI(@moon-superscript-text-size);
 	vertical-align: top;
-	margin: 0 0 0 2px;
-	padding: 0;
+	margin: rI(0) rI(0) rI(0) rI(2px);
+	padding: rI(0);
 }
 .moon-pre-text {
-	font-size: @moon-pre-text-size;
+	font-size: rI(@moon-pre-text-size);
 	vertical-align: top;
-	height:  @moon-large-text-size;
-	line-height: @moon-pre-text-size;
-	margin: 12px 2px 8px 0;
-	padding: 0px;
+	height:  rI(@moon-large-text-size);
+	line-height: rI(@moon-pre-text-size);
+	margin: rI(12px) rI(2px) rI(8px) rI(0);
+	padding: rI(0px);
 }
 .moon-large-text {
-	font-size: @moon-large-text-size;
+	font-size: rI(@moon-large-text-size);
 	vertical-align: top;
-	height: @moon-large-text-size;
-	margin: 0;
-	padding: 0;
+	height: rI(@moon-large-text-size);
+	margin: rI(0);
+	padding: rI(0);
 }
 .moon-header-text {
 	font-family: @moon-header-font-family;
-	font-size: @moon-header-font-size;
+	font-size: rI(@moon-header-font-size);
 	.font-kerning
 }
 .moon-sub-header-text {
-	.moon-sub-header-text-base (@moon-sub-header-font-size, @moon-sub-header-text-color);
+	.moon-sub-header-text-base (rI(@moon-sub-header-font-size), @moon-sub-header-text-color);
 }
 .moon-super-header-text {
 	font-family: @moon-super-header-font-family;
-	font-size: @moon-super-header-font-size;
+	font-size: rI(@moon-super-header-font-size);
 	-webkit-font-kerning: normal;
 }
 .moon-popup-header-text {
 	font-family: @moon-popup-header-font-family;
-	font-size: @moon-popup-header-font-size;
+	font-size: rI(@moon-popup-header-font-size);
 	-webkit-font-kerning: normal;
 }
 .moon-divider-text {
 	font-family: @moon-divider-font-family;
-	font-size: @moon-divider-font-size;
+	font-size: rI(@moon-divider-font-size);
 	color: @moon-divider-text-color;
 }
 .moon-body-text {
 	font-family: @moon-body-font-family;
-	font-size: @moon-body-font-size;
+	font-size: rI(@moon-body-font-size);
 	color: @moon-body-text-color;
-	line-height: @moon-body-line-height;
-	a:link {color: @moon-spotlight-color; text-decoration:none;}
-	a:visited {color: @moon-spotlight-color; text-decoration:none;}
-	a:hover {color: @moon-spotlight-color; text-decoration:none;}
-	a:active {color: @moon-spotlight-color; text-decoration:none;}
+	line-height: rI(@moon-body-line-height);
+	a:link {color: @moon-spotlight-color; text-decoration: none;}
+	a:visited {color: @moon-spotlight-color; text-decoration: none;}
+	a:hover {color: @moon-spotlight-color; text-decoration: none;}
+	a:active {color: @moon-spotlight-color; text-decoration: none;}
 }
 .moon-body-large-text {
-	font-size: @moon-body-font-size + 2;
-	line-height: @moon-body-line-height + 8;
+	font-size: rI(@moon-body-font-size + 2);
+	line-height: rI(@moon-body-line-height + 8);
 }
 .moon-bold-text {
 	font-family: @moon-font-family-bold;
-	font-size: @moon-body-font-size;
+	font-size: rI(@moon-body-font-size);
 	color: @moon-body-text-color;
-	line-height: @moon-body-line-height;
-	a:link {color: @moon-spotlight-color; text-decoration:none;}
-	a:visited {color: @moon-spotlight-color; text-decoration:none;}
-	a:hover {color: @moon-spotlight-color; text-decoration:none;}
-	a:active {color: @moon-spotlight-color; text-decoration:none;}
+	line-height: rI(@moon-body-line-height);
+	a:link {color: @moon-spotlight-color; text-decoration: none;}
+	a:visited {color: @moon-spotlight-color; text-decoration: none;}
+	a:hover {color: @moon-spotlight-color; text-decoration: none;}
+	a:active {color: @moon-spotlight-color; text-decoration: none;}
 }
 .moon-body-text-spacing {
-	margin: 0 @moon-spotlight-outset @moon-grid-row-height @moon-spotlight-outset;
+	margin: rI(0) rI(@moon-spotlight-outset) rI(@moon-grid-row-height) rI(@moon-spotlight-outset);
 }
 .moon-large-button-text {
 	font-family: @moon-button-font-family;
-	font-size: @moon-button-large-font-size;
-	-webkit-font-kerning:normal;
+	font-size: rI(@moon-button-large-font-size);
+	-webkit-font-kerning: normal;
 }
 .moon-small-button-text {
 	font-family: @moon-button-font-family;
-	font-size: @moon-button-small-font-size;
-	-webkit-font-kerning:normal;
+	font-size: rI(@moon-button-small-font-size);
+	-webkit-font-kerning: normal;
 }
 .moon-icon-text {
 	font-family: @moon-icon-font-family;
-	font-size: @moon-icon-font-size;
+	font-size: rI(@moon-icon-font-size);
 	color: @moon-icon-color;
 }
 
@@ -131,52 +131,52 @@
 	}
 
 	.moon {
-		font-size: @moon-non-latin-sub-header-font-size;
+		font-size: rI(@moon-non-latin-sub-header-font-size);
 	}
 	.moon-superscript {
-		font-size: @moon-non-latin-superscript-text-size;
+		font-size: rI(@moon-non-latin-superscript-text-size);
 	}
 	.moon-pre-text {
-		font-size: @moon-non-latin-pre-text-size;
+		font-size: rI(@moon-non-latin-pre-text-size);
 	}
 	.moon-large-text {
-		font-size: @moon-non-latin-large-text-size;
+		font-size: rI(@moon-non-latin-large-text-size);
 	}
 	.moon-header-text {
-		font-size: @moon-non-latin-header-font-size;
-		line-height: @moon-non-latin-header-text-line-height;
+		font-size: rI(@moon-non-latin-header-font-size);
+		line-height: rI(@moon-non-latin-header-text-line-height);
 	}
 	.moon-popup-header-text {
-		font-size: @moon-non-latin-popup-header-font-size;
+		font-size: rI(@moon-non-latin-popup-header-font-size);
 	}
 	.moon-sub-header-text {
-		font-size: @moon-non-latin-sub-header-font-size;
+		font-size: rI(@moon-non-latin-sub-header-font-size);
 	}
 	.moon-super-header-text {
-		font-size: @moon-non-latin-super-header-font-size;
+		font-size: rI(@moon-non-latin-super-header-font-size);
 	}
 	.moon-divider-text {
-		font-size: @moon-non-latin-divider-font-size;
+		font-size: rI(@moon-non-latin-divider-font-size);
 		font-style: normal;
 	}
 	.moon-body-text {
-		font-size: @moon-non-latin-body-font-size;
-		line-height: @moon-non-latin-body-line-height;
+		font-size: rI(@moon-non-latin-body-font-size);
+		line-height: rI(@moon-non-latin-body-line-height);
 	}
 	.moon-body-large-text {
-		font-size: @moon-non-latin-body-font-size + 2;
-		line-height: @moon-non-latin-body-line-height + 8;
+		font-size: rI(@moon-non-latin-body-font-size + 2);
+		line-height: rI(@moon-non-latin-body-line-height + 8);
 	}
 	.moon-bold-text {
-		font-size: @moon-non-latin-body-font-size;
-		line-height: @moon-non-latin-body-line-height;
+		font-size: rI(@moon-non-latin-body-font-size);
+		line-height: rI(@moon-non-latin-body-line-height);
 	}
 	.moon-large-button-text {
-		font-size: @moon-non-latin-button-large-font-size;
+		font-size: rI(@moon-non-latin-button-large-font-size);
 		font-weight: normal;
 	}
 	.moon-small-button-text {
-		font-size: @moon-non-latin-button-small-font-size;
+		font-size: rI(@moon-non-latin-button-small-font-size);
 		font-weight: normal;
 	}
 }

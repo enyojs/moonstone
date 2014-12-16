@@ -1,4 +1,9 @@
- // Import font styles
+// Set the base level font size, from which all rem size calculations are derived
+html {
+	font-size: 12px;
+}
+
+// Import font styles
 @import "moonstone-fonts.less";
 
 // Import grid classes/mixins
@@ -12,11 +17,11 @@
 /* Common classes applicable to multiple controls */
 .moon {
 	font-family: @moon-font-family;
-	font-size: @moon-sub-header-font-size;
+	font-size: rI(@moon-sub-header-font-size);
 	font-weight: normal;
 	font-style: normal;
 	letter-spacing: normal;
-	padding: @moon-app-keepout;
+	padding: rI(@moon-app-keepout);
 	color: @moon-sub-header-text-color;
 	background-color: @moon-background-color;
 }
@@ -26,10 +31,10 @@
 }
 
 .moon-divider-border {
-	border-bottom: @moon-divider-border-width solid @moon-divider-border-color;
+	border-bottom: rI(@moon-divider-border-width) solid @moon-divider-border-color;
 }
 .moon-neutral-divider-border {
-	border-bottom: @moon-divider-border-width solid @moon-neutral-border-color;
+	border-bottom: rI(@moon-divider-border-width) solid @moon-neutral-border-color;
 }
 
 @import "moonstone-text.less";

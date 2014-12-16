@@ -1,15 +1,15 @@
 /* SelectableItem.css */
 .moon-selectable-item.selected {
-	padding: 10px @moon-spotlight-outset 10px @moon-item-indent + @moon-spotlight-outset;
+	padding: rI(10px) rI(@moon-spotlight-outset) rI(10px) rI(@moon-item-indent + @moon-spotlight-outset);
 
 	&:before {
 		content: '';
 		position: absolute;
-		left: @moon-spotlight-outset;
-		top: 17px;
-		width: @moon-selectable-item-indicator-width;
-		height: @moon-selectable-item-indicator-height;
-		border-radius: @moon-selectable-item-indicator-width / 2;
+		left: rI(@moon-spotlight-outset);
+		top: rI(17px);
+		width: rI(@moon-selectable-item-indicator-width);
+		height: rI(@moon-selectable-item-indicator-height);
+		border-radius: rI(@moon-selectable-item-indicator-width / 2);
 		background-color: @moon-accent;
 	}
 
@@ -22,11 +22,11 @@
 	.moon-selectable-item {
 
 		&.selected {
-			padding: 10px @moon-item-indent + @moon-spotlight-outset 10px @moon-spotlight-outset;
+			padding: rI(10px) rI(@moon-item-indent + @moon-spotlight-outset) rI(10px) rI(@moon-spotlight-outset);
 
 			&:before {
 				left: auto;
-				right: @moon-spotlight-outset;
+				right: rI(@moon-spotlight-outset);
 			}
 		}
 	}

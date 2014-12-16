@@ -1,3 +1,3 @@
 enyo.depends(
-	"moonstone-light.less"
+	'moonstone-light.less'
 );

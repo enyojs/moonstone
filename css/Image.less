@@ -1,6 +1,6 @@
 .moon-image {
 	display: inline-block;
-	margin: 0 @moon-spotlight-outset;
+	margin: rI(0) rI(@moon-spotlight-outset);
 }
 .moon-image.has-children {
 	position: relative;
@@ -9,6 +9,7 @@
 
 .moon-image > .enyo-image {
 	display: block;
+
 	&.sized {
 		width: 100%;
 		height: 100%;
@@ -17,11 +18,11 @@
 
 .moon-image-client {
 	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
+	bottom: rI(0);
+	left: rI(0);
+	right: rI(0);
 	background: rgba(109, 109, 109, 1);
-	padding: 8px;
+	padding: rI(8px);
 	overflow: hidden;
 	display: block;
 }

@@ -1,7 +1,7 @@
 /* ------- Horizontal Dimensioning (columns) ------- */
 
 .moon-grid-hunits(@n) {
-	width: (@moon-grid-column-width * @n) + (@moon-grid-gutter-width * (@n - 1));
+	width: rI((@moon-grid-column-width * @n) + (@moon-grid-gutter-width * (@n - 1)));
 }
 
 .moon-1h {
@@ -68,7 +68,7 @@
 /* ------- Vertical Dimensioning (columns) ------- */
 
 .moon-grid-vunits(@n) {
-	height: (@moon-grid-row-height * @n) + (@moon-grid-gutter-height * (@n - 1));
+	height: rI((@moon-grid-row-height * @n) + (@moon-grid-gutter-height * (@n - 1)));
 }
 
 .moon-1v {

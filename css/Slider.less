@@ -1,6 +1,6 @@
 /* Slider Bar */
 .moon-slider {
-	margin: 60px 45px;
+	margin: rI(60px) rI(45px);
 
 	&.spotlight {
 		> .moon-progress-bar-bar {
@@ -12,7 +12,7 @@
 
 			&.spotselect {
 				background-color: @moon-slider-knob-bg-color;
-				border: @moon-button-border-width solid @moon-spotlight-color;
+				border: rI(@moon-button-border-width) solid @moon-spotlight-color;
 			}
 		}
 	}
@@ -26,24 +26,24 @@
 /* Slider Knob */
 .moon-slider-knob {
 	position: absolute;
-	height: @moon-slider-knob-height;
-	width: @moon-slider-knob-width;
-	border-radius: @moon-slider-knob-width;
-	margin: (-@moon-slider-knob-width / 2);
+	height: rI(@moon-slider-knob-height);
+	width: rI(@moon-slider-knob-width);
+	border-radius: rI(@moon-slider-knob-width);
+	margin: rI(-@moon-slider-knob-width / 2);
 	background-color: @moon-slider-knob-bg-color;
-	top: (@moon-progress-bar-height / 2);
-	border: solid @moon-button-border-width transparent;
+	top: rI(@moon-progress-bar-height / 2);
+	border: rI(@moon-button-border-width) solid transparent;
 	box-sizing: border-box;
 
 	&:not(.spotselect) {
 		&.active,
 		&.spotselect,
 		&:active:not(.disabled) {
-			width: @moon-slider-knob-spotlight-width;
-			height: @moon-slider-knob-spotlight-height;
-			border-radius: (@moon-slider-knob-spotlight-width / 2);
-			margin: (-@moon-slider-knob-spotlight-width / 2);
-			border: solid @moon-button-border-width transparent;
+			width: rI(@moon-slider-knob-spotlight-width);
+			height: rI(@moon-slider-knob-spotlight-height);
+			border-radius: rI(@moon-slider-knob-spotlight-width / 2);
+			margin: rI(-@moon-slider-knob-spotlight-width / 2);
+			border: rI(@moon-button-border-width) solid transparent;
 			box-sizing: border-box;
 		}
 	}
@@ -51,8 +51,8 @@
 
 .moon-slider-taparea {
 	position: absolute;
-	top: -14px;
-	height: (@moon-progress-bar-height * 3 + 2);
+	top: rI(-14px);
+	height: rI(@moon-progress-bar-height * 3 + 2);
 	width: 100%;
 }
 
@@ -70,7 +70,7 @@
 	}
 
 	.moon-slider-popup-left {
-		margin: 0 -1px 0 0;
+		margin: rI(0) rI(-1px) rI(0) rI(0);
 	}
 
 	.moon-slider-popup-center {
@@ -78,7 +78,7 @@
 	}
 
 	.moon-slider-popup-right {
-		margin: 0 0 0 -1px;
+		margin: rI(0) rI(0) rI(0) rI(-1px);
 	}
 
 	.moon-slider-popup-label {
@@ -99,5 +99,5 @@
 }
 
 .enyo-locale-non-latin .moon-slider-popup-label {
-	font-size: 30px;
+	font-size: rI(30px);
 }

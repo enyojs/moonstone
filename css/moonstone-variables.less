@@ -1,6 +1,11 @@
 // App
 // ---------------------------------------
-@moon-app-keepout: 20px;
+//
+@moon-root-size: 12px;
+
+// App
+// ---------------------------------------
+@moon-app-keepout: rI(20px);
 
 @moon-neutral-bg-color: #686868;
 @moon-neutral-text-color: @moon-light-gray;
@@ -50,37 +55,37 @@
 
 // Font Sizes
 // ---------------------------------------
-@moon-superscript-text-size:        24px;
-@moon-large-text-size:              48px;
-@moon-pre-text-size:                24px;
-@moon-popup-header-font-size:       73px;
-@moon-sub-header-font-size:         30px;
-@moon-super-header-font-size:       32px;
-@moon-body-font-size:               26px;
-@moon-divider-font-size:            22px;
-@moon-button-large-font-size:       33px;
-@moon-button-small-font-size:       27px;
-@moon-header-font-size:             126px;
-@moon-small-header-font-size:   	60px;
-@moon-small-header-sub-header-font-size:   	27px;
-@moon-clock-minute-font-size:       61px;
-@moon-clock-text-font-size:         54px;
-@moon-clock-meridiem-font-size:     24px;
-@moon-clock-top-font-size:          65px;
-@moon-clock-bottom-font-size:       28px;
-@moon-calendar-day-small-font-size: 24px;
+@moon-superscript-text-size:        rI(24px);
+@moon-large-text-size:              rI(48px);
+@moon-pre-text-size:                rI(24px);
+@moon-popup-header-font-size:       rI(73px);
+@moon-sub-header-font-size:         rI(30px);
+@moon-super-header-font-size:       rI(32px);
+@moon-body-font-size:               rI(26px);
+@moon-divider-font-size:            rI(22px);
+@moon-button-large-font-size:       rI(33px);
+@moon-button-small-font-size:       rI(27px);
+@moon-header-font-size:             rI(126px);
+@moon-small-header-font-size:   	rI(60px);
+@moon-small-header-sub-header-font-size:   	rI(27px);
+@moon-clock-minute-font-size:       rI(61px);
+@moon-clock-text-font-size:         rI(54px);
+@moon-clock-meridiem-font-size:     rI(24px);
+@moon-clock-top-font-size:          rI(65px);
+@moon-clock-bottom-font-size:       rI(28px);
+@moon-calendar-day-small-font-size: rI(24px);
 
-@moon-non-latin-superscript-text-size:  24px;
-@moon-non-latin-large-text-size:        48px;
-@moon-non-latin-pre-text-size:          24px;
-@moon-non-latin-popup-header-font-size: 65px;
-@moon-non-latin-sub-header-font-size:   30px;
-@moon-non-latin-super-header-font-size: 32px;
-@moon-non-latin-body-font-size:         26px;
-@moon-non-latin-divider-font-size:      28px;
-@moon-non-latin-button-large-font-size: 36px;
-@moon-non-latin-button-small-font-size: 27px;
-@moon-non-latin-header-font-size:       114px;
+@moon-non-latin-superscript-text-size:  rI(24px);
+@moon-non-latin-large-text-size:        rI(48px);
+@moon-non-latin-pre-text-size:          rI(24px);
+@moon-non-latin-popup-header-font-size: rI(65px);
+@moon-non-latin-sub-header-font-size:   rI(30px);
+@moon-non-latin-super-header-font-size: rI(32px);
+@moon-non-latin-body-font-size:         rI(26px);
+@moon-non-latin-divider-font-size:      rI(28px);
+@moon-non-latin-button-large-font-size: rI(36px);
+@moon-non-latin-button-small-font-size: rI(27px);
+@moon-non-latin-header-font-size:       rI(114px);
 
 
 // Other Font Properties
@@ -127,8 +132,8 @@
 @moon-body-letter-spacing: 0;
 @moon-body-font-style: normal;
 // Body text line heights must be speified in px, since moon.ExpandableText requires precise line measurement
-@moon-body-line-height: @moon-body-font-size + 6;
-@moon-non-latin-body-line-height: @moon-non-latin-body-font-size + 6;
+@moon-body-line-height: rI(@moon-body-font-size + 6);
+@moon-non-latin-body-line-height: rI(@moon-non-latin-body-font-size + 6);
 
 @moon-divider-font-family: "MuseoSans 700 Italic";
 @moon-divider-font-weight: normal;
@@ -141,158 +146,158 @@
 @moon-button-letter-spacing: normal;
 
 @moon-icon-font-family: "Moonstone Icons";
-@moon-icon-font-size: 72px;
+@moon-icon-font-size: rI(72px);
 
 @accordion-sub-menu-line-height: 1.7em;
 
 // Drawer
 // ---------------------------------------
-@moon-drawers-activator-bar-height: 22px;
-@moon-drawer-nub-width: 60px;
-@moon-drawer-nub-height: 36px;
+@moon-drawers-activator-bar-height: rI(22px);
+@moon-drawer-nub-width: rI(60px);
+@moon-drawer-nub-height: rI(36px);
 
 // Images
 // ---------------------------------------
-@moon-checkbox-icon-height: 32px;
-@moon-checkbox-icon-width: 24px;
-@moon-checkbox-width: 32px;
+@moon-checkbox-icon-height: rI(32px);
+@moon-checkbox-icon-width: rI(24px);
+@moon-checkbox-width: rI(32px);
 
-@moon-formcheckbox-image-width: 50px;
-@moon-formcheckbox-image-height: 50px;
+@moon-formcheckbox-image-width: rI(50px);
+@moon-formcheckbox-image-height: rI(50px);
 
-@moon-close-image-height: 32px;
-@moon-close-image-width: 32px;
+@moon-close-image-height: rI(32px);
+@moon-close-image-width: rI(32px);
 
 // Icon Sizes
 // ---------------------------------------
-@moon-icon-size: 45px;
-@moon-icon-small-size: 32px;
-@moon-icon-button-size: 85px;
-@moon-icon-button-small-size: 60px;
-@moon-icon-sprite-size: (@moon-icon-button-size - (@moon-button-border-width * 2));
-@moon-icon-sprite-small-size: (@moon-icon-button-small-size - (@moon-button-border-width * 2));
-@moon-icon-tap-area-offset: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
+@moon-icon-size: rI(45px);
+@moon-icon-small-size: rI(32px);
+@moon-icon-button-size: rI(85px);
+@moon-icon-button-small-size: rI(60px);
+@moon-icon-sprite-size: rI(@moon-icon-button-size - (@moon-button-border-width * 2));
+@moon-icon-sprite-small-size: rI(@moon-icon-button-small-size - (@moon-button-border-width * 2));
+@moon-icon-tap-area-offset: rI(-(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2));
 
 // Spotlight
 // ---------------------------------------
-@moon-spotlight-outset: 10px;
+@moon-spotlight-outset: rI(10px);
 
 // Button
 // ---------------------------------------
-@moon-button-height: 85px;
-@moon-button-small-height: 60px;
-@moon-button-border-width: 5px;
-@moon-button-border-radius: 9999px;
-@moon-button-small-tap-area-height: 78px;
-@moon-button-large-text-size: 30px;
-@moon-button-small-text-size: 24px;
-@moon-button-large-min-width: 180px;
-@moon-button-small-min-width: 130px;
-@moon-button-h-padding: 22px;
-@moon-button-small-h-padding: 20px;
+@moon-button-height: rI(85px);
+@moon-button-small-height: rI(60px);
+@moon-button-border-width: rI(5px);
+@moon-button-border-radius: rI(9999px);
+@moon-button-small-tap-area-height: rI(78px);
+@moon-button-large-text-size: rI(30px);
+@moon-button-small-text-size: rI(24px);
+@moon-button-large-min-width: rI(180px);
+@moon-button-small-min-width: rI(130px);
+@moon-button-h-padding: rI(22px);
+@moon-button-small-h-padding: rI(20px);
 
 // Header
 // ---------------------------------------
-@moon-header-height-large: 360px;
-@moon-header-height-medium: 240px;
-@moon-header-height-small: 120px;
-@moon-header-indent-width: 20px;
-@moon-header-title-subtitle-gap: 40px;
-@moon-header-border-top-width: 2px;
-@moon-header-border-bottom-width: 6px;
+@moon-header-height-large: rI(360px);
+@moon-header-height-medium: rI(240px);
+@moon-header-height-small: rI(120px);
+@moon-header-indent-width: rI(20px);
+@moon-header-title-subtitle-gap: rI(40px);
+@moon-header-border-top-width: rI(2px);
+@moon-header-border-bottom-width: rI(6px);
 @moon-input-header-icon: url(../images/input-header-icon.png);
 
 // Input
 // ---------------------------------------
-@moon-input-border-width: 5px;
-@moon-input-height:60px;
+@moon-input-border-width: rI(5px);
+@moon-input-height: rI(60px);
 
 // Pickers
 // ---------------------------------------
-@moon-picker-button-width: 60px;
-@moon-picker-min-width: 60px;
-@moon-picker-min-padding: 5px;
+@moon-picker-button-width: rI(60px);
+@moon-picker-min-width: rI(60px);
+@moon-picker-min-padding: rI(5px);
 
 // Expandable Pickers
 // ---------------------------------------
-@moon-expandable-caret-icon-font-size: 48px;
+@moon-expandable-caret-icon-font-size: rI(48px);
 
 // Expandable Text
 // ---------------------------------------
-@moon-expandable-text-button-padding: 42px;
+@moon-expandable-text-button-padding: rI(42px);
 
 // Progress Bar
 // ---------------------------------------
-@moon-progress-bar-height: 10px;
+@moon-progress-bar-height: rI(10px);
 
 // Slider Knob
 // ---------------------------------------
-@moon-slider-knob-width:@moon-button-small-height;
-@moon-slider-knob-height:@moon-button-small-height;
-@moon-slider-knob-spotlight-width: 86px;
-@moon-slider-knob-spotlight-height: 86px;
+@moon-slider-knob-width: rI(@moon-button-small-height);
+@moon-slider-knob-height: rI(@moon-button-small-height);
+@moon-slider-knob-spotlight-width: rI(86px);
+@moon-slider-knob-spotlight-height: rI(86px);
 
 // Items
 // ---------------------------------------
 @moon-item-line-height: 1.2em;
-@moon-item-indent: 32px;
+@moon-item-indent: rI(32px);
 
 // Divider
-@moon-divider-border-width: 2px;
+@moon-divider-border-width: rI(2px);
 
 // Breadcrumb
 // ---------------------------------------
-@moon-breadcrumb-text-size: 36px;
+@moon-breadcrumb-text-size: rI(36px);
 
 // Selectable Item
 // ---------------------------------------
-@moon-selectable-item-indicator-width: 20px;
-@moon-selectable-item-indicator-height: 20px;
-@moon-radio-item-gap: 15px;
-@moon-radio-item-indicator-border: 2px;
+@moon-selectable-item-indicator-width: rI(20px);
+@moon-selectable-item-indicator-height: rI(20px);
+@moon-radio-item-gap: rI(15px);
+@moon-radio-item-indicator-border: rI(2px);
 
 // Spinner
 // ---------------------------------------
-@moon-spinner-size: 73px;
+@moon-spinner-size: rI(73px);
 @moon-spinner-image: url(../images/spinner.gif);
-@moon-spinner-image-width: 60px;
-@moon-spinner-image-height: 60px;
+@moon-spinner-image-width: rI(60px);
+@moon-spinner-image-height: rI(60px);
 @moon-spinner-time: 1.83s;		// Length of the spinner animation
 @moon-spinner-ball-height: 15%;	// Height of the ball container
-@moon-spinner-ball-width: @moon-spinner-ball-height;	// Height of the ball container
+@moon-spinner-ball-width: rI(@moon-spinner-ball-height);	// Height of the ball container
 @moon-spinner-ball-disatance: 20%;	// Distance of the ball from the center
 @moon-spinner-ball-angle: 13deg;	// Ball impact angle (should be set so there is no ball overlap)
 
 // ToggleSwitch
 // ---------------------------------------
-@moon-toggleswitch-image-height: 33px;
-@moon-toggleswitch-image-width: 65px;
+@moon-toggleswitch-image-height: rI(33px);
+@moon-toggleswitch-image-width: rI(65px);
 @moon-toggleswitch-off: url(../images/toggle-off.png);
 @moon-toggleswitch-on: url(../images/toggle-on.png);
-@moon-toggleswitch-margin: @moon-toggleswitch-image-width + @moon-spotlight-outset;
-@moon-toggle-button-switch-border-width:2px;
-@moon-toggle-button-switch-width:16px;
-@moon-toggle-button-text-switch-gutter:20px;
+@moon-toggleswitch-margin: rI(@moon-toggleswitch-image-width + @moon-spotlight-outset);
+@moon-toggle-button-switch-border-width: rI(2px);
+@moon-toggle-button-switch-width: rI(16px);
+@moon-toggle-button-text-switch-gutter: rI(20px);
 
 // Tooltip
 // ---------------------------------------
-@moon-tooltip-height: 68px;
-@moon-tooltip-label-height: 59px;
+@moon-tooltip-height: rI(68px);
+@moon-tooltip-label-height: rI(59px);
 
 // IntegerPicker
 // ---------------------------------------
-@moon-integer-picker-radius: 45px;
-@moon-integer-picker-height: 94px;
-@moon-integer-picker-overlay-height: 30px;
-@moon-integer-picker-shadow-width: 6px;
-@moon-integer-picker-caret-font-size: 68px;
+@moon-integer-picker-radius: rI(45px);
+@moon-integer-picker-height: rI(94px);
+@moon-integer-picker-overlay-height: rI(30px);
+@moon-integer-picker-shadow-width: rI(6px);
+@moon-integer-picker-caret-font-size: rI(68px);
 
 // Grid Dimensions
 // ---------------------------------------
-@moon-grid-gutter-width: 20px;
-@moon-grid-gutter-height: 0px;
-@moon-grid-column-width: 60px;
-@moon-grid-row-height: 40px;
+@moon-grid-gutter-width: rI(20px);
+@moon-grid-gutter-height: rI(0px);
+@moon-grid-column-width: rI(60px);
+@moon-grid-row-height: rI(40px);
 
 // ObjectActionDecorator
 // ---------------------------------------
@@ -300,22 +305,22 @@
 
 // Video Player
 // ---------------------------------------
-@moon-video-player-info-icon-text-size:            20px;
-@moon-video-player-icon-text-gutter-width:         15px;
-@moon-icon-playpause-font-size:                    220px;
-@moon-icon-main-control-font-size:                 190px;
-@moon-icon-arrowextendshrink-font-size:            112px;
-@moon-video-feedback-icon-width:                   32px;
-@moon-video-feedback-icon-font-size:               124px;
-@moon-video-feedback-icon-line-height:             26px;
-@moon-video-feedback-icon-pausejumpbackward-width: 37px;
-@moon-video-feedback-icon-pausejumpforward-width:  37px;
-@moon-video-feedback-icon-play-width:              22px;
-@moon-video-feedback-icon-pause-width:             22px;
-@moon-video-feedback-icon-font-play-size:          72px;
-@moon-video-feedback-icon-font-pause-size:         72px;
-@moon-video-icon-exitfullscreen-font-size:         100px;
-@moon-video-icon-exitfullscreen-line-height:       81px;
+@moon-video-player-info-icon-text-size:            rI(20px);
+@moon-video-player-icon-text-gutter-width:         rI(15px);
+@moon-icon-playpause-font-size:                    rI(220px);
+@moon-icon-main-control-font-size:                 rI(190px);
+@moon-icon-arrowextendshrink-font-size:            rI(112px);
+@moon-video-feedback-icon-width:                   rI(32px);
+@moon-video-feedback-icon-font-size:               rI(124px);
+@moon-video-feedback-icon-line-height:             rI(26px);
+@moon-video-feedback-icon-pausejumpbackward-width: rI(37px);
+@moon-video-feedback-icon-pausejumpforward-width:  rI(37px);
+@moon-video-feedback-icon-play-width:              rI(22px);
+@moon-video-feedback-icon-pause-width:             rI(22px);
+@moon-video-feedback-icon-font-play-size:          rI(72px);
+@moon-video-feedback-icon-font-pause-size:         rI(72px);
+@moon-video-icon-exitfullscreen-font-size:         rI(100px);
+@moon-video-icon-exitfullscreen-line-height:       rI(81px);
 
 // Caret
 // ---------------------------------------
@@ -333,27 +338,27 @@
 @moon-contextual-arrow-spotlight: url(../images/contextual-arrow-spotlight.png);
 @moon-contextual-arrow-rtl: url(../images/contextual-arrow-rtl.png);
 @moon-contextual-arrow-spotlight-rtl: url(../images/contextual-arrow-spotlight-rtl.png);
-@moon-contextual-arrow-padding: 50px;
-@moon-contextual-arrow-font-size: 58px;
+@moon-contextual-arrow-padding: rI(50px);
+@moon-contextual-arrow-font-size: rI(58px);
 
 // ContextualPopupButton
 // ---------------------------------------
-@moon-contextual-popup-border-radius: 16px;
-@moon-contextual-popup-padding: 20px;
-@moon-contextual-popup-gutter: 35px;
-@moon-contextual-popup-nub-height: 19px;
+@moon-contextual-popup-border-radius: rI(16px);
+@moon-contextual-popup-padding: rI(20px);
+@moon-contextual-popup-gutter: rI(35px);
+@moon-contextual-popup-nub-height: rI(19px);
 
 // Panel
 // ----------------------------------------
-@moon-panel-breadcrumb-height: 370px;
-@moon-panel-breadcrumb-inner-width: 210px;
+@moon-panel-breadcrumb-height: rI(370px);
+@moon-panel-breadcrumb-inner-width: rI(210px);
 
 // Panels
 // ----------------------------------------
-@moon-panels-handle-width: 130px;
-@moon-panel-handle-icon-font-size: 144px;
+@moon-panels-handle-width: rI(130px);
+@moon-panel-handle-icon-font-size: rI(144px);
 
 // Progress Button
 // ----------------------------------------
-@moon-progress-button-bar-border-radius: @moon-button-border-radius;
-@moon-progress-button-border-width: @moon-button-border-width;
+@moon-progress-button-bar-border-radius: rI(@moon-button-border-radius);
+@moon-progress-button-border-width: rI(@moon-button-border-width);

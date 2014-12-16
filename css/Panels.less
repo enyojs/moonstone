@@ -5,7 +5,7 @@
 	width: 100%;
 	height: 100%;
 	box-sizing: border-box;
-	padding: 20px 10px;
+	padding: rI(20px) rI(10px);
 	overflow: visible;
 	-webkit-transform: translate3d(0, 0, 0);
 	pointer-events: none;
@@ -13,18 +13,17 @@
 	* {
 		pointer-events: auto;
 	}
-
 	.moon-panel {
 		height: auto;
-		margin: 0;
+		margin: rI(0);
 	}
 }
 
 /* Scrim */
 .moon-panels .moon-panels-background-scrim {
 	position: absolute;
-	left: 0;
-	top: 0;
+	left: rI(0);
+	top: rI(0);
 	width: 100%;
 	height: 100%;
 	background-color: black;
@@ -46,16 +45,16 @@
 }
 
 .moon-panels.activity .moon-panels-panel-scrim {
-	left: 0;
+	left: rI(0);
 	width: 100%;
 	background-color: @moon-panels-scrim-activity-bg-color;
 
 	.moon-panels-branding {
 		position: absolute;
-		top: @moon-panel-breadcrumb-height + 10px; // breadcrumb height + padding
-		width: @moon-panel-breadcrumb-inner-width;
-		bottom: 20px;
-		left: 20px;
+		top: rI(@moon-panel-breadcrumb-height + 10px); // breadcrumb height + padding
+		width: rI(@moon-panel-breadcrumb-inner-width);
+		bottom: rI(20px);
+		left: rI(20px);
 		background-position: bottom center;
 	}
 }
@@ -70,11 +69,11 @@
 
 .moon-panels-handle {
 	position: absolute;
-	top: 0;
+	top: rI(0);
 	left: auto;
-	right: -(@moon-panels-handle-width);
+	right: rI(-(@moon-panels-handle-width));
 	height: 100%;
-	width: @moon-panels-handle-width;
+	width: rI(@moon-panels-handle-width);
 	z-index: 100;
 
 	&:before {
@@ -83,14 +82,14 @@
 		height: 100%;
 		width: 100%;
 		line-height: 100vh;
-		margin-left: -10px;
-		margin-right: 10px;
+		margin-left: rI(-10px);
+		margin-right: rI(10px);
 		background-color: @moon-panels-handle-bg-color;
 		font-family: @moon-icon-font-family;
-		font-size: @moon-panel-handle-icon-font-size;
+		font-size: rI(@moon-panel-handle-icon-font-size);
 		content: @moon-icon-arrowlargeleft;
 		color: @moon-spotlight-text-color;
-		-webkit-transform: translate3d(0, 0, 0);
+		-webkit-transform: translate3d(rI(0), rI(0), 0);
 		transition: -webkit-transform 0.2s linear, opacity 0.2s linear;
 		opacity: 1;
 		text-align: center;
@@ -102,7 +101,7 @@
 
 	&.spotlight:before {
 		background-color: @moon-panels-spot-fg-color;
-		-webkit-transform: translate3d(-(@moon-panels-handle-width - 10), 0, 0);
+		-webkit-transform: translate3d(rI(-(@moon-panels-handle-width - 10)), rI(0), 0);
 	}
 
 	&.stashed:before {

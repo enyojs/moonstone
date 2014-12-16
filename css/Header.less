@@ -1,19 +1,19 @@
 .moon-header {
 	.border-box;
 	color: @moon-header-text-color;
-	height: @moon-header-height-large;
-	border-top: @moon-header-border-top-width solid @moon-header-border-color;
-	border-bottom: @moon-header-border-bottom-width solid @moon-header-bottom-border-color;
+	height: rI(@moon-header-height-large);
+	border-top: rI(@moon-header-border-top-width) solid @moon-header-border-color;
+	border-bottom: rI(@moon-header-border-bottom-width) solid @moon-header-bottom-border-color;
 	position: relative;
 	max-width: 100%;
-	padding: 0 0 @moon-spotlight-outset 0;
+	padding: rI(0) rI(0) rI(@moon-spotlight-outset) rI(0);
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-position: top left;
-	margin: 0 @moon-spotlight-outset;
+	margin: rI(0) rI(@moon-spotlight-outset);
 
 	.moon-header-title-above {
-		margin-top: 5px;
+		margin-top: rI(5px);
 		height: 1.2em;
 		white-space: nowrap;
 		overflow: hidden;
@@ -23,110 +23,99 @@
 			border: none;
 		}
 	}
-
 	.moon-header-title {
-		line-height: @moon-header-line-height;
-		height: 155px;
+		line-height: rI(@moon-header-line-height);
+		height: rI(155px);
 
 		.moon-marquee-text {
 			white-space: nowrap;
 		}
 	}
-
 	.moon-header-title-below, .moon-header-sub-title-below {
-		height: 44px;
+		height: rI(44px);
 	}
-
 	&.full-bleed {
-		padding: 0 @moon-header-indent-width @moon-spotlight-outset @moon-header-indent-width;
-		border: 0;
+		padding: rI(0) rI(@moon-header-indent-width) rI(@moon-spotlight-outset) rI(@moon-header-indent-width);
+		border: rI(0);
 
 		.moon-header-client {
-			left: @moon-header-indent-width;
-			right: @moon-header-indent-width;
+			left: rI(@moon-header-indent-width);
+			right: rI(@moon-header-indent-width);
 		}
 	}
-
 	// adjust child elements of .moon-hsacing so that large and small buttons/icon buttons all align to the bottom
 	.moon-hspacing > * {
 		vertical-align: bottom;
 	}
-
 	// Medium Header
 	&.moon-medium-header {
-		height: @moon-header-height-medium;
+		height: rI(@moon-header-height-medium);
 
 		.moon-header-title-above {
 			display: none;
 		}
 
 		.moon-header-title {
-			line-height: @moon-medium-header-line-height;
+			line-height: rI(@moon-medium-header-line-height);
 		}
 
 		.moon-header-title-below, .moon-header-sub-title-below {
-			height: 40px;
+			height: rI(40px);
 		}
 	}
-
 	// Small Header
 	&.moon-small-header {
-		height: @moon-header-height-small;
+		height: rI(@moon-header-height-small);
 
 		.moon-header-title-above, .moon-header-title-below, .moon-header-sub-title-below {
 			display: none;
 		}
-
 		.moon-header-title {
-			padding: 26px 0 0 0;
-			line-height: @moon-small-header-line-height;
-			font-size: @moon-small-header-font-size;
-			height: 84px;
+			padding: rI(26px) rI(0) rI(0) rI(0);
+			line-height: rI(@moon-small-header-line-height);
+			font-size: rI(@moon-small-header-font-size);
+			height: rI(84px);
 		}
-
 		.moon-header-sub-title {
-			font-size: @moon-small-header-sub-header-font-size;
+			font-size: rI(@moon-small-header-sub-header-font-size);
 		}
 	}
-
 	.moon-header-client {
 		position: absolute;
-		bottom: 14px;
-		left: 0;
-		right: 0;
+		bottom: rI(14px);
+		left: rI(0);
+		right: rI(0);
 		text-align: right;	/* fallback in case text-align:end isn't supported */
 		text-align: end;	/* CSS3 for RTL support */
 		z-index: 1;         /* Fixme: Inverse component stack order */
 	}
-
 	&.moon-medium-header .moon-header-client,
 	&.moon-small-header .moon-header-client {
 		display: inline-block;
 		left: auto;
 	}
-
 	// vertically aligns client text with standard height widgets
 	.moon-header-client-text {
-		line-height: @moon-button-small-height;
+		line-height: rI(@moon-button-small-height);
 	}
 }
 
 // neutral
 .moon-neutral .moon-header {
-	border-top: @moon-header-border-top-width solid @moon-neutral-border-color;
-	border-bottom: @moon-header-border-bottom-width solid @moon-neutral-border-color;
+	border-top: rI(@moon-header-border-top-width) solid @moon-neutral-border-color;
+	border-bottom: rI(@moon-header-border-bottom-width) solid @moon-neutral-border-color;
 }
 
 // enyo-locale-non-latin
 .enyo-locale-non-latin .moon-header {
 	.moon-header-title, {
-		line-height: @moon-non-latin-header-text-line-height;
+		line-height: rI(@moon-non-latin-header-text-line-height);
 	}
 	&.moon-medium-header .moon-header-title, {
-		line-height: @moon-non-latin-medium-header-line-height;
+		line-height: rI(@moon-non-latin-medium-header-line-height);
 	}
 	&.moon-small-header .moon-header-title, {
-		line-height: @moon-non-latin-small-header-line-height;
+		line-height: rI(@moon-non-latin-small-header-line-height);
 	}
 }
 
@@ -143,7 +132,7 @@
 	.moon-small-header .moon-header-client,
 	.moon-medium-header .moon-header-client {
 		right: auto;
-		left: 0;
+		left: rI(0);
 	}
 }
 

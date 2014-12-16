@@ -1,53 +1,52 @@
 /* Icon.css */
 .moon-icon, .moon-icon-toggle {
-	width: @moon-icon-size;
-	height: @moon-icon-size;
-	background-position: center -((@moon-icon-sprite-size - @moon-icon-size) / 2);
+	width: rI(@moon-icon-size);
+	height: rI(@moon-icon-size);
+	background-position: center rI(-((@moon-icon-sprite-size - @moon-icon-size) / 2));
 	background-repeat: no-repeat;
 	display: inline-block;
 	vertical-align: middle;
-	margin: 9px 14px;
+	margin: rI(9px) rI(14px);
 	font-family: "Moonstone", "Moonstone Icons";
-	font-size: (@moon-icon-size * 2);
-	line-height: @moon-icon-size;
+	font-size: rI(@moon-icon-size * 2);
+	line-height: rI(@moon-icon-size);
 	text-align: center;
 	position: relative;
 	color: @moon-icon-font-color;
 
 	&.small {
-		background-position: center -((@moon-icon-sprite-small-size - @moon-icon-small-size) / 2);
-		width: @moon-icon-small-size;
-		height: @moon-icon-small-size;
-		font-size: (@moon-icon-small-size * 2);
-		line-height: @moon-icon-small-size;
+		background-position: center rI(-((@moon-icon-sprite-small-size - @moon-icon-small-size) / 2));
+		width: rI(@moon-icon-small-size);
+		height: rI(@moon-icon-small-size);
+		font-size: rI(@moon-icon-small-size * 2);
+		line-height: rI(@moon-icon-small-size);
 		> .small-icon-tap-area {
 			position: absolute;
-			top: @moon-icon-tap-area-offset;
-			bottom: @moon-icon-tap-area-offset;
-			left: @moon-icon-tap-area-offset;
-			right: @moon-icon-tap-area-offset;
+			top: rI(@moon-icon-tap-area-offset);
+			bottom: rI(@moon-icon-tap-area-offset);
+			left: rI(@moon-icon-tap-area-offset);
+			right: rI(@moon-icon-tap-area-offset);
 			// Always use the same color that was assigned to the parent: inherit.
 			color: inherit;
-			line-height: (@moon-icon-small-size - (@moon-icon-tap-area-offset * 2));
+			line-height: rI(@moon-icon-small-size - (@moon-icon-tap-area-offset * 2));
 		}
 	}
-
 	&.font-lg-icons {
 		font-family: "LG Icons";
-		font-size: @moon-icon-size;
+		font-size: rI(@moon-icon-size);
 
 		&.small {
-			font-size: @moon-icon-small-size;
+			font-size: rI(@moon-icon-small-size);
 		}
 	}
 }
 
 .spotlight .moon-icon {
 	color: @moon-spotlight-text-color;
-	background-position: center -(@moon-icon-sprite-size + ((@moon-icon-sprite-size - @moon-icon-size) / 2));
+	background-position: center rI(-(@moon-icon-sprite-size + ((@moon-icon-sprite-size - @moon-icon-size) / 2)));
 
 	&.small {
-		background-position: center -(@moon-icon-sprite-small-size + ((@moon-icon-sprite-small-size - @moon-icon-small-size) / 2));
+		background-position: center rI(-(@moon-icon-sprite-small-size + ((@moon-icon-sprite-small-size - @moon-icon-small-size) / 2)));
 	}
 }
 

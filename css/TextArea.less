@@ -1,12 +1,12 @@
 /* TextArea.css */
 .moon-textarea,
 .moon-richtext {
-	padding: 0;
-	border: 0;
+	padding: rI(0);
+	border: rI(0);
 	cursor: pointer;
 	background: transparent;
-	height: (3 * @moon-body-line-height);
-	width: 300px;
+	height: rI(3 * @moon-body-line-height);
+	width: rI(300px);
 	color: @moon-input-textarea-color;
 	// Remove scrollbars and resize handle
 	resize: none;
@@ -18,16 +18,16 @@
 	}
 
 	&::-webkit-scrollbar {
-		width: 4px;
+		width: rI(4px);
 	}
 
 	&::-webkit-scrollbar-track-piece {
-		border-radius: 10px;
+		border-radius: rI(10px);
 	}
 
 	&::-webkit-scrollbar-thumb:vertical {
 		background-color: @moon-active-border-color;
-		border-radius: 10px;
+		border-radius: rI(10px);
 	}
 }
 

@@ -10,8 +10,8 @@
 	&.in-progress:active:hover:not([disabled]),
 	&.in-progress {
 		color: @moon-white;
-		padding: @moon-progress-button-border-width (@moon-button-h-padding + @moon-progress-button-border-width);
-		border-width: 0;
+		padding: rI(@moon-progress-button-border-width) rI(@moon-button-h-padding + @moon-progress-button-border-width);
+		border-width: rI(0);
 	}
 	&.completed .moon-progress-button-bar {
 		transform: translateX(103%);
@@ -32,9 +32,9 @@
 	height: 100%;
 	width: 100%;
 	position: absolute;
-	top: 0;
-	left: 0;
-	border-radius: @moon-progress-button-bar-border-radius;
+	top: rI(0);
+	left: rI(0);
+	border-radius: rI(@moon-progress-button-bar-border-radius);
 	background-color: @moon-progress-button-bar-color;
 	transform: translateZ(0);
 	-webkit-transform: translateZ(0);

@@ -62,22 +62,22 @@
 }
 
 .moon-spinner {
-	min-height: @moon-spinner-size;
-	min-width: @moon-spinner-size;
-	line-height: @moon-spinner-size;
+	min-height: rI(@moon-spinner-size);
+	min-width: rI(@moon-spinner-size);
+	line-height: rI(@moon-spinner-size);
 	position: relative;
 	display: inline-block;
 	color: @moon-spinner-text-color;
 	background-color: @moon-spinner-background-color;
-	border-radius: (@moon-button-height / 2);
-	margin: 0 @moon-spotlight-outset;
+	border-radius: rI(@moon-button-height / 2);
+	margin: rI(0) rI(@moon-spotlight-outset);
 
 	> * {
 		display: inline-block;
 	}
 	// Horizontally centered
 	&.center {
-		margin: 0;
+		margin: rI(0);
 		margin-left: 50%;
 		-webkit-transform: translateX(-50%);
 		transform: translateX(-50%);
@@ -94,10 +94,10 @@
 		background-color: transparent;
 	}
 	&.content {
-		padding: ((@moon-button-height - @moon-spinner-size) / 2);
+		padding: rI((@moon-button-height - @moon-spinner-size) / 2);
 
 		.moon-spinner-client {
-			max-width: 400px;
+			max-width: rI(400px);
 		}
 	}
 	&.running .moon-spinner-ball {
@@ -105,8 +105,8 @@
 	}
 	.moon-spinner-ball-decorator {
 		position: relative;
-		width: @moon-spinner-size;
-		height: @moon-spinner-size;
+		width: rI(@moon-spinner-size);
+		height: rI(@moon-spinner-size);
 		float: left;
 	}
 	.moon-spinner-ball {
@@ -116,11 +116,11 @@
 		line-height: 0.4em;
 		-webkit-animation: none @moon-spinner-time linear infinite;
 		-webkit-animation-play-state: paused;
-		height: @moon-spinner-ball-height;
-		width: @moon-spinner-ball-width;
-		left: (50% - (@moon-spinner-ball-width / 2));
-		bottom: (50% - @moon-spinner-ball-height - @moon-spinner-ball-disatance);
-		-webkit-transform-origin: center ((@moon-spinner-ball-disatance / @moon-spinner-ball-height) * -100);
+		height: rI(@moon-spinner-ball-height);
+		width: rI(@moon-spinner-ball-width);
+		left: rI(50% - (@moon-spinner-ball-width / 2));
+		bottom: rI(50% - @moon-spinner-ball-height - @moon-spinner-ball-disatance);
+		-webkit-transform-origin: center rI((@moon-spinner-ball-disatance / @moon-spinner-ball-height) * -100);
 
 		&:after {
 			content: @moon-icon-circle;
@@ -144,8 +144,8 @@
 	}
 	.moon-spinner-client {
 		float: left;
-		line-height: @moon-spinner-size;
-		margin: 0 2.6ex 0 0;
+		line-height: rI(@moon-spinner-size);
+		margin: rI(0) 2.6ex rI(0) rI(0);
 	}
 }
 .enyo-locale-right-to-left .moon-spinner {

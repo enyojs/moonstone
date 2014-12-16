@@ -14,10 +14,10 @@
 
 .moon-scroll-picker {
 	direction: ltr;
-	height: @moon-integer-picker-height;
-	border-top: solid 30px transparent;
-	border-bottom: solid 30px transparent;
-	border-radius: @moon-integer-picker-radius;
+	height: rI(@moon-integer-picker-height);
+	border-top: rI(30px) solid transparent;
+	border-bottom: rI(30px) solid transparent;
+	border-radius: rI(@moon-integer-picker-radius);
 }
 
 .spotlight .moon-scroll-picker {
@@ -28,18 +28,18 @@
 
 .moon-scroll-picker-item {
 	white-space: nowrap;
-	padding: 0 @moon-picker-min-padding 2px @moon-picker-min-padding;
-	min-width: 50px;
-	height: @moon-integer-picker-height;
-	line-height: @moon-integer-picker-height;
+	padding: rI(0) rI(@moon-picker-min-padding) rI(2px) rI(@moon-picker-min-padding);
+	min-width: rI(50px);
+	height: rI(@moon-integer-picker-height);
+	line-height: rI(@moon-integer-picker-height);
 	text-align: center;
 	background: transparent;
 }
 
 .moon-scroll-picker-buffer {
 	white-space: nowrap;
-	padding: 0 @moon-picker-min-padding 2px @moon-picker-min-padding;
-	height: 0;
+	padding: rI(0) rI(@moon-picker-min-padding) rI(2px) rI(@moon-picker-min-padding);
+	height: rI(0);
 	opacity: 0;
 }
 
@@ -47,7 +47,7 @@
 	position:absolute;
 	z-index: 1;
 	width: 100%;
-	height: @moon-integer-picker-overlay-height;
+	height: rI(@moon-integer-picker-overlay-height);
 	font-family: @moon-icon-font-family;
 
 	&.next {
@@ -55,16 +55,16 @@
 	}
 	&.next:after {
 		content: @moon-icon-arrowsmallup;
-		font-size: @moon-integer-picker-caret-font-size;
-		line-height: @moon-integer-picker-caret-font-size/2 + 4;
+		font-size: rI(@moon-integer-picker-caret-font-size);
+		line-height: rI(@moon-integer-picker-caret-font-size / 2 + 4);
 	}
 	&.previous {
 		bottom: 0;
 	}
 	&.previous:after {
 		content: @moon-icon-arrowsmalldown;
-		font-size: @moon-integer-picker-caret-font-size;
-		line-height: @moon-integer-picker-caret-font-size/2 - 8;
+		font-size: rI(@moon-integer-picker-caret-font-size);
+		line-height: rI(@moon-integer-picker-caret-font-size / 2 - 8);
 	}
 }
 
@@ -73,17 +73,17 @@
 
 	&.next:after {
 		content: @moon-icon-arrowlargeup;
-		line-height: @moon-integer-picker-caret-font-size/2 + 8;
+		line-height: rI(@moon-integer-picker-caret-font-size / 2 + 8);
 	}
 	&.previous:after {
 		content: @moon-icon-arrowlargedown;
-		line-height: @moon-integer-picker-caret-font-size/2 - 12;
+		line-height: rI(@moon-integer-picker-caret-font-size / 2 - 12);
 	}
 }
 
 .selected .moon-scroll-picker-overlay {
 	position: absolute;
-	height: @moon-integer-picker-overlay-height + 5px;
+	height: rI(@moon-integer-picker-overlay-height + 5px);
 	width: 100%;
 	background-color: @moon-accent;
 
@@ -93,34 +93,34 @@
 		border-width: 0;
 		border-color: rgba(0,0,0,0.2);
 
-		border-top-width: @moon-integer-picker-shadow-width;
-		border-radius: @moon-integer-picker-radius @moon-integer-picker-radius 0 0;
+		border-top-width: rI(@moon-integer-picker-shadow-width);
+		border-radius: rI(@moon-integer-picker-radius) rI(@moon-integer-picker-radius) rI(0) rI(0);
 	}
 	&.next:after {
 		content: @moon-icon-arrowsmallup;
-		font-size: @moon-integer-picker-caret-font-size;
-		line-height: @moon-integer-picker-caret-font-size/2 - 4;
+		font-size: rI(@moon-integer-picker-caret-font-size);
+		line-height: rI(@moon-integer-picker-caret-font-size / 2 - 4);
 	}
 	&.previous {
-	 	bottom: 0;
+	 	bottom: rI(0);
 		border-style: solid;
-		border-width: 0;
+		border-width: rI(0);
 		border-color: rgba(0,0,0,0.2);
 
-		border-bottom-width: @moon-integer-picker-shadow-width;
-		border-radius: 0 0 @moon-integer-picker-radius @moon-integer-picker-radius;
+		border-bottom-width: rI(@moon-integer-picker-shadow-width);
+		border-radius: rI(0) rI(0) rI(@moon-integer-picker-radius) rI(@moon-integer-picker-radius);
 	}
 	&.previous:after {
 		content: @moon-icon-arrowsmalldown;
-		font-size: @moon-integer-picker-caret-font-size;
-		line-height: @moon-integer-picker-caret-font-size/2 + 8;
+		font-size: rI(@moon-integer-picker-caret-font-size);
+		line-height: rI(@moon-integer-picker-caret-font-size / 2 + 8);
 	}
  }
 
 .moon-scroll-picker-taparea {
 	position:absolute;
-	top: -9px;
-	right: -9px;
-	bottom: -9px;
-	left: -9px;
+	top: rI(-9px);
+	right: rI(-9px);
+	bottom: rI(-9px);
+	left: rI(-9px);
 }

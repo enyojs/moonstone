@@ -1,10 +1,10 @@
 .moon-simple-picker {
 	display: inline-block;
-	max-width: 350px;
+	max-width: rI(350px);
 	box-sizing: border-box;
-	padding: 0 @moon-picker-button-width + @moon-spotlight-outset;
+	padding: rI(0) rI(@moon-picker-button-width + @moon-spotlight-outset);
 	position: relative;
-	height: @moon-picker-button-width;
+	height: rI(@moon-picker-button-width);
 	vertical-align: middle;
 	direction: ltr;
 
@@ -15,15 +15,15 @@
 
 .moon-simple-picker-button {
 	position: absolute;
-	top: 0;
-	margin: 0;
+	top: rI(0);
+	margin: rI(0);
 
 	&.left {
-		left: 0;
+		left: rI(0);
 	}
 
 	&.right {
-		right: 0;
+		right: rI(0);
 	}
 }
 
@@ -48,7 +48,7 @@
 		display: inline-block;
 		box-sizing: border-box;
 		width: 100%;
-		line-height: @moon-picker-button-width;
+		line-height: rI(@moon-picker-button-width);
 	}
 
 	&.disabled {

@@ -1,10 +1,10 @@
 .moon-thumb {
-	-webkit-transform-origin: 0px 0px;
+	-webkit-transform-origin: rI(0) rI(0);
 	border: none;
 	background: @moon-thumb-bg-color;
-	width: 4px;
-	height: 4px;
-	border-radius: 0;
+	width: rI(4px);
+	height: rI(4px);
+	border-radius: rI(0);
 }
 .moon-neutral .moon-thumb {
 	background: @moon-neutral-thumb-bg-color;
@@ -17,10 +17,10 @@
 	-webkit-transition: opacity 0.1s linear;
 }
 .moon-scroller-hthumb {
-	bottom:  @moon-icon-button-small-size/2 - 2;
+	bottom: rI(@moon-icon-button-small-size / 2 - 2);
 }
 .moon-scroller-vthumb {
-	right:  @moon-icon-button-small-size/2 - 2;
+	right: rI(@moon-icon-button-small-size / 2 - 2);
 }
 .moon-scroller-hthumb.hidden,
 .moon-scroller-vthumb.hidden {

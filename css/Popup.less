@@ -1,9 +1,9 @@
 /* Popup.css */
 .moon-popup {
 	position: absolute;
-	bottom: 0;
+	bottom: rI(0);
 	width: 100%;
-	padding: @moon-spotlight-outset * 4;
+	padding: rI(@moon-spotlight-outset * 4);
 	box-sizing: border-box;
 	overflow: hidden;
 	-webkit-transform: translateY(100%) translateZ(0);
@@ -15,25 +15,23 @@
 		-webkit-transition: -webkit-transform 0.4s ease;
 		transition: transform 0.4s ease;
 	}
-
 	&.showing {
-		-webkit-transform: translateY(0) translateZ(0);
-		transform: translateY(0) translateZ(0);
+		-webkit-transform: translateY(rI(0)) translateZ(0);
+		transform: translateY(rI(0)) translateZ(0);
 	}
-
 	&.reserve-close {
-		padding-right: @moon-icon-button-small-size + @moon-spotlight-outset;
+		padding-right: rI(@moon-icon-button-small-size + @moon-spotlight-outset);
 	}
 }
 
 .moon-popup-close {
 	position: absolute;
-	right: @moon-spotlight-outset;
-	top: @moon-spotlight-outset;
-	margin: 0;
+	right: rI(@moon-spotlight-outset);
+	top: rI(@moon-spotlight-outset);
+	margin: rI(0);
 	background-color: transparent;
 	background-repeat: no-repeat;
-	background-position: 0 0;
+	background-position: rI(0) rI(0);
 	color: @moon-popup-close-text-color;
 
 	&.pressed,
@@ -46,13 +44,12 @@
 .enyo-locale-right-to-left {
 	.moon-popup {
 		&.reserve-close {
-			padding-right: @moon-spotlight-outset * 4;
-			padding-left: @moon-icon-button-small-size + @moon-spotlight-outset;
+			padding-right: rI(@moon-spotlight-outset * 4);
+			padding-left: rI(@moon-icon-button-small-size + @moon-spotlight-outset);
 		}
 	}
-
 	.moon-popup-close {
 		right: auto;
-		left: @moon-spotlight-outset;
+		left: rI(@moon-spotlight-outset);
 	}
 }

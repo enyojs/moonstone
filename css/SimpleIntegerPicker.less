@@ -1,5 +1,5 @@
 .moon-simple-integer-picker {
-	padding: 0 @moon-picker-button-width;
+	padding: rI(0) rI(@moon-picker-button-width);
 
 	.moon-scroll-picker-repeater {
 		width: 100%;
@@ -11,67 +11,67 @@
 	}
 
 	.moon-scroll-picker {
-		height: @moon-picker-button-width;
-		border-top: 0;
-		border-bottom: 0;
+		height: rI(@moon-picker-button-width);
+		border-top: rI(0);
+		border-bottom: rI(0);
 		width: 100%;
 	}
 
 	.moon-scroll-picker-item {
-		height: @moon-picker-button-width;
-		line-height: @moon-picker-button-width;
-		padding: 0;
+		height: rI(@moon-picker-button-width);
+		line-height: rI(@moon-picker-button-width);
+		padding: rI(0);
 	}
 
 	.moon-scroll-picker-overlay-container {
-		top: 0;
-		line-height: @moon-picker-button-width;
-		width: @moon-picker-button-width;
-		height: @moon-picker-button-width;
+		top: rI(0);
+		line-height: rI(@moon-picker-button-width);
+		width: rI(@moon-picker-button-width);
+		height: rI(@moon-picker-button-width);
 
 		&.previous {
-			left: 0;
+			left: rI(0);
 
 			&:after {
 				content: @moon-icon-arrowsmallleft;
-				line-height: @moon-picker-button-width;
+				line-height: rI(@moon-picker-button-width);
 			}
 
 			&.selected .moon-scroll-picker-overlay {
-				border-bottom: 0;
-				border-left-width: @moon-integer-picker-shadow-width;
-				border-radius: @moon-integer-picker-radius 0 0 @moon-integer-picker-radius;
+				border-bottom: rI(0);
+				border-left-width: rI(@moon-integer-picker-shadow-width);
+				border-radius: rI(@moon-integer-picker-radius) rI(0) rI(0) rI(@moon-integer-picker-radius);
 
 				&:after {
 					content: @moon-icon-arrowsmallleft;
-					line-height: @moon-picker-button-width;
+					line-height: rI(@moon-picker-button-width);
 				}
 			}
 		}
 
 		&.next {
-			right: 0;
+			right: rI(0);
 
 			&:after {
 				content: @moon-icon-arrowsmallright;
-				line-height: @moon-picker-button-width;
+				line-height: rI(@moon-picker-button-width);
 			}
 
 			&.selected .moon-scroll-picker-overlay {
-				border-top: 0;
-				border-right-width: @moon-integer-picker-shadow-width;
-				border-radius: 0 @moon-integer-picker-radius @moon-integer-picker-radius 0;
+				border-top: rI(0);
+				border-right-width: rI(@moon-integer-picker-shadow-width);
+				border-radius: rI(0) rI(@moon-integer-picker-radius) rI(@moon-integer-picker-radius) rI(0);
 
 				&:after {
 					content: @moon-icon-arrowsmallright;
-					line-height: @moon-picker-button-width;
+					line-height: rI(@moon-picker-button-width);
 				}
 			}
 		}
 
 		.moon-scroll-picker-overlay {
 			position: absolute;
-			height: @moon-picker-button-width;
+			height: rI(@moon-picker-button-width);
 			.border-box;
 		}
 	}
@@ -80,16 +80,16 @@
 
 .spotlight.moon-simple-integer-picker {
 	background: @moon-spotlight-border-color;
-	border-radius: @moon-integer-picker-radius;
+	border-radius: rI(@moon-integer-picker-radius);
 
 	.moon-scroll-picker-overlay-container.next:after {
 		content: @moon-icon-arrowlargeright;
-		line-height: @moon-picker-button-width;
+		line-height: rI(@moon-picker-button-width);
 	}
 
 	.moon-scroll-picker-overlay-container.previous:after {
 		content: @moon-icon-arrowlargeleft;
-		line-height: @moon-picker-button-width;
+		line-height: rI(@moon-picker-button-width);
 	}
 }
 

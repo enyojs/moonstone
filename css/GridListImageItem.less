@@ -5,7 +5,7 @@
 .moon-gridlist-imageitem {
 	display: inline-block;
 	overflow: hidden;
-	border: 5px solid transparent;
+	border: rI(5px) solid transparent;
 
 	.caption {
 		.moon-sub-header-text;
@@ -16,12 +16,12 @@
 	}
 
 	&.selected {
-		border: 5px solid @moon-gridlist-item-selection-color;
+		border: rI(5px) solid @moon-gridlist-item-selection-color;
 		background-color: @moon-gridlist-item-selection-color;
 	}
 
 	&.spotlight {
-		border: 5px solid @moon-spotlight-border-color;
+		border: rI(5px) solid @moon-spotlight-border-color;
 		background-color: @moon-spotlight-border-color;
 	}
 
@@ -36,21 +36,21 @@
 
 		&.use-caption,
 		&.use-subcaption {
-			padding-bottom: 40px;
+			padding-bottom: rI(40px);
 		}
 
 		>.caption,
 		>.sub-caption {
 			position: absolute;
-			bottom: 0;
+			bottom: rI(0);
 		}
 
 		&.use-caption.use-subcaption {
-			padding-bottom: 80px;
+			padding-bottom: rI(80px);
 
 			> .caption {
 				position: absolute;
-				bottom: 35px;
+				bottom: rI(35px);
 			}
 		}
 	}

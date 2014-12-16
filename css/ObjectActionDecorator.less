@@ -3,10 +3,11 @@
 	&.vertical {
 		display: inline-block;
 		text-align:center;
+
 		.moon-objaction-actions {
-			opacity: 0; 
+			opacity: 0;
 			text-align: center;
-			padding: 0  @moon-spotlight-outset;
+			padding: rI(0) rI(@moon-spotlight-outset);
 			box-sizing: border-box;
 		}
 		.moon-objaction-actions.stretch > * {
@@ -15,33 +16,32 @@
 	}
 	&.horizontal {
 		display: block;
+
 		.moon-objaction-client {
 			display: table-cell;
-			width: 100%; 
-			padding-right: @moon-spotlight-outset;
+			width: 100%;
+			padding-right: rI(@moon-spotlight-outset);
 		}
 		.moon-objaction-actions {
 			display: table-cell;
-			opacity: 0; 
+			opacity: 0;
 			white-space: nowrap;
 			vertical-align: middle;
-			padding-right: @moon-spotlight-outset;
+			padding-right: rI(@moon-spotlight-outset);
 		}
 	}
 }
 .enyo-locale-right-to-left .moon-objaction-client.horizontal .moon-objaction-client {
 	padding-right: auto;
-	padding-left: @moon-spotlight-outset;
+	padding-left: rI(@moon-spotlight-outset);
 }
 
-.moon-objaction.vertical .moon-objaction-client .moon-item.spotlight{
-  background-color:transparent;
+.moon-objaction.vertical .moon-objaction-client .moon-item.spotlight {
+	background-color: transparent;
 }
-.moon-objaction.vertical .moon-objaction-client .moon-item >img{
-  padding:@moon-spotlight-outset;
-
+.moon-objaction.vertical .moon-objaction-client .moon-item >img {
+	padding: rI(@moon-spotlight-outset);
 }
-.moon-objaction.vertical .moon-objaction-client .moon-item.spotlight >img{
-  background-color:@moon-spotlight-color;
+.moon-objaction.vertical .moon-objaction-client .moon-item.spotlight >img {
+	background-color: rI(@moon-spotlight-color);
 }
-

@@ -1,8 +1,8 @@
 /* InputDecorator.css */
 .moon-input-decorator:not(.moon-input-header-input-decorator),
 .moon-textarea-decorator {
-	margin: 5px;
-	border: @moon-input-border-width solid transparent;
+	margin: rI(5px);
+	border: rI(@moon-input-border-width) solid transparent;
 	background-color: @moon-input-decorator-bg-color;
 	box-sizing: border-box;
 
@@ -15,8 +15,8 @@
 	// for icons used inside of InputDecorator and TextareaDecorator (e.g. search icon)
 	.moon-icon.small,
 	.spotlight .moon-icon.small {
-		width: 20px;
-		margin: 0;
+		width: rI(20px);
+		margin: rI(0);
 		color: @moon-input-font-color;
 	}
 }
@@ -29,22 +29,22 @@
 }
 
 .moon-input-decorator:not(.moon-input-header-input-decorator) {
-	padding: 9px 30px;
-	border-radius: 34px;
+	padding: rI(9px) rI(30px);
+	border-radius: rI(34px);
 }
 
 .moon-textarea-decorator {
-	padding: 9px 14px;
-	border-radius: 10px;
+	padding: rI(9px) rI(14px);
+	border-radius: rI(10px);
 }
 
 .moon-expandable-input .moon-input-decorator:not(.moon-input-header-input-decorator) {
-	margin: 5px 0;
+	margin: rI(5px) rI(0);
 }
 
 .enyo-locale-non-latin {
 	.moon-input-decorator:not(.moon-input-header-input-decorator) {
-		padding: 5px 30px 9px;
+		padding: rI(5px) rI(30px) rI(9px);
 	}
 
 	// Languages with combining accent characters
@@ -63,7 +63,7 @@
 	&.enyo-locale-bn, // Bengali
 	&.enyo-locale-pa {// Panjabi
 		.moon-input-decorator:not(.moon-input-header-input-decorator) {
-			padding: 1px 30px;
+			padding: rI(1px) rI(30px);
 		}
 	}
 }

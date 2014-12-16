@@ -26,11 +26,11 @@
 }
 
 .moon-scroller-client-wrapper.v-scroll-enabled {
-	padding-right:  @moon-icon-button-small-size + @moon-spotlight-outset;
+	padding-right: rI(@moon-icon-button-small-size + @moon-spotlight-outset);
 }
 .enyo-locale-right-to-left .moon-scroller-client-wrapper.v-scroll-enabled {
-	padding-right: 0;
-	padding-left:  @moon-icon-button-small-size + @moon-spotlight-outset;
+	padding-right: rI(0);
+	padding-left:  rI(@moon-icon-button-small-size + @moon-spotlight-outset);
 }
 .moon-scroller-client-wrapper.h-scroll-enabled {
 	padding-bottom:  @moon-icon-button-small-size;
@@ -45,7 +45,7 @@
 	transition: opacity 0.1s linear;
 	-moz-transition: opacity 0.1s linear;
 	-webkit-transition: opacity 0.1s linear;
-	
+
 	transform: translateZ(0);
 	-o-transform: translateZ(0);
 	-ms-transform: translateZ(0);
@@ -68,48 +68,48 @@
 }
 /* Default position for vertical scrollbar */
 .moon-scroller-v-column {
-	top: 0px;
-	bottom: 0px;
-	right: @moon-spotlight-outset;
-	width:  @moon-icon-button-small-size;
+	top: rI(0);
+	bottom: rI(0);
+	right: rI(@moon-spotlight-outset);
+	width: rI(@moon-icon-button-small-size);
 }
 .enyo-locale-right-to-left .moon-scroller-v-column {
 	right: auto;
-	left: @moon-spotlight-outset;
+	left: rI(@moon-spotlight-outset);
 }
 /* Default position for horizontal scrollbar */
 .moon-scroller-h-column {
-	left: 0px;
-	right: 0px;
-	bottom: 0px;
-	height:  @moon-icon-button-small-size;
+	left: rI(0);
+	right: rI(0);
+	bottom: rI(0);
+	height: rI(@moon-icon-button-small-size);
 }
 /* Shorten vertical column when horizontal column is enabled */
 .moon-scroller-v-column.h-scroll-enabled {
-	bottom:  @moon-icon-button-small-size;
+	bottom: rI(@moon-icon-button-small-size);
 }
 /* Shorten horizontal column when vertical column is enabled */
 .moon-scroller-h-column.v-scroll-enabled {
-	right:  @moon-icon-button-small-size;
+	right: rI(@moon-icon-button-small-size);
 }
 
 .enyo-locale-right-to-left .moon-scroller-h-column.v-scroll-enabled {
-	right: 0;
-	left: @moon-icon-button-small-size;
+	right: rI(0);
+	left: rI(@moon-icon-button-small-size);
 }
 
 .moon-scroller-thumb-container {
 	position:absolute;
 }
 .moon-scroller-hthumb-container {
-	left:  @moon-icon-button-small-size;
-	right:  @moon-icon-button-small-size;
-	bottom: 0px;
-	height:  @moon-icon-button-small-size;
+	left: rI(@moon-icon-button-small-size);
+	right: rI(@moon-icon-button-small-size);
+	bottom: rI(0);
+	height: rI(@moon-icon-button-small-size);
 }
 .moon-scroller-vthumb-container {
-	top:  @moon-icon-button-small-size;
-	bottom:  @moon-icon-button-small-size;
-	right: 0px;
-	width:  @moon-icon-button-small-size;
+	top: rI(@moon-icon-button-small-size);
+	bottom: rI(@moon-icon-button-small-size);
+	right: rI(0);
+	width: rI(@moon-icon-button-small-size);
 }

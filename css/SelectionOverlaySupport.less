@@ -7,15 +7,15 @@
 
 				.moon-icon {
 					position: absolute;
-					width: @moon-icon-button-small-size;
-					height: @moon-icon-button-small-size;
-					line-height: @moon-icon-button-small-size;
-					font-size: @moon-icon-small-size * 2 + 8;
+					width: rI(@moon-icon-button-small-size);
+					height: rI(@moon-icon-button-small-size);
+					line-height: rI(@moon-icon-button-small-size);
+					font-size: rI(@moon-icon-small-size * 2 + 8);
 					color: @moon-accent;
-					margin: -@moon-icon-button-small-size / 2 0 0 -@moon-icon-button-small-size / 2;
+					margin: rI(-@moon-icon-button-small-size / 2) rI(0) rI(0) rI(-@moon-icon-button-small-size / 2);
 					background-color: @moon-selection-overlay-bg-color;
-					border-radius: @moon-icon-button-small-size / 2;
-					background-position: center @moon-button-border-width;
+					border-radius: rI(@moon-icon-button-small-size / 2);
+					background-position: center rI(@moon-button-border-width);
 				}
 			}
 		}
@@ -28,5 +28,5 @@
 }
 
 .enyo-locale-right-to-left .moon-selection-overlay-support.selected .moon-selection-overlay-support-scrim .moon-icon {
-	margin: -@moon-icon-button-small-size / 2 -@moon-icon-button-small-size / 2 0 0;
+	margin: rI(-@moon-icon-button-small-size / 2) rI(-@moon-icon-button-small-size / 2) rI(0) rI(0);
 }
