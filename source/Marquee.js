@@ -865,14 +865,23 @@
 			var duration = this._marquee_calcDuration(distance);
 
 			this.$.marqueeText.addClass('animate-marquee');
-			this.$.marqueeText.applyStyle('transition', 'transform ' + duration + 's linear');
-			this.$.marqueeText.applyStyle('-webkit-transition', '-webkit-transform ' + duration + 's linear');
 
-			enyo.dom.transform(this, {translateZ: 0});
+			if (moon.config.accelerate) {
+				enyo.dom.transform(this, {translateZ: 0});
+				this.$.marqueeText.applyStyle('transition', 'transform ' + duration + 's linear');
+				this.$.marqueeText.applyStyle('-webkit-transition', '-webkit-transform ' + duration + 's linear');
+			} else {
+				this.$.marqueeText.applyStyle('transition', 'left ' + duration + 's linear');
+				this.$.marqueeText.applyStyle('-webkit-transition', 'left ' + duration + 's linear');	
+			}
 
 			// Need this timeout for FF!
 			setTimeout(this.bindSafely(function () {
-				enyo.dom.transform(this.$.marqueeText, {translateX: this._marquee_adjustDistanceForRTL(distance) + 'px'});
+				if (moon.config.accelerate) {
+					enyo.dom.transform(this.$.marqueeText, {translateX: this._marquee_adjustDistanceForRTL(distance) + 'px'});
+				} else {
+					this.$.marqueeText.applyStyle('left', this._marquee_adjustDistanceForRTL(distance) + 'px');
+				}
 			}), enyo.platform.firefox ? 100 : 0);
 		},
 
@@ -893,8 +902,12 @@
 			*/
 			setTimeout(this.bindSafely(function () {
 				this.$.marqueeText.removeClass('animate-marquee');
-				enyo.dom.transform(this.$.marqueeText, {translateX: null});
-				enyo.dom.transform(this, {translateZ: null});
+				if (moon.config.accelerate) {
+					enyo.dom.transform(this.$.marqueeText, {translateX: null});
+					enyo.dom.transform(this, {translateZ: null});
+				} else {
+					this.$.marqueeText.applyStyle('left', null);
+				}
 			}), enyo.platform.firefox ? 100 : 0);
 		},
 
