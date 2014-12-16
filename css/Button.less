@@ -2,19 +2,19 @@
 .moon-button {
 	position: relative;
 	overflow: visible;
-	height: @moon-button-height;
-	line-height: (@moon-button-height - (2 * @moon-button-border-width));
-	border-radius: @moon-button-border-radius;
+	height: rI(@moon-button-height);
+	line-height: rI((@moon-button-height - (2 * @moon-button-border-width)));
+	border-radius: rI(@moon-button-border-radius);
 	background-color: @moon-button-background-color;
-	border: @moon-button-border-width solid transparent;
+	border: rI(@moon-button-border-width) solid transparent;
 	cursor: pointer;
 	white-space: nowrap;
 	display: inline-block;
 	width: auto;
-	min-width: @moon-button-height;
-	max-width: 302px;
-	padding: 0 @moon-button-h-padding;
-	margin: 0 @moon-spotlight-outset;
+	min-width: rI(@moon-button-height);
+	max-width: rI(302px);
+	padding: rI(0) rI(@moon-button-h-padding);
+	margin: rI(0) rI(@moon-spotlight-outset);
 	color: @moon-button-text-color;
 	> * {
 		text-align: center;
@@ -28,7 +28,7 @@
 	}
 
 	&.min-width {
-		min-width: @moon-button-large-min-width;
+		min-width: rI(@moon-button-large-min-width);
 	}
 
 	&.active,
@@ -65,31 +65,31 @@
 
 	> .button-tap-area {
 		position: absolute;
-		border-radius: @moon-button-border-radius;
-		top: -(@moon-button-border-width);
-		bottom: -(@moon-button-border-width);
-		left: -(@moon-button-border-width);
-		right: -(@moon-button-border-width);
+		border-radius: rI(@moon-button-border-radius);
+		top: rI(-(@moon-button-border-width));
+		bottom: rI(-(@moon-button-border-width));
+		left: rI(-(@moon-button-border-width));
+		right: rI(-(@moon-button-border-width));
 	}
 
 	&.small {
-		height: @moon-button-small-height;
-		min-width: @moon-button-small-height;
-		line-height: (@moon-button-small-height - (2 * @moon-button-border-width));
-		padding: 0 @moon-button-small-h-padding;
+		height: rI(@moon-button-small-height);
+		min-width: rI(@moon-button-small-height);
+		line-height: rI((@moon-button-small-height - (2 * @moon-button-border-width)));
+		padding: rI(0) rI(@moon-button-small-h-padding);
 		position: relative;
 		overflow: visible;
 
 		&.min-width {
-			min-width: @moon-button-small-min-width;
+			min-width: rI(@moon-button-small-min-width);
 		}
 
 		> .button-tap-area {
-			border-radius: 0;
-			top: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
-			bottom: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
-			left: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
-			right: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
+			border-radius: rI(0);
+			top: rI(-(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2));
+			bottom: rI(-(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2));
+			left: rI(-(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2));
+			right: rI(-(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2));
 		}
 	}
 }
