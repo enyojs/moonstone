@@ -1,14 +1,14 @@
-@moon-video-transport-slider-knob-size: 6px;
-@moon-video-transport-slider-knob-offset: -20px;
-@moon-video-transport-slider-height: 80px;
+@moon-video-transport-slider-knob-size: rI(6px);
+@moon-video-transport-slider-knob-offset: rI(-20px);
+@moon-video-transport-slider-height: rI(80px);
 
 .moon-video-transport-slider {
-	height: @moon-video-transport-slider-height;
+	height: rI(@moon-video-transport-slider-height);
 	background-color: #323232;
 }
 
 .moon-video-transport-slider .moon-slider-popup.above {
-	padding-left: 0px;
+	padding-left: rI(0px);
 }
 
 
@@ -19,11 +19,11 @@
 .moon-video-transport-slider-knob.spotselect,
 .moon-video-transport-slider-knob:active:hover {
 	position: absolute;
-	height: @moon-video-transport-slider-knob-size;
-	width: @moon-video-transport-slider-knob-size;
-	border-radius: @moon-video-transport-slider-knob-size/2;
-	margin: -@moon-video-transport-slider-knob-size/2;
-	top: @moon-video-transport-slider-height/2 + @moon-video-transport-slider-knob-offset;
+	height: rI(@moon-video-transport-slider-knob-size);
+	width: rI(@moon-video-transport-slider-knob-size);
+	border-radius: rI(@moon-video-transport-slider-knob-size/2);
+	margin: rI(-@moon-video-transport-slider-knob-size/2);
+	top: rI(@moon-video-transport-slider-height/2 + @moon-video-transport-slider-knob-offset);
 	pointer-events: none;
 }
 .moon-video-transport-slider-knob {
@@ -40,13 +40,13 @@
 	height: 100%;
 	background-color: @moon-accent;
 	position: absolute;
-	top: 0;
+	top: rI(0);
 }
 .moon-video-transport-slider-bg-bar {
 	height: 100%;
 	background-color: @moon-dark-gray;
 	position: absolute;
-	top: 0;
+	top: rI(0);
 }
 
 .moon-video-transport-slider-taparea {
@@ -72,38 +72,38 @@
 }
 
 .moon-video-transport-slider-indicator-wrapper {
-	height: 82px;
-	top: 0;
+	height: rI(82px);
+	top: rI(0);
 	position: absolute;
 }
 .moon-video-transport-slider-indicator-wrapper.start {
-	left: 0px;
+	left: rI(0px);
 }
 .moon-video-transport-slider-indicator-wrapper.end {
-	right: 0px;
+	right: rI(0px);
 }
 .moon-video-transport-slider-indicator-bar-left {
 	position: absolute;
 	left: 49.5%;
-	top: 25px;
-	width: 2px;
-	height: 30px;
+	top: rI(25px);
+	width: rI(2px);
+	height: rI(30px);
 	background-color: @moon-indicator-bar-bg-color;
 }
 .moon-video-transport-slider-indicator-bar-right {
 	position: absolute;
 	left: 49.5%;
-	top: 25px;
-	width: 2px;
-	height: 30px;
+	top: rI(25px);
+	width: rI(2px);
+	height: rI(30px);
 	background-color: #ffffff;
 }
 .moon-video-transport-slider-indicator-text {
 	position: absolute;
 	width: 100%;
-	height: 30px;
-	top: 23px;
-	font-size: 30px;
+	height: rI(30px);
+	top: rI(23px);
+	font-size: rI(30px);
 	font-family: @moon-header-font-family;
 	font-weight:bold;
 	color: @moon-indicator-text-color;

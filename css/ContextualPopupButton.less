@@ -1,19 +1,19 @@
 /* ContextualPopupButton.css */
 .moon-button.contextual-popup-button {
-	padding-right: @moon-contextual-arrow-padding;
+	padding-right: rI(@moon-contextual-arrow-padding);
 	position: relative;
 
 	&:after {
 		position: absolute;
-		right: @moon-spotlight-outset;
+		right: rI(@moon-spotlight-outset);
 		font-family: @moon-icon-font-family;
 		content: @moon-icon-arrowsmallright;
-		font-size: @moon-contextual-arrow-font-size;
-		line-height: @moon-button-height - 2 * @moon-button-border-width;
+		font-size: rI(@moon-contextual-arrow-font-size);
+		line-height: rI(@moon-button-height - 2 * @moon-button-border-width);
 		color: @moon-accent;
 	}
 	&.small:after {
-		line-height: @moon-button-small-height - 2 * @moon-button-border-width;
+		line-height: rI(@moon-button-small-height - 2 * @moon-button-border-width);
 	}
 	&.spotlight {
 		color: @moon-contextual-popup-text-color;
@@ -41,16 +41,16 @@
 
 .enyo-locale-right-to-left {
 	.moon-button.contextual-popup-button {
-		padding-left: @moon-contextual-arrow-padding;
-		padding-right: @moon-button-h-padding;
+		padding-left: rI(@moon-contextual-arrow-padding);
+		padding-right: rI(@moon-button-h-padding);
 
 		&:after {
-			left: @moon-spotlight-outset;
+			left: rI(@moon-spotlight-outset);
 			right: auto;
 			content: @moon-icon-arrowsmallleft;
 		}
 		&.small {
-			padding-right: @moon-button-small-h-padding;
+			padding-right: rI(@moon-button-small-h-padding);
 		}
 	}
 }
