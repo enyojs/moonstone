@@ -18,17 +18,17 @@
 /* Caption Decorator - Left/Right Captions */
 .moon-button-caption-decorator .moon-caption.left,
 .moon-button-caption-decorator .moon-caption.right {
-	height: @moon-button-height;
-	line-height: @moon-button-height;
+	height: rI(@moon-button-height);
+	line-height:  rI(@moon-button-height);
 }
 .moon-button-caption-decorator .moon-caption.left {
 	float: left;
-	padding-right: 10px;
+	padding-right:  rI(10px);
 	text-align: left;
 }
 .moon-button-caption-decorator .moon-caption.right {
 	float: right;
-	padding-left: 10px;
+	padding-left:  rI(10px);
 	text-align: right;
 }
 
@@ -39,10 +39,10 @@
 	text-align: center;
 }
 .moon-button-caption-decorator .moon-caption.top {
-	padding-bottom: 4px;
+	padding-bottom:  rI(4px);
 }
 .moon-button-caption-decorator .moon-caption.bottom {
-	padding-top: 4px;
+	padding-top:  rI(4px);
 }
 
 /* Caption Decorator - Show On Focus Captions */
@@ -51,22 +51,22 @@
   	z-index: 2;
   	white-space: nowrap;
 	float: none;
-	padding: 0px;
-	margin: 0px;
+	padding:  rI(0px);
+	margin: rI(0px);
 	display: none;
 }
 .moon-button-caption-decorator.showOnFocus.spotlight .moon-caption {
 	display: block;
 }
 .moon-button-caption-decorator.showOnFocus .moon-caption.top {
-	margin-bottom: 4px;
+	margin-bottom: rI(4px);
 }
 .moon-button-caption-decorator.showOnFocus .moon-caption.right {
-	margin-left: 10px;
+	margin-left: rI(10px);
 }
 .moon-button-caption-decorator.showOnFocus .moon-caption.bottom {
-	margin-top: 4px;
+	margin-top: rI(4px);
 }
 .moon-button-caption-decorator.showOnFocus .moon-caption.left {
-	margin-right: 10px;
+	margin-right: rI(10px);
 }
