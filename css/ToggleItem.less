@@ -3,22 +3,22 @@
 	position:relative;
 
 	.moon-checkbox.moon-toggle-switch {
-		top: @moon-spotlight-outset + 1px; /* To override top:10px set by .moon-checkbox-item .moon-checkbox so the indicator vertically middle align */
-		right: @moon-spotlight-outset;
+		top: rI(@moon-spotlight-outset + 1px); /* To override top:10px set by .moon-checkbox-item .moon-checkbox so the indicator vertically middle align */
+		right: rI(@moon-spotlight-outset);
 	}
 }
 
 .moon-toggle-item .moon-toggle-item-label-wrapper {
-	margin-right: @moon-toggleswitch-margin;
+	margin-right: rI(@moon-toggleswitch-margin);
 }
 
 .enyo-locale-right-to-left .moon-toggle-item {
 	.moon-checkbox.moon-toggle-switch {
-		left: @moon-spotlight-outset;
+		left: rI(@moon-spotlight-outset);
 		right: auto;
 	}
 	.moon-toggle-item-label-wrapper {
-		margin-left: @moon-toggleswitch-margin;
-		margin-right: 0px;
+		margin-left: rI(@moon-toggleswitch-margin);
+		margin-right: rI(0px);
 	}
 }

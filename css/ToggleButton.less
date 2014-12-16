@@ -2,59 +2,59 @@
 .moon-button.moon-toggle-button {
 	text-align: center;
 	position: relative;
-	padding-right: @moon-toggle-button-text-switch-gutter + @moon-button-h-padding + @moon-toggle-button-switch-width + 2*@moon-toggle-button-switch-border-width;
+	padding-right: rI(@moon-toggle-button-text-switch-gutter + @moon-button-h-padding + @moon-toggle-button-switch-width + 2*@moon-toggle-button-switch-border-width);
 
 	&:after {
 		position: absolute;
 		content: "";
-		top: ((@moon-button-height) - @moon-toggle-button-switch-width)/2 - (@moon-button-border-width + @moon-toggle-button-switch-border-width);
-		right: @moon-button-h-padding;
-		width: @moon-toggle-button-switch-width;
-		height: @moon-toggle-button-switch-width;
-		border-radius: @moon-button-border-radius;
+		top: rI(((@moon-button-height) - @moon-toggle-button-switch-width)/2 - (@moon-button-border-width + @moon-toggle-button-switch-border-width));
+		right: rI(@moon-button-h-padding);
+		width: rI(@moon-toggle-button-switch-width);
+		height: rI(@moon-toggle-button-switch-width);
+		border-radius: rI(@moon-button-border-radius);
 		background-color: @moon-toggle-button-switch-off-bg-color;
-		border: solid @moon-toggle-button-switch-border-width @moon-toggle-button-switch-off-border-color;
+		border: solid rI(@moon-toggle-button-switch-border-width) @moon-toggle-button-switch-off-border-color;
 	}
 	&[disabled] {
-		border: @moon-button-border-width solid transparent;
+		border: rI(@moon-button-border-width) solid transparent;
 	}
 	&[disabled]:after {
 	  background-color: @moon-toggle-button-switch-disabled-bg-color;
-		border: solid @moon-toggle-button-switch-border-width @moon-toggle-button-switch-disabled-border-color;
+		border: solid rI(@moon-toggle-button-switch-border-width) @moon-toggle-button-switch-disabled-border-color;
 	}
 	&.moon-toggle-button-on {
-		border: solid 5px @moon-accent;
+		border: solid rI(5px) @moon-accent;
 	}
 	&.moon-toggle-button-on:after {
 		background-color: @moon-toggle-button-switch-on-bg-color;
-		border: solid @moon-toggle-button-switch-border-width @moon-toggle-button-switch-on-border-color;
+		border: solid rI(@moon-toggle-button-switch-border-width) @moon-toggle-button-switch-on-border-color;
 	}
 	&.small {
-		padding-right: @moon-toggle-button-text-switch-gutter + @moon-button-small-h-padding + @moon-toggle-button-switch-width + 2*@moon-toggle-button-switch-border-width;
-  
+		padding-right: rI(@moon-toggle-button-text-switch-gutter + @moon-button-small-h-padding + @moon-toggle-button-switch-width + 2*@moon-toggle-button-switch-border-width);
+
 		&:after {
-			top: ((@moon-button-small-height) - @moon-toggle-button-switch-width)/2 - (@moon-button-border-width + @moon-toggle-button-switch-border-width);
-			right: @moon-button-small-h-padding;
+			top: rI(((@moon-button-small-height) - @moon-toggle-button-switch-width)/2 - (@moon-button-border-width + @moon-toggle-button-switch-border-width));
+			right: rI(@moon-button-small-h-padding);
 		}
 	}
 }
 
 .enyo-locale-right-to-left {
 	& .moon-button.moon-toggle-button {
-		padding-right: @moon-button-h-padding;
-		padding-left: @moon-toggle-button-text-switch-gutter + @moon-button-h-padding + @moon-toggle-button-switch-width + 2*@moon-toggle-button-switch-border-width;
+		padding-right: rI(@moon-button-h-padding);
+		padding-left: rI(@moon-toggle-button-text-switch-gutter + @moon-button-h-padding + @moon-toggle-button-switch-width + 2*@moon-toggle-button-switch-border-width);
 
 		&:after {
-			left: @moon-button-h-padding;
+			left: rI(@moon-button-h-padding);
 			right: auto;
 		}
 	}
 	& .moon-button.moon-toggle-button.small {
-		padding-right: @moon-button-small-h-padding;
-		padding-left: @moon-toggle-button-text-switch-gutter + @moon-button-small-h-padding + @moon-toggle-button-switch-width + 2*@moon-toggle-button-switch-border-width;
+		padding-right: rI(@moon-button-small-h-padding);
+		padding-left: rI(@moon-toggle-button-text-switch-gutter + @moon-button-small-h-padding + @moon-toggle-button-switch-width + 2*@moon-toggle-button-switch-border-width);
 
 		&:after {
-			left: @moon-button-small-h-padding;
+			left: rI(@moon-button-small-h-padding);
 			right: auto;
 		}
 	}
