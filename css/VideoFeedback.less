@@ -1,6 +1,6 @@
 /* Feedback area */
 .moon-video-player-feedback {
-	margin-right: @moon-video-player-icon-text-gutter-width;
+	margin-right: rI(@moon-video-player-icon-text-gutter-width);
 }
 .enyo-locale-right-to-left .moon-video-player-feedback {
 	direction: rtl;
@@ -8,16 +8,16 @@
 .moon-video-feedback-text {
 	display: inline-block;
 	color: @moon-accent;
-	margin: 0;
+	margin: rI(0);
 }
 .moon-icon.moon-video-feedback-icon-left,
 .moon-icon.moon-video-feedback-icon-right {
 	display: inline-block;
-	width: @moon-video-feedback-icon-width;
-	margin: 0 0 0 @moon-video-player-icon-text-gutter-width; /* margin-right is inherited from moon-video-player-feedback */
+	width: rI(@moon-video-feedback-icon-width);
+	margin: rI(0) rI(0) rI(0) rI(@moon-video-player-icon-text-gutter-width); /* margin-right is inherited from moon-video-player-feedback */
 	color: @moon-accent;
-	font-size: @moon-video-feedback-icon-font-size;
-	line-height: @moon-video-feedback-icon-line-height; /* use line-height to middle align the icon, the defaut 32px from moon-icon will make it too low */
+	font-size: rI(@moon-video-feedback-icon-font-size);
+	line-height: rI(@moon-video-feedback-icon-line-height); /* use line-height to middle align the icon, the defaut 32px from moon-icon will make it too low */
 
 	.small-icon-tap-area {
 		line-height: inherit;
@@ -25,50 +25,50 @@
 }
 
 .moon-video-player-feedback .moon-icon.small {
-	background-position: center -3px;
+	background-position: center rI(-3px);
 }
 
 .moon-icon.moon-video-feedback-icon-left {
-	margin-left: 0;
-	margin-right: @moon-video-player-icon-text-gutter-width;
+	margin-left: rI(0);
+	margin-right: rI(@moon-video-player-icon-text-gutter-width);
 	&.moon-icon-pausejumpbackward {
-		width: @moon-video-feedback-icon-pausejumpbackward-width;
+		width: rI(@moon-video-feedback-icon-pausejumpbackward-width);
 	}
 }
 
 .moon-icon.moon-video-feedback-icon-right {
 	&.moon-icon-play {
-		font-size: @moon-video-feedback-icon-font-play-size;
-		width: @moon-video-feedback-icon-play-width;
+		font-size: rI(@moon-video-feedback-icon-font-play-size);
+		width: rI(@moon-video-feedback-icon-play-width);
 	}
 	&.moon-icon-pause {
-		font-size: @moon-video-feedback-icon-font-pause-size;
-		width: @moon-video-feedback-icon-pause-width;
+		font-size: rI(@moon-video-feedback-icon-font-pause-size);
+		width: rI(@moon-video-feedback-icon-pause-width);
 	}
 	&.moon-icon-pausejumpforward {
-		width: @moon-video-feedback-icon-pausejumpforward-width;
+		width: rI(@moon-video-feedback-icon-pausejumpforward-width);
 	}
 }
 
 .moon-video-player-feedback .moon-icon.small > .small-icon-tap-area {
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
+	top: rI(0);
+	right: rI(0);
+	bottom: rI(0);
+	left: rI(0);
 }
 .enyo-locale-non-latin .moon-video-feedback-icon-left,
 .enyo-locale-non-latin .moon-video-feedback-icon-right {
-	margin-bottom: 2px;
+	margin-bottom: rI(2px);
 }
 
 .enyo-locale-right-to-left {
 	.moon-video-player-feedback {
-		margin: 0 0 0 @moon-video-player-icon-text-gutter-width;
+		margin: rI(0) rI(0) rI(0) rI(@moon-video-player-icon-text-gutter-width);
 	}
 	.moon-icon.moon-video-feedback-icon-left {
-		margin: 0 0 0 @moon-video-player-icon-text-gutter-width;
+		margin: rI(0) rI(0) rI(0) rI(@moon-video-player-icon-text-gutter-width);
 	}
 	.moon-icon.moon-video-feedback-icon-right {
-		margin: 0 @moon-video-player-icon-text-gutter-width 0 0;
+		margin: rI(0) rI(@moon-video-player-icon-text-gutter-width) rI(0) rI(0);
 	}
 }
