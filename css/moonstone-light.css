@@ -6,9 +6,6 @@
 /* minifier to fall back to using CSS files in place of the same-name       */
 /* LESS file.                                                               */
 
-html {
-  font-size: 0.5rem;
-}
 /* ----- MISO ------ */
 @font-face {
   font-family: "Moonstone Miso";
