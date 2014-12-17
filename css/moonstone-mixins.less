@@ -1,0 +1,25 @@
+.resolution-independence(@property, @values) {
+	@convertedProperty: @property;
+	.convertLoop();
+	.convertLoop(@amount : length(@values), @i : 1) when (@i =< @amount) {
+		@value: extract(@values, @i);
+		& when not (ispixel(@value)) {
+			@remValue : @value;
+			@{convertedProperty}+_ : ~"@{remValue}";
+		}
+		& when (ispixel(@value)) {
+			@remValue : unit(@value) / @moonstone-root-size;
+			& when not (@remValue = 0) {
+				@{convertedProperty}+_ : ~"@{remValue}rem";
+			}
+			& when (@remValue = 0) {
+				@{convertedProperty}+_ : @remValue;
+			}
+		}
+		.convertLoop(@amount, (@i + 1));
+	}
+}
+
+.rI(@property, @values) {
+	.resolution-independence(@property, @values);
+}
