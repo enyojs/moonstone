@@ -10,11 +10,11 @@ enyo.kind({
 		{kind: "moon.Scroller", fit:true, components: [
 			{kind: "Repeater", count:20, classes:"moon-hspacing", onSetupItem:"setupItem", components: [
 				{
-					kind: "moon.ObjectActionDecorator", 
+					kind: "moon.ObjectActionDecorator",
 					orientation: "vertical",
 					components: [
 						{kind: "moon.Item", components: [
-							{name: 'image', kind: 'enyo.Image'}
+							{name: 'image', kind: 'moon.ImageMultiRez'}
 						]}
 					],
 					actionComponents: [
