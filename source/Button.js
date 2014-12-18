@@ -215,7 +215,7 @@
 		* @private
 		*/
 		contentUpperCaseChanged: function () {
-			this.contentChanged();
+			this.uppercaseChanged();
 		},
 
 		/**
