@@ -130,19 +130,6 @@
 			* @method
 			* @private
 			*/
-			reset: enyo.inherit(function (sup) {
-				return function (list) {
-					sup.apply(this, arguments);
-					this.updateMetrics(list);
-					list.refresh();
-					list.$.scroller.scrollTo(0, 0, false);
-				};
-			}),
-
-			/**
-			* @method
-			* @private
-			*/
 			updateBounds: enyo.inherit(function (sup) {
 				return function (list) {
 					sup.apply(this, arguments);
