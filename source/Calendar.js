@@ -144,7 +144,7 @@
 		/**
 		* Only called when [iLib]{@glossary ilib} is available. Allows the same
 		* formatter to be shared across all calendar date instances, which is more
-		* efficient than having each one make its own formatter. 
+		* efficient than having each one make its own formatter.
 		* @private
 		*/
 		setDateFormatter: function (formatter) {
@@ -161,7 +161,7 @@
 			this._dateFmt = formatter;
 			this.setContent(this._dateFmt.format(this.localeValue));
 		},
-		
+
 		/**
 		* @private
 		* @fires moon.CalendarDate#onDateSelected
@@ -203,7 +203,7 @@
 			* How many months to show. A few international calendars
 			* have more than 12 months in some years, but by default,
 			* we will use the Gregorian calendar with 12 months.
-			* 
+			*
 			* @type {Number}
 			* @default 12
 			* @public
@@ -218,7 +218,7 @@
 			this.inherited(arguments);
 		},
 
-		/** 
+		/**
 		* Shows/hides previous/next buttons based on current index.
 		*
 		* @private
@@ -255,8 +255,8 @@
 				this.showNavButton(nextButton);
 			}
 		},
-		
-		/** 
+
+		/**
 		* Cycles the selected item to the one after the currently selected item.
 		* Make sure not to cycle past the last month in the picker for this
 		* calendar.
@@ -271,7 +271,7 @@
 				if (idx > max - 1) {
 					idx = this.wrap ? 0 : max - 1;
 				}
-				if (!this.wrap && idx === max - 1 
+				if (!this.wrap && idx === max - 1
 					&& e && e.cancelHoldPulse) {
 					e.cancelHoldPulse();
 				}
@@ -377,6 +377,15 @@
 			endYear: 2200,
 
 			/**
+			* When `true`, the days will have locale-safe uppercasing applied.
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
+			uppercaseDays: true,
+
+			/**
 			*
 			* CSS classes used to decorate day labels (e.g., `'moon-divider'`).
 			*
@@ -471,7 +480,7 @@
 					length: 'short',	//it uses 2 chars to abbreviate properly
 					timezone: 'local'
 				});
-				// Create 13 months components in the month picker to take care of 
+				// Create 13 months components in the month picker to take care of
 				// the Hebrew calendar, but only show the last month in those Hebrew
 				// years that actually have 13 months
 				numberOfMonths = 13;
@@ -498,7 +507,7 @@
 			if (!this.$.dates.controls.length) {
 				for (i = 1; i <= this.maxWeeks * 7; i++) {
 					this.$.dates.createComponent({
-						kind: 'moon.CalendarDate', 
+						kind: 'moon.CalendarDate',
 						onDateSelected:'selectDate',
 						formatter: this._dateFmt // undefined if ilib is not available
 					}, {owner:this});
@@ -507,7 +516,7 @@
 		},
 
 		/**
-		* according to the value, adjust the year bounds and update the year picker 
+		* according to the value, adjust the year bounds and update the year picker
 		*
 		* @private
 		*/
@@ -530,9 +539,9 @@
 
 		/**
 		 * When [iLib]{@glossary ilib} is supported, calculates the start year in
-		 * the current calendar. Otherwise, returns the value of the 
+		 * the current calendar. Otherwise, returns the value of the
 		 * [startYear]{@link moon.Calendar#startYear} published property.
-		 * 
+		 *
 		 * @private
 		 */
 		getStartYear: function() {
@@ -553,12 +562,12 @@
 				return this.startYear;
 			}
 		},
-		
+
 		/**
 		 * When [iLib]{@glossary ilib} is supported, calculates the end year in
 		 * the current calendar. Otherwise, returns the value of the
 		 * [endYear]{@link moon.Calendar#endYear} property.
-		 * 
+		 *
 		 * @private
 		 */
 		getEndYear: function() {
@@ -579,7 +588,7 @@
 				return this.endYear;
 			}
 		},
-		
+
 		/**
 		* When [iLib]{@glossary ilib} is supported, `this.locale` is taken from the
 		* value passed in at Calendar instantiation time, or retrieved from the
@@ -592,7 +601,7 @@
 			if (typeof ilib !== 'undefined') {
 				ilib.setLocale(this.locale);
 				// the new locale may use a different calendar,
-				// so redo the local date in that new calendar 
+				// so redo the local date in that new calendar
 				// The this.value does not change, but the local date does.
 				this.localeValue = ilib.Date.newInstance({
 					unixtime: this.value.getTime(),
@@ -732,13 +741,13 @@
 				}
 				var numberOfMonths = this.cal.getNumMonths(this.localeValue.getYears());
 				var monthPickerControls = this.$.monthPicker.getClientControls();
-				
+
 				// show the 13th month for those calendars that use it, and only in those
 				// years that use it
 				this.$.monthPicker.setMonths(numberOfMonths);
-				
-				// this depends on the year because some calendars have 12 or 13 months, 
-				// depending on which year it is 
+
+				// this depends on the year because some calendars have 12 or 13 months,
+				// depending on which year it is
 				var monthNames = this._monthFmt.getMonthsOfYear({
 					year: this.localeValue.getYears(),
 					length: 'long'
@@ -762,22 +771,24 @@
 		*/
 		updateDays: function () {
 			if (typeof(this._dayFmt) === 'undefined' && typeof ilib !== 'undefined') {
-				this._dayFmt = new ilib.DateFmt({					
+				this._dayFmt = new ilib.DateFmt({
 					type: 'date',	//only format the date component, not the time
 					date: 'w',		//'w' is the day of the week
 					useNative: false,
 					length: this.dayOfWeekLength,
-					locale: this.locale					
+					locale: this.locale
 				});
 			}
 
 			var daysControls = this.$.days.getClientControls(),
-				daysOfWeek = this._dayFmt.getDaysOfWeek();
+				daysOfWeek = this._dayFmt.getDaysOfWeek(),
+				dayOfWeek;
 			for(var i = 0; i < 7; i++) {
+				dayOfWeek = (this.firstDayOfWeek + i) % 7;
 				if (typeof ilib !== 'undefined') {
-					daysControls[i].setContent(enyo.toUpperCase(daysOfWeek[(this.firstDayOfWeek + i) % 7]));
+					daysControls[i].setContent(this.get('uppercaseDays') ? enyo.toUpperCase(daysOfWeek[dayOfWeek]) : daysOfWeek[dayOfWeek]);
 				} else {
-					daysControls[i].setContent(this.days[(this.firstDayOfWeek + i) % 7]);
+					daysControls[i].setContent(this.days[dayOfWeek]);
 				}
 			}
 		},
@@ -801,13 +812,13 @@
 					day: 1,
 					timezone: 'local'
 				});
-				
+
 				// find the week-start day on or before the first of the month
 				var sunday = dt.onOrBefore(this.firstDayOfWeek);
-				
+
 				// if the sunday is before the current date
 				var sunJD = sunday.getJulianDay();
-				var daysBefore = Math.floor(dt.getJulianDay() - sunJD); 
+				var daysBefore = Math.floor(dt.getJulianDay() - sunJD);
 				if (daysBefore > 0) {
 					dates = this.$.dates.getControls();
 					var temp;
@@ -854,7 +865,7 @@
 			var startIndex = datesOfPrevMonth + monthLength,
 				dates = this.$.dates.getControls(),
 				i;
-			
+
 			if (typeof ilib !== 'undefined') {
 				var lastDay = ilib.Date.newInstance({
 					year: this.localeValue.getYears(),
@@ -898,7 +909,7 @@
 				dates,
 				temp,
 				i;
-			
+
 			if (typeof ilib !== 'undefined') {
 				thisYear = this.localeValue.getYears();
 				thisMonth = this.localeValue.getMonths();
@@ -941,27 +952,27 @@
 				if (this.localeValue.getYears() != newYear) {
 					month = this.localeValue.getMonths();
 					day = this.localeValue.getDays();
-					
+
 					newMonthLength = this.getMonthLength(newYear, month);
-					
+
 					this.localeValue = ilib.Date.newInstance({
 						year: newYear,
 						month: month,
 						day: (day > newMonthLength) ? newMonthLength : day,
 						timezone: 'local'
 					});
-					
+
 					this.setValue(this.localeValue.getJSDate());
-					
+
 					// Some years have a different number of months in other calendars,
 					// so we need to make sure to update the month names in the picker
-					this.updateMonthPicker(); 
+					this.updateMonthPicker();
 				}
 			} else {
 				if (this.value.getFullYear() != newYear) {
 					month = this.value.getMonth();
 					day = this.value.getDate();
-					
+
 					newMonthLength = this.getMonthLength(newYear, month);
 					var newValue = new Date(newYear, month, (newMonthLength < day) ? newMonthLength : day);
 					this.setValue(newValue);
@@ -973,7 +984,7 @@
 		* @private
 		*/
 		setMonth: function (newMonth) {
-			var year, 
+			var year,
 				day,
 				newMonthLength,
 				value,
@@ -984,16 +995,16 @@
 				if (this.localeValue.getMonths() != newMonth) {
 					year = this.localeValue.getYears();
 					day = this.localeValue.getDays();
-					
+
 					newMonthLength = this.getMonthLength(year, newMonth);
-					
+
 					this.localeValue = ilib.Date.newInstance({
 						year: year,
 						month: newMonth,
 						day: (day > newMonthLength) ? newMonthLength : day,
 						timezone: 'local'
 					});
-					
+
 					this.setValue(this.localeValue.getJSDate());
 				}
 			} else {
@@ -1010,7 +1021,7 @@
 		* @private
 		*/
 		setDate: function (newDate) {
-			var year, 
+			var year,
 				month,
 				newMonthLength,
 				value,
@@ -1019,16 +1030,16 @@
 			if (typeof ilib !== 'undefined') {
 				year = this.localeValue.getYears();
 				month = this.localeValue.getMonths();
-				
+
 				newMonthLength = this.getMonthLength(year, month);
-				
+
 				this.localeValue = ilib.Date.newInstance({
 					year: year,
 					month: month,
 					day: (newDate > newMonthLength) ? newMonthLength : newDate,
 					timezone: 'local'
 				});
-				
+
 				this.setValue(this.localeValue.getJSDate());
 			} else {
 				value = this.value;

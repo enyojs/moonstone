@@ -7,7 +7,7 @@ enyo.kind({
 			{classes: "moon-toggle-button-sample-wrapper", components: [
 				{kind: "moon.Divider", content: "Toggle Buttons:"},
 				{kind: "moon.ToggleButton", toggleOnLabel: "wifi is on", toggleOffLabel: "wifi is off", ontap: "buttonTapped"},
-				{kind: "moon.ToggleButton", contentUpperCase : false, toggleOnLabel: "Internet connected", toggleOffLabel: "Internet disconnected", ontap: "buttonTapped"},
+				{kind: "moon.ToggleButton", uppercase: false, toggleOnLabel: "Internet connected", toggleOffLabel: "Internet disconnected", ontap: "buttonTapped"},
 				{kind: "moon.ToggleButton", disabled: true, toggleOnLabel: "Disabled Active Button", toggleOffLabel: "Disabled Inactive Button", ontap: "buttonTapped"},
 				{kind: "moon.ToggleButton", disabled: true, value: true, content: "Disabled Active Button", ontap: "buttonTapped"},
 				{kind: "moon.ToggleButton", content: "Set-top box", ontap: "buttonTapped"},
@@ -46,7 +46,7 @@ enyo.kind({
 		{kind: "moon.BodyText", name: "notice", content: "No action yet."}
 	],
 	buttonTapped: function(inSender, inEvent) {
-		var labeltext = inSender.contentUpperCase ? enyo.toUpperCase(inSender.getContent()) : inSender.getContent();
+		var labeltext = inSender.get('uppercase') ? enyo.toUpperCase(inSender.getContent()) : inSender.getContent();
 		var postString = inSender.value ? ' is selected' : ' is unselected';
 		if (!inSender.toggleOnLabel || !inSender.toggleOffLabel) {
 			labeltext='"'+labeltext+'"' + postString;
