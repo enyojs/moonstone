@@ -9,6 +9,12 @@
 html {
   font-size: 12px;
 }
+/* 720p screen size */
+@media only screen and (max-width: 1280px) {
+  html {
+    font-size: 8px;
+  }
+}
 /* ----- MISO ------ */
 @font-face {
   font-family: "Moonstone Miso";
