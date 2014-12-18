@@ -55,6 +55,7 @@ enyo.depends(
 	"ImageBadgeSample.js",
 	"ImageItemSample.css",
 	"ImageItemSample.js",
+	"ImageSample.js",
 	"InputHeaderSample.js",
 	"InputSample.css",
 	"InputSample.js",
