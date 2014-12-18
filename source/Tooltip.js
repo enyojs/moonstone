@@ -127,6 +127,15 @@
 			* @default true
 			* @public
 			*/
+			uppercase: true,
+
+			/**
+			* @deprecated Replaced by [uppercase]{@link moon.Tooltip#uppercase}.
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
 			contentUpperCase: true
 		},
 
@@ -172,14 +181,21 @@
 		contentChanged: function () {
 			this.detectTextDirectionality();
 			var content = this.getContent();
-			this.$.client.setContent( this.getContentUpperCase() ? enyo.toUpperCase(content) : content);
+			this.$.client.setContent( this.get('uppercase') ? enyo.toUpperCase(content) : content);
+		},
+
+		/**
+		* @private
+		*/
+		uppercaseChanged: function () {
+			this.contentChanged();
 		},
 
 		/**
 		* @private
 		*/
 		contentUpperCaseChanged: function () {
-			this.contentChanged();
+			this.uppercaseChanged();
 		},
 
 		/**
