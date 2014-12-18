@@ -157,7 +157,7 @@
 			{name: 'backgroundScrim', kind: 'enyo.Control', classes: 'moon-panels-background-scrim'},
 			{name: 'clientWrapper', kind: 'enyo.Control', classes: 'enyo-fill enyo-arranger moon-panels-client', components: [
 				{name: 'scrim', classes: 'moon-panels-panel-scrim', components: [
-					{name: 'branding', kind: 'enyo.Image', sizing: 'contain', classes: 'moon-panels-branding'}
+					{name: 'branding', kind: 'moon.ImageMultiRez', sizing: 'contain', classes: 'moon-panels-branding'}
 				]},
 				{name: 'client', tag: null}
 			]},
@@ -1209,7 +1209,7 @@
 		/*
 		* We override getAbsoluteShowing so that the handle's spottability is not dependent on the
 		* showing state of its parent, the {@link moon.Panels} control.
-		* 
+		*
 		* @private
 		*/
 		getAbsoluteShowing: function (ignoreBounds) {
