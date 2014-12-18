@@ -47,4 +47,14 @@
 		return bestMatch;
 	};
 
+	scope.moon.setScreenTypeOnBody = function () {
+		var type = this.getScreenType();
+		if (type) {
+			enyo.dom.addBodyClass('moon-res-' + type.toLowerCase());
+			return type;
+		}
+	};
+
+	scope.moon.setScreenTypeOnBody();
+
 })(enyo, this);
