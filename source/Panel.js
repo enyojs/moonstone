@@ -226,6 +226,16 @@
 		/**
 		* @private
 		*/
+		preventTransform: !moon.config.accelerate,
+
+		/**
+		* @private
+		*/
+		preventAccelerate: !moon.config.accelerate,
+
+		/**
+		* @private
+		*/
 		panelTools : [
 			{name: 'breadcrumb', ontap: 'handleBreadcrumbTap', classes: 'moon-panel-breadcrumb', components: [
 				{name: 'breadcrumbViewport', classes: 'moon-panel-breadcrumb-viewport', components: [
@@ -300,6 +310,14 @@
 		growing: false,
 
 		/**
+		* Set by {@link moon.BreadcrumbArranger} during {@link moon.BreadcrumbArranger#size}
+		* based on the value of {@link moon.Panels#animate}. 
+		*
+		* @private
+		*/
+		animate: !moon.config.accelerate,
+
+		/**
 		* @private
 		*/
 		create: function () {
@@ -313,6 +331,7 @@
 			// Note: This line will be deprecated soon. For backward compatiblity, I leave it for a while.
 			this.smallHeaderChanged();
 			this.headerTypeChanged();
+			this.animateChanged();
 		},
 
 		/**
@@ -417,6 +436,13 @@
 					this.expandHeader();
 				}
 			}
+		},
+
+		/**
+		* @private
+		*/
+		animateChanged: function () {
+			this.addRemoveClass('moon-composite', this.animate);
 		},
 
 		/**
