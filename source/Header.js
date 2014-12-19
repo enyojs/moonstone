@@ -597,7 +597,7 @@
 				// Measure client area's width + 40px of spacing
 				client = this.$.client ? this.$.client.hasNode() : null,
 				clientWidth = client ? client.offsetWidth : null,
-				clientSpace = (clientWidth + 40) + 'px',
+				clientSpace = enyo.dom.unit(clientWidth + 40, 'rem'),
 				rtl = this.rtl;
 
 			if (client) {

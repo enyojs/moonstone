@@ -5,18 +5,26 @@
 	* @private
 	*/
 	scope.moon = scope.moon || {};
+
+	var baseScreenType = 'fhd';
+
 	/**
 	* A hash-store of all of our detectable screen types in incrementing sizes.
 	*
 	* @public
 	*/
-
-	// Screen types in incrementing sizes
 	scope.moon.screenTypes = [
-		{name: 'hd',    height: 720, width: 1280},
-		{name: 'fhd',   height: 1080, width: 1920},
-		{name: 'uhd',   height: 2160, width: 3840}
+		{name: 'hd',    pxPerRem: 8,  height: 720,  width: 1280},
+		{name: 'fhd',   pxPerRem: 12, height: 1080, width: 1920},
+		{name: 'uhd',   pxPerRem: 24, height: 2160, width: 3840}
 	];
+
+	var getScreenTypeObject = function (name) {
+		var types = scope.moon.screenTypes;
+		return types.filter(function (elem) {
+			return (name == elem.name);
+		})[0];
+	};
 
 	/**
 	* Fetches the best-matching screen type name for the current screen size. The "best" screen type
@@ -33,11 +41,12 @@
 			height: scope.innerHeight,
 			width: scope.innerWidth
 		};
-		var types = this.screenTypes,
+		var i,
+			types = this.screenTypes,
 			bestMatch = types[types.length - 1].name;
 
 		// loop thorugh resolutions
-		for (var i = types.length - 1; i >= 0; i--) {
+		for (i = types.length - 1; i >= 0; i--) {
 			// find the one that matches our current size or is smaller. default to the first.
 			if (rez.width <= types[i].width) {
 				bestMatch = types[i].name;
@@ -47,14 +56,31 @@
 		return bestMatch;
 	};
 
-	scope.moon.setScreenTypeOnBody = function () {
-		var type = this.getScreenType();
+	scope.moon.updateScreenTypeOnBody = function (type) {
+		type = type || this.getScreenType();
 		if (type) {
 			enyo.dom.addBodyClass('moon-res-' + type.toLowerCase());
 			return type;
 		}
 	};
 
-	scope.moon.setScreenTypeOnBody();
+	scope.moon.getRemRatio = function (type) {
+		type = type || this.getScreenType();
+		if (type) {
+			return this.getUnitToPixelFactors(type) / baseScreenType;
+		}
+		return 1;
+	};
+
+	scope.moon.getUnitToPixelFactors = function (type) {
+		type = type || this.getScreenType();
+		if (type) {
+			return getScreenTypeObject(type).pxPerRem;
+		}
+		return 1;
+	};
+
+	scope.moon.updateScreenTypeOnBody();
+	enyo.dom.unitToPixelFactors.rem = scope.moon.getUnitToPixelFactors();
 
 })(enyo, this);

@@ -99,7 +99,7 @@
 			for (i = 0; i < panels.length; i++) {
 				// If panels have already been stretched, unstretch them before doing calculations
 				if (panels[i].actualWidth) {
-					panels[i].applyStyle('width', panels[i].width + 'px');
+					panels[i].applyStyle('width', enyo.dom.unit(panels[i].width, 'rem'));
 				}
 
 				panels[i].set('animate', this.container.animate);
@@ -206,7 +206,7 @@
 
 			for (var panelIndex = 0; panelIndex < panels.length; panelIndex++) {
 				for (var index = 0; index < panels.length; index++) {
-					tp[panelIndex + '.' + index] = this.calculateXPos(panelIndex, index, containerWidth, joinedPanels);
+					tp[panelIndex + '.' + index] = enyo.dom.unit( this.calculateXPos(panelIndex, index, containerWidth, joinedPanels), 'rem');
 				}
 			}
 
@@ -353,7 +353,7 @@
 		applyUpdatedWidths: function () {
 			var panels = this.container.getPanels();
 			for (var i = 0; i < panels.length; i++) {
-				panels[i].applyStyle('width', panels[i].actualWidth + 'px');
+				panels[i].applyStyle('width', enyo.dom.unit(panels[i].actualWidth, 'rem'));
 			}
 		},
 
