@@ -360,10 +360,10 @@
 				return;
 			}
 
-			this.$.viewport.applyStyle('height', this.initialHeight + 'px');
-			this.$.viewport.applyStyle('width', this.initialWidth + 'px');
-			this.$.contentWrapper.applyStyle('height', this.initialHeight + 'px');
-			this.$.contentWrapper.applyStyle('width', this.initialWidth + 'px');
+			this.$.viewport.applyStyle('height', enyo.dom.unit(this.initialHeight, 'rem'));
+			this.$.viewport.applyStyle('width', enyo.dom.unit(this.initialWidth, 'rem'));
+			this.$.contentWrapper.applyStyle('height', enyo.dom.unit(this.initialHeight, 'rem'));
+			this.$.contentWrapper.applyStyle('width', enyo.dom.unit(this.initialWidth, 'rem'));
 		},
 
 		/**

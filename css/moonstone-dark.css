@@ -15,6 +15,11 @@ html {
     font-size: 8px;
   }
 }
+@media only screen and (min-width: 2560px) {
+  html {
+    font-size: 24px;
+  }
+}
 /* ----- MISO ------ */
 @font-face {
   font-family: "Moonstone Miso";
@@ -3128,7 +3133,7 @@ html {
 }
 .moon-panels-handle.spotlight:before {
   background-color: #cf0652;
-  -webkit-transform: translate3d(-120px, 0, 0);
+  -webkit-transform: translate3d(-10rem, 0, 0);
 }
 .moon-panels-handle.stashed:before {
   opacity: 0;
@@ -3390,8 +3395,8 @@ html {
 		to set pointer events to auto or scrim will not function as expected.
 	*/
   pointer-events: none;
-  -webkit-transform: translateZ(0px);
-  transform: translateZ(0px);
+  -webkit-transform: translateZ(0rem);
+  transform: translateZ(0rem);
 }
 .moon-scrim.moon-scrim-translucent {
   pointer-events: auto;
@@ -3518,7 +3523,7 @@ html {
   top: 2.4166666666666665rem;
   left: -0.16666667rem;
   border-top: 2.41666667rem solid #4d4d4d;
-  clip: rect(30px, 24px, 38px, 2px);
+  clip: rect(2.5rem, 2rem, 3.16666667rem, 0.16666667rem);
   border-radius: 833.25rem;
 }
 /* .above .right-arrow nub shape */
@@ -3529,7 +3534,7 @@ html {
   top: 2.4166666666666665rem;
   right: -0.16666667rem;
   border-top: 2.41666667rem solid #4d4d4d;
-  clip: rect(30px, 82px, 38px, 56px);
+  clip: rect(2.5rem, 6.83333333rem, 3.16666667rem, 4.66666667rem);
   border-radius: 833.25rem;
 }
 /* .below .left-arrow nub shape */
@@ -3540,7 +3545,7 @@ html {
   top: -4.16666667rem;
   left: -0.16666667rem;
   border-bottom: 2.41666667rem solid #4d4d4d;
-  clip: rect(2px, 24px, 60px, 2px);
+  clip: rect(0.16666667rem, 2rem, 5rem, 0.16666667rem);
   border-radius: 833.25rem;
 }
 /* .below .right-arrow nub shape */
@@ -3551,7 +3556,7 @@ html {
   top: -4.16666667rem;
   right: -0.16666667rem;
   border-bottom: 2.41666667rem solid #4d4d4d;
-  clip: rect(2px, 82px, 60px, 56px);
+  clip: rect(0.16666667rem, 6.83333333rem, 5rem, 4.66666667rem);
   border-radius: 833.25rem;
 }
 /* AudioPlayback.css */
