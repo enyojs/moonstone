@@ -363,7 +363,7 @@
 		*/
 		reflow: function () {
 			this.inherited(arguments);
-			// this.getInitAnimationValues();
+			this.getInitAnimationValues();
 			this.updateViewportSize();
 			this.shrinkAsNeeded();
 		},
@@ -705,15 +705,15 @@
 		* Was protected
 		* @private
 		*/
-		// getInitAnimationValues: function () {
-		// 	var node = this.hasNode(),
-		// 		paddingT = parseInt(enyo.dom.getComputedStyleValue(node, 'padding-top'), 10),
-		// 		paddingR = parseInt(enyo.dom.getComputedStyleValue(node, 'padding-right'), 10),
-		// 		paddingB = parseInt(enyo.dom.getComputedStyleValue(node, 'padding-bottom'), 10),
-		// 		paddingL = parseInt(enyo.dom.getComputedStyleValue(node, 'padding-left'), 10);
-		// 	this.initialHeight = node.offsetHeight - paddingT - paddingB;
-		// 	this.initialWidth = node.offsetWidth   - paddingR - paddingL;
-		// },
+		getInitAnimationValues: function () {
+			var node = this.hasNode(),
+				paddingT = parseInt(enyo.dom.getComputedStyleValue(node, 'padding-top'), 10),
+				paddingR = parseInt(enyo.dom.getComputedStyleValue(node, 'padding-right'), 10),
+				paddingB = parseInt(enyo.dom.getComputedStyleValue(node, 'padding-bottom'), 10),
+				paddingL = parseInt(enyo.dom.getComputedStyleValue(node, 'padding-left'), 10);
+			this.initialHeight = node.offsetHeight - paddingT - paddingB;
+			this.initialWidth = node.offsetWidth   - paddingR - paddingL;
+		},
 
 		/**
 		* @private
