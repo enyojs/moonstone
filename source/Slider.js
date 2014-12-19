@@ -436,7 +436,7 @@
 		* @private
 		*/
 		updatePopupOffset: function() {
-			this.$.popup.applyStyle('top', -(this.getPopupHeight() + this.getPopupOffset() + 5) + 'px');
+			this.$.popup.applyStyle('top', enyo.dom.unit(-(this.getPopupHeight() + this.getPopupOffset() + 5), 'rem'));
 		},
 
 		/**
@@ -456,7 +456,7 @@
 		*/
 		popupWidthChanged: function() {
 			if (this.popupWidth != 'auto') {
-				this.$.popupLabel.applyStyle('width', this.getPopupWidth() - (this.popupLeftCanvasWidth + this.popupRightCanvasWidth) + 'px');
+				this.$.popupLabel.applyStyle('width', enyo.dom.unit( this.getPopupWidth() - (this.popupLeftCanvasWidth + this.popupRightCanvasWidth) , 'rem'));
 			}
 		},
 
@@ -464,12 +464,17 @@
 		* @private
 		*/
 		updatePopupHeight: function() {
-			var h = this.getPopupHeight();
-			this.$.drawingLeft.setAttribute('height', h);
-			this.$.drawingRight.setAttribute('height', h);
-			this.$.popupLabel.applyStyle('height', h - 7 + 'px');
-			this.$.popup.applyStyle('height', h + 'px');
-			this.$.popup.applyStyle('line-height', h - 6 + 'px');
+			var h = this.getPopupHeight(),
+				hRem = this.remScale(h);
+			this.$.drawingLeft.setAttribute('height', hRem);
+			this.$.drawingRight.setAttribute('height', hRem);
+			this.$.popupLabel.applyStyle('height', enyo.dom.unit(h - 7, 'rem'));
+			this.$.popup.applyStyle('height', enyo.dom.unit(h, 'rem'));
+			this.$.popup.applyStyle('line-height', enyo.dom.unit(h - 6, 'rem'));
+		},
+
+		remScale: function (px) {
+			return parseFloat( moon.getRemRatio() ) * px;
 		},
 
 		/**

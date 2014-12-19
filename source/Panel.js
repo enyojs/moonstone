@@ -363,7 +363,7 @@
 		*/
 		reflow: function () {
 			this.inherited(arguments);
-			this.getInitAnimationValues();
+			// this.getInitAnimationValues();
 			this.updateViewportSize();
 			this.shrinkAsNeeded();
 		},
@@ -379,10 +379,10 @@
 				return;
 			}
 
-			this.$.viewport.applyStyle('height', this.initialHeight + 'px');
-			this.$.viewport.applyStyle('width', this.initialWidth + 'px');
-			this.$.contentWrapper.applyStyle('height', this.initialHeight + 'px');
-			this.$.contentWrapper.applyStyle('width', this.initialWidth + 'px');
+			this.$.viewport.applyStyle('height', enyo.dom.unit(this.initialHeight, 'rem'));
+			this.$.viewport.applyStyle('width', enyo.dom.unit(this.initialWidth, 'rem'));
+			this.$.contentWrapper.applyStyle('height', enyo.dom.unit(this.initialHeight, 'rem'));
+			this.$.contentWrapper.applyStyle('width', enyo.dom.unit(this.initialWidth, 'rem'));
 		},
 
 		/**
@@ -705,15 +705,15 @@
 		* Was protected
 		* @private
 		*/
-		getInitAnimationValues: function () {
-			var node = this.hasNode(),
-				paddingT = parseInt(enyo.dom.getComputedStyleValue(node, 'padding-top'), 10),
-				paddingR = parseInt(enyo.dom.getComputedStyleValue(node, 'padding-right'), 10),
-				paddingB = parseInt(enyo.dom.getComputedStyleValue(node, 'padding-bottom'), 10),
-				paddingL = parseInt(enyo.dom.getComputedStyleValue(node, 'padding-left'), 10);
-			this.initialHeight = node.offsetHeight - paddingT - paddingB;
-			this.initialWidth = node.offsetWidth   - paddingR - paddingL;
-		},
+		// getInitAnimationValues: function () {
+		// 	var node = this.hasNode(),
+		// 		paddingT = parseInt(enyo.dom.getComputedStyleValue(node, 'padding-top'), 10),
+		// 		paddingR = parseInt(enyo.dom.getComputedStyleValue(node, 'padding-right'), 10),
+		// 		paddingB = parseInt(enyo.dom.getComputedStyleValue(node, 'padding-bottom'), 10),
+		// 		paddingL = parseInt(enyo.dom.getComputedStyleValue(node, 'padding-left'), 10);
+		// 	this.initialHeight = node.offsetHeight - paddingT - paddingB;
+		// 	this.initialWidth = node.offsetWidth   - paddingR - paddingL;
+		// },
 
 		/**
 		* @private
