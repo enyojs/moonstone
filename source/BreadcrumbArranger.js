@@ -205,7 +205,7 @@
 
 			for (var panelIndex = 0; panelIndex < panels.length; panelIndex++) {
 				for (var index = 0; index < panels.length; index++) {
-					tp[panelIndex + '.' + index] = enyo.dom.unit( this.calculateXPos(panelIndex, index, containerWidth, joinedPanels), 'rem');
+					tp[panelIndex + '.' + index] = this.calculateXPos(panelIndex, index, containerWidth, joinedPanels);
 				}
 			}
 
@@ -217,6 +217,7 @@
 		*/
 		calculateXPos: function (panelIndex, index, containerWidth, joinedPanels) {
 			var breadcrumbEdge = this.getBreadcrumbEdge(index),
+				breadcrumbWidth = moon.remScale(this.breadcrumbWidth),
 				panels = this.container.getPanels(),
 				xPos,
 				i,
@@ -228,7 +229,7 @@
 					patternOffset = breadcrumbEdge;
 				}
 				else {
-					patternOffset = breadcrumbEdge - this.breadcrumbWidth;
+					patternOffset = breadcrumbEdge - breadcrumbWidth;
 				}
 				patternOffset/= 2;
 			}
@@ -239,7 +240,7 @@
 
 			// breadcrumbed panels should be positioned to the left
 			} else if (index > panelIndex) {
-				return breadcrumbEdge - (index - panelIndex) * this.breadcrumbWidth - this.getBreadcrumbGap()/2 - patternOffset;
+				return breadcrumbEdge - (index - panelIndex) * breadcrumbWidth - this.getBreadcrumbGap()/2 - patternOffset;
 
 			// upcoming panels should be layed out to the right if _joinToPrev_ is true
 			} else {
@@ -268,7 +269,7 @@
 		recalculatePanelTransitionPositions: function (panelIndex, containerWidth, joinedPanels) {
 			var panels = this.container.getPanels();
 			for (var i = 0; i < panels.length; i++) {
-				this.container.transitionPositions[panelIndex + '.' + i] = this.calculateXPos(panelIndex, i, containerWidth, joinedPanels);
+				this.container.transitionPositions[panelIndex + '.' + i] = enyo.dom.unit(this.calculateXPos(panelIndex, i, containerWidth, joinedPanels), 'rem');
 			}
 		},
 
@@ -417,7 +418,7 @@
 				if (xPos < 0) {
 					// lets check if its fully off.
 					var containerPadding = this.getContainerPadding();
-					if (xPos <= ((this.breadcrumbWidth - containerPadding.left) * -1)) {
+					if (xPos <= ((moon.remScale(this.breadcrumbWidth) - containerPadding.left) * -1)) {
 						// Its visible portion is, so lets nudge it off entirely so it can't be
 						// highlighted using just its non-visible edge
 						xPos -= containerPadding.right;
@@ -437,7 +438,7 @@
 			var transitionPosition = this.container.transitionPositions[panelIndex + '.' + activeIndex];
 			var screenEdge = this.container.panelCoverRatio == 1 ? this.getBreadcrumbEdge(panelIndex) : 0;
 			if (transitionPosition < 0) {
-				return transitionPosition + this.breadcrumbWidth <= screenEdge;
+				return transitionPosition + moon.remScale(this.breadcrumbWidth) <= screenEdge;
 			} else {
 				return transitionPosition >= this.containerBounds.width;
 			}
@@ -456,7 +457,7 @@
 		calcBreadcrumbEdges: function () {
 			this.breadcrumbEdges = [];
 			for (var i = 0, panel; (panel = this.container.getPanels()[i]); i++) {
-				this.breadcrumbEdges[i] = (i === 0) ? 0 : this.breadcrumbWidth;
+				this.breadcrumbEdges[i] = (i === 0) ? 0 : moon.remScale(this.breadcrumbWidth);
 			}
 		},
 
@@ -484,7 +485,7 @@
 				leftMargin += containerPadding.left + containerPadding.right;
 			}
 			if (this.container.showFirstBreadcrumb && index !== 0) {
-				leftMargin += this.breadcrumbWidth;
+				leftMargin += moon.remScale(this.breadcrumbWidth);
 			}
 			return leftMargin;
 		},
@@ -498,7 +499,7 @@
 				padding = this.getContainerPadding();
 
 			for (var i = 0, panel; (panel = panels[i]); i++) {
-				panel.setBounds({top: padding.top, bottom: padding.bottom});
+				panel.setBounds({top: enyo.dom.unit(padding.top, 'rem'), bottom: enyo.dom.unit(padding.bottom, 'rem')});
 			}
 		},
 

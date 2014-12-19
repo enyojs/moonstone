@@ -67,7 +67,7 @@
 	scope.moon.getRemRatio = function (type) {
 		type = type || this.getScreenType();
 		if (type) {
-			return this.getUnitToPixelFactors(type) / baseScreenType;
+			return this.getUnitToPixelFactors(type) / this.getUnitToPixelFactors(baseScreenType);
 		}
 		return 1;
 	};
@@ -79,6 +79,11 @@
 		}
 		return 1;
 	};
+
+	scope.moon.remScale = function (px) {
+		return this.getRemRatio() * px;
+	};
+
 
 	scope.moon.updateScreenTypeOnBody();
 	enyo.dom.unitToPixelFactors.rem = scope.moon.getUnitToPixelFactors();
