@@ -261,9 +261,9 @@
 					this.removeClass('below');
 					this.addClass('above');
 					if (this.get('floating')) {
-						this.applyPosition({'top': (acBounds.top - b.height - 5) + 'px', 'left': acBounds.left + acBounds.width / 2 + 'px', 'right': 'auto'});
+						this.applyPosition({'top': enyo.dom.unit((acBounds.top - b.height - 5),'rem'), 'left': enyo.dom.unit(acBounds.left + acBounds.width / 2, 'rem'), 'right': 'auto'});
 					} else {
-						this.applyPosition({'top': -(b.height + 5 + paTopDiff) + 'px', 'left': acBounds.width / 2 + paLeftDiff + 'px', 'right': 'auto'});
+						this.applyPosition({'top': enyo.dom.unit(-(b.height + 5 + paTopDiff), 'rem'), 'left': enyo.dom.unit(acBounds.width / 2 + paLeftDiff, 'rem'), 'right': 'auto'});
 					}
 				}
 
@@ -285,11 +285,11 @@
 					//* use the right-arrow
 					this.removeClass('left-arrow');
 					this.addClass('right-arrow');
-					this.applyPosition({'margin-left': - b.width + 'px', 'left': 'auto'});
+					this.applyPosition({'margin-left': enyo.dom.unit(- b.width, 'rem'), 'left': 'auto'});
 					if (this.floating) {
-						this.applyStyle('right', acBounds.width / 2 + acRight + moonDefaultPadding + 'px');
+						this.applyStyle('right', enyo.dom.unit(acBounds.width / 2 + acRight + moonDefaultPadding, 'rem'));
 					} else {
-						this.applyStyle('right', acBounds.width / 2 + paRightDiff + 'px');
+						this.applyStyle('right', enyo.dom.unit(acBounds.width / 2 + paRightDiff, 'rem'));
 					}
 				} else {
 					this.removeClass('right-arrow');
