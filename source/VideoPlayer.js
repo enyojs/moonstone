@@ -1720,13 +1720,13 @@
 				// Case 2: Automatic resize based on video aspect ratio (fixed height):
 				// Case 4: Fixed aspect ratio provided by user (fixed-height):
 				ratio = videoAspectRatio[0] / videoAspectRatio[1];
-				this.applyStyle('width', enyo.dom.unit(parseInt(height, 10) * ratio), 'rem');
+				this.applyStyle('width', enyo.dom.unit(parseInt(height, 10) * ratio, 'rem'));
 			// If fixedHeight is false, update height based on aspect ratio
 			} else if (!this.fixedHeight) {
 				// Case 1: Automatic resize based on video aspect ratio (fixed width):
 				// Case 3: Fixed aspect ratio provided by user (fixed-width):
 				ratio = videoAspectRatio[1] / videoAspectRatio[0];
-				this.applyStyle('height', enyo.dom.unit(parseInt(width, 10) * ratio), 'rem');
+				this.applyStyle('height', enyo.dom.unit(parseInt(width, 10) * ratio, 'rem'));
 			}
 		},
 
