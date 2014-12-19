@@ -387,7 +387,10 @@
 		},
 
 		/**
-		* @private
+		* Closes the Popup, and returns Spotlight spot to the activator of the popup.
+		*
+		* @method
+		* @public
 		*/
 		closePopup: function (inSender, inEvent) {
 			this.$.closeButton.removeClass('pressed');
