@@ -21,7 +21,7 @@
 	/**
 	* {@link moon.Drawers} is a container kind designed to hold a set of {@link moon.Drawer}
 	* objects and client content. The [drawers]{@link moon.Drawers#drawers} property accepts
-	* an array of Drawer controls. The associated [handles]{@link moon.DrawerHandle} are
+	* an array of Drawer controls. The associated handles are
 	* positioned in their own small drawer, centered at the top of the "dresser" (the region
 	* containing the array of Drawer controls and the activator nub).
 	*
@@ -37,7 +37,7 @@
 	* 		{
 	* 			name: 'musicDrawer',
 	* 			kind: 'moon.Drawer',
-	* 			handle: {kind: 'moon.DrawerHandle', content: 'Handle'},
+	* 			handle: {name: 'drawerHandle', content: 'Handle'},
 	* 			components: [
 	* 				{content: 'Drawer Content'}
 	* 			],

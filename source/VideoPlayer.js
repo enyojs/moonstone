@@ -1,6 +1,6 @@
 (function (enyo, scope) {
 	/**
-	* Fires when [disablePlaybackControls]{@link enyo.VideoPlayer#disablePlaybackControls} 
+	* Fires when [disablePlaybackControls]{@link moon.VideoPlayer#disablePlaybackControls} 
 	* is `true` and the user taps one of the [controls]{@link enyo.Control}; may be handled to 
 	* re-enable the controls, if desired. No event-specific information is sent with this event.
 	*
@@ -352,7 +352,7 @@
 			/**
 			* If `true`, the slider and playback controls are disabled. If the user taps the 
 			* controls, an 
-			* [onPlaybackControlsTapped]{@link enyo.VideoPlayer#event:onPlaybackControlsTapped} 
+			* [onPlaybackControlsTapped]{@link moon.VideoPlayer#onPlaybackControlsTapped} 
 			* event will be bubbled.
 			*
 			* @type {Boolean}

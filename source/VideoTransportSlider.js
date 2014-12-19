@@ -60,10 +60,10 @@
 	* {kind: 'moon.VideoTransportSlider', value: 30}
 	* ```
 	*
-	* The [onSeekStart]{@link moon.VideoTransportSlider#event:onSeekStart} event is fired while
+	* The [onSeekStart]{@link moon.VideoTransportSlider#onSeekStart} event is fired while
 	* the control knob is being dragged, the
-	* [onSeekFinish]{@link moon.VideoTransportSlider#event:onSeekFinish} event is fired when the
-	* drag finishes, and the [onSeek]{@link moon.VideoTransportSlider#event:onSeek} event is fired
+	* [onSeekFinish]{@link moon.VideoTransportSlider#onSeekFinish} event is fired when the
+	* drag finishes, and the [onSeek]{@link moon.VideoTransportSlider#onSeek} event is fired
 	* when the position is set by tapping the bar.
 	*
 	* @class moon.VideoTransportSlider
@@ -654,7 +654,7 @@
 		},
 
 		/**
-		* If `dragstart`, bubbles [onSeekStart]{@link moon.VideoTransportSlider#event:onSeekStart}
+		* If `dragstart`, bubbles [onSeekStart]{@link moon.VideoTransportSlider#onSeekStart}
 		* event.
 		*
 		* @fires moon.VideoTransportSlider#onSeekStart
@@ -684,7 +684,7 @@
 		},
 		
 		/**
-		* If `drag`, bubbles [onSeek]{@link moon.VideoTransportSlider#event:onSeek} event and
+		* If `drag`, bubbles [onSeek]{@link moon.VideoTransportSlider#onSeek} event and
 		* overrides parent `drag` handler.
 		*
 		* @private
@@ -720,7 +720,7 @@
 
 		/**
 		* If `dragfinish`, bubbles
-		* [onSeekFinish]{@link moon.VideoTransportSlider#event:onSeekFinish} event and overrides
+		* [onSeekFinish]{@link moon.VideoTransportSlider#onSeekFinish} event and overrides
 		* parent `dragfinish` handler.
 		*
 		* @fires moon.VideoTransportSlider#onSeekFinish
@@ -754,7 +754,7 @@
 		},
 
 		/**
-		* Sends [onSeek]{@link moon.VideoTransportSlider#event:onSeek} event.
+		* Sends [onSeek]{@link moon.VideoTransportSlider#onSeek} event.
 		*
 		* @fires moon.VideoTransportSlider#onSeek
 		* @private

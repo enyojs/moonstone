@@ -346,7 +346,7 @@
 		/*
 		* When the picker is initialized, looks for any items with the `active` flag set to
 		* `true`; if one is found, it is set as the currently selected item. This is done
-		* without triggering an [onChange]{@link moon.SimplePicker#event:onChange} event, as
+		* without triggering an [onChange]{@link moon.SimplePicker#onChange} event, as
 		* it happens during initialization.
 		*
 		* @private
@@ -434,7 +434,7 @@
 
 		/** 
 		* Cycles the selected item to the one before the currently selected item. If chained from
-		* an event, {@link Spotlight} hold pulse events will be canceled once the first item is
+		* an event, [Spotlight]{@link enyo.Spotlight} hold pulse events will be canceled once the first item is
 		* reached, unless [wrap]{@link moon.SimplePicker#wrap} is `true`. When calling this method
 		* directly, no arguments are required.
 		*
@@ -457,7 +457,7 @@
 
 		/** 
 		* Cycles the selected item to the one after the currently selected item. If chained from
-		* an event, {@link Spotlight} hold pulse events will be canceled once the last item is
+		* an event, [Spotlight]{@link enyo.Spotlight} hold pulse events will be canceled once the last item is
 		* reached, unless [wrap]{@link moon.SimplePicker#wrap} is `true`. When calling this method
 		* directly, no arguments are required.
 		*

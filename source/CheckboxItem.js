@@ -147,7 +147,7 @@
 		events: {
 
 			/**
-			* {@link moon.CheckboxItem#event:onActivate}
+			* {@link moon.CheckboxItem#onActivate}
 			*/
 			onActivate: ''
 		},

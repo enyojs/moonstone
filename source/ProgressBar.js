@@ -31,7 +31,7 @@
 	* ```
 	*
 	* For more information, see the documentation on
-	* [Progress Indicators]{@link building-apps/controls/progress-indicators.html)
+	* [Progress Indicators]{@linkplain $dev-guide/building-apps/controls/progress-indicators.html)
 	* in the Enyo Developer Guide.
 	*
 	* @class moon.ProgressBar

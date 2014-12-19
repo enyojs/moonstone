@@ -90,12 +90,12 @@
 		*/
 		events: {
 			/**
-			* {@link moon.PagingControl#event:onPaginate}
+			* {@link moon.PagingControl#onPaginate}
 			*/
 			onPaginate: '',
 
 			/**
-			* {@link moon.PagingControl#event:onPaginateScroll}
+			* {@link moon.PagingControl#onPaginateScroll}
 			*/
 			onPaginateScroll: ''
 		},
@@ -140,7 +140,7 @@
 
 		/**
 		* Stops scrolling animation and triggers
-		* [onPaginate]{@link moon.PagingControl#event:onPaginate} event with a delta
+		* [onPaginate]{@link moon.PagingControl#onPaginate} event with a delta
 		* value for the bounceback effect.
 		*
 		* @fires moon.PagingControl#onPaginate

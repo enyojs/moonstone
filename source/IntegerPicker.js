@@ -159,7 +159,7 @@
 		*/
 		events: {
 			/**
-			* {@link moon.IntegerPicker#event:onChange}
+			* {@link moon.IntegerPicker#onChange}
 			*/
 			onChange: ''
 		},

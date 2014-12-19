@@ -1,7 +1,7 @@
 (function (enyo, scope) {
 	/**
 	* {@link moon.Checkbox} is a box that, when tapped, shows or hides a checkmark and
-	* fires an [onChange]{@link enyo.Checkbox#event:onChange} event. It derives from
+	* fires an [onChange]{@link enyo.Checkbox#onChange} event. It derives from
 	* {@link enyo.Checkbox} and is designed to be used with {@link moon.CheckboxItem}.
 	*
 	* @class moon.Checkbox

@@ -124,7 +124,7 @@
 		_marquee_active: false,
 
 		/**
-		* When `true`, marquee starts when the control is {@link Spotlight} focused and ends
+		* When `true`, marquee starts when the control is {@link enyo.Spotlight} focused and ends
 		* when it is spotlight blurred.
 		*
 		* @type {Boolean}
@@ -321,7 +321,7 @@
 
 		/**
 		* When a child marquee animation completes, removes the child from
-		* [marqueeWaitList]{@link moon.marqueeSupport#marqueeWaitList}.
+		* [marqueeWaitList]{@link moon.MarqueeSupport#marqueeWaitList}.
 		*
 		* @private
 		*/
@@ -348,7 +348,7 @@
 
 		/**
 		* Starts timer to waterfall an
-		* [onRequestMarqueeStart]{@link moon.MarqueeSupport#event:onRequestMarqueeStart} event
+		* [onRequestMarqueeStart]{@link moon.MarqueeSupport#onRequestMarqueeStart} event
 		* that kicks off marquee animation on all child marquees.
 		*
 		* @public
@@ -358,7 +358,7 @@
 		},
 
 		/**
-		* Waterfalls an [onRequestMarqueeStop]{@link moon.MarqueeSupport#event:onRequestMarqueeStop}
+		* Waterfalls an [onRequestMarqueeStop]{@link moon.MarqueeSupport#onRequestMarqueeStop}
 		* event to halt all running child marquees.
 		*
 		* @public
@@ -517,7 +517,7 @@
 		events: {
 
 			/**
-			* {@link moon.MarqueeItem#event:onMarqueeEnded}
+			* {@link moon.MarqueeItem#onMarqueeEnded}
 			*/
 			onMarqueeEnded:''
 		},

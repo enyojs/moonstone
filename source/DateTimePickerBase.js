@@ -49,7 +49,7 @@
 		events: {
 
 			/**
-			* {@link moon.DateTimePickerBase#event:onChange}
+			* {@link moon.DateTimePickerBase#onChange}
 			*/
 			onChange: ''
 		},

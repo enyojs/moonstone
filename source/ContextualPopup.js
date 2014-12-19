@@ -18,7 +18,7 @@
 	*/
 	
 	/**
-	* Fires when the contextual popup is activated. Extends {@link enyo.Popup#event:onActivate}.
+	* Fires when the contextual popup is activated. Extends {@link enyo.Popup#onActivate}.
 	*
 	* @event moon.ContextualPopup#onActivate
 	* @type {Object}

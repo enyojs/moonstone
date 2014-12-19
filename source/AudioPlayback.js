@@ -507,7 +507,7 @@
 		events: {
 
 			/**
-			* {@link moon.AudioListItem#event:onRemove}
+			* {@link moon.AudioListItem#onRemove}
 			*/
 			onRemove: ''
 		},

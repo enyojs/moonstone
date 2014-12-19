@@ -6,7 +6,7 @@
 	*/
 	window.moon = window.moon || {};
 	/**
-	* Localized strings from {@link iLib} translations.
+	* Localized strings from [iLib]{@glossary ilib} translations.
 	*
 	* @param {String} string - String to be localized.
 	* @returns {String} Localized string.

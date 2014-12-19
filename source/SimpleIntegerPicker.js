@@ -154,7 +154,7 @@
 		}),
 
 		/**
-		* @fires moon.SimpleIntegerPicker#event:onSelect
+		* @fires moon.SimpleIntegerPicker#onSelect
 		* @private
 		*/
 		fireSelectEvent: function () {

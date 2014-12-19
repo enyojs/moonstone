@@ -8,7 +8,7 @@
 	* @event moon.Header#onInputHeaderInput
 	* @type {Object}
 	* @property {Object} originalEvent - The original event fired from the input. See 
-	*	{@link enyo.Input#event:oninput} for more event information.
+	*	{@link enyo.Input#oninput} for more event information.
 	* @public
 	*/
 
@@ -19,7 +19,7 @@
 	* @event moon.Header#onInputHeaderChange
 	* @type {Object}
 	* @property {Object} originalEvent - The original event fired from the input. See 
-	*	{@link enyo.Input#event:onchange} for more event information.
+	*	{@link enyo.Input#onchange} for more event information.
 	* @public
 	*/
 
@@ -716,7 +716,7 @@
 
 		/**
 		* Handles `input` event, firing custom
-		* [onInputHeaderInput]{@link moon.Header#event:onInputHeaderInput} event.
+		* [onInputHeaderInput]{@link moon.Header#onInputHeaderInput} event.
 		*
 		* @fires moon.Header#onInputHeaderInput
 		* @private
@@ -727,7 +727,7 @@
 
 		/**
 		* Handles `change` event, firing custom
-		* [onInputHeaderChange]{@link moon.Header#event:onInputHeaderChange} event.
+		* [onInputHeaderChange]{@link moon.Header#onInputHeaderChange} event.
 		*
 		* @fires moon.Header#onInputHeaderChange
 		* @private

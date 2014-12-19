@@ -187,11 +187,11 @@
 		*/
 		events: {
 			/**
-			* {@link moon.Panel#event:onPreTransitionComplete}
+			* {@link moon.Panel#onPreTransitionComplete}
 			*/
 			onPreTransitionComplete: '',
 			/**
-			* {@link moon.Panel#event:onPostTransitionComplete}
+			* {@link moon.Panel#onPostTransitionComplete}
 			*/
 			onPostTransitionComplete: ''
 		},
