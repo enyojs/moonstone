@@ -426,7 +426,8 @@
 		* @private
 		*/
 		updatePopupOffset: function() {
-			this.$.popup.applyStyle('top', enyo.dom.unit(-(this.getPopupHeight() + this.getPopupOffset() + 5), 'rem'));
+			// console.log("updatePopupOffset:", this.getPopupHeight(), this.getPopupOffset(), moon.remScale(this.getPopupHeight() + this.getPopupOffset() + 5));
+			this.$.popup.applyStyle('top', enyo.dom.unit(-(moon.remScale(this.getPopupHeight() + this.getPopupOffset() + 5)), 'rem'));
 		},
 
 		/**
@@ -455,16 +456,13 @@
 		*/
 		updatePopupHeight: function() {
 			var h = this.getPopupHeight(),
-				hRem = this.remScale(h);
+				hRem = moon.remScale(h);
+
 			this.$.drawingLeft.setAttribute('height', hRem);
 			this.$.drawingRight.setAttribute('height', hRem);
-			this.$.popupLabel.applyStyle('height', enyo.dom.unit(h - 7, 'rem'));
-			this.$.popup.applyStyle('height', enyo.dom.unit(h, 'rem'));
-			this.$.popup.applyStyle('line-height', enyo.dom.unit(h - 6, 'rem'));
-		},
-
-		remScale: function (px) {
-			return parseFloat( moon.getRemRatio() ) * px;
+			this.$.popupLabel.applyStyle('height', enyo.dom.unit(moon.remScale(h - 7), 'rem'));
+			this.$.popup.applyStyle('height', enyo.dom.unit(moon.remScale(h), 'rem'));
+			this.$.popup.applyStyle('line-height', enyo.dom.unit(moon.remScale(h - 6), 'rem'));
 		},
 
 		/**
@@ -869,21 +867,20 @@
 		*/
 		drawToCanvas: function(bgColor) {
 			bgColor = bgColor  || enyo.dom.getComputedStyleValue(this.$.knob.hasNode(), 'background-color');
-			var h = this.getPopupHeight()+1, // height total
-				hb = h - 8, // height bubble
+			var h = moon.remScale( this.getPopupHeight()+1 ), // height total
+				hb = h - moon.remScale(8), // height bubble
 				hbc = (hb)/2, // height of bubble's center
-				wre = 26, // width's edge
+				wre = moon.remScale(26), // width's edge
 				r = hbc, // radius is half the bubble height
-				bcr = 50, // bottom curve radius 50
+				bcr = moon.remScale(50), // bottom curve radius 50
 				bcy = hb + bcr, //calculate the height of the center of the circle plus the radius to get the y coordinate of the circle to draw the bottom irregular arc
 				lw = 1, // line width that will be tucked under the neighboring dom element's edge
 
 				ctxLeft = this.$.drawingLeft.hasNode().getContext('2d'),
 				ctxRight = this.$.drawingRight.hasNode().getContext('2d');
 
-			this.$.drawingLeft.setAttribute('width', this.popupLeftCanvasWidth);
-			this.$.drawingRight.setAttribute('width', this.popupRightCanvasWidth);
-
+			this.$.drawingLeft.setAttribute('width', moon.remScale( this.popupLeftCanvasWidth) );
+			this.$.drawingRight.setAttribute('width', moon.remScale( this.popupRightCanvasWidth) );
 
 			// Set styles. Default color is knob's color
 			ctxLeft.fillStyle = bgColor;
