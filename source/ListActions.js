@@ -490,7 +490,7 @@
 		unStackMeUp: function() {
 			var containerHeight, optionGroup, i;
 			if (this.standardHeight) {
-				this.$.drawer.applyStyle('height', enyo.dom.unit(this.standardHeight, 'rem'));
+				this.$.drawer.applyStyle('height', enyo.dom.unit( moon.remScale(this.standardHeight), 'rem'));
 			}
 			containerHeight = this.getContainerBounds().height;
 
