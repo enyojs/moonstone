@@ -588,7 +588,7 @@
 				// Measure client area's width + 40px of spacing
 				client = this.$.client ? this.$.client.hasNode() : null,
 				clientWidth = client ? client.offsetWidth : null,
-				clientSpace = (clientWidth + 40) + 'px',
+				clientSpace = enyo.dom.unit(clientWidth + 40, 'rem'),
 				rtl = this.rtl;
 
 			if (client) {
@@ -624,7 +624,7 @@
 				subtitle = this.get('titleBelow');
 			if ((this.get('type') == 'small') && subtitle) {
 				this.$.title.set('allowHtml', true);
-				this.$.title.set('content', enyo.Control.prototype.rtl && !enyo.isRtl(subtitle + title) ? 
+				this.$.title.set('content', enyo.Control.prototype.rtl && !enyo.isRtl(subtitle + title) ?
 					'<span class="moon-sub-header-text moon-header-sub-title">' + subtitle + '</span>' + '   ' + title :
 					title + '   ' + '<span class="moon-sub-header-text moon-header-sub-title">' + subtitle + '</span>');
 			} else {
