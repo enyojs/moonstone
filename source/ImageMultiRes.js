@@ -4,7 +4,7 @@
 	var screenTypes = ['hd', 'fhd', 'uhd'];
 
 	/**
-	* {@link moon.ImageMultiRez} is a direct replacement to {@link enyo.Image}
+	* {@link moon.ImageMultiRes} is a direct replacement to {@link enyo.Image}
 	*
 	* Adds support for multi-resolution images. If you are developing assets for specific screen
 	* sizes, HD (720p), FHD (1080p), UHD (4k), you may provide specific image assets in a
@@ -22,19 +22,19 @@
 	* {kind: 'moon.Image', src: http://lorempixel.com/128/128/city/1/', alt: 'Large'},
 	* ```
 	*
-	* @class moon.ImageMultiRez
+	* @class moon.ImageMultiRes
 	* @extends enyo.Image
 	* @ui
 	* @public
 	*/
 
 	enyo.kind(
-		/** @lends moon.ImageMultiRez.prototype */ {
+		/** @lends moon.ImageMultiRes.prototype */ {
 
 		/**
 		* @private
 		*/
-		name: 'moon.ImageMultiRez',
+		name: 'moon.ImageMultiRes',
 
 		/**
 		* @private
