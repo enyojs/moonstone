@@ -492,95 +492,29 @@
 		moon.DataList.delegates.vertical   = enyo.clone(moon.DataList.delegates.vertical);
 		moon.DataList.delegates.horizontal = enyo.clone(moon.DataList.delegates.horizontal);
 		var exts = {
-
-			/**
-			* @method
-			* @private
-			*/
-			refresh: enyo.inherit(function (sup) {
-				return function (list) {
-					sup.apply(this, arguments);
-					list.$.scroller.resize();
-				};
-			}),
-
 			/**
 			* Overriding scrollToControl() to specify Moonstone-specific scroller options.
 			* No need to call the super method, so we don't wrap in enyo.inherit().
 			*
+			* @method
 			* @private
 			*/
 			scrollToControl: function(list, control) {
 				list.$.scroller.scrollToControl(control, false, false, true);
+			},
+
+			/**
+			* Overriding scrollTo() to specify Moonstone-specific scroller options.
+			* No need to call the super method, so we don't wrap in enyo.inherit().
+			*
+			* @method
+			* @private
+			*/
+			scrollTo: function(list, x, y) {
+				list.$.scroller.scrollTo(x, y, false);
 			}
 		};
 		enyo.kind.extendMethods(moon.DataList.delegates.vertical, exts, true);
-		enyo.kind.extendMethods(moon.DataList.delegates.vertical, {
-
-			/**
-			* @method
-			* @private
-			*/
-			reset: enyo.inherit(function (sup) {
-				return function (list) {
-					sup.apply(this, arguments);
-					if (list.$.scroller.getVertical() != 'scroll') {
-						this.updateBounds(list);
-						list.refresh();
-					}
-					list.$.scroller.scrollTo(0, 0, false);
-				};
-			}),
-
-			/**
-			* @method
-			* @private
-			*/
-			updateBounds: enyo.inherit(function (sup) {
-				return function (list) {
-					sup.apply(this, arguments);
-					var w = list.boundsCache.width,
-						b = list.$.scroller.getScrollBounds(),
-						v = list.$.scroller.$.strategy.$.vColumn;
-					if (v && (list.$.scroller.getVertical() == 'scroll' || (b.height > b.clientHeight))) {
-						list.boundsCache.width = w-v.hasNode().offsetWidth;
-					}
-				};
-			})
-		}, true);
 		enyo.kind.extendMethods(moon.DataList.delegates.horizontal, exts, true);
-		enyo.kind.extendMethods(moon.DataList.delegates.horizontal, {
-
-			/**
-			* @method
-			* @private
-			*/
-			reset: enyo.inherit(function (sup) {
-				return function (list) {
-					sup.apply(this, arguments);
-					if (list.$.scroller.getHorizontal() != 'scroll') {
-						this.updateBounds(list);
-						list.refresh();
-					}
-					list.$.scroller.scrollTo(0, 0, false);
-				};
-			}),
-
-			/**
-			* @method
-			* @private
-			*/
-			updateBounds: enyo.inherit(function (sup) {
-				return function (list) {
-					sup.apply(this, arguments);
-					var w = list.boundsCache.height,
-						b = list.$.scroller.getScrollBounds(),
-						n = list.$.scroller.$.strategy.$.hColumn.hasNode();
-					if (list.$.scroller.getVertical() == 'scroll' || (b.width > b.clientWidth)) {
-						list.boundsCache.height = w-n.offsetHeight;
-					}
-				};
-			})
-		}, true);
 	})(enyo, moon);
 })(enyo, this);

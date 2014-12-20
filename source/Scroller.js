@@ -160,6 +160,14 @@
 		preventScrollPropagation: false,
 
 		/**
+		* If `true`, measure the size of the scroll columns on initial render.
+		* See {@link moon.ScrollStrategy#_measureScrollColumns} for details.
+		*
+		* @private
+		*/
+		measureScrollColumns: false,
+
+		/**
 		* Default to {@link moon.ScrollStrategy}
 		*
 		* @private
@@ -226,6 +234,8 @@
 			this.inherited(arguments);
 			this.spotlightPagingControlsChanged();
 			this.scrollWheelMovesFocusChanged();
+
+			this.$.strategy.measureScrollColumns = this.measureScrollColumns;
 
 			// workaround because the bootstrapping code isn't attached to constructors that have
 			// finished setup before the hook is declared

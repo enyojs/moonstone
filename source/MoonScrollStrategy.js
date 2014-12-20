@@ -76,6 +76,14 @@
 		},
 
 		/**
+		* If `true`, measure the size of the scroll columns on initial render.
+		* See {@link moon.ScrollStrategy#measureScrollColumns} for details.
+		*
+		* @private
+		*/
+		measureScrollColumns: false,
+
+		/**
 		* @private
 		*/
 		handlers: {
@@ -139,9 +147,49 @@
 		* @private
 		*/
 		rendered: function() {
+			var measure = this.measureScrollColumns && !moon.ScrollStrategy._scrollColumnsMeasured;
+
+			if (measure) {
+				// We temporarily add the v-scroll-enabled class so that
+				// we can measure the width of the vertical scroll column
+				// after rendering and store it as a static property -- see
+				// _measureScrollColumns().
+				//
+				// The v-scroll-enabled class will automatically be removed
+				// after we measure, when we call setupBounds() (which in
+				// turn calls enableDisableScrollColumns()).
+				this.$.clientContainer.addClass('v-scroll-enabled');
+			}
+
 			enyo.TouchScrollStrategy.prototype.rendered._inherited.apply(this, arguments);
+			
+			if (measure) {
+				this._measureScrollColumns();
+			}
 			this.setupBounds();
 			this.spotlightPagingControlsChanged();
+		},
+
+		/**
+		* Moonstone's data grid list delegate uses scroll column metrics to calculate
+		* available space for list controls. These metrics are derived via some LESS
+		* calculations, so to avoid brittleness we choose to measure them from the DOM
+		* rather than mirror the calculations in JavaScript.
+		* 
+		* Upon request, we do the measurement here (the first time a scroller is rendered)
+		* and cache the values in static properties, to avoid re-measuring each time we need
+		* the metrics.
+		* 
+		* @private
+		*/
+		_measureScrollColumns: function() {
+			var cs;
+			cs = enyo.dom.getComputedStyle(this.$.clientContainer.hasNode());
+			moon.ScrollStrategy.vScrollColumnSize =
+				parseInt(cs['padding-left'], 10) +
+				parseInt(cs['padding-right'], 10);
+			moon.ScrollStrategy.hScrollColumnSize = this.$.hColumn.hasNode().offsetHeight;
+			moon.ScrollStrategy._scrollColumnsMeasured = true;
 		},
 
 		/**
