@@ -6,7 +6,10 @@
 	*/
 	scope.moon = scope.moon || {};
 
-	var baseScreenType = 'fhd';
+	var baseScreenType = 'fhd',
+		riRatio,
+		screenType,
+		screenTypeObject;
 
 	/**
 	* A hash-store of all of our detectable screen types in incrementing sizes.
@@ -20,6 +23,9 @@
 	];
 
 	var getScreenTypeObject = function (name) {
+		if (name == screenType && screenTypeObject) {
+			return screenTypeObject;
+		}
 		var types = scope.moon.screenTypes;
 		return types.filter(function (elem) {
 			return (name == elem.name);
@@ -57,15 +63,15 @@
 	};
 
 	scope.moon.updateScreenTypeOnBody = function (type) {
-		type = type || this.getScreenType();
+		type = type || screenType;
 		if (type) {
 			enyo.dom.addBodyClass('moon-res-' + type.toLowerCase());
 			return type;
 		}
 	};
 
-	scope.moon.getRemRatio = function (type) {
-		type = type || this.getScreenType();
+	scope.moon.getRiRatio = function (type) {
+		type = type || screenType;
 		if (type) {
 			return this.getUnitToPixelFactors(type) / this.getUnitToPixelFactors(baseScreenType);
 		}
@@ -73,19 +79,27 @@
 	};
 
 	scope.moon.getUnitToPixelFactors = function (type) {
-		type = type || this.getScreenType();
+		type = type || screenType;
 		if (type) {
 			return getScreenTypeObject(type).pxPerRem;
 		}
 		return 1;
 	};
 
-	scope.moon.remScale = function (px) {
-		return this.getRemRatio() * px;
+	scope.moon.riScale = function (px) {
+		return (riRatio || this.getRiRatio()) * px;
+		// return (riRatio || this.getRiRatio()) * px;
 	};
 
+	scope.moon.initResolution = function () {
+		this.updateScreenTypeOnBody();
+		screenType = this.getScreenType();
+		enyo.dom.unitToPixelFactors.rem = scope.moon.getUnitToPixelFactors();
+		screenTypeObject = getScreenTypeObject();
+		riRatio = this.getRiRatio();
+	};
 
-	scope.moon.updateScreenTypeOnBody();
-	enyo.dom.unitToPixelFactors.rem = scope.moon.getUnitToPixelFactors();
+	// This will need to be re-run any time the screen size changes, so all the values can be re-cached.
+	scope.moon.initResolution();
 
 })(enyo, this);
