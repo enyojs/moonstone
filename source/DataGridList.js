@@ -59,6 +59,18 @@
 		/**
 		* @private
 		*/
+		initContainer: enyo.inherit(function (sup) {
+			return function() {
+				// Our delegate relies on scroll column metrics, so we
+				// need to ask the scroller to measure the columns for us
+				this.scrollerOptions.measureScrollColumns = true;
+				sup.apply(this, arguments);
+			};
+		}),
+
+		/**
+		* @private
+		*/
 		handleSpotlightFocus: function (inSender, inEvent) {
 			var c = inEvent.originator;
 			var isClientControl = this.getClientControls().indexOf(c) >= 0;
@@ -104,22 +116,11 @@
 	(function (enyo, moon) {
 		var p = moon.DataGridList.delegates.verticalGrid = enyo.clone(enyo.DataGridList.delegates.verticalGrid);
 		enyo.kind.extendMethods(p, {
-
-			/**
-			* @method
-			* @private
-			*/
-			refresh: enyo.inherit(function (sup) {
-				return function (list) {
-					sup.apply(this, arguments);
-					list.$.scroller.resize();
-				};
-			}),
-
 			/**
 			* Overriding scrollToControl() to specify Moonstone-specific scroller options.
 			* No need to call the super method, so we don't wrap in enyo.inherit().
 			*
+			* @method
 			* @private
 			*/
 			scrollToControl: function(list, control) {
@@ -127,33 +128,55 @@
 			},
 
 			/**
+			* Overriding scrollTo() to specify Moonstone-specific scroller options.
+			* No need to call the super method, so we don't wrap in enyo.inherit().
+			*
 			* @method
 			* @private
 			*/
-			reset: enyo.inherit(function (sup) {
-				return function (list) {
-					sup.apply(this, arguments);
-					this.updateMetrics(list);
-					list.refresh();
-					list.$.scroller.scrollTo(0, 0, false);
-				};
-			}),
+			scrollTo: function(list, x, y) {
+				list.$.scroller.scrollTo(x, y, false);
+			},
 
 			/**
+			* moon.ScrollStrategy dynamically shows / hides scroll controls
+			* depending on whether there's enough content to scroll. It also
+			* "steals" space from the scrollable content area to make room
+			* for the controls. This means we need to calculate whether scroll
+			* controls will be required before generating list pages so that we
+			* can adjust our metrics accordingly.
+			*
+			* We do this by overriding the width() method, so that we can
+			* subtract the width of the scroll column in cases where we
+			* calculate that we'll need to scroll.
+			*
 			* @method
 			* @private
 			*/
-			updateBounds: enyo.inherit(function (sup) {
+			width: enyo.inherit(function (sup) {
 				return function (list) {
-					sup.apply(this, arguments);
-					var w = list.boundsCache.width,
-						b = list.$.scroller.getScrollBounds(),
-						v = list.$.scroller.$.strategy.$.vColumn,
-						c = list.$.scroller.$.strategy.$.clientContainer;
-					if (v && (list.$.scroller.getVertical() == 'scroll' || (b.height > b.clientHeight))) {
-						var cs = enyo.dom.getComputedStyle(c.hasNode());
-						list.boundsCache.width = w - (parseInt(cs['padding-right'], 10) + parseInt(cs['padding-left'], 10));
+					var w = sup.apply(this, arguments),
+						s = list.$.scroller,
+						v = s.getVertical(),
+						a, b, r, h;
+					if (s.spotlightPagingControls) {
+						a = true;
 					}
+					else if (v === 'auto') {
+						b = s.getScrollBounds();
+						this.calculateMetrics(list, w);
+						r = Math.ceil(list.collection.length / list.columns);
+						h = r * this.childSize(list);
+						a = (h > b.clientHeight);
+					}
+					else {
+						a = (v === 'scroll');
+					}
+					if (a) {
+						w = w - moon.ScrollStrategy.vScrollColumnSize;
+						this.calculateMetrics(list, w);
+					}
+					return w;
 				};
 			})
 		}, true);
