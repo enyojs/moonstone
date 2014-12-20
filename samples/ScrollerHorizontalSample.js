@@ -6,7 +6,7 @@ enyo.kind({
 		{kind: 'moon.Scroller', vertical: "hidden", spotlight: "container", style:"white-space: nowrap;", components: [
 			{kind: "enyo.Repeater", count:"50", components: [
 				{kind: "moon.Item", classes:"moon-scroller-sample-item enyo", style:"display:inline-block;", components: [
-					{kind: "moon.ImageMultiRez", src:"$lib/moonstone/images/enyo-icon.png"}
+					{kind: "moon.ImageMultiRes", src:"$lib/moonstone/images/enyo-icon.png"}
 				]}
 			]}
 		]}
