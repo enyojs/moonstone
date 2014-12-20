@@ -14,7 +14,7 @@ enyo.kind({
 					orientation: "vertical",
 					components: [
 						{kind: "moon.Item", components: [
-							{name: 'image', kind: 'moon.ImageMultiRez'}
+							{name: 'image', kind: 'moon.ImageMultiRes'}
 						]}
 					],
 					actionComponents: [
