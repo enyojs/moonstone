@@ -217,7 +217,7 @@
 		*/
 		calculateXPos: function (panelIndex, index, containerWidth, joinedPanels) {
 			var breadcrumbEdge = this.getBreadcrumbEdge(index),
-				breadcrumbWidth = moon.remScale(this.breadcrumbWidth),
+				breadcrumbWidth = moon.riScale(this.breadcrumbWidth),
 				panels = this.container.getPanels(),
 				xPos,
 				i,
@@ -418,7 +418,7 @@
 				if (xPos < 0) {
 					// lets check if its fully off.
 					var containerPadding = this.getContainerPadding();
-					if (xPos <= ((moon.remScale(this.breadcrumbWidth) - containerPadding.left) * -1)) {
+					if (xPos <= ((moon.riScale(this.breadcrumbWidth) - containerPadding.left) * -1)) {
 						// Its visible portion is, so lets nudge it off entirely so it can't be
 						// highlighted using just its non-visible edge
 						xPos -= containerPadding.right;
@@ -438,7 +438,7 @@
 			var transitionPosition = this.container.transitionPositions[panelIndex + '.' + activeIndex];
 			var screenEdge = this.container.panelCoverRatio == 1 ? this.getBreadcrumbEdge(panelIndex) : 0;
 			if (transitionPosition < 0) {
-				return transitionPosition + moon.remScale(this.breadcrumbWidth) <= screenEdge;
+				return transitionPosition + moon.riScale(this.breadcrumbWidth) <= screenEdge;
 			} else {
 				return transitionPosition >= this.containerBounds.width;
 			}
@@ -457,7 +457,7 @@
 		calcBreadcrumbEdges: function () {
 			this.breadcrumbEdges = [];
 			for (var i = 0, panel; (panel = this.container.getPanels()[i]); i++) {
-				this.breadcrumbEdges[i] = (i === 0) ? 0 : moon.remScale(this.breadcrumbWidth);
+				this.breadcrumbEdges[i] = (i === 0) ? 0 : moon.riScale(this.breadcrumbWidth);
 			}
 		},
 
@@ -485,7 +485,7 @@
 				leftMargin += containerPadding.left + containerPadding.right;
 			}
 			if (this.container.showFirstBreadcrumb && index !== 0) {
-				leftMargin += moon.remScale(this.breadcrumbWidth);
+				leftMargin += moon.riScale(this.breadcrumbWidth);
 			}
 			return leftMargin;
 		},
