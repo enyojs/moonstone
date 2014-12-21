@@ -1,6 +1,6 @@
 (function (enyo, scope) {
 	/**
-	* {@link moon.Image} is a simple control that wraps an {@link enyo.Image} to
+	* {@link moon.Image} is a simple control that wraps an {@link moon.ImageMultiRes} to
 	* provide proper alignment with text-based controls.
 	*
 	* In addition, `moon.Image` accepts optional {@link moon.ImageBadge} client
@@ -105,7 +105,7 @@
 		* @private
 		*/
 		components: [
-			{name: 'image', kind: 'enyo.Image'},
+			{name: 'image', kind: 'moon.ImageMultiRes'},
 			{name: 'client', kind: 'enyo.Control', canGenerate: false, classes: 'moon-image-client'}
 		],
 
