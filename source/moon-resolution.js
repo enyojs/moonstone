@@ -92,8 +92,8 @@
 	};
 
 	scope.moon.initResolution = function () {
-		this.updateScreenTypeOnBody();
 		screenType = this.getScreenType();
+		this.updateScreenTypeOnBody();
 		enyo.dom.unitToPixelFactors.rem = scope.moon.getUnitToPixelFactors();
 		screenTypeObject = getScreenTypeObject();
 		riRatio = this.getRiRatio();
