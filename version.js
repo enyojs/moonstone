@@ -8,7 +8,7 @@
 	var moon = scope.moon = scope.moon || {};
 
 	if (enyo && enyo.version) {
-		enyo.version.moonstone = "2.5.3-pre.4";
+		enyo.version.moonstone = "2.5.3-pre.4.lite.1";
 	}
 
 	/**
