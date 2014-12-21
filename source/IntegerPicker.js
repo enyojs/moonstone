@@ -653,7 +653,7 @@
 		* @private
 		*/
 		minWidthChanged: function() {
-			this.applyStyle('min-width', this.minWidth + 'px');
+			this.applyStyle('min-width', enyo.dom.unit(this.minWidth));
 		},
 
 		/**
