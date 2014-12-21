@@ -1031,6 +1031,11 @@ html {
 .moon-checkbox.moon-toggle-switch.animated .moon-icon:after {
   -webkit-transition: color 0.2s;
 }
+.moon-res-hd .moon-checkbox.moon-toggle-switch .small > .small-icon-tap-area {
+  top: 0;
+  bottom: 0;
+  line-height: 3rem;
+}
 .moon-toggle-item {
   display: block;
   position: relative;
