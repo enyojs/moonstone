@@ -587,6 +587,7 @@ html {
   width: 3.75rem;
   height: 3.75rem;
   background-position: center -1.25rem;
+  background-size: 6.25rem 12.5rem;
   background-repeat: no-repeat;
   display: inline-block;
   vertical-align: middle;
@@ -601,6 +602,7 @@ html {
 .moon-icon.small,
 .moon-icon-toggle.small {
   background-position: center -0.75rem;
+  background-size: 4.16666667rem 8.33333333rem;
   width: 2.66666667rem;
   height: 2.66666667rem;
   font-size: 5.33333333rem;
