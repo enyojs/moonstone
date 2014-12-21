@@ -19,6 +19,7 @@
 	}
 	&[checked] {
 		background-color: @moon-checkbox-toggle-switch-checked-bg-color;
+
 		.moon-icon {
 			left:  @moon-toggleswitch-image-width / 2;
 			color: @moon-checkbox-toggle-switch-checked-color;
@@ -26,14 +27,23 @@
 	}
 	&[disabled] {
 		background-color: @moon-checkbox-toggle-switch-bg-color;
+
 		.moon-icon {
 			color: @moon-checkbox-toggle-switch-color;
 		}
 	}
 	&.animated .moon-icon {
 		-webkit-transition: background-color 0.2s, left 0.2s;
+
 		&:after {
 			-webkit-transition: color 0.2s;
 		}
 	}
+}
+
+// Fix a rounding issue for the smaller scale
+.moon-res-hd .moon-checkbox.moon-toggle-switch .small > .small-icon-tap-area {
+	top: 0;
+	bottom: 0;
+	line-height: (@moon-toggleswitch-image-height + 3);
 }
