@@ -102,6 +102,7 @@
 					panels[i].applyStyle('width', panels[i].width + 'px');
 				}
 
+				panels[i].set('animate', this.container.animate);
 				panels[i].actualWidth = null;
 				panels[i].width = panels[i].getBounds().width;
 			}

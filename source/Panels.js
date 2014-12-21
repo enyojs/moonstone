@@ -415,6 +415,7 @@
 		create: enyo.inherit(function (sup) {
 			return function () {
 				sup.apply(this, arguments);
+				this.set('animate', this.animate && moon.config.accelerate, true);
 
 				// we need to ensure our handler has the opportunity to modify the flow during
 				// initialization
@@ -1220,6 +1221,13 @@
 			if (this.$.branding) {
 				this.$.branding.set('src', this.brandingSrc);
 			}
+		},
+
+		/**
+		* @private
+		*/
+		animateChanged: function () {
+			this.addRemoveClass('moon-composite', this.animate);
 		}
 	});
 
