@@ -818,8 +818,9 @@
 			if (this._marquee_distance !== null) {
 				return this._marquee_distance;
 			}
-			var node = this.$.marqueeText ? this.$.marqueeText.hasNode() : this.hasNode();
-			this._marquee_distance = Math.abs(node.scrollWidth - node.clientWidth);
+			var node = this.$.marqueeText ? this.$.marqueeText.hasNode() : this.hasNode(),
+				rect = node? node.getBoundingClientRect() : {};
+			this._marquee_distance = Math.floor(Math.abs(node.scrollWidth - rect.width));
 			return this._marquee_distance;
 		},
 
