@@ -7,16 +7,19 @@
 /* LESS file.                                                               */
 
 html {
+  font-size: 1rem;
   font-size: 12px;
 }
 /* 720p screen size */
 @media only screen and (max-width: 1280px) {
   html {
+    font-size: 0.6666666666666666rem;
     font-size: 8px;
   }
 }
 @media only screen and (min-width: 2560px) {
   html {
+    font-size: 2rem;
     font-size: 24px;
   }
 }
