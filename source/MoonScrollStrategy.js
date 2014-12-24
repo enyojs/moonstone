@@ -619,6 +619,7 @@
 				disable =[],
 				enable = [];
 
+			/* jshint ignore:start */
 			//pageUpControl
 			(b.top <= 0) || !canVScroll ? disable.push('pageUpControl') : enable.push('pageUpControl');
 
@@ -639,6 +640,7 @@
 			for (var i = 0; i < disable.length; i++) {
 				this.$[disable[i]].setDisabled(true);
 			}
+			/* jshint ignore:end */
 		},
 
 		/**
