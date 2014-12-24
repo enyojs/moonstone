@@ -636,7 +636,7 @@
 				this.$[enable[i]].setDisabled(false);
 			}
 
-			for (var ii = 0; i < disable.length; ii++) {
+			for (var ii = 0; ii < disable.length; ii++) {
 				this.$[disable[ii]].setDisabled(true);
 			}
 		},
