@@ -615,17 +615,35 @@
 			var m = this.$.scrollMath,
 				b = this._getScrollBounds(),
 				canVScroll = b.height > b.clientHeight,
-				canHScroll = b.width > b.clientWidth;
+				canHScroll = b.width > b.clientWidth,
+				disable =[],
+				enable = [];
 
-			this.$.pageUpControl.setDisabled((b.top <= 0) || !canVScroll);
-			this.$.pageDownControl.setDisabled((b.top >= -1 * m.bottomBoundary) || !canVScroll);
-			this.$.pageLeftControl.setDisabled((b.left <= 0) || !canHScroll);
-			this.$.pageRightControl.setDisabled((b.left >= -1 * m.rightBoundary) || !canHScroll);
+			//pageUpControl
+			var ret = (b.top <= 0) || !canVScroll ? disable.push('pageUpControl') : enable.push('pageUpControl');
+
+			//pageDownControl
+			ret = (b.top >= -1 * m.bottomBoundary) || !canVScroll ? disable.push('pageDownControl') : enable.push('pageDownControl');
+
+			//pageLeftControl
+			ret = (b.left <= 0) || !canHScroll || !canVScroll ? disable.push('pageLeftControl') : enable.push('pageLeftControl');
+
+			//pageRightControl
+			ret = (b.left >= -1 * m.rightBoundary) || !canVScroll ? disable.push('pageRightControl') : enable.push('pageRightControl');
+
+			//enable before disabling, so spotlight has a place to go when a button is disabled
+			for (var i = 0; i < enable.length; i++) {
+				this.$[enable[i]].setDisabled(false);
+			}
+
+			for (var ii = 0; i < disable.length; i++) {
+				this.$[disable[ii]].setDisabled(true);
+			}
 		},
 
 		/**
 		* Decorate spotlight events from paging controls so user can 5-way out of container
-		* 
+		*
 		* @private
 		*/
 		spotPaging: function (sender, event) {
