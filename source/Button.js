@@ -139,6 +139,15 @@
 			}
 			if (this.small) this.smallChanged();
 			if (this.minWidth) this.minWidthChanged();
+			
+			// FIXME: Backwards-compatibility for deprecated property - can be removed when
+			// the contentUpperCase property is fully deprecated and removed. We give the uppercase
+			// property precedence and assign its value to the contentUpperCase property if it has
+			// changed from the default value, otherwise if the value of the contentUpperCase
+			// property has changed from the default value, we assign its value to the uppercase property.
+			if (!this.uppercase) this.contentUpperCase = this.uppercase;
+			else if (!this.contentUpperCase) this.uppercase = this.contentUpperCase;
+
 			this.contentChanged();
 			this.inherited(arguments);
 		},
@@ -208,6 +217,9 @@
 		* @private
 		*/
 		uppercaseChanged: function () {
+			// FIXME: Backwards-compatibility for deprecated property - can be removed when
+			// contentUpperCase is fully deprecated and removed.
+			if (this.contentUpperCase != this.uppercase) this.contentUpperCase = this.uppercase;
 			this.contentChanged();
 		},
 
@@ -215,6 +227,7 @@
 		* @private
 		*/
 		contentUpperCaseChanged: function () {
+			if (this.uppercase != this.contentUpperCase) this.uppercase = this.contentUpperCase;
 			this.uppercaseChanged();
 		},
 

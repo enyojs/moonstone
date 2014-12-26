@@ -130,6 +130,15 @@
 		*/
 		create: function () {
 			this.inherited(arguments);
+
+			// FIXME: Backwards-compatibility for deprecated property - can be removed when
+			// the titleUpperCase property is fully deprecated and removed. We give the uppercase
+			// property precedence and assign its value to the titleUpperCase property if it has
+			// changed from the default value, otherwise if the value of the titleUpperCase property
+			// has changed from the default value, we assign its value to the uppercase property.
+			if (!this.uppercase) this.titleUpperCase = this.uppercase;
+			else if (!this.titleUpperCase) this.uppercase = this.titleUpperCase;
+
 			this.titleChanged();
 			this.subTitleChanged();
 			this.messageChanged();
@@ -147,6 +156,9 @@
 		* @private
 		*/
 		uppercaseChanged: function () {
+			// FIXME: Backwards-compatibility for deprecated property - can be removed when
+			// titleUpperCase is fully deprecated and removed.
+			if (this.titleUpperCase != this.uppercase) this.titleUpperCase = this.uppercase;
 			this.titleChanged();
 		},
 
@@ -154,6 +166,7 @@
 		* @private
 		*/
 		titleUpperCaseChanged: function () {
+			if (this.uppercase != this.titleUpperCase) this.uppercase = this.titleUpperCase;
 			this.uppercaseChanged();
 		},
 
