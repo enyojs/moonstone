@@ -7,19 +7,19 @@
 /* LESS file.                                                               */
 
 html {
-  font-size: 1rem;
+  font-size: 0.5rem;
   font-size: 12px;
 }
 /* 720p screen size */
 @media only screen and (max-width: 1280px) {
   html {
-    font-size: 0.6666666666666666rem;
+    font-size: 0.33333rem;
     font-size: 8px;
   }
 }
 @media only screen and (min-width: 2560px) {
   html {
-    font-size: 2rem;
+    font-size: 1rem;
     font-size: 24px;
   }
 }
@@ -1037,7 +1037,7 @@ html {
 .moon-res-hd .moon-checkbox.moon-toggle-switch .small > .small-icon-tap-area {
   top: 0;
   bottom: 0;
-  line-height: 3rem;
+  line-height: 1.5rem;
 }
 .moon-toggle-item {
   display: block;
@@ -2510,7 +2510,7 @@ html {
 /* Drawer */
 .moon-list-actions-drawer {
   overflow: hidden;
-  z-index: 1;
+  z-index: 50;
   pointer-events: none;
 }
 .moon-list-actions-drawer * {
