@@ -348,6 +348,15 @@
 			if (typeof ilib !== 'undefined') {
 				this._nf = new ilib.NumFmt({type: 'percentage', useNative: false});
 			}
+
+			// FIXME: Backwards-compatibility for deprecated property - can be removed when
+			// the popupContentUpperCase property is fully deprecated and removed. We give the uppercase
+			// property precedence and assign its value to the popupContentUpperCase property if it has
+			// changed from the default value, otherwise if the value of the popupContentUpperCase property
+			// has changed from the default value, we assign its value to the uppercase property.
+			if (!this.uppercase) this.popupContentUpperCase = this.uppercase;
+			else if (!this.popupContentUpperCase) this.uppercase = this.popupContentUpperCase;
+
 			this.createComponents(this.moreComponents);
 			this.initValue();
 			this.disabledChanged();
@@ -510,6 +519,9 @@
 		* @private
 		*/
 		uppercaseChanged: function() {
+			// FIXME: Backwards-compatibility for deprecated property - can be removed when
+			// popupContentUpperCase is fully deprecated and removed.
+			if (this.popupContentUpperCase != this.uppercase) this.popupContentUpperCase = this.uppercase;
 			this.popupContentChanged();
 		},
 
@@ -517,6 +529,7 @@
 		* @private
 		*/
 		popupContentUpperCaseChanged: function() {
+			if (this.uppercase != this.popupContentUpperCase) this.uppercase = this.popupContentUpperCase;
 			this.uppercaseChanged();
 		},
 

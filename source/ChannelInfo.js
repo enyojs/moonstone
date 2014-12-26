@@ -127,6 +127,16 @@
 		*/
 		create: function () {
 			this.inherited(arguments);
+
+			// FIXME: Backwards-compatibility for deprecated property - can be removed when
+			// the channelNoUpperCase property is fully deprecated and removed. We give the
+			// uppercaseChannelNo property precedence and assign its value to the channelNoUpperCase
+			// property if it has changed from the default value, otherwise if the value of the
+			// channelNoUpperCase property has changed from the default value, we assign its value
+			// to the uppercaseChannelNo property.
+			if (!this.uppercaseChannelNo) this.channelNoUpperCase = this.uppercaseChannelNo;
+			else if (!this.channelNoUpperCase) this.uppercaseChannelNo = this.channelNoUpperCase;
+
 			this.channelNoChanged();
 		},
 
@@ -142,6 +152,9 @@
 		* @private
 		*/
 		uppercaseChannelNoChanged: function () {
+			// FIXME: Backwards-compatibility for deprecated property - can be removed when
+			// channelNoUpperCase is fully deprecated and removed.
+			if (this.channelNoUpperCase != this.uppercaseChannelNo) this.channelNoUpperCase = this.uppercaseChannelNo;
 			this.channelNoChanged();
 		},
 
@@ -149,6 +162,7 @@
 		* @private
 		*/
 		channelNoUpperCaseChanged: function () {
+			if (this.uppercaseChannelNo != this.channelNoUpperCase) this.uppercaseChannelNo = this.channelNoUpperCase;
 			this.uppercaseChannelNoChanged();
 		}
 	});
