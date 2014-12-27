@@ -611,12 +611,27 @@
 			var m = this.$.scrollMath,
 				b = this._getScrollBounds(),
 				canVScroll = b.height > b.clientHeight,
-				canHScroll = b.width > b.clientWidth;
+				canHScroll = b.width > b.clientWidth,
+				controls = [ // Compute and store disabled state of paging controls in sortable structure
+					{name: 'pageUpControl', disabled: (b.top <= 0) || !canVScroll},
+					{name: 'pageDownControl', disabled: (b.top >= -1 * m.bottomBoundary) || !canVScroll},
+					{name: 'pageLeftControl', disabled: (b.left <= 0) || !canHScroll},
+					{name: 'pageRightControl', disabled: (b.left >= -1 * m.rightBoundary) || !canHScroll}
+				],
+				control,
+				i;
 
-			this.$.pageUpControl.setDisabled((b.top <= 0) || !canVScroll);
-			this.$.pageDownControl.setDisabled((b.top >= -1 * m.bottomBoundary) || !canVScroll);
-			this.$.pageLeftControl.setDisabled((b.left <= 0) || !canHScroll);
-			this.$.pageRightControl.setDisabled((b.left >= -1 * m.rightBoundary) || !canHScroll);
+			// Sort paging controls by disabled state in ascending order so that enabled items are
+			// at the beginning of the array.
+			controls.sort(function (a, b) {
+				return a.disabled - b.disabled;
+			});
+
+			// Actually set the disabled state of the paging controls
+			for (i = 0; i < controls.length; i++) {
+				control = controls[i];
+				this.$[control.name].set('disabled', control.disabled);
+			}
 		},
 
 		/**
