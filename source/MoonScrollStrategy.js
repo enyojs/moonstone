@@ -659,27 +659,19 @@
 			var m = this.$.scrollMath,
 				b = this._getScrollBounds(),
 				canVScroll = b.height > b.clientHeight,
-				canHScroll = b.width > b.clientWidth,
-				controls = [ // Compute and store disabled state of paging controls in sortable structure
-					{name: 'pageUpControl', disabled: (b.top <= 0) || !canVScroll},
-					{name: 'pageDownControl', disabled: (b.top >= -1 * m.bottomBoundary) || !canVScroll},
-					{name: 'pageLeftControl', disabled: (b.left <= 0) || !canHScroll},
-					{name: 'pageRightControl', disabled: (b.left >= -1 * m.rightBoundary) || !canHScroll}
-				],
-				control,
-				i;
+				canHScroll = b.width > b.clientWidth;
 
-			// Sort paging controls by disabled state in ascending order so that enabled items are
-			// at the beginning of the array.
-			controls.sort(function (a, b) {
-				return a.disabled - b.disabled;
-			});
+			// Enable all of the paging controls first, so that we are not beholden to any ordering
+			// issues that can cause erratic Spotlight behavior.
+			this.$.pageUpControl.set('disabled', false);
+			this.$.pageDownControl.set('disabled', false);
+			this.$.pageLeftControl.set('disabled', false);
+			this.$.pageRightControl.set('disabled', false);
 
-			// Actually set the disabled state of the paging controls
-			for (i = 0; i < controls.length; i++) {
-				control = controls[i];
-				this.$[control.name].set('disabled', control.disabled);
-			}
+			this.$.pageUpControl.set('disabled', (b.top <= 0) || !canVScroll);
+			this.$.pageDownControl.set('disabled', (b.top >= -1 * m.bottomBoundary) || !canVScroll);
+			this.$.pageLeftControl.set('disabled', (b.left <= 0) || !canHScroll);
+			this.$.pageRightControl.set('disabled', (b.left >= -1 * m.rightBoundary) || !canHScroll);
 		},
 
 		/**
