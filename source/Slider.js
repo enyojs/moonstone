@@ -418,7 +418,7 @@
 		*/
 		updatePopupOffset: function() {
 			// console.log("updatePopupOffset:", this.getPopupHeight(), this.getPopupOffset(), moon.riScale(this.getPopupHeight() + this.getPopupOffset() + 5));
-			this.$.popup.applyStyle('top', enyo.dom.unit(-(moon.riScale(this.getPopupHeight() + this.getPopupOffset() + 5)), 'rem'));
+			this.$.popup.applyStyle('top', -(moon.riScale(this.getPopupHeight() + this.getPopupOffset() + 5) ) + 'px');
 		},
 
 		/**
@@ -438,7 +438,7 @@
 		*/
 		popupWidthChanged: function() {
 			if (this.popupWidth != 'auto') {
-				this.$.popupLabel.applyStyle('width', enyo.dom.unit( this.getPopupWidth() - (this.popupLeftCanvasWidth + this.popupRightCanvasWidth) , 'rem'));
+				this.$.popupLabel.applyStyle('width', (this.getPopupWidth() - (this.popupLeftCanvasWidth + this.popupRightCanvasWidth)) + 'px');
 			}
 		},
 
@@ -447,13 +447,14 @@
 		*/
 		updatePopupHeight: function() {
 			var h = this.getPopupHeight(),
-				hRem = moon.riScale(h);
+				hRem = moon.riScale(h), 
+				hLabelRem = moon.riScale(h - 7);
 
-			this.$.drawingLeft.setAttribute('height', hRem);
-			this.$.drawingRight.setAttribute('height', hRem);
-			this.$.popupLabel.applyStyle('height', enyo.dom.unit(moon.riScale(h - 7), 'rem'));
-			this.$.popup.applyStyle('height', enyo.dom.unit(moon.riScale(h), 'rem'));
-			this.$.popup.applyStyle('line-height', enyo.dom.unit(moon.riScale(h - 6), 'rem'));
+			this.$.drawingLeft.setAttribute('height', hRem + 'px');
+			this.$.drawingRight.setAttribute('height', hRem + 'px');
+			this.$.popupLabel.applyStyle('height', hLabelRem + 'px');
+			this.$.popup.applyStyle('height', hLabelRem + 'px');
+			this.$.popup.applyStyle('line-height', moon.riScale(h - 6) + 'px');
 		},
 
 		/**
