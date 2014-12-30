@@ -17,9 +17,9 @@
 	* @public
 	*/
 	scope.moon.screenTypes = [
-		{name: 'hd',    pxPerRem: 8,  height: 720,  width: 1280},
-		{name: 'fhd',   pxPerRem: 12, height: 1080, width: 1920},
-		{name: 'uhd',   pxPerRem: 24, height: 2160, width: 3840}
+		{name: 'hd',    pxPerRem: 16,  height: 720,  width: 1280},
+		{name: 'fhd',   pxPerRem: 24, height: 1080, width: 1920},
+		{name: 'uhd',   pxPerRem: 48, height: 2160, width: 3840}
 	];
 
 	var getScreenTypeObject = function (name) {
