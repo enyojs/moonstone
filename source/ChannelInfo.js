@@ -94,11 +94,14 @@
 			/**
 			* @deprecated Replaced by [uppercaseChannelNo]{@link moon.ChannelInfo#uppercaseChannelNo}.
 			*
+			* Formerly defaulted to `true`, now defaults to `null` and will only have
+			* an effect when explicitly set (for complete backward compatibility).
+			*
 			* @type {Boolean}
-			* @default true
+			* @default null
 			* @public
 			*/
-			channelNoUpperCase: true
+			channelNoUpperCase: null
 		},
 
 		/**
@@ -127,6 +130,12 @@
 		*/
 		create: function () {
 			this.inherited(arguments);
+
+			// FIXME: Backwards-compatibility for deprecated property - can be removed when
+			// the channelNoUpperCase property is fully deprecated and removed. The legacy
+			// property takes precedence if it exists.
+			if (this.channelNoUpperCase !== null) this.uppercaseChannelNo = this.channelNoUpperCase;
+
 			this.channelNoChanged();
 		},
 
@@ -142,6 +151,9 @@
 		* @private
 		*/
 		uppercaseChannelNoChanged: function () {
+			// FIXME: Backwards-compatibility for deprecated property - can be removed when
+			// channelNoUpperCase is fully deprecated and removed.
+			if (this.channelNoUpperCase != this.uppercaseChannelNo) this.channelNoUpperCase = this.uppercaseChannelNo;
 			this.channelNoChanged();
 		},
 
@@ -149,6 +161,7 @@
 		* @private
 		*/
 		channelNoUpperCaseChanged: function () {
+			if (this.uppercaseChannelNo != this.channelNoUpperCase) this.uppercaseChannelNo = this.channelNoUpperCase;
 			this.uppercaseChannelNoChanged();
 		}
 	});
