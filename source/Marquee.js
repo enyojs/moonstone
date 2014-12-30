@@ -815,11 +815,14 @@
 		* @private
 		*/
 		_marquee_calcDistance: function () {
-			if (this._marquee_distance !== null) {
-				return this._marquee_distance;
+			var node, rect;
+
+			if (this._marquee_distance == null) {
+				node = this.$.marqueeText ? this.$.marqueeText.hasNode() : this.hasNode();
+				rect = node.getBoundingClientRect();
+				this._marquee_distance = Math.floor(Math.abs(node.scrollWidth - rect.width));
 			}
-			var node = this.$.marqueeText ? this.$.marqueeText.hasNode() : this.hasNode();
-			this._marquee_distance = Math.abs(node.scrollWidth - node.clientWidth);
+
 			return this._marquee_distance;
 		},
 
