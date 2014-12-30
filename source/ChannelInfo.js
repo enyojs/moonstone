@@ -94,11 +94,14 @@
 			/**
 			* @deprecated Replaced by [uppercaseChannelNo]{@link moon.ChannelInfo#uppercaseChannelNo}.
 			*
+			* Formerly defaulted to `true`, now defaults to `null` and will only have
+			* an effect when explicitly set (for complete backward compatibility).
+			*
 			* @type {Boolean}
-			* @default true
+			* @default null
 			* @public
 			*/
-			channelNoUpperCase: true
+			channelNoUpperCase: null
 		},
 
 		/**
@@ -129,13 +132,9 @@
 			this.inherited(arguments);
 
 			// FIXME: Backwards-compatibility for deprecated property - can be removed when
-			// the channelNoUpperCase property is fully deprecated and removed. We give the
-			// uppercaseChannelNo property precedence and assign its value to the channelNoUpperCase
-			// property if it has changed from the default value, otherwise if the value of the
-			// channelNoUpperCase property has changed from the default value, we assign its value
-			// to the uppercaseChannelNo property.
-			if (!this.uppercaseChannelNo) this.channelNoUpperCase = this.uppercaseChannelNo;
-			else if (!this.channelNoUpperCase) this.uppercaseChannelNo = this.channelNoUpperCase;
+			// the channelNoUpperCase property is fully deprecated and removed. The legacy
+			// property takes precedence if it exists.
+			if (this.channelNoUpperCase !== null) this.uppercaseChannelNo = this.channelNoUpperCase;
 
 			this.channelNoChanged();
 		},
