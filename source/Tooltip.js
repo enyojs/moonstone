@@ -132,11 +132,14 @@
 			/**
 			* @deprecated Replaced by [uppercase]{@link moon.Tooltip#uppercase}.
 			*
+			* Formerly defaulted to `true`, now defaults to `null` and will only have
+			* an effect when explicitly set (for complete backward compatibility).
+			*
 			* @type {Boolean}
-			* @default true
+			* @default null
 			* @public
 			*/
-			contentUpperCase: true
+			contentUpperCase: null
 		},
 
 		/**
@@ -172,6 +175,12 @@
 		*/
 		create: function () {
 			this.inherited(arguments);
+
+			// FIXME: Backwards-compatibility for deprecated property - can be removed when
+			// the contentUpperCase property is fully deprecated and removed. The legacy
+			// property takes precedence if it exists.
+			if (this.contentUpperCase !== null) this.uppercase = this.contentUpperCase;
+
 			this.contentChanged();
 		},
 
@@ -188,6 +197,9 @@
 		* @private
 		*/
 		uppercaseChanged: function () {
+			// FIXME: Backwards-compatibility for deprecated property - can be removed when
+			// contentUpperCase is fully deprecated and removed.
+			if (this.contentUpperCase != this.uppercase) this.contentUpperCase = this.uppercase;
 			this.contentChanged();
 		},
 
@@ -195,6 +207,7 @@
 		* @private
 		*/
 		contentUpperCaseChanged: function () {
+			if (this.uppercase != this.contentUpperCase) this.uppercase = this.contentUpperCase;
 			this.uppercaseChanged();
 		},
 

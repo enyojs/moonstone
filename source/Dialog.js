@@ -72,11 +72,14 @@
 			/**
 			* @deprecated Replaced by [uppercase]{@link moon.Dialog#uppercase}.
 			*
+			* Formerly defaulted to `true`, now defaults to `null` and will only have
+			* an effect when explicitly set (for complete backward compatibility).
+			*
 			* @type {Boolean}
-			* @default true
+			* @default null
 			* @public
 			*/
-			titleUpperCase: true
+			titleUpperCase: null
 		},
 
 		/**
@@ -130,6 +133,12 @@
 		*/
 		create: function () {
 			this.inherited(arguments);
+
+			// FIXME: Backwards-compatibility for deprecated property - can be removed when
+			// the titleUpperCase property is fully deprecated and removed. The legacy
+			// property takes precedence if it exists.
+			if (this.titleUpperCase !== null) this.uppercase = this.titleUpperCase;
+
 			this.titleChanged();
 			this.subTitleChanged();
 			this.messageChanged();
@@ -147,6 +156,9 @@
 		* @private
 		*/
 		uppercaseChanged: function () {
+			// FIXME: Backwards-compatibility for deprecated property - can be removed when
+			// titleUpperCase is fully deprecated and removed.
+			if (this.titleUpperCase != this.uppercase) this.titleUpperCase = this.uppercase;
 			this.titleChanged();
 		},
 
@@ -154,6 +166,7 @@
 		* @private
 		*/
 		titleUpperCaseChanged: function () {
+			if (this.uppercase != this.titleUpperCase) this.uppercase = this.titleUpperCase;
 			this.uppercaseChanged();
 		},
 
