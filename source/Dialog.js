@@ -72,11 +72,14 @@
 			/**
 			* @deprecated Replaced by [uppercase]{@link moon.Dialog#uppercase}.
 			*
+			* Formerly defaulted to `true`, now defaults to `null` and will only have
+			* an effect when explicitly set (for complete backward compatibility).
+			*
 			* @type {Boolean}
-			* @default true
+			* @default null
 			* @public
 			*/
-			titleUpperCase: true
+			titleUpperCase: null
 		},
 
 		/**
@@ -132,12 +135,9 @@
 			this.inherited(arguments);
 
 			// FIXME: Backwards-compatibility for deprecated property - can be removed when
-			// the titleUpperCase property is fully deprecated and removed. We give the uppercase
-			// property precedence and assign its value to the titleUpperCase property if it has
-			// changed from the default value, otherwise if the value of the titleUpperCase property
-			// has changed from the default value, we assign its value to the uppercase property.
-			if (!this.uppercase) this.titleUpperCase = this.uppercase;
-			else if (!this.titleUpperCase) this.uppercase = this.titleUpperCase;
+			// the titleUpperCase property is fully deprecated and removed. The legacy
+			// property takes precedence if it exists.
+			if (this.titleUpperCase !== null) this.uppercase = this.titleUpperCase;
 
 			this.titleChanged();
 			this.subTitleChanged();

@@ -247,11 +247,14 @@
 			/**
 			* @deprecated Replaced by [uppercase]{@link moon.Slider#uppercase}.
 			*
+			* Formerly defaulted to `true`, now defaults to `null` and will only have
+			* an effect when explicitly set (for complete backward compatibility).
+			*
 			* @type {Boolean}
-			* @default true
+			* @default null
 			* @public
 			*/
-			popupContentUpperCase: true
+			popupContentUpperCase: null
 		},
 
 		/**
@@ -350,18 +353,16 @@
 			}
 
 			// FIXME: Backwards-compatibility for deprecated property - can be removed when
-			// the popupContentUpperCase property is fully deprecated and removed. We give the uppercase
-			// property precedence and assign its value to the popupContentUpperCase property if it has
-			// changed from the default value, otherwise if the value of the popupContentUpperCase property
-			// has changed from the default value, we assign its value to the uppercase property.
-			if (!this.uppercase) this.popupContentUpperCase = this.uppercase;
-			else if (!this.popupContentUpperCase) this.uppercase = this.popupContentUpperCase;
+			// the popupContentUpperCase property is fully deprecated and removed. The legacy
+			// property takes precedence if it exists.
+			if (this.popupContentUpperCase !== null) this.uppercase = this.popupContentUpperCase;
 
 			this.createComponents(this.moreComponents);
 			this.initValue();
 			this.disabledChanged();
 			this.knobClassesChanged();
 			this.popupLabelClassesChanged();
+			this.popupContentChanged();
 			this.tapAreaClassesChanged();
 			this.initSliderStyles();
 		},
