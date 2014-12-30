@@ -2511,7 +2511,7 @@ html {
 /* Drawer */
 .moon-list-actions-drawer {
   overflow: hidden;
-  z-index: 1;
+  z-index: 50;
   pointer-events: none;
 }
 .moon-list-actions-drawer * {
