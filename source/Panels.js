@@ -951,7 +951,7 @@
 		finishTransition: function (sendEvents) {
 			var panels = this.getPanels(),
 				transitioned = typeof this.lastIndex !== 'undefined',
-				method = transitioned ? (sendEvents ? 'transitionFinished' : 'updatePanel') : 'initPanel',
+				method = transitioned ? 'transitionFinished' : 'initPanel',
 				i,
 				panel,
 				info,
