@@ -659,19 +659,23 @@
 			var m = this.$.scrollMath,
 				b = this._getScrollBounds(),
 				canVScroll = b.height > b.clientHeight,
-				canHScroll = b.width > b.clientWidth;
+				canHScroll = b.width > b.clientWidth,
+				disablePageUp = (b.top <= 0) || !canVScroll,
+				disablePageDown = (b.top >= -1 * m.bottomBoundary) || !canVScroll,
+				disablePageLeft = (b.left <= 0) || !canHScroll,
+				disablePageRight = (b.left >= -1 * m.rightBoundary) || !canHScroll;
 
-			// Enable all of the paging controls first, so that we are not beholden to any ordering
-			// issues that can cause erratic Spotlight behavior.
-			this.$.pageUpControl.set('disabled', false);
-			this.$.pageDownControl.set('disabled', false);
-			this.$.pageLeftControl.set('disabled', false);
-			this.$.pageRightControl.set('disabled', false);
+			// Enable all of the paging controls (which are not already enabled) first, so that we
+			// are not beholden to any ordering issues that can cause erratic Spotlight behavior.
+			if (!disablePageUp) this.$.pageUpControl.set('disabled', false);
+			if (!disablePageDown) this.$.pageDownControl.set('disabled', false);
+			if (!disablePageLeft) this.$.pageLeftControl.set('disabled', false);
+			if (!disablePageRight) this.$.pageRightControl.set('disabled', false);
 
-			this.$.pageUpControl.set('disabled', (b.top <= 0) || !canVScroll);
-			this.$.pageDownControl.set('disabled', (b.top >= -1 * m.bottomBoundary) || !canVScroll);
-			this.$.pageLeftControl.set('disabled', (b.left <= 0) || !canHScroll);
-			this.$.pageRightControl.set('disabled', (b.left >= -1 * m.rightBoundary) || !canHScroll);
+			if (disablePageUp) this.$.pageUpControl.set('disabled', true);
+			if (disablePageDown) this.$.pageDownControl.set('disabled', true);
+			if (disablePageLeft) this.$.pageLeftControl.set('disabled', true);
+			if (disablePageRight) this.$.pageRightControl.set('disabled', true);
 		},
 
 		/**
