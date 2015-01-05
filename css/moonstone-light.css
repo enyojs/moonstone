@@ -3460,9 +3460,18 @@
 }
 .moon-dialog-client {
   padding: 36px 0 0;
+  float: right;
 }
 .moon-dialog-client > * {
   margin-left: 20px;
+  margin-right: 0;
+}
+.enyo-locale-right-to-left .moon-dialog-client {
+  float: left;
+}
+.enyo-locale-right-to-left .moon-dialog-client > * {
+  margin-left: 0;
+  margin-right: 20px;
 }
 .moon-tooltip {
   z-index: 20;
