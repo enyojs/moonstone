@@ -2098,13 +2098,13 @@ html {
   vertical-align: top;
 }
 .moon-slider-popup .moon-slider-popup-left {
-  margin: 0 -0.08333333rem 0 0;
+  margin: 0 -1px 0 0;
 }
 .moon-slider-popup .moon-slider-popup-center {
   z-index: 21;
 }
 .moon-slider-popup .moon-slider-popup-right {
-  margin: 0 0 0 -0.08333333rem;
+  margin: 0 0 0 -1px;
 }
 .moon-slider-popup .moon-slider-popup-label {
   color: #ffffff;
