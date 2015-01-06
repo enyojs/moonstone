@@ -3359,6 +3359,7 @@ html {
   background-color: #404040;
   background-repeat: no-repeat;
   background-position: center center;
+  background-size: contain;
   content: "\0F0006";
   color: #a6a6a6;
   text-align: center;
