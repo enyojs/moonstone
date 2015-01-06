@@ -224,7 +224,7 @@ enyo.kind({
 		this.$.buttonPopup.setAutoDismiss(!inSender.getActive());
 	},
 	dismissRadioSelection: function(){
-		if(this.$.nestedRadioDismissButton.value) this.$.nestedRadioPopup.hide();
+		if(this.$.nestedRadioDismissButton.value) this.$.nestedRadioPopup.closePopup();
 	},
 	setPosition: function(){
 		this.$.directionButton.applyStyle('left', this.$.leftInput.getValue() === '' ? '40%' : this.$.leftInput.getValue());
