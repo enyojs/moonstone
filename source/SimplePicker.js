@@ -171,6 +171,7 @@
 				this.animateChanged();
 				this.initializeActiveItem();
 				this.disabledChanged();
+				this.selectedIndexChanged();
 				this.updateMarqueeDisable();
 				this.blockChanged();
 				this.showHideNavButtons();
