@@ -114,13 +114,12 @@
 			{name: 'closeButton', kind: 'moon.IconButton', icon: 'closex', classes: 'moon-popup-close', ontap: 'closePopup', showing:false},
 
 			{
-				layoutKind: 'FittableColumnsLayout',
 				components: [
-					{fit: true, components: [
+					{name: 'client', classes: 'moon-dialog-client'},
+					{components: [
 						{name: 'title', kind: 'moon.MarqueeText', classes: 'moon-popup-header-text moon-dialog-title'},
 						{name: 'subTitle', classes: 'moon-dialog-sub-title'}
-					]},
-					{name: 'client', classes: 'moon-dialog-client'}
+					]}
 				]
 			},
 			{kind: 'moon.Divider', classes: 'moon-dialog-divider'},
