@@ -1974,7 +1974,7 @@ html {
 .enyo-locale-non-latin.enyo-locale-mr .moon-input-decorator:not(.moon-input-header-input-decorator),
 .enyo-locale-non-latin.enyo-locale-bn .moon-input-decorator:not(.moon-input-header-input-decorator),
 .enyo-locale-non-latin.enyo-locale-pa .moon-input-decorator:not(.moon-input-header-input-decorator) {
-  padding: 0.08333333333333333rem 2.5rem;
+  padding: 1px 2.5rem;
 }
 /* ProgressBar.css */
 .moon-progress-bar {
@@ -3272,7 +3272,7 @@ html {
   white-space: nowrap;
 }
 .moon-input-header-input-decorator {
-  margin: -0.08333333rem 0rem 0rem;
+  margin: -1px 0rem 0rem;
   padding: 0rem;
   border: 0rem;
   width: 100%;
@@ -3285,8 +3285,8 @@ html {
   -webkit-font-kerning: normal;
   font-kerning: normal;
   margin: 0rem;
-  padding-left: 0.08333333333333333rem;
-  padding-right: 0.08333333333333333rem;
+  padding-left: 1px;
+  padding-right: 1px;
   display: inline-block;
   box-sizing: border-box;
   line-height: 1em;
@@ -3682,8 +3682,8 @@ html {
 .moon-audio-queue-list {
   height: 8.333333333333334rem;
   padding: 1rem 1.3333333333333333rem;
-  border-top: 0.08333333333333333rem solid transparent;
-  border-bottom: 0.08333333333333333rem solid transparent;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
 }
 .moon-audio-queue-list-selected {
   background-color: #999999;
