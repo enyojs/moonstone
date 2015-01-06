@@ -25,7 +25,7 @@ enyo.kind({
 		]},
 		{kind: 'moon.ContextualPopupDecorator', style:'position: absolute; right: 0px; top: 13%;', components: [
 			{content:'Nested Radio', small:true},
-				{name:'nestedRadioPopup', kind: 'moon.ContextualPopup', components:[
+				{name:'nestedRadioPopup', kind: 'moon.ContextualPopup', spotActivatorOnClose: true, components:[
 					{name:'nestedRadioGroup', kind: 'moon.RadioItemGroup', components: [
 						{content: 'Creek', selected: true},
 						{content: 'River'},

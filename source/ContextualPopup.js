@@ -542,6 +542,10 @@
 			this.inherited(arguments);
 			this.alterDirection();
 			this.showHideScrim(this.showing);
+
+			if(this.spotActivatorOnClose) {
+				enyo.Spotlight.spot(this.activator);
+			}
 		},
 
 		/**
