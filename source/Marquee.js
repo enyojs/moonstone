@@ -740,6 +740,10 @@
 		* @private
 		*/
 		_marquee_startAnimation: function (sender, ev) {
+			// if this control hasn't been generated, there's no need to follow through on
+			// marquee requests as we'll be unable to correctly measure the distance delta yet
+			if (!this.generated) return;
+
 			var distance = this._marquee_calcDistance();
 
 			// If there is no need to animate, return early
