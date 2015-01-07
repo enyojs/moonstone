@@ -4,6 +4,7 @@ enyo.depends(
 	'moon-fonts.js',
 	'BodyText.js',
 	'Marquee.js',
+	'MultiRes.js',
 	'Button.js',
 	'CaptionDecorator.js',
 	'Item.js',
