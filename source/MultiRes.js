@@ -4,6 +4,18 @@
 	var screenTypes = ['hd', 'fhd', 'uhd'];
 
 	/**
+	* The default configurable [options]{@link enyo.Model#options} used in certain API methods
+	* of {@link enyo.Model}.
+	*
+	* @typedef {Object} moon.MultiResSupport~src
+	* @property {String} hd=undefined - HD / 720p Resolution image asset source URI/URL
+	* @property {String} fhd=undefined - FHD / 1080p Resolution image asset source URI/URL
+	* @property {String} uhd=undefined - UHD / 4K Resolution image asset source URI/URL
+	*
+	* @typedef {String} moon.MultiResSupport~src - Image asset source URI/URL
+	*/
+
+	/**
 	* A simple mixin to provide a utility function for selecting the ideal image asset from a set
 	* of assets, based on various screen resolutions: HD (720p), FHD (1080p), UHD (4k).
 	*

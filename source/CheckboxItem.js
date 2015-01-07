@@ -132,12 +132,12 @@
 			/**
 			* Optional path to an image asset. May be used to customize checkbox appearance.
 			*
-			* @type {String}
+			* @type {String|moon.MultiResSupport~src}
 			* @default ''
 			* @public
 			*/
 			src: '',
-			
+
 			/**
 			* If used as the base control within a {@link moon.DataList} or {@glossary subkind},
 			* this should be set to `false` so that selection support can be synchronized to the

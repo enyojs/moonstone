@@ -54,7 +54,7 @@
 			/**
 			* Optional path to an image asset. May be used to customize checkbox appearance.
 			*
-			* @type {String}
+			* @type {String|moon.MultiResSupport~src}
 			* @default ''
 			* @public
 			*/
