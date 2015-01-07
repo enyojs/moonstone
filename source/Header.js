@@ -211,7 +211,7 @@
 		/**
 		* @private
 		*/
-		mixins: ['moon.MarqueeSupport'],
+		mixins: ['moon.MarqueeSupport', 'moon.MultiResSupport'],
 
 		/**
 		* @private
@@ -347,9 +347,9 @@
 		*/
 		backgroundSrcChanged: function () {
 			var bgs = (enyo.isArray(this.backgroundSrc)) ? this.backgroundSrc : [this.backgroundSrc];
-			bgs = enyo.map(bgs, function (inBackgroundSource) {
-					return inBackgroundSource ? 'url(' + inBackgroundSource + ')' : null;
-				});
+			bgs = enyo.map(bgs, this.bindSafely(function (inBackgroundSource) {
+					return inBackgroundSource ? 'url(' + this.multiResSrc(inBackgroundSource) + ')' : null;
+				}));
 			this.applyStyle('background-image', (bgs.length) ? bgs.join(', ') : null);
 		},
 

@@ -203,6 +203,11 @@
 		},
 
 		/**
+		* @private
+		*/
+		mixins: ['moon.MultiResSupport'],
+
+		/**
 		* @returns {String} The value of the [src]{@link moon.Icon#src} property.
 		* @public
 		*/
@@ -247,9 +252,10 @@
 		*/
 		srcChanged: function () {
 			var src = this.src || null;
+			src = this.multiResSrc(src);
 			if (src) {
 				if (src != 'none' && src != 'inherit' && src != 'initial') {
-					src = 'url(' + enyo.path.rewrite(this.src) + ')';
+					src = 'url(' + enyo.path.rewrite(src) + ')';
 				}
 			}
 			this.applyStyle('background-image', src);
