@@ -86,6 +86,11 @@
 		/**
 		* @private
 		*/
+		mixins: ['moon.MultiResSupport'],
+
+		/**
+		* @private
+		*/
 		components: [
 			{name: 'checkboxIcon', kind: 'moon.Icon', icon: 'check'}
 		],
@@ -131,7 +136,7 @@
 		* @private
 		*/
 		srcChanged: function() {
-			this.$.checkboxIcon.setSrc(this.src);
+			this.$.checkboxIcon.setSrc(this.multiResSrc(this.src));
 		}
 
 	});
