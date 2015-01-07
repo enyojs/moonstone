@@ -46,7 +46,7 @@
 			/**
 			* The absolute URL path to the image.
 			*
-			* @type {String}
+			* @type {String|moon.MultiResSupport~src}
 			* @default ''
 			* @public
 			*/
