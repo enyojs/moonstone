@@ -115,10 +115,15 @@
 
 			/**
 			* URL(s) of background image(s).
-			* This may be a string referring a single background image, or an array of
-			* strings referring to multiple background images.
+			* This may be a string referring a single background image, or an array of strings
+			* referring to multiple background images. To support multiple background-images at
+			* multiple resolutions, this property can accept several formats:
+			* 1) A string src,
+			* 2) An array of string srcs,
+			* 3) A [MultiRes Hash]{@link moon.MultiResSupport~src}
+			* 4) An array of [MultiRes Hashs]{@link moon.MultiResSupport~src}
 			*
-			* @type {(String|String[])}
+			* @type {(String|String[]|moon.MultiResSupport~src|moon.MultiResSupport~src[])}
 			* @default null
 			* @public
 			*/
