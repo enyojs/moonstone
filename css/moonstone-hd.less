@@ -1,0 +1,25 @@
+.hd(@property, @value) {
+	@{property}: @value;
+}
+
+.hd(@property, @value) when (mod(@value, 3) > 0) {
+	@{property}: @value;
+
+	.hd-media(@property, round(@value / 3) * 3);
+}
+
+.hd(@property, @value) when (length(@value) = 2) {
+	.hd-media(@property, round(extract(@value, 1) / 3) * 3 round(extract(@value, 2) / 3) * 3);
+}
+
+.hd(@property, @value) when (length(@value) = 4) {
+	.hd-media(@property, round(extract(@value, 1) / 3) * 3 round(extract(@value, 2) / 3) * 3 round(extract(@value, 3) / 3) * 3 round(extract(@value, 4) / 3) * 3);
+}
+
+.hd-media(@property, @value) {
+	@media only screen and (max-width: 1280px) {
+		& {
+			@{property}: @value;
+		}
+	}
+}
