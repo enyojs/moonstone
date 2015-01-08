@@ -17,9 +17,7 @@
 }
 
 .hd-media(@property, @value) {
-	@media only screen and (max-width: 1280px) {
-		& {
-			@{property}: @value;
-		}
+	.moon-res-hd & {
+		@{property}: @value;
 	}
 }
