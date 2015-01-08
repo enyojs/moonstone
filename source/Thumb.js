@@ -66,6 +66,21 @@
 		/**
 		* @private
 		*/
+		rendered: enyo.inherit(function (sup) {
+			return function () {
+				sup.apply(this, arguments);
+
+				// Rounding to the nearest whole pixel in the dimension that will be transformed, to
+				// prevent rounding issues when transforms are applied.
+				var node = this.hasNode(),
+					rect = node && node.getBoundingClientRect();
+				if (rect) this.applyStyle(this.dimension, Math.round(rect[this.dimension]) + 'px');
+			};
+		}),
+
+		/**
+		* @private
+		*/
 		update: function (inStrategy) {
 			if (this.showing && this.scrollBounds) {
 				var d = this.dimension;
@@ -83,11 +98,11 @@
 				}
 				var sbo = inStrategy[this.positionMethod]() - over;
 				// calc size & position
-				var bdc = bd - this.cornerSize;
+				var bdc = bd - moon.riScale(this.cornerSize);
 				var s = Math.floor((bd * bd / sbd) - overs);
-				s = Math.max(this.minSize, s);
+				s = Math.max(moon.riScale(this.minSize), s);
 				var p = Math.floor((bdc * sbo / sbd) + overp);
-				p = Math.max(0, Math.min(bdc - this.minSize, p));
+				p = Math.max(0, Math.min(bdc - moon.riScale(this.minSize), p));
 	
 				p *= ratio;
 				s *= ratio;
