@@ -1,6 +1,6 @@
 (function (enyo, scope) {
 
-	// List of all of the sipported key
+	// List of all of the supported keys
 	var screenTypes = ['hd', 'fhd', 'uhd'];
 
 	/**
@@ -49,9 +49,9 @@
 		* sources (keys:screen and values:src). The image sources will be used chosen when the
 		* screen resolution is less than or equal to the provided screen types.
 		*
-		* @param {(String|Object)} src A string containing a single image src or a key/value
-		*	hash/object containing keys representing screen types (hd, fhd, uhd, etc) and values
-		*	containing the asset src for that target screen resolution.
+		* @param {(String|moon.MultiResSupport~src)} src A string containing a single image src or
+		*	a key/value hash/object containing keys representing screen types (hd, fhd, uhd, etc)
+		*	and values containing the asset src for that target screen resolution.
 		* @returns {String} The choosen src given the string or list provided.
 		* @public
 		*/
@@ -62,8 +62,10 @@
 				newSrc = src.fhd || src.uhd || src.hd;
 
 				// Check each of the available resolutions for matches. Use it if found.
-				for (var i = 0; i < screenTypes.length; i++) {
-					if (screenType == screenTypes[i] && src[screenTypes[i]]) newSrc = src[screenTypes[i]];
+				var i, t;
+				for (i = 0; i < screenTypes.length; i++) {
+					t = screenTypes[i];
+					if (screenType == t && src[t]) newSrc = src[t];
 				}
 
 				src = newSrc;
