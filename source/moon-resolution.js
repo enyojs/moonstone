@@ -30,7 +30,7 @@
 		* @public
 		*/
 		screenTypes: [
-			{name: 'hd',    pxPerRem: 16,  height: 720,  width: 1280},
+			{name: 'hd',    pxPerRem: 16, height: 720,  width: 1280},
 			{name: 'fhd',   pxPerRem: 24, height: 1080, width: 1920},
 			{name: 'uhd',   pxPerRem: 48, height: 2160, width: 3840}
 		],
@@ -91,7 +91,6 @@
 
 		scale: function (px) {
 			return (riRatio || this.getRiRatio()) * px;
-			// return (riRatio || this.getRiRatio()) * px;
 		},
 
 		/**
@@ -138,7 +137,7 @@
 					newSrc = src.fhd || src.uhd || src.hd,
 					types = this.screenTypes;
 
-				// loop thorugh resolutions
+				// loop through resolutions
 				for (i = types.length - 1; i >= 0; i--) {
 					t = types[i].name;
 					if (screenType == t && src[t]) newSrc = src[t];
