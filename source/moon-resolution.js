@@ -16,8 +16,6 @@
 	};
 
 	/**
-	* Instantiates and loads [iLib]{@link ilib} and its resources.
-	*
 	* @private
 	*/
 	scope.moon = scope.moon || {};
