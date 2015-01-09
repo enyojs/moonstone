@@ -472,7 +472,7 @@
 					100: [{
 						control: this,
 						properties: {
-							'height': enyo.dom.unit(moon.riScale(260), 'rem')
+							'height': enyo.dom.unit(moon.ri.scale(260), 'rem')
 						}
 					}, {
 						control: this.$.titleWrapper,
@@ -611,7 +611,7 @@
 				// Measure client area's width + 40px of spacing
 				client = this.$.client ? this.$.client.hasNode() : null,
 				clientWidth = client ? client.offsetWidth : null,
-				clientSpace = enyo.dom.unit(clientWidth + moon.riScale(40), 'rem'),
+				clientSpace = enyo.dom.unit(clientWidth + moon.ri.scale(40), 'rem'),
 				rtl = this.rtl;
 
 			if (client) {
