@@ -120,10 +120,10 @@
 			* multiple resolutions, this property can accept several formats:
 			* 1) A string src,
 			* 2) An array of string srcs,
-			* 3) A [MultiRes Hash]{@link moon.MultiResSupport~src}
-			* 4) An array of [MultiRes Hashs]{@link moon.MultiResSupport~src}
+			* 3) A [MultiRes Hash]{@link moon.ri.selectSrc~src}
+			* 4) An array of [MultiRes Hashs]{@link moon.ri.selectSrc~src}
 			*
-			* @type {(String|String[]|moon.MultiResSupport~src|moon.MultiResSupport~src[])}
+			* @type {(String|String[]|moon.ri.selectSrc~src|moon.ri.selectSrc~src[])}
 			* @default null
 			* @public
 			*/
@@ -204,7 +204,7 @@
 		/**
 		* @private
 		*/
-		mixins: ['moon.MarqueeSupport', 'moon.MultiResSupport'],
+		mixins: ['moon.MarqueeSupport'],
 
 		/**
 		* @private
@@ -335,7 +335,7 @@
 		backgroundSrcChanged: function () {
 			var bgs = (enyo.isArray(this.backgroundSrc)) ? this.backgroundSrc : [this.backgroundSrc];
 			bgs = enyo.map(bgs, this.bindSafely(function (inBackgroundSource) {
-					return inBackgroundSource ? 'url(' + this.multiResSrc(inBackgroundSource) + ')' : null;
+					return inBackgroundSource ? 'url(' + moon.ri.selectSrc(inBackgroundSource) + ')' : null;
 				}));
 			this.applyStyle('background-image', (bgs.length) ? bgs.join(', ') : null);
 		},
