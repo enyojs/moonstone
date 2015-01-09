@@ -61,6 +61,10 @@
 			this.positionMethod = v ? 'getScrollTop' : 'getScrollLeft';
 			this.sizeDimension = v ? 'clientHeight' : 'clientWidth';
 			this.addClass('enyo-' + this.axis + 'thumb');
+
+			// Pre-calculation of internal, resolution-specific metrics
+			this.cornerSize = moon.riScale(this.cornerSize);
+			this.minSize = moon.riScale(this.minSize);
 		},
 
 		/**
@@ -98,11 +102,11 @@
 				}
 				var sbo = inStrategy[this.positionMethod]() - over;
 				// calc size & position
-				var bdc = bd - moon.riScale(this.cornerSize);
+				var bdc = bd - this.cornerSize;
 				var s = Math.floor((bd * bd / sbd) - overs);
-				s = Math.max(moon.riScale(this.minSize), s);
+				s = Math.max(this.minSize, s);
 				var p = Math.floor((bdc * sbo / sbd) + overp);
-				p = Math.max(0, Math.min(bdc - moon.riScale(this.minSize), p));
+				p = Math.max(0, Math.min(bdc - this.minSize, p));
 	
 				p *= ratio;
 				s *= ratio;
