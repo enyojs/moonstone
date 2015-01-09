@@ -64,9 +64,9 @@
 				sup.apply(this, arguments);
 
 				// scale px values for current resolution
-				this.spacing = moon.riScale(this.spacing);
-				this.minWidth = moon.riScale(this.minWidth);
-				this.minHeight = moon.riScale(this.minHeight);
+				this.spacing = moon.ri.scale(this.spacing);
+				this.minWidth = moon.ri.scale(this.minWidth);
+				this.minHeight = moon.ri.scale(this.minHeight);
 			};
 		}),
 
