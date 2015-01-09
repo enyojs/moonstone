@@ -42,13 +42,8 @@
 		*/
 		classes: 'moon-image',
 
-		/**
-		* @private
-		*/
-		mixins: ['moon.MultiResSupport'],
-
 		srcChanged: function () {
-			this.src = this.multiResSrc(this.src);
+			this.src = moon.ri.selectSrc(this.src);
 			this.inherited(arguments);
 		}
 	});

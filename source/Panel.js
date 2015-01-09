@@ -145,7 +145,7 @@
 			* Facade for the [backgroundSrc]{@link moon.Header#backgroundSrc} property
 			* of the embedded {@link moon.Header}.
 			*
-			* @type {(String|String[]|moon.MultiResSupport~src|moon.MultiResSupport~src[])}
+			* @type {(String|String[]|moon.ri.selectSrc~src|moon.ri.selectSrc~src[])}
 			* @default null
 			* @public
 			*/

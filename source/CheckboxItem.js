@@ -132,7 +132,7 @@
 			/**
 			* Optional path to an image asset. May be used to customize checkbox appearance.
 			*
-			* @type {String|moon.MultiResSupport~src}
+			* @type {String|moon.ri.selectSrc~src}
 			* @default ''
 			* @public
 			*/

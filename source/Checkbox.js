@@ -54,7 +54,7 @@
 			/**
 			* Optional path to an image asset. May be used to customize checkbox appearance.
 			*
-			* @type {String|moon.MultiResSupport~src}
+			* @type {String|moon.ri.selectSrc~src}
 			* @default ''
 			* @public
 			*/
@@ -82,11 +82,6 @@
 			*/
 			onclick: ''
 		},
-
-		/**
-		* @private
-		*/
-		mixins: ['moon.MultiResSupport'],
 
 		/**
 		* @private
@@ -136,7 +131,7 @@
 		* @private
 		*/
 		srcChanged: function() {
-			this.$.checkboxIcon.setSrc(this.multiResSrc(this.src));
+			this.$.checkboxIcon.setSrc(moon.ri.selectSrc(this.src));
 		}
 
 	});
