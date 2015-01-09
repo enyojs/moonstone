@@ -115,10 +115,15 @@
 
 			/**
 			* URL(s) of background image(s).
-			* This may be a string referring a single background image, or an array of
-			* strings referring to multiple background images.
+			* This may be a string referring a single background image, or an array of strings
+			* referring to multiple background images. To support multiple background-images at
+			* multiple resolutions, this property can accept several formats:
+			* 1) A string src,
+			* 2) An array of string srcs,
+			* 3) A [MultiRes Hash]{@link moon.ri.selectSrc~src}
+			* 4) An array of [MultiRes Hashs]{@link moon.ri.selectSrc~src}
 			*
-			* @type {(String|String[])}
+			* @type {(String|String[]|moon.ri.selectSrc~src|moon.ri.selectSrc~src[])}
 			* @default null
 			* @public
 			*/
@@ -329,9 +334,9 @@
 		*/
 		backgroundSrcChanged: function () {
 			var bgs = (enyo.isArray(this.backgroundSrc)) ? this.backgroundSrc : [this.backgroundSrc];
-			bgs = enyo.map(bgs, function (inBackgroundSource) {
-					return inBackgroundSource ? 'url(' + inBackgroundSource + ')' : null;
-				});
+			bgs = enyo.map(bgs, this.bindSafely(function (inBackgroundSource) {
+					return inBackgroundSource ? 'url(' + moon.ri.selectSrc(inBackgroundSource) + ')' : null;
+				}));
 			this.applyStyle('background-image', (bgs.length) ? bgs.join(', ') : null);
 		},
 
@@ -449,7 +454,7 @@
 					100: [{
 						control: this,
 						properties: {
-							'height': enyo.dom.unit(moon.riScale(260), 'rem')
+							'height': enyo.dom.unit(moon.ri.scale(260), 'rem')
 						}
 					}, {
 						control: this.$.titleWrapper,
@@ -588,7 +593,7 @@
 				// Measure client area's width + 40px of spacing
 				client = this.$.client ? this.$.client.hasNode() : null,
 				clientWidth = client ? client.offsetWidth : null,
-				clientSpace = enyo.dom.unit(clientWidth + moon.riScale(40), 'rem'),
+				clientSpace = enyo.dom.unit(clientWidth + moon.ri.scale(40), 'rem'),
 				rtl = this.rtl;
 
 			if (client) {
@@ -624,7 +629,7 @@
 				subtitle = this.get('titleBelow');
 			if ((this.get('type') == 'small') && subtitle) {
 				this.$.title.set('allowHtml', true);
-				this.$.title.set('content', enyo.Control.prototype.rtl && !enyo.isRtl(subtitle + title) ? 
+				this.$.title.set('content', enyo.Control.prototype.rtl && !enyo.isRtl(subtitle + title) ?
 					'<span class="moon-sub-header-text moon-header-sub-title">' + subtitle + '</span>' + '   ' + title :
 					title + '   ' + '<span class="moon-sub-header-text moon-header-sub-title">' + subtitle + '</span>');
 			} else {

@@ -50,7 +50,7 @@
 			/**
 			* The URL of the image.
 			*
-			* @type {String}
+			* @type {String|moon.ri.selectSrc~src}
 			* @default ''
 			* @public
 			*/

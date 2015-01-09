@@ -145,7 +145,7 @@
 			* Facade for the [backgroundSrc]{@link moon.Header#backgroundSrc} property
 			* of the embedded {@link moon.Header}.
 			*
-			* @type {(String|String[])}
+			* @type {(String|String[]|moon.ri.selectSrc~src|moon.ri.selectSrc~src[])}
 			* @default null
 			* @public
 			*/
@@ -311,7 +311,7 @@
 
 		/**
 		* Set by {@link moon.BreadcrumbArranger} during {@link moon.BreadcrumbArranger#size}
-		* based on the value of {@link moon.Panels#animate}. 
+		* based on the value of {@link moon.Panels#animate}.
 		*
 		* @private
 		*/

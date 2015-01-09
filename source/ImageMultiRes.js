@@ -1,8 +1,4 @@
 (function (enyo, scope) {
-
-	// List of all of the sipported key
-	var screenTypes = ['hd', 'fhd', 'uhd'];
-
 	/**
 	* {@link moon.ImageMultiRes} is a direct replacement to {@link enyo.Image}
 	*
@@ -47,19 +43,7 @@
 		classes: 'moon-image',
 
 		srcChanged: function () {
-			var src = this.src,
-				newSrc;
-			if (typeof src != 'string' && src) {
-				var screenType = moon.getScreenType();
-				newSrc = src.fhd || src.uhd || src.hd;
-
-				// Check each of the available resolutions for matches. Use it if found.
-				for (var i = 0; i < screenTypes.length; i++) {
-					if (screenType == screenTypes[i] && src[screenTypes[i]]) newSrc = src[screenTypes[i]];
-				}
-
-				this.src = newSrc;
-			}
+			this.src = moon.ri.selectSrc(this.src);
 			this.inherited(arguments);
 		}
 	});
