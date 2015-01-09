@@ -149,7 +149,7 @@
 			/**
 			* Source URL for icon image.
 			*
-			* @type {String|moon.MultiResSupport~src}
+			* @type {String|moon.ri.selectSrc~src}
 			* @default ''
 			* @public
 			*/

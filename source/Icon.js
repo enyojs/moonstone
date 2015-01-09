@@ -156,7 +156,7 @@
 			/**
 			* URL specifying path to icon image.
 			*
-			* @type {String|moon.MultiResSupport~src}
+			* @type {String|moon.ri.selectSrc~src}
 			* @default ''
 			* @public
 			*/
@@ -203,11 +203,6 @@
 		},
 
 		/**
-		* @private
-		*/
-		mixins: ['moon.MultiResSupport'],
-
-		/**
 		* @returns {String} The value of the [src]{@link moon.Icon#src} property.
 		* @public
 		*/
@@ -252,7 +247,7 @@
 		*/
 		srcChanged: function () {
 			var src = this.src || null;
-			src = this.multiResSrc(src);
+			src = moon.ri.selectSrc(src);
 			if (src) {
 				if (src != 'none' && src != 'inherit' && src != 'initial') {
 					src = 'url(' + enyo.path.rewrite(src) + ')';

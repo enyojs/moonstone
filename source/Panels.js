@@ -120,7 +120,7 @@
 			* The source of the image used for branding in the lower left region of the Panels
 			* (only applies to Panels using the `'activity'` pattern).
 			*
-			* @type {String|moon.MultiResSupport~src}
+			* @type {String|moon.ri.selectSrc~src}
 			* @default ''
 			* @public
 			*/
