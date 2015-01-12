@@ -28,8 +28,8 @@
 
 .moon-scroll-picker-item {
 	white-space: nowrap;
-	padding: 0 @moon-picker-min-padding 2px @moon-picker-min-padding;
-	min-width: 50px;
+	padding: 0 @moon-picker-min-padding 3px @moon-picker-min-padding;
+	min-width: 48px;
 	height: @moon-integer-picker-height;
 	line-height: @moon-integer-picker-height;
 	text-align: center;
@@ -38,7 +38,7 @@
 
 .moon-scroll-picker-buffer {
 	white-space: nowrap;
-	padding: 0 @moon-picker-min-padding 2px @moon-picker-min-padding;
+	padding: 0 @moon-picker-min-padding 3px @moon-picker-min-padding;
 	height: 0;
 	opacity: 0;
 }
@@ -56,7 +56,7 @@
 	&.next:after {
 		content: @moon-icon-arrowsmallup;
 		font-size: @moon-integer-picker-caret-font-size;
-		line-height: @moon-integer-picker-caret-font-size/2 + 4;
+		line-height: @moon-integer-picker-caret-font-size/2 + 3;
 	}
 	&.previous {
 		bottom: 0;
@@ -64,7 +64,7 @@
 	&.previous:after {
 		content: @moon-icon-arrowsmalldown;
 		font-size: @moon-integer-picker-caret-font-size;
-		line-height: @moon-integer-picker-caret-font-size/2 - 8;
+		line-height: @moon-integer-picker-caret-font-size/2 - 9;
 	}
 }
 
@@ -73,7 +73,7 @@
 
 	&.next:after {
 		content: @moon-icon-arrowlargeup;
-		line-height: @moon-integer-picker-caret-font-size/2 + 8;
+		line-height: @moon-integer-picker-caret-font-size/2 + 9;
 	}
 	&.previous:after {
 		content: @moon-icon-arrowlargedown;
@@ -83,7 +83,7 @@
 
 .selected .moon-scroll-picker-overlay {
 	position: absolute;
-	height: @moon-integer-picker-overlay-height + 5px;
+	height: @moon-integer-picker-overlay-height + 6px;
 	width: 100%;
 	background-color: @moon-accent;
 
@@ -99,7 +99,7 @@
 	&.next:after {
 		content: @moon-icon-arrowsmallup;
 		font-size: @moon-integer-picker-caret-font-size;
-		line-height: @moon-integer-picker-caret-font-size/2 - 4;
+		line-height: @moon-integer-picker-caret-font-size/2 - 3;
 	}
 	&.previous {
 	 	bottom: 0;
@@ -113,7 +113,7 @@
 	&.previous:after {
 		content: @moon-icon-arrowsmalldown;
 		font-size: @moon-integer-picker-caret-font-size;
-		line-height: @moon-integer-picker-caret-font-size/2 + 8;
+		line-height: @moon-integer-picker-caret-font-size/2 + 9;
 	}
  }
 
