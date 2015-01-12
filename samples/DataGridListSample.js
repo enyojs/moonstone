@@ -14,8 +14,16 @@ enyo.kind({
 		]},
 		{kind: "moon.Panel", joinToPrev: true, title:"Data Grid List", headerComponents: [
 			{kind: "moon.ToggleButton", content:"Selection", name:"selectionToggle"},
-			{kind: "moon.ToggleButton", content:"MultiSelect", name:"multiSelectToggle"},
-			{kind: "moon.ToggleButton", content: "GroupSelect", name: "groupSelectToggle"},
+			{kind: "moon.ContextualPopupDecorator", components: [
+				{kind: "moon.ContextualPopupButton", content:"Selection Type"},
+				{kind: "moon.ContextualPopup", classes:"moon-4h moon-6v", components: [
+					{kind: "moon.RadioItemGroup", name: "selectionTypeGroup", components: [
+						{content: "Single", value: "single", selected: true},
+						{content: "Multiple", value: "multi"},
+						{content: "Group", value: "group"}
+					]}
+				]}
+			]},
 			{kind: "moon.Button", content:"Refresh", ontap:"refreshItems"},
 			{kind: "moon.ContextualPopupDecorator", components: [
 				{kind: "moon.ContextualPopupButton", content:"Popup List"},
@@ -37,14 +45,12 @@ enyo.kind({
 	bindings: [
 		{from: ".collection", to: ".$.dataList.collection"},
 		{from: ".collection", to: ".$.gridList.collection"},
-		{from: ".$.selectionToggle.value", to: ".$.gridList.selection", oneWay: false},
-		{from: ".$.multiSelectToggle.value", to: ".$.gridList.multipleSelection", oneWay: false},
-		{from: ".$.groupSelectToggle.value", to: ".$.gridList.groupSelection", oneWay: false},
-		{from: ".$.multiSelectToggle.value", to: ".$.selectionToggle.value", oneWay: false,
-			transform: function (value, dir) {
-				return dir == 1 ? (value ? value : this.$.selectionToggle.value) : false;
+		{from: ".$.selectionTypeGroup.active", to: ".$.gridList.selectionType",
+			transform: function (selected) {
+				return selected && selected.value;
 			}
-		}
+		},
+		{from: ".$.selectionToggle.value", to: ".$.gridList.selection", oneWay: false}
 	],
 	create: function () {
 		this.inherited(arguments);
