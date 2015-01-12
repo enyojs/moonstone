@@ -1,15 +1,15 @@
 /* Radio Item */
 .moon-radio-item {
 	display: inline-block;
-	max-width: 250px;
+	max-width: 249px;
 	margin: 0 @moon-radio-item-gap 0 0;
-	padding: 10px @moon-spotlight-outset 10px @moon-item-indent + @moon-spotlight-outset;
+	padding: 9px @moon-spotlight-outset 9px @moon-item-indent + @moon-spotlight-outset;
 
 	&:before {
 		content: '';
 		position: absolute;
 		left: @moon-spotlight-outset;
-		top: 17px;
+		top: 18px;
 		width: @moon-selectable-item-indicator-width - 2 * @moon-radio-item-indicator-border;
 		height: @moon-selectable-item-indicator-height - 2 * @moon-radio-item-indicator-border;
 		border: solid @moon-radio-item-indicator-border @moon-spotlight-text-color;
@@ -26,7 +26,7 @@
 
 .enyo-locale-right-to-left .moon-radio-item {
 	margin: 0 0 0 @moon-radio-item-gap;
-	padding: 10px @moon-item-indent + @moon-spotlight-outset 10px @moon-spotlight-outset;
+	padding: 9px @moon-item-indent + @moon-spotlight-outset 9px @moon-spotlight-outset;
 
 	&:before {
 		left: auto;
