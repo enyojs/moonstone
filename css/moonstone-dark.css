@@ -13,7 +13,7 @@ html {
 /* 720p screen size */
 @media only screen and (max-width: 1280px) {
   html {
-    font-size: 0.6666666666666666rem;
+    font-size: 0.66667rem;
     font-size: 16px;
   }
 }
@@ -444,9 +444,9 @@ html {
 }
 .moon-body-text {
   font-family: "MuseoSans 300";
-  font-size: 1.08333333rem;
+  font-size: 1.08333rem;
   color: #a6a6a6;
-  line-height: 1.33333333rem;
+  line-height: 1.33333rem;
 }
 .moon-body-text a:link {
   color: #cf0652;
@@ -465,14 +465,14 @@ html {
   text-decoration: none;
 }
 .moon-body-large-text {
-  font-size: 1.20833333rem;
-  line-height: 1.70833333rem;
+  font-size: 1.20833rem;
+  line-height: 1.70833rem;
 }
 .moon-bold-text {
   font-family: "MuseoSans 900";
-  font-size: 1.08333333rem;
+  font-size: 1.08333rem;
   color: #a6a6a6;
-  line-height: 1.33333333rem;
+  line-height: 1.33333rem;
 }
 .moon-bold-text a:link {
   color: #cf0652;
@@ -1181,7 +1181,7 @@ html {
   display: inline-block;
   width: auto;
   min-width: 3.5rem;
-  max-width: 12.583333333333334rem;
+  max-width: 12.58333rem;
   padding: 0 0.75rem;
   margin: 0 0.5rem;
   color: #a6a6a6;
@@ -1401,9 +1401,9 @@ html {
 }
 .moon-expandable-list-item-client .moon-item {
   font-family: "MuseoSans 300";
-  font-size: 1.08333333rem;
+  font-size: 1.08333rem;
   color: #a6a6a6;
-  line-height: 1.33333333rem;
+  line-height: 1.33333rem;
 }
 .moon-expandable-list-item-client .moon-item a:link {
   color: #cf0652;
@@ -1449,7 +1449,7 @@ html {
 .moon-expandable-picker-header:after {
   position: absolute;
   top: 0rem;
-  right: 0.54166667rem;
+  right: 0.54167rem;
   font-family: "Moonstone Icons";
   content: "\0F0001";
   font-size: 2rem;
@@ -1463,7 +1463,7 @@ html {
   padding-right: 0;
 }
 .enyo-locale-right-to-left .moon-expandable-picker-header:after {
-  left: 0.54166667rem;
+  left: 0.54167rem;
   right: auto;
 }
 /* Header Open */
@@ -1473,8 +1473,8 @@ html {
 /* Current Value */
 .moon-expandable-picker-current-value {
   font-family: "MuseoSans 300";
-  font-size: 1.08333333rem;
-  line-height: 1.33333333rem;
+  font-size: 1.08333rem;
+  line-height: 1.33333rem;
   color: #a6a6a6;
   margin: 0rem;
 }
@@ -1653,9 +1653,9 @@ html {
 }
 .moon-gridlist-imageitem .sub-caption {
   font-family: "MuseoSans 300";
-  font-size: 1.08333333rem;
+  font-size: 1.08333rem;
   color: #a6a6a6;
-  line-height: 1.33333333rem;
+  line-height: 1.33333rem;
 }
 .moon-gridlist-imageitem .sub-caption a:link {
   color: #cf0652;
@@ -1784,27 +1784,27 @@ html {
 }
 .moon-scroll-picker-overlay-container.next:after {
   content: "\0F0005";
-  font-size: 2.83333333rem;
-  line-height: 1.54166667rem;
+  font-size: 2.83333rem;
+  line-height: 1.54167rem;
 }
 .moon-scroll-picker-overlay-container.previous {
   bottom: 0;
 }
 .moon-scroll-picker-overlay-container.previous:after {
   content: "\0F0006";
-  font-size: 2.83333333rem;
-  line-height: 1.04166667rem;
+  font-size: 2.83333rem;
+  line-height: 1.04167rem;
 }
 .spotlight .moon-scroll-picker-overlay-container {
   color: #ffffff;
 }
 .spotlight .moon-scroll-picker-overlay-container.next:after {
   content: "\0F0002";
-  line-height: 1.79166667rem;
+  line-height: 1.79167rem;
 }
 .spotlight .moon-scroll-picker-overlay-container.previous:after {
   content: "\0F0001";
-  line-height: 0.91666667rem;
+  line-height: 0.91667rem;
 }
 .selected .moon-scroll-picker-overlay {
   position: absolute;
@@ -1822,8 +1822,8 @@ html {
 }
 .selected .moon-scroll-picker-overlay.next:after {
   content: "\0F0005";
-  font-size: 2.83333333rem;
-  line-height: 1.29166667rem;
+  font-size: 2.83333rem;
+  line-height: 1.29167rem;
 }
 .selected .moon-scroll-picker-overlay.previous {
   bottom: 0;
@@ -1835,8 +1835,8 @@ html {
 }
 .selected .moon-scroll-picker-overlay.previous:after {
   content: "\0F0006";
-  font-size: 2.83333333rem;
-  line-height: 1.79166667rem;
+  font-size: 2.83333rem;
+  line-height: 1.79167rem;
 }
 .moon-scroll-picker-taparea {
   position: absolute;
@@ -2146,7 +2146,7 @@ html {
   right: 0.5rem;
   font-family: "Moonstone Icons";
   content: "\0F0008";
-  font-size: 2.41666667rem;
+  font-size: 2.41667rem;
   line-height: 3rem;
   color: #cf0652;
 }
@@ -2579,9 +2579,9 @@ html {
 /* Text */
 .moon-labeledtextitem .text {
   font-family: "MuseoSans 300";
-  font-size: 1.08333333rem;
+  font-size: 1.08333rem;
   color: #a6a6a6;
-  line-height: 1.33333333rem;
+  line-height: 1.33333rem;
   text-transform: none;
   margin: 0rem;
   padding: 0rem;
@@ -3186,7 +3186,7 @@ html {
 .moon-calendar-picker {
   display: inline-block;
   text-align: center;
-  width: 21rem;
+  width: 24.5rem;
   background-color: #686868;
   border-radius: 0.625rem;
   margin: 0 0.75rem;
@@ -3226,7 +3226,7 @@ html {
 .moon-calendar-picker .moon-neutral .moon-calendar-picker-day-base {
   width: 2.5rem;
   color: #a2a2a2;
-  margin: 0.5rem;
+  margin: 0.375rem;
   border-color: #a2a2a2;
   display: inline-block;
 }
@@ -3511,7 +3511,7 @@ html {
 }
 .moon-tooltip {
   z-index: 20;
-  height: 2.83333333rem;
+  height: 2.83333rem;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
   pointer-events: none;
@@ -3520,12 +3520,12 @@ html {
   font-family: "Moonstone Miso Bold";
   font-size: 1.125rem;
   -webkit-font-kerning: normal;
-  height: 2.45833333rem;
-  line-height: 2.45833333rem;
+  height: 2.45833rem;
+  line-height: 2.45833rem;
   white-space: nowrap;
   color: #ffffff;
   text-align: center;
-  padding: 0rem 0.83333333rem;
+  padding: 0rem 0.83333rem;
   background-color: #4d4d4d;
 }
 .enyo-locale-non-latin .moon-tooltip-label {
@@ -3547,46 +3547,46 @@ html {
 }
 /* .above .left-arrow nub shape */
 .moon-tooltip.above.left-arrow .moon-tooltip-label {
-  border-radius: 1.41666667rem 1.41666667rem 1.41666667rem 0rem;
+  border-radius: 1.41667rem 1.41667rem 1.41667rem 0rem;
 }
 .moon-tooltip.above.left-arrow .moon-tooltip-label:before {
-  top: 1.2083333333333333rem;
-  left: -0.08333333rem;
-  border-top: 1.20833333rem solid #4d4d4d;
-  clip: rect(1.25rem, 1rem, 1.58333333rem, 0.08333333rem);
+  top: 1.20833rem;
+  left: -0.08333rem;
+  border-top: 1.20833rem solid #4d4d4d;
+  clip: rect(1.25rem, 1rem, 1.58333rem, 0.08333rem);
   border-radius: 416.625rem;
 }
 /* .above .right-arrow nub shape */
 .moon-tooltip.above.right-arrow .moon-tooltip-label {
-  border-radius: 1.41666667rem 1.41666667rem 0rem 1.41666667rem;
+  border-radius: 1.41667rem 1.41667rem 0rem 1.41667rem;
 }
 .moon-tooltip.above.right-arrow .moon-tooltip-label:before {
-  top: 1.2083333333333333rem;
-  right: -0.08333333rem;
-  border-top: 1.20833333rem solid #4d4d4d;
-  clip: rect(1.25rem, 3.41666667rem, 1.58333333rem, 2.33333333rem);
+  top: 1.20833rem;
+  right: -0.08333rem;
+  border-top: 1.20833rem solid #4d4d4d;
+  clip: rect(1.25rem, 3.41667rem, 1.58333rem, 2.33333rem);
   border-radius: 416.625rem;
 }
 /* .below .left-arrow nub shape */
 .moon-tooltip.below.left-arrow .moon-tooltip-label {
-  border-radius: 0 1.41666667rem 1.41666667rem 1.41666667rem;
+  border-radius: 0 1.41667rem 1.41667rem 1.41667rem;
 }
 .moon-tooltip.below.left-arrow .moon-tooltip-label:before {
-  top: -2.08333333rem;
-  left: -0.08333333rem;
-  border-bottom: 1.20833333rem solid #4d4d4d;
-  clip: rect(0.08333333rem, 1rem, 2.5rem, 0.08333333rem);
+  top: -2.08333rem;
+  left: -0.08333rem;
+  border-bottom: 1.20833rem solid #4d4d4d;
+  clip: rect(0.08333rem, 1rem, 2.5rem, 0.08333rem);
   border-radius: 416.625rem;
 }
 /* .below .right-arrow nub shape */
 .moon-tooltip.below.right-arrow .moon-tooltip-label {
-  border-radius: 1.41666667rem 0rem 1.41666667rem 1.41666667rem;
+  border-radius: 1.41667rem 0rem 1.41667rem 1.41667rem;
 }
 .moon-tooltip.below.right-arrow .moon-tooltip-label:before {
-  top: -2.08333333rem;
-  right: -0.08333333rem;
-  border-bottom: 1.20833333rem solid #4d4d4d;
-  clip: rect(0.08333333rem, 3.41666667rem, 2.5rem, 2.33333333rem);
+  top: -2.08333rem;
+  right: -0.08333rem;
+  border-bottom: 1.20833rem solid #4d4d4d;
+  clip: rect(0.08333rem, 3.41667rem, 2.5rem, 2.33333rem);
   border-radius: 416.625rem;
 }
 /* AudioPlayback.css */
@@ -3597,14 +3597,14 @@ html {
 .moon-audio-playback-track-icon {
   position: relative;
   top: 0.25rem;
-  left: 0.16666666666666666rem;
-  width: 5.333333333333333rem;
-  height: 5.333333333333333rem;
+  left: 0.16667rem;
+  width: 5.33333rem;
+  height: 5.33333rem;
   background: transparent url() no-repeat 0rem 0rem;
   display: inline-block;
 }
 .moon-audio-playback-playtime {
-  font-size: 0.8333333333333334rem;
+  font-size: 0.83333rem;
 }
 .moon-audio-track-info,
 .moon-audio-control-buttons > * {
@@ -3612,8 +3612,8 @@ html {
   top: 0.25rem;
 }
 .moon-audio-play-time {
-  width: 3.3333333333333335rem;
-  font-size: 0.8333333333333334rem;
+  width: 3.33333rem;
+  font-size: 0.83333rem;
   padding-top: 3rem;
 }
 .moon-audio-play-time.left {
@@ -3627,20 +3627,20 @@ html {
 }
 .moon-audio-track-info {
   width: 40%;
-  padding: 0 0.4166666666666667rem;
+  padding: 0 0.41667rem;
 }
 .enyo-locale-right-to-left .moon-audio-track-info {
   text-align: right;
   direction: rtl;
 }
 .moon-audio-top {
-  height: 2.7083333333333335rem;
+  height: 2.70833rem;
   padding-top: 0.625rem;
 }
 /* AudioPlayback styles for IconButton */
 .moon-audio-icon-button {
   background-color: #808080;
-  margin: 0.3333333333333333rem 0.16666666666666666rem;
+  margin: 0.33333rem 0.16667rem;
 }
 .moon-audio-icon-button.left {
   float: left;
@@ -3650,7 +3650,7 @@ html {
 }
 /* AudioPlayback styles for Slider */
 .moon-audio-slider-container {
-  padding-top: 0.4166666666666667rem;
+  padding-top: 0.41667rem;
 }
 .moon-audio-slider.spotlight > .moon-slider-knob {
   background-color: #cf0652;
@@ -3660,34 +3660,34 @@ html {
   height: 1.25rem;
   width: 1.25rem;
   border-radius: 0.625rem;
-  margin: -0.54166667rem -0.66666667rem;
+  margin: -0.54167rem -0.66667rem;
   background-color: #808080;
 }
 .moon-audio-slider > .moon-slider-knob.active,
 .moon-audio-slider > .moon-slider-knob.spotselect,
 .moon-audio-slider > .moon-slider-knob:active:hover {
-  height: 1.4166666666666667rem;
-  width: 1.4166666666666667rem;
-  border-radius: 0.7083333333333334rem;
+  height: 1.41667rem;
+  width: 1.41667rem;
+  border-radius: 0.70833rem;
   margin: -0.625rem -0.75rem;
   background-color: #808080;
 }
 .moon-audio-slider.moon-progress-bar {
   background-color: #cccccc;
   margin: 0rem;
-  top: 0.4166666666666667rem;
+  top: 0.41667rem;
 }
 .moon-audio-slider > .moon-progress-bar-bar {
   background-color: #666666;
 }
 /* AudioPlayback styles for queue */
 .moon-audio-playback-queue {
-  margin: 0rem 1.6666666666666667rem;
+  margin: 0rem 1.66667rem;
 }
 /* AudioPlayback styles for queue list items */
 .moon-audio-queue-list {
-  height: 4.166666666666667rem;
-  padding: 0.5rem 0.6666666666666666rem;
+  height: 4.16667rem;
+  padding: 0.5rem 0.66667rem;
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
 }
@@ -3700,14 +3700,14 @@ html {
   vertical-align: middle;
 }
 .moon-audio-queue-album-art {
-  width: 3.3333333333333335rem;
-  height: 3.3333333333333335rem;
+  width: 3.33333rem;
+  height: 3.33333rem;
   background: transparent none no-repeat 0rem 0rem;
-  padding-right: 0.4166666666666667rem;
+  padding-right: 0.41667rem;
 }
 .enyo-locale-right-to-left .moon-audio-queue-album-art {
   padding-right: 0;
-  padding-left: 0.4166666666666667rem;
+  padding-left: 0.41667rem;
 }
 .moon-video-transport-slider {
   height: 3.5rem;
@@ -4120,12 +4120,12 @@ html {
 .moon-icon.moon-video-feedback-icon-left,
 .moon-icon.moon-video-feedback-icon-right {
   display: inline-block;
-  width: 1.33333333rem;
+  width: 1.33333rem;
   margin: 0 0 0 0.625rem;
   /* margin-right is inherited from moon-video-player-feedback */
   color: #cf0652;
   font-size: 5.125rem;
-  line-height: 1.08333333rem;
+  line-height: 1.08333rem;
   /* use line-height to middle align the icon, the defaut 32px from moon-icon will make it too low */
 }
 .moon-icon.moon-video-feedback-icon-left .small-icon-tap-area,
@@ -4140,18 +4140,18 @@ html {
   margin-right: 0.625rem;
 }
 .moon-icon.moon-video-feedback-icon-left.moon-icon-pausejumpbackward {
-  width: 1.54166667rem;
+  width: 1.54167rem;
 }
 .moon-icon.moon-video-feedback-icon-right.moon-icon-play {
   font-size: 3rem;
-  width: 0.91666667rem;
+  width: 0.91667rem;
 }
 .moon-icon.moon-video-feedback-icon-right.moon-icon-pause {
   font-size: 3rem;
-  width: 0.91666667rem;
+  width: 0.91667rem;
 }
 .moon-icon.moon-video-feedback-icon-right.moon-icon-pausejumpforward {
-  width: 1.54166667rem;
+  width: 1.54167rem;
 }
 .moon-video-player-feedback .moon-icon.small > .small-icon-tap-area {
   top: 0;
@@ -4208,9 +4208,9 @@ html {
 }
 .moon-video-player-info-subsubtitle {
   font-family: "MuseoSans 300";
-  font-size: 1.08333333rem;
+  font-size: 1.08333rem;
   color: #a6a6a6;
-  line-height: 1.33333333rem;
+  line-height: 1.33333rem;
   font-style: italic;
   color: #ffffff;
   display: inline-block;
@@ -4242,9 +4242,9 @@ html {
 }
 .moon-video-player-info-description {
   font-family: "MuseoSans 300";
-  font-size: 1.08333333rem;
+  font-size: 1.08333rem;
   color: #a6a6a6;
-  line-height: 1.33333333rem;
+  line-height: 1.33333rem;
   color: #ffffff;
   white-space: normal;
   margin-bottom: 1rem;
@@ -4645,10 +4645,10 @@ html {
   -webkit-transition: opacity 0.1s linear;
 }
 .moon-scroller-hthumb {
-  bottom: 1.16666667rem;
+  bottom: 1.16667rem;
 }
 .moon-scroller-vthumb {
-  right: 1.16666667rem;
+  right: 1.16667rem;
 }
 .moon-scroller-hthumb.hidden,
 .moon-scroller-vthumb.hidden {
@@ -4715,7 +4715,7 @@ html {
 .moon-expandable-text .moon-expandable-text-button:after {
   position: absolute;
   top: 0.5rem;
-  right: 0.54166667rem;
+  right: 0.54167rem;
   font-family: "Moonstone Icons";
   content: "\0F0002";
   font-size: 2rem;
@@ -4731,14 +4731,14 @@ html {
   display: none;
 }
 .enyo-locale-non-latin .moon-expandable-text .moon-expandable-text-button:after {
-  top: 0.54166667rem;
+  top: 0.54167rem;
 }
 .enyo-locale-right-to-left .moon-expandable-text .moon-expandable-text-button {
   float: left;
   padding: 0.5rem 0.5rem 0.5rem 1.75rem;
 }
 .enyo-locale-right-to-left .moon-expandable-text .moon-expandable-text-button:after {
-  left: 0.54166667rem;
+  left: 0.54167rem;
   right: auto;
 }
 .moon-body-text-control {
