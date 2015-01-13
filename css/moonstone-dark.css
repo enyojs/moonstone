@@ -3190,7 +3190,7 @@ html {
   display: inline-block;
 }
 .moon-calendar-picker .moon-simple-picker {
-  max-width: 10rem;
+  max-width: 10.5rem;
 }
 .moon-calendar-picker .moon-simple-picker .moon-simple-picker-client > * {
   color: #ffffff;
@@ -3575,7 +3575,7 @@ html {
   border-radius: 0 1.5rem 1.5rem 1.5rem;
 }
 .moon-tooltip.below.left-arrow .moon-tooltip-label:before {
-  top: -2.04167rem;
+  top: -2rem;
   left: -1px;
   border-bottom: 1.25rem solid #4d4d4d;
   clip: rect(1px, 1rem, 2.5rem, 1px);
@@ -3586,7 +3586,7 @@ html {
   border-radius: 1.5rem 0rem 1.5rem 1.5rem;
 }
 .moon-tooltip.below.right-arrow .moon-tooltip-label:before {
-  top: -2.04167rem;
+  top: -2rem;
   right: -1px;
   border-bottom: 1.25rem solid #4d4d4d;
   clip: rect(1px, 3.375rem, 2.5rem, 2.375rem);
@@ -3713,7 +3713,7 @@ html {
   padding-left: 0.41667rem;
 }
 .moon-video-transport-slider {
-  height: 3.375rem;
+  height: 3.5rem;
   background-color: #323232;
 }
 .moon-video-transport-slider .moon-slider-popup.above {
@@ -3730,7 +3730,7 @@ html {
   width: 0.25rem;
   border-radius: 1px;
   margin: -1px;
-  top: 0.8125rem;
+  top: 1rem;
   pointer-events: none;
 }
 .moon-video-transport-slider-knob {
@@ -3890,7 +3890,7 @@ html {
   position: static;
 }
 .moon-video-inline {
-  padding-bottom: 3.375rem;
+  padding-bottom: 3.5rem;
 }
 .moon-video-inline-control {
   position: relative;
@@ -4201,7 +4201,7 @@ html {
   font-family: "MuseoSans 700";
   font-size: 1.25rem;
   color: #ffffff;
-  margin-bottom: 0.875rem;
+  margin-bottom: 0.75rem;
   white-space: nowrap;
 }
 .enyo-locale-non-latin .moon-video-player-info-subtitle {
