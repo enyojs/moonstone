@@ -184,7 +184,7 @@
 		rendered: enyo.inherit(function (sup) {
 			return function () {
 				sup.apply(this, arguments);
-				this.selectedIndexChanged();
+				this.adjustClientPosition();
 			};
 		}),
 
@@ -378,7 +378,7 @@
 		/**
 		* @private
 		*/
-		selectedIndexChanged: function() {
+		adjustClientPosition: function () {
 			// FIXME: Accounting for issue with sub-pixels and setting a percentage transformation.
 			// It appears that percentage transformations utilize the nearest whole-pixel value.
 			if (!this._clientWidth) this._clientWidth = this.$.client.generated && this.$.client.hasNode().getBoundingClientRect().width;
@@ -387,6 +387,13 @@
 			} else { // initial (rounded) transformation
 				enyo.dom.transform(this.$.client, {translateX: (this.selectedIndex * -100) + '%'});
 			}
+		},
+
+		/**
+		* @private
+		*/
+		selectedIndexChanged: function() {
+			this.adjustClientPosition();
 			this.updateMarqueeDisable();
 			this.setSelected(this.getClientControls()[this.selectedIndex]);
 			this.fireChangedEvent();
