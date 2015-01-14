@@ -327,7 +327,8 @@
 				this.createChrome(this.backKeySupporting);
 				if (!this.disableBackHistoryAPI) {
 					window.addEventListener('popstate', enyo.bindSafely(this, function(inEvent) {
-						if (moon.BackKeySupport.isIgnorePopState() || moon.BackKeySupport.getCurrentObj() != this.id) {
+						var currentObj = moon.BackKeySupport.getCurrentObj();
+						if ((!history.state && !currentObj) || moon.BackKeySupport.isIgnorePopState() || currentObj != this.id) {
 							return true;
 						} else {
 							this.backKeyHandler();
