@@ -181,16 +181,6 @@
 		/**
 		* @private
 		*/
-		rendered: enyo.inherit(function (sup) {
-			return function () {
-				sup.apply(this, arguments);
-				this.selectedIndexChanged();
-			};
-		}),
-
-		/**
-		* @private
-		*/
 		scrollIntoView: function() {
 			this.bubble('onRequestScrollIntoView');
 		},
@@ -379,14 +369,7 @@
 		* @private
 		*/
 		selectedIndexChanged: function() {
-			// FIXME: Accounting for issue with sub-pixels and setting a percentage transformation.
-			// It appears that percentage transformations utilize the nearest whole-pixel value.
-			if (!this._clientWidth) this._clientWidth = this.$.client.generated && this.$.client.hasNode().getBoundingClientRect().width;
-			if (this.$.client.generated && this._clientWidth) { // correction for rounding (after we can measure the control width)
-				enyo.dom.transform(this.$.client, {translateX: enyo.dom.unit(this.selectedIndex * this._clientWidth * -1, 'rem')});
-			} else { // initial (rounded) transformation
-				enyo.dom.transform(this.$.client, {translateX: (this.selectedIndex * -100) + '%'});
-			}
+			enyo.dom.transform(this.$.client, {translateX: (this.selectedIndex * -100) + '%'});
 			this.updateMarqueeDisable();
 			this.setSelected(this.getClientControls()[this.selectedIndex]);
 			this.fireChangedEvent();
