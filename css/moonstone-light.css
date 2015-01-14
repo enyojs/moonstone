@@ -4044,10 +4044,10 @@ html {
   line-height: 3.5rem;
 }
 .moon-icon-playpause-font-style {
-  font-size: 9.125rem;
+  font-size: 9rem;
 }
 .moon-icon-video-main-control-font-style {
-  font-size: 7.875rem;
+  font-size: 8rem;
 }
 /* this style is used for the two side controls and placeholders */
 .moon-icon-button.moon-icon-video-round-controls-style {
@@ -4056,7 +4056,7 @@ html {
   border-radius: 416.625rem;
 }
 .moon-icon-button.moon-icon-video-more-controls-font-style {
-  font-size: 4.625rem;
+  font-size: 4.5rem;
 }
 .moon-video-fullscreen-control .moon-icon.moon-icon-button.active,
 .moon-video-fullscreen-control .moon-icon.moon-icon-button:active,
@@ -4105,7 +4105,7 @@ html {
 }
 /* Feedback area */
 .moon-video-player-feedback {
-  margin-right: 0.625rem;
+  margin-right: 0.5rem;
 }
 .enyo-locale-right-to-left .moon-video-player-feedback {
   direction: rtl;
@@ -4119,11 +4119,11 @@ html {
 .moon-icon.moon-video-feedback-icon-right {
   display: inline-block;
   width: 1.33333rem;
-  margin: 0 0 0 0.625rem;
+  margin: 0 0 0 0.5rem;
   /* margin-right is inherited from moon-video-player-feedback */
   color: #cf0652;
-  font-size: 5.125rem;
-  line-height: 1.08333rem;
+  font-size: 5rem;
+  line-height: 1rem;
   /* use line-height to middle align the icon, the defaut 32px from moon-icon will make it too low */
 }
 .moon-icon.moon-video-feedback-icon-left .small-icon-tap-area,
@@ -4135,21 +4135,21 @@ html {
 }
 .moon-icon.moon-video-feedback-icon-left {
   margin-left: 0;
-  margin-right: 0.625rem;
+  margin-right: 0.5rem;
 }
 .moon-icon.moon-video-feedback-icon-left.moon-icon-pausejumpbackward {
-  width: 1.54167rem;
+  width: 1.5rem;
 }
 .moon-icon.moon-video-feedback-icon-right.moon-icon-play {
   font-size: 3rem;
-  width: 0.91667rem;
+  width: 1rem;
 }
 .moon-icon.moon-video-feedback-icon-right.moon-icon-pause {
   font-size: 3rem;
-  width: 0.91667rem;
+  width: 1rem;
 }
 .moon-icon.moon-video-feedback-icon-right.moon-icon-pausejumpforward {
-  width: 1.54167rem;
+  width: 1.5rem;
 }
 .moon-video-player-feedback .moon-icon.small > .small-icon-tap-area {
   top: 0;
@@ -4162,13 +4162,13 @@ html {
   margin-bottom: 0.125rem;
 }
 .enyo-locale-right-to-left .moon-video-player-feedback {
-  margin: 0 0 0 0.625rem;
+  margin: 0 0 0 0.5rem;
 }
 .enyo-locale-right-to-left .moon-icon.moon-video-feedback-icon-left {
-  margin: 0 0 0 0.625rem;
+  margin: 0 0 0 0.5rem;
 }
 .enyo-locale-right-to-left .moon-icon.moon-video-feedback-icon-right {
-  margin: 0 0.625rem 0 0;
+  margin: 0 0.5rem 0 0;
 }
 .moon-video-info-header {
   display: inline-block;
@@ -4746,7 +4746,7 @@ html {
   text-align: right;
 }
 .moon-icon-exitfullscreen.moon-icon-exitfullscreen-font-style {
-  font-size: 4.125rem;
+  font-size: 4rem;
 }
 /* Put this at the end because we want these to take precedence over others */
 .moon-neutral {
