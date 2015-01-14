@@ -112,7 +112,16 @@
 			* @default false
 			* @public
 			*/
-			controlsOpen: false
+			controlsOpen: false,
+
+			/**,
+			* When true, pressing back key makes panels returns to previous panel
+			*
+			* @type {Bollean}
+			* @default false
+			* @public
+			*/
+			allowBackKey: true
 		},
 
 		/**
@@ -158,12 +167,20 @@
 		/**
 		* @private
 		*/
+		backKeySupporting: [
+			{name: "backKeySupport", kind: 'enyo.Signals', onkeyup:'remoteKeyHandler'}
+		],
+
+		/**
+		* @private
+		*/
 		create: function () {
 			this.inherited(arguments);
 			this.$.controlDrawer.createComponents(this.controlDrawerComponents, {owner:this.owner});
 			//* Todo: remove padding on client
 			this.$.client.$.client.addClass('moon-drawer-client');
 			this.$.controlDrawer.$.client.addClass('moon-drawer-partial-client');
+			this.allowBackKeyChanged();
 		},
 
 		/**
@@ -197,7 +214,7 @@
 		/**
 		* If [controlDrawerComponents]{@link moon.Drawer#controlDrawerComponents} is
 		* non-empty, toggles the visibility state of the control drawer; otherwise,
-		* toggles the visibility state of the main drawer. 
+		* toggles the visibility state of the main drawer.
 		*
 		* @public
 		*/
@@ -221,6 +238,7 @@
 				this.doActivate();
 				this.$.client.spotlightDisabled = false;
 				enyo.Spotlight.spot(this.$.client);
+				this.pushStateToHistory();
 			} else {
 				this.$.client.spotlightDisabled = true;
 				this.doDeactivate();
@@ -238,6 +256,7 @@
 				this.doActivate();
 				this.$.controlDrawer.spotlightDisabled = false;
 				enyo.Spotlight.spot(this.$.controlDrawer);
+				this.pushStateToHistory();
 			} else {
 				if (this.$.client.getOpen()) {
 					this.$.client.setOpen(false);
@@ -254,6 +273,59 @@
 			this.$.client.setDrawerProps({height: this.calcDrawerHeight(inEvent.drawersHeight)});
 			this.setOpen(false);
 			this.setControlsOpen(false);
+		},
+
+		/**
+		* @private
+		*/
+		pushStateToHistory: function() {
+			if (this.allowBackKey) {
+				history.pushState({currentObj: this.id}, "", "");
+			}
+			return true;
+		},
+
+		/**
+		* @private
+		*/
+		remoteKeyHandler: function (inSender, inEvent) {
+			if (this.open || this.controlsOpen) {
+				switch (inEvent.keySymbol) {
+				case 'b':
+					this.backKeyHandler();
+					break;
+				}
+			}
+			return true;
+		},
+		/**
+		* @private
+		*/
+		backKeyHandler: function () {
+			if (this.open) {
+				this.setOpen(false);
+			} else if (this.controlsOpen) {
+				this.setControlsOpen(false);
+			}
+			return true;
+		},
+
+		/**
+		* @private
+		*/
+		allowBackKeyChanged: function () {
+			if (this.allowBackKey) {
+				this.createChrome(this.backKeySupporting);
+				window.addEventListener('popstate', enyo.bindSafely(this, function(inEvent) {
+					if (history.state.currentObj != this.id) {
+						return true;
+					} else {
+						this.backKeyHandler();
+					}
+				}));
+			} else if(this.$.backKeySupport) {
+				this.$.backKeySupport.destroy();
+			}
 		}
 	});
 
