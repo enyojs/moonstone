@@ -4118,12 +4118,12 @@ html {
 .moon-icon.moon-video-feedback-icon-left,
 .moon-icon.moon-video-feedback-icon-right {
   display: inline-block;
-  width: 1.33333rem;
+  width: 1.5rem;
   margin: 0 0 0 0.5rem;
   /* margin-right is inherited from moon-video-player-feedback */
   color: #cf0652;
   font-size: 5rem;
-  line-height: 1rem;
+  line-height: 1.25rem;
   /* use line-height to middle align the icon, the defaut 32px from moon-icon will make it too low */
 }
 .moon-icon.moon-video-feedback-icon-left .small-icon-tap-area,
