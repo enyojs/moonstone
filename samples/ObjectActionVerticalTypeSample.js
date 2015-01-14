@@ -29,7 +29,12 @@ enyo.kind({
 		{kind: "moon.BodyText", name: "result", content: "No item tapped yet."}
 	],
 	setupItem: function(inSender, inEvent) {
-		inEvent.item.$.image.setSrc("http://placehold.it/200x200/" + Math.floor(Math.random()*0x1000000).toString(16) + "/ffffff&text=Image " + inEvent.index);
+		var imageBaseUrl = "http://placehold.it/",
+			imageContent = "/" + Math.floor(Math.random()*0x1000000).toString(16) + "/ffffff&text=Image " + inEvent.index;
+		inEvent.item.$.image.setSrc({
+			"hd" : imageBaseUrl + "132x132" + imageContent,
+			"fhd": imageBaseUrl + "198x198" + imageContent
+		});
 	},
 	ontap: function(inSender, inEvent) {
 		this.$.result.setContent(inEvent.originator.name + " tapped.");
