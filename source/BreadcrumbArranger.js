@@ -80,7 +80,7 @@
 		/**
 		* @private
 		*/
-		breadcrumbWidth: 230,
+		breadcrumbWidth: 234,
 
 		/**
 		* @private
