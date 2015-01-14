@@ -3352,7 +3352,7 @@ html {
 .moon-drawers-activator:before {
   content: '';
   display: block;
-  height: 0.75rem;
+  height: 1rem;
   background-color: #4b4b4b;
 }
 .moon-drawers-activator .moon-drawers-activator-icon {
