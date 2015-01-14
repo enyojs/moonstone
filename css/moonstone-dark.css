@@ -1781,27 +1781,27 @@ html {
 }
 .moon-scroll-picker-overlay-container.next:after {
   content: "\0F0005";
-  font-size: 2.83333rem;
-  line-height: 1.54167rem;
+  font-size: 3rem;
+  line-height: 1.625rem;
 }
 .moon-scroll-picker-overlay-container.previous {
   bottom: 0;
 }
 .moon-scroll-picker-overlay-container.previous:after {
   content: "\0F0006";
-  font-size: 2.83333rem;
-  line-height: 1.04167rem;
+  font-size: 3rem;
+  line-height: 1.125rem;
 }
 .spotlight .moon-scroll-picker-overlay-container {
   color: #ffffff;
 }
 .spotlight .moon-scroll-picker-overlay-container.next:after {
   content: "\0F0002";
-  line-height: 1.79167rem;
+  line-height: 1.875rem;
 }
 .spotlight .moon-scroll-picker-overlay-container.previous:after {
   content: "\0F0001";
-  line-height: 0.91667rem;
+  line-height: 1rem;
 }
 .selected .moon-scroll-picker-overlay {
   position: absolute;
@@ -1819,8 +1819,8 @@ html {
 }
 .selected .moon-scroll-picker-overlay.next:after {
   content: "\0F0005";
-  font-size: 2.83333rem;
-  line-height: 1.29167rem;
+  font-size: 3rem;
+  line-height: 1.375rem;
 }
 .selected .moon-scroll-picker-overlay.previous {
   bottom: 0;
@@ -1832,8 +1832,8 @@ html {
 }
 .selected .moon-scroll-picker-overlay.previous:after {
   content: "\0F0006";
-  font-size: 2.83333rem;
-  line-height: 1.79167rem;
+  font-size: 3rem;
+  line-height: 1.875rem;
 }
 .moon-scroll-picker-taparea {
   position: absolute;
@@ -2143,7 +2143,7 @@ html {
   right: 0.5rem;
   font-family: "Moonstone Icons";
   content: "\0F0008";
-  font-size: 2.41667rem;
+  font-size: 2.5rem;
   line-height: 3rem;
   color: #cf0652;
 }
