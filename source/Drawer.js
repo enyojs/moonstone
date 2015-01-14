@@ -118,10 +118,21 @@
 			* When true, pressing back key makes panels returns to previous panel
 			*
 			* @type {Bollean}
+			* @default true
+			* @public
+			*/
+			allowBackKey: true,
+
+			/**
+			* If "disableBackHistoryAPI" in AppInfo.json is set to true, this property
+			* should be true
+			*
+			* @type {Bollean}
 			* @default false
 			* @public
 			*/
-			allowBackKey: true
+			disableBackHistoryAPI: false
+
 		},
 
 		/**
@@ -238,7 +249,9 @@
 				this.doActivate();
 				this.$.client.spotlightDisabled = false;
 				enyo.Spotlight.spot(this.$.client);
-				this.pushStateToHistory();
+				if (!this.disableBackHistoryAPI) {
+					moon.BackKeySupport.pushStateToHistory(this.id);
+				}
 			} else {
 				this.$.client.spotlightDisabled = true;
 				this.doDeactivate();
@@ -256,7 +269,9 @@
 				this.doActivate();
 				this.$.controlDrawer.spotlightDisabled = false;
 				enyo.Spotlight.spot(this.$.controlDrawer);
-				this.pushStateToHistory();
+				if (!this.disableBackHistoryAPI) {
+					moon.BackKeySupport.pushStateToHistory(this.id);
+				}
 			} else {
 				if (this.$.client.getOpen()) {
 					this.$.client.setOpen(false);
@@ -278,20 +293,13 @@
 		/**
 		* @private
 		*/
-		pushStateToHistory: function() {
-			if (this.allowBackKey) {
-				history.pushState({currentObj: this.id}, "", "");
-			}
-			return true;
-		},
-
-		/**
-		* @private
-		*/
 		remoteKeyHandler: function (inSender, inEvent) {
 			if (this.open || this.controlsOpen) {
 				switch (inEvent.keySymbol) {
 				case 'b':
+					if (!this.disableBackHistoryAPI) {
+						moon.BackKeySupport.popStateToHistory();
+					}
 					this.backKeyHandler();
 					break;
 				}
@@ -307,6 +315,7 @@
 			} else if (this.controlsOpen) {
 				this.setControlsOpen(false);
 			}
+
 			return true;
 		},
 
@@ -316,13 +325,15 @@
 		allowBackKeyChanged: function () {
 			if (this.allowBackKey) {
 				this.createChrome(this.backKeySupporting);
-				window.addEventListener('popstate', enyo.bindSafely(this, function(inEvent) {
-					if (history.state.currentObj != this.id) {
-						return true;
-					} else {
-						this.backKeyHandler();
-					}
-				}));
+				if (!this.disableBackHistoryAPI) {
+					window.addEventListener('popstate', enyo.bindSafely(this, function(inEvent) {
+						if (moon.BackKeySupport.isIgnorePopState() || moon.BackKeySupport.getCurrentObj() != this.id) {
+							return true;
+						} else {
+							this.backKeyHandler();
+						}
+					}));
+				}
 			} else if(this.$.backKeySupport) {
 				this.$.backKeySupport.destroy();
 			}
