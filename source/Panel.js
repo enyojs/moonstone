@@ -461,7 +461,6 @@
 		*/
 		headerTypeChanged: function () {
 			this.$.header.setType(this.headerType);
-			this.$.header.adjustTitleWidth();
 			if (this.generated) {
 				this.$.contentWrapper.resize();
 			}
