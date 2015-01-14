@@ -2910,9 +2910,9 @@ html {
   overflow: hidden;
 }
 .moon-panel-small-header-wrapper {
-  margin: 0.5rem 0 0 0;
+  margin: 0;
   position: absolute;
-  bottom: 0.5rem;
+  bottom: 0;
   left: 0;
   height: 15rem;
   width: 100%;
