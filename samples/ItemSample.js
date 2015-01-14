@@ -21,17 +21,29 @@ enyo.kind({
 				]},
 				{kind: "moon.Item", components: [
 					{kind: "moon.MarqueeText", content: "Item with more complex components"},
-					{kind: "moon.Image", src: "http://placehold.it/450x80&text=Image+One", alt: "Image One"},
-					{kind: "moon.Image", src: "http://placehold.it/450x80&text=Image+Two", alt: "Image Two"}
+					{kind: "moon.Image", src: {
+						"hd" : "http://placehold.it/288x60&text=Image+One",
+						"fhd": "http://placehold.it/432x90&text=Image+One"
+					}, alt: "Image One"},
+					{kind: "moon.Image", src: {
+						"hd" : "http://placehold.it/288x60&text=Image+Two",
+						"fhd": "http://placehold.it/432x90&text=Image+Two"
+					}, alt: "Image Two"}
 				]},
 				{kind: "moon.Item", components: [
 					{kind: "moon.MarqueeText", content: "Item with more complex components"},
-					{kind: "moon.Image", src: "http://placehold.it/150x150&text=Image+Three", style: "float: left; margin: 10px 10px 10px 0", alt: "Image Two"},
+					{kind: "moon.Image", src: {
+						"hd" : "http://placehold.it/100x100&text=Image+Three",
+						"fhd": "http://placehold.it/150x150&text=Image+Three"
+					}, style: "float: left; margin: 10px 10px 10px 0", alt: "Image Two"},
 					{kind: "moon.BodyText", style: "margin: 10px 0", content: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa."}
 				]},
 				{kind: "moon.Item", components: [
 					{kind: "moon.MarqueeText", content: "Item with more complex components"},
-					{kind: "moon.Image", src: "http://placehold.it/150x150&text=Image+Four", style: "float: right; margin: 10px 0px 10px 10px", alt: "Image Two"},
+					{kind: "moon.Image", src: {
+						"hd" : "http://placehold.it/100x100&text=Image+Three",
+						"fhd": "http://placehold.it/150x150&text=Image+Four"
+					}, style: "float: right; margin: 10px 0px 10px 10px", alt: "Image Two"},
 					{kind: "moon.BodyText", style: "margin: 10px 0", content: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa."}
 				]}
 			]}
