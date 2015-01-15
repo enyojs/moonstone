@@ -882,7 +882,7 @@
 				} else {
 					this.$.marqueeText.applyStyle('left', this._marquee_adjustDistanceForRTL(distance) + 'px');
 				}
-			}), enyo.platform.firefox ? 100 : 0);
+			}), enyo.platform.firefox ? 100 : 16);
 		},
 
 		/**
