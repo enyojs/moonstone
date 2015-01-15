@@ -1,6 +1,6 @@
 (function (enyo, scope) {
 	/**
-	* {@link moon.ItemOverlay} is a supplementary control that helps to manage
+	* {@link moon.ItemOverlay} is a supplemental control that helps to manage
 	* layout within a {@link moon.Item}.
 	* 
 	* ```
@@ -84,7 +84,7 @@
 	});
 
 	/**
-	* Provides a overlay layout support to moon.Item {@link moon.Item}.
+	* Provides overlay layout support to {@link moon.Item}.
 	*
 	* ```
 	* {kind: "moon.Item", mixins: ["moon.ItemOverlaySupport"], beginningComponents: [
@@ -106,7 +106,7 @@
 		name: 'moon.ItemOverlaySupport',
 
 		/**
-		* The components block to create left overlay. Only created in creation time.
+		* The components block to create the left overlay. Only used at creation time.
 		*
 		* @type {Object}
 		* @default null
@@ -115,7 +115,7 @@
 		beginningComponents: null,
 
 		/**
-		* The components block to create right overlay. Only created in creation time.
+		* The components block to create the right overlay. Only used at creation time.
 		*
 		* @type {Object}
 		* @default null
@@ -143,7 +143,7 @@
 		}),
 
 		/**
-		* Update auto-hide class on left and right overlay.
+		* Updates `auto-hide` class on left and right overlay.
 		*
 		* @private
 		*/
