@@ -76,6 +76,7 @@ enyo.singleton({
 			// if we press back key of remote controller, return
 			if (this._ignorePopState) {
 				this._ignorePopState = false;
+				this.currentObj = history.state.currentObj;
 				return;
 			}
 
@@ -98,7 +99,5 @@ enyo.singleton({
 		//so we should keep this._ignorePopState true until we handle popstate event
 		this._ignorePopState = true;
 		history.go(-1);
-		this.currentObj = history.state.currentObj;
-
 	}
 });
