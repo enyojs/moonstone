@@ -327,14 +327,7 @@
 			if (this.allowBackKey) {
 				this.createChrome(this.backKeySupporting);
 				if (!this.disableBackHistoryAPI) {
-					window.addEventListener('popstate', enyo.bindSafely(this, function(inEvent) {
-						var currentObj = moon.BackKeySupport.getCurrentObj();
-						if ((!history.state && !currentObj) || moon.BackKeySupport.isIgnorePopState() || currentObj != this.id) {
-							return true;
-						} else {
-							this.backKeyHandler();
-						}
-					}));
+					moon.BackKeySupport.popStateHandler(this, this.backKeyHandler);
 				}
 			} else if(this.$.backKeySupport) {
 				this.$.backKeySupport.destroy();
