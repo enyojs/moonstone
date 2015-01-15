@@ -71,8 +71,8 @@ enyo.singleton({
 				return;
 			}
 
-			// if other API without history.back() triggers popstate event, return
-			if (!this._popstateFromBack) {
+			// if we press back key of remote controller, return
+			if (this._ignorePopState) {
 				this._ignorePopState = false;
 				return;
 			}
