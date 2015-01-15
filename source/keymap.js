@@ -65,6 +65,8 @@ enyo.singleton({
 		if (typeof fn == "function") {
 			fn = fn.bind(ctx);
 		}
+		// Todo: We cannot prevent popstate event triggerd from history.go() or history.forward()
+		// If user call those event directly, moonstone controls may have unexpected behavior.
 		window.addEventListener('popstate', enyo.bindSafely(this, function(inEvent) {
 			var currentObj = this.currentObj;
 			if ((!history.state && !currentObj) || currentObj != ctx.id) {
