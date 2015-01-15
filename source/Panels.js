@@ -222,6 +222,13 @@
 		isModifyingPanels: false,
 
 		/**
+		* Flag to indicate if the Panels are currently transitioning to a new index
+		*
+		* @private
+		*/
+		transitioning: false,
+
+		/**
 		* Checks the state of panel transitions.
 		*
 		* @return {Boolean} `true` if a transition between panels is currently in progress;
