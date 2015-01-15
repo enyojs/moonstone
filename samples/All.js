@@ -38,7 +38,7 @@
 	* @namespace moon.sample
 	*/
 	enyo.kind({
-		name: 'moon.sample.app',
+		name: 'moon.sample.All',
 		classes: 'moon enyo-unselectable enyo-fit',
 		themes: {
 			'dark': 'moonstone-dark.css',
