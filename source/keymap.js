@@ -38,20 +38,20 @@ enyo.singleton({
 	},
 	/**
 	* history.forward() and history.go() can fire popstate event
-	* as do history.back().
-	* However only history.back() is handled in this control.
-	* When it is true, we will ignore popstate event.
+	* as does history.back().
+	* However we should accept popstate event only came from history.back().
+	* When it is true, we will skip popstate event.
+	*
 	* @private
 	*/
-	ignorePopState: false,
+	_ignorePopState: false,
 
 	/**
-	* @private
+	* @public
 	*/
-	isIgnorePopState: function() {
-		return this.ignorePopState;
+	getIgnorePopState: function() {
+		return this._ignorePopState;
 	},
-
 
 	/**
 	* @private
@@ -64,9 +64,9 @@ enyo.singleton({
 	* @private
 	*/
 	popStateToHistory: function() {
-		this.ignorePopState = true;
+		this._ignorePopState = true;
 		history.go(-1);
 		this.currentObj = history.state.currentObj;
-		this.ignorePopState = false;
+		this._ignorePopState = false;
 	}
 });
