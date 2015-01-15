@@ -294,15 +294,16 @@
 		* @private
 		*/
 		remoteKeyHandler: function (inSender, inEvent) {
-			if (this.open || this.controlsOpen) {
-				switch (inEvent.keySymbol) {
-				case 'b':
-					if (!this.disableBackHistoryAPI) {
-						moon.BackKeySupport.popStateToHistory();
-					}
-					this.backKeyHandler();
+			switch (inEvent.keySymbol) {
+			case 'b':
+				if (!(this.open || this.controlsOpen) || moon.BackKeySupport.getCurrentObj() != this.id) {
 					break;
 				}
+				if (!this.disableBackHistoryAPI) {
+					moon.BackKeySupport.popStateToHistory();
+				}
+				this.backKeyHandler();
+				break;
 			}
 			return true;
 		},
