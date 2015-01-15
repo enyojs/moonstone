@@ -10,8 +10,9 @@ RewriteCond $0#%{REQUEST_URI} ([^#]*)#(.*)\1$
 RewriteRule ^.*$ - [E=CWD:%2]
 
 # verify that we're only looking for files ending in htm(l) that don't exist
-RewriteCond %{REQUEST_FILENAME} \.html?$
 RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} \.html?$ [or]
+RewriteCond %{REQUEST_FILENAME} !\.
 
 # Just by prefixing the environment variable, we can safely rewrite anything now
 RewriteRule ([^/]+?)(\.html)?$ %{ENV:CWD}Sample.html?$1 [R,L]
