@@ -576,6 +576,7 @@
 			this.addRemoveClass('moon-medium-header', this.get('type') == 'medium');
 			this.addRemoveClass('moon-small-header', this.get('type') == 'small');
 			this.contentChanged();
+			if (this.generated) this.adjustTitleWidth();
 		},
 
 		/**
