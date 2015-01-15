@@ -152,6 +152,18 @@
 		narrowFit: false,
 
 		/**
+		* Hierachical stack.
+		* When we call setIndex or pushPanel, new object is pushed to this stack.
+		* When we call popPanel or back key handler, lasted object is removed.
+		* To save memory, it is initiated when this.allowBackKey is true.
+		*
+		* @type {Array}
+		* @default undefined
+		* @private
+		*/
+		panelStack: undefined,
+
+		/**
 		* @private
 		*/
 		handlers: {
@@ -716,10 +728,6 @@
 			this.fromIndex = this.index;
 			this.toIndex = index;
 
-			if (!this.disableBackHistoryAPI) {
-				moon.BackKeySupport.pushStateToHistory(this.id);
-			}
-
 			this.queuedIndex = null;
 
 			// Ensure any VKB is closed when transitioning panels
@@ -728,6 +736,14 @@
 			// If panels will move for this index change, kickoff animation. Otherwise skip it.
 			if (this.shouldArrange() && this.animate) {
 				enyo.Spotlight.mute(this);
+				// if back key feature is enabled
+				if (this.allowBackKey) {
+					this.panelStack.push(this.index);
+					if (!this.disableBackHistoryAPI) {
+						moon.BackKeySupport.pushStateToHistory(this.id);
+					}
+				}
+
 				this.startTransition();
 				this.triggerPreTransitions();
 			} else {
@@ -1199,10 +1215,12 @@
 		remoteKeyHandler: function (inSender, inEvent) {
 			switch (inEvent.keySymbol) {
 			case 'b':
-				if (!this.disableBackHistoryAPI) {
-					moon.BackKeySupport.popStateToHistory();
+				if (this.panelStack.length) {
+					if (!this.disableBackHistoryAPI) {
+						moon.BackKeySupport.popStateToHistory();
+					}
+					this.backKeyHandler();
 				}
-				this.backKeyHandler();
 				break;
 			}
 			return true;
@@ -1211,7 +1229,7 @@
 		* @private
 		*/
 		backKeyHandler: function () {
-			this.setIndex(this.fromIndex);
+			this.setIndex(this.panelStack.pop());
 			return true;
 		},
 
@@ -1221,6 +1239,8 @@
 		allowBackKeyChanged: function () {
 			if (this.allowBackKey) {
 				this.createChrome(this.backKeySupporting);
+				//initialize stack
+				this.panelStack = [];
 				if (!this.disableBackHistoryAPI) {
 					moon.BackKeySupport.popStateHandler(this, this.backKeyHandler);
 				}
