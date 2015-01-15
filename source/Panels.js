@@ -124,7 +124,26 @@
 			* @default ''
 			* @public
 			*/
-			brandingSrc: ''
+			brandingSrc: '',
+
+			/**
+			* When true, pressing back key makes panels returns to previous panel
+			*
+			* @type {Bollean}
+			* @default false
+			* @public
+			*/
+			allowBackKey: true,
+
+			/**
+			* If "disableBackHistoryAPI" in AppInfo.json is set to true, this property
+			* should be true
+			*
+			* @type {Bollean}
+			* @default false
+			* @public
+			*/
+			disableBackHistoryAPI: false
 		},
 
 		/**
@@ -165,6 +184,12 @@
 			{name: 'showHideAnimator', kind: 'enyo.StyleAnimator', onComplete: 'showHideAnimationComplete'}
 		],
 
+		/**
+		* @private
+		*/
+		backKeySupporting: [
+			{name: "backKeySupport", kind: 'enyo.Signals', onkeyup:'remoteKeyHandler'}
+		],
 
 		/**
 		* @private
@@ -424,6 +449,7 @@
 			this.inherited(arguments);
 			this.initializeShowHideHandle();
 			this.handleShowingChanged();
+			this.allowBackKeyChanged();
 		},
 
 		/**
@@ -689,6 +715,10 @@
 			this.notifyPanels('initPanel');
 			this.fromIndex = this.index;
 			this.toIndex = index;
+
+			if (!this.disableBackHistoryAPI) {
+				moon.BackKeySupport.pushStateToHistory(this.id);
+			}
 
 			this.queuedIndex = null;
 
@@ -1161,6 +1191,49 @@
 			if (this.$.branding) {
 				this.$.branding.set('src', this.brandingSrc);
 			}
+		},
+
+		/**
+		* @private
+		*/
+		remoteKeyHandler: function (inSender, inEvent) {
+			switch (inEvent.keySymbol) {
+			case 'b':
+				if (!this.disableBackHistoryAPI) {
+					moon.BackKeySupport.popStateToHistory();
+				}
+				this.backKeyHandler();
+				break;
+			}
+			return true;
+		},
+		/**
+		* @private
+		*/
+		backKeyHandler: function () {
+			this.setIndex(this.fromIndex);
+			return true;
+		},
+
+		/**
+		* @private
+		*/
+		allowBackKeyChanged: function () {
+			if (this.allowBackKey) {
+				this.createChrome(this.backKeySupporting);
+				if (!this.disableBackHistoryAPI) {
+					window.addEventListener('popstate', enyo.bindSafely(this, function(inEvent) {
+						var currentObj = moon.BackKeySupport.getCurrentObj();
+						if ((!history.state && !currentObj) || moon.BackKeySupport.isIgnorePopState() || currentObj != this.id) {
+							return true;
+						} else {
+							this.backKeyHandler();
+						}
+					}));
+				}
+			} else if(this.$.backKeySupport) {
+				this.$.backKeySupport.destroy();
+			}
 		}
 	});
 
@@ -1194,7 +1267,7 @@
 		/*
 		* We override getAbsoluteShowing so that the handle's spottability is not dependent on the
 		* showing state of its parent, the {@link moon.Panels} control.
-		* 
+		*
 		* @private
 		*/
 		getAbsoluteShowing: function (ignoreBounds) {
