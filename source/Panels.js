@@ -706,9 +706,10 @@
 		* Sets the index of the active panel, possibly transitioning the panel into view.
 		*
 		* @param {number} index - Index of the panel to make active.
+		* @param {boolean} isBack - If true, caller is back key handler. So pushing stack is not occurred.
 		* @public
 		*/
-		setIndex: function (index) {
+		setIndex: function (index, isBack) {
 			// Normally this.index cannot be smaller than 0 and larger than panels.length
 			// However, if panels uses handle and there is sequential key input during transition
 			// then index could have -1. It means that panels will be hidden.
@@ -736,8 +737,8 @@
 			// If panels will move for this index change, kickoff animation. Otherwise skip it.
 			if (this.shouldArrange() && this.animate) {
 				enyo.Spotlight.mute(this);
-				// if back key feature is enabled
-				if (this.allowBackKey) {
+				// if back key feature is enabled and setIndex is not called from back key handler
+				if (this.allowBackKey && !isBack) {
 					this.panelStack.push(this.index);
 					if (!this.disableBackHistoryAPI) {
 						moon.BackKeySupport.pushStateToHistory(this.id);
@@ -1215,12 +1216,13 @@
 		remoteKeyHandler: function (inSender, inEvent) {
 			switch (inEvent.keySymbol) {
 			case 'b':
-				if (this.panelStack.length) {
-					if (!this.disableBackHistoryAPI) {
-						moon.BackKeySupport.popStateToHistory();
-					}
-					this.backKeyHandler();
+				if (!this.panelStack.length) {
+					break;
 				}
+				if (!this.disableBackHistoryAPI) {
+					moon.BackKeySupport.popStateToHistory();
+				}
+				this.backKeyHandler();
 				break;
 			}
 			return true;
@@ -1229,7 +1231,9 @@
 		* @private
 		*/
 		backKeyHandler: function () {
-			this.setIndex(this.panelStack.pop());
+			if (this.panelStack.length) {
+				this.setIndex(this.panelStack.pop(), true);
+			}
 			return true;
 		},
 
