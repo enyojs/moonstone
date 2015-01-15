@@ -54,6 +54,34 @@ enyo.singleton({
 	},
 
 	/**
+	* Register event listener for popstate event
+	* and decide whether ctx should run backKeyHandler or not
+	*
+	* @param {Object} ctx - function context
+	* @param {function} fn - handler of back key
+	* @public
+	*/
+	popStateHandler: function(ctx, fn) {
+		if (typeof fn == "function") {
+			fn = fn.bind(ctx);
+		}
+		window.addEventListener('popstate', enyo.bindSafely(this, function(inEvent) {
+			var currentObj = this.currentObj;
+			if ((!history.state && !currentObj) || currentObj != ctx.id) {
+				return;
+			}
+
+			// if other API without history.back() triggers popstate event, return
+			if (!this._popstateFromBack) {
+				this._ignorePopState = false;
+				return;
+			}
+
+			fn();
+		}));
+	},
+
+	/**
 	* @private
 	*/
 	pushStateToHistory: function(currentObj) {
@@ -64,9 +92,11 @@ enyo.singleton({
 	* @private
 	*/
 	popStateToHistory: function() {
+		//popstate handler could not be executed until this method is finished
+		//so we should keep this._ignorePopState true until we handle popstate event
 		this._ignorePopState = true;
 		history.go(-1);
 		this.currentObj = history.state.currentObj;
-		this._ignorePopState = false;
+
 	}
 });
