@@ -22,7 +22,7 @@ enyo.kind({
 						{content: "Japanese"}
 					]},
 					{kind: "moon.ExpandableInput", content: "Expandable Input", noneText: "No Input"},
-					{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", content: "Expandable Integer Picker", value: 7, min: 3, max: 15, step: 1, unit: "elephants"},
+					{kind: "moon.ExpandableIntegerPicker", content: "Expandable Integer Picker", value: 7, min: 3, max: 15, step: 1, unit: "elephants"},
 					{kind: "moon.DatePicker", noneText: "Pick a Date", content: "Date Picker"},
 					{kind: "moon.TimePicker", noneText: "Pick a Time", content: "Time Picker"},
 					{kind: "moon.CheckboxItem", content: "Checkbox Item 1"},
@@ -105,7 +105,7 @@ enyo.kind({
 						{content: "Japanese"}
 					]},
 					{kind: "moon.ExpandableInput", content: "Expandable Input", noneText: "No Input"},
-					{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", content: "Expandable Integer Picker", value: 7, min: 3, max: 15, step: 1, unit: "elephants"},
+					{kind: "moon.ExpandableIntegerPicker", content: "Expandable Integer Picker", value: 7, min: 3, max: 15, step: 1, unit: "elephants"},
 					{kind: "moon.DatePicker", noneText: "Pick a Date", content: "Date Picker"},
 					{kind: "moon.TimePicker", noneText: "Pick a Time", content: "Time Picker"},
 					{kind: "moon.Accordion", content: "Accordion 1", components: [

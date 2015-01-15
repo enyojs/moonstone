@@ -60,24 +60,14 @@
 		* @lends moon.ExpandableIntegerPicker.prototype
 		*/
 		published: {
-
-			/**
-			* Text to be displayed as the current value if no item is currently selected.
-			*
-			* @type {String}
-			* @default ''
-			* @public
-			*/
-			noneText: '',
-
 			/**
 			* Initial value of the picker.
 			*
 			* @type {Number}
-			* @default -1
+			* @default 0
 			* @public
 			*/
-			value: -1,
+			value: 0,
 
 			/**
 			* Minimum value of the picker.
@@ -155,21 +145,10 @@
 		bindings: [
 			{from: '.min', to: '.$.picker.min', oneWay: false},
 			{from: '.max', to: '.$.picker.max', oneWay: false},
-			{from: '.value', to: '.$.picker.value'},
 			{from: '.step', to: '.$.picker.step'},
 			{from: '.unit', to: '.$.picker.unit'},
-			{from: '.showCurrentValue', to: '.$.currentValue.showing'},
-			{from: '.currentValueText', to: '.$.currentValue.content'},
 			{from: '.disabled', to: '.$.headerWrapper.disabled'}
 		],
-
-		/**
-		* @private
-		*/
-		computed: {
-			'showCurrentValue': ['open'],
-			'currentValueText': ['value', 'unit', 'noneText']
-		},
 
 		/**
 		* @private
@@ -177,6 +156,7 @@
 		create: function () {
 			this.inherited(arguments);
 			this.requestPickerReflow();
+			this.valueChanged();
 		},
 
 		/**
@@ -187,6 +167,17 @@
 		},
 
 		/**
+		* Intentionally using an observer instead of a binding since the order of applying `value`,
+		* `min`, and `max` is important. Bindings are processed after `create()` so calling this
+		* in `create()` guarantees it runs first.
+		*
+		* @private
+		*/
+		valueChanged: function () {
+			this.$.picker.set('value', this.value);
+		},
+
+		/**
 		* Change handler
 		*
 		* @private
@@ -194,28 +185,11 @@
 		openChanged: function () {
 			this.inherited(arguments);
 			this.setActive(this.getOpen());
+			this.$.currentValue.set('showing', !this.open);
 			if (this.open && this._needsPickerReflow) {
 				this.$.picker.reflow();
 				this._needsPickerReflow = false;
 			}
-		},
-
-		/**
-		* Computed property
-		*
-		* @private
-		*/
-		showCurrentValue: function () {
-			return !this.open;
-		},
-
-		/**
-		* Computed property
-		*
-		* @private
-		*/
-		currentValueText: function () {
-			return (this.value === '') ? this.noneText : this.value + ' ' + this.unit;
 		},
 
 		/**
@@ -236,12 +210,22 @@
 
 		/**
 		* Catch onChange events from the picker and update the value as it may have been clamped
-		* by the picker's `step` property
+		* by the picker's `step` property. Firing its own event so `content` can be fixed because
+		* it may not have synced to SimpleIntegerPicker before this fires (e.g. the first time).
 		*
 		* @private
 		*/
 		pickerValueChanged: function (sender, event) {
+			var content = this.unit? event.value + ' ' + this.unit : event.value;
 			this.set('value', event.value);
+			this.$.currentValue.set('content', content);
+
+			this.doChange({
+				value: this.value,
+				content: content
+			});
+
+			return true;
 		},
 
 		/**
