@@ -40,7 +40,7 @@
 		/**
 		* @private
 		*/
-		classes: 'moon-image',
+		classes: 'moon-image-multires',
 
 		srcChanged: function () {
 			this.src = moon.ri.selectSrc(this.src);
