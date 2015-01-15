@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-	<title>Moonstone Tooltip Sample</title>
+	<title>Moonstone Sample</title>
 	<!-- -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<!-- Less.js (uncomment for client-side rendering of less stylesheets; leave commented to use only CSS)
@@ -28,6 +28,7 @@
 		attempted = document.getElementById('attempted'),
 		file = document.getElementById('attempted-this');
 
+	if (sampleName != 'All' && !sampleName.match(/Sample$/)) sampleName += 'Sample';
 	enyo.log('%c Sample name:', 'color: blue;', sampleName);
 
 	if (sampleName) {
@@ -41,7 +42,7 @@
 		script.src = sampleName + '.js';
 		script.charset = 'utf-8';
 		script.onload = function () {
-			new moon.sample[sampleName]().renderInto(document.body);
+			new moon.sample[sampleName]({name: 'app'}).renderInto(document.body);
 		};
 		script.onerror = function () {
 			uhoh.style.display = null;
