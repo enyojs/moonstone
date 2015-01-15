@@ -1,6 +1,7 @@
 ## Help our users by allowing them to write sample names and forward them to our Sample.html file.
 # Parts of this excerpted from _ michael @
 # http://www.zeilenwechsel.de/it/articles/8/Using-mod_rewrite-in-.htaccess-files-without-knowing-the-RewriteBase.html
+<IfModule rewrite_module>
 RewriteEngine on
 RewriteBase /
 
@@ -14,3 +15,4 @@ RewriteCond %{REQUEST_FILENAME} !-f
 
 # Just by prefixing the environment variable, we can safely rewrite anything now
 RewriteRule ([^/]+?)(\.html)?$ %{ENV:CWD}Sample.html?$1 [R,L]
+</IfModule>
