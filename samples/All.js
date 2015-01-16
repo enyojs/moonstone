@@ -282,7 +282,7 @@
 					files = {};
 				for (i = 0; i < arguments.length; i++) {
 					file = arguments[i];
-					files[file] = (file || '').match(/\.js$/i) && file != 'package.js' && file != 'Sample.js';
+					files[file] = (file || '').match(/\.js$/i) && file != 'package.js' && file != 'All.js';
 				}
 				this.set('files', files);
 				this.openSample();
