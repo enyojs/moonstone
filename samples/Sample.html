@@ -37,10 +37,10 @@
 		attempted = document.getElementById('attempted'),
 		file = document.getElementById('attempted-this');
 
-	if (sampleName != 'All' && !sampleName.match(/Sample$/)) sampleName += 'Sample';
-	enyo.log('%c Sample name:', 'color: blue;', sampleName);
-
 	if (sampleName) {
+		if (sampleName != 'All' && !sampleName.match(/Sample$/)) sampleName += 'Sample';
+		enyo.log('%c Sample name:', 'color: blue;', sampleName);
+
 		var link = document.createElement('link'),
 			script = document.createElement('script'),
 			addToHead = function (node) { document.getElementsByTagName('head')[0].appendChild(node); };
