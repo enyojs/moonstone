@@ -249,9 +249,7 @@
 				this.doActivate();
 				this.$.client.spotlightDisabled = false;
 				enyo.Spotlight.spot(this.$.client);
-				if (!this.disableBackHistoryAPI) {
-					moon.BackKeySupport.pushStateToHistory(this.id);
-				}
+				moon.BackKeySupport.setCurrentObj(this.id, this.disableBackHistoryAPI);
 			} else {
 				this.$.client.spotlightDisabled = true;
 				this.doDeactivate();
@@ -269,9 +267,7 @@
 				this.doActivate();
 				this.$.controlDrawer.spotlightDisabled = false;
 				enyo.Spotlight.spot(this.$.controlDrawer);
-				if (!this.disableBackHistoryAPI) {
-					moon.BackKeySupport.pushStateToHistory(this.id);
-				}
+				moon.BackKeySupport.setCurrentObj(this.id, this.disableBackHistoryAPI);
 			} else {
 				if (this.$.client.getOpen()) {
 					this.$.client.setOpen(false);
@@ -299,9 +295,7 @@
 				if (!(this.open || this.controlsOpen) || moon.BackKeySupport.getCurrentObj() != this.id) {
 					break;
 				}
-				if (!this.disableBackHistoryAPI) {
-					moon.BackKeySupport.popStateToHistory();
-				}
+				moon.BackKeySupport.finishBackKeyHandler(this.disableBackHistoryAPI);
 				this.backKeyHandler();
 				break;
 			}
