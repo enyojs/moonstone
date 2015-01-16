@@ -103,7 +103,26 @@
 			* @default 'auto'
 			* @public
 			*/
-			showCloseButton: 'auto'
+			showCloseButton: 'auto',
+
+			/**,
+			* When true, pressing back key makes panels returns to previous panel
+			*
+			* @type {Bollean}
+			* @default true
+			* @public
+			*/
+			allowBackKey: true,
+
+			/**
+			* If "disableBackHistoryAPI" in AppInfo.json is set to true, this property
+			* should be true
+			*
+			* @type {Bollean}
+			* @default false
+			* @public
+			*/
+			disableBackHistoryAPI: false
 		},
 
 		/**
@@ -176,6 +195,13 @@
 		],
 
 		/**
+		* @private
+		*/
+		backKeySupporting: [
+			{name: "backKeySupport", kind: 'enyo.Signals', onkeyup:'remoteKeyHandler'}
+		],
+
+		/**
 		* Creates chrome components.
 		*
 		* @private
@@ -183,6 +209,7 @@
 		initComponents: function () {
 			this.createChrome(this.tools);
 			this.inherited(arguments);
+			this.allowBackKeyChanged();
 		},
 
 		/**
@@ -196,12 +223,22 @@
 			this.inherited(arguments);
 		},
 		/**
+		* Show the popup. This respects the current state of the
+		* [animate]{@link moon.Popup#animate} property, showing with or without animation.
+		*
+		* @public
+		*/
+		show: function() {
+			this.inherited(arguments);
+			moon.BackKeySupport.setCurrentObj(this.id, this.disableBackHistoryAPI);
+		},
+		/**
 		FixMe: overriding the control's default hide method to support the existing sequential tapping
 		and the dependent decorator code inorder to handle some special cases.
 		*/
 		hide: function(inSender, e) {
 
-			 if (this.tapCaptured) {
+			if (this.tapCaptured) {
 				this.tapCaptured = false;
 			} else {
 				this.popupActivated = false;
@@ -549,6 +586,43 @@
 		*/
 		directionChanged: function () {
 			this.alterDirection();
+		},
+
+		/**
+		* @private
+		*/
+		remoteKeyHandler: function (inSender, inEvent) {
+			switch (inEvent.keySymbol) {
+			case 'b':
+				if (moon.BackKeySupport.getCurrentObj() != this.id) {
+					break;
+				}
+				moon.BackKeySupport.finishBackKeyHandler(this.disableBackHistoryAPI);
+				this.backKeyHandler();
+				break;
+			}
+			return true;
+		},
+		/**
+		* @private
+		*/
+		backKeyHandler: function () {
+			this.hide();
+			return true;
+		},
+
+		/**
+		* @private
+		*/
+		allowBackKeyChanged: function () {
+			if (this.allowBackKey) {
+				this.createChrome(this.backKeySupporting);
+				if (!this.disableBackHistoryAPI) {
+					moon.BackKeySupport.popStateHandler(this, this.backKeyHandler);
+				}
+			} else if(this.$.backKeySupport) {
+				this.$.backKeySupport.destroy();
+			}
 		}
 	});
 
