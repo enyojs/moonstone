@@ -135,7 +135,26 @@
 			* @default true
 			* @public
 			*/
-			animate: true
+			animate: true,
+
+			/**,
+			* When true, pressing back key makes panels returns to previous panel
+			*
+			* @type {Bollean}
+			* @default true
+			* @public
+			*/
+			allowBackKey: true,
+
+			/**
+			* If "disableBackHistoryAPI" in AppInfo.json is set to true, this property
+			* should be true
+			*
+			* @type {Bollean}
+			* @default false
+			* @public
+			*/
+			disableBackHistoryAPI: false
 		},
 
 		/**
@@ -144,6 +163,13 @@
 		tools: [
 			{name: 'client', classes:'enyo-fill'},
 			{name: 'closeButton', kind: 'moon.IconButton', icon: 'closex', classes: 'moon-popup-close', ontap: 'closePopup', showing:false}
+		],
+
+		/**
+		* @private
+		*/
+		backKeySupporting: [
+			{name: "backKeySupport", kind: 'enyo.Signals', onkeyup:'remoteKeyHandler'}
 		],
 
 		/**
@@ -188,6 +214,7 @@
 			this.inherited(arguments);
 			this.animateChanged();
 			this.initialDuration = this.getComputedStyleValue('-webkit-transition-duration', '0.4s');
+			this.allowBackKeyChanged();
 		},
 
 		/**
@@ -339,7 +366,7 @@
 		showingChanged: function() {
 			// reset flag to prevent hiding popup when Enter pressed on unspottable popup
 			this.preventHide = false;
-			
+
 			if (this.showing) {
 				if (this.isAnimatingHide) {
 					// need to call this early to prevent race condition where animationEnd
@@ -413,6 +440,7 @@
 		show: function() {
 			this.inherited(arguments);
 			this.addClass('showing');
+			moon.BackKeySupport.setCurrentObj(this.id, this.disableBackHistoryAPI);
 		},
 
 		/**
@@ -573,6 +601,43 @@
 		destroy: function() {
 			this.showHideScrim(false);
 			this.inherited(arguments);
+		},
+
+		/**
+		* @private
+		*/
+		remoteKeyHandler: function (inSender, inEvent) {
+			switch (inEvent.keySymbol) {
+			case 'b':
+				if (moon.BackKeySupport.getCurrentObj() != this.id) {
+					break;
+				}
+				moon.BackKeySupport.finishBackKeyHandler(this.disableBackHistoryAPI);
+				this.backKeyHandler();
+				break;
+			}
+			return true;
+		},
+		/**
+		* @private
+		*/
+		backKeyHandler: function () {
+			this.hide();
+			return true;
+		},
+
+		/**
+		* @private
+		*/
+		allowBackKeyChanged: function () {
+			if (this.allowBackKey) {
+				this.createChrome(this.backKeySupporting);
+				if (!this.disableBackHistoryAPI) {
+					moon.BackKeySupport.popStateHandler(this, this.backKeyHandler);
+				}
+			} else if(this.$.backKeySupport) {
+				this.$.backKeySupport.destroy();
+			}
 		}
 	});
 
