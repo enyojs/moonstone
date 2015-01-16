@@ -594,13 +594,6 @@
 		/**
 		* @private
 		*/
-		backKeySupporting: [
-			{name: "backKeySupport", kind: 'enyo.Signals', onkeyup:'remoteKeyHandler'}
-		],
-
-		/**
-		* @private
-		*/
 		_isPlaying: false,
 
 		/**
@@ -2175,8 +2168,22 @@
 		* @private
 		*/
 		backKeyHandler: function () {
-			this.hideFSInfo();
-			this.hideFSBottomControls();
+			// if videoInfoHeaderClient and playerControl are visible
+			// it means that we pushed video player into history stack twice.
+			// to set correct target for next back key, we should pop one instance.
+			var visibleUp = this.$.videoInfoHeaderClient.getShowing(),
+				visibleDown = this.$.playerControl.getShowing();
+
+			if (visibleUp && visibleDown
+				&& moon.BackKeySupport.getCurrentObj() == this.id) {
+				moon.BackKeySupport.finishBackKeyHandler(this.disableBackHistoryAPI);
+			}
+			if (visibleUp) {
+				this.hideFSInfo();
+			}
+			if (visibleDown) {
+				this.hideFSBottomControls();
+			}
 			return true;
 		},
 
@@ -2185,12 +2192,9 @@
 		*/
 		allowBackKeyChanged: function () {
 			if (this.allowBackKey) {
-				this.createChrome(this.backKeySupporting);
 				if (!this.disableBackHistoryAPI) {
 					moon.BackKeySupport.popStateHandler(this, this.backKeyHandler);
 				}
-			} else if(this.$.backKeySupport) {
-				this.$.backKeySupport.destroy();
 			}
 		}
 	});
