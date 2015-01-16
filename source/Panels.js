@@ -1214,7 +1214,7 @@
 		remoteKeyHandler: function (inSender, inEvent) {
 			switch (inEvent.keySymbol) {
 			case 'b':
-				if (!this.panelStack.length) {
+				if (!this.panelStack.length || moon.BackKeySupport.getCurrentObj() != this.id) {
 					break;
 				}
 				moon.BackKeySupport.finishBackKeyHandler(this.disableBackHistoryAPI);
