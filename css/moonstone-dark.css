@@ -4336,7 +4336,7 @@ html {
   border-radius: 0.25rem;
   text-align: center;
   white-space: nowrap;
-  padding: 1px 0.5rem;
+  padding: 1px 0.375rem;
   display: inline-block;
 }
 .enyo-locale-non-latin .moon-video-player-info-icon {
