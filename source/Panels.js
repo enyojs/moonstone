@@ -124,13 +124,44 @@
 			* @default ''
 			* @public
 			*/
-			brandingSrc: ''
+			brandingSrc: '',
+
+			/**
+			* When true, pressing back key makes panels returns to previous panel
+			*
+			* @type {Bollean}
+			* @default false
+			* @public
+			*/
+			allowBackKey: true,
+
+			/**
+			* If "disableBackHistoryAPI" in AppInfo.json is set to true, this property
+			* should be true
+			*
+			* @type {Bollean}
+			* @default false
+			* @public
+			*/
+			disableBackHistoryAPI: false
 		},
 
 		/**
 		* @private
 		*/
 		narrowFit: false,
+
+		/**
+		* Hierachical stack.
+		* When we call setIndex or pushPanel, new object is pushed to this stack.
+		* When we call popPanel or back key handler, lasted object is removed.
+		* To save memory, it is initiated when this.allowBackKey is true.
+		*
+		* @type {Array}
+		* @default undefined
+		* @private
+		*/
+		panelStack: undefined,
 
 		/**
 		* @private
@@ -165,6 +196,12 @@
 			{name: 'showHideAnimator', kind: 'enyo.StyleAnimator', onComplete: 'showHideAnimationComplete'}
 		],
 
+		/**
+		* @private
+		*/
+		backKeySupporting: [
+			{name: "backKeySupport", kind: 'enyo.Signals', onkeyup:'remoteKeyHandler'}
+		],
 
 		/**
 		* @private
@@ -424,6 +461,7 @@
 			this.inherited(arguments);
 			this.initializeShowHideHandle();
 			this.handleShowingChanged();
+			this.allowBackKeyChanged();
 		},
 
 		/**
@@ -668,9 +706,10 @@
 		* Sets the index of the active panel, possibly transitioning the panel into view.
 		*
 		* @param {number} index - Index of the panel to make active.
+		* @param {boolean} isBack - If true, caller is back key handler. So pushing stack is not occurred.
 		* @public
 		*/
-		setIndex: function (index) {
+		setIndex: function (index, isBack) {
 			// Normally this.index cannot be smaller than 0 and larger than panels.length
 			// However, if panels uses handle and there is sequential key input during transition
 			// then index could have -1. It means that panels will be hidden.
@@ -698,6 +737,12 @@
 			// If panels will move for this index change, kickoff animation. Otherwise skip it.
 			if (this.shouldArrange() && this.animate) {
 				enyo.Spotlight.mute(this);
+				// if back key feature is enabled and setIndex is not called from back key handler
+				if (this.allowBackKey && !isBack) {
+					this.panelStack.push(this.index);
+					moon.BackKeySupport.setCurrentObj(this.id, this.disableBackHistoryAPI);
+				}
+
 				this.startTransition();
 				this.triggerPreTransitions();
 			} else {
@@ -1161,6 +1206,47 @@
 			if (this.$.branding) {
 				this.$.branding.set('src', this.brandingSrc);
 			}
+		},
+
+		/**
+		* @private
+		*/
+		remoteKeyHandler: function (inSender, inEvent) {
+			switch (inEvent.keySymbol) {
+			case 'b':
+				if (!this.panelStack.length || moon.BackKeySupport.getCurrentObj() != this.id) {
+					break;
+				}
+				moon.BackKeySupport.finishBackKeyHandler(this.disableBackHistoryAPI);
+				this.backKeyHandler();
+				break;
+			}
+			return true;
+		},
+		/**
+		* @private
+		*/
+		backKeyHandler: function () {
+			if (this.panelStack.length) {
+				this.setIndex(this.panelStack.pop(), true);
+			}
+			return true;
+		},
+
+		/**
+		* @private
+		*/
+		allowBackKeyChanged: function () {
+			if (this.allowBackKey) {
+				this.createChrome(this.backKeySupporting);
+				//initialize stack
+				this.panelStack = [];
+				if (!this.disableBackHistoryAPI) {
+					moon.BackKeySupport.popStateHandler(this, this.backKeyHandler);
+				}
+			} else if(this.$.backKeySupport) {
+				this.$.backKeySupport.destroy();
+			}
 		}
 	});
 
@@ -1194,7 +1280,7 @@
 		/*
 		* We override getAbsoluteShowing so that the handle's spottability is not dependent on the
 		* showing state of its parent, the {@link moon.Panels} control.
-		* 
+		*
 		* @private
 		*/
 		getAbsoluteShowing: function (ignoreBounds) {
