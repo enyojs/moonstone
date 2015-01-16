@@ -32,7 +32,7 @@
 </div>
 <script type="text/javascript">
 (function (enyo, scope) {
-	var sampleName = scope.location.search.replace(/^\?/, '') || scope.location.hash.replace(/^#/, ''),
+	var sampleName = scope.location.search.replace(/^\?/, '') || scope.location.hash.replace(/^#/, '') || 'All',
 		uhoh = document.getElementById('uh-oh-message'),
 		attempted = document.getElementById('attempted'),
 		file = document.getElementById('attempted-this');
