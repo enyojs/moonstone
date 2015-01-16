@@ -87,11 +87,12 @@ enyo.singleton({
 			if ((!history.state && !currentObj) || currentObj != ctx.id) {
 				return;
 			}
-
+			// now we find target object.
+			// we should update this._currentObj before end of this handler.
+			this._currentObj = history.state? history.state.currentObj : undefined;
 			// if we press back key of remote controller, return
 			if (this._ignorePopState) {
 				this._ignorePopState = false;
-				this._currentObj = history.state? history.state.currentObj : undefined;
 				return;
 			}
 
