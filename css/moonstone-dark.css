@@ -4609,6 +4609,9 @@ html {
 .moon-formcheckbox-item.spotlight .moon-checkbox-item-label-wrapper {
   color: #a6a6a6;
 }
+.moon-neutral .moon-formcheckbox-item.spotlight .moon-checkbox-item-label-wrapper {
+  color: #ffffff;
+}
 .selection-enabled .moon-selection-overlay-support.selected .moon-selection-overlay-support-scrim {
   display: block;
   text-align: center;
