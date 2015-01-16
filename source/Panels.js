@@ -740,9 +740,7 @@
 				// if back key feature is enabled and setIndex is not called from back key handler
 				if (this.allowBackKey && !isBack) {
 					this.panelStack.push(this.index);
-					if (!this.disableBackHistoryAPI) {
-						moon.BackKeySupport.pushStateToHistory(this.id);
-					}
+					moon.BackKeySupport.setCurrentObj(this.id, this.disableBackHistoryAPI);
 				}
 
 				this.startTransition();
@@ -1219,9 +1217,7 @@
 				if (!this.panelStack.length) {
 					break;
 				}
-				if (!this.disableBackHistoryAPI) {
-					moon.BackKeySupport.popStateToHistory();
-				}
+				moon.BackKeySupport.finishBackKeyHandler(this.disableBackHistoryAPI);
 				this.backKeyHandler();
 				break;
 			}
