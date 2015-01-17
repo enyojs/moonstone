@@ -1,5 +1,6 @@
 enyo.depends(
-	"Sample.css",
+	"All.css",
+	"All.js",
 	"AccordionSample.css",
 	"AccordionSample.js",
 	"ActivityPanelsSample.css",
