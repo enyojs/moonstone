@@ -1,9 +1,11 @@
 .moon-marquee {
-    width: auto;
-    text-overflow: ellipsis;
-    white-space: pre !important;
-    overflow: hidden;
-    text-align: left;
+	width: auto;
+	text-overflow: ellipsis;
+	white-space: pre !important;
+	overflow: hidden;
+	text-align: left;
+	/* Note: This should not be set to "inline" as this will cause incorrect scrollWidth measurements */
+	display: block;
 
 	span {
 		pointer-events: none !important;

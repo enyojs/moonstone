@@ -728,6 +728,8 @@ html {
   white-space: pre !important;
   overflow: hidden;
   text-align: left;
+  /* Note: This should not be set to "inline" as this will cause incorrect scrollWidth measurements */
+  display: block;
 }
 .moon-marquee span {
   pointer-events: none !important;
