@@ -5,7 +5,7 @@ install:
   npm -g install jshint &&
   echo -e "\x1b\x5b35;1m*** Checking out Enyo\x1b\x5b0m" &&
   cd .. &&
-  git clone --depth 1 -b 2.5-gordon https://github.com/enyojs/enyo.git enyo &&
+  git clone --depth 1 https://github.com/enyojs/enyo.git enyo &&
   mkdir lib &&
   mv moonstone lib/moonstone
 script:
