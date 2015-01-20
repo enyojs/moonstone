@@ -12,6 +12,12 @@
 	}
 }
 
-.spotlight .moon-checkbox[checked]:after {
-	color: @moon-white;
+.spotlight {
+	.moon-checkbox[checked]:after {
+		color: @moon-white;
+	}
+	.moon-checkbox:not([checked]):not([disabled]) .moon-icon {
+		visibility: visible;
+		opacity: 0.3;
+	}
 }
