@@ -15,7 +15,11 @@ enyo.kind({
 			{kind: "moon.Button", content: "Panels in Popup", ontap: "showPopup", popup: "panelsPopup"}
 		]},
 
-		{name: "basicPopup", kind: "moon.Popup", content: "Popup..."},
+		{name: "basicPopup", kind: "moon.Popup", content: "Popup...", components: [
+			{kind: "moon.MarqueeDecorator", marqueeOnRender: true, components: [
+				{kind: "moon.MarqueeText", content: "this might scroll", style: "display:inline"}
+			]}
+		]},
 		// The directPopup only works when we programmatically call "showDirect" or "hideDirect". So, we set autoDismiss as false here.
 		{name: "directPopup", kind: "moon.Popup", autoDismiss: false, components: [
 			{content: "Direct Popup"},	
