@@ -375,10 +375,10 @@ html {
   direction: rtl;
 }
 .moon-divider-border {
-  border-bottom: 1px solid #4b4b4b;
+  border-bottom: 0.125rem solid #4b4b4b;
 }
 .moon-neutral-divider-border {
-  border-bottom: 1px solid #ffffff;
+  border-bottom: 0.125rem solid #ffffff;
 }
 .moon-composite {
   -webkit-transform: translateZ(0);
@@ -398,7 +398,7 @@ html {
 .moon-superscript {
   font-size: 1rem;
   vertical-align: top;
-  margin: 0 0 0 1px;
+  margin: 0 0 0 0.125rem;
   padding: 0;
 }
 .moon-pre-text {
@@ -406,7 +406,7 @@ html {
   vertical-align: top;
   height: 2rem;
   line-height: 1rem;
-  margin: 0.5rem 1px 0.375rem 0;
+  margin: 0.5rem 0.125rem 0.375rem 0;
   padding: 0rem;
 }
 .moon-large-text {
@@ -907,12 +907,12 @@ html {
   color: #ffffff;
 }
 .moon-divider {
-  border-bottom: 1px solid #4b4b4b;
+  border-bottom: 0.125rem solid #4b4b4b;
   margin: 0 0.5rem 1rem 0.5rem;
-  padding-bottom: 1px;
+  padding-bottom: 0.125rem;
 }
 .moon-neutral .moon-divider {
-  border-bottom: 1px solid #ffffff;
+  border-bottom: 0.125rem solid #ffffff;
 }
 .moon-checkbox-item {
   position: relative;
@@ -947,7 +947,7 @@ html {
 }
 /* this is a fix for TV only - left-side of letter cut off in list-action item drawer*/
 .moon-list-actions-drawer-client .moon-checkbox-item .moon-checkbox-item-label-wrapper {
-  padding-left: 1px;
+  padding-left: 0.125rem;
 }
 /* Right to left */
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox {
@@ -985,7 +985,7 @@ html {
 .moon-toggle-text-text {
   position: absolute;
   right: 0rem;
-  top: 1px;
+  top: 0.125rem;
   text-align: right;
   color: #4b4b4b;
 }
@@ -1079,21 +1079,21 @@ html {
   height: 0.625rem;
   border-radius: 416.625rem;
   background-color: #b3b3b3;
-  border: solid 1px #ffffff;
+  border: solid 0.125rem #ffffff;
 }
 .moon-button.moon-toggle-button[disabled] {
   border: 0.25rem solid transparent;
 }
 .moon-button.moon-toggle-button[disabled]:after {
   background-color: #b3b3b3;
-  border: solid 1px #ffffff;
+  border: solid 0.125rem #ffffff;
 }
 .moon-button.moon-toggle-button.moon-toggle-button-on {
   border: solid 0.25rem #cf0652;
 }
 .moon-button.moon-toggle-button.moon-toggle-button-on:after {
   background-color: #cf0652;
-  border: solid 1px #ffffff;
+  border: solid 0.125rem #ffffff;
 }
 .moon-button.moon-toggle-button.small {
   padding-right: 2.375rem;
@@ -1321,10 +1321,10 @@ html {
   text-align: center;
 }
 .moon-button-caption-decorator .moon-caption.top {
-  padding-bottom: 1px;
+  padding-bottom: 0.125rem;
 }
 .moon-button-caption-decorator .moon-caption.bottom {
-  padding-top: 1px;
+  padding-top: 0.125rem;
 }
 /* Caption Decorator - Show On Focus Captions */
 .moon-button-caption-decorator.showOnFocus .moon-caption {
@@ -1340,13 +1340,13 @@ html {
   display: block;
 }
 .moon-button-caption-decorator.showOnFocus .moon-caption.top {
-  margin-bottom: 1px;
+  margin-bottom: 0.125rem;
 }
 .moon-button-caption-decorator.showOnFocus .moon-caption.right {
   margin-left: 0.5rem;
 }
 .moon-button-caption-decorator.showOnFocus .moon-caption.bottom {
-  margin-top: 1px;
+  margin-top: 0.125rem;
 }
 .moon-button-caption-decorator.showOnFocus .moon-caption.left {
   margin-right: 0.5rem;
@@ -1365,7 +1365,7 @@ html {
   top: 0.75rem;
   width: 0.5rem;
   height: 0.5rem;
-  border: solid 1px #ffffff;
+  border: solid 0.125rem #ffffff;
   border-radius: 0.375rem;
   background-color: #b3b3b3;
 }
@@ -1513,7 +1513,7 @@ html {
   -moz-box-sizing: border-box;
   color: #4b4b4b;
   height: 15rem;
-  border-top: 1px solid #4b4b4b;
+  border-top: 0.125rem solid #4b4b4b;
   border-bottom: 0.25rem solid #4b4b4b;
   position: relative;
   max-width: 100%;
@@ -1604,7 +1604,7 @@ html {
   line-height: 2.5rem;
 }
 .moon-neutral .moon-header {
-  border-top: 1px solid #ffffff;
+  border-top: 0.125rem solid #ffffff;
   border-bottom: 0.25rem solid #ffffff;
 }
 .enyo-locale-non-latin .moon-header .moon-header-title {
@@ -1756,7 +1756,7 @@ html {
 }
 .moon-scroll-picker-item {
   white-space: nowrap;
-  padding: 0 0.25rem 1px 0.25rem;
+  padding: 0 0.25rem 0.125rem 0.25rem;
   min-width: 2rem;
   height: 4rem;
   line-height: 4rem;
@@ -1765,7 +1765,7 @@ html {
 }
 .moon-scroll-picker-buffer {
   white-space: nowrap;
-  padding: 0 0.25rem 1px 0.25rem;
+  padding: 0 0.25rem 0.125rem 0.25rem;
   height: 0;
   opacity: 0;
 }
@@ -2422,7 +2422,7 @@ html {
 }
 .moon-textarea::-webkit-scrollbar,
 .moon-richtext::-webkit-scrollbar {
-  width: 1px;
+  width: 0.125rem;
 }
 .moon-textarea::-webkit-scrollbar-track-piece,
 .moon-richtext::-webkit-scrollbar-track-piece {
@@ -2461,7 +2461,7 @@ html {
   right: 0;
 }
 .moon-header .list-actions-drawer {
-  top: -1px;
+  top: -0.125rem;
   bottom: -0.25rem;
 }
 /* Close button */
@@ -2560,8 +2560,8 @@ html {
   font-family: "MuseoSans 700";
   font-size: 1.25rem;
   color: #4b4b4b;
-  border-top: 1px solid #4b4b4b;
-  margin: 0rem 0rem 1px 0rem;
+  border-top: 0.125rem solid #4b4b4b;
+  margin: 0rem 0rem 0.125rem 0rem;
   padding: 0.25rem 0rem 0rem 0rem;
 }
 .enyo-locale-non-latin .moon-labeledtextitem .label {
@@ -2928,7 +2928,7 @@ html {
 }
 .moon-panel-small-header-title-above {
   color: #4b4b4b;
-  border-top: 1px solid #ffffff;
+  border-top: 0.125rem solid #ffffff;
   padding-top: 0.25rem;
 }
 .spotlight .moon-panel-small-header-title-above {
@@ -2939,14 +2939,14 @@ html {
   color: #ffffff;
 }
 .moon-panel .moon-panel-small-header-wrapper.spotlight .moon-panel-small-header-title-above {
-  border-top: 1px solid transparent;
+  border-top: 0.125rem solid transparent;
 }
 /* Activity Panels Overrides */
 .moon-panels.activity .moon-panel {
   padding: 0;
 }
 .moon-panels.activity .moon-panel-small-header-title-above {
-  border-top: 1px solid #4b4b4b;
+  border-top: 0.125rem solid #4b4b4b;
 }
 .moon-panels.activity .moon-panel-small-header,
 .moon-panels.activity .moon-panel-small-header-title-above {
@@ -3497,7 +3497,7 @@ html {
 }
 .moon-dialog-divider {
   padding-bottom: 0;
-  border-bottom-width: 1px;
+  border-bottom-width: 0.125rem;
   margin: 0.75rem 0 0.75rem;
 }
 .moon-dialog-client {
@@ -3557,9 +3557,9 @@ html {
 }
 .moon-tooltip.above.left-arrow .moon-tooltip-label:before {
   top: 1.20833rem;
-  left: -1px;
+  left: -0.08333rem;
   border-top: 1.20833rem solid #4d4d4d;
-  clip: rect(1.25rem, 1rem, 1.58333rem, 1px);
+  clip: rect(1.25rem, 1rem, 1.58333rem, 0.08333rem);
   border-radius: 416.625rem;
 }
 /* .above .right-arrow nub shape */
@@ -3568,7 +3568,7 @@ html {
 }
 .moon-tooltip.above.right-arrow .moon-tooltip-label:before {
   top: 1.20833rem;
-  right: -1px;
+  right: -0.08333rem;
   border-top: 1.20833rem solid #4d4d4d;
   clip: rect(1.25rem, 3.41667rem, 1.58333rem, 2.33333rem);
   border-radius: 416.625rem;
@@ -3579,9 +3579,9 @@ html {
 }
 .moon-tooltip.below.left-arrow .moon-tooltip-label:before {
   top: -2.08333rem;
-  left: -1px;
+  left: -0.08333rem;
   border-bottom: 1.20833rem solid #4d4d4d;
-  clip: rect(1px, 1rem, 2.5rem, 1px);
+  clip: rect(0.08333rem, 1rem, 2.5rem, 0.08333rem);
   border-radius: 416.625rem;
 }
 /* .below .right-arrow nub shape */
@@ -3590,9 +3590,9 @@ html {
 }
 .moon-tooltip.below.right-arrow .moon-tooltip-label:before {
   top: -2.08333rem;
-  right: -1px;
+  right: -0.08333rem;
   border-bottom: 1.20833rem solid #4d4d4d;
-  clip: rect(1px, 3.41667rem, 2.5rem, 2.33333rem);
+  clip: rect(0.08333rem, 3.41667rem, 2.5rem, 2.33333rem);
   border-radius: 416.625rem;
 }
 /* AudioPlayback.css */
@@ -3731,8 +3731,8 @@ html {
   position: absolute;
   height: 0.25rem;
   width: 0.25rem;
-  border-radius: 1px;
-  margin: -1px;
+  border-radius: 0.125rem;
+  margin: -0.125rem;
   top: 1rem;
   pointer-events: none;
 }
@@ -3793,7 +3793,7 @@ html {
   position: absolute;
   left: 49.5%;
   top: 1rem;
-  width: 1px;
+  width: 0.125rem;
   height: 1.25rem;
   background-color: #ffffff;
 }
@@ -3801,7 +3801,7 @@ html {
   position: absolute;
   left: 49.5%;
   top: 1rem;
-  width: 1px;
+  width: 0.125rem;
   height: 1.25rem;
   background-color: #ffffff;
 }
@@ -4020,7 +4020,7 @@ html {
   width: 100%;
 }
 .moon-video-player-more-controls {
-  border-left: 1px solid white;
+  border-left: 0.125rem solid white;
   padding-left: 0.25rem;
 }
 .moon-video-player-more-controls > * {
@@ -4139,7 +4139,7 @@ html {
   line-height: inherit;
 }
 .moon-video-player-feedback .moon-icon.small {
-  background-position: center -1px;
+  background-position: center -0.125rem;
 }
 .moon-icon.moon-video-feedback-icon-left {
   margin-left: 0;
@@ -4167,7 +4167,7 @@ html {
 }
 .enyo-locale-non-latin .moon-video-feedback-icon-left,
 .enyo-locale-non-latin .moon-video-feedback-icon-right {
-  margin-bottom: 1px;
+  margin-bottom: 0.125rem;
 }
 .enyo-locale-right-to-left .moon-video-player-feedback {
   margin: 0 0 0 0.5rem;
@@ -4304,7 +4304,7 @@ html {
   text-align: right;
 }
 .moon-video-player-channel-info-badges > * {
-  margin: 1px 0 1px 0.75rem;
+  margin: 0.125rem 0 0.125rem 0.75rem;
 }
 .moon-video-player-channel-info-no {
   font-family: "Moonstone Miso";
@@ -4336,7 +4336,7 @@ html {
   border-radius: 0.25rem;
   text-align: center;
   white-space: nowrap;
-  padding: 1px 0.375rem;
+  padding: 0.125rem 0.375rem;
   display: inline-block;
 }
 .enyo-locale-non-latin .moon-video-player-info-icon {
@@ -4587,7 +4587,7 @@ html {
   text-align: center;
 }
 .moon-item.moon-formcheckbox-item .moon-checkbox .moon-icon {
-  padding-bottom: 1px;
+  padding-bottom: 0.125rem;
 }
 .moon-item.moon-formcheckbox-item .moon-checkbox-item-label-wrapper {
   padding: 0.5rem 0.5rem;
@@ -4639,8 +4639,8 @@ html {
   -webkit-transform-origin: 0rem 0rem;
   border: none;
   background: rgba(50, 50, 50, 0.8);
-  width: 1px;
-  height: 1px;
+  width: 0.125rem;
+  height: 0.125rem;
   border-radius: 0;
 }
 .moon-neutral .moon-thumb {
@@ -4702,7 +4702,7 @@ html {
   bottom: 0.5rem;
 }
 .spotlight .moon-image-badge {
-  top: 1px;
+  top: 0.125rem;
 }
 /* ExpandableText */
 .moon-expandable-text {
