@@ -145,7 +145,7 @@
 			* Facade for the [backgroundSrc]{@link moon.Header#backgroundSrc} property
 			* of the embedded {@link moon.Header}.
 			*
-			* @type {(String|String[])}
+			* @type {(String|String[]|moon.ri.selectSrc~src|moon.ri.selectSrc~src[])}
 			* @default null
 			* @public
 			*/
@@ -226,6 +226,16 @@
 		/**
 		* @private
 		*/
+		preventTransform: !moon.config.accelerate,
+
+		/**
+		* @private
+		*/
+		preventAccelerate: !moon.config.accelerate,
+
+		/**
+		* @private
+		*/
 		panelTools : [
 			{name: 'breadcrumb', ontap: 'handleBreadcrumbTap', classes: 'moon-panel-breadcrumb', components: [
 				{name: 'breadcrumbViewport', classes: 'moon-panel-breadcrumb-viewport', components: [
@@ -300,6 +310,14 @@
 		growing: false,
 
 		/**
+		* Set by {@link moon.BreadcrumbArranger} during {@link moon.BreadcrumbArranger#size}
+		* based on the value of {@link moon.Panels#animate}.
+		*
+		* @private
+		*/
+		animate: !moon.config.accelerate,
+
+		/**
 		* @private
 		*/
 		create: function () {
@@ -313,6 +331,7 @@
 			// Note: This line will be deprecated soon. For backward compatiblity, I leave it for a while.
 			this.smallHeaderChanged();
 			this.headerTypeChanged();
+			this.animateChanged();
 		},
 
 		/**
@@ -360,10 +379,10 @@
 				return;
 			}
 
-			this.$.viewport.applyStyle('height', this.initialHeight + 'px');
-			this.$.viewport.applyStyle('width', this.initialWidth + 'px');
-			this.$.contentWrapper.applyStyle('height', this.initialHeight + 'px');
-			this.$.contentWrapper.applyStyle('width', this.initialWidth + 'px');
+			this.$.viewport.applyStyle('height', enyo.dom.unit(this.initialHeight, 'rem'));
+			this.$.viewport.applyStyle('width', enyo.dom.unit(this.initialWidth, 'rem'));
+			this.$.contentWrapper.applyStyle('height', enyo.dom.unit(this.initialHeight, 'rem'));
+			this.$.contentWrapper.applyStyle('width', enyo.dom.unit(this.initialWidth, 'rem'));
 		},
 
 		/**
@@ -420,6 +439,13 @@
 		},
 
 		/**
+		* @private
+		*/
+		animateChanged: function () {
+			this.addRemoveClass('moon-composite', this.animate);
+		},
+
+		/**
 		* Note: This method will be deprecated soon.
 		* @private
 		*/
@@ -435,7 +461,6 @@
 		*/
 		headerTypeChanged: function () {
 			this.$.header.setType(this.headerType);
-			this.$.header.adjustTitleWidth();
 			if (this.generated) {
 				this.$.contentWrapper.resize();
 			}

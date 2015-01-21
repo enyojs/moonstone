@@ -120,7 +120,7 @@
 			* The source of the image used for branding in the lower left region of the Panels
 			* (only applies to Panels using the `'activity'` pattern).
 			*
-			* @type {String}
+			* @type {String|moon.ri.selectSrc~src}
 			* @default ''
 			* @public
 			*/
@@ -157,12 +157,12 @@
 			{name: 'backgroundScrim', kind: 'enyo.Control', classes: 'moon-panels-background-scrim'},
 			{name: 'clientWrapper', kind: 'enyo.Control', classes: 'enyo-fill enyo-arranger moon-panels-client', components: [
 				{name: 'scrim', classes: 'moon-panels-panel-scrim', components: [
-					{name: 'branding', kind: 'enyo.Image', sizing: 'contain', classes: 'moon-panels-branding'}
+					{name: 'branding', kind: 'moon.ImageMultiRes', sizing: 'contain', classes: 'moon-panels-branding'}
 				]},
 				{name: 'client', tag: null}
 			]},
 			{name: 'showHideHandle', kind: 'moon.PanelsHandle', classes: 'hidden', canGenerate: false, ontap: 'handleTap', onSpotlightLeft: 'handleSpotLeft', onSpotlightRight: 'handleSpotRight', onSpotlightFocused: 'handleFocused', onSpotlightBlur: 'handleBlur'},
-			{name: 'showHideAnimator', kind: 'enyo.StyleAnimator', onComplete: 'animationComplete'}
+			{name: 'showHideAnimator', kind: 'enyo.StyleAnimator', onComplete: 'showHideAnimationComplete'}
 		],
 
 
@@ -214,19 +214,19 @@
 		_initialTransition: true,
 
 		/**
-		* Flag for panel transition.
-		*
-		* @private
-		*/
-		transitionInProgress: false,
-
-		/**
 		* Flag for blocking consecutive push/pop/replace panel actions to protect
 		* create/render/destroy time.
 		*
 		* @private
 		*/
 		isModifyingPanels: false,
+
+		/**
+		* Flag to indicate if the Panels are currently transitioning to a new index
+		*
+		* @private
+		*/
+		transitioning: false,
 
 		/**
 		* Checks the state of panel transitions.
@@ -236,7 +236,7 @@
 		* @public
 		*/
 		inTransition: function () {
-			return this.transitionInProgress;
+			return this.transitioning;
 		},
 
 		/**
@@ -248,7 +248,7 @@
 		* @public
 		*/
 		pushPanel: function (info, moreInfo) { // added
-			if (this.transitionInProgress || this.isModifyingPanels) {return null;}
+			if (this.transitioning || this.isModifyingPanels) {return null;}
 			this.isModifyingPanels = true;
 			var lastIndex = this.getPanels().length - 1,
 				oPanel = this.createComponent(info, moreInfo);
@@ -286,7 +286,7 @@
 		* @public
 		*/
 		pushPanels: function(info, commonInfo, options) { // added
-			if (this.transitionInProgress || this.isModifyingPanels) { return null; }
+			if (this.transitioning || this.isModifyingPanels) { return null; }
 			this.isModifyingPanels = true;
 
 			if (!options) { options = {}; }
@@ -325,7 +325,7 @@
 		* @public
 		*/
 		popPanels: function (index) {
-			if (this.transitionInProgress || this.isModifyingPanels) {return;}
+			if (this.transitioning || this.isModifyingPanels) {return;}
 			this.isModifyingPanels = true;
 			var panels = this.getPanels();
 			index = index || panels.length - 1;
@@ -345,7 +345,7 @@
 		* @public
 		*/
 		replacePanel: function (index, info, moreInfo) {
-			if (this.transitionInProgress || this.isModifyingPanels) {return;}
+			if (this.transitioning || this.isModifyingPanels) {return;}
 			this.isModifyingPanels = true;
 			var oPanel = null;
 
@@ -415,6 +415,7 @@
 		create: enyo.inherit(function (sup) {
 			return function () {
 				sup.apply(this, arguments);
+				this.set('animate', this.animate && moon.config.accelerate, true);
 
 				// we need to ensure our handler has the opportunity to modify the flow during
 				// initialization
@@ -455,7 +456,7 @@
 		*/
 		tapped: function (oSender, oEvent) {
 			if (oEvent.originator === this.$.showHideHandle || this.pattern === 'none' ||
-				this.transitionInProgress === true || this.isModifyingPanels === true) {
+				this.transitioning === true || this.isModifyingPanels === true) {
 				return;
 			}
 
@@ -672,19 +673,6 @@
 		},
 
 		/**
-		* Sets the index of the active panel, skips animation.
-		*
-		* @param {number} index - Index of the panel to make active.
-		* @public
-		*/
-		setIndexDirect: function(inIndex) {
-			//set the toIndex
-			if(typeof inIndex == 'number') this.toIndex = this.clamp(inIndex);
-			//change index of panel without animation
-			this.skipArrangerAnimation();
-		},
-
-		/**
 		* Sets the index of the active panel, possibly transitioning the panel into view.
 		*
 		* @param {number} index - Index of the panel to make active.
@@ -706,6 +694,7 @@
 				return;
 			}
 
+			this.notifyPanels('initPanel');
 			this.fromIndex = this.index;
 			this.toIndex = index;
 
@@ -715,19 +704,12 @@
 			this.blurActiveElementIfHiding(index);
 
 			// If panels will move for this index change, kickoff animation. Otherwise skip it.
-			if (this.shouldArrange()) {
-				if (this.animate) {
-					this.transitionInProgress = true;
-					enyo.Spotlight.mute(this);
-					this.fireTransitionStart();
-					this.triggerPreTransitions();
-				}
-				else {
-					this._setIndex(this.toIndex);
-				}
-			}
-			else {
-				this.skipArrangerAnimation();
+			if (this.shouldArrange() && this.animate) {
+				enyo.Spotlight.mute(this);
+				this.startTransition();
+				this.triggerPreTransitions();
+			} else {
+				this._setIndex(this.toIndex);
 			}
 		},
 
@@ -765,21 +747,6 @@
 		},
 
 		/**
-		* Skips animation and jumps to next arrangement.
-		* Ensures that Panels with indices under the
-		* current panel, grow without animation
-		*
-		* @private
-		*/
-		skipArrangerAnimation: function () {
-			this._setIndex(this.toIndex);
-			if(this.animate){
-				//call to complete transitions
-				this.completed();
-			}
-		},
-
-		/**
 		*
 		* @private
 		*/
@@ -794,21 +761,17 @@
 		*
 		* @private
 		*/
-		completed: function () {
-			if (this.$.animator.isAnimating()) {
-				this.$.animator.stop();
-			}
+		animationEnded: enyo.inherit(function (sup) {
+			return function () {
+				if (this.animate) {
+					this.triggerPostTransitions();
+				} else {
+					sup.apply(this, arguments);
+				}
 
-			this.fraction = 1;
-			this.stepTransition();
-			if (this.animate) {
-				this.triggerPostTransitions();
-			}
-			else {
-				this.finishTransition(true);
-			}
-			return true;
-		},
+				return true;
+			};
+		}),
 
 		/**
 		* @private
@@ -821,25 +784,13 @@
 		* @private
 		*/
 		getTransitionInfo: function (inPanelIndex) {
-			var info = this.getPanelInfo(inPanelIndex, this.toIndex);
+			var to = (this.toIndex || this.toIndex === 0) ? this.toIndex : this.index;
+			var info = this.getPanelInfo(inPanelIndex, to);
 			info.from = this.fromIndex;
 			info.to = this.toIndex;
 			info.index = inPanelIndex;
 			info.animate = this.animate;
 			return info;
-		},
-
-		/**
-		* Suppresses firing `onTransitionStart` when a transition is in progress, because
-		* it was already fired in [setIndex()]{@link moon.Panels#setIndex}.
-		*
-		* @private
-		*/
-		startTransition: function(sendEvents) {
-			if (this.transitionInProgress) {
-				sendEvents = !this.transitionInProgress;
-			}
-			this.inherited(arguments);
 		},
 
 		/**
@@ -902,7 +853,8 @@
 			}
 
 			if (this.postTransitionWaitlist.length === 0) {
-				this.finishTransition(true);
+				this.completed();
+				return true;
 			}
 		},
 
@@ -920,7 +872,7 @@
 			}
 
 			if (this.postTransitionWaitlist.length === 0) {
-				this.finishTransition(true);
+				this.completed();
 			}
 
 			return true;
@@ -944,61 +896,58 @@
 			this.displayBranding();
 		},
 
-		/**
-		* @private
-		*/
-		finishTransition: function (sendEvents) {
+		notifyPanels: function (method) {
 			var panels = this.getPanels(),
-				transitioned = typeof this.lastIndex !== 'undefined',
-				method = transitioned ? (sendEvents ? 'transitionFinished' : 'updatePanel') : 'initPanel',
-				i,
-				panel,
-				info,
-				popFrom,
-				toIndex = this.toIndex,
-				fromIndex = this.fromIndex;
-
-			// Pop panels starting at this index, plus any that are still onscreen
-			popFrom = toIndex + 1;
-			// Notify panels of transition
-			for (i =0 ; (panel = panels[i]); i++) {
+				panel, info, i;
+			for (i = 0; (panel = panels[i]); i++) {
 				info = this.getTransitionInfo(i);
 				if (panel[method]) {
 					panel[method](info);
 				}
-				// If a panel is onscreen, don't pop it
-				if ((i > toIndex) && !info.offscreen) {
-					popFrom++;
-				}
 			}
+		},
 
-			this.transitionInProgress = false;
+		/**
+		* @private
+		*/
+		finishTransition: enyo.inherit(function (sup) {
+			return function () {
+				var panels = this.getPanels(),
+					toIndex = this.toIndex,
+					fromIndex = this.fromIndex,
+					i, panel, info, popFrom;
 
-			this.inherited(arguments);
+				this.notifyPanels('transitionFinished');
+				sup.apply(this, arguments);
 
-			// 'sendEvents' means we actually transitioned (not a reflow), so
-			// check popOnBack logic
-			if (sendEvents) {
 				// Automatically pop off panels that are no longer on screen
 				if (this.popOnBack && (toIndex < fromIndex)) {
+					popFrom = toIndex + 1;
+					for (i = 0; (panel = panels[i]); i++) {
+						info = this.getTransitionInfo(i);
+						// If a panel is onscreen, don't pop it
+						if ((i > toIndex) && !info.offscreen) {
+							popFrom++;
+						}
+					}
+
 					this.popPanels(popFrom);
 				}
-			}
 
-			// queuedIndex becomes -1 when left key input is occurred
-			// during transition from index 1 to 0.
-			// We can hide panels if we use handle.
-			if (this.queuedIndex === -1 && this.useHandle) {
-				this.hide();
-			} else if (this.queuedIndex !== null) {
-				this.setIndex(this.queuedIndex);
-			}
+				// queuedIndex becomes -1 when left key input is occurred
+				// during transition from index 1 to 0.
+				// We can hide panels if we use handle.
+				if (this.queuedIndex === -1 && this.useHandle) {
+					this.hide();
+				} else if (this.queuedIndex !== null) {
+					this.setIndex(this.queuedIndex);
+				}
 
-			enyo.Spotlight.unmute(this);
-			// Spot the active panel
-			enyo.Spotlight.spot(this.getActive());
-
-		},
+				enyo.Spotlight.unmute(this);
+				// Spot the active panel
+				enyo.Spotlight.spot(this.getActive());
+			};
+		}),
 
 		/**
 		* Override the default `getShowing()` behavior to avoid setting `this.showing` based on the
@@ -1171,7 +1120,7 @@
 		*
 		* @private
 		*/
-		animationComplete: function (sender, event) {
+		showHideAnimationComplete: function (sender, event) {
 			switch (event.animation.name) {
 			case 'show':
 				this.showAnimationComplete();
@@ -1220,6 +1169,13 @@
 			if (this.$.branding) {
 				this.$.branding.set('src', this.brandingSrc);
 			}
+		},
+
+		/**
+		* @private
+		*/
+		animateChanged: function () {
+			this.addRemoveClass('moon-composite', this.animate);
 		}
 	});
 
@@ -1253,7 +1209,7 @@
 		/*
 		* We override getAbsoluteShowing so that the handle's spottability is not dependent on the
 		* showing state of its parent, the {@link moon.Panels} control.
-		* 
+		*
 		* @private
 		*/
 		getAbsoluteShowing: function (ignoreBounds) {

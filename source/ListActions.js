@@ -149,7 +149,7 @@
 			/**
 			* Source URL for icon image.
 			*
-			* @type {String}
+			* @type {String|moon.ri.selectSrc~src}
 			* @default ''
 			* @public
 			*/
@@ -490,12 +490,12 @@
 		unStackMeUp: function() {
 			var containerHeight, optionGroup, i;
 			if (this.standardHeight) {
-				this.$.drawer.applyStyle('height', this.standardHeight + 'px');
+				this.$.drawer.applyStyle('height', enyo.dom.unit( moon.ri.scale(this.standardHeight), 'rem'));
 			}
 			containerHeight = this.getContainerBounds().height;
 
 			for (i = 0; (optionGroup = this.listActionComponents[i]); i++) {
-				optionGroup.applyStyle('height', containerHeight + 'px');
+				optionGroup.applyStyle('height', enyo.dom.unit(containerHeight, 'rem'));
 			}
 		},
 

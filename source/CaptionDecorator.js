@@ -264,7 +264,7 @@
 		* @private
 		*/
 		centerCaptionVertically: function (inBounds, inCaptionBounds) {
-			this.getCaptionControl().applyStyle('top', ((inBounds.height - inCaptionBounds.height)/2) + 'px');
+			this.getCaptionControl().applyStyle('top', enyo.dom.unit((inBounds.height - inCaptionBounds.height) / 2, 'rem'));
 		},
 
 		/**
@@ -273,7 +273,7 @@
 		* @private
 		*/
 		centerCaptionHorizontally: function (inBounds, inCaptionBounds) {
-			this.getCaptionControl().applyStyle('left', ((inBounds.width - inCaptionBounds.width)/2) + 'px');
+			this.getCaptionControl().applyStyle('left', enyo.dom.unit((inBounds.width - inCaptionBounds.width) / 2, 'rem'));
 		},
 
 		/**
@@ -283,7 +283,7 @@
 		*/
 		positionCaptionAtLeftEdge: function (inBounds, inClientBounds, inCaptionBounds) {
 			var position = (-1 * inCaptionBounds.width) + ((inBounds.width - inClientBounds.width)/2) - inCaptionBounds.marginRight;
-			this.getCaptionControl().applyStyle('left', position + 'px');
+			this.getCaptionControl().applyStyle('left', enyo.dom.unit(position, 'rem'));
 		},
 
 		/**
@@ -293,7 +293,7 @@
 		*/
 		positionCaptionAtRightEdge: function (inBounds, inClientBounds, inCaptionBounds) {
 			var position = inBounds.width - ((inBounds.width - inClientBounds.width)/2);
-			this.getCaptionControl().applyStyle('left', position + 'px');
+			this.getCaptionControl().applyStyle('left', enyo.dom.unit(position, 'rem'));
 		},
 
 		/**
@@ -303,7 +303,7 @@
 		*/
 		positionCaptionAtTopEdge: function (inBounds, inClientBounds, inCaptionBounds) {
 			var position = (-1 * this.getCaptionBounds().height) + ((inBounds.height - inClientBounds.height)/2) - inCaptionBounds.marginBottom;
-			this.getCaptionControl().applyStyle('top', position + 'px');
+			this.getCaptionControl().applyStyle('top', enyo.dom.unit(position, 'rem'));
 		},
 
 		/**
@@ -313,7 +313,7 @@
 		*/
 		positionCaptionAtBottomEdge: function (inBounds, inClientBounds, inCaptionBounds) {
 			var position = inBounds.height - ((inBounds.height - inClientBounds.height)/2);
-			this.getCaptionControl().applyStyle('top', position + 'px');
+			this.getCaptionControl().applyStyle('top', enyo.dom.unit(position, 'rem'));
 		},
 
 		/**

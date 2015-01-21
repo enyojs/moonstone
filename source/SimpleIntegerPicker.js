@@ -147,8 +147,8 @@
 					}, this);
 
 					this.width = ib.width + this.itemPadding;
-					this.applyStyle('width', this.width + 'px');
-					this.$.item.setStyle('width: ' + this.width + 'px');
+					this.applyStyle('width', enyo.dom.unit(this.width, 'rem'));
+					this.$.item.setStyle('width: ' + enyo.dom.unit(this.width, 'rem'));
 				}
 			};
 		}),

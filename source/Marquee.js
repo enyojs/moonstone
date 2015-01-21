@@ -740,6 +740,10 @@
 		* @private
 		*/
 		_marquee_startAnimation: function (sender, ev) {
+			// if this control hasn't been generated, there's no need to follow through on
+			// marquee requests as we'll be unable to correctly measure the distance delta yet
+			if (!this.generated) return;
+
 			var distance = this._marquee_calcDistance();
 
 			// If there is no need to animate, return early
@@ -815,11 +819,14 @@
 		* @private
 		*/
 		_marquee_calcDistance: function () {
-			if (this._marquee_distance !== null) {
-				return this._marquee_distance;
+			var node, rect;
+
+			if (this._marquee_distance == null) {
+				node = this.$.marqueeText ? this.$.marqueeText.hasNode() : this.hasNode();
+				rect = node.getBoundingClientRect();
+				this._marquee_distance = Math.floor(Math.abs(node.scrollWidth - rect.width));
 			}
-			var node = this.$.marqueeText ? this.$.marqueeText.hasNode() : this.hasNode();
-			this._marquee_distance = Math.abs(node.scrollWidth - node.clientWidth);
+
 			return this._marquee_distance;
 		},
 
@@ -858,15 +865,24 @@
 			var duration = this._marquee_calcDuration(distance);
 
 			this.$.marqueeText.addClass('animate-marquee');
-			this.$.marqueeText.applyStyle('transition', 'transform ' + duration + 's linear');
-			this.$.marqueeText.applyStyle('-webkit-transition', '-webkit-transform ' + duration + 's linear');
 
-			enyo.dom.transform(this, {translateZ: 0});
+			if (moon.config.accelerate) {
+				enyo.dom.transform(this, {translateZ: 0});
+				this.$.marqueeText.applyStyle('transition', 'transform ' + duration + 's linear');
+				this.$.marqueeText.applyStyle('-webkit-transition', '-webkit-transform ' + duration + 's linear');
+			} else {
+				this.$.marqueeText.applyStyle('transition', 'left ' + duration + 's linear');
+				this.$.marqueeText.applyStyle('-webkit-transition', 'left ' + duration + 's linear');	
+			}
 
 			// Need this timeout for FF!
 			setTimeout(this.bindSafely(function () {
-				enyo.dom.transform(this.$.marqueeText, {translateX: this._marquee_adjustDistanceForRTL(distance) + 'px'});
-			}), enyo.platform.firefox ? 100 : 0);
+				if (moon.config.accelerate) {
+					enyo.dom.transform(this.$.marqueeText, {translateX: this._marquee_adjustDistanceForRTL(distance) + 'px'});
+				} else {
+					this.$.marqueeText.applyStyle('left', this._marquee_adjustDistanceForRTL(distance) + 'px');
+				}
+			}), enyo.platform.firefox ? 100 : 16);
 		},
 
 		/**
@@ -886,8 +902,12 @@
 			*/
 			setTimeout(this.bindSafely(function () {
 				this.$.marqueeText.removeClass('animate-marquee');
-				enyo.dom.transform(this.$.marqueeText, {translateX: null});
-				enyo.dom.transform(this, {translateZ: null});
+				if (moon.config.accelerate) {
+					enyo.dom.transform(this.$.marqueeText, {translateX: null});
+					enyo.dom.transform(this, {translateZ: null});
+				} else {
+					this.$.marqueeText.applyStyle('left', null);
+				}
 			}), enyo.platform.firefox ? 100 : 0);
 		},
 

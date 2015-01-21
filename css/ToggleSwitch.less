@@ -1,12 +1,11 @@
 /* ToggleSwitch.css */
 .moon-checkbox.moon-toggle-switch {
-	border-radius: (@moon-toggleswitch-image-height / 2);
-	width: @moon-toggleswitch-image-width;
-	height: @moon-toggleswitch-image-height;
-	line-height: @moon-toggleswitch-image-height;
+	border-radius: (@moon-toggleswitch-height / 2);
+	width: @moon-toggleswitch-width;
+	height: @moon-toggleswitch-height;
+	line-height: @moon-toggleswitch-height;
 	background-color: @moon-checkbox-toggle-switch-bg-color;
 	font-family: @moon-icon-font-family;
-	font-size: @moon-toggleswitch-image-width;
 	overflow: hidden;
 	text-align: left;
 
@@ -14,24 +13,39 @@
 		visibility: visible;
 		cursor: default;
 		background-color: transparent;
-		left: 0px;
+		left: 0;
 		color: @moon-checkbox-toggle-switch-color;
+		width: @moon-toggleswitch-height;
+		height: inherit;
+		font-size: (@moon-toggleswitch-height * 2);
+		line-height: inherit;
+
+		.small-icon-tap-area {
+			height: inherit;
+			line-height: inherit;
+			font-size: inherit;
+			top: 0;
+			bottom: 0;
+		}
 	}
 	&[checked] {
 		background-color: @moon-checkbox-toggle-switch-checked-bg-color;
+
 		.moon-icon {
-			left:  @moon-toggleswitch-image-width / 2;
+			left: (@moon-toggleswitch-width - @moon-toggleswitch-height);
 			color: @moon-checkbox-toggle-switch-checked-color;
 		}
 	}
 	&[disabled] {
 		background-color: @moon-checkbox-toggle-switch-bg-color;
+
 		.moon-icon {
 			color: @moon-checkbox-toggle-switch-color;
 		}
 	}
 	&.animated .moon-icon {
 		-webkit-transition: background-color 0.2s, left 0.2s;
+
 		&:after {
 			-webkit-transition: color 0.2s;
 		}

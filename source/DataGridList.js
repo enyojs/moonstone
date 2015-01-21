@@ -71,6 +71,20 @@
 		/**
 		* @private
 		*/
+		constructor: enyo.inherit(function (sup) {
+			return function () {
+				sup.apply(this, arguments);
+
+				// scale px values for current resolution
+				this.spacing = moon.ri.scale(this.spacing);
+				this.minWidth = moon.ri.scale(this.minWidth);
+				this.minHeight = moon.ri.scale(this.minHeight);
+			};
+		}),
+
+		/**
+		* @private
+		*/
 		handleSpotlightFocus: function (inSender, inEvent) {
 			var c = inEvent.originator;
 			var isClientControl = this.getClientControls().indexOf(c) >= 0;
