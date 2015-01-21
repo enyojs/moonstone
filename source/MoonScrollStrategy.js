@@ -1079,4 +1079,23 @@
 		}
 	});
 
+	enyo.kind({
+		name: 'moon.TouchScrollStrategy',
+		kind: 'enyo.TouchScrollStrategy',
+		create: enyo.inherit(function (sup) {
+			return function () {
+				sup.apply(this, arguments);
+				if (!moon.config.accelerate) {
+					this.transform = false;
+					this.accel = false;
+
+					if(this.overscroll) {
+						//so we can adjust top/left if browser can't handle translations
+						this.$.client.applyStyle('position', 'relative');
+					}
+				}
+			};
+		})
+	});
+
 })(enyo, this);

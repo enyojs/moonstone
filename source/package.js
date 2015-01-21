@@ -1,5 +1,6 @@
 enyo.depends(
 	'moon-ilib.js',
+	'moon-resolution.js',
 	'moon-fonts.js',
 	'BodyText.js',
 	'Marquee.js',
@@ -12,6 +13,7 @@ enyo.depends(
 	'IntegerPicker.js',
 	'SimpleIntegerPicker.js',
 	'Calendar.js',
+	'ImageMultiRes.js',
 	'GridListImageItem.js',
 	'Checkbox.js',
 	'CheckboxItem.js',

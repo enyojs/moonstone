@@ -1,8 +1,7 @@
 .moon-panel {
-	-webkit-transform: scale3d(1,1,1);
 	overflow: hidden;
 	padding: 0;
-	padding: 20px 10px;
+	padding: 18px 12px;
 	height: 100%;
 	&.enyo-fit {
 		height: auto;
@@ -16,8 +15,6 @@
 	left: 0;
 	bottom: 0;
 	right: 0;
-	-webkit-transform: translateZ(0);
-	transform: translateZ(0);
 }
 // Adding the content property here, instead of above, means that this element will only appear in
 // the DOM during ".transitioning". This was altered to improve marquee animation performance.
@@ -27,24 +24,22 @@
 }
 
 .moon-panel-viewport {
-	-webkit-transform: scale3d(1,1,1);
 	overflow: hidden;
 	position: relative;
 }
 .moon-panel-content-wrapper {
-	-webkit-transform: scale3d(1,1,1);
 	z-index: 2;
 	box-sizing: border-box;
 }
 .moon-panel-body {
 	overflow: hidden;
 	position: relative;
-	padding-top: 10px;
+	padding-top: 12px;
+	z-index: 1;
 }
 
 /* Breadcrumb */
 .moon-panel-breadcrumb {
-	-webkit-transform: scale3d(1,1,1);
 	width: @moon-panel-breadcrumb-inner-width + (@moon-spotlight-outset * 2);
 	height: @moon-panel-breadcrumb-height;
 	position: absolute;
@@ -52,7 +47,6 @@
 	left: 0px;
 }
 .moon-panel-breadcrumb-viewport {
-	-webkit-transform: scale3d(1,1,1);
 	position: absolute;
 	bottom: 0;
 	left: 0;
@@ -61,10 +55,9 @@
 	overflow: hidden;
 }
 .moon-panel-small-header-wrapper {
-	-webkit-transform: scale3d(1,1,1);
-	margin: @moon-spotlight-outset 0 0 0;
+	margin: 0;
 	position: absolute;
-	bottom: 10px;
+	bottom: 0;
 	left: 0;
 	height: 360px;
 	width: 100%;
@@ -72,7 +65,7 @@
 	box-sizing: border-box;
 }
 .moon-panel-small-header {
-	margin-top: 25px;
+	margin-top: 24px;
 	color: @moon-header-text-color;
 	display: block;
 	overflow: hidden;
@@ -84,8 +77,8 @@
 }
 .moon-panel-small-header-title-above {
 	color: @moon-header-text-color;
-	border-top: 2px solid @moon-spotlight-text-color;
-	padding-top: 5px;
+	border-top: 3px solid @moon-spotlight-text-color;
+	padding-top: 6px;
 }
 .spotlight .moon-panel-small-header-title-above {
 	color: @moon-spotlight-text-color;
@@ -95,7 +88,7 @@
 	background: @moon-accent;
 	color: @moon-white;
 	.moon-panel-small-header-title-above {
-		border-top: 2px solid transparent;
+		border-top: 3px solid transparent;
 	}
 }
 
@@ -105,7 +98,7 @@
 		padding: 0;
 	}
 	.moon-panel-small-header-title-above {
-		border-top: 2px solid @moon-header-border-color;
+		border-top: 3px solid @moon-header-border-color;
 	}
 	.moon-panel-small-header,
 	.moon-panel-small-header-title-above {
@@ -133,33 +126,43 @@
 /* Panel animations */
 
 @-webkit-keyframes panel-outer {
-	0%   {-webkit-transform: translateZ(0) translateY(-100%);}
-	100% {-webkit-transform: translateZ(0) translateY(0);}
+	0%   {-webkit-transform: translateY(-100%);}
+	100% {-webkit-transform: translateY(0);}
 }
 
 @-webkit-keyframes panel-inner {
-	0%   {-webkit-transform: translateZ(0) translateY(100%);}
-	100% {-webkit-transform: translateZ(0) translateY(0);}
+	0%   {-webkit-transform: translateY(100%);}
+	100% {-webkit-transform: translateY(0);}
 }
 
 @-webkit-keyframes breadcrumb-outer {
-	0%,       {-webkit-transform: translateZ(0) translateY(0%);}
-	36%, 100% {-webkit-transform: translateZ(0) translateY(100%);}
+	0%,       {-webkit-transform: translateY(0%);}
+	36%, 100% {-webkit-transform: translateY(100%);}
 }
 
 @-webkit-keyframes breadcrumb-inner {
-	0%        {-webkit-transform: translateZ(0) translateY(0%);}
-	36%, 100% {-webkit-transform: translateZ(0) translateY(-100%);}
+	0%        {-webkit-transform: translateY(0%);}
+	36%, 100% {-webkit-transform: translateY(-100%);}
 }
 
 .moon-panel {
-	.moon-panel-viewport,
-	.moon-panel-content-wrapper,
-	.moon-panel-breadcrumb-viewport,
-	.moon-panel-small-header-wrapper {
-		-webkit-transform: translateZ(0);
-		-webkit-animation-fill-mode: both;
-		-webkit-animation-timing-function: ease-in-out;
+
+	&.moon-composite {
+		.moon-panel-viewport,
+		.moon-panel-content-wrapper,
+		.moon-panel-breadcrumb-viewport,
+		.moon-panel-small-header-wrapper {
+			-webkit-animation-fill-mode: both;
+			-webkit-animation-timing-function: ease-in-out;
+
+			// Re-using the .moon-composite class to cascade compositing to child elements without
+			// requiring the class be added in code to each of those elements
+			.moon-composite();
+		}
+
+		&:after {
+			.moon-composite();
+		}
 	}
 	&.growing,
 	&.shrinking {
@@ -195,18 +198,18 @@
 	}
 	&.shrunken {
 		.moon-panel-viewport {
-			-webkit-transform: translateZ(0) translateY(-101%);
+			-webkit-transform: translateY(-101%);
 		}
 		.moon-panel-content-wrapper {
-			-webkit-transform: translateZ(0) translateY(101%);
+			-webkit-transform: translateY(101%);
 		}
 	}
 	&:not(.shrunken) {
 		.moon-panel-breadcrumb-viewport {
-			-webkit-transform: translateZ(0) translateY(101%);
+			-webkit-transform: translateY(101%);
 		}
 		.moon-panel-small-header-wrapper {
-			-webkit-transform: translateZ(0) translateY(-101%);
+			-webkit-transform: translateY(-101%);
 		}
 	}
 }
