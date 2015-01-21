@@ -54,10 +54,23 @@
 		/**
 		* @private
 		*/
+		events: {
+			onPushBackHistory: ''
+		},
+
+		/**
+		* @private
+		*/
 		handlers: {
 			onRequestScrollIntoView   : '_preventEventBubble',
 			ontransitionend           : 'animationEnd',
-			onSpotlightSelect         : 'handleSpotlightSelect'
+			onSpotlightSelect         : 'handleSpotlightSelect',
+
+			/**
+			* Hanlder for back key input.
+			* To use custom behavior for back key, you can modify this handler.
+			*/
+			onPushBackHistory:			'pushBackHistory'
 		},
 
 		/**
@@ -137,24 +150,14 @@
 			*/
 			animate: true,
 
-			/**,
-			* When true, pressing back key makes panels returns to previous panel
+			/**
+			* When true, pressing back key makes panels close opened popup
 			*
 			* @type {Bollean}
 			* @default true
 			* @public
 			*/
-			allowBackKey: true,
-
-			/**
-			* If "disableBackHistoryAPI" in AppInfo.json is set to true, this property
-			* should be true
-			*
-			* @type {Bollean}
-			* @default false
-			* @public
-			*/
-			disableBackHistoryAPI: false
+			allowBackKey: true
 		},
 
 		/**
@@ -163,13 +166,6 @@
 		tools: [
 			{name: 'client', classes:'enyo-fill'},
 			{name: 'closeButton', kind: 'moon.IconButton', icon: 'closex', classes: 'moon-popup-close', ontap: 'closePopup', showing:false}
-		],
-
-		/**
-		* @private
-		*/
-		backKeySupporting: [
-			{name: "backKeySupport", kind: 'enyo.Signals', onkeyup:'remoteKeyHandler'}
 		],
 
 		/**
@@ -214,7 +210,6 @@
 			this.inherited(arguments);
 			this.animateChanged();
 			this.initialDuration = this.getComputedStyleValue('-webkit-transition-duration', '0.4s');
-			this.allowBackKeyChanged();
 		},
 
 		/**
@@ -440,7 +435,9 @@
 		show: function() {
 			this.inherited(arguments);
 			this.addClass('showing');
-			moon.BackKeySupport.setCurrentObj(this.id, this.disableBackHistoryAPI);
+			if (this.allowBackKey) {
+				this.doPushBackHistory();
+			}
 		},
 
 		/**
@@ -606,38 +603,17 @@
 		/**
 		* @private
 		*/
-		remoteKeyHandler: function (inSender, inEvent) {
-			switch (inEvent.keySymbol) {
-			case 'b':
-				if (moon.BackKeySupport.getCurrentObj() != this.id) {
-					break;
-				}
-				moon.BackKeySupport.finishBackKeyHandler(this.disableBackHistoryAPI);
-				this.backKeyHandler();
-				break;
-			}
-			return true;
-		},
-		/**
-		* @private
-		*/
-		backKeyHandler: function () {
-			this.hide();
+		pushBackHistory: function () {
+			moon.History.pushBackHistory(this, this.backKeyHandler);
 			return true;
 		},
 
 		/**
 		* @private
 		*/
-		allowBackKeyChanged: function () {
-			if (this.allowBackKey) {
-				this.createChrome(this.backKeySupporting);
-				if (!this.disableBackHistoryAPI) {
-					moon.BackKeySupport.popStateHandler(this, this.backKeyHandler);
-				}
-			} else if(this.$.backKeySupport) {
-				this.$.backKeySupport.destroy();
-			}
+		backKeyHandler: function () {
+			this.hide();
+			return true;
 		}
 	});
 
