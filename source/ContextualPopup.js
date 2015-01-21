@@ -62,12 +62,25 @@
 		/**
 		* @private
 		*/
+		events: {
+			onPushBackHistory: ''
+		},
+
+		/**
+		* @private
+		*/
 		handlers: {
 			onRequestShowPopup        : 'requestShow',
 			onRequestHidePopup        : 'requestHide',
 			onActivate                : 'decorateActivateEvent',
 			onRequestScrollIntoView   : '_preventEventBubble',
-			onSpotlightContainerLeave : 'onLeave'
+			onSpotlightContainerLeave : 'onLeave',
+
+			/**
+			* Hanlder for back key input.
+			* To use custom behavior for back key, you can modify this handler.
+			*/
+			onPushBackHistory:			'pushBackHistory'
 		},
 
 		/**
@@ -103,26 +116,7 @@
 			* @default 'auto'
 			* @public
 			*/
-			showCloseButton: 'auto',
-
-			/**,
-			* When true, pressing back key makes panels returns to previous panel
-			*
-			* @type {Bollean}
-			* @default true
-			* @public
-			*/
-			allowBackKey: true,
-
-			/**
-			* If "disableBackHistoryAPI" in AppInfo.json is set to true, this property
-			* should be true
-			*
-			* @type {Bollean}
-			* @default false
-			* @public
-			*/
-			disableBackHistoryAPI: false
+			showCloseButton: 'auto'
 		},
 
 		/**
@@ -195,13 +189,6 @@
 		],
 
 		/**
-		* @private
-		*/
-		backKeySupporting: [
-			{name: "backKeySupport", kind: 'enyo.Signals', onkeyup:'remoteKeyHandler'}
-		],
-
-		/**
 		* Creates chrome components.
 		*
 		* @private
@@ -209,7 +196,6 @@
 		initComponents: function () {
 			this.createChrome(this.tools);
 			this.inherited(arguments);
-			this.allowBackKeyChanged();
 		},
 
 		/**
@@ -222,23 +208,19 @@
 			this.contentChanged();
 			this.inherited(arguments);
 		},
-		/**
-		* Show the popup. This respects the current state of the
-		* [animate]{@link moon.Popup#animate} property, showing with or without animation.
-		*
-		* @public
-		*/
+
 		show: function() {
 			this.inherited(arguments);
-			moon.BackKeySupport.setCurrentObj(this.id, this.disableBackHistoryAPI);
+			this.doPushBackHistory();
 		},
+
 		/**
 		FixMe: overriding the control's default hide method to support the existing sequential tapping
 		and the dependent decorator code inorder to handle some special cases.
 		*/
 		hide: function(inSender, e) {
 
-			if (this.tapCaptured) {
+			 if (this.tapCaptured) {
 				this.tapCaptured = false;
 			} else {
 				this.popupActivated = false;
@@ -591,38 +573,17 @@
 		/**
 		* @private
 		*/
-		remoteKeyHandler: function (inSender, inEvent) {
-			switch (inEvent.keySymbol) {
-			case 'b':
-				if (moon.BackKeySupport.getCurrentObj() != this.id) {
-					break;
-				}
-				moon.BackKeySupport.finishBackKeyHandler(this.disableBackHistoryAPI);
-				this.backKeyHandler();
-				break;
-			}
-			return true;
-		},
-		/**
-		* @private
-		*/
-		backKeyHandler: function () {
-			this.hide();
+		pushBackHistory: function () {
+			moon.History.pushBackHistory(this, this.backKeyHandler);
 			return true;
 		},
 
 		/**
 		* @private
 		*/
-		allowBackKeyChanged: function () {
-			if (this.allowBackKey) {
-				this.createChrome(this.backKeySupporting);
-				if (!this.disableBackHistoryAPI) {
-					moon.BackKeySupport.popStateHandler(this, this.backKeyHandler);
-				}
-			} else if(this.$.backKeySupport) {
-				this.$.backKeySupport.destroy();
-			}
+		backKeyHandler: function () {
+			this.hide();
+			return true;
 		}
 	});
 
