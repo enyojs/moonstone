@@ -2115,7 +2115,9 @@
 					}
 					break;
 				case 'stop':
+					this._isPlaying = false;
 					this.jumpToStart();
+					this.sendFeedback('Stop');
 					showControls = true;
 					break;
 				}
