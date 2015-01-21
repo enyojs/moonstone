@@ -96,7 +96,8 @@
 		* @private
 		*/
 		events: {
-			onPlaybackControlsTapped: ''
+			onPlaybackControlsTapped: '',
+			onPushBackHistory: ''
 		},
 
 		/**
@@ -422,25 +423,6 @@
 			*/
 			handleRemoteControlKey: true,
 
-			/**,
-			* When true, pressing back key makes panels returns to previous panel
-			*
-			* @type {Bollean}
-			* @default true
-			* @public
-			*/
-			allowBackKey: true,
-
-			/**
-			* If "disableBackHistoryAPI" in AppInfo.json is set to true, this property
-			* should be true
-			*
-			* @type {Bollean}
-			* @default false
-			* @public
-			*/
-			disableBackHistoryAPI: false,
-
 			/**
 			* Base URL for icons
 			*
@@ -556,7 +538,12 @@
 			onSpotlightDown: 'spotlightDownHandler',
 			onSpotlightLeft: 'spotlightLeftRightFilter',
 			onSpotlightRight: 'spotlightLeftRightFilter',
-			onresize: 'handleResize'
+			onresize: 'handleResize',
+			/**
+			* Hanlder for back key input.
+			* To use custom behavior for back key, you can modify this handler.
+			*/
+			onPushBackHistory: 'pushBackHistory'
 		},
 
 		/**
@@ -704,7 +691,6 @@
 			if (window.ilib) {
 				this.durfmt = new ilib.DurFmt({length: 'medium', style: 'clock', useNative: false});
 			}
-			this.allowBackKeyChanged();
 		},
 
 		/**
@@ -1257,10 +1243,7 @@
 				}
 				// When controls are visible, set as container to remember last focused control
 				this.set('spotlight', 'container');
-
-				if (this.allowBackKey) {
-					moon.BackKeySupport.setCurrentObj(this.id, this.disableBackHistoryAPI);
-				}
+				this.pushBackHistory();
 			}
 		},
 
@@ -1323,9 +1306,7 @@
 
 				// Kick off any marquees in the video info header
 				this.$.videoInfoHeaderClient.waterfallDown('onRequestStartMarquee');
-				if (this.allowBackKey) {
-					moon.BackKeySupport.setCurrentObj(this.id, this.disableBackHistoryAPI);
-				}
+				this.doPushBackHistory();
 			}
 		},
 
@@ -2145,13 +2126,6 @@
 					this.jumpToStart();
 					showControls = true;
 					break;
-				case 'b':
-					if (moon.BackKeySupport.getCurrentObj() != this.id) {
-						break;
-					}
-					moon.BackKeySupport.finishBackKeyHandler(this.disableBackHistoryAPI);
-					this.backKeyHandler();
-					break;
 				}
 				if (showControls) {
 					if(!this.$.playerControl.getShowing()) {
@@ -2167,6 +2141,14 @@
 		/**
 		* @private
 		*/
+		pushBackHistory: function () {
+			moon.History.pushBackHistory(this, this.backKeyHandler);
+			return true;
+		},
+
+		/**
+		* @private
+		*/
 		backKeyHandler: function () {
 			// if videoInfoHeaderClient and playerControl are visible
 			// it means that we pushed video player into history stack twice.
@@ -2175,8 +2157,9 @@
 				visibleDown = this.$.playerControl.getShowing();
 
 			if (visibleUp && visibleDown
-				&& moon.BackKeySupport.getCurrentObj() == this.id) {
-				moon.BackKeySupport.finishBackKeyHandler(this.disableBackHistoryAPI);
+				&& moon.History.getCurrentObj() == this) {
+				moon.History.ignorePopState();
+				moon.History.popBackHistory();
 			}
 			if (visibleUp) {
 				this.hideFSInfo();
@@ -2185,17 +2168,6 @@
 				this.hideFSBottomControls();
 			}
 			return true;
-		},
-
-		/**
-		* @private
-		*/
-		allowBackKeyChanged: function () {
-			if (this.allowBackKey) {
-				if (!this.disableBackHistoryAPI) {
-					moon.BackKeySupport.popStateHandler(this, this.backKeyHandler);
-				}
-			}
 		}
 	});
 
