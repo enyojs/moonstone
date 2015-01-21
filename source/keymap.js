@@ -23,115 +23,171 @@
 		66 : 'b'
 	});
 
-})(enyo, this);
+	enyo.singleton({
+		name: 'moon.History',
+		/**
+		* Target object of back key.
+		* It is also the last object which history.pushState() is executed.
+		* When we press back key or call history.back(), it is target object.
+		*
+		* @private
+		*/
+		_currentObj: null,
 
-enyo.singleton({
-	name: 'moon.BackKeySupport',
-	/**
-	* Target object of back key.
-	* It is also the last object which history.pushState() is executed.
-	* When we press back key or call history.back(), it is target object.
-	*
-	* @private
-	*/
-	_currentObj: undefined,
+		/**
+		* Stack of Back key target and handler
+		*
+		* @private
+		*/
+		_backHistoryStack: [],
 
-	/**
-	* Stack of Back key target.
-	* This property is a plan B when history API is not allowed,
-	*
-	* @private
-	*/
-	_backKeyStack: [],
+		/**
+		* history.forward() and history.go() can fire popstate event
+		* as does history.back().
+		* However we should accept popstate event only came from history.back().
+		* When it is true, we will skip popstate event.
+		*
+		* @private
+		*/
+		_ignorePopState: false,
 
-	/**
-	* history.forward() and history.go() can fire popstate event
-	* as does history.back().
-	* However we should accept popstate event only came from history.back().
-	* When it is true, we will skip popstate event.
-	*
-	* @private
-	*/
-	_ignorePopState: false,
+		/**
+		* If "disableBackHistoryAPI" in AppInfo.json is set to true, this property
+		* should be true
+		* It should be binded with AppInfo.json. Will be replaced using enyo.LunaService
+		*
+		* @type {Bollean}
+		* @default false
+		* @public
+		*/
+		disableBackHistoryAPI: false,
 
-	/**
-	* @public
-	*/
-	getIgnorePopState: function() {
-		return this._ignorePopState;
-	},
+		/**
+		* @private
+		*/
+		components: [
+			{kind: "enyo.Signals", onkeyup:'backKeyHandler'}
+		],
 
-	/**
-	* @public
-	*/
-	getCurrentObj: function() {
-		return this._currentObj;
-	},
+		/**
+		* @private
+		*/
+		create: enyo.inherit(function(sup) {
+			return function(props) {
+				sup.apply(this, arguments);
+				window.onpopstate = enyo.bind(this, function(inEvent) {this.popStateHandler();});
+			};
+		}),
 
-	/**
-	* Register event listener for popstate event
-	* and decide whether ctx should run backKeyHandler or not
-	*
-	* @param {Object} ctx - function context
-	* @param {function} fn - handler of back key
-	* @public
-	*/
-	popStateHandler: function(ctx, fn) {
-		if (typeof fn == "function") {
-			fn = fn.bind(ctx);
-		}
-		// Todo: We cannot prevent popstate event triggerd from history.go() or history.forward()
-		// If user call those event directly, moonstone controls may have unexpected behavior.
-		window.addEventListener('popstate', enyo.bindSafely(this, function(inEvent) {
-			var currentObj = this._currentObj;
-			if ((!history.state && !currentObj) || currentObj != ctx.id) {
+		/**
+		* @public
+		*/
+		getCurrentObj: function() {
+			return this._currentObj;
+		},
+
+		/**
+		* Set target object of back key
+		*
+		* @param {Object} ctx - current object for back key
+		* @param {function} fn - handler of back key
+		* @public
+		*/
+		pushBackHistory: function(ctx, fn) {
+			if (!this.disableBackHistoryAPI) {
+				history.pushState({currentObjId: ctx.id}, "", "");
+			}
+			this._backHistoryStack.push({currentObj: ctx, handler: fn});
+			this._currentObj = ctx;
+			this._handler = fn;
+		},
+
+		/**
+		* When we press back key of R/C, window.history should be back 1 step.
+		* With synchronizing window.history and _backHistoryStack
+		* we do not want to run back key handler.
+		*
+		* @public
+		*/
+		ignorePopState: function() {
+			if (!this.disableBackHistoryAPI) {
+				this._ignorePopState = true;
+				history.go(-1);
+			}
+		},
+
+		/**
+		* @private
+		*/
+		callBackKeyHandler: function() {
+			if (this._currentObj && this._handler) {
+				var fn = this._handler;
+				if (typeof fn == "function") {
+					fn = fn.bind(this._currentObj);
+				}
+				fn();
+			}
+		},
+
+		/**
+		* @private
+		*/
+		popBackHistory: function() {
+			var bStack = this._backHistoryStack;
+			bStack.pop();
+			if (bStack.length) {
+				this._currentObj = bStack[bStack.length - 1].currentObj;
+				this._handler = bStack[bStack.length - 1].handler;
+			} else {
+				this._currentObj = this._handler = null;
+			}
+		},
+
+		/**
+		* Decide whether this popstate event calls backKeyHandler or doesn't.
+		*
+		* @public
+		*/
+		popStateHandler: function() {
+			// Todo: We cannot prevent popstate event triggerd from history.go() or history.forward()
+			// If user call those event directly, moonstone controls may have unexpected behavior.
+			if (!this._currentObj) {
 				return;
 			}
-			// now we find target object.
-			// we should update this._currentObj before end of this handler.
-			this._currentObj = history.state? history.state.currentObj : undefined;
-			// if we press back key of remote controller, return
-			if (this._ignorePopState) {
+
+			if (!this._currentObj.getShowing()) {
+				//restore history
+				history.pushState({currentObjId: this._backHistoryStack[this._backHistoryStack.length - 1].currentObj.id}, "", "");
+				return;
+			}
+
+			//Popstate event should be ignored on following 2 conditions.
+			//1. When App is loaded, onpopstate event fired with null state.
+			//2. history.go(-1) triggers onpopstate event but it should be ignored.
+			if (this._ignorePopState || window.ignoreFirstPopupEvent) {
+				window.ignoreFirstPopupEvent = false;
 				this._ignorePopState = false;
 				return;
 			}
 
-			fn();
-		}));
-	},
+			this.callBackKeyHandler();
+			this.popBackHistory();
+		},
 
-	/**
-	* Set target object of back key
-	*
-	* @param {Object} id - current object id for back key
-	* @param {boolean} disableBackHistoryAPI - if it is true, we do not allow to use window.history
-	* @public
-	*/
-	setCurrentObj: function(id, disableBackHistoryAPI) {
-		if (disableBackHistoryAPI) {
-			this._backKeyStack.push(id);
-		} else {
-			history.pushState({currentObj: id}, "", "");
+		/**
+		* @private
+		*/
+		backKeyHandler: function (inSender, inEvent) {
+			switch (inEvent.keySymbol) {
+			case 'b':
+				if (this._currentObj && this._currentObj.getShowing()) {
+					this.callBackKeyHandler();
+					this.ignorePopState();
+					this.popBackHistory();
+				}
+				break;
+			}
+			return true;
 		}
-		this._currentObj = id;
-	},
-
-	/**
-	* After execute back key handler, set next target object.
-	*
-	* @param {boolean} disableBackHistoryAPI - if it is true, we do not allow to use window.history
-	* @public
-	*/
-	finishBackKeyHandler: function(disableBackHistoryAPI) {
-		if (disableBackHistoryAPI) {
-			this._backKeyStack.pop();
-			this._currentObj = this._backKeyStack[this._backKeyStack.length - 1];
-		} else {
-		//popstate handler could not be executed until this method is finished
-		//so we should keep this._ignorePopState true until we handle popstate event
-		//this._currentObj can be updated in popstate event handler
-			this._ignorePopState = true;
-			history.go(-1);
-		}
-	}
-});
+	});
+})(enyo, this);
