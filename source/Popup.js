@@ -433,11 +433,17 @@
 		* @public
 		*/
 		show: function() {
-			this.inherited(arguments);
-			this.addClass('showing');
-			if (this.allowBackKey) {
+			// Todo: Ordinary, checking this.showing is not necessary
+			// However this show() is called twice when we press popup button
+			// in PopupSample.html at this point.
+			// Until we fix this minor bug, let leave this condition for preventing
+			// pushing twice.
+			if (this.allowBackKey && !this.showing) {
 				this.doPushBackHistory();
 			}
+			this.inherited(arguments);
+			this.addClass('showing');
+
 		},
 
 		/**
