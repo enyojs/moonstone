@@ -15,13 +15,6 @@
 			461	: 'back'
 		});
 	}
-	/**
-		temporal code to testify in PC
-		Todo: remove following block.
-	*/
-	enyo.dispatcher.registerKeyMap({
-		66 : 'b'
-	});
 
 	enyo.singleton({
 		name: 'moon.History',
@@ -76,7 +69,23 @@
 		* @private
 		*/
 		components: [
-			{kind: "enyo.Signals", onkeyup:'backKeyHandler'}
+			{kind: "enyo.Signals", onkeyup:'backKeyHandler'},
+			{
+				name:       "getAppID",
+				kind:       "enyo.LunaService",
+				service:    "palm://com.webos.applicationManager/",
+				method:     "getForegroundAppInfo",
+				subscribe:  true,
+				onComplete: "getAppIDHandler"
+			},
+			{
+				name:       "getAppInfo",
+				kind:       "enyo.LunaService",
+				service:    "luna://com.webos.applicationManager/",
+				method:     "getAppInfo",
+				subscribe: true,
+				onComplete: "getAppInfoHandler"
+			}
 		],
 
 		/**
@@ -86,8 +95,58 @@
 			return function(props) {
 				sup.apply(this, arguments);
 				window.onpopstate = enyo.bind(this, function(inEvent) {this.popStateHandler();});
+				this.getAppID();
 			};
 		}),
+
+		/**
+		* @private
+		*/
+		getAppID: function () {
+			if(window.PalmSystem) {
+				var param = {"extraInfo": true};
+				this.$.getAppID.send(param);
+			}
+		},
+
+		/**
+		* @private
+		*/
+		getAppIDHandler: function (inSender, inResponse) {
+			if(inResponse.foregroundAppInfo != null && inResponse.foregroundAppInfo !== undefined) {
+				var foregroundAppInfo = inResponse.foregroundAppInfo;
+				var appID = "";
+				for(var i=0; i<foregroundAppInfo.length; i++) {
+					if(foregroundAppInfo[i].appId !== undefined && foregroundAppInfo[i].windowType === "_WEBOS_WINDOW_TYPE_CARD") {
+						this.appID = foregroundAppInfo[i].appId;
+						break;
+					}
+				}
+				if(appID !== ""){
+					this.getAppInfo(appID);
+				}
+			}
+		},
+
+		/**
+		* @private
+		*/
+		getAppInfo: function (appID) {
+			if(window.PalmSystem) {
+				var param = {};
+				param.id = appID;
+				this.$.getAppInfo.send(param);
+			}
+		},
+
+		/**
+		* @private
+		*/
+		getAppInfoHandler: function (inSender, inResponse) {
+			if(inResponse.appInfo !== undefined) {
+				this.disableBackHistoryAPI = inResponse.appInfo.disableBackHistoryAPI;
+			}
+		},
 
 		/**
 		* @public
