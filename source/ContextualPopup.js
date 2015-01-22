@@ -116,7 +116,16 @@
 			* @default 'auto'
 			* @public
 			*/
-			showCloseButton: 'auto'
+			showCloseButton: 'auto',
+
+			/**
+			* When true, pressing back key makes panels close opened popup
+			*
+			* @type {Bollean}
+			* @default true
+			* @public
+			*/
+			allowBackKey: true
 		},
 
 		/**
@@ -561,6 +570,15 @@
 			this.inherited(arguments);
 			this.alterDirection();
 			this.showHideScrim(this.showing);
+
+			if (this.allowBackKey) {
+				if (this.showing) {
+					this.doPushBackHistory();
+				} else if(!this.showing && !moon.History.getIsBackInProgress()) {
+					moon.History.ignorePopState();
+					moon.History.popBackHistory();
+				}
+			}
 		},
 
 		/**
