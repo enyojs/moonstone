@@ -25,6 +25,7 @@
 
 	enyo.singleton({
 		name: 'moon.History',
+
 		/**
 		* Target object of back key.
 		* It is also the last object which history.pushState() is executed.
@@ -61,6 +62,15 @@
 		* @public
 		*/
 		disableBackHistoryAPI: false,
+
+		published: {
+			/**
+			* Flag for back key handler progress
+			*
+			* @public
+			*/
+			isBackInProgress: false
+		},
 
 		/**
 		* @private
@@ -120,6 +130,7 @@
 		* @private
 		*/
 		callBackKeyHandler: function() {
+			this.isBackInProgress = true;
 			if (this._currentObj && this._handler) {
 				var fn = this._handler;
 				if (typeof fn == "function") {
@@ -141,6 +152,8 @@
 			} else {
 				this._currentObj = this._handler = null;
 			}
+
+			this.isBackInProgress = false;
 		},
 
 		/**
