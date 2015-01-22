@@ -7,7 +7,7 @@
 	*/
 
 	if (enyo && enyo.version) {
-		enyo.version.moonstone = "2.5.4-pre.4";
+		enyo.version.moonstone = "2.5.4-pre.5.dev";
 	}
 
 })(enyo, this);
