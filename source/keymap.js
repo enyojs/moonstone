@@ -47,14 +47,13 @@
 
 		/**
 		* If "disableBackHistoryAPI" in AppInfo.json is set to true, this property
-		* should be true
-		* It should be binded with AppInfo.json. Will be replaced using enyo.LunaService
+		* should be false
 		*
 		* @type {Bollean}
-		* @default false
+		* @default true
 		* @public
 		*/
-		disableBackHistoryAPI: false,
+		enableBackHistoryAPI: true,
 
 		published: {
 			/**
@@ -144,7 +143,7 @@
 		*/
 		getAppInfoHandler: function (inSender, inResponse) {
 			if(inResponse.appInfo !== undefined) {
-				this.disableBackHistoryAPI = inResponse.appInfo.disableBackHistoryAPI;
+				this.enableBackHistoryAPI = !inResponse.appInfo.disableBackHistoryAPI;
 			}
 		},
 
@@ -163,7 +162,7 @@
 		* @public
 		*/
 		pushBackHistory: function(ctx, fn) {
-			if (!this.disableBackHistoryAPI) {
+			if (this.enableBackHistoryAPI) {
 				history.pushState({currentObjId: ctx.id}, "", "");
 			}
 			this._backHistoryStack.push({currentObj: ctx, handler: fn});
@@ -179,7 +178,7 @@
 		* @public
 		*/
 		ignorePopState: function() {
-			if (!this.disableBackHistoryAPI) {
+			if (this.enableBackHistoryAPI) {
 				this._ignorePopState = true;
 				history.go(-1);
 			}
