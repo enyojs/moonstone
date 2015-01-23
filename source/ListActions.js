@@ -175,7 +175,16 @@
 			* @default false
 			* @public
 			*/
-			proportionalWidth: false
+			proportionalWidth: false,
+
+			/**
+			* When true, pressing back key makes panels close opened drawer
+			*
+			* @type {Bollean}
+			* @default true
+			* @public
+			*/
+			allowBackKey: true
 		},
 
 		/**
@@ -188,6 +197,17 @@
 			onHidden: '',
 			onRequestCreateListActions: '',
 			onListActionOpenChanged: ''
+		},
+
+		/**
+		* @private
+		*/
+		handlers: {
+			/**
+			* Hanlder for back key input.
+			* To use custom behavior for back key, you can modify this handler.
+			*/
+			onPushBackHistory: 'pushBackHistory'
 		},
 
 		/**
@@ -216,7 +236,8 @@
 			{from: 'open', to: '$.drawer.open'},
 			{from: 'iconSrc', to: '$.activator.src'},
 			{from: 'icon', to: '$.activator.icon'},
-			{from: 'disabled', to: '$.activator.disabled', oneWay: false}
+			{from: 'disabled', to: '$.activator.disabled', oneWay: false},
+			{from: 'allowBackKey', to: '$.drawer.allow', oneWay: false}
 		],
 
 		/**
@@ -560,6 +581,24 @@
 				enyo.Spotlight.spot(this.$.drawer);
 				return true;
 			}
+		},
+
+		/**
+		* @private
+		*/
+		pushBackHistory: function () {
+			moon.History.pushBackHistory(this, this.backKeyHandler);
+			return true;
+		},
+
+		/**
+		* @private
+		*/
+		backKeyHandler: function () {
+			if (this.open) {
+				this.setOpen(false);
+			}
+			return true;
 		}
 	});
 
@@ -608,7 +647,17 @@
 			* @default false
 			* @public
 			*/
-			open: false
+			open: false,
+
+			/**
+			* When true, pressing back key makes panels close opened drawer
+			* It is binded with owner's value
+			*
+			* @type {Bollean}
+			* @default true
+			* @public
+			*/
+			allowBackKey: true
 		},
 
 		/**
@@ -627,7 +676,8 @@
 		* @private
 		*/
 		events: {
-			onComplete: ''
+			onComplete: '',
+			onPushBackHistory: ''
 		},
 
 		/**
@@ -678,6 +728,9 @@
 			// Skip animation before render time
 			if (!this.$.client.hasNode()) { return; }
 			this.$.client.addRemoveClass('open', this.open);
+			if (this.allowBackKey && this.open) {
+				this.doPushBackHistory();
+			}
 		},
 
 		/**

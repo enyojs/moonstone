@@ -112,7 +112,16 @@
 			* @default false
 			* @public
 			*/
-			controlsOpen: false
+			controlsOpen: false,
+
+			/**
+			* When true, pressing back key makes panels close opened drawer
+			*
+			* @type {Bollean}
+			* @default true
+			* @public
+			*/
+			allowBackKey: true
 		},
 
 		/**
@@ -128,7 +137,8 @@
 			/**
 			* {@link moon.Drawer#onDeactivate}
 			*/
-			onDeactivate: ''
+			onDeactivate: '',
+			onPushBackHistory: ''
 		},
 
 		/**
@@ -144,7 +154,13 @@
 			/**
 			* Handler for initial resizing event to size drawers to fullscreen.
 			*/
-			onDrawersResized: 'drawersResized'
+			onDrawersResized: 'drawersResized',
+
+			/**
+			* Hanlder for back key input.
+			* To use custom behavior for back key, you can modify this handler.
+			*/
+			onPushBackHistory: 'pushBackHistory'
 		},
 
 		/**
@@ -197,7 +213,7 @@
 		/**
 		* If [controlDrawerComponents]{@link moon.Drawer#controlDrawerComponents} is
 		* non-empty, toggles the visibility state of the control drawer; otherwise,
-		* toggles the visibility state of the main drawer. 
+		* toggles the visibility state of the main drawer.
 		*
 		* @public
 		*/
@@ -221,6 +237,9 @@
 				this.doActivate();
 				this.$.client.spotlightDisabled = false;
 				enyo.Spotlight.spot(this.$.client);
+				if (this.allowBackKey) {
+					this.doPushBackHistory();
+				}
 			} else {
 				this.$.client.spotlightDisabled = true;
 				this.doDeactivate();
@@ -238,6 +257,9 @@
 				this.doActivate();
 				this.$.controlDrawer.spotlightDisabled = false;
 				enyo.Spotlight.spot(this.$.controlDrawer);
+				if (this.allowBackKey) {
+					this.doPushBackHistory();
+				}
 			} else {
 				if (this.$.client.getOpen()) {
 					this.$.client.setOpen(false);
@@ -254,6 +276,26 @@
 			this.$.client.setDrawerProps({height: this.calcDrawerHeight(inEvent.drawersHeight)});
 			this.setOpen(false);
 			this.setControlsOpen(false);
+		},
+
+		/**
+		* @private
+		*/
+		pushBackHistory: function () {
+			moon.History.pushBackHistory(this, this.backKeyHandler);
+			return true;
+		},
+
+		/**
+		* @private
+		*/
+		backKeyHandler: function () {
+			if (this.open) {
+				this.setOpen(false);
+			} else if (this.controlsOpen) {
+				this.setControlsOpen(false);
+			}
+			return true;
 		}
 	});
 
