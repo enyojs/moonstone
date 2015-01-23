@@ -99,8 +99,6 @@ enyo.depends(
 	"ProgressSample.js",
 	"RadioItemSample.css",
 	"RadioItemSample.js",
-	"Sample.css",
-	"Sample.js",
 	"Scroller2dSample.css",
 	"Scroller2dSample.js",
 	"ScrollerHorizontalSample.css",
