@@ -543,7 +543,7 @@
 			this.alterDirection();
 			this.showHideScrim(this.showing);
 
-			if(this.spotActivatorOnClose) {
+			if(this.spotActivatorOnClose && !this.showing) {
 				enyo.Spotlight.spot(this.activator);
 			}
 		},
