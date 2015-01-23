@@ -54,10 +54,23 @@
 		/**
 		* @private
 		*/
+		events: {
+			onPushBackHistory: ''
+		},
+
+		/**
+		* @private
+		*/
 		handlers: {
 			onRequestScrollIntoView   : '_preventEventBubble',
 			ontransitionend           : 'animationEnd',
-			onSpotlightSelect         : 'handleSpotlightSelect'
+			onSpotlightSelect         : 'handleSpotlightSelect',
+
+			/**
+			* Hanlder for back key input.
+			* To use custom behavior for back key, you can modify this handler.
+			*/
+			onPushBackHistory:			'pushBackHistory'
 		},
 
 		/**
@@ -135,7 +148,16 @@
 			* @default true
 			* @public
 			*/
-			animate: true
+			animate: true,
+
+			/**
+			* When true, pressing back key makes panels close opened popup
+			*
+			* @type {Bollean}
+			* @default true
+			* @public
+			*/
+			allowBackKey: true
 		},
 
 		/**
@@ -339,7 +361,7 @@
 		showingChanged: function() {
 			// reset flag to prevent hiding popup when Enter pressed on unspottable popup
 			this.preventHide = false;
-			
+
 			if (this.showing) {
 				if (this.isAnimatingHide) {
 					// need to call this early to prevent race condition where animationEnd
@@ -402,6 +424,15 @@
 					}
 				}
 			}
+
+			if (this.allowBackKey) {
+				if (this.showing) {
+					this.doPushBackHistory();
+				} else if(!this.showing && !moon.History.getIsBackInProgress()) {
+					moon.History.ignorePopState();
+					moon.History.popBackHistory();
+				}
+			}
 		},
 
 		/**
@@ -413,6 +444,7 @@
 		show: function() {
 			this.inherited(arguments);
 			this.addClass('showing');
+
 		},
 
 		/**
@@ -573,6 +605,22 @@
 		destroy: function() {
 			this.showHideScrim(false);
 			this.inherited(arguments);
+		},
+
+		/**
+		* @private
+		*/
+		pushBackHistory: function () {
+			moon.History.pushBackHistory(this, this.backKeyHandler);
+			return true;
+		},
+
+		/**
+		* @private
+		*/
+		backKeyHandler: function () {
+			this.hide();
+			return true;
 		}
 	});
 
