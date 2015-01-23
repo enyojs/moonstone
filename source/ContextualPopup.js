@@ -62,12 +62,25 @@
 		/**
 		* @private
 		*/
+		events: {
+			onPushBackHistory: ''
+		},
+
+		/**
+		* @private
+		*/
 		handlers: {
 			onRequestShowPopup        : 'requestShow',
 			onRequestHidePopup        : 'requestHide',
 			onActivate                : 'decorateActivateEvent',
 			onRequestScrollIntoView   : '_preventEventBubble',
-			onSpotlightContainerLeave : 'onLeave'
+			onSpotlightContainerLeave : 'onLeave',
+
+			/**
+			* Hanlder for back key input.
+			* To use custom behavior for back key, you can modify this handler.
+			*/
+			onPushBackHistory:			'pushBackHistory'
 		},
 
 		/**
@@ -103,7 +116,16 @@
 			* @default 'auto'
 			* @public
 			*/
-			showCloseButton: 'auto'
+			showCloseButton: 'auto',
+
+			/**
+			* When true, pressing back key makes panels close opened popup
+			*
+			* @type {Bollean}
+			* @default true
+			* @public
+			*/
+			allowBackKey: true
 		},
 
 		/**
@@ -195,6 +217,7 @@
 			this.contentChanged();
 			this.inherited(arguments);
 		},
+
 		/**
 		FixMe: overriding the control's default hide method to support the existing sequential tapping
 		and the dependent decorator code inorder to handle some special cases.
@@ -542,6 +565,15 @@
 			this.inherited(arguments);
 			this.alterDirection();
 			this.showHideScrim(this.showing);
+
+			if (this.allowBackKey) {
+				if (this.showing) {
+					this.doPushBackHistory();
+				} else if(!this.showing && !moon.History.getIsBackInProgress()) {
+					moon.History.ignorePopState();
+					moon.History.popBackHistory();
+				}
+			}
 		},
 
 		/**
@@ -549,6 +581,22 @@
 		*/
 		directionChanged: function () {
 			this.alterDirection();
+		},
+
+		/**
+		* @private
+		*/
+		pushBackHistory: function () {
+			moon.History.pushBackHistory(this, this.backKeyHandler);
+			return true;
+		},
+
+		/**
+		* @private
+		*/
+		backKeyHandler: function () {
+			this.hide();
+			return true;
 		}
 	});
 
