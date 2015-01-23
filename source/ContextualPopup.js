@@ -218,11 +218,6 @@
 			this.inherited(arguments);
 		},
 
-		show: function() {
-			this.inherited(arguments);
-			this.doPushBackHistory();
-		},
-
 		/**
 		FixMe: overriding the control's default hide method to support the existing sequential tapping
 		and the dependent decorator code inorder to handle some special cases.
