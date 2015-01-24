@@ -95,7 +95,9 @@
 		content: @moon-icon-arrowlargeleft;
 		color: @moon-spotlight-text-color;
 		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
 		transition: -webkit-transform 0.2s linear, opacity 0.2s linear;
+		transition: transform 0.2s linear, opacity 0.2s linear;
 		opacity: 1;
 		text-align: center;
 	}
@@ -107,6 +109,7 @@
 	&.spotlight:before {
 		background-color: @moon-panels-spot-fg-color;
 		-webkit-transform: translate3d(-(@moon-panels-handle-width - 12), 0, 0);
+		transform: translate3d(-(@moon-panels-handle-width - 12), 0, 0);
 	}
 
 	&.stashed:before {
