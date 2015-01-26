@@ -68,22 +68,22 @@
 		* @private
 		*/
 		components: [
-			{kind: "enyo.Signals", onkeyup:'backKeyHandler'},
+			{kind: 'enyo.Signals', onkeyup:'backKeyHandler'},
 			{
-				name:       "getAppID",
-				kind:       "enyo.LunaService",
-				service:    "palm://com.webos.applicationManager/",
-				method:     "getForegroundAppInfo",
+				name:       'getAppID',
+				kind:       'enyo.LunaService',
+				service:    'palm://com.webos.applicationManager/',
+				method:     'getForegroundAppInfo',
 				subscribe:  true,
-				onComplete: "getAppIDHandler"
+				onComplete: 'getAppIDHandler'
 			},
 			{
-				name:       "getAppInfo",
-				kind:       "enyo.LunaService",
-				service:    "luna://com.webos.applicationManager/",
-				method:     "getAppInfo",
+				name:       'getAppInfo',
+				kind:       'enyo.LunaService',
+				service:    'luna://com.webos.applicationManager/',
+				method:     'getAppInfo',
 				subscribe: true,
-				onComplete: "getAppInfoHandler"
+				onComplete: 'getAppInfoHandler'
 			}
 		],
 
@@ -103,7 +103,7 @@
 		*/
 		getAppID: function () {
 			if(window.PalmSystem) {
-				var param = {"extraInfo": true};
+				var param = {'extraInfo': true};
 				this.$.getAppID.send(param);
 			}
 		},
@@ -114,14 +114,14 @@
 		getAppIDHandler: function (inSender, inResponse) {
 			if(inResponse.foregroundAppInfo != null && inResponse.foregroundAppInfo !== undefined) {
 				var foregroundAppInfo = inResponse.foregroundAppInfo;
-				var appID = "";
+				var appID = '';
 				for(var i=0; i<foregroundAppInfo.length; i++) {
-					if(foregroundAppInfo[i].appId !== undefined && foregroundAppInfo[i].windowType === "_WEBOS_WINDOW_TYPE_CARD") {
+					if(foregroundAppInfo[i].appId !== undefined && foregroundAppInfo[i].windowType === '_WEBOS_WINDOW_TYPE_CARD') {
 						this.appID = foregroundAppInfo[i].appId;
 						break;
 					}
 				}
-				if(appID !== ""){
+				if(appID !== ''){
 					this.getAppInfo(appID);
 				}
 			}
@@ -163,7 +163,7 @@
 		*/
 		pushBackHistory: function(ctx, fn) {
 			if (this.enableBackHistoryAPI) {
-				history.pushState({currentObjId: ctx.id}, "", "");
+				history.pushState({currentObjId: ctx.id}, '', '');
 			}
 			this._backHistoryStack.push({currentObj: ctx, handler: fn});
 			this._currentObj = ctx;
@@ -191,7 +191,7 @@
 			this.isBackInProgress = true;
 			if (this._currentObj && this._handler) {
 				var fn = this._handler;
-				if (typeof fn == "function") {
+				if (typeof fn == 'function') {
 					fn = fn.bind(this._currentObj);
 				}
 				fn();
@@ -228,7 +228,7 @@
 
 			if (!this._currentObj.getShowing()) {
 				//restore history
-				history.pushState({currentObjId: this._backHistoryStack[this._backHistoryStack.length - 1].currentObj.id}, "", "");
+				history.pushState({currentObjId: this._backHistoryStack[this._backHistoryStack.length - 1].currentObj.id}, '', '');
 				return;
 			}
 
@@ -250,7 +250,7 @@
 		*/
 		backKeyHandler: function (inSender, inEvent) {
 			switch (inEvent.keySymbol) {
-			case 'b':
+			case 'back':
 				if (this._currentObj && this._currentObj.getShowing()) {
 					this.callBackKeyHandler();
 					this.ignorePopState();
