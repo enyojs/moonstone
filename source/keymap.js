@@ -68,7 +68,13 @@
 		* @private
 		*/
 		components: [
-			{kind: 'enyo.Signals', onkeyup:'backKeyHandler'},
+			{kind: 'enyo.Signals', onkeyup:'backKeyHandler'}
+		],
+
+		/**
+		* @private
+		*/
+		lunaServiceComponents: [
 			{
 				name:       'getAppID',
 				kind:       'enyo.LunaService',
@@ -94,7 +100,10 @@
 			return function(props) {
 				sup.apply(this, arguments);
 				window.onpopstate = enyo.bind(this, function(inEvent) {this.popStateHandler();});
-				this.getAppID();
+				if (enyo.LunaService) {
+					this.createChrome(this.lunaServiceComponents);
+					this.getAppID();
+				}
 			};
 		}),
 
