@@ -119,7 +119,16 @@
 			* @default ''
 			* @public
 			*/
-			src: ''
+			src: '',
+
+			/**
+			* When true, pressing back key makes panels close opened drawer
+			*
+			* @type {Bollean}
+			* @default true
+			* @public
+			*/
+			allowBackKey: true
 		},
 
 		/**
@@ -135,12 +144,24 @@
 		/**
 		* @private
 		*/
+		events: {
+			onPushBackHistory: ''
+		},
+
+		/**
+		* @private
+		*/
 		handlers: {
 			//* Handlers to update the activator when the state of the contained drawers changes
 			onActivate: 'drawerActivated',
 			onDeactivate: 'drawerDeactivated',
 			onSpotlightDown:'spotDown',
-			onSpotlightUp:'spotUp'
+			onSpotlightUp:'spotUp',
+			/**
+			* Hanlder for back key input.
+			* To use custom behavior for back key, you can modify this handler.
+			*/
+			onPushBackHistory: 'pushBackHistory'
 		},
 
 		/**
@@ -250,6 +271,9 @@
 			this.$.handleContainer.setOpen(true);
 			this.updateActivator(true);
 			enyo.dispatcher.capture(this.$.handleContainer, this.eventsToCapture, this);
+			if (this.allowBackKey) {
+				this.doPushBackHistory();
+			}
 		},
 
 		/**
@@ -425,6 +449,22 @@
 				enyo.dispatcher.release(c$[i]);
 			}
 			this.inherited(arguments);
+		},
+
+		/**
+		* @private
+		*/
+		pushBackHistory: function () {
+			moon.History.pushBackHistory(this, this.backKeyHandler);
+			return true;
+		},
+
+		/**
+		* @private
+		*/
+		backKeyHandler: function () {
+			this.closeHandleContainer();
+			return true;
 		}
 	});
 
