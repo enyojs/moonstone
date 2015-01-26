@@ -99,7 +99,7 @@
 		create: enyo.inherit(function(sup) {
 			return function(props) {
 				sup.apply(this, arguments);
-				window.onpopstate = enyo.bind(this, function(inEvent) {this.popStateHandler();});
+				scope.onpopstate = enyo.bind(this, function(inEvent) {this.popStateHandler();});
 				if (enyo.LunaService) {
 					this.createChrome(this.lunaServiceComponents);
 					this.getAppID();
@@ -111,7 +111,7 @@
 		* @private
 		*/
 		getAppID: function () {
-			if(window.PalmSystem) {
+			if(scope.PalmSystem) {
 				var param = {'extraInfo': true};
 				this.$.getAppID.send(param);
 			}
@@ -140,7 +140,7 @@
 		* @private
 		*/
 		getAppInfo: function (appID) {
-			if(window.PalmSystem) {
+			if(scope.PalmSystem) {
 				var param = {};
 				param.id = appID;
 				this.$.getAppInfo.send(param);
@@ -244,8 +244,8 @@
 			//Popstate event should be ignored on following 2 conditions.
 			//1. When App is loaded, onpopstate event fired with null state.
 			//2. history.go(-1) triggers onpopstate event but it should be ignored.
-			if (this._ignorePopState || window.ignoreFirstPopupEvent) {
-				window.ignoreFirstPopupEvent = false;
+			if (this._ignorePopState || scope.ignoreFirstPopupEvent) {
+				scope.ignoreFirstPopupEvent = false;
 				this._ignorePopState = false;
 				return;
 			}
