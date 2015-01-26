@@ -259,7 +259,8 @@
 		*/
 		decorateActivateEvent: function (inSender, inEvent) {
 			inEvent.toggledControl = this;
-			this.setChecked(this.$.input.getChecked());
+			if(this.$.input)
+				this.setChecked(this.$.input.getChecked());
 			inEvent.checked = this.checked;
 		},
 
