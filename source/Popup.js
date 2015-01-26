@@ -264,6 +264,11 @@
 		*/
 		capturedTap: function(sender, event) {
 			if (!this.downEvent || (this.downEvent.type != 'onSpotlightSelect')) {
+				// tapping out boundary of popup will close it.
+				// this._popHistory notice that poping process is required when it is set.
+				if (this.allowBackKey) {
+					this._popHistory = true;
+				}
 				return this.inherited(arguments);
 			}
 		},
@@ -423,14 +428,9 @@
 						enyo.Spotlight.unspot();
 					}
 				}
-			}
 
-			if (this.allowBackKey) {
-				if (this.showing) {
+				if (this.allowBackKey ) {
 					this.doPushBackHistory();
-				} else if(!this.showing && !moon.History.getIsBackInProgress()) {
-					moon.History.ignorePopState();
-					moon.History.popBackHistory();
 				}
 			}
 		},
@@ -444,7 +444,6 @@
 		show: function() {
 			this.inherited(arguments);
 			this.addClass('showing');
-
 		},
 
 		/**
@@ -456,6 +455,10 @@
 		hide: function() {
 			this.inherited(arguments);
 			this.removeClass('showing');
+			if (this._popHistory) {
+				moon.History.popBackHistory();
+				this._popHistory = false;
+			}
 		},
 
 		/**
