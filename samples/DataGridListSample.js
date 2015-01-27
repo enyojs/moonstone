@@ -16,7 +16,7 @@ enyo.kind({
 			{kind: "moon.ToggleButton", content:"Selection", name:"selectionToggle"},
 			{kind: "moon.ContextualPopupDecorator", components: [
 				{kind: "moon.ContextualPopupButton", content:"Selection Type"},
-				{kind: "moon.ContextualPopup", classes:"moon-4h moon-6v", components: [
+				{kind: "moon.ContextualPopup", classes:"moon-4h", components: [
 					{kind: "moon.RadioItemGroup", name: "selectionTypeGroup", components: [
 						{content: "Single", value: "single", selected: true},
 						{content: "Multiple", value: "multi"},
