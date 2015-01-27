@@ -424,6 +424,15 @@
 			handleRemoteControlKey: true,
 
 			/**
+			* When true, pressing back key makes panels returns to previous panel
+			*
+			* @type {Bollean}
+			* @default true
+			* @public
+			*/
+			allowBackKey: true,
+
+			/**
 			* Base URL for icons
 			*
 			* @private
@@ -1306,7 +1315,9 @@
 
 				// Kick off any marquees in the video info header
 				this.$.videoInfoHeaderClient.waterfallDown('onRequestStartMarquee');
-				this.doPushBackHistory();
+				if (this.allowBackKey) {
+					this.doPushBackHistory();
+				}
 			}
 		},
 
