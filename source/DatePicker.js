@@ -104,7 +104,7 @@
 		create: function () {
 			this.inherited(arguments);
 		},
-		
+
 		/**
 		* @private
 		*/
@@ -119,7 +119,7 @@
 		 * When [iLib]{@glossary ilib} is supported, calculates the minimum year in the
 		 * current calendar. Otherwise, returns the value of the published property
 		 * [minYear]{@link moon.DatePicker#minYear}.
-		 * 
+		 *
 		 * @private
 		 */
 		getMinYear: function() {
@@ -140,12 +140,12 @@
 				return this.minYear;
 			}
 		},
-		
+
 		/**
 		 * When [iLib]{@glossary ilib} is supported, calculates the maximum year in the
 		 * current calendar. Otherwise, returns the value of the published property
 		 * [maxYear]{@link moon.DatePicker#maxYear}.
-		 * 
+		 *
 		 * @private
 		 */
 		getMaxYear: function() {
@@ -166,7 +166,7 @@
 				return this.maxYear;
 			}
 		},
-		
+
 
 		/**
 		* @private
@@ -282,16 +282,22 @@
 			if (this.value && typeof ilib !== 'undefined') {
 				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
 			}
-			var values = this.calcPickerValues();
 
-			this.$.year.set('value', values.fullYear);
-			this.$.month.set('value', values.month);
-			this.$.day.set('value', values.date);
-			this.$.month.set('max', values.maxMonths);
-			this.$.day.set('max', this.monthLength(values.fullYear, values.month));
-			this.$.currentValue.setContent(this.formatValue());
+			if (this.localeValue || this.value) {
+				var values = this.calcPickerValues();
+
+				this.$.year.set('value', values.fullYear);
+				this.$.month.set('value', values.month);
+				this.$.day.set('value', values.date);
+				this.$.month.set('max', values.maxMonths);
+				this.$.day.set('max', this.monthLength(values.fullYear, values.month));
+				this.$.currentValue.setContent(this.formatValue());
+			}
 		},
 
+		/**
+		* @private
+		*/
 		calcPickerValues: function () {
 			var values = {};
 			if (typeof ilib !== 'undefined') {
