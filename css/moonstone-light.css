@@ -1142,6 +1142,35 @@ html {
   font-family: "Moonstone LG Display Bold";
   font-size: 1.25rem;
 }
+/* ItemOverlay.css */
+.moon-item .moon-item-overlay {
+  float: left;
+}
+.moon-item .moon-item-overlay.moon-item-overlay-beginning .moon-icon:first-child {
+  margin-left: 0rem;
+}
+.moon-item .moon-item-overlay.moon-item-overlay-ending .moon-icon:last-child {
+  margin-right: 0rem;
+}
+.moon-item:not(.spotlight) .moon-item-overlay.auto-hide {
+  display: none;
+}
+.moon-item.spotlight .moon-item-overlay.auto-hide {
+  display: block;
+}
+.moon-item .moon-item-overlay.right {
+  float: right;
+}
+.moon-item .moon-item-overlay .moon-icon {
+  margin-top: -1px;
+  margin-bottom: -1px;
+}
+.enyo-locale-right-to-left .moon-item .moon-item-overlay {
+  float: right;
+}
+.enyo-locale-right-to-left .moon-item .moon-item-overlay.right {
+  float: left;
+}
 /* SelectableItem.css */
 .moon-selectable-item.selected {
   padding: 0.5rem 0.5rem 0.5rem 2rem;
