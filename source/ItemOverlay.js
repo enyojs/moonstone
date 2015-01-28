@@ -2,7 +2,7 @@
 	/**
 	* {@link moon.ItemOverlay} is a supplementary control that helps to manage
 	* layout within a {@link moon.Item}.
-	* 
+	*
 	* ```
 	* {kind: "moon.Item", components: [
 	* 	{kind: "moon.ItemOverlay", autoHide: false, right: true, components:[
@@ -11,8 +11,8 @@
 	* 	]},
 	* 	{kind: "moon.MarqueeText", content: "Item   with   icons   auto   hides"}
 	* ]}
-	* ```	
-	* 
+	* ```
+	*
 	* @ui
 	* @class moon.ItemOverlay
 	* @extends enyo.Control
@@ -152,18 +152,17 @@
 			return function () {
 				sup.apply(this, arguments);
 				this.createComponent({
-					name: 'beginning', kind: 'moon.ItemOverlay', 
-					classes: 'moon-item-overlay-beginning', right: false, addBefore: this.controlParentName, 
+					name: 'beginning', kind: 'moon.ItemOverlay',
+					classes: 'beginning', right: false, addBefore: this.controlParentName,
 					components: this.beginningComponents
 				});
 				this.createComponent({
-					name: 'ending', kind: 'moon.ItemOverlay', 
-					classes: 'moon-item-overlay-ending', right: true, addBefore: this.controlParentName, 
+					name: 'ending', kind: 'moon.ItemOverlay',
+					classes: 'ending', right: true, addBefore: this.controlParentName,
 					components: this.endingComponents
 				});
 			};
-		}),
+		})
 	};
-
 
 })(enyo, this);
