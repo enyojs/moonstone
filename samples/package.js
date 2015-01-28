@@ -76,6 +76,8 @@ enyo.depends(
 	"IntegerPickerSample.js",
 	"ItemSample.css",
 	"ItemSample.js",
+	"ItemOverlaySample.css",
+	"ItemOverlaySample.js",
 	"LabeledTextItemSample.css",
 	"LabeledTextItemSample.js",
 	"ListActionsSample.css",

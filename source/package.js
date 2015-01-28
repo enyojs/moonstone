@@ -7,6 +7,7 @@ enyo.depends(
 	'Button.js',
 	'CaptionDecorator.js',
 	'Item.js',
+	'ItemOverlay.js',
 	'SelectableItem.js',
 	'Panels.js',
 	'SimplePicker.js',
