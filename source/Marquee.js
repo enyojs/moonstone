@@ -758,8 +758,9 @@
 				this._marquee_createMarquee();
 			}
 
-			if (this._marquee_addAnimationStyles(distance)) 
-				return true;
+			this._marquee_addAnimationStyles(distance);
+
+			if (this.$.marqueeText) { return true; }
 		},
 
 		/**
@@ -866,6 +867,7 @@
 		*/
 		_marquee_addAnimationStyles: function (distance) {
 			if (!this.$.marqueeText) { return false; }
+			if (!this.$.marqueeText) return;
 			var duration = this._marquee_calcDuration(distance);
 
 			this.$.marqueeText.addClass('animate-marquee');
