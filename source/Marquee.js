@@ -866,7 +866,6 @@
 		* @private
 		*/
 		_marquee_addAnimationStyles: function (distance) {
-			if (!this.$.marqueeText) { return false; }
 			if (!this.$.marqueeText) return;
 			var duration = this._marquee_calcDuration(distance);
 
