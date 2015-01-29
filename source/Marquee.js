@@ -758,8 +758,8 @@
 				this._marquee_createMarquee();
 			}
 
-			this._marquee_addAnimationStyles(distance);
-			return true;
+			if (this._marquee_addAnimationStyles(distance)) 
+				return true;
 		},
 
 		/**
@@ -845,6 +845,9 @@
 		* @private
 		*/
 		_marquee_createMarquee: function () {
+			// Do not create marqueeText when there is components block,
+			// because we don't know what should be the controlParent
+			if (this.components && this.components.length > 0) return;
 			var marqueeText = {name: 'marqueeText', classes: 'moon-marquee-text', allowHtml: this.allowHtml, content: this.content},
 				highlightText = null;
 
@@ -862,6 +865,7 @@
 		* @private
 		*/
 		_marquee_addAnimationStyles: function (distance) {
+			if (!this.$.marqueeText) { return false; }
 			var duration = this._marquee_calcDuration(distance);
 
 			this.$.marqueeText.addClass('animate-marquee');
