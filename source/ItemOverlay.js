@@ -150,6 +150,12 @@
 
 		initComponents: enyo.inherit(function (sup) {
 			return function () {
+				if (!this.components || this.components.length == 0) {
+					this.components = [{name: 'client', content: this.content}];
+					if (this._mixins && this._mixins.indexOf('moon.MarqueeItem')) {
+						this.components[0].mixins = ['moon.MarqueeItem'];
+					}
+				}
 				sup.apply(this, arguments);
 				this.createComponent({
 					name: 'beginning', kind: 'moon.ItemOverlay',
