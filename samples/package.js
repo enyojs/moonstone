@@ -1,4 +1,6 @@
 enyo.depends(
+	"All.css",
+	"All.js",
 	"AccordionSample.css",
 	"AccordionSample.js",
 	"ActivityPanelsSample.css",
@@ -65,6 +67,7 @@ enyo.depends(
 	"ImageBadgeSample.js",
 	"ImageItemSample.css",
 	"ImageItemSample.js",
+	"ImageSample.js",
 	"InputHeaderSample.css",
 	"InputHeaderSample.js",
 	"InputSample.css",
@@ -96,8 +99,6 @@ enyo.depends(
 	"ProgressSample.js",
 	"RadioItemSample.css",
 	"RadioItemSample.js",
-	"Sample.css",
-	"Sample.js",
 	"Scroller2dSample.css",
 	"Scroller2dSample.js",
 	"ScrollerHorizontalSample.css",

@@ -186,7 +186,7 @@
 			]},
 			// FIXME: TranslateScrollStrategy doesn't work with the current design of this component so
 			// we're forcing TouchScrollStrategy
-			{kind: 'enyo.Scroller', strategyKind: 'TouchScrollStrategy', thumb:false, touch:true, useMouseWheel: false, classes: 'moon-scroll-picker', components:[
+			{kind: 'enyo.Scroller', strategyKind: 'moon.TouchScrollStrategy', thumb:false, touch:true, useMouseWheel: false, classes: 'moon-scroll-picker', components:[
 				{name:'repeater', kind:'enyo.FlyweightRepeater', classes: 'moon-scroll-picker-repeater', ondragstart: 'dragstart', onSetupItem: 'setupItem', noSelect: true, components: [
 					{name: 'item', classes: 'moon-scroll-picker-item'}
 				]},
@@ -653,7 +653,7 @@
 		* @private
 		*/
 		minWidthChanged: function() {
-			this.applyStyle('min-width', this.minWidth + 'px');
+			this.applyStyle('min-width', enyo.dom.unit(this.minWidth));
 		},
 
 		/**
