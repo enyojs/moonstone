@@ -6,6 +6,17 @@
 	<title>Moonstone Sample</title>
 	<!-- -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<script type="text/javascript">
+	;(function (scope) {
+		// If we're trying to access a Sample with a locale, just automatically redirect to the All code.
+		// This should be before any of the packages so we don't have to load them twice.
+		if (!scope.location.search.match(/^\?All/) && scope.location.hash.match(/\//)) {
+			// Check for the presence of a / in the hash. If it's there, inject the All Sample into the
+			// URL and forward the hash portion through.
+			 scope.location.href = scope.location.href.replace(/#/, '?All#');
+		}
+	})(this);
+	</script>
 	<!-- Less.js (uncomment for client-side rendering of less stylesheets; leave commented to use only CSS)
 	<script src="../../../enyo/tools/minifier/node_modules/less/dist/less-1.7.0.min.js"></script>
 	<script src="../../../enyo/tools/minifier/node_modules/less-plugin-resolution-independence/lib/resolution-independence.js"></script>
