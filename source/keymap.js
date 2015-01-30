@@ -194,14 +194,15 @@
 		* @public
 		*/
 		pushBackHistory: function(ctx, fn) {
-			this._backHistoryStack.push({currentObj: ctx, handler: fn});
-			this._currentObj = ctx;
-			this._handler = fn;
+
 
 			if (this.isPopStateInProgress) {
-				this._pushBackQueue.push(ctx.id);
+				this._pushBackQueue.push({currentObj: ctx, handler: fn});
 			} else if (this.enableBackHistoryAPI) {
 				history.pushState({currentObjId: ctx.id}, '', '');
+				this._backHistoryStack.push({currentObj: ctx, handler: fn});
+				this._currentObj = ctx;
+				this._handler = fn;
 			}
 		},
 
@@ -261,7 +262,10 @@
 				item;
 			for (var i = 0; i < length; i++) {
 				item = queue.pop();
-				history.pushState({currentObjId: item});
+				history.pushState({currentObjId: item.currentObj.id});
+				this._backHistoryStack.push({currentObj: item.currentObj, handler: item.handler});
+				this._currentObj = item.currentObj;
+				this._handler = item.handler;
 			}
 		},
 
