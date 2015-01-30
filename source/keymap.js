@@ -46,6 +46,14 @@
 		_ignorePopState: false,
 
 		/**
+		* If pushstate() is called during popstate is in progress,
+		* we pushed it into this queue.
+		*
+		* @private
+		*/
+		_pushBackQueue: [],
+
+		/**
 		* If "disableBackHistoryAPI" in AppInfo.json is set to true, this property
 		* should be false
 		*
@@ -61,7 +69,22 @@
 			*
 			* @public
 			*/
-			isBackInProgress: false
+			isBackInProgress: false,
+
+			/**
+			* Flag for popstate event is bubbling
+			*
+			* @public
+			*/
+			isPopStateInProgress: false
+		},
+
+		events: {
+			onPopBackHistory:  ''
+		},
+
+		handlers: {
+			onPopBackHistory: 'popBackHistory'
 		},
 
 		/**
@@ -171,12 +194,15 @@
 		* @public
 		*/
 		pushBackHistory: function(ctx, fn) {
-			if (this.enableBackHistoryAPI) {
-				history.pushState({currentObjId: ctx.id}, '', '');
-			}
 			this._backHistoryStack.push({currentObj: ctx, handler: fn});
 			this._currentObj = ctx;
 			this._handler = fn;
+
+			if (this.isPopStateInProgress) {
+				this._pushBackQueue.push(ctx.id);
+			} else if (this.enableBackHistoryAPI) {
+				history.pushState({currentObjId: ctx.id}, '', '');
+			}
 		},
 
 		/**
@@ -189,6 +215,7 @@
 		ignorePopState: function() {
 			if (this.enableBackHistoryAPI) {
 				this._ignorePopState = true;
+				this.isPopStateInProgress = true;
 				history.go(-1);
 			}
 		},
@@ -224,20 +251,31 @@
 		},
 
 		/**
+		* Dequeue _pushBackQueue
+		*
+		* @privae
+		*/
+		_dePushBackQueue: function() {
+			var queue = this._pushBackQueue;
+			var	length = queue.length,
+				item;
+			for (var i = 0; i < length; i++) {
+				item = queue.pop();
+				history.pushState({currentObjId: item});
+			}
+		},
+
+		/**
 		* Decide whether this popstate event calls backKeyHandler or doesn't.
 		*
 		* @public
 		*/
 		popStateHandler: function() {
+			this.isPopStateInProgress = false;
 			// Todo: We cannot prevent popstate event triggerd from history.go() or history.forward()
 			// If user call those event directly, moonstone controls may have unexpected behavior.
 			if (!this._currentObj) {
-				return;
-			}
-
-			if (!this._currentObj.getShowing()) {
-				//restore history
-				history.pushState({currentObjId: this._backHistoryStack[this._backHistoryStack.length - 1].currentObj.id}, '', '');
+				this._dePushBackQueue();
 				return;
 			}
 
@@ -247,11 +285,21 @@
 			if (this._ignorePopState || scope.ignoreFirstPopupEvent) {
 				scope.ignoreFirstPopupEvent = false;
 				this._ignorePopState = false;
+				this.doPopBackHistory();
+				this._dePushBackQueue();
+				return;
+			}
+
+			if (!this._currentObj.getShowing()) {
+				//restore history
+				history.pushState({currentObjId: this._backHistoryStack[this._backHistoryStack.length - 1].currentObj.id}, '', '');
+				this._dePushBackQueue();
 				return;
 			}
 
 			this.callBackKeyHandler();
-			this.popBackHistory();
+			this.doPopBackHistory();
+			this._dePushBackQueue();
 		},
 
 		/**
@@ -263,7 +311,6 @@
 				if (this._currentObj && this._currentObj.getShowing()) {
 					this.callBackKeyHandler();
 					this.ignorePopState();
-					this.popBackHistory();
 				}
 				break;
 			}
