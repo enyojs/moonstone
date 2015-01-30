@@ -568,6 +568,11 @@
 
 			if (this.allowBackKey) {
 				if (this.showing) {
+					var currentObj = moon.History.getCurrentObj();
+					if (currentObj.id == this.id && currentObj.getShowing()) {
+						moon.History.ignorePopState();
+						moon.History.popBackHistory();
+					}
 					this.doPushBackHistory();
 				} else if(!this.showing && !moon.History.getIsBackInProgress()) {
 					moon.History.ignorePopState();

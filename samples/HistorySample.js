@@ -106,6 +106,14 @@ enyo.kind({
 								{content:'Item 2'},
 								{content:'Item 3'}
 							]}
+						]},
+						{kind: 'moon.ContextualPopupDecorator',	components:	[
+							{content: 'ContextualPopup'},
+							{kind: 'moon.ContextualPopup', classes: 'moon-2h moon-8v', components: [
+								{content:'Item 1'},
+								{content:'Item 2'},
+								{content:'Item 3'}
+							]}
 						]}
 					], components: [
 						{kind: 'moon.Item', content: 'Item One', ontap: 'next4'},
