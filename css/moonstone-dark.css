@@ -594,7 +594,7 @@ html {
   background-repeat: no-repeat;
   display: inline-block;
   vertical-align: middle;
-  margin: 0.5rem 0.5rem;
+  margin: 0.5rem;
   font-family: "Moonstone", "Moonstone Icons";
   font-size: 4rem;
   line-height: 2rem;
@@ -1145,6 +1145,41 @@ html {
 .enyo-locale-non-latin .moon-item {
   font-family: "Moonstone LG Display Bold";
   font-size: 1.25rem;
+}
+/* ItemOverlay.less */
+.moon-item .moon-item-overlay {
+  float: left;
+}
+.moon-item .moon-item-overlay.right {
+  float: right;
+}
+.moon-item .moon-item-overlay.beginning .moon-icon:first-child {
+  margin-left: 0;
+}
+.moon-item .moon-item-overlay.ending .moon-icon:last-child {
+  margin-right: 0;
+}
+.moon-item .moon-item-overlay .moon-icon {
+  margin-top: 0;
+  margin-bottom: 0;
+  vertical-align: top;
+}
+.moon-item:not(.spotlight) .moon-item-overlay.auto-hide {
+  display: none;
+}
+.enyo-locale-right-to-left .moon-item .moon-item-overlay {
+  float: right;
+}
+.enyo-locale-right-to-left .moon-item .moon-item-overlay.right {
+  float: left;
+}
+.enyo-locale-right-to-left .moon-item .moon-item-overlay.beginning .moon-icon:first-child {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+.enyo-locale-right-to-left .moon-item .moon-item-overlay.ending .moon-icon:last-child {
+  margin-left: 0;
+  margin-right: 0.5rem;
 }
 /* SelectableItem.css */
 .moon-selectable-item.selected {
