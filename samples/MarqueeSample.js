@@ -22,6 +22,15 @@ enyo.kind({
 				{name: "marqueeStartOnFocus3", marqueeOnSpotlight: true, mixins: ["moon.MarqueeSupport", "moon.MarqueeItem"], spotlight: true, classes: "moon-marquee-start-on-focus", content: "This is third long text for marquee test which is not syncronized with first and second marquee text"},
 				{tag: "br"},
 
+				{kind: "moon.Divider", content: "Marquee on Hover:"},
+				{kind: "moon.MarqueeDecorator", marqueeOnHover: true, marqueeOnSpotlight: false, components: [
+					{name: "marqueeStartOnHover1", kind: "moon.MarqueeText", classes: "moon-marquee-start-on-hover", content: "This is first long text for marquee test which is starting marquee on mouse hover"},
+					{name: "marqueeStartOnHover2", kind: "moon.MarqueeText", classes: "moon-marquee-start-on-hover", content: "This is second long text for marquee test which is syncronized with first marquee text"}
+				]},
+				{name: "marqueeStartOnHover3", marqueeOnHover: true, marqueeOnSpotlight: false, mixins: ["moon.MarqueeSupport", "moon.MarqueeItem"], classes: "moon-marquee-start-on-hover", content: "This is third long text for marquee test which is not syncronized with first and second marquee text"},
+				{tag: "br"},
+
+
 				{kind: "moon.Divider", content: "Marquee on content changed:"},
 				{kind: "moon.InputDecorator", components: [
 					{kind: "moon.Input", placeholder: "JUST TYPE", oninput:"contentChange"}
