@@ -759,13 +759,15 @@
 		* @private
 		*/
 		headerAnimationComplete: function (sender, event) {
-			switch (event.animation.name) {
-			case 'collapseToSmall':
-			case 'expandToLarge':
-				// FIXME: It would be better to call this during the animation so it resizes
-				// smoothly, but that's not possible with CSS transitions; it will jump now
-				this.resize();
-				break;
+			if (event.animation) {
+				switch (event.animation.name) {
+				case 'collapseToSmall':
+				case 'expandToLarge':
+					// FIXME: It would be better to call this during the animation so it resizes
+					// smoothly, but that's not possible with CSS transitions; it will jump now
+					this.resize();
+					return true;	// We stop header animation event bubble up here.
+				}
 			}
 		}
 	});
