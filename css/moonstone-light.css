@@ -906,6 +906,10 @@ html {
 .spotlight .moon-checkbox[checked]:after {
   color: #ffffff;
 }
+.spotlight .moon-checkbox:not([checked]):not([disabled]) .moon-icon {
+  visibility: visible;
+  opacity: 0.3;
+}
 .moon-divider {
   border-bottom: 0.125rem solid #4b4b4b;
   margin: 0 0.5rem 1rem 0.5rem;
