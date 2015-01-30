@@ -157,16 +157,15 @@
 					}
 				}
 				sup.apply(this, arguments);
-				this.createComponent({
+				this.createComponents([{
 					name: 'beginning', kind: 'moon.ItemOverlay',
 					classes: 'beginning', right: false, addBefore: this.controlParentName,
 					components: this.beginningComponents
-				});
-				this.createComponent({
+				},{
 					name: 'ending', kind: 'moon.ItemOverlay',
 					classes: 'ending', right: true, addBefore: this.controlParentName,
 					components: this.endingComponents
-				});
+				}]);
 			};
 		})
 	};

@@ -1169,6 +1169,14 @@ html {
 .enyo-locale-right-to-left .moon-item .moon-item-overlay.right {
   float: left;
 }
+.enyo-locale-right-to-left .moon-item .moon-item-overlay.beginning .moon-icon:first-child {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+.enyo-locale-right-to-left .moon-item .moon-item-overlay.ending .moon-icon:last-child {
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
 /* SelectableItem.css */
 .moon-selectable-item.selected {
   padding: 0.5rem 0.5rem 0.5rem 2rem;
