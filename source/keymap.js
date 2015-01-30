@@ -187,22 +187,34 @@
 		},
 
 		/**
-		* Set target object of back key
+		* Set target object and handler of back key
+		*
+		* @param {Object} ctx - current object for back key
+		* @param {function} fn - handler of back key
+		* @private
+		*/
+		_pushBackHistory: function(ctx, fn) {
+			if (this.enableBackHistoryAPI) {
+				history.pushState({currentObjId: ctx.id}, '', '');
+			}
+			this._backHistoryStack.push({currentObj: ctx, handler: fn});
+			this._currentObj = ctx;
+			this._handler = fn;
+		},
+
+		/**
+		* Store back key request to history.
+		* If popstate is in progress, it delays until former work is done
 		*
 		* @param {Object} ctx - current object for back key
 		* @param {function} fn - handler of back key
 		* @public
 		*/
 		pushBackHistory: function(ctx, fn) {
-
-
 			if (this.isPopStateInProgress) {
 				this._pushBackQueue.push({currentObj: ctx, handler: fn});
-			} else if (this.enableBackHistoryAPI) {
-				history.pushState({currentObjId: ctx.id}, '', '');
-				this._backHistoryStack.push({currentObj: ctx, handler: fn});
-				this._currentObj = ctx;
-				this._handler = fn;
+			} else {
+				this._pushBackHistory(ctx, fn);
 			}
 		},
 
@@ -257,15 +269,12 @@
 		* @privae
 		*/
 		_dePushBackQueue: function() {
-			var queue = this._pushBackQueue;
-			var	length = queue.length,
+			var queue = this._pushBackQueue,
+				length = queue.length,
 				item;
 			for (var i = 0; i < length; i++) {
 				item = queue.pop();
-				history.pushState({currentObjId: item.currentObj.id});
-				this._backHistoryStack.push({currentObj: item.currentObj, handler: item.handler});
-				this._currentObj = item.currentObj;
-				this._handler = item.handler;
+				this._pushBackHistory(item.currentObj, item.handler);
 			}
 		},
 
