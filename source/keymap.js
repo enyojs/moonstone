@@ -54,6 +54,13 @@
 		_pushBackQueue: [],
 
 		/**
+		* Flag for popstate event is bubbling
+		*
+		* @private
+		*/
+		_isPopStateInProgress: false,
+
+		/**
 		* If "disableBackHistoryAPI" in AppInfo.json is set to true, this property
 		* should be false
 		*
@@ -69,14 +76,7 @@
 			*
 			* @public
 			*/
-			isBackInProgress: false,
-
-			/**
-			* Flag for popstate event is bubbling
-			*
-			* @public
-			*/
-			isPopStateInProgress: false
+			isBackInProgress: false
 		},
 
 		events: {
@@ -211,7 +211,7 @@
 		* @public
 		*/
 		pushBackHistory: function(ctx, fn) {
-			if (this.isPopStateInProgress) {
+			if (this._isPopStateInProgress) {
 				this._pushBackQueue.push({currentObj: ctx, handler: fn});
 			} else {
 				this._pushBackHistory(ctx, fn);
@@ -228,7 +228,7 @@
 		ignorePopState: function() {
 			if (this.enableBackHistoryAPI) {
 				this._ignorePopState = true;
-				this.isPopStateInProgress = true;
+				this._isPopStateInProgress = true;
 				history.go(-1);
 			}
 		},
@@ -279,40 +279,44 @@
 		},
 
 		/**
-		* Decide whether this popstate event calls backKeyHandler or doesn't.
+		* Decide whether this popstate event should call handler or shouldn't.
 		*
 		* @public
 		*/
 		popStateHandler: function() {
-			this.isPopStateInProgress = false;
+			this._isPopStateInProgress = false;
 			// Todo: We cannot prevent popstate event triggerd from history.go() or history.forward()
 			// If user call those event directly, moonstone controls may have unexpected behavior.
-			if (!this._currentObj) {
-				this._dePushBackQueue();
-				return;
-			}
+			var state = !this._currentObj ? "empty"
+						: (this._ignorePopState || scope.ignoreFirstPopupEvent) ? "silence"
+						: !this._currentObj.getShowing() ? "invisible"
+						: "active";
 
+			switch (state) {
+			case 'empty':
+				break;
+			case 'silence':
 			//Popstate event should be ignored on following 2 conditions.
 			//1. When App is loaded, onpopstate event fired with null state.
 			//2. history.go(-1) triggers onpopstate event but it should be ignored.
-			if (this._ignorePopState || scope.ignoreFirstPopupEvent) {
 				scope.ignoreFirstPopupEvent = false;
 				this._ignorePopState = false;
 				this.doPopBackHistory();
-				this._dePushBackQueue();
-				return;
-			}
-
-			if (!this._currentObj.getShowing()) {
-				//restore history
+				break;
+			case 'invisible':
+			//Current back key target is on history and have handler too.
+			//However it is invisible.
+			//At this point, we should skip calling back key hanlder and restore history.
 				history.pushState({currentObjId: this._backHistoryStack[this._backHistoryStack.length - 1].currentObj.id}, '', '');
-				this._dePushBackQueue();
-				return;
+				break;
+			case 'active':
+				this.callBackKeyHandler();
+				this.doPopBackHistory();
+				break;
 			}
 
-			this.callBackKeyHandler();
-			this.doPopBackHistory();
 			this._dePushBackQueue();
+			return;
 		},
 
 		/**
