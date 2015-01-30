@@ -296,6 +296,9 @@
 			this._marquee_isHovered = true;
 			if ((this.marqueeOnHover && !this.marqueeOnSpotlight) ||
 			(this.disabled && this.marqueeOnSpotlight)) {
+				if (this.marqueeOnHover) {
+					moon.Marquee.setMarqueeOnHoverControl(this);
+				}
 				this.startMarquee();
 			}
 		},
@@ -306,6 +309,9 @@
 		_marquee_leave: function (sender, ev) {
 			this._marquee_isHovered = false;
 			if ((this.marqueeOnHover && !this.marqueeOnSpotlight) || (this.disabled && this.marqueeOnSpotlight)) {
+				if (this.marqueeOnHover) {
+					moon.Marquee.setMarqueeOnHoverControl(null);
+				}
 				this.stopMarquee();
 			}
 		},
@@ -1108,4 +1114,26 @@
 		style: 'overflow: hidden;'
 	});
 
+
+	moon.Marquee = {
+		_marqueeOnHoverControl: null,
+
+		setMarqueeOnHoverControl: function(oControl) {
+			this._marqueeOnHoverControl = oControl;
+		},
+
+		getMarqueeOnHoverControl: function() {
+			return this._marqueeOnHoverControl;
+		}
+	};
+
+	enyo.dispatcher.features.push(
+		function (e) {
+			if ("blur" === e.type) {
+				// Stop marquee when onblur event comes from window
+				var c = moon.Marquee.getMarqueeOnHoverControl();
+				if (c) c._marquee_leave();
+			}
+		}
+	);
 })(enyo, this);
