@@ -232,6 +232,17 @@
 		* @method
 		* @private
 		*/
+		destroy: enyo.inherit(function (sup) {
+			return function () {
+				moon.Marquee.setMarqueeOnHoverControl(null);
+				sup.apply(this, arguments);
+			};
+		}),
+
+		/**
+		* @method
+		* @private
+		*/
 		dispatchEvent: enyo.inherit(function (sup) {
 			return function (sEventName, oEvent, oSender) {
 				// Needed for proper onenter/onleave handling
@@ -1120,7 +1131,9 @@
 	});
 
 
-	moon.Marquee = {
+	enyo.singleton({
+		name: 'moon.Marquee',
+
 		_marqueeOnHoverControl: null,
 
 		setMarqueeOnHoverControl: function(oControl) {
@@ -1130,11 +1143,12 @@
 		getMarqueeOnHoverControl: function() {
 			return this._marqueeOnHoverControl;
 		}
-	};
+	});
+
 
 	enyo.dispatcher.features.push(
 		function (e) {
-			if ("blur" === e.type) {
+			if ("blur" === e.type && window === e.target) {
 				// Stop marquee when onblur event comes from window
 				var c = moon.Marquee.getMarqueeOnHoverControl();
 				if (c) c._marquee_leave();
