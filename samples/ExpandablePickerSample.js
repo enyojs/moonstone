@@ -43,6 +43,7 @@ enyo.kind({
 						{kind: "moon.ExpandableIntegerPicker", disabled:true, autoCollapse: true, content: "Disabled Integer Picker", value: 2, min: 1, max: 15, unit: "sec"},
 						{kind: "moon.DatePicker", noneText: "Pick a Date", content: "Date Picker"},
 						{kind: "moon.TimePicker", noneText: "Pick a Date", content: "Time Picker"},
+						{kind: "moon.DayPicker", noneText: "Pick a Day", content: "Day Picker"},
 						{kind: "moon.ExpandableInput", noneText: "Enter text", content: "Expandable Input", placeholder: "Enter text"},
 						{kind: "moon.ExpandableDataPicker", content: "Expandable Data Picker", noneText: "Nothing Selected", components: [
 							{bindings: [

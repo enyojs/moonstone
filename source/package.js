@@ -36,6 +36,7 @@ enyo.depends(
 	'PagingControl.js',
 	'DateTimePickerBase.js',
 	'DatePicker.js',
+	'DayPicker.js',
 	'TimePicker.js',
 	'Input.js',
 	'InputDecorator.js',
