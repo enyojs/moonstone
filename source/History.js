@@ -69,19 +69,11 @@
 			isBackInProgress: false
 		},
 
-		events: {
-			onPopBackHistory:  ''
-		},
-
-		handlers: {
-			onPopBackHistory: 'popBackHistory'
-		},
-
 		/**
 		* @private
 		*/
 		components: [
-			{kind: 'enyo.Signals', onkeyup:'backKeyHandler'}
+			{kind: 'enyo.Signals', onkeyup:'remoteBackKeyHandler'}
 		],
 
 		/**
@@ -94,7 +86,7 @@
 				service:    'palm://com.webos.applicationManager/',
 				method:     'getForegroundAppInfo',
 				subscribe:  true,
-				onComplete: 'getAppIDHandler'
+				onComplete: '_getAppIDHandler'
 			},
 			{
 				name:       'getAppInfo',
@@ -102,7 +94,7 @@
 				service:    'luna://com.webos.applicationManager/',
 				method:     'getAppInfo',
 				subscribe: true,
-				onComplete: 'getAppInfoHandler'
+				onComplete: '_getAppInfoHandler'
 			}
 		],
 
@@ -115,15 +107,17 @@
 				scope.onpopstate = enyo.bind(this, function(inEvent) {this.popStateHandler();});
 				if (enyo.LunaService) {
 					this.createChrome(this.lunaServiceComponents);
-					this.getAppID();
+					this._getAppID();
 				}
 			};
 		}),
 
 		/**
+		* When platform has PalmSystem, we need app ID to access AppInfo.json file
+		*
 		* @private
 		*/
-		getAppID: function () {
+		_getAppID: function () {
 			if(scope.PalmSystem) {
 				var param = {'extraInfo': true};
 				this.$.getAppID.send(param);
@@ -131,28 +125,32 @@
 		},
 
 		/**
+		* After LunaService returns appId, we can get more app info.
+		*
 		* @private
 		*/
-		getAppIDHandler: function (inSender, inResponse) {
+		_getAppIDHandler: function (inSender, inResponse) {
 			if(inResponse.foregroundAppInfo != null && inResponse.foregroundAppInfo !== undefined) {
 				var foregroundAppInfo = inResponse.foregroundAppInfo;
 				var appID = '';
 				for(var i=0; i<foregroundAppInfo.length; i++) {
 					if(foregroundAppInfo[i].appId !== undefined && foregroundAppInfo[i].windowType === '_WEBOS_WINDOW_TYPE_CARD') {
-						this.appID = foregroundAppInfo[i].appId;
+						appID = foregroundAppInfo[i].appId;
 						break;
 					}
 				}
 				if(appID !== ''){
-					this.getAppInfo(appID);
+					this._getAppInfo(appID);
 				}
 			}
 		},
 
 		/**
+		* Through palmSystem, get properties from AppInfo.json
+		*
 		* @private
 		*/
-		getAppInfo: function (appID) {
+		_getAppInfo: function (appID) {
 			if(scope.PalmSystem) {
 				var param = {};
 				param.id = appID;
@@ -161,15 +159,19 @@
 		},
 
 		/**
+		* Set this.enableBackHistoryAPI from appInfo.disableBackHistoryAPI.
+		*
 		* @private
 		*/
-		getAppInfoHandler: function (inSender, inResponse) {
+		_getAppInfoHandler: function (inSender, inResponse) {
 			if(inResponse.appInfo !== undefined) {
 				this.enableBackHistoryAPI = !inResponse.appInfo.disableBackHistoryAPI;
 			}
 		},
 
 		/**
+		* Getter of private property.
+		*
 		* @public
 		*/
 		getCurrentObj: function() {
@@ -224,9 +226,12 @@
 		},
 
 		/**
+		* this._currentObj has specified back key handler.
+		* When things are ready, run this handler.
+		*
 		* @private
 		*/
-		callBackKeyHandler: function() {
+		_callBackKeyHandler: function() {
 			this.isBackInProgress = true;
 			if (this._currentObj && this._handler) {
 				var fn = this._handler;
@@ -240,7 +245,7 @@
 		/**
 		* @private
 		*/
-		popBackHistory: function() {
+		_popBackHistory: function() {
 			var bStack = this._backHistoryStack;
 			bStack.pop();
 			if (bStack.length) {
@@ -254,7 +259,8 @@
 		},
 
 		/**
-		* Dequeue _pushBackQueue
+		* Request of pushstate() is pushed into queue when popstate in handling.
+		* After handling is over, we can dequeue _pushBackQueue
 		*
 		* @privae
 		*/
@@ -269,7 +275,10 @@
 		},
 
 		/**
-		* Decide whether this popstate event should call handler or shouldn't.
+		* There are 3 kinds of popstate event trigger.
+		* history.back(), forward() and go().
+		* However, moon.History only deal with history.back().
+		* If popstate event is triggered from other ways, we should ignore them.
 		*
 		* @public
 		*/
@@ -291,7 +300,7 @@
 			//2. history.go(-1) triggers onpopstate event but it should be ignored.
 				scope.ignoreFirstPopupEvent = false;
 				this._ignorePopState = false;
-				this.doPopBackHistory();
+				this._popBackHistory();
 				break;
 			case 'invisible':
 			//Current back key target is on history and have handler too.
@@ -300,8 +309,8 @@
 				history.pushState({currentObjId: this._backHistoryStack[this._backHistoryStack.length - 1].currentObj.id}, '', '');
 				break;
 			case 'active':
-				this.callBackKeyHandler();
-				this.doPopBackHistory();
+				this._callBackKeyHandler();
+				this._popBackHistory();
 				break;
 			}
 
@@ -312,14 +321,10 @@
 		/**
 		* @private
 		*/
-		backKeyHandler: function (inSender, inEvent) {
-			switch (inEvent.keySymbol) {
-			case 'back':
-				if (this._currentObj && this._currentObj.getShowing()) {
-					this.callBackKeyHandler();
-					this.ignorePopState();
-				}
-				break;
+		remoteBackKeyHandler: function (inSender, inEvent) {
+			if (inEvent.keySymbol == 'back' && this._currentObj && this._currentObj.getShowing()) {
+				this._callBackKeyHandler();
+				this.ignorePopState();
 			}
 			return true;
 		}
