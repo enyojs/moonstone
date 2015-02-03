@@ -207,7 +207,7 @@
 		*/
 		hide: function(inSender, e) {
 
-			 if (this.tapCaptured) {
+			if (this.tapCaptured) {
 				this.tapCaptured = false;
 			} else {
 				this.popupActivated = false;

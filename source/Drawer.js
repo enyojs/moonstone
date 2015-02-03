@@ -36,17 +36,17 @@
 	* The control's child components may be of any kind.
 	*
 	* ```
-	* 		{
-	* 			name: 'musicDrawer',
-	* 			kind: 'moon.Drawer',
-	* 			handle: {name: 'handleButton', content: 'Handle'},
-	* 			components: [
-	* 				{content: 'Drawer Content'}
-	* 			],
-	* 			controlDrawerComponents: [
-	* 				{content: 'Controls'}
-	* 			]
-	* 		}
+	*		{
+	*			name: 'musicDrawer',
+	*			kind: 'moon.Drawer',
+	*			handle: {name: 'handleButton', content: 'Handle'},
+	*			components: [
+	*				{content: 'Drawer Content'}
+	*			],
+	*			controlDrawerComponents: [
+	*				{content: 'Controls'}
+	*			]
+	*		}
 	* ```
 	*
 	* @class moon.Drawer

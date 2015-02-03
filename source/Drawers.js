@@ -31,23 +31,23 @@
 	*
 	* ```
 	* {
-	* 	kind: 'moon.Drawers',
-	* 	drawers: [
-	* 		{
-	* 			name: 'musicDrawer',
-	* 			kind: 'moon.Drawer',
-	* 			handle: {kind: 'moon.DrawerHandle', content: 'Handle'},
-	* 			components: [
-	* 				{content: 'Drawer Content'}
-	* 			],
-	* 			controlDrawerComponents: [
-	* 				{content: 'Controls'}
-	* 			]
-	* 		}
-	* 	],
-	* 	components: [
-	* 		{content: 'Content Area'}
-	* 	]
+	*	kind: 'moon.Drawers',
+	*	drawers: [
+	*		{
+	*			name: 'musicDrawer',
+	*			kind: 'moon.Drawer',
+	*			handle: {kind: 'moon.DrawerHandle', content: 'Handle'},
+	*			components: [
+	*				{content: 'Drawer Content'}
+	*			],
+	*			controlDrawerComponents: [
+	*				{content: 'Controls'}
+	*			]
+	*		}
+	*	],
+	*	components: [
+	*		{content: 'Content Area'}
+	*	]
 	* }
 	* ```
 	*
