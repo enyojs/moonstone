@@ -84,6 +84,11 @@
 		/**
 		* @private
 		*/
+		mixins : ['moon.HistorySupport'],
+
+		/**
+		* @private
+		*/
 		spotlight: true,
 
 		// Fixme: When enyo-fit is used than the background image does not fit to video while dragging.
@@ -96,8 +101,7 @@
 		* @private
 		*/
 		events: {
-			onPlaybackControlsTapped: '',
-			onPushBackHistory: ''
+			onPlaybackControlsTapped: ''
 		},
 
 		/**
@@ -424,15 +428,6 @@
 			handleRemoteControlKey: true,
 
 			/**
-			* When true, pressing back key makes panels returns to previous panel
-			*
-			* @type {Bollean}
-			* @default true
-			* @public
-			*/
-			allowBackKey: true,
-
-			/**
 			* Base URL for icons
 			*
 			* @private
@@ -547,12 +542,7 @@
 			onSpotlightDown: 'spotlightDownHandler',
 			onSpotlightLeft: 'spotlightLeftRightFilter',
 			onSpotlightRight: 'spotlightLeftRightFilter',
-			onresize: 'handleResize',
-			/**
-			* Hanlder for back key input.
-			* To use custom behavior for back key, you can modify this handler.
-			*/
-			onPushBackHistory: 'pushBackHistory'
+			onresize: 'handleResize'
 		},
 
 		/**
@@ -2146,14 +2136,6 @@
 					}
 				}
 			}
-			return true;
-		},
-
-		/**
-		* @private
-		*/
-		pushBackHistory: function () {
-			moon.History.pushBackHistory(this, this.backKeyHandler);
 			return true;
 		},
 

@@ -6,7 +6,54 @@
 	*
 	*
 	*/
+	moon.HistorySupport = {
+		/**
+		* @private
+		*/
+		name: 'HistorySupport',
+
+		published: {
+			/**
+			* When true, pressing back key makes panels close opened drawer
+			*
+			* @type {Bollean}
+			* @default true
+			* @public
+			*/
+			allowBackKey: true
+		},
+
+		/**
+		* @private
+		*/
+		events: {
+			onPushBackHistory: ''
+		},
+
+		/**
+		* @private
+		*/
+		handlers: {
+			/**
+			* Hanlder for back key input.
+			* To use custom behavior for back key, you can modify this handler.
+			*/
+			onPushBackHistory: 'pushBackHistory'
+		},
+
+		/**
+		* @private
+		*/
+		pushBackHistory: function () {
+			moon.History.pushBackHistory(this, this.backKeyHandler || moon.History.backKeyHandler);
+			return true;
+		}
+	};
+
 	enyo.singleton({
+		/**
+		* @private
+		*/
 		name: 'moon.History',
 
 		/**
@@ -73,7 +120,7 @@
 		* @private
 		*/
 		components: [
-			{kind: 'enyo.Signals', onkeyup:'remoteBackKeyHandler'}
+			{kind: 'enyo.Signals',  onkeyup: 'remoteBackKeyHandler'}
 		],
 
 		/**
@@ -327,6 +374,16 @@
 				this.ignorePopState();
 			}
 			return true;
+		},
+
+		/**
+		* Abstract back key handler function.
+		* Each control which mixin moon.History should implement this method.
+		*
+		* @private
+		*/
+		backKeyHandler: function () {
+		//implment your handler in each control
 		}
 	});
 })(enyo, this);

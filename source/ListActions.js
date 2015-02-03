@@ -86,6 +86,11 @@
 
 		/**
 		* @private
+		*/
+		mixins : ['moon.HistorySupport'],
+
+		/**
+		* @private
 		* @lends moon.ListActions.prototype
 		*/
 		published: {
@@ -175,16 +180,7 @@
 			* @default false
 			* @public
 			*/
-			proportionalWidth: false,
-
-			/**
-			* When true, pressing back key makes panels close opened drawer
-			*
-			* @type {Bollean}
-			* @default true
-			* @public
-			*/
-			allowBackKey: true
+			proportionalWidth: false
 		},
 
 		/**
@@ -197,17 +193,6 @@
 			onHidden: '',
 			onRequestCreateListActions: '',
 			onListActionOpenChanged: ''
-		},
-
-		/**
-		* @private
-		*/
-		handlers: {
-			/**
-			* Hanlder for back key input.
-			* To use custom behavior for back key, you can modify this handler.
-			*/
-			onPushBackHistory: 'pushBackHistory'
 		},
 
 		/**
@@ -237,7 +222,7 @@
 			{from: 'iconSrc', to: '$.activator.src'},
 			{from: 'icon', to: '$.activator.icon'},
 			{from: 'disabled', to: '$.activator.disabled', oneWay: false},
-			{from: 'allowBackKey', to: '$.drawer.allow', oneWay: false}
+			{from: 'allowBackKey', to: '$.drawer.allowBackKey', oneWay: false}
 		],
 
 		/**
@@ -581,14 +566,6 @@
 				enyo.Spotlight.spot(this.$.drawer);
 				return true;
 			}
-		},
-
-		/**
-		* @private
-		*/
-		pushBackHistory: function () {
-			moon.History.pushBackHistory(this, this.backKeyHandler);
-			return true;
 		},
 
 		/**

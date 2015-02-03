@@ -29,6 +29,11 @@
 		/**
 		* @private
 		*/
+		mixins : ['moon.HistorySupport'],
+
+		/**
+		* @private
+		*/
 		classes : 'moon-panels',
 
 		/**
@@ -124,16 +129,7 @@
 			* @default ''
 			* @public
 			*/
-			brandingSrc: '',
-
-			/**
-			* When true, pressing back key makes panels returns to previous panel
-			*
-			* @type {Bollean}
-			* @default true
-			* @public
-			*/
-			allowBackKey: true
+			brandingSrc: ''
 		},
 
 		/**
@@ -156,13 +152,6 @@
 		/**
 		* @private
 		*/
-		events: {
-			onPushBackHistory: ''
-		},
-
-		/**
-		* @private
-		*/
 		handlers: {
 			ontap:						'tapped',
 
@@ -175,13 +164,7 @@
 			onSpotlightContainerEnter:	'onSpotlightPanelEnter',
 
 			onPreTransitionComplete:	'preTransitionComplete',
-			onPostTransitionComplete:	'postTransitionComplete',
-
-			/**
-			* Hanlder for back key input.
-			* To use custom behavior for back key, you can modify this handler.
-			*/
-			onPushBackHistory:			'pushBackHistory'
+			onPostTransitionComplete:	'postTransitionComplete'
 		},
 
 		/**
@@ -1202,14 +1185,6 @@
 			if (this.$.branding) {
 				this.$.branding.set('src', this.brandingSrc);
 			}
-		},
-
-		/**
-		* @private
-		*/
-		pushBackHistory: function () {
-			moon.History.pushBackHistory(this, this.backKeyHandler);
-			return true;
 		},
 
 		/**

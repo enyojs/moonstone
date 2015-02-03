@@ -85,7 +85,7 @@
 		/**
 		* @private
 		*/
-		mixins: ['moon.MarqueeSupport'],
+		mixins: ['moon.MarqueeSupport', 'moon.HistorySupport'],
 
 		/**
 		* @private

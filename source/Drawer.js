@@ -70,6 +70,11 @@
 		/**
 		* @private
 		*/
+		mixins : ['moon.HistorySupport'],
+
+		/**
+		* @private
+		*/
 		classes: 'moon-drawer moon-neutral',
 
 		/**
@@ -112,16 +117,7 @@
 			* @default false
 			* @public
 			*/
-			controlsOpen: false,
-
-			/**
-			* When true, pressing back key makes panels close opened drawer
-			*
-			* @type {Bollean}
-			* @default true
-			* @public
-			*/
-			allowBackKey: true
+			controlsOpen: false
 		},
 
 		/**
@@ -137,8 +133,7 @@
 			/**
 			* {@link moon.Drawer#onDeactivate}
 			*/
-			onDeactivate: '',
-			onPushBackHistory: ''
+			onDeactivate: ''
 		},
 
 		/**
@@ -154,13 +149,7 @@
 			/**
 			* Handler for initial resizing event to size drawers to fullscreen.
 			*/
-			onDrawersResized: 'drawersResized',
-
-			/**
-			* Hanlder for back key input.
-			* To use custom behavior for back key, you can modify this handler.
-			*/
-			onPushBackHistory: 'pushBackHistory'
+			onDrawersResized: 'drawersResized'
 		},
 
 		/**
@@ -276,14 +265,6 @@
 			this.$.client.setDrawerProps({height: this.calcDrawerHeight(inEvent.drawersHeight)});
 			this.setOpen(false);
 			this.setControlsOpen(false);
-		},
-
-		/**
-		* @private
-		*/
-		pushBackHistory: function () {
-			moon.History.pushBackHistory(this, this.backKeyHandler);
-			return true;
 		},
 
 		/**

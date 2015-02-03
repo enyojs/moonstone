@@ -52,6 +52,11 @@
 		/**
 		* @private
 		*/
+		mixins : ['moon.HistorySupport'],
+
+		/**
+		* @private
+		*/
 		layoutKind : 'ContextualLayout',
 
 		/**
@@ -62,25 +67,12 @@
 		/**
 		* @private
 		*/
-		events: {
-			onPushBackHistory: ''
-		},
-
-		/**
-		* @private
-		*/
 		handlers: {
 			onRequestShowPopup        : 'requestShow',
 			onRequestHidePopup        : 'requestHide',
 			onActivate                : 'decorateActivateEvent',
 			onRequestScrollIntoView   : '_preventEventBubble',
-			onSpotlightContainerLeave : 'onLeave',
-
-			/**
-			* Hanlder for back key input.
-			* To use custom behavior for back key, you can modify this handler.
-			*/
-			onPushBackHistory:			'pushBackHistory'
+			onSpotlightContainerLeave : 'onLeave'
 		},
 
 		/**
@@ -116,16 +108,7 @@
 			* @default 'auto'
 			* @public
 			*/
-			showCloseButton: 'auto',
-
-			/**
-			* When true, pressing back key makes panels close opened popup
-			*
-			* @type {Bollean}
-			* @default true
-			* @public
-			*/
-			allowBackKey: true
+			showCloseButton: 'auto'
 		},
 
 		/**
@@ -580,14 +563,6 @@
 		*/
 		directionChanged: function () {
 			this.alterDirection();
-		},
-
-		/**
-		* @private
-		*/
-		pushBackHistory: function () {
-			moon.History.pushBackHistory(this, this.backKeyHandler);
-			return true;
 		},
 
 		/**
