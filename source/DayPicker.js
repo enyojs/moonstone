@@ -47,7 +47,7 @@
 		/**
 		* @private
 		*/
-		content: 'Select days', 
+		content: moon.$L('Select days'), 
 
 		/**
 		* @private
@@ -62,7 +62,7 @@
 			* @default 'Everyday'
 			* @public
 			*/
-			everyday: 'Everyday',
+			everydayText: moon.$L('Monday'),
 
 			/**
 			* Text to be displayed when all of the weekday are selected.
@@ -71,7 +71,7 @@
 			* @default 'Every Weekday'
 			* @public
 			*/
-			everyWeekday: 'Every Weekday',
+			everyWeekdayText: moon.$L('Every Weekday'),
 
 			/**
 			* Text to be displayed when all of the weekend are selected.
@@ -80,7 +80,7 @@
 			* @default 'Every Weekend'
 			* @public
 			*/
-			everyWeekend: 'Every Weekend',
+			everyWeekendText: moon.$L('Every Weekend'),
 
 			/**
 			* Text to be displayed as the current value if no item is currently selected.
@@ -89,20 +89,20 @@
 			* @default 'Nothing selected'
 			* @public
 			*/
-			noneText: 'Nothing selected',
+			noneText: moon.$L('Nothing selected')
 		},
 
 		/**
 		* @private
 		*/
 		dayOfTheWeek: [
-			{content: "Monday"},
-			{content: "Tuesday"},
-			{content: "Wednesday"},
-			{content: "Thursday"},
-			{content: "Friday"},
-			{content: "Saturday"},
-			{content: "Sunday"}
+			{content: 'Monday'},
+			{content: 'Tuesday'},
+			{content: 'Wednesday'},
+			{content: 'Thursday'},
+			{content: 'Friday'},
+			{content: 'Saturday'},
+			{content: 'Sunday'}
 		],
 
 		/**
@@ -125,16 +125,15 @@
 			var joinIndex = this.selectedIndex.join();
 
 			if (indexLength === 7) {
-				return this.everyday;
-			} else if (indexLength === 5 && joinIndex == "0,1,2,3,4") {
-				return this.everyWeekday;
-			} else if (indexLength === 2 && joinIndex == "5,6") {
-				return this.everyweekend;
+				return this.everydayText;
+			} else if (indexLength === 5 && joinIndex == '0,1,2,3,4') {
+				return this.everyWeekdayText;
+			} else if (indexLength === 2 && joinIndex == '5,6') {
+				return this.everyWeekendText;
 			}
 
 			var controls = this.getCheckboxControls();
 			var str = '';
-			this.selectedIndex.sort();
 			for (var i=0; i < this.selectedIndex.length; i++) {
 				if (!str) {
 					str = controls[this.selectedIndex[i]].getContent().substring(0,3);
@@ -142,10 +141,7 @@
 					str = str + ', ' + controls[this.selectedIndex[i]].getContent().substring(0,3);
 				}
 			}
-			if (!str) {
-				str = this.getNoneText();
-			}
-			return str;
+			return str || this.getNoneText();
 		}
 
 	});

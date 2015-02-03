@@ -205,7 +205,9 @@
 		],
 
 		/**
-		* @private
+		*  'create()' can be overridden by subkinds, such as moon.DayPicker
+		*
+		* @protected
 		*/
 		create: enyo.inherit(function (sup) {
 			return function() {
