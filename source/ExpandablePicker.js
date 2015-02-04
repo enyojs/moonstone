@@ -205,9 +205,7 @@
 		],
 
 		/**
-		*  'create()' can be overridden by subkinds, such as moon.DayPicker
-		*
-		* @protected
+		* @private
 		*/
 		create: enyo.inherit(function (sup) {
 			return function() {
@@ -245,7 +243,9 @@
 		},
 
 		/**
-		* @private
+		*  'multiSelectCurrentValue()' can be overridden by subkinds, such as moon.DayPicker
+		*
+		* @protected
 		*/
 		multiSelectCurrentValue: function () {
 			if (!this.multipleSelection) {
