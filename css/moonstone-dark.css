@@ -279,82 +279,82 @@ html {
 }
 /* ------- Vertical Dimensioning (columns) ------- */
 .moon-1v {
-  height: 1.5rem;
+  height: 1.75rem;
 }
 .moon-2v {
-  height: 3rem;
+  height: 3.5rem;
 }
 .moon-3v {
-  height: 4.5rem;
+  height: 5.25rem;
 }
 .moon-4v {
-  height: 6rem;
+  height: 7rem;
 }
 .moon-5v {
-  height: 7.5rem;
+  height: 8.75rem;
 }
 .moon-6v {
-  height: 9rem;
-}
-.moon-7v {
   height: 10.5rem;
 }
+.moon-7v {
+  height: 12.25rem;
+}
 .moon-8v {
-  height: 12rem;
+  height: 14rem;
 }
 .moon-9v {
-  height: 13.5rem;
+  height: 15.75rem;
 }
 .moon-10v {
-  height: 15rem;
+  height: 17.5rem;
 }
 .moon-11v {
-  height: 16.5rem;
+  height: 19.25rem;
 }
 .moon-12v {
-  height: 18rem;
-}
-.moon-13v {
-  height: 19.5rem;
-}
-.moon-14v {
   height: 21rem;
 }
+.moon-13v {
+  height: 22.75rem;
+}
+.moon-14v {
+  height: 24.5rem;
+}
 .moon-15v {
-  height: 22.5rem;
+  height: 26.25rem;
 }
 .moon-16v {
-  height: 24rem;
+  height: 28rem;
 }
 .moon-17v {
-  height: 25.5rem;
+  height: 29.75rem;
 }
 .moon-18v {
-  height: 27rem;
-}
-.moon-19v {
-  height: 28.5rem;
-}
-.moon-20v {
-  height: 30rem;
-}
-.moon-21v {
   height: 31.5rem;
 }
+.moon-19v {
+  height: 33.25rem;
+}
+.moon-20v {
+  height: 35rem;
+}
+.moon-21v {
+  height: 36.75rem;
+}
 .moon-22v {
-  height: 33rem;
+  height: 38.5rem;
 }
 .moon-23v {
-  height: 34.5rem;
+  height: 40.25rem;
 }
 .moon-24v {
-  height: 36rem;
+  height: 42rem;
 }
 .moon-25v {
-  height: 37.5rem;
+  height: 43.75rem;
 }
 .moon-26v {
-  height: 39rem;
+  height: 45.5rem;
 }
 /* Prevent browser's default focus treatment (at least in Chrome) */
 :focus {
@@ -491,7 +491,7 @@ html {
   text-decoration: none;
 }
 .moon-body-text-spacing {
-  margin: 0 0.5rem 1.5rem 0.5rem;
+  margin: 0 0.5rem 1.75rem 0.5rem;
 }
 .moon-large-button-text {
   font-family: "Moonstone Miso Bold";
