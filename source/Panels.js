@@ -254,6 +254,7 @@
 				oPanel = this.createComponent(info, moreInfo);
 			oPanel.render();
 			this.reflow();
+			oPanel.show();
 			oPanel.resize();
 			this.setIndex(lastIndex+1);
 			this.isModifyingPanels = false;
@@ -298,15 +299,16 @@
 				oPanels[nPanel].render();
 			}
 			this.reflow();
-			for (nPanel = 0; nPanel < oPanels.length; ++nPanel) {
-				oPanels[nPanel].resize();
-			}
-
 			if (options.targetIndex || options.targetIndex === 0) {
 				lastIndex = options.targetIndex;
 			} else {
 				lastIndex++;
 			}
+			oPanels[lastIndex].show();
+			for (nPanel = 0; nPanel < oPanels.length; ++nPanel) {
+				oPanels[nPanel].resize();
+			}
+
 			// If transition was explicitly set to false, since null or undefined indicate "never set" or unset
 			if (options.transition === false) {
 				this.setIndexDirect(lastIndex);
