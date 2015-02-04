@@ -2117,6 +2117,7 @@
 				case 'stop':
 					this._isPlaying = false;
 					this.jumpToStart();
+					this.$.slider.setValue(0);
 					this.sendFeedback('Stop');
 					showControls = true;
 					break;
