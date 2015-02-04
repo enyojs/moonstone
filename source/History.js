@@ -66,6 +66,26 @@
 				}
 				return true;
 			};
+		}),
+
+		/**
+		* Abstract back key handler.
+		* Each control which mixins moon.History should implement this method.
+		*
+		* Note. sup.apply(this, arguments) will return 'undefined' if you do not mark
+		* any return value for your custom pushBackHistory.
+		* If you do not like to execute following method, you should return true like
+		*
+		* @private
+		*/
+		backKeyHandler: enyo.inherit(function (sup) {
+			return function() {
+				if (!sup.apply(this, arguments)) {
+					// nothing to do at this point, but for further requirmets
+					// we remain extensible code here.
+				}
+				return true;
+			};
 		})
 	};
 
@@ -393,16 +413,6 @@
 				this.ignorePopState();
 			}
 			return true;
-		},
-
-		/**
-		* Abstract back key handler function.
-		* Each control which mixin moon.History should implement this method.
-		*
-		* @private
-		*/
-		backKeyHandler: function () {
-		//implment your handler in each control
 		}
 	});
 })(enyo, this);
