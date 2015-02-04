@@ -29,6 +29,11 @@
 		/**
 		* @private
 		*/
+		mixins : ['moon.HistorySupport'],
+
+		/**
+		* @private
+		*/
 		classes : 'moon-panels',
 
 		/**
@@ -133,6 +138,18 @@
 		narrowFit: false,
 
 		/**
+		* Hierachical stack.
+		* When we call setIndex or pushPanel, new object is pushed to this stack.
+		* When we call popPanel or back key handler, lasted object is removed.
+		* To save memory, it is initiated when this.allowBackKey is true.
+		*
+		* @type {Array}
+		* @default null
+		* @private
+		*/
+		panelStack: null,
+
+		/**
 		* @private
 		*/
 		handlers: {
@@ -164,7 +181,6 @@
 			{name: 'showHideHandle', kind: 'moon.PanelsHandle', classes: 'hidden', canGenerate: false, ontap: 'handleTap', onSpotlightLeft: 'handleSpotLeft', onSpotlightRight: 'handleSpotRight', onSpotlightFocused: 'handleFocused', onSpotlightBlur: 'handleBlur'},
 			{name: 'showHideAnimator', kind: 'enyo.StyleAnimator', onComplete: 'showHideAnimationComplete'}
 		],
-
 
 		/**
 		* @private
@@ -432,6 +448,7 @@
 			this.inherited(arguments);
 			this.initializeShowHideHandle();
 			this.handleShowingChanged();
+			this.allowBackKeyChanged();
 		},
 
 		/**
@@ -706,6 +723,12 @@
 			// If panels will move for this index change, kickoff animation. Otherwise skip it.
 			if (this.shouldArrange() && this.animate) {
 				enyo.Spotlight.mute(this);
+				// if back key feature is enabled and setIndex is not called from back key handler
+				if (this.allowBackKey && !moon.History.isHandlingBackAction()) {
+					this.panelStack.push(this.index);
+					this.pushBackHistory();
+				}
+
 				this.startTransition();
 				this.triggerPreTransitions();
 			} else {
@@ -1176,7 +1199,30 @@
 		*/
 		animateChanged: function () {
 			this.addRemoveClass('moon-composite', this.animate);
+		},
+
+		/**
+		* @private
+		*/
+		backKeyHandler: function () {
+			if (this.panelStack.length) {
+				this.setIndex(this.panelStack.pop());
+			}
+			return true;
+		},
+
+		/**
+		* @private
+		*/
+		allowBackKeyChanged: function () {
+			if (this.allowBackKey) {
+				//initialize stack
+				this.panelStack = [];
+			} else if(this.panelStack) {
+				this.panelStack = null;
+			}
 		}
+
 	});
 
 	/**

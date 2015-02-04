@@ -86,6 +86,11 @@
 
 		/**
 		* @private
+		*/
+		mixins : ['moon.HistorySupport'],
+
+		/**
+		* @private
 		* @lends moon.ListActions.prototype
 		*/
 		published: {
@@ -381,6 +386,10 @@
 				// Capture onSpotlightFocus happening outside the drawer, so that we can prevent focus
 				// from landing in the header beneath the drawer
 				enyo.dispatcher.capture(this.$.drawer, {onSpotlightFocus: 'capturedSpotlightFocus'}, this);
+
+				if (this.allowBackKey) {
+					this.pushBackHistory();
+				}
 			} else {
 				enyo.dispatcher.release(this.$.drawer);
 			}
@@ -560,6 +569,16 @@
 				enyo.Spotlight.spot(this.$.drawer);
 				return true;
 			}
+		},
+
+		/**
+		* @private
+		*/
+		backKeyHandler: function () {
+			if (this.open) {
+				this.setOpen(false);
+			}
+			return true;
 		}
 	});
 

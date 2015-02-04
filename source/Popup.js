@@ -24,6 +24,11 @@
 		/**
 		* @private
 		*/
+		mixins : ['moon.HistorySupport'],
+
+		/**
+		* @private
+		*/
 		modal: true,
 
 		/**
@@ -339,7 +344,7 @@
 		showingChanged: function() {
 			// reset flag to prevent hiding popup when Enter pressed on unspottable popup
 			this.preventHide = false;
-			
+
 			if (this.showing) {
 				if (this.isAnimatingHide) {
 					// need to call this early to prevent race condition where animationEnd
@@ -400,6 +405,14 @@
 					else {
 						enyo.Spotlight.unspot();
 					}
+				}
+			}
+
+			if (this.allowBackKey) {
+				if (this.showing) {
+					this.pushBackHistory();
+				} else if(!this.showing && !moon.History.isHandlingBackAction()) {
+					moon.History.ignorePopState();
 				}
 			}
 		},

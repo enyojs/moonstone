@@ -52,6 +52,11 @@
 		/**
 		* @private
 		*/
+		mixins : ['moon.HistorySupport'],
+
+		/**
+		* @private
+		*/
 		layoutKind : 'ContextualLayout',
 
 		/**
@@ -195,13 +200,14 @@
 			this.contentChanged();
 			this.inherited(arguments);
 		},
+
 		/**
 		FixMe: overriding the control's default hide method to support the existing sequential tapping
 		and the dependent decorator code inorder to handle some special cases.
 		*/
 		hide: function(inSender, e) {
 
-			 if (this.tapCaptured) {
+			if (this.tapCaptured) {
 				this.tapCaptured = false;
 			} else {
 				this.popupActivated = false;
@@ -542,6 +548,14 @@
 			this.inherited(arguments);
 			this.alterDirection();
 			this.showHideScrim(this.showing);
+
+			if (this.allowBackKey) {
+				if (this.showing) {
+					this.pushBackHistory();
+				} else if(!this.showing && !moon.History.isHandlingBackAction()) {
+					moon.History.ignorePopState();
+				}
+			}
 		},
 
 		/**

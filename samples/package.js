@@ -59,6 +59,7 @@ enyo.depends(
 	"HeaderSample.js",
 	"HighlightTextSample.css",
 	"HighlightTextSample.js",
+	"HistorySample.js",
 	"IconButtonSample.css",
 	"IconButtonSample.js",
 	"IconSample.css",

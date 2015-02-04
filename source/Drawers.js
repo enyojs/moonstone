@@ -31,23 +31,23 @@
 	*
 	* ```
 	* {
-	* 	kind: 'moon.Drawers',
-	* 	drawers: [
-	* 		{
-	* 			name: 'musicDrawer',
-	* 			kind: 'moon.Drawer',
-	* 			handle: {kind: 'moon.DrawerHandle', content: 'Handle'},
-	* 			components: [
-	* 				{content: 'Drawer Content'}
-	* 			],
-	* 			controlDrawerComponents: [
-	* 				{content: 'Controls'}
-	* 			]
-	* 		}
-	* 	],
-	* 	components: [
-	* 		{content: 'Content Area'}
-	* 	]
+	*	kind: 'moon.Drawers',
+	*	drawers: [
+	*		{
+	*			name: 'musicDrawer',
+	*			kind: 'moon.Drawer',
+	*			handle: {kind: 'moon.DrawerHandle', content: 'Handle'},
+	*			components: [
+	*				{content: 'Drawer Content'}
+	*			],
+	*			controlDrawerComponents: [
+	*				{content: 'Controls'}
+	*			]
+	*		}
+	*	],
+	*	components: [
+	*		{content: 'Content Area'}
+	*	]
 	* }
 	* ```
 	*
@@ -68,6 +68,11 @@
 		* @private
 		*/
 		kind: 'enyo.Control',
+
+		/**
+		* @private
+		*/
+		mixins : ['moon.HistorySupport'],
 
 		/**
 		* @private
@@ -250,6 +255,9 @@
 			this.$.handleContainer.setOpen(true);
 			this.updateActivator(true);
 			enyo.dispatcher.capture(this.$.handleContainer, this.eventsToCapture, this);
+			if (this.allowBackKey) {
+				this.pushBackHistory();
+			}
 		},
 
 		/**
@@ -425,6 +433,14 @@
 				enyo.dispatcher.release(c$[i]);
 			}
 			this.inherited(arguments);
+		},
+
+		/**
+		* @private
+		*/
+		backKeyHandler: function () {
+			this.closeHandleContainer();
+			return true;
 		}
 	});
 

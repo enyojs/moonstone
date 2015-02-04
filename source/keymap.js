@@ -1,7 +1,7 @@
 (function (enyo, scope) {
 	/**
 	* Registers key mappings for webOS-specific device keys related to media control.
-	* 
+	*
 	* @private
 	*/
 	if (enyo.platform.webos >= 4) {
@@ -11,8 +11,8 @@
 			413 : 'stop',
 			19  : 'pause',
 			412 : 'rewind',
-			417 : 'fastforward'
+			417 : 'fastforward',
+			461 : 'back'
 		});
 	}
-
 })(enyo, this);
