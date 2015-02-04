@@ -387,6 +387,10 @@
 				// Capture onSpotlightFocus happening outside the drawer, so that we can prevent focus
 				// from landing in the header beneath the drawer
 				enyo.dispatcher.capture(this.$.drawer, {onSpotlightFocus: 'capturedSpotlightFocus'}, this);
+
+				if (this.allowBackKey) {
+					this.doPushBackHistory();
+				}
 			} else {
 				enyo.dispatcher.release(this.$.drawer);
 			}
@@ -705,9 +709,6 @@
 			// Skip animation before render time
 			if (!this.$.client.hasNode()) { return; }
 			this.$.client.addRemoveClass('open', this.open);
-			if (this.allowBackKey && this.open) {
-				this.doPushBackHistory();
-			}
 		},
 
 		/**
