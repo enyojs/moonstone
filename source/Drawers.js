@@ -115,7 +115,7 @@
 			/**
 			* URL specifying path to icon image.
 			*
-			* @type {String}
+			* @type {String|moon.ri.selectSrc~src}
 			* @default ''
 			* @public
 			*/

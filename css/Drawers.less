@@ -6,9 +6,9 @@
 .moon-drawers-activator {
 	z-index: 100;
 	font-family: @moon-icon-font-family;
-	font-size: 43px;
+	font-size: 42px;
 	// adjust the caret to line-up with the bottom edge of the activator bar
-	line-height: @moon-icon-font-size / 2 - 4;
+	line-height: @moon-icon-font-size / 2 - 3;
 	// Height must be less than or equal to the distance from the edge of the screen to the content
 	// area inside the next container, for spotlight to be able to find this control.
 	height: 0px;
@@ -22,7 +22,7 @@
 		background-color: @moon-drawer-bg-color;
 	}
 	.moon-drawers-activator-icon {
-		margin: -12px auto 0;
+		margin: -15px auto 0;
 		width: @moon-drawer-nub-width;
 		height: @moon-drawer-nub-height;
 		border-radius: 0 0 @moon-drawer-nub-height @moon-drawer-nub-height;
@@ -30,6 +30,7 @@
 		background-color: @moon-drawer-bg-color;
 		background-repeat: no-repeat;
 		background-position: center center;
+		background-size: contain;
 		content: @moon-icon-arrowsmalldown;
 		color: @moon-drawer-activator-font-color;
 		text-align: center;
@@ -66,13 +67,13 @@
 
 	.moon-drawers-handles {
 		text-align: center;
-		padding: 50px 0 10px;
+		padding: 48px 0 12px;
 	}
 
 	.moon-drawers-handle {
 		display: inline-block;
 		text-align: start;
-		width: 250px;
+		width: 240px;
 	}
 }
 

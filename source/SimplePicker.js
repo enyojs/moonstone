@@ -165,16 +165,18 @@
 		/**
 		* @private
 		*/
-		create: function() {
-			this.inherited(arguments);
-			this.animateChanged();
-			this.initializeActiveItem();
-			this.disabledChanged();
-			this.selectedIndexChanged();
-			this.updateMarqueeDisable();
-			this.blockChanged();
-			this.showHideNavButtons();
-		},
+		create: enyo.inherit(function (sup) {
+			return function () {
+				sup.apply(this, arguments);
+				this.animateChanged();
+				this.initializeActiveItem();
+				this.disabledChanged();
+				this.selectedIndexChanged();
+				this.updateMarqueeDisable();
+				this.blockChanged();
+				this.showHideNavButtons();
+			};
+		}),
 
 		/**
 		* @private

@@ -759,7 +759,8 @@
 			}
 
 			this._marquee_addAnimationStyles(distance);
-			return true;
+
+			if (this.$.marqueeText) { return true; }
 		},
 
 		/**
@@ -845,6 +846,9 @@
 		* @private
 		*/
 		_marquee_createMarquee: function () {
+			// Do not create marqueeText when there is components block,
+			// because we don't know what should be the controlParent
+			if (this.components && this.components.length > 0) return;
 			var marqueeText = {name: 'marqueeText', classes: 'moon-marquee-text', allowHtml: this.allowHtml, content: this.content},
 				highlightText = null;
 
@@ -862,18 +866,28 @@
 		* @private
 		*/
 		_marquee_addAnimationStyles: function (distance) {
+			if (!this.$.marqueeText) return;
 			var duration = this._marquee_calcDuration(distance);
 
 			this.$.marqueeText.addClass('animate-marquee');
-			this.$.marqueeText.applyStyle('transition', 'transform ' + duration + 's linear');
-			this.$.marqueeText.applyStyle('-webkit-transition', '-webkit-transform ' + duration + 's linear');
 
-			enyo.dom.transform(this, {translateZ: 0});
+			if (moon.config.accelerate) {
+				enyo.dom.transform(this, {translateZ: 0});
+				this.$.marqueeText.applyStyle('transition', 'transform ' + duration + 's linear');
+				this.$.marqueeText.applyStyle('-webkit-transition', '-webkit-transform ' + duration + 's linear');
+			} else {
+				this.$.marqueeText.applyStyle('transition', 'left ' + duration + 's linear');
+				this.$.marqueeText.applyStyle('-webkit-transition', 'left ' + duration + 's linear');	
+			}
 
 			// Need this timeout for FF!
 			setTimeout(this.bindSafely(function () {
-				enyo.dom.transform(this.$.marqueeText, {translateX: this._marquee_adjustDistanceForRTL(distance) + 'px'});
-			}), enyo.platform.firefox ? 100 : 0);
+				if (moon.config.accelerate) {
+					enyo.dom.transform(this.$.marqueeText, {translateX: this._marquee_adjustDistanceForRTL(distance) + 'px'});
+				} else {
+					this.$.marqueeText.applyStyle('left', this._marquee_adjustDistanceForRTL(distance) + 'px');
+				}
+			}), enyo.platform.firefox ? 100 : 16);
 		},
 
 		/**
@@ -893,8 +907,12 @@
 			*/
 			setTimeout(this.bindSafely(function () {
 				this.$.marqueeText.removeClass('animate-marquee');
-				enyo.dom.transform(this.$.marqueeText, {translateX: null});
-				enyo.dom.transform(this, {translateZ: null});
+				if (moon.config.accelerate) {
+					enyo.dom.transform(this.$.marqueeText, {translateX: null});
+					enyo.dom.transform(this, {translateZ: null});
+				} else {
+					this.$.marqueeText.applyStyle('left', null);
+				}
 			}), enyo.platform.firefox ? 100 : 0);
 		},
 

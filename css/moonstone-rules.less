@@ -1,4 +1,23 @@
- // Import font styles
+html {
+	font-size: 24px;
+	font-size: 24apx;
+}
+
+/* 720p screen size */
+@media only screen and (max-width: 1280px) {
+	html {
+		font-size: 16px;
+		font-size: 16apx;
+	}
+}
+@media only screen and (min-width: 2560px) {
+	html {
+		font-size: 48px;
+		font-size: 48apx;
+	}
+}
+
+// Import font styles
 @import "moonstone-fonts.less";
 
 // Import grid classes/mixins
@@ -32,6 +51,14 @@
 	border-bottom: @moon-divider-border-width solid @moon-neutral-border-color;
 }
 
+.moon-composite {
+	-webkit-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	-o-transform: translateZ(0);
+	transform: translateZ(0);
+	will-change: transform;
+}
+
 @import "moonstone-text.less";
 
 .border-box {
@@ -56,6 +83,7 @@
 @import "ToggleItem.less";
 @import "ToggleButton.less";
 @import "Item.less";
+@import "ItemOverlay.less";
 @import "SelectableItem.less";
 @import "Button.less";
 @import "CaptionDecorator.less";
