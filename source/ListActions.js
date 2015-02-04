@@ -221,8 +221,7 @@
 			{from: 'open', to: '$.drawer.open'},
 			{from: 'iconSrc', to: '$.activator.src'},
 			{from: 'icon', to: '$.activator.icon'},
-			{from: 'disabled', to: '$.activator.disabled', oneWay: false},
-			{from: 'allowBackKey', to: '$.drawer.allowBackKey', oneWay: false}
+			{from: 'disabled', to: '$.activator.disabled', oneWay: false}
 		],
 
 		/**
@@ -628,17 +627,7 @@
 			* @default false
 			* @public
 			*/
-			open: false,
-
-			/**
-			* When true, pressing back key makes panels close opened drawer
-			* It is binded with owner's value
-			*
-			* @type {Bollean}
-			* @default true
-			* @public
-			*/
-			allowBackKey: true
+			open: false
 		},
 
 		/**
@@ -657,8 +646,7 @@
 		* @private
 		*/
 		events: {
-			onComplete: '',
-			onPushBackHistory: ''
+			onComplete: ''
 		},
 
 		/**
