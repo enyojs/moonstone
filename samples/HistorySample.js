@@ -134,7 +134,23 @@ enyo.kind({
 						{kind: 'moon.Item', content: 'Item Four', ontap: 'next5'},
 						{kind: 'moon.Item', content: 'Item Five', ontap: 'next5'}
 					]},
-					{title: 'Sixth', classes: 'moon-7h', joinToPrev: true, titleBelow:'Sub-title', subTitleBelow:'Sub-sub title', components: [
+					{title: 'Sixth', classes: 'moon-7h', joinToPrev: true, titleBelow:'Sub-title', subTitleBelow:'Sub-sub title', headerComponents: [
+						//* List actions with default width
+						{kind: "moon.ListActions", name:"listActions", icon:"drawer", proportionalWidth: true, listActions: [
+							{action:"category2", components: [
+								{kind: "moon.Divider", content: "Category 2 (DataList)"},
+								{kind: "moon.DataList", name:"list", fit:true, components: [
+									{kind:"moon.CheckboxItem", bindings: [{from:".model.name", to:".content"}]}
+								]}
+							]},
+							{action:"category1", components: [
+								{kind: "moon.Divider", content: "Category 1 (DataRepeater)"},
+								{kind: "enyo.DataRepeater", containerOptions:{kind:"moon.Scroller", classes:"enyo-fill"}, name:"repeater", fit:true, components: [
+									{kind:"moon.ToggleItem", bindings: [{from:".model.name", to:".content"}]}
+								]}
+							]}
+						]}
+					], components: [
 						{kind: 'moon.Item', content: 'Item One', ontap: 'next6'},
 						{kind: 'moon.Item', content: 'Item Two', ontap: 'next6'},
 						{kind: 'moon.Item', content: 'Item Three', ontap: 'next6'},
@@ -152,7 +168,20 @@ enyo.kind({
 			]
 		}
 	],
-
+	create: function() {
+		this.inherited(arguments);
+		this.$.list.set("collection", new enyo.Collection([
+			{name: "Kimchi"},
+			{name: "Bulgogi"},
+			{name: "Soju"},
+			{name: "Han-bok"}
+		]));
+		this.$.repeater.set("collection", new enyo.Collection([
+			{name: "David"},
+			{name: "Jessi"},
+			{name: "Suvin"}
+		]));
+	},
 	rendered: function() {
 		this.inherited(arguments);
 		enyo.Spotlight.spot(this.$.panels);
