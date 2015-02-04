@@ -719,7 +719,7 @@
 				// if back key feature is enabled and setIndex is not called from back key handler
 				if (this.allowBackKey && !isBack) {
 					this.panelStack.push(this.index);
-					this.doPushBackHistory();
+					this.pushBackHistory();
 				}
 
 				this.startTransition();

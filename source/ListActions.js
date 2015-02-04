@@ -388,7 +388,7 @@
 				enyo.dispatcher.capture(this.$.drawer, {onSpotlightFocus: 'capturedSpotlightFocus'}, this);
 
 				if (this.allowBackKey) {
-					this.doPushBackHistory();
+					this.pushBackHistory();
 				}
 			} else {
 				enyo.dispatcher.release(this.$.drawer);

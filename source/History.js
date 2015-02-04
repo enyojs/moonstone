@@ -1,22 +1,33 @@
 (function (enyo, scope) {
+
 	/**
-	* {@link moon.History} is a decorator that eables back key feature..
-	* When the object get back key input like pressing back key in R/C
-	* or history.back() with window.history object, it calls back key handler.
+	* {@link moon.History} is a {@glossary mixin} that enables support for custom history. In its
+	* current implementation, "back" actions are implemented, which allows for controls to override
+	* and customize the behavior that occurs when the back key is pressed or the `window.history` is
+	* utilized.
 	*
-	*
+	* @mixin moon.HistorySupport
+	* @public
 	*/
+
+	/** @lends moon.HistorySupport.prototype */
 	moon.HistorySupport = {
+
 		/**
 		* @private
 		*/
 		name: 'HistorySupport',
 
+		/**
+		* @private
+		*/
 		published: {
+
 			/**
-			* When true, pressing back key makes panels close opened drawer
+			* When `true`, pressing the back key will result in control-specific behavior that
+			* corresponds to a "back" action.
 			*
-			* @type {Bollean}
+			* @type {Boolean}
 			* @default true
 			* @public
 			*/
@@ -24,102 +35,80 @@
 		},
 
 		/**
-		* @private
-		*/
-		events: {
-			onPushBackHistory: ''
-		},
-
-		/**
-		* Hanlder for back key input.
-		* To use custom behavior for back key, you can modify this handler.
+		* Pushes a default state to the back history, consisting of a reference to our handler for
+		* any "back" actions.
 		*
-		* @public
-		*/
-		handlers: {
-			onPushBackHistory: 'pushBackHistory'
-		},
-
-		/**
-		* When you use mixins, it will override existed properties even method too.
-		* So, if a control which use moon.HistorySupport has pushBackHistory(),
-		* it will be replaced with followed method because its has same name.
-		* To make a contorl have own pushBackHistory(), we should not override it.
+		* If the default `pushBackHistory` behavior is to be overridden, ensure that the control's
+		* implementation of `pushBackHistory` signifies it has handled the necessary behavior by
+		* returning `true`.
 		*
-		* Note. sup.apply(this, arguments) will return 'undefined' if you do not mark
-		* any return value for your custom pushBackHistory.
-		* If you do not like to execute following method, you should return true like
-		* ```
+		* @example
 		* pushBackHistory: function() {
-		*	```
+		*	// perform custom operations here
 		*	return true;
 		* }
-		* ```
 		*
-		* @private
+		* @method
+		* @public
 		*/
 		pushBackHistory: enyo.inherit(function (sup) {
+			// When you use a mixin, it will override existing properties and methods. If a control,
+			// which uses `moon.HistorySupport`, has implemented the `pushBackHistory` method, the
+			// method will be replaced with the following method. To ensure that the control's
+			// implementation of `pushBackHistory` is executed, we allow it to run and subsequently
+			// examine its return value.
 			return function() {
-			// check whether this control has own pushBackHistroy method or hasn't
+				// check whether this control's `pushBackHistroy` method has effectively handled
+				// the call, or whether it wants the inherited method to execute
 				if (!sup.apply(this, arguments)) {
-					moon.History.pushBackHistory(this, this.backKeyHandler || moon.History.backKeyHandler);
+					moon.History.pushBackHistory(this, this.backKeyHandler);
 				}
 				return true;
 			};
 		}),
 
 		/**
-		* Abstract back key handler.
-		* Each control which mixins moon.History should implement this method.
+		* Handler for whenever a "back" action is triggered. The default behavior is to hide the
+		* control if it is showing.
 		*
-		* Note. sup.apply(this, arguments) will return 'undefined' if you do not mark
-		* any return value for your custom pushBackHistory.
-		* If you do not like to execute following method, you should return true like
+		* Most controls will want to override this behavior. If the default behavior should not be
+		* executed, ensure that the `backKeyHandler` method in the control signifies it has handled
+		* the necessary behavior by returning `true`.
 		*
-		* @private
+		* @method
+		* @public
 		*/
 		backKeyHandler: enyo.inherit(function (sup) {
 			return function() {
 				if (!sup.apply(this, arguments)) {
-					// nothing to do at this point, but for further requirmets
-					// we remain extensible code here.
+					if (this.showing) this.hide();
 				}
 				return true;
 			};
 		})
 	};
 
+	/**
+	* The `moon.History` singleton provides an abstract way of handling historical state in an app,
+	* working in tandem with the native window.history mechanism. The current implementation has
+	* built-in support for handling "back" actions.
+	*
+	* @name moon.History
+	* @public
+	*/
 	enyo.singleton({
+
 		/**
 		* @private
 		*/
 		name: 'moon.History',
 
 		/**
-		* Target object of back key.
-		* It is also the last object which history.pushState() is executed.
-		* When we press back key or call history.back(), it is target object.
-		*
-		* @private
-		*/
-		_currentObj: null,
-
-		/**
-		* Stack of Back key target and handler
+		* The stack of "back" action targets and handlers.
 		*
 		* @private
 		*/
 		_backHistoryStack: [],
-
-		/**
-		* history.forward() and history.go() can fire popstate event
-		* as does history.back().
-		* However we should accept popstate event only came from history.back().
-		* When it is true, we will skip popstate event.
-		*
-		* @private
-		*/
-		_ignorePopState: false,
 
 		/**
 		* If pushstate() is called during popstate is in progress,
@@ -130,30 +119,15 @@
 		_pushBackQueue: [],
 
 		/**
-		* Flag for popstate event is bubbling
+		* Represents whether or not we handle "back" actions with respect to history. If the value
+		* of "disableBackHistoryAPI" in appinfo.json is set to `true`, this property will be set to
+		* `false`.
 		*
-		* @private
-		*/
-		_isPopStateInProgress: false,
-
-		/**
-		* If "disableBackHistoryAPI" in AppInfo.json is set to true, this property
-		* should be false
-		*
-		* @type {Bollean}
+		* @type {Boolean}
 		* @default true
 		* @public
 		*/
 		enableBackHistoryAPI: true,
-
-		published: {
-			/**
-			* Flag for back key handler progress
-			*
-			* @public
-			*/
-			isBackInProgress: false
-		},
 
 		/**
 		* @private
@@ -179,7 +153,7 @@
 				kind:       'enyo.LunaService',
 				service:    'luna://com.webos.applicationManager/',
 				method:     'getAppInfo',
-				subscribe: true,
+				subscribe:  true,
 				onComplete: '_getAppInfoHandler'
 			}
 		],
@@ -199,7 +173,7 @@
 		}),
 
 		/**
-		* When platform has PalmSystem, we need app ID to access AppInfo.json file
+		* When our platform is "PalmSystem", we need the appID to access the proper appinfo.json.
 		*
 		* @private
 		*/
@@ -211,7 +185,7 @@
 		},
 
 		/**
-		* After LunaService returns appId, we can get more app info.
+		* After LunaService returns the appId, we can retrieve the necessary app information.
 		*
 		* @private
 		*/
@@ -232,7 +206,7 @@
 		},
 
 		/**
-		* Through palmSystem, get properties from AppInfo.json
+		* Retrieve properties from appinfo.json.
 		*
 		* @private
 		*/
@@ -245,7 +219,7 @@
 		},
 
 		/**
-		* Set this.enableBackHistoryAPI from appInfo.disableBackHistoryAPI.
+		* Determine the appropriate value of `enableBackHistoryAPI` from the app information.
 		*
 		* @private
 		*/
@@ -256,8 +230,9 @@
 		},
 
 		/**
-		* Getter of private property.
+		* Retrieve the [control]{@link enyo.Control} for the current "back" action.
 		*
+		* @returns {Object} - The current control whose "back" actions we are handling.
 		* @public
 		*/
 		getCurrentObj: function() {
@@ -265,10 +240,10 @@
 		},
 
 		/**
-		* Set target object and handler of back key
+		* Sets the target object and handler for the current "back" action.
 		*
-		* @param {Object} ctx - current object for back key
-		* @param {function} fn - handler of back key
+		* @param {Object} ctx - The current control that the "back" action should be applied to.
+		* @param {Function} fn - Handler for the "back" action.
 		* @private
 		*/
 		_pushBackHistory: function(ctx, fn) {
@@ -281,11 +256,11 @@
 		},
 
 		/**
-		* Store back key request to history.
-		* If popstate is in progress, it delays until former work is done
+		* Store the "back" action request to our history. If we are currently handling a `popstate`
+		* event, we wait until the current event handling is complete.
 		*
-		* @param {Object} ctx - current object for back key
-		* @param {function} fn - handler of back key
+		* @param {Object} ctx - The current control that the "back" action should be applied to.
+		* @param {function} fn - Handler for the "back" action.
 		* @public
 		*/
 		pushBackHistory: function(ctx, fn) {
@@ -297,9 +272,9 @@
 		},
 
 		/**
-		* When we press back key of R/C, window.history should be back 1 step.
-		* With synchronizing window.history and _backHistoryStack
-		* we do not want to run back key handler.
+		* When we press the "back" key, `window.history` should be back 1 step. In synchronizing
+		* `window.history` and `_backHistoryStack`, we do not want to trigger the "back" key
+		* handler.
 		*
 		* @public
 		*/
@@ -312,13 +287,13 @@
 		},
 
 		/**
-		* this._currentObj has specified back key handler.
-		* When things are ready, run this handler.
+		* If our current control has a custom "back" key handler, we execute this handler at the
+		* appropriate time.
 		*
 		* @private
 		*/
 		_callBackKeyHandler: function() {
-			this.isBackInProgress = true;
+			this._handlingBackAction = true;
 			if (this._currentObj && this._handler) {
 				var fn = this._handler;
 				if (typeof fn == 'function') {
@@ -341,16 +316,16 @@
 				this._currentObj = this._handler = null;
 			}
 
-			this.isBackInProgress = false;
+			this._handlingBackAction = false;
 		},
 
 		/**
-		* Request of pushstate() is pushed into queue when popstate in handling.
-		* After handling is over, we can dequeue _pushBackQueue
+		* Any calls to `pushstate()` are pushed into a queue when the `popstate` event is currently
+		* being handled. After the event has been handled, we can dequeue `_pushBackQueue`.
 		*
-		* @privae
+		* @private
 		*/
-		_dePushBackQueue: function() {
+		_dequeuePushBack: function() {
 			var queue = this._pushBackQueue,
 				length = queue.length,
 				item;
@@ -361,21 +336,20 @@
 		},
 
 		/**
-		* There are 3 kinds of popstate event trigger.
-		* history.back(), forward() and go().
-		* However, moon.History only deal with history.back().
-		* If popstate event is triggered from other ways, we should ignore them.
+		* There are 3 kinds of `popstate` event triggers: `history.back()`, `history.forward()`, and
+		* `history.go()`. For our purposes, we only want {@link moon.History} to only handle
+		* `history.back()` and ignore the other triggers.
 		*
 		* @public
 		*/
 		popStateHandler: function() {
 			this._isPopStateInProgress = false;
-			// Todo: We cannot prevent popstate event triggerd from history.go() or history.forward()
+			// TODO: We cannot prevent popstate event triggerd from history.go() or history.forward()
 			// If user call those event directly, moonstone controls may have unexpected behavior.
-			var state = !this._currentObj ? "empty"
-						: (this._ignorePopState || scope.ignoreFirstPopupEvent) ? "silence"
-						: !this._currentObj.getShowing() ? "invisible"
-						: "active";
+			var state = !this._currentObj ? 'empty'
+						: (this._ignorePopState || scope.ignoreFirstPopupEvent) ? 'silence'
+						: !this._currentObj.getShowing() ? 'invisible'
+						: 'active';
 
 			switch (state) {
 			case 'empty':
@@ -400,8 +374,19 @@
 				break;
 			}
 
-			this._dePushBackQueue();
+			this._dequeuePushBack();
 			return;
+		},
+
+		/**
+		* Determines whether or not we are currently handling a "back" action.
+		*
+		* @returns {Boolean} Is `true` if we are currently handling a "back" action, and `false`
+		*	otherwise.
+		* @public
+		*/
+		isHandlingBackAction: function () {
+			return this._handlingBackAction;
 		},
 
 		/**

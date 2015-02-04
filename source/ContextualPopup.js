@@ -551,8 +551,8 @@
 
 			if (this.allowBackKey) {
 				if (this.showing) {
-					this.doPushBackHistory();
-				} else if(!this.showing && !moon.History.getIsBackInProgress()) {
+					this.pushBackHistory();
+				} else if(!this.showing && !moon.History.isHandlingBackAction()) {
 					moon.History.ignorePopState();
 				}
 			}

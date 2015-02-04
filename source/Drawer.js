@@ -227,7 +227,7 @@
 				this.$.client.spotlightDisabled = false;
 				enyo.Spotlight.spot(this.$.client);
 				if (this.allowBackKey) {
-					this.doPushBackHistory();
+					this.pushBackHistory();
 				}
 			} else {
 				this.$.client.spotlightDisabled = true;
@@ -247,7 +247,7 @@
 				this.$.controlDrawer.spotlightDisabled = false;
 				enyo.Spotlight.spot(this.$.controlDrawer);
 				if (this.allowBackKey) {
-					this.doPushBackHistory();
+					this.pushBackHistory();
 				}
 			} else {
 				if (this.$.client.getOpen()) {

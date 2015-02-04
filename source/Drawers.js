@@ -256,7 +256,7 @@
 			this.updateActivator(true);
 			enyo.dispatcher.capture(this.$.handleContainer, this.eventsToCapture, this);
 			if (this.allowBackKey) {
-				this.doPushBackHistory();
+				this.pushBackHistory();
 			}
 		},
 

@@ -1306,7 +1306,7 @@
 				// Kick off any marquees in the video info header
 				this.$.videoInfoHeaderClient.waterfallDown('onRequestStartMarquee');
 				if (this.allowBackKey) {
-					this.doPushBackHistory();
+					this.pushBackHistory();
 				}
 			}
 		},
