@@ -125,7 +125,7 @@
 			* The source of the image used for branding in the lower left region of the Panels
 			* (only applies to Panels using the `'activity'` pattern).
 			*
-			* @type {String}
+			* @type {String|moon.ri.selectSrc~src}
 			* @default ''
 			* @public
 			*/
@@ -174,7 +174,7 @@
 			{name: 'backgroundScrim', kind: 'enyo.Control', classes: 'moon-panels-background-scrim'},
 			{name: 'clientWrapper', kind: 'enyo.Control', classes: 'enyo-fill enyo-arranger moon-panels-client', components: [
 				{name: 'scrim', classes: 'moon-panels-panel-scrim', components: [
-					{name: 'branding', kind: 'enyo.Image', sizing: 'contain', classes: 'moon-panels-branding'}
+					{name: 'branding', kind: 'moon.ImageMultiRes', sizing: 'contain', classes: 'moon-panels-branding'}
 				]},
 				{name: 'client', tag: null}
 			]},
@@ -236,6 +236,13 @@
 		* @private
 		*/
 		isModifyingPanels: false,
+
+		/**
+		* Flag to indicate if the Panels are currently transitioning to a new index
+		*
+		* @private
+		*/
+		transitioning: false,
 
 		/**
 		* Checks the state of panel transitions.
@@ -424,6 +431,7 @@
 		create: enyo.inherit(function (sup) {
 			return function () {
 				sup.apply(this, arguments);
+				this.set('animate', this.animate && moon.config.accelerate, true);
 
 				// we need to ensure our handler has the opportunity to modify the flow during
 				// initialization
@@ -1190,6 +1198,13 @@
 		/**
 		* @private
 		*/
+		animateChanged: function () {
+			this.addRemoveClass('moon-composite', this.animate);
+		},
+
+		/**
+		* @private
+		*/
 		backKeyHandler: function () {
 			if (this.panelStack.length) {
 				this.setIndex(this.panelStack.pop(), true);
@@ -1208,6 +1223,7 @@
 				this.panelStack = null;
 			}
 		}
+
 	});
 
 	/**

@@ -115,10 +115,15 @@
 
 			/**
 			* URL(s) of background image(s).
-			* This may be a string referring a single background image, or an array of
-			* strings referring to multiple background images.
+			* This may be a string referring a single background image, or an array of strings
+			* referring to multiple background images. To support multiple background-images at
+			* multiple resolutions, this property can accept several formats:
+			* 1) A string src,
+			* 2) An array of string srcs,
+			* 3) A [MultiRes Hash]{@link moon.ri.selectSrc~src}
+			* 4) An array of [MultiRes Hashs]{@link moon.ri.selectSrc~src}
 			*
-			* @type {(String|String[])}
+			* @type {(String|String[]|moon.ri.selectSrc~src|moon.ri.selectSrc~src[])}
 			* @default null
 			* @public
 			*/
@@ -347,9 +352,9 @@
 		*/
 		backgroundSrcChanged: function () {
 			var bgs = (enyo.isArray(this.backgroundSrc)) ? this.backgroundSrc : [this.backgroundSrc];
-			bgs = enyo.map(bgs, function (inBackgroundSource) {
-					return inBackgroundSource ? 'url(' + inBackgroundSource + ')' : null;
-				});
+			bgs = enyo.map(bgs, this.bindSafely(function (inBackgroundSource) {
+					return inBackgroundSource ? 'url(' + moon.ri.selectSrc(inBackgroundSource) + ')' : null;
+				}));
 			this.applyStyle('background-image', (bgs.length) ? bgs.join(', ') : null);
 		},
 
@@ -467,7 +472,7 @@
 					100: [{
 						control: this,
 						properties: {
-							'height': '260px'
+							'height': enyo.dom.unit(moon.ri.scale(260), 'rem')
 						}
 					}, {
 						control: this.$.titleWrapper,
@@ -589,6 +594,7 @@
 			this.addRemoveClass('moon-medium-header', this.get('type') == 'medium');
 			this.addRemoveClass('moon-small-header', this.get('type') == 'small');
 			this.contentChanged();
+			if (this.generated) this.adjustTitleWidth();
 		},
 
 		/**
@@ -606,7 +612,7 @@
 				// Measure client area's width + 40px of spacing
 				client = this.$.client ? this.$.client.hasNode() : null,
 				clientWidth = client ? client.offsetWidth : null,
-				clientSpace = (clientWidth + 40) + 'px',
+				clientSpace = enyo.dom.unit(clientWidth + moon.ri.scale(36), 'rem'),
 				rtl = this.rtl;
 
 			if (client) {

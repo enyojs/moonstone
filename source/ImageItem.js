@@ -1,7 +1,7 @@
 (function (enyo, scope) {
 	/**
 	* {@link moon.ImageItem}, which derives from {@link moon.Item}, is a control that
-	* combines an {@link enyo.Image} with a {@link moon.LabeledTextItem}. By default,
+	* combines an {@link moon.ImageMultiRes} with a {@link moon.LabeledTextItem}. By default,
 	* the image is displayed to the left of the text; to display the image on the right,
 	* set [imageAlignRight]{@link moon.ImageItem#imageAlignRight} to `true`.
 	*
@@ -33,7 +33,7 @@
 		* @private
 		*/
 		components:[
-			{name: 'image', kind: 'enyo.Image'},
+			{name: 'image', kind: 'moon.ImageMultiRes'},
 			{name: 'textItem', kind: 'moon.LabeledTextItem', spotlight: false}
 		],
 
@@ -46,7 +46,7 @@
 			/**
 			* The absolute URL path to the image.
 			*
-			* @type {String}
+			* @type {String|moon.ri.selectSrc~src}
 			* @default ''
 			* @public
 			*/

@@ -156,7 +156,7 @@
 			/**
 			* URL specifying path to icon image.
 			*
-			* @type {String}
+			* @type {String|moon.ri.selectSrc~src}
 			* @default ''
 			* @public
 			*/
@@ -247,9 +247,10 @@
 		*/
 		srcChanged: function () {
 			var src = this.src || null;
+			src = moon.ri.selectSrc(src);
 			if (src) {
 				if (src != 'none' && src != 'inherit' && src != 'initial') {
-					src = 'url(' + enyo.path.rewrite(this.src) + ')';
+					src = 'url(' + enyo.path.rewrite(src) + ')';
 				}
 			}
 			this.applyStyle('background-image', src);

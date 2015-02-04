@@ -1,7 +1,7 @@
 language: node_js
 node_js:
   - "0.10"
-install: 
+install:
   npm -g install jshint &&
   echo -e "\x1b\x5b35;1m*** Checking out Enyo\x1b\x5b0m" &&
   cd .. &&
@@ -16,7 +16,7 @@ script:
   cd css &&
   mv moonstone-dark.css moonstone-dark.css.fromgit &&
   mv moonstone-light.css moonstone-light.css.fromgit &&
-  ../../../enyo/tools/lessc.sh -enyo ../../../enyo/enyo.js all-package.js &&
+  ../../../enyo/tools/lessc.sh --ri --enyo ../../../enyo/enyo.js all-package.js &&
   echo -e "\x1b\x5b35;1m*** Comparing generated CSS to last checked in version\x1b\x5b0m" &&
   diff moonstone-dark.css moonstone-dark.css.fromgit &&
   diff moonstone-light.css moonstone-light.css.fromgit &&

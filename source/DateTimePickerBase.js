@@ -173,7 +173,6 @@
 			};
 
 			fmtParams.locale = this.locale;
-			ilib.setLocale(this.locale);
 			this.iLibLocale = ilib.getLocale();
 			this._tf = new ilib.DateFmt(fmtParams);
 		},

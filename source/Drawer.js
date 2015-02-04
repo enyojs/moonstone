@@ -394,7 +394,7 @@
 		resizeDrawer: function (inSender, inProps) {
 			this.drawerProps = inProps;
 			if ((this.open) && (!this.$.animator.isAnimating())) {
-				this.applyStyle('height', inProps.height + 'px');
+				this.applyStyle('height', enyo.dom.unit(inProps.height, 'rem'));
 			}
 			return true;
 		},
@@ -403,7 +403,7 @@
 		* @private
 		*/
 		drawerPropsChanged: function (){
-			this.$.client.applyStyle('height', this.drawerProps.height + 'px');
+			this.$.client.applyStyle('height', enyo.dom.unit(this.drawerProps.height, 'rem'));
 			this.$.client.resize();
 			this.$.client.setShowing(this.open);
 		}
