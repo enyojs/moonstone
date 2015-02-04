@@ -586,14 +586,6 @@
 		destroy: function() {
 			this.showHideScrim(false);
 			this.inherited(arguments);
-		},
-
-		/**
-		* @private
-		*/
-		backKeyHandler: function () {
-			this.hide();
-			return true;
 		}
 	});
 

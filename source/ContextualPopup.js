@@ -563,14 +563,6 @@
 		*/
 		directionChanged: function () {
 			this.alterDirection();
-		},
-
-		/**
-		* @private
-		*/
-		backKeyHandler: function () {
-			this.hide();
-			return true;
 		}
 	});
 

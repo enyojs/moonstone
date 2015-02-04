@@ -171,15 +171,15 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.$.list.set("collection", new enyo.Collection([
-			{name: "Kimchi"},
-			{name: "Bulgogi"},
-			{name: "Soju"},
-			{name: "Han-bok"}
+			{name: "Red"},
+			{name: "White"},
+			{name: "Blue"},
+			{name: "Black"}
 		]));
 		this.$.repeater.set("collection", new enyo.Collection([
-			{name: "David"},
-			{name: "Jessi"},
-			{name: "Suvin"}
+			{name: "Santa Clara"},
+			{name: "San Francisco"},
+			{name: "Seoul"}
 		]));
 	},
 	rendered: function() {
