@@ -157,7 +157,7 @@
 			{name: 'backgroundScrim', kind: 'enyo.Control', classes: 'moon-panels-background-scrim'},
 			{name: 'clientWrapper', kind: 'enyo.Control', classes: 'enyo-fill enyo-arranger moon-panels-client', components: [
 				{name: 'scrim', classes: 'moon-panels-panel-scrim', components: [
-					{name: 'branding', kind: 'moon.ImageMultiRes', sizing: 'contain', classes: 'moon-panels-branding'}
+					{name: 'branding', kind: 'enyo.Image', sizing: 'contain', classes: 'moon-panels-branding'}
 				]},
 				{name: 'client', tag: null}
 			]},
