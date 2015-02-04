@@ -31,23 +31,42 @@
 		},
 
 		/**
-		* @private
+		* Hanlder for back key input.
+		* To use custom behavior for back key, you can modify this handler.
+		*
+		* @public
 		*/
 		handlers: {
-			/**
-			* Hanlder for back key input.
-			* To use custom behavior for back key, you can modify this handler.
-			*/
 			onPushBackHistory: 'pushBackHistory'
 		},
 
 		/**
+		* When you use mixins, it will override existed properties even method too.
+		* So, if a control which use moon.HistorySupport has pushBackHistory(),
+		* it will be replaced with followed method because its has same name.
+		* To make a contorl have own pushBackHistory(), we should not override it.
+		*
+		* Note. sup.apply(this, arguments) will return 'undefined' if you do not mark
+		* any return value for your custom pushBackHistory.
+		* If you do not like to execute following method, you should return true like
+		* ```
+		* pushBackHistory: function() {
+		*	```
+		*	return true;
+		* }
+		* ```
+		*
 		* @private
 		*/
-		pushBackHistory: function () {
-			moon.History.pushBackHistory(this, this.backKeyHandler || moon.History.backKeyHandler);
-			return true;
-		}
+		pushBackHistory: enyo.inherit(function (sup) {
+			return function() {
+			// check whether this control has own pushBackHistroy method or hasn't
+				if (!sup.apply(this, arguments)) {
+					moon.History.pushBackHistory(this, this.backKeyHandler || moon.History.backKeyHandler);
+				}
+				return true;
+			};
+		})
 	};
 
 	enyo.singleton({
