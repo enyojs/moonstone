@@ -1,6 +1,6 @@
 enyo.kind({
 	name: 'moon.sample.ImageSample',
-	classes: 'image-sample',
+	classes: 'moon enyo-unselectable enyo-fit image-sample',
 	components: [
 		{kind: 'moon.Divider', content: 'Image'},
 		{kind: 'moon.Image', src: 'http://lorempixel.com/64/64/city/1/', alt: 'HD'},
