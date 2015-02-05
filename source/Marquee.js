@@ -1,4 +1,15 @@
 (function (enyo, scope) {
+
+	var _marqueeOnHoverControl = null;
+
+	this._setMarqueeOnHoverControl = function(oControl) {
+		_marqueeOnHoverControl = oControl;
+	};
+
+	this._getMarqueeOnHoverControl = function() {
+		return _marqueeOnHoverControl;
+	};
+
 	/**
 	* Fires to queue up a list of child animations.
 	*
@@ -234,8 +245,8 @@
 		*/
 		destroy: enyo.inherit(function (sup) {
 			return function () {
-				if (moon.Marquee.getMarqueeOnHoverControl()) 
-					moon.Marquee.setMarqueeOnHoverControl(null);
+				if (_getMarqueeOnHoverControl()) 
+					_setMarqueeOnHoverControl(null);
 				sup.apply(this, arguments);
 			};
 		}),
@@ -309,7 +320,7 @@
 			if ((this.marqueeOnHover && !this.marqueeOnSpotlight) ||
 			(this.disabled && this.marqueeOnSpotlight)) {
 				if (this.marqueeOnHover) {
-					moon.Marquee.setMarqueeOnHoverControl(this);
+					_setMarqueeOnHoverControl(this);
 				}
 				this.startMarquee();
 			}
@@ -322,7 +333,7 @@
 			this._marquee_isHovered = false;
 			if ((this.marqueeOnHover && !this.marqueeOnSpotlight) || (this.disabled && this.marqueeOnSpotlight)) {
 				if (this.marqueeOnHover) {
-					moon.Marquee.setMarqueeOnHoverControl(null);
+					_setMarqueeOnHoverControl(null);
 				}
 				this.stopMarquee();
 			}
@@ -1131,23 +1142,11 @@
 		style: 'overflow: hidden;'
 	});
 
-	moon.Marquee = new function() {
-		var _marqueeOnHoverControl = null;
-
-		this.setMarqueeOnHoverControl = function(oControl) {
-			_marqueeOnHoverControl = oControl;
-		};
-
-		this.getMarqueeOnHoverControl = function() {
-			return _marqueeOnHoverControl;
-		};
-	};
-
 	enyo.dispatcher.features.push(
 		function (e) {
 			if ("blur" === e.type && window === e.target) {
 				// Stop marquee when onblur event comes from window
-				var c = moon.Marquee.getMarqueeOnHoverControl();
+				var c = _getMarqueeOnHoverControl();
 				if (c) c._marquee_leave();
 			}
 		}
