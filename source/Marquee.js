@@ -234,7 +234,8 @@
 		*/
 		destroy: enyo.inherit(function (sup) {
 			return function () {
-				moon.Marquee.setMarqueeOnHoverControl(null);
+				if (moon.Marquee.getMarqueeOnHoverControl()) 
+					moon.Marquee.setMarqueeOnHoverControl(null);
 				sup.apply(this, arguments);
 			};
 		}),
@@ -1130,21 +1131,17 @@
 		style: 'overflow: hidden;'
 	});
 
+	moon.Marquee = new function() {
+		var _marqueeOnHoverControl = null;
 
-	enyo.singleton({
-		name: 'moon.Marquee',
+		this.setMarqueeOnHoverControl = function(oControl) {
+			_marqueeOnHoverControl = oControl;
+		};
 
-		_marqueeOnHoverControl: null,
-
-		setMarqueeOnHoverControl: function(oControl) {
-			this._marqueeOnHoverControl = oControl;
-		},
-
-		getMarqueeOnHoverControl: function() {
-			return this._marqueeOnHoverControl;
-		}
-	});
-
+		this.getMarqueeOnHoverControl = function() {
+			return _marqueeOnHoverControl;
+		};
+	};
 
 	enyo.dispatcher.features.push(
 		function (e) {
