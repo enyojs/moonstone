@@ -500,17 +500,12 @@
 			var hour = this.$.hour.get('value');
 			var minute = this.$.minute.get('value');
 			var second = this.$.second.get('value');
-			switch(inEvent.name){
-				case 'hour':
-					if(this.valueArray['hour'] == hour)
-						return;
-				case 'minute':
-					if(this.valueArray['minute'] == minute)
-						return;
-				case 'second':
-					if(this.valueArray['second'] == second){
-						return;
-				 }
+			if(inEvent.name == 'second' && this.valueArray['second'] == second) {
+				return;
+			} else if (inEvent.name == 'minute' && this.valueArray['minute'] == minute) {
+				return;
+			} else if(inEvent.name == 'hour' && this.valueArray['hour'] == hour) {
+				return;
 			}
 			this.setValue(hour + ':' + minute + ':' + second);
 			if (this.countdown && !this.timer) {
