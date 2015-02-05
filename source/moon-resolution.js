@@ -71,6 +71,7 @@
 			type = type || screenType;
 			if (type) {
 				enyo.dom.addBodyClass('moon-res-' + type.toLowerCase());
+				enyo.dom.addBodyClass('enyo-res-' + type.toLowerCase());
 				var scrObj = getScreenTypeObject(type);
 				if (scrObj.aspectRatioName) {
 					enyo.dom.addBodyClass('enyo-aspect-ratio-' + scrObj.aspectRatioName.toLowerCase());
