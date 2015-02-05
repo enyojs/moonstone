@@ -1,12 +1,12 @@
 (function (enyo, scope) {
 
-	var _marqueeOnHoverControl = null;
+	var _marqueeOnHoverControl = null,
 
-	this._setMarqueeOnHoverControl = function(oControl) {
+	_setMarqueeOnHoverControl = function(oControl) {
 		_marqueeOnHoverControl = oControl;
-	};
+	},
 
-	this._getMarqueeOnHoverControl = function() {
+	_getMarqueeOnHoverControl = function() {
 		return _marqueeOnHoverControl;
 	};
 
