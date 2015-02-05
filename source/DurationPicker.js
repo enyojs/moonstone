@@ -148,7 +148,7 @@
 		* @private
 		*/
 		noneTextChanged: function () {
-			if(this.value == null || this.value == '') {
+			if(this.value == null || this.value === '') {
 				this.resetPicker();
 				this.$.currentValue.set('content', moon.$L(this.getNoneText()) || moon.$L('Pick Duration'));
 			} else {
@@ -320,7 +320,7 @@
 		initDefault: function () {
 			this.templateChanged();
 			this.noneTextChanged();
-			if(this.value != '') {
+			if(this.value !== '') {
 				this.countdownChanged();
 			}
 		},
@@ -404,8 +404,8 @@
 		*/
 		createValueArray: function(){
 			var tempValue;
-			if(this.value != null && this.value != ''){
-				timeArray = this.value.toString().split(':');
+			if(this.value != null && this.value !== ''){
+				var timeArray = this.value.toString().split(':');
 				if(this.$.hourPicker.get('showing') || (!this.$.hourPicker.get('showing') && timeArray.length > 2)) {
 					tempValue = timeArray.shift();
 					if(isNaN(tempValue) || tempValue > 23 || tempValue < 0) {
@@ -478,7 +478,7 @@
 				this.doCountdownExpired({name:this.name});
 				return;
 			} else {
-				if (ss == 0 ) {
+				if (ss === 0 ) {
 					if (mn > 0 ) {
 						mn--;
 					} else {
@@ -504,15 +504,12 @@
 				case 'hour':
 					if(this.valueArray['hour'] == hour)
 						return;
-					break;
 				case 'minute':
 					if(this.valueArray['minute'] == minute)
 						return;
-					break;
 				case 'second':
 					if(this.valueArray['second'] == second){
 						return;
-					break;
 				 }
 			}
 			this.setValue(hour + ':' + minute + ':' + second);
