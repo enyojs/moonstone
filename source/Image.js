@@ -1,12 +1,12 @@
 (function (enyo, scope) {
 	/**
-	* {@link moon.Image} is a simple control that wraps an {@link moon.ImageMultiRes} to
-	* provide proper alignment with text-based controls.
+	* {@link moon.Image} is a simple control that wraps an {@link enyo.Image} to provide proper
+	* alignment with text-based controls.
 	*
-	* In addition, `moon.Image` accepts optional {@link moon.ImageBadge} client
-	* components (ImageBadge being the default kind of Image), which are placed inside
-	* a container positioned over the image.  These badges are normally persistent,
-	* but may be shown or hidden based on {@glossary Spotlight} focus, using the
+	* In addition, `moon.Image` accepts optional {@link moon.ImageBadge} client components
+	* (ImageBadge being the default kind of Image), which are placed inside a container positioned
+	* over the image.  These badges are normally persistent, but may be shown or hidden based on
+	* {@glossary Spotlight} focus, using the
 	* [showBadgesOnSpotlight]{@link moon.Image#showBadgesOnSpotlight} property.
 	*
 	* ```
@@ -105,7 +105,7 @@
 		* @private
 		*/
 		components: [
-			{name: 'image', kind: 'moon.ImageMultiRes'},
+			{name: 'image', kind: 'enyo.Image'},
 			{name: 'client', kind: 'enyo.Control', canGenerate: false, classes: 'moon-image-client'}
 		],
 

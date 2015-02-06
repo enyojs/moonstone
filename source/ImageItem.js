@@ -1,9 +1,9 @@
 (function (enyo, scope) {
 	/**
-	* {@link moon.ImageItem}, which derives from {@link moon.Item}, is a control that
-	* combines an {@link moon.ImageMultiRes} with a {@link moon.LabeledTextItem}. By default,
-	* the image is displayed to the left of the text; to display the image on the right,
-	* set [imageAlignRight]{@link moon.ImageItem#imageAlignRight} to `true`.
+	* {@link moon.ImageItem}, which derives from {@link moon.Item}, is a control that combines an
+	* {@link enyo.Image} with a {@link moon.LabeledTextItem}. By default, the image is displayed to
+	* the left of the text; to display the image on the right, set
+	* [imageAlignRight]{@link moon.ImageItem#imageAlignRight} to `true`.
 	*
 	* @class moon.ImageItem
 	* @extends moon.Item
@@ -33,7 +33,7 @@
 		* @private
 		*/
 		components:[
-			{name: 'image', kind: 'moon.ImageMultiRes'},
+			{name: 'image', kind: 'enyo.Image'},
 			{name: 'textItem', kind: 'moon.LabeledTextItem', spotlight: false}
 		],
 

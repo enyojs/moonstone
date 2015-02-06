@@ -7,14 +7,14 @@ enyo.kind({
 	},
 	components: [
 		{kind: "moon.Divider", content: "Object Action: vertical Type Sample"},
-		{kind: "moon.Scroller", fit:true, components: [
-			{kind: "Repeater", count:20, classes:"moon-hspacing", onSetupItem:"setupItem", components: [
+		{kind: "moon.Scroller", fit: true, components: [
+			{kind: "Repeater", count: 20, classes: "moon-hspacing", onSetupItem: "setupItem", components: [
 				{
 					kind: "moon.ObjectActionDecorator",
 					orientation: "vertical",
 					components: [
 						{kind: "moon.Item", components: [
-							{name: 'image', kind: 'moon.ImageMultiRes'}
+							{name: "image", kind: "enyo.Image"}
 						]}
 					],
 					actionComponents: [
