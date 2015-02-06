@@ -62,7 +62,7 @@
 			* @default 'Everyday'
 			* @public
 			*/
-			everydayText: moon.$L('Monday'),
+			everydayText: moon.$L('Everyday'),
 
 			/**
 			* Text to be displayed when all of the weekday are selected.
