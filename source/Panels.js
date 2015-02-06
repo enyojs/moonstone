@@ -291,7 +291,7 @@
 			this.isModifyingPanels = true;
 
 			if (!options) { options = {}; }
-			var lastIndex = this.getPanels().length - 1,
+			var lastIndex = this.getPanels().length,
 				oPanels = this.createComponents(info, commonInfo),
 				nPanel;
 
@@ -301,10 +301,9 @@
 			this.reflow();
 			if (options.targetIndex || options.targetIndex === 0) {
 				lastIndex = options.targetIndex;
-			} else {
-				lastIndex++;
 			}
-			oPanels[lastIndex].show();
+			lastIndex = this.clamp(lastIndex);
+			this.getPanels()[lastIndex].show();
 			for (nPanel = 0; nPanel < oPanels.length; ++nPanel) {
 				oPanels[nPanel].resize();
 			}
