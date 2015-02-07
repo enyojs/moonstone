@@ -10,10 +10,13 @@
 	scope.moon.riScale                  = enyo.ri.scale;
 
 	// Define all supported screen types in order of smallest to largest
+	// Names based on  display resolutions: http://en.wikipedia.org/wiki/Graphics_display_resolution
+	// Aspect ratios from: http://en.wikipedia.org/wiki/Aspect_ratio_(image)
 	enyo.ri.defineScreenTypes([
-		{name: 'hd',    pxPerRem: 16, height: 720,  width: 1280},
-		{name: 'fhd',   pxPerRem: 24, height: 1080, width: 1920, base: true},
-		{name: 'uhd',   pxPerRem: 48, height: 2160, width: 3840}
+		{name: 'hd',      pxPerRem: 16, width: 1280, height: 720,  aspectRatioName: 'hdtv'},
+		{name: 'fhd',     pxPerRem: 24, width: 1920, height: 1080, aspectRatioName: 'hdtv', base: true},
+		{name: 'uw-uxga', pxPerRem: 24, width: 2560, height: 1080, aspectRatioName: 'cinema'},
+		{name: 'uhd',     pxPerRem: 48, width: 3840, height: 2160, aspectRatioName: 'hdtv'}
 	]);
 
 })(enyo, this);
