@@ -1,4 +1,50 @@
 (function (enyo, scope) {
+
+	/**
+	* @class moon.ExpandableListDrawer
+	* @extends enyo.Control
+	* @ui
+	* @public
+	*/
+	enyo.kind(
+		/** @lends moon.ExpandableListDrawer.prototype */ {
+
+		/**
+		* @private
+		*/
+		name: 'moon.ExpandableListDrawer',
+
+		/**
+		* @private
+		*/
+		kind: 'enyo.Drawer',
+
+		/**
+		* @private
+		*/
+		open: false,
+
+		/**
+		* @private
+		*/
+		openChanged: function () {
+			this._isOpening = true;
+			if (this.open && this.renderOnShow && !this.generated) this.show();
+			this.inherited(arguments);
+			this._isOpening = false;
+		},
+
+		/**
+		* Determines whether or not the drawer is in the process of opening.
+		*
+		* @returns {Boolean} If `true`, the drawer is currently opening, `false` otherwise.
+		* @public
+		*/
+		isOpening: function () {
+			return this._isOpening;
+		}
+	});
+
 	/**
 	* {@link moon.ExpandableListItem}, which extends {@link moon.Item}, displays a header
 	* while also allowing additional content to be stored in an {@link enyo.Drawer}. When
