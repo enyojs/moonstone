@@ -37,6 +37,8 @@ enyo.depends(
 	"DividerSample.js",
 	"DrawerSample.css",
 	"DrawerSample.js",
+	"DurationPickerSample.css",
+	"DurationPickerSample.js",
 	"DynamicPanelsSample.css",
 	"DynamicPanelsSample.js",
 	"ExpandableDataPickerSample.css",
