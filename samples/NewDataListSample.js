@@ -82,7 +82,7 @@
 			{
 				kind: 'moon.Panel', joinToPrev: true, title:'New Data List',
 				headerComponents: [
-					{kind: 'moon.Button', content:'Refresh', ontap:'refreshItems'},
+					{kind: 'moon.Button', content:'Refresh', ontap:'refreshItems'}
 				],
 				components: [
 				{
