@@ -1,32 +1,48 @@
 .selection-enabled {
 	.moon-selection-overlay-support {
 		&.selected {
-			.moon-selection-overlay-support-scrim {
-				display: block;
-				text-align: center;
-
+			.moon-selection-overlay-ghost {
+				color: @moon-accent;
+				>* {
+					display: block;
+				}
 				.moon-icon {
-					position: absolute;
-					width: @moon-icon-button-small-size;
-					height: @moon-icon-button-small-size;
-					line-height: @moon-icon-button-small-size;
-					font-size: @moon-icon-small-size * 2 + 9;
 					color: @moon-accent;
-					margin: -@moon-icon-button-small-size / 2 0 0 -@moon-icon-button-small-size / 2;
-					background-color: @moon-selection-overlay-bg-color;
-					border-radius: @moon-icon-button-small-size / 2;
-					background-position: center @moon-button-border-width;
+					line-height: @moon-icon-button-small-size + @moon-button-border-width;
+					font-size: @moon-icon-small-size * 2 + 9;
 				}
 			}
+		}
+	}
+	.moon-selection-overlay-ghost {
+		display: block;
+	  	width: @moon-icon-button-small-size;
+		height: @moon-icon-button-small-size;
+		border: @moon-button-border-width solid;
+		color: rgba(0,0,0,0.45);
+		background-color: rgba(255,255,255,0.4);
+		margin: -@moon-icon-button-small-size / 2 0 0 -@moon-icon-button-small-size / 2;
+		border-radius: 50%;
+		position: absolute;
+		>* {
+			width: @moon-icon-button-small-size;
+			height: @moon-icon-button-small-size;
+			display: none;
+			background-size: cover;
+			background-color: @moon-selection-overlay-bg-color;
+			border-radius: @moon-icon-button-small-size / 2;
+			background-position: center center;
+			margin: 0;
 		}
 	}
 }
 
 .moon-selection-overlay-support-scrim {
-	display: none;
+	display: block;
 	z-index: 1000;
+	text-align: center;
 }
 
-.enyo-locale-right-to-left .moon-selection-overlay-support.selected .moon-selection-overlay-support-scrim .moon-icon {
-	margin: -@moon-icon-button-small-size / 2 -@moon-icon-button-small-size / 2 0 0;
+.moon-selection-overlay-ghost {
+	display: none;
 }

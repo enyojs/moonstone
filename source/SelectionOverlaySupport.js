@@ -101,7 +101,7 @@
 				this.selectionOverlayVerticalOffsetChanged();
 				// Allow the icon to be modified by user
 				if (this.selectionScrimIcon) {
-					this.$.selectionScrimIcon.removeClass('moon-icon-' + this.$.selectionScrimIcon.icon);
+					this.$.selectionScrimIcon.set('icon','');
 				}
 			};
 		}),
@@ -118,7 +118,9 @@
 		*/
 		_selectionScrim: [
 			{classes: 'enyo-fit moon-selection-overlay-support-scrim', components: [
-				{name:'selectionScrimIcon', kind: 'moon.Icon', small: false, icon: "check", spotlight: false}
+				{name:'selectionGhost', classes:"moon-selection-overlay-ghost", components:[
+					{name:'selectionScrimIcon', kind: 'moon.Icon', small: false, icon: "check", spotlight: false}
+				]}
 			]}
 		],
 
@@ -126,14 +128,14 @@
 		* @private
 		*/
 		selectionOverlayVerticalOffsetChanged: function () {
-			this.$.selectionScrimIcon.applyStyle('top', this.selectionOverlayVerticalOffset + '%');
+			this.$.selectionGhost.applyStyle('top', this.selectionOverlayVerticalOffset + '%');
 		},
 
 		/**
 		* @private
 		*/
 		selectionOverlayHorizontalOffsetChanged: function () {
-			this.$.selectionScrimIcon.applyStyle((this.rtl ? 'right' : 'left'), this.selectionOverlayHorizontalOffset + '%');
+			this.$.selectionGhost.applyStyle((this.rtl ? 'right' : 'left'), this.selectionOverlayHorizontalOffset + '%');
 		}
 	};
 
