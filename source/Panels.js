@@ -768,8 +768,12 @@
 		* @private
 		*/
 		shouldAnimate: function () {
-			this._willMove = this._willMove || (this._willMove == null && (this.shouldArrange() && this.animate));
-			return this._willMove;
+			if (this._willMove == null) {
+				return (this._willMove = this.animate && this.shouldArrange());
+			}
+			else {
+				return this._willMove;
+			}
 		},
 
 		/**
