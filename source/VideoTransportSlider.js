@@ -646,10 +646,12 @@
 		* @private
 		*/
 		setValue: function(val) {
-			if(Math.abs(this.calcVariationPercent(val)) > this.smallVariation) {
+			var v = this.clampValue(this.min, this.max, val);
+			this.currentTime = v;
+			if(Math.abs(this.calcVariationPercent(v)) > this.smallVariation) {
 				this.inherited(arguments);
 			} else {
-				this._setValue(val);
+				this._setValue(v);
 			}
 		},
 
