@@ -2,28 +2,29 @@
 	/**
 	* Fires when the value changes.
 	*
-	* @event moon.DurationPickerBase#onChange
+	* @event moon.DurationPicker#onChange
 	* @type {Object}
 	* @property {String} name - contains the name of this control.
 	* @public
 	*/
 
 	/**
-	* `moon.DurationPickerBase` is a base kind implementing fuctionality
-	* not intended to be used directly by  {@link moon.DurationPicker}
+	* `moon.DurationPicker` is a [control]{@link enyo.Control} that can display -- or allow the
+	* selection of -- a duration expressed in hours, minutes and seconds, the selection
+	* display is configurable using template.
 	*
-	* @class moon.DurationPickerBase
-	* @extends moon.ExpandableListItem
-	* @protected
+	* @class moon.DurationPicker
+	* @ui
+	* @public
 	*/
 
 	enyo.kind(
-		/** @lends moon.DurationPickerBase.prototype */ {
+		/** @lends moon.DurationPicker.prototype */ {
 
 		/**
 		* @private
 		*/
-		name: 'moon.DurationPickerBase',
+		name: 'moon.DurationPicker',
 
 		/**
 		* @private
@@ -48,9 +49,21 @@
 			onChange: 'handleChangeEvent'
 		},
 
+		events: {
+			/**
+			* {@link moon.DurationPicker#event:onDurationChange}
+			*/
+			onDurationChange: '',
+
+			/**
+			* {@link moon.DurationPicker#event:onCountdownExpired}
+			*/
+			onCountdownExpired: ''
+		},
+
 		/**
-		* @private
-		* @lends moon.DurationPickerBase.prototype
+		* @public
+		* @lends moon.DurationPicker.prototype
 		*/
 		published: {
 
@@ -71,179 +84,7 @@
 			* @default null
 			* @public
 			*/
-			value: null
-		},
-
-		/**
-		* @private
-		*/
-		components: [
-			{name: 'headerWrapper', kind: 'moon.Item', classes: 'moon-date-picker-header-wrapper', onSpotlightFocus: 'headerFocus', ontap: 'expandContract', components: [
-				// headerContainer required to avoid bad scrollWidth returned in RTL for certain text widths (webkit bug)
-				{name: 'headerContainer', classes: 'moon-expandable-list-item-header moon-expandable-picker-header moon-expandable-datetime-header', components: [
-					{name: 'header', kind: 'moon.MarqueeText'}
-				]},
-				{name: 'currentValue', kind: 'moon.MarqueeText', classes: 'moon-expandable-picker-current-value'}
-			]},
-			{name: 'drawer', kind: 'enyo.Drawer', resizeContainer: false, classes: 'moon-expandable-list-item-client indented', components: [
-				{name: 'client', kind: 'enyo.Control', classes: 'enyo-tool-decorator moon-date-picker-client', onSpotlightLeft: 'closePicker', onSpotlightSelect: 'closePicker'}
-			]}
-		],
-
-		/**
-		* @private
-		*/
-		bindings: [
-			{from: '.disabled', to: '.$.headerWrapper.disabled'}
-		],
-
-		/**
-		* @private
-		*/
-		create: function () {
-			this.inherited(arguments);
-			this.initDefaults();
-		},
-
-		/**
-		* @private
-		*/
-		initDefaults: function () {
-			this.setupPickers();
-		},
-
-		/**
-		* @private
-		*/
-		setupPickers: function () {
-			// implement in subkind, calling this.inherited() at the end
-			this.pickers = this.getClientControls();
-		},
-
-		/**
-		* @private
-		*/
-		handleChangeEvent: function (sender, ev) {
-			if (ev && ev.originator === this) {
-				// Don't handle our own change events
-				return;
-			} else {
-				this.updateValue(sender, ev);
-				return true;
-			}
-		},
-
-		/**
-		* @private
-		*/
-		updateValue: function (sender, ev) {
-			// implement in subkind
-		 },
-
-		/**
-		* If no item is selected, uses [`noneText`]{@link moon.DurationPickerBase#noneText}
-		* as current value and if nonoText value is not provided, use 'Pick Duration'
-		* as default.
-		*
-		* @private
-		*/
-		noneTextChanged: function () {
-			if(this.value == null || this.value === '') {
-				this.resetPicker();
-				this.$.currentValue.set('content', moon.$L(this.getNoneText()) || moon.$L('Pick Duration'));
-			} else {
-				this.createValueArray();
-				this.updatePicker();
-				this.$.currentValue.set('content', this.formatValue());
-			}
-		},
-
-		/**
-		* @fires moon.DurationePickerBase#onChange
-		* @private
-		*/
-		valueChanged: function(){
-			 	this.noneTextChanged();
-		},
-
-		/**
-		* @private
-		*/
-		formatValue: function () {
-			// implement in subkind
-		},
-
-		/**
-		* @private
-		*/
-		toggleActive: function () {
-			if (this.get('open')) {
-				this.set('active', false);
-				if (!enyo.Spotlight.getPointerMode()) {
-					enyo.Spotlight.spot(this.$.headerWrapper);
-				}
-			} else {
-				this.set('active', true);
-			}
-		},
-
-		/**
-		* @private
-		*/
-		closePicker: function (sender, ev) {
-			/**
-			* If select/enter is pressed on any date picker item or the left key is pressed on the
-			* first item, close the drawer
-			*/
-			if (ev.type == 'onSpotlightSelect' ||
-				this.$.client.children[0].id == ev.originator.id) {
-				this.expandContract();
-				return true;
-			}
-		}
-	});
-
-	/**
-	* `moon.DurationPicker` is a [control]{@link enyo.Control} that can display -- or allow the
-	* selection of -- a duration expressed in hours, minutes and seconds, the selection
-	* display is configurable using template.
-	*
-
-	* @class moon.DurationPicker
-	* @extends moon.DurationPickerBase
-	* @ui
-	* @public
-	*/
-	enyo.kind(
-		/** @lends moon.DurationPicker.prototype */ {
-
-		/**
-		* @private
-		*/
-		name: 'moon.DurationPicker',
-
-		/**
-		* @private
-		*/
-		kind: 'moon.DurationPickerBase',
-
-		events: {
-			/**
-			* {@link moon.DurationPicker#event:onDurationChange}
-			*/
-			onDurationChange: '',
-
-			/**
-			* {@link moon.DurationPicker#event:onCountdownExpired}
-			*/
-			onCountdownExpired: ''
-		},
-
-		/**
-		* @private
-		* @lends moon.DurationPicker.prototype
-		*/
-		published: {
+			value: null,
 
 			/**
 			* Optional label for hour
@@ -270,7 +111,7 @@
 			* @default moon.$L('second')
 			* @public
 			*/
-			secondText: moon.$L('second'),	// i18n 'SECOND' label in moon.DurationPicker widget
+			secondText: moon.$L('second'),		// i18n 'SECOND' label in moon.DurationPicker widget
 
 			/**
 			* @type {Boolean}
@@ -300,10 +141,44 @@
 		* @private
 		*/
 
-		valueArray: {
-			'hour': 0,
-			'minute': 0,
-			'second': 0
+		valueArray: {},
+
+		/**
+		* @private
+		*/
+		components: [
+			{name: 'headerWrapper', kind: 'moon.Item', classes: 'moon-date-picker-header-wrapper', onSpotlightFocus: 'headerFocus', ontap: 'expandContract', components: [
+				// headerContainer required to avoid bad scrollWidth returned in RTL for certain text widths (webkit bug)
+				{name: 'headerContainer', classes: 'moon-expandable-list-item-header moon-expandable-picker-header moon-expandable-datetime-header', components: [
+					{name: 'header', kind: 'moon.MarqueeText'}
+				]},
+				{name: 'currentValue', kind: 'moon.MarqueeText', classes: 'moon-expandable-picker-current-value'}
+			]},
+			{name: 'drawer', kind: 'enyo.Drawer', resizeContainer: false, classes: 'moon-expandable-list-item-client indented', components: [
+				{name: 'client', kind: 'enyo.Control', classes: 'enyo-tool-decorator moon-date-picker-client', onSpotlightLeft: 'closePicker', onSpotlightSelect: 'closePicker'}
+			]}
+		],
+
+		/**
+		* @private
+		*/
+		bindings: [
+			{from: '.disabled', to: '.$.headerWrapper.disabled'},
+			{from: '.disabledPicker', to: '.$.hour.disabled'},
+			{from: '.disabledPicker', to: '.$.minute.disabled'},
+			{from: '.disabledPicker', to: '.$.second.disabled'}
+		],
+
+		/**
+		* @private
+		*/
+		constructor: function() {
+			this.inherited(arguments);
+			this.valueArray = {
+				'hour': 0,
+				'minute': 0,
+				'second': 0
+			}
 		},
 
 		/**
@@ -311,30 +186,26 @@
 		*/
 		create: function () {
 			this.inherited(arguments);
-			this.initDefault();
+			this.initDefaults();
 		},
 
 		/**
 		* @private
 		*/
-		initDefault: function () {
+		initDefaults: function () {
+			this.setupPickers();
 			this.templateChanged();
-			this.noneTextChanged();
 			if(this.value !== '') {
+				this.valueChanged();
 				this.countdownChanged();
+			} else {
+				this.noneTextChanged();
 			}
 		},
 
 		/**
-		* @private
-		*/
-		hidePickers: function () {
-			this.$.hourPicker.set('showing', false);
-			this.$.minutePicker.set('showing', false);
-			this.$.secondPicker.set('showing', false);
-		},
-
-		/**
+		* creating the hour, minute and second picker components
+		*
 		* @private
 		*/
 		setupPickers: function () {
@@ -356,6 +227,48 @@
 					{name: 'secondLabel', content: this.secondText, classes: 'moon-date-picker-label moon-divider-text'}
 				]}
 			);
+		},
+
+		/**
+		* @fires moon.DurationePicker#onChange
+		* @private
+		*/
+		handleChangeEvent: function (sender, ev) {
+			if (ev && ev.originator === this) {
+				// Don't handle our own change events
+				return;
+			} else {
+				this.updateValue(sender, ev);
+				return true;
+			}
+		},
+
+		/**
+		* If no item is selected, uses [`noneText`]{@link moon.DurationPickerBase#noneText}
+		* as current value and if nonoText value is not provided, use 'Pick Duration'
+		* as default.
+		*
+		* @private
+		*/
+		noneTextChanged: function () {
+			if(this.value == null || this.value === '') {
+				this.$.currentValue.set('content', moon.$L(this.getNoneText()) || moon.$L('Pick Duration'));
+			}
+		},
+
+		
+		/**
+		* @private
+		*/
+		valueChanged: function(){
+			if(this.value == null || this.value === '') {
+				this.resetPicker();
+			 	this.noneTextChanged();
+			 } else {
+			 	this.createValueArray();
+				this.updatePicker();
+				this.$.currentValue.set('content', this.formatValue());
+			 }
 		},
 
 		/**
@@ -407,21 +320,21 @@
 			if(this.value != null && this.value !== ''){
 				var timeArray = this.value.toString().split(':');
 				if(this.$.hourPicker.get('showing') || (!this.$.hourPicker.get('showing') && timeArray.length > 2)) {
-					tempValue = timeArray.shift();
+					tempValue =  Math.round(timeArray.shift());
 					if(isNaN(tempValue) || tempValue > 23 || tempValue < 0) {
 						tempValue = 0;
 					}
 					this.valueArray['hour'] = tempValue;
 				}
 				if(this.$.minutePicker.get('showing') || (!this.$.minutePicker.get('showing') && timeArray.length > 1)){
-					tempValue = timeArray.shift();
+					tempValue = Math.round(timeArray.shift());
 					if(isNaN(tempValue) || tempValue > 59 || tempValue < 0){
 						tempValue = 0;
 					}
 					this.valueArray['minute'] = tempValue;
 				}
 				if(this.$.secondPicker.get('showing') || (!this.$.secondPicker.get('showing') && timeArray.length > 0)){
-					tempValue = timeArray.shift();
+					tempValue = Math.round(timeArray.shift());
 					if(isNaN(tempValue) || tempValue> 59 || tempValue < 0){
 						tempValue = 0;
 					}
@@ -516,20 +429,6 @@
 		/**
 		* @private
 		*/
-		resetPicker: function(){
-			window.clearTimeout(this.timer);
-			this.timer = null;
-			this.valueHour = 0;
-			this.$.hour.set('value', 0);
-			this.valueMinute = 0;
-			this.$.minute.set('value', 0);
-			this.valueSecond = 0;
-			this.$.second.set('value',0);
-		},
-
-		/**
-		* @private
-		*/
 		countdownChanged: function () {
 			window.clearTimeout(this.timer);
 			this.timer = null;
@@ -538,6 +437,58 @@
 					enyo.bind (this, function () {
 						this.tick();
 					}), 1000);
+			}
+		},
+
+		/**
+		* @private
+		*/
+		hidePickers: function () {
+			this.$.hourPicker.set('showing', false);
+			this.$.minutePicker.set('showing', false);
+			this.$.secondPicker.set('showing', false);
+		},
+
+		/**
+		* @private
+		*/
+		resetPicker: function(){
+			window.clearTimeout(this.timer);
+			this.timer = null;
+			this.valueArray['hour'] = 0;
+			this.$.hour.set('value', 0);
+			this.valueArray['minute'] = 0;
+			this.$.minute.set('value', 0);
+			this.valueArray['second'] = 0;
+			this.$.second.set('value',0);
+		},
+
+		/**
+		* @private
+		*/
+		closePicker: function (sender, ev) {
+			/**
+			* If select/enter is pressed on any date picker item or the left key is pressed on the
+			* first item, close the drawer
+			*/
+			if (ev.type == 'onSpotlightSelect' ||
+				this.$.client.children[0].id == ev.originator.id) {
+				this.expandContract();
+				return true;
+			}
+		},
+
+		/**
+		* @private
+		*/
+		toggleActive: function () {
+			if (this.get('open')) {
+				this.set('active', false);
+				if (!enyo.Spotlight.getPointerMode()) {
+					enyo.Spotlight.spot(this.$.headerWrapper);
+				}
+			} else {
+				this.set('active', true);
 			}
 		},
 
