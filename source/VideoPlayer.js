@@ -84,6 +84,11 @@
 		/**
 		* @private
 		*/
+		mixins: ['moon.HistorySupport'],
+
+		/**
+		* @private
+		*/
 		spotlight: true,
 
 		// Fixme: When enyo-fit is used than the background image does not fit to video while dragging.
@@ -1237,6 +1242,7 @@
 				}
 				// When controls are visible, set as container to remember last focused control
 				this.set('spotlight', 'container');
+				this.pushBackHistory();
 			}
 		},
 
@@ -1299,6 +1305,9 @@
 
 				// Kick off any marquees in the video info header
 				this.$.videoInfoHeaderClient.waterfallDown('onRequestStartMarquee');
+				if (this.allowBackKey) {
+					this.pushBackHistory();
+				}
 			}
 		},
 
@@ -2126,6 +2135,30 @@
 						this.resetAutoTimeout();
 					}
 				}
+			}
+			return true;
+		},
+
+		/**
+		* @private
+		*/
+		backKeyHandler: function () {
+			// if videoInfoHeaderClient and playerControl are visible
+			// it means that we pushed video player into history stack twice.
+			// to set correct target for next back key, we should pop one instance.
+			var visibleUp = this.$.videoInfoHeaderClient.getShowing(),
+				visibleDown = this.$.playerControl.getShowing();
+
+			if (visibleUp && visibleDown
+				&& moon.History.getCurrentObj() == this) {
+				moon.History.ignorePopState();
+				moon.History.popBackHistory();
+			}
+			if (visibleUp) {
+				this.hideFSInfo();
+			}
+			if (visibleDown) {
+				this.hideFSBottomControls();
 			}
 			return true;
 		}

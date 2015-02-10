@@ -17,7 +17,7 @@ html {
     font-size: 16apx;
   }
 }
-@media only screen and (min-width: 2560px) {
+@media only screen and (min-width: 2561px) {
   html {
     font-size: 48px;
     font-size: 48apx;
@@ -279,82 +279,82 @@ html {
 }
 /* ------- Vertical Dimensioning (columns) ------- */
 .moon-1v {
-  height: 36px;
+  height: 1.75rem;
 }
 .moon-2v {
-  height: 72px;
+  height: 3.5rem;
 }
 .moon-3v {
-  height: 108px;
+  height: 5.25rem;
 }
 .moon-4v {
-  height: 144px;
+  height: 7rem;
 }
 .moon-5v {
-  height: 180px;
+  height: 8.75rem;
 }
 .moon-6v {
-  height: 216px;
+  height: 10.5rem;
 }
 .moon-7v {
-  height: 252px;
+  height: 12.25rem;
 }
 .moon-8v {
-  height: 288px;
+  height: 14rem;
 }
 .moon-9v {
-  height: 324px;
+  height: 15.75rem;
 }
 .moon-10v {
-  height: 360px;
+  height: 17.5rem;
 }
 .moon-11v {
-  height: 396px;
+  height: 19.25rem;
 }
 .moon-12v {
-  height: 432px;
+  height: 21rem;
 }
 .moon-13v {
-  height: 468px;
+  height: 22.75rem;
 }
 .moon-14v {
-  height: 504px;
+  height: 24.5rem;
 }
 .moon-15v {
-  height: 540px;
+  height: 26.25rem;
 }
 .moon-16v {
-  height: 576px;
+  height: 28rem;
 }
 .moon-17v {
-  height: 612px;
+  height: 29.75rem;
 }
 .moon-18v {
-  height: 648px;
+  height: 31.5rem;
 }
 .moon-19v {
-  height: 684px;
+  height: 33.25rem;
 }
 .moon-20v {
-  height: 720px;
+  height: 35rem;
 }
 .moon-21v {
-  height: 756px;
+  height: 36.75rem;
 }
 .moon-22v {
-  height: 792px;
+  height: 38.5rem;
 }
 .moon-23v {
-  height: 828px;
+  height: 40.25rem;
 }
 .moon-24v {
-  height: 864px;
+  height: 42rem;
 }
 .moon-25v {
-  height: 900px;
+  height: 43.75rem;
 }
 .moon-26v {
-  height: 936px;
+  height: 45.5rem;
 }
 /* Prevent browser's default focus treatment (at least in Chrome) */
 :focus {
@@ -491,7 +491,7 @@ html {
   text-decoration: none;
 }
 .moon-body-text-spacing {
-  margin: 0 12px 36px 12px;
+  margin: 0 0.5rem 1.75rem 0.5rem;
 }
 .moon-large-button-text {
   font-family: "Moonstone Miso Bold";
@@ -594,7 +594,7 @@ html {
   background-repeat: no-repeat;
   display: inline-block;
   vertical-align: middle;
-  margin: 12px 12px;
+  margin: 0.5rem;
   font-family: "Moonstone", "Moonstone Icons";
   font-size: 96px;
   line-height: 48px;
@@ -906,6 +906,10 @@ html {
 .spotlight .moon-checkbox[checked]:after {
   color: #ffffff;
 }
+.spotlight .moon-checkbox:not([checked]):not([disabled]) .moon-icon {
+  visibility: visible;
+  opacity: 0.3;
+}
 .moon-divider {
   border-bottom: 3px solid #a6a6a6;
   margin: 0 12px 24px 12px;
@@ -1143,6 +1147,41 @@ html {
 .enyo-locale-non-latin .moon-item {
   font-family: "Moonstone LG Display Bold";
   font-size: 30px;
+}
+/* ItemOverlay.less */
+.moon-item .moon-item-overlay {
+  float: left;
+}
+.moon-item .moon-item-overlay.right {
+  float: right;
+}
+.moon-item .moon-item-overlay.beginning .moon-icon:first-child {
+  margin-left: 0;
+}
+.moon-item .moon-item-overlay.ending .moon-icon:last-child {
+  margin-right: 0;
+}
+.moon-item .moon-item-overlay .moon-icon {
+  margin-top: 0;
+  margin-bottom: 0;
+  vertical-align: top;
+}
+.moon-item:not(.spotlight) .moon-item-overlay.auto-hide {
+  display: none;
+}
+.enyo-locale-right-to-left .moon-item .moon-item-overlay {
+  float: right;
+}
+.enyo-locale-right-to-left .moon-item .moon-item-overlay.right {
+  float: left;
+}
+.enyo-locale-right-to-left .moon-item .moon-item-overlay.beginning .moon-icon:first-child {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+.enyo-locale-right-to-left .moon-item .moon-item-overlay.ending .moon-icon:last-child {
+  margin-left: 0;
+  margin-right: 0.5rem;
 }
 /* SelectableItem.css */
 .moon-selectable-item.selected {
@@ -3693,6 +3732,9 @@ html {
 .moon-dialog-sub-title {
   font-size: 24px;
 }
+.moon-dialog-client-wrapper {
+  min-height: 4.5rem;
+}
 .moon-dialog-content {
   margin: 0 0 0;
 }
@@ -4369,9 +4411,6 @@ html {
 .enyo-locale-non-latin .moon-video-feedback-icon-left,
 .enyo-locale-non-latin .moon-video-feedback-icon-right {
   margin-bottom: 3px;
-}
-.enyo-locale-right-to-left .moon-video-player-feedback {
-  margin: 0 0 0 12px;
 }
 .enyo-locale-right-to-left .moon-icon.moon-video-feedback-icon-left {
   margin: 0 0 0 12px;

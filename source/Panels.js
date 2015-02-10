@@ -29,6 +29,11 @@
 		/**
 		* @private
 		*/
+		mixins : ['moon.HistorySupport'],
+
+		/**
+		* @private
+		*/
 		classes : 'moon-panels',
 
 		/**
@@ -133,6 +138,18 @@
 		narrowFit: false,
 
 		/**
+		* Hierachical stack.
+		* When we call setIndex or pushPanel, new object is pushed to this stack.
+		* When we call popPanel or back key handler, lasted object is removed.
+		* To save memory, it is initiated when this.allowBackKey is true.
+		*
+		* @type {Array}
+		* @default null
+		* @private
+		*/
+		panelStack: null,
+
+		/**
 		* @private
 		*/
 		handlers: {
@@ -157,14 +174,13 @@
 			{name: 'backgroundScrim', kind: 'enyo.Control', classes: 'moon-panels-background-scrim'},
 			{name: 'clientWrapper', kind: 'enyo.Control', classes: 'enyo-fill enyo-arranger moon-panels-client', components: [
 				{name: 'scrim', classes: 'moon-panels-panel-scrim', components: [
-					{name: 'branding', kind: 'moon.ImageMultiRes', sizing: 'contain', classes: 'moon-panels-branding'}
+					{name: 'branding', kind: 'enyo.Image', sizing: 'contain', classes: 'moon-panels-branding'}
 				]},
 				{name: 'client', tag: null}
 			]},
 			{name: 'showHideHandle', kind: 'moon.PanelsHandle', classes: 'hidden', canGenerate: false, ontap: 'handleTap', onSpotlightLeft: 'handleSpotLeft', onSpotlightRight: 'handleSpotRight', onSpotlightFocused: 'handleFocused', onSpotlightBlur: 'handleBlur'},
 			{name: 'showHideAnimator', kind: 'enyo.StyleAnimator', onComplete: 'showHideAnimationComplete'}
 		],
-
 
 		/**
 		* @private
@@ -254,6 +270,7 @@
 				oPanel = this.createComponent(info, moreInfo);
 			oPanel.render();
 			this.reflow();
+			oPanel.show();
 			oPanel.resize();
 			this.setIndex(lastIndex+1);
 			this.isModifyingPanels = false;
@@ -290,7 +307,7 @@
 			this.isModifyingPanels = true;
 
 			if (!options) { options = {}; }
-			var lastIndex = this.getPanels().length - 1,
+			var lastIndex = this.getPanels().length,
 				oPanels = this.createComponents(info, commonInfo),
 				nPanel;
 
@@ -298,15 +315,15 @@
 				oPanels[nPanel].render();
 			}
 			this.reflow();
+			if (options.targetIndex || options.targetIndex === 0) {
+				lastIndex = options.targetIndex;
+			}
+			lastIndex = this.clamp(lastIndex);
+			this.getPanels()[lastIndex].show();
 			for (nPanel = 0; nPanel < oPanels.length; ++nPanel) {
 				oPanels[nPanel].resize();
 			}
 
-			if (options.targetIndex || options.targetIndex === 0) {
-				lastIndex = options.targetIndex;
-			} else {
-				lastIndex++;
-			}
 			// If transition was explicitly set to false, since null or undefined indicate "never set" or unset
 			if (options.transition === false) {
 				this.setIndexDirect(lastIndex);
@@ -432,6 +449,7 @@
 			this.inherited(arguments);
 			this.initializeShowHideHandle();
 			this.handleShowingChanged();
+			this.allowBackKeyChanged();
 		},
 
 		/**
@@ -706,6 +724,12 @@
 			// If panels will move for this index change, kickoff animation. Otherwise skip it.
 			if (this.shouldArrange() && this.animate) {
 				enyo.Spotlight.mute(this);
+				// if back key feature is enabled and setIndex is not called from back key handler
+				if (this.allowBackKey && !moon.History.isHandlingBackAction()) {
+					this.panelStack.push(this.index);
+					this.pushBackHistory();
+				}
+
 				this.startTransition();
 				this.triggerPreTransitions();
 			} else {
@@ -1176,7 +1200,30 @@
 		*/
 		animateChanged: function () {
 			this.addRemoveClass('moon-composite', this.animate);
+		},
+
+		/**
+		* @private
+		*/
+		backKeyHandler: function () {
+			if (this.panelStack.length) {
+				this.setIndex(this.panelStack.pop());
+			}
+			return true;
+		},
+
+		/**
+		* @private
+		*/
+		allowBackKeyChanged: function () {
+			if (this.allowBackKey) {
+				//initialize stack
+				this.panelStack = [];
+			} else if(this.panelStack) {
+				this.panelStack = null;
+			}
 		}
+
 	});
 
 	/**

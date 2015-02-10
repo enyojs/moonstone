@@ -85,7 +85,7 @@
 		/**
 		* @private
 		*/
-		mixins: ['moon.MarqueeSupport'],
+		mixins: ['moon.MarqueeSupport', 'moon.HistorySupport'],
 
 		/**
 		* @private
@@ -114,6 +114,7 @@
 			{name: 'closeButton', kind: 'moon.IconButton', icon: 'closex', classes: 'moon-popup-close', ontap: 'closePopup', showing:false},
 
 			{
+				classes: 'moon-dialog-client-wrapper',
 				components: [
 					{name: 'client', classes: 'moon-dialog-client'},
 					{components: [

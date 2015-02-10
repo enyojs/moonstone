@@ -36,17 +36,17 @@
 	* The control's child components may be of any kind.
 	*
 	* ```
-	* 		{
-	* 			name: 'musicDrawer',
-	* 			kind: 'moon.Drawer',
-	* 			handle: {name: 'handleButton', content: 'Handle'},
-	* 			components: [
-	* 				{content: 'Drawer Content'}
-	* 			],
-	* 			controlDrawerComponents: [
-	* 				{content: 'Controls'}
-	* 			]
-	* 		}
+	*		{
+	*			name: 'musicDrawer',
+	*			kind: 'moon.Drawer',
+	*			handle: {name: 'handleButton', content: 'Handle'},
+	*			components: [
+	*				{content: 'Drawer Content'}
+	*			],
+	*			controlDrawerComponents: [
+	*				{content: 'Controls'}
+	*			]
+	*		}
 	* ```
 	*
 	* @class moon.Drawer
@@ -66,6 +66,11 @@
 		* @private
 		*/
 		kind:'enyo.Control',
+
+		/**
+		* @private
+		*/
+		mixins : ['moon.HistorySupport'],
 
 		/**
 		* @private
@@ -221,6 +226,9 @@
 				this.doActivate();
 				this.$.client.spotlightDisabled = false;
 				enyo.Spotlight.spot(this.$.client);
+				if (this.allowBackKey) {
+					this.pushBackHistory();
+				}
 			} else {
 				this.$.client.spotlightDisabled = true;
 				this.doDeactivate();
@@ -238,6 +246,9 @@
 				this.doActivate();
 				this.$.controlDrawer.spotlightDisabled = false;
 				enyo.Spotlight.spot(this.$.controlDrawer);
+				if (this.allowBackKey) {
+					this.pushBackHistory();
+				}
 			} else {
 				if (this.$.client.getOpen()) {
 					this.$.client.setOpen(false);
@@ -254,6 +265,18 @@
 			this.$.client.setDrawerProps({height: this.calcDrawerHeight(inEvent.drawersHeight)});
 			this.setOpen(false);
 			this.setControlsOpen(false);
+		},
+
+		/**
+		* @private
+		*/
+		backKeyHandler: function () {
+			if (this.open) {
+				this.setOpen(false);
+			} else if (this.controlsOpen) {
+				this.setControlsOpen(false);
+			}
+			return true;
 		}
 	});
 

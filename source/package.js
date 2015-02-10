@@ -7,13 +7,13 @@ enyo.depends(
 	'Button.js',
 	'CaptionDecorator.js',
 	'Item.js',
+	'ItemOverlay.js',
 	'SelectableItem.js',
 	'Panels.js',
 	'SimplePicker.js',
 	'IntegerPicker.js',
 	'SimpleIntegerPicker.js',
 	'Calendar.js',
-	'ImageMultiRes.js',
 	'GridListImageItem.js',
 	'Checkbox.js',
 	'CheckboxItem.js',
@@ -85,5 +85,6 @@ enyo.depends(
 	'ImageBadge.js',
 	'ExpandableText.js',
 	'keymap.js',
+	'History.js',
 	'moon-container-init.js'
 );

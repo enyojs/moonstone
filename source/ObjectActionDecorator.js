@@ -15,7 +15,7 @@
 	* 	orientation: 'vertical',
 	* 	components: [
 	* 		{kind: 'moon.Item', components: [
-	* 			{name: 'image', kind: 'moon.ImageMultiRes', src: 'assets/default-music.png'}
+	* 			{name: 'image', kind: 'enyo.Image', src: 'assets/default-music.png'}
 	* 		]}
 	* 	],
 	* 	actionComponents: [
