@@ -717,12 +717,13 @@
 			this.toIndex = index;
 
 			this.queuedIndex = null;
+			this._willMove = null;
 
 			// Ensure any VKB is closed when transitioning panels
 			this.blurActiveElementIfHiding(index);
 
 			// If panels will move for this index change, kickoff animation. Otherwise skip it.
-			if (this.shouldArrange() && this.animate) {
+			if (this.shouldAnimate()) {
 				enyo.Spotlight.mute(this);
 				// if back key feature is enabled and setIndex is not called from back key handler
 				if (this.allowBackKey && !moon.History.isHandlingBackAction()) {
@@ -761,8 +762,22 @@
 		},
 
 		/**
-		* Returns `true` if any panels will move in the transition from `fromIndex` to
+		* Returns `true` if the panels should animate in the transition from `fromIndex` to
 		* `toIndex`.
+		*
+		* @private
+		*/
+		shouldAnimate: function () {
+			if (this._willMove == null) {
+				return (this._willMove = this.animate && this.shouldArrange());
+			}
+			else {
+				return this._willMove;
+			}
+		},
+
+		/**
+		* Returns `true` if any panels will move in the transition from `fromIndex` to `toIndex`.
 		*
 		* @private
 		*/
