@@ -624,11 +624,11 @@
 						{name: 'controlsContainer', kind: 'Panels', arrangerKind: 'CarouselArranger', fit: true, draggable: false, classes: 'moon-video-player-controls-container', components: [
 							{name: 'trickPlay', ontap:'playbackControlsTapped', components: [
 								{name: 'playbackControls', classes: 'moon-video-player-control-buttons', components: [
-									{name: 'jumpBack',		kind: 'moon.IconButton', small: false, onholdpulse: 'onHoldPulseBackHandler', ontap: 'onjumpBackward'},
+									{name: 'jumpBack',		kind: 'moon.IconButton', small: false, onholdpulse: 'onHoldPulseBackHandler', ontap: 'onjumpBackward', onrelease: 'onReleaseHandler'},
 									{name: 'rewind',		kind: 'moon.IconButton', small: false, ontap: 'rewind'},
 									{name: 'fsPlayPause',	kind: 'moon.IconButton', small: false, ontap: 'playPause'},
 									{name: 'fastForward',	kind: 'moon.IconButton', small: false, ontap: 'fastForward'},
-									{name: 'jumpForward',	kind: 'moon.IconButton', small: false, onholdpulse: 'onHoldPulseForwardHandler', ontap: 'onjumpForward'}
+									{name: 'jumpForward',	kind: 'moon.IconButton', small: false, onholdpulse: 'onHoldPulseForwardHandler', ontap: 'onjumpForward', onrelease: 'onReleaseHandler'}
 								]}
 							]},
 							{name: 'client', classes: 'moon-video-player-more-controls'}
@@ -1354,6 +1354,10 @@
 			}
 		},
 
+		onReleaseHandler: function(sender, e) {
+			if (sender._sentHold && sender._sentHold == true) sender._sentHold = false;
+		},
+
 		/**
 		* @private
 		*/
@@ -1873,7 +1877,7 @@
 		*/
 		timeUpdate: function(sender, e) {
 			//* Update _this.duration_ and _this.currentTime_
-			if (!e && e.srcElement) {
+			if (!e && e.srcElement || e.currentTime === undefined) {
 				return;
 			}
 
