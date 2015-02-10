@@ -155,7 +155,17 @@
 			* @default false
 			* @public
 			*/
-			multipleSelection: false
+			multipleSelection: false,
+
+			/**
+			* If `true`, prevents the items in the {@link moon.ExpandablePicker} from rendering
+			* until the picker has been opened.
+			*
+			* @type {Boolean}
+			* @default false
+			* @public
+			*/
+			renderItemsOnShow: false
 		},
 
 		/**
@@ -189,7 +199,7 @@
 				]},
 				{name: 'currentValue', kind: 'moon.MarqueeText', classes: 'moon-expandable-picker-current-value'}
 			]},
-			{name: 'drawer', kind: 'moon.ExpandableListDrawer', renderOnShow: true, resizeContainer:false, classes:'moon-expandable-list-item-client', components: [
+			{name: 'drawer', kind: 'moon.ExpandableListDrawer', resizeContainer:false, classes:'moon-expandable-list-item-client', components: [
 				{name: 'client', tag: null, kind: 'Group', onActivate: 'activated', highlander: true},
 				{name: 'helpText', kind:'moon.BodyText', canGenerate: false, classes: 'moon-expandable-picker-help-text'}
 			]}
@@ -201,7 +211,8 @@
 		bindings: [
 			{from: 'allowHtml', to: '$.header.allowHtml'},
 			{from: 'allowHtml', to: '$.currentValue.allowHtml'},
-			{from: 'disabled', to: '$.headerWrapper.disabled'}
+			{from: 'disabled', to: '$.headerWrapper.disabled'},
+			{from: 'renderItemsOnShow', to: '$.drawer.renderOnShow'}
 		],
 
 		/**
