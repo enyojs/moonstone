@@ -71,7 +71,11 @@ enyo.kind({
 					{name: "appleButton", kind: "moon.Button", content: "Apple", ontap: "buttonTapped"},
 					{name: "bananaButton", kind: "moon.Button", content: "Banana", ontap: "buttonTapped"},
 					{name: "saskatoonberryButton", kind: "moon.Button", content: "Saskatoonberry", ontap: "buttonTapped"}
-				]}
+				]},
+
+				{kind: "moon.Divider", content: "Hidden Buttons:"},
+				{name: "hiddenButton", kind: "moon.Button", content: "Hidden Button", renderOnShow: true, ontap: "buttonTapped"},
+				{name: "showButton", kind: "moon.Button", content: "Show Hidden Button", ontap: "showButtonTapped"}
 			]}
 		]},
 		{kind: "moon.Divider", content: "Result"},
@@ -79,6 +83,9 @@ enyo.kind({
 	],
 	buttonTapped: function(inSender, inEvent) {
 		this.$.result.setContent("&quot;" + inSender.name + "&quot; pressed.");
+	},
+	showButtonTapped: function () {
+		this.$.hiddenButton.show();
 	},
 	showSmallButtonTapArea: function(inSender, inEvent) {
 		if (inEvent.checked) {
