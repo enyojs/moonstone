@@ -1,8 +1,10 @@
-
 .moon-marquee-start-on-render {
 	width: 600px;
 }
 .moon-marquee-start-on-focus {
+	width: 600px;
+}
+.moon-marquee-start-on-hover {
 	width: 600px;
 }
 .moon-marquee-start-on-focus.spotlight {
