@@ -1,4 +1,15 @@
 (function (enyo, scope) {
+
+	var _marqueeOnHoverControl = null,
+
+	_setMarqueeOnHoverControl = function(oControl) {
+		_marqueeOnHoverControl = oControl;
+	},
+
+	_getMarqueeOnHoverControl = function() {
+		return _marqueeOnHoverControl;
+	};
+
 	/**
 	* Fires to queue up a list of child animations.
 	*
@@ -232,6 +243,19 @@
 		* @method
 		* @private
 		*/
+		destroy: enyo.inherit(function (sup) {
+			return function () {
+				if (this === _getMarqueeOnHoverControl()) {
+					_setMarqueeOnHoverControl(null);
+				}
+				sup.apply(this, arguments);
+			};
+		}),
+
+		/**
+		* @method
+		* @private
+		*/
 		dispatchEvent: enyo.inherit(function (sup) {
 			return function (sEventName, oEvent, oSender) {
 				// Needed for proper onenter/onleave handling
@@ -296,6 +320,9 @@
 			this._marquee_isHovered = true;
 			if ((this.marqueeOnHover && !this.marqueeOnSpotlight) ||
 			(this.disabled && this.marqueeOnSpotlight)) {
+				if (this.marqueeOnHover) {
+					_setMarqueeOnHoverControl(this);
+				}
 				this.startMarquee();
 			}
 		},
@@ -306,6 +333,9 @@
 		_marquee_leave: function (sender, ev) {
 			this._marquee_isHovered = false;
 			if ((this.marqueeOnHover && !this.marqueeOnSpotlight) || (this.disabled && this.marqueeOnSpotlight)) {
+				if (this.marqueeOnHover) {
+					_setMarqueeOnHoverControl(null);
+				}
 				this.stopMarquee();
 			}
 		},
@@ -1108,4 +1138,13 @@
 		style: 'overflow: hidden;'
 	});
 
+	enyo.dispatcher.features.push(
+		function (e) {
+			if ("blur" === e.type && window === e.target) {
+				// Stop marquee when onblur event comes from window
+				var c = _getMarqueeOnHoverControl();
+				if (c) c._marquee_leave();
+			}
+		}
+	);
 })(enyo, this);
