@@ -199,7 +199,7 @@
 				]},
 				{name: 'currentValue', kind: 'moon.MarqueeText', classes: 'moon-expandable-picker-current-value'}
 			]},
-			{name: 'drawer', kind: 'moon.ExpandableListDrawer', resizeContainer:false, classes:'moon-expandable-list-item-client', components: [
+			{name: 'drawer', kind: 'moon.ExpandableListDrawer', resizeContainer:false, classes:'moon-expandable-list-item-client', onDrawerAnimationEnd: 'handleDrawerAnimationEnd', components: [
 				{name: 'client', tag: null, kind: 'Group', onActivate: 'activated', highlander: true},
 				{name: 'helpText', kind:'moon.BodyText', canGenerate: false, classes: 'moon-expandable-picker-help-text'}
 			]}
@@ -250,7 +250,7 @@
 		*/
 		rendered: function () {
 			this.inherited(arguments);
-			this.isRendered = true;
+			if (!this.renderItemsOnShow) this.isDrawerRendered = true;
 		},
 
 		/**
@@ -503,7 +503,7 @@
 				}
 			}
 
-			if (this.getAutoCollapseOnSelect() && this.isRendered && this.getOpen() && !this.$.drawer.isOpening()) {
+			if (this.getAutoCollapseOnSelect() && this.isDrawerRendered && this.getOpen()) {
 				this.startJob('selectAndClose', 'selectAndClose', this.selectAndCloseDelayMS);
 			}
 
@@ -563,6 +563,13 @@
 			}
 			this.$.client.setHighlander(!this.multipleSelection);
 			this.selectedChanged();
+		},
+
+		/**
+		* @private
+		*/
+		handleDrawerAnimationEnd: function () {
+			if (!this.isDrawerRendered) this.isDrawerRendered = true;
 		}
 	});
 
