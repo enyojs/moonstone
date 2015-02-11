@@ -245,8 +245,9 @@
 		*/
 		destroy: enyo.inherit(function (sup) {
 			return function () {
-				if (this == _getMarqueeOnHoverControl()) 
+				if (this === _getMarqueeOnHoverControl()) {
 					_setMarqueeOnHoverControl(null);
+				}
 				sup.apply(this, arguments);
 			};
 		}),
