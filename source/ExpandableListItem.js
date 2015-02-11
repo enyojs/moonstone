@@ -28,20 +28,8 @@
 		* @private
 		*/
 		openChanged: function () {
-			this._isOpening = true;
-			if (this.open && this.renderOnShow && !this.generated) this.show();
+			if (this.open && !this.showing && this.renderOnShow) this.show();
 			this.inherited(arguments);
-			this._isOpening = false;
-		},
-
-		/**
-		* Determines whether or not the drawer is in the process of opening.
-		*
-		* @returns {Boolean} If `true`, the drawer is currently opening, `false` otherwise.
-		* @public
-		*/
-		isOpening: function () {
-			return this._isOpening;
 		}
 	});
 
