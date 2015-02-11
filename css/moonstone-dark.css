@@ -3543,7 +3543,7 @@ html {
   margin: 0.75rem 0 0.75rem;
 }
 .moon-dialog-client {
-  padding: 1.5rem 0 0;
+  padding: 1rem 0 0;
   float: right;
 }
 .moon-dialog-client > * {
