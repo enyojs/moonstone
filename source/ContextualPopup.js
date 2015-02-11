@@ -145,14 +145,14 @@
 		*
 		* @private
 		*/
-		widePopup: moon.riScale(200),
+		widePopup: moon.riScale(201),
 
 		/**
 		* Popups longer than this value are considered long (for layout purposes).
 		*
 		* @private
 		*/
-		longPopup: moon.riScale(200),
+		longPopup: moon.riScale(201),
 
 		/**
 		* Do not allow horizontal flush popups past spec'd amount of buffer space on left/right
@@ -160,7 +160,7 @@
 		*
 		* @private
 		*/
-		horizBuffer: moon.riScale(16),
+		horizBuffer: moon.riScale(15),
 
 		/**
 		* @private
