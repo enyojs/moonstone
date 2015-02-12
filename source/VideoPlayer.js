@@ -1877,7 +1877,7 @@
 		*/
 		timeUpdate: function(sender, e) {
 			//* Update _this.duration_ and _this.currentTime_
-			if (!e && e.srcElement || e.currentTime === undefined) {
+			if (!e && e.srcElement || typeof e.currentTime == 'undefined' || e.currentTime == null) {
 				return;
 			}
 
