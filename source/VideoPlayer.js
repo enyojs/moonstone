@@ -1355,7 +1355,7 @@
 		},
 
 		onReleaseHandler: function(sender, e) {
-			if (sender._sentHold && sender._sentHold == true) sender._sentHold = false;
+			if (sender._sentHold && sender._sentHold === true) sender._sentHold = false;
 		},
 
 		/**
