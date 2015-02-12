@@ -6,6 +6,10 @@
 /* minifier to fall back to using CSS files in place of the same-name       */
 /* LESS file.                                                               */
 
+.moon-item-icon-tap-area-adjust.small > .small-icon-tap-area {
+  left: -0.5rem;
+  right: -0.5rem;
+}
 html {
   font-size: 1rem;
   font-size: 24px;
@@ -1142,6 +1146,11 @@ html {
   cursor: default;
   opacity: 0.35;
 }
+.moon-item > .moon-icon:first-child.small > .small-icon-tap-area,
+.moon-item > .moon-icon:last-child.small > .small-icon-tap-area {
+  left: -0.5rem;
+  right: -0.5rem;
+}
 .enyo-locale-non-latin .moon-item {
   font-family: "Moonstone LG Display Bold";
   font-size: 1.25rem;
@@ -1152,6 +1161,11 @@ html {
 }
 .moon-item .moon-item-overlay.right {
   float: right;
+}
+.moon-item .moon-item-overlay.beginning .moon-icon:first-child.small > .small-icon-tap-area,
+.moon-item .moon-item-overlay.ending .moon-icon:last-child.small > .small-icon-tap-area {
+  left: -0.5rem;
+  right: -0.5rem;
 }
 .moon-item .moon-item-overlay.beginning .moon-icon:first-child {
   margin-left: 0;
