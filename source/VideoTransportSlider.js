@@ -646,6 +646,7 @@
 		* @private
 		*/
 		setValue: function(val) {
+			this.currentTime = val;
 			if(Math.abs(this.calcVariationPercent(val)) > this.smallVariation) {
 				this.inherited(arguments);
 			} else {
