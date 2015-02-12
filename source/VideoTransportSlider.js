@@ -646,11 +646,11 @@
 		* @private
 		*/
 		setValue: function(val) {
-			this.currentTime = value;
-			if(Math.abs(this.calcVariationPercent(v)) > this.smallVariation) {
+			this.currentTime = val;
+			if(Math.abs(this.calcVariationPercent(val)) > this.smallVariation) {
 				this.inherited(arguments);
 			} else {
-				this._setValue(v);
+				this._setValue(val);
 			}
 		},
 
