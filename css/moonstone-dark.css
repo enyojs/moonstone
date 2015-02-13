@@ -4651,45 +4651,32 @@ html {
 .moon-neutral .moon-formcheckbox-item.spotlight .moon-checkbox-item-label-wrapper {
   color: #ffffff;
 }
-.selection-enabled .moon-selection-overlay-support.selected .moon-selection-overlay-ghost {
-  color: #cf0652;
-}
-.selection-enabled .moon-selection-overlay-support.selected .moon-selection-overlay-ghost > * {
-  display: block;
-}
-.selection-enabled .moon-selection-overlay-support.selected .moon-selection-overlay-ghost .moon-icon {
-  color: #cf0652;
-  line-height: 2.75rem;
-  font-size: 3.375rem;
-}
-.selection-enabled .moon-selection-overlay-ghost {
-  display: block;
-  width: 2.5rem;
-  height: 2.5rem;
-  border: 0.25rem solid;
-  color: rgba(0, 0, 0, 0.5);
-  background-color: rgba(255, 255, 255, 0.5);
-  margin: -1.25rem 0 0 -1.25rem;
-  border-radius: 50%;
-  position: absolute;
-}
-.selection-enabled .moon-selection-overlay-ghost > * {
-  width: 2.5rem;
-  height: 2.5rem;
-  display: none;
-  background-size: cover;
-  background-color: #ffffff;
-  border-radius: 1.25rem;
-  background-position: center center;
-  margin: 0;
-}
 .moon-selection-overlay-support-scrim {
+  display: none;
+}
+.selection-enabled .moon-selection-overlay-support-scrim {
   display: block;
   z-index: 1000;
   text-align: center;
 }
-.moon-selection-overlay-ghost {
-  display: none;
+.selection-enabled .moon-selection-overlay-support-scrim .moon-icon {
+  display: block;
+  width: 2.5rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  border: 0.25rem solid #000000;
+  background-color: white;
+  color: transparent;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  margin: 0;
+  border-radius: 50%;
+  position: absolute;
+  opacity: 0.5;
+}
+.selection-enabled .selected .moon-selection-overlay-support-scrim .moon-icon {
+  color: #cf0652;
+  border-color: #cf0652;
+  opacity: 1;
 }
 .moon-thumb {
   -webkit-transform-origin: 0rem 0rem;

@@ -51,7 +51,7 @@
 		* @private
 		*/
 		name: 'moon.SelectionOverlaySupport',
-		
+
 		/**
 		* @private
 		*/
@@ -118,9 +118,7 @@
 		*/
 		_selectionScrim: [
 			{classes: 'enyo-fit moon-selection-overlay-support-scrim', components: [
-				{name:'selectionGhost', classes:"moon-selection-overlay-ghost", components:[
-					{name:'selectionScrimIcon', kind: 'moon.Icon', small: false, icon: "check", spotlight: false}
-				]}
+				{name:'selectionScrimIcon', kind: 'moon.Icon', small: false, icon: 'check', spotlight: false}
 			]}
 		],
 
@@ -128,14 +126,14 @@
 		* @private
 		*/
 		selectionOverlayVerticalOffsetChanged: function () {
-			this.$.selectionGhost.applyStyle('top', this.selectionOverlayVerticalOffset + '%');
+			this.$.selectionScrimIcon.applyStyle('top', this.selectionOverlayVerticalOffset + '%');
 		},
 
 		/**
 		* @private
 		*/
 		selectionOverlayHorizontalOffsetChanged: function () {
-			this.$.selectionGhost.applyStyle((this.rtl ? 'right' : 'left'), this.selectionOverlayHorizontalOffset + '%');
+			this.$.selectionScrimIcon.applyStyle((this.rtl ? 'right' : 'left'), this.selectionOverlayHorizontalOffset + '%');
 		}
 	};
 
