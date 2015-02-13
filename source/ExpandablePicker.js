@@ -250,7 +250,7 @@
 		*/
 		rendered: function () {
 			this.inherited(arguments);
-			if (!this.renderItemsOnShow) this.isDrawerRendered = true;
+			if (!this.$.drawer.renderOnShow) this.isDrawerRendered = true;
 		},
 
 		/**
