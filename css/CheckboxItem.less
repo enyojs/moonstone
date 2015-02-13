@@ -2,25 +2,25 @@
 	position: relative;
 	overflow: hidden;
 
-	// Checkbox 
+	// Checkbox
 	.moon-checkbox {
 		position: absolute;
 		top: @moon-spotlight-outset - 3;
 		right: @moon-spotlight-outset - 3;
 	}
-	// Label 
+	// Label
 	.moon-checkbox-item-label-wrapper {
 		height: @moon-item-line-height;
 		margin-right: @moon-item-indent;
 	}
 
-	// Left-handed checkbox 
+	// Left-handed checkbox
 	&.left-handed  {
-		// Checkbox 
+		// Checkbox
 		.moon-checkbox {
 			left: @moon-spotlight-outset - 3;
 		}
-		// Label 
+		// Label
 		.moon-checkbox-item-label-wrapper {
 			margin-right: 0px;
 			margin-left: @moon-item-indent;
@@ -40,11 +40,6 @@
 /* Special treatment inside of ExpandablePicker (checkbox nudged up) */
 .moon-expandable-picker .moon-checkbox-item .moon-checkbox {
 	top: @moon-spotlight-outset;
-}
-
-/* this is a fix for TV only - left-side of letter cut off in list-action item drawer*/
-.moon-list-actions-drawer-client .moon-checkbox-item .moon-checkbox-item-label-wrapper {
-	padding-left: 3px;
 }
 
 /* Right to left */
