@@ -955,7 +955,7 @@ html {
 }
 /* Right to left */
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox {
-  left: 0.625rem;
+  left: 0.375rem;
   right: auto;
 }
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label-wrapper {

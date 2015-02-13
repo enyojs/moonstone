@@ -2,25 +2,25 @@
 	position: relative;
 	overflow: hidden;
 
-	// Checkbox 
+	// Checkbox
 	.moon-checkbox {
 		position: absolute;
 		top: @moon-spotlight-outset - 3;
 		right: @moon-spotlight-outset - 3;
 	}
-	// Label 
+	// Label
 	.moon-checkbox-item-label-wrapper {
 		height: @moon-item-line-height;
 		margin-right: @moon-item-indent;
 	}
 
-	// Left-handed checkbox 
+	// Left-handed checkbox
 	&.left-handed  {
-		// Checkbox 
+		// Checkbox
 		.moon-checkbox {
 			left: @moon-spotlight-outset - 3;
 		}
-		// Label 
+		// Label
 		.moon-checkbox-item-label-wrapper {
 			margin-right: 0px;
 			margin-left: @moon-item-indent;
@@ -51,7 +51,7 @@
 .enyo-locale-right-to-left .moon-checkbox-item {
 	// Checkbox
 	.moon-checkbox {
-		left: @moon-spotlight-outset + 3;
+		left: @moon-spotlight-outset - 3;
 		right: auto;
 	}
 	.moon-checkbox-item-label-wrapper {
