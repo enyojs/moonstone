@@ -949,10 +949,6 @@ html {
 .moon-expandable-picker .moon-checkbox-item .moon-checkbox {
   top: 0.5rem;
 }
-/* this is a fix for TV only - left-side of letter cut off in list-action item drawer*/
-.moon-list-actions-drawer-client .moon-checkbox-item .moon-checkbox-item-label-wrapper {
-  padding-left: 0.125rem;
-}
 /* Right to left */
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox {
   left: 0.625rem;
