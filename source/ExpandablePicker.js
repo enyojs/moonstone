@@ -155,7 +155,7 @@
 			* @default false
 			* @public
 			*/
-			multipleSelection: false,
+			multipleSelection: false
 
 			/**
 			* If `true`, prevents the items in the {@link moon.ExpandablePicker} from rendering
@@ -165,7 +165,7 @@
 			* @default false
 			* @public
 			*/
-			renderItemsOnShow: false
+			/*renderItemsOnShow: false*/
 		},
 
 		/**
@@ -211,8 +211,8 @@
 		bindings: [
 			{from: 'allowHtml', to: '$.header.allowHtml'},
 			{from: 'allowHtml', to: '$.currentValue.allowHtml'},
-			{from: 'disabled', to: '$.headerWrapper.disabled'},
-			{from: 'renderItemsOnShow', to: '$.drawer.renderOnShow'}
+			{from: 'disabled', to: '$.headerWrapper.disabled'}/*,
+			{from: 'renderItemsOnShow', to: '$.drawer.renderOnShow'}*/
 		],
 
 		/**

@@ -134,7 +134,7 @@
 				]},
 				{name: 'currentValue', kind: 'moon.MarqueeText', classes: 'moon-expandable-picker-current-value'}
 			]},
-			{name: 'drawer', kind: 'enyo.Drawer', resizeContainer:false, classes:'moon-expandable-list-item-client indented', components: [
+			{name: 'drawer', kind: 'moon.ExpandableListDrawer', resizeContainer:false, classes:'moon-expandable-list-item-client indented', components: [
 				{name: 'picker', kind: 'moon.SimpleIntegerPicker', deferInitialization: true, onSelect: 'toggleActive', onChange: 'pickerValueChanged'}
 			]}
 		],
