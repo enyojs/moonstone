@@ -51,7 +51,7 @@
 		* @private
 		*/
 		name: 'moon.SelectionOverlaySupport',
-		
+
 		/**
 		* @private
 		*/
@@ -101,7 +101,7 @@
 				this.selectionOverlayVerticalOffsetChanged();
 				// Allow the icon to be modified by user
 				if (this.selectionScrimIcon) {
-					this.$.selectionScrimIcon.removeClass('moon-icon-' + this.$.selectionScrimIcon.icon);
+					this.$.selectionScrimIcon.set('icon','');
 				}
 			};
 		}),
@@ -118,7 +118,7 @@
 		*/
 		_selectionScrim: [
 			{classes: 'enyo-fit moon-selection-overlay-support-scrim', components: [
-				{name:'selectionScrimIcon', kind: 'moon.Icon', small: false, icon: "check", spotlight: false}
+				{name:'selectionScrimIcon', kind: 'moon.Icon', small: false, icon: 'check', spotlight: false}
 			]}
 		],
 
