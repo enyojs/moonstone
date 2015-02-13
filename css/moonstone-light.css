@@ -4668,6 +4668,7 @@ html {
   background-color: white;
   color: transparent;
   -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
   margin: 0;
   border-radius: 50%;
   position: absolute;
