@@ -72,7 +72,17 @@
 			* @default 8
 			* @public
 			*/
-			paginationScrollMultiplier: 8
+			paginationScrollMultiplier: 8,
+
+			/**
+			* If 'true', paging controls are hidden when content fit in scroller
+			* even when spotlightPagingControls is true.
+			*
+			* @type {Boolean}
+			* @default false
+			* @public
+			*/
+			hideScrollColumnsWhenFit: false
 		},
 
 		/**
@@ -835,7 +845,8 @@
 		showVertical: function() {
 			return (this.getVertical() == 'scroll' ||
 					(this.getVertical() !== 'hidden' &&
-					((-1 * this.$.scrollMath.bottomBoundary > 0) || this.spotlightPagingControls)));
+					((-1 * this.$.scrollMath.bottomBoundary > 0) ||
+					(this.spotlightPagingControls && !this.hideScrollColumnsWhenFit))));
 		},
 
 		/**
@@ -846,7 +857,17 @@
 		showHorizontal: function() {
 			return (this.getHorizontal() == 'scroll' ||
 					(this.getHorizontal() !== 'hidden' &&
-					((-1 * this.$.scrollMath.rightBoundary > 0) || this.spotlightPagingControls)));
+					((-1 * this.$.scrollMath.rightBoundary > 0) ||
+					(this.spotlightPagingControls && !this.hideScrollColumnsWhenFit))));
+		},
+
+		/**
+		* Update bounds after change hideScrollColumnsWhenFit option changes.
+		*
+		* @private
+		*/
+		hideScrollColumnsWhenFitChanged: function(old) {
+			this.requestSetupBounds();
 		},
 
 		/**
