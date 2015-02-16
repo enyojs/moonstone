@@ -86,5 +86,6 @@ enyo.depends(
 	'ExpandableText.js',
 	'keymap.js',
 	'History.js',
-	'moon-container-init.js'
+	'moon-container-init.js',
+	'PanelWithAnimator.js'
 );
