@@ -24,6 +24,11 @@
 		/**
 		* @private
 		*/
+		defaultKind: 'moon.LightPanel',
+
+		/**
+		* @private
+		*/
 		handlers: {
 			onSpotlightContainerEnter: 'enter',
 			onSpotlightContainerLeave: 'leave'
@@ -32,25 +37,27 @@
 		/**
 		* @private
 		*/
-		indexChanged: function (previousIndex) {
-			var panels = this.getPanels(),
-				panelPrev = panels[previousIndex],
-				panelNext = panels[this.index];
+		indexChanged: enyo.inherit(function (sup) {
+			return function (previousIndex) {
+				var panels = this.getPanels(),
+					panelPrev = panels[previousIndex],
+					panelNext = panels[this.index];
 
-			if (panelPrev) {
-				panelPrev.spotlightDisabled = true;
-				if (this._hasSpotlightFocus) {
-					enyo.Spotlight.unspot();
+				if (panelPrev) {
+					panelPrev.spotlightDisabled = true;
+					if (this._hasSpotlightFocus) {
+						enyo.Spotlight.unspot();
+					}
 				}
-			}
-			if (panelNext) {
-				panelNext.spotlightDisabled = false;
-				if (!enyo.Spotlight.getCurrent()) {
-					enyo.Spotlight.spot(panels[this.index]);
+				if (panelNext) {
+					panelNext.spotlightDisabled = false;
+					if (!enyo.Spotlight.getCurrent()) {
+						enyo.Spotlight.spot(panels[this.index]);
+					}
 				}
-			}
-			this.inherited(arguments);
-		},
+				sup.apply(this, arguments);
+			};
+		}),
 
 		/**
 		* @private
