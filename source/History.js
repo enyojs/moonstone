@@ -161,16 +161,13 @@
 		/**
 		* @private
 		*/
-		create: enyo.inherit(function(sup) {
-			return function(props) {
-				sup.apply(this, arguments);
-				scope.onpopstate = enyo.bind(this, function(inEvent) {this.popStateHandler();});
-				if (enyo.LunaService) {
-					this.createChrome(this.lunaServiceComponents);
-					this._getAppID();
-				}
-			};
-		}),
+		init: function() {
+			scope.onpopstate = enyo.bind(this, function(inEvent) {this.popStateHandler();});
+			if (enyo.LunaService) {
+				this.createChrome(this.lunaServiceComponents);
+				this._getAppID();
+			}
+		},
 
 		/**
 		* When our platform is "PalmSystem", we need the appID to access the proper appinfo.json.
@@ -399,5 +396,9 @@
 			}
 			return true;
 		}
+	});
+
+	enyo.ready(function() {
+		moon.History.init();
 	});
 })(enyo, this);
