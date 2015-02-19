@@ -58,7 +58,7 @@
 		* @private
 		*/
 		components: [
-			{name: 'client', kind: 'enyo.FittableRows', classes: 'client'}
+			{name: 'client', classes: 'client'}
 		],
 
 		/**
