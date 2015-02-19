@@ -80,6 +80,7 @@
 			return function () {
 				sup.apply(this, arguments);
 				this.titleChanged();
+				this.headerComponentsChanged();
 			};
 		}),
 
@@ -88,6 +89,13 @@
 		*/
 		titleChanged: function () {
 			this.$.header.set('title', this.title);
+		},
+
+		/**
+		* @private
+		*/
+		headerComponentsChanged: function () {
+			this.$.header.createComponents(this.headerComponents);
 		},
 
 		/**
