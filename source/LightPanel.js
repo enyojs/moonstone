@@ -95,7 +95,7 @@
 		* @private
 		*/
 		headerComponentsChanged: function () {
-			this.$.header.createComponents(this.headerComponents);
+			this.$.header.createComponents(this.headerComponents, {owner: this});
 		},
 
 		/**
