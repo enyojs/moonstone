@@ -103,7 +103,7 @@
 		postTransition: function () {
 			this.createComponents(this.clientComponents);
 			this.$.client.render();
-			this.$.client.applyStyle('opacity', 1);
+			this.$.client.addClass('populated');
 			this._skipPostTransition = true;
 
 			if (!enyo.Spotlight.getCurrent()) {
