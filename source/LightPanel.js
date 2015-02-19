@@ -44,33 +44,25 @@
 			* @default ''
 			* @public
 			*/
-			title: ''
+			title: '',
+
+			/**
+			* Components that are part of the header.
+			*
+			* @type {Object}
+			* @default {}
+			* @public
+			*/
+			headerComponents: {}
 		},
 
 		/**
 		* @private
 		*/
-		tools: [
-			{kind: 'moon.Header', name: 'header', type: 'medium'}
-		],
-
-		/**
-		* @private
-		*/
 		components: [
+			{kind: 'moon.Header', name: 'header', type: 'medium'},
 			{name: 'client', classes: 'client'}
 		],
-
-		/**
-		* @method
-		* @private
-		*/
-		initComponents: enyo.inherit(function (sup) {
-			return function () {
-				this.createChrome(this.tools);
-				sup.apply(this, arguments);
-			};
-		}),
 
 		/**
 		* @method
