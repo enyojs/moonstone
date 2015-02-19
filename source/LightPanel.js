@@ -113,6 +113,10 @@
 			this.$.client.render();
 			this.$.client.applyStyle('opacity', 1);
 			this._skipPostTransition = true;
+
+			if (!enyo.Spotlight.getCurrent()) {
+				enyo.Spotlight.spot(this);
+			}
 		}
 
 	});

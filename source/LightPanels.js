@@ -51,9 +51,6 @@
 				}
 				if (panelNext) {
 					panelNext.spotlightDisabled = false;
-					if (!enyo.Spotlight.getCurrent()) {
-						enyo.Spotlight.spot(panels[this.index]);
-					}
 				}
 				sup.apply(this, arguments);
 			};
