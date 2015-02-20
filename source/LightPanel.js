@@ -53,7 +53,25 @@
 			* @default {}
 			* @public
 			*/
-			headerComponents: {}
+			headerComponents: {},
+
+			/**
+			* The amount of time, in milliseconds, to run the fade-in animation for the panel body.
+			*
+			* @type {Number}
+			* @default 500
+			* @public
+			*/
+			clientDuration: 500,
+
+			/**
+			* The timing function to be applied to the fade-in animation for the panel body.
+			*
+			* @type {String}
+			* @default 'ease-out'
+			* @public
+			*/
+			clientTimingFunction: 'ease-out'
 		},
 
 		/**
@@ -75,6 +93,15 @@
 				this.headerComponentsChanged();
 			};
 		}),
+
+		/**
+		* @private
+		*/
+		init: function () {
+			var transValue = enyo.format('opacity %.ms %.', this.clientDuration, this.clientTimingFunction);
+			this.$.client.applyStyle('-webkit-transition', transValue);
+			this.$.client.applyStyle('transition', transValue);
+		},
 
 		/**
 		* @private
