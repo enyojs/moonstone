@@ -21,7 +21,12 @@
 	// Adding the content property here, instead of above, means that this element will only appear in
 	// the DOM during ".transitioning". This was altered to improve marquee animation performance.
 	// Pseudo-elements without a content property cannot receive styling.
-	&.transitioning:after {
-		content: '';
+	&.transitioning {
+		-webkit-transform: translateZ(0);
+		transform: translateZ(0);
+
+		&:after {
+			content: '';
+		}
 	}
 }
