@@ -4812,6 +4812,10 @@ html {
   bottom: 0;
   right: 0;
 }
+.moon-light-panel.transitioning {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
 .moon-light-panel.transitioning:after {
   content: '';
 }
