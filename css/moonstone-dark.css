@@ -4799,6 +4799,8 @@ html {
 }
 .moon-light-panel .client {
   opacity: 0;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 .moon-light-panel .client.populated {
   opacity: 1;
