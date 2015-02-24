@@ -209,7 +209,7 @@
 					{kind: 'moon.Button', name: 'startButton', content: this.startConent, small: true, ontap: 'startTapped'},
 					{kind: 'moon.Button', name: 'pauseButton', content: this.pauseConent, small: true, ontap: 'pauseTapped'}
 				]}
-			]},
+			]}
 		],
 
 		/**
@@ -278,7 +278,8 @@
 		*/
 		setupPickers: function () {
 			var len, idx, item;
-			if (len = this.templateArray.length) {
+			len = this.templateArray.length;
+			if (len) {
 				for (idx = 0; idx < len; idx++) {
 					item = this.templateArray[idx];
 					switch (item) {
@@ -398,7 +399,7 @@
 			if (this.value == null || this.value === '') {
 				this.resetPicker();
 				this.noneTextChanged();
-				this.doDurationChange({name: this.name, value: this.$.currentValue.content})
+				this.doDurationChange({name: this.name, value: this.$.currentValue.content});
 			} else {
 				this.createValueArray();
 				this.updatePicker();
