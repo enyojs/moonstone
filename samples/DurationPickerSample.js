@@ -5,13 +5,18 @@ enyo.kind({
 			{kind: 'FittableRows',
 			classes: 'moon enyo-unselectable', fit: true,
 			components: [
-				{kind: 'moon.Divider', content: 'DurationPicker Full Version'},
+				{kind: 'moon.Divider', content: 'DurationPicker'},
 				{kind: 'moon.Scroller', fit: true, components: [
-					{classes: 'moon-7h moon-vspacing-s', components: [
-						{kind: 'moon.DurationPicker', name: 'pickerDuration', noneText: 'Pick Duration', content: 'Duration', countdown: true,
-								value: '10:3:30', template: 'h:m:s', onDurationChange: 'durationChanged', onCountdownExpired: 'countdownExpired'},
-						{kind: 'moon.Button', name: 'buttonReset', content: 'Reset Duration', small: true, ontap: 'resetTapped'},
-						{kind: 'moon.Button', name: 'countdownToggle', content: 'Toggle Coutdown', small: true, ontap: 'countdownTapped'}
+					{classes: 'moon-6h moon-vspacing-s', components: [
+						{kind: 'moon.DurationPicker', name: 'pickerDuration',
+							noneText: 'Pick Duration',
+							content: 'Duration',
+							value: '10:1:5', 
+							template: 'm:h:s',
+							enableTimer: true,
+							onDurationChange: 'durationChanged',
+							onPickerExpired: 'pickerExpired'
+						}
 					]}
 				]},
 				{kind: 'moon.InputDecorator', components: [
@@ -23,46 +28,38 @@ enyo.kind({
 				]},
 				{kind: 'moon.Button', name: 'setValue', content: 'Set Value', ontap: 'setNewValue', small: true},
 				{kind: 'moon.Divider', content: 'Result'},
-				{kind: 'moon.BodyText', name: 'result', content: 'Duration Picker - Pick Duration'}
+				{kind: 'moon.BodyText', name: 'result', content: 'Duration Picker set to Pick Duration'}
 			]},
 			{kind: 'FittableRows', classes: 'moon enyo-unselectable', components: [
 				{kind: 'moon.Divider', content: 'DurationPicker Disabled'},
 				{kind: 'moon.Scroller', components: [
 					{classes: 'moon-7h moon-vspacing-s', components: [
-						{kind: 'moon.DurationPicker', name: 'pickerDurationDisabled', disabled: true, noneText: 'Pick Duration', content: 'Duration', countdown: true,
+						{kind: 'moon.DurationPicker', name: 'pickerDurationDisabled', disabled: true, noneText: 'Pick Duration', content: 'Duration',
 							value: '20:20', template: 'm:s'}
 					]}
 				]},
-				{kind: 'moon.Scroller', fit: true, components: [
-					{kind: 'moon.Divider', content: 'DurationPicker Non Editable'},
+				{kind: 'moon.Scroller', fit:true, components: [
+					{kind: 'moon.Divider', content: 'DurationPicker without Timer'},
 					{classes: 'moon-7h moon-vspacing-s', components: [
-						{kind: 'moon.DurationPicker', name: 'pickerDurationNonEdit', disabledPicker: true, noneText: 'Pick Duration', content: 'Duration', countdown: true,
-							value: '50', template: 's'}
+						{kind: 'moon.DurationPicker', name: 'pickerDurationNonTimer', enableTimer: false, noneText: 'Pick Duration', content: 'Duration',
+							value: '30:5:2', template: 'smh'}
 					]}
 				]}
 			]}
 		]}
 	],
-	create: function(){
+	create: function () {
 		this.inherited(arguments);
 	},
-	durationChanged: function(sender, ev) {
+	durationChanged: function (sender, ev) {
 		if (this.$.result && ev.value) {
 			this.$.result.set('content', ev.name + ' changed to ' + ev.value);
 		}
 	},
-	countdownExpired: function(sender, ev) {
+	pickerExpired: function (sender, ev) {
 		if (this.$.result && ev.name) {
 			this.$.result.set('content', ev.name + ' expired');
 		}
-	},
-	resetTapped: function(sender, ev) {
-		this.$.pickerDuration.set('value', '');
-		this.$.result.set('content', 'DurationPicker - Pick Duration');
-		return true;
-	},
-	countdownTapped: function (sender, ev) {
-		this.$.pickerDuration.set('countdown', !this.$.pickerDuration.countdown);
 	},
 	setNewValue: function () {
 		this.$.pickerDuration.set('value', this.$.newValue.value);

@@ -444,9 +444,9 @@ html {
 }
 .moon-body-text {
   font-family: "MuseoSans 300";
-  font-size: 1rem;
+  font-size: 1.125rem;
   color: #a6a6a6;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
 }
 .moon-body-text a:link {
   color: #cf0652;
@@ -465,14 +465,14 @@ html {
   text-decoration: none;
 }
 .moon-body-large-text {
-  font-size: 1.125rem;
-  line-height: 1.625rem;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 .moon-bold-text {
   font-family: "MuseoSans 900";
-  font-size: 1rem;
+  font-size: 1.125rem;
   color: #a6a6a6;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
 }
 .moon-bold-text a:link {
   color: #cf0652;
@@ -948,10 +948,6 @@ html {
 /* Special treatment inside of ExpandablePicker (checkbox nudged up) */
 .moon-expandable-picker .moon-checkbox-item .moon-checkbox {
   top: 0.5rem;
-}
-/* this is a fix for TV only - left-side of letter cut off in list-action item drawer*/
-.moon-list-actions-drawer-client .moon-checkbox-item .moon-checkbox-item-label-wrapper {
-  padding-left: 0.125rem;
 }
 /* Right to left */
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox {
@@ -1439,9 +1435,9 @@ html {
 }
 .moon-expandable-list-item-client .moon-item {
   font-family: "MuseoSans 300";
-  font-size: 1rem;
+  font-size: 1.125rem;
   color: #a6a6a6;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
 }
 .moon-expandable-list-item-client .moon-item a:link {
   color: #cf0652;
@@ -1511,8 +1507,8 @@ html {
 /* Current Value */
 .moon-expandable-picker-current-value {
   font-family: "MuseoSans 300";
-  font-size: 1rem;
-  line-height: 1.25rem;
+  font-size: 1.125rem;
+  line-height: 1.375rem;
   color: #a6a6a6;
   margin: 0rem;
 }
@@ -1689,9 +1685,9 @@ html {
 }
 .moon-gridlist-imageitem .sub-caption {
   font-family: "MuseoSans 300";
-  font-size: 1rem;
+  font-size: 1.125rem;
   color: #a6a6a6;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
 }
 .moon-gridlist-imageitem .sub-caption a:link {
   color: #cf0652;
@@ -1908,6 +1904,10 @@ html {
 }
 .moon-time-picker-wrap .moon-date-picker-wrap {
   display: inline-block;
+}
+/* Duration Picker */
+.moon-duration-picker-item {
+  text-align: center;
 }
 /* Input.css */
 .moon-input {
@@ -2448,7 +2448,7 @@ html {
   border: 0;
   cursor: pointer;
   background: transparent;
-  height: 3.75rem;
+  height: 4.125rem;
   width: 12.5rem;
   color: #4b4b4b;
   resize: none;
@@ -2615,9 +2615,9 @@ html {
 /* Text */
 .moon-labeledtextitem .text {
   font-family: "MuseoSans 300";
-  font-size: 1rem;
+  font-size: 1.125rem;
   color: #a6a6a6;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   text-transform: none;
   margin: 0rem;
   padding: 0rem;
@@ -3543,7 +3543,7 @@ html {
   margin: 0.75rem 0 0.75rem;
 }
 .moon-dialog-client {
-  padding: 1.5rem 0 0;
+  padding: 1rem 0 0;
   float: right;
 }
 .moon-dialog-client > * {
@@ -4253,9 +4253,9 @@ html {
 }
 .moon-video-player-info-subsubtitle {
   font-family: "MuseoSans 300";
-  font-size: 1rem;
+  font-size: 1.125rem;
   color: #a6a6a6;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   font-style: italic;
   color: #ffffff;
   display: inline-block;
@@ -4287,9 +4287,9 @@ html {
 }
 .moon-video-player-info-description {
   font-family: "MuseoSans 300";
-  font-size: 1rem;
+  font-size: 1.125rem;
   color: #a6a6a6;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   color: #ffffff;
   white-space: normal;
   margin-bottom: 1rem;
@@ -4651,28 +4651,33 @@ html {
 .moon-neutral .moon-formcheckbox-item.spotlight .moon-checkbox-item-label-wrapper {
   color: #ffffff;
 }
-.selection-enabled .moon-selection-overlay-support.selected .moon-selection-overlay-support-scrim {
+.moon-selection-overlay-support-scrim {
+  display: none;
+}
+.selection-enabled .moon-selection-overlay-support-scrim {
   display: block;
+  z-index: 1000;
   text-align: center;
 }
-.selection-enabled .moon-selection-overlay-support.selected .moon-selection-overlay-support-scrim .moon-icon {
-  position: absolute;
+.selection-enabled .moon-selection-overlay-support-scrim .moon-icon {
+  display: block;
   width: 2.5rem;
   height: 2.5rem;
   line-height: 2.5rem;
-  font-size: 3.375rem;
+  border: 0.25rem solid #000000;
+  background-color: white;
+  color: transparent;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  margin: 0;
+  border-radius: 50%;
+  position: absolute;
+  opacity: 0.5;
+}
+.selection-enabled .selected .moon-selection-overlay-support-scrim .moon-icon {
   color: #cf0652;
-  margin: -1.25rem 0 0 -1.25rem;
-  background-color: #ffffff;
-  border-radius: 1.25rem;
-  background-position: center 0.25rem;
-}
-.moon-selection-overlay-support-scrim {
-  display: none;
-  z-index: 1000;
-}
-.enyo-locale-right-to-left .moon-selection-overlay-support.selected .moon-selection-overlay-support-scrim .moon-icon {
-  margin: -1.25rem -1.25rem 0 0;
+  border-color: #cf0652;
+  opacity: 1;
 }
 .moon-thumb {
   -webkit-transform-origin: 0rem 0rem;
