@@ -39,3 +39,6 @@ made the following API changes in Moonstone:
 
 * In `moon.ListActions`, added events for start and end of open and close
     animations (`onShow`, `onShown`, `onHide`, and `onHidden`).
+
+* In `moon.Scroller`, added `hideScrollColumnsWhenFit`, a Boolean flag that may
+    be set to `true` to force paging controls to be hidden (default is `false`).
