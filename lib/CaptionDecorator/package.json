@@ -1,0 +1,6 @@
+{
+	"main": "CaptionDecorator.js",
+	"style": [
+		"CaptionDecorator.less"
+	]
+}

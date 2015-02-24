@@ -1,0 +1,6 @@
+{
+	"main": "Accordion.js",
+	"style": [
+		"Accordion.less"
+	]
+}

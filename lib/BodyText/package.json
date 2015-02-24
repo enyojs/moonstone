@@ -1,0 +1,6 @@
+{
+	"main": "BodyText.js",
+	"style": [
+		"BodyText.less"
+	]
+}

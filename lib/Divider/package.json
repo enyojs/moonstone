@@ -1,0 +1,6 @@
+{
+	"main": "Divider.js",
+	"style": [
+		"Divider.less"
+	]
+}

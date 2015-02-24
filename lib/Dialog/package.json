@@ -1,0 +1,6 @@
+{
+	"main": "Dialog.js",
+	"style": [
+		"Dialog.less"
+	]
+}

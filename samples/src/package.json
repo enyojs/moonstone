@@ -1,0 +1,14 @@
+{
+  "main": "index.js",
+  "libPath": "../../../",
+  "outdir": "../",
+  "outCssFile": "samples.css",
+  "outJsFile": "samples.js",
+  "title": "Moonstone Samples",
+  "style": [
+    "*.css"
+  ],
+  "assets": [
+    "assets/*"
+  ]
+}

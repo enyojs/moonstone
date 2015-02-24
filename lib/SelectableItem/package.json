@@ -1,0 +1,6 @@
+{
+	"main": "SelectableItem.js",
+	"style": [
+		"SelectableItem.less"
+	]
+}

@@ -1,0 +1,6 @@
+{
+	"main": "FormCheckbox.js",
+	"style": [
+		"FormCheckbox.less"
+	]
+}

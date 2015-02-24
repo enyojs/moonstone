@@ -1,0 +1,6 @@
+{
+	"main": "SelectionOverlaySupport.js",
+	"style": [
+		"SelectionOverlaySupport.less"
+	]
+}

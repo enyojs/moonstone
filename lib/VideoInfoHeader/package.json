@@ -1,0 +1,6 @@
+{
+	"main": "VideoInfoHeader.js",
+	"style": [
+		"VideoInfoHeader.less"
+	]
+}
