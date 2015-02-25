@@ -1140,8 +1140,9 @@
 
 	enyo.dispatcher.features.push(
 		function (e) {
-			if ("blur" === e.type && window === e.target) {
-				// Stop marquee when onblur event comes from window
+			if (("blur" === e.type && window === e.target) || 
+				("onSpotlightFocused" === e.type)) {
+				// Stop marquee when onblur or onSpotlightFocused event comes
 				var c = _getMarqueeOnHoverControl();
 				if (c) c._marquee_leave();
 			}
