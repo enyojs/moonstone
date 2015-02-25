@@ -67,6 +67,12 @@
 		/**
 		* @private
 		*/
+		events: {
+			onRequestSpot: ''
+		},
+		/**
+		* @private
+		*/
 		handlers: {
 			onRequestShowPopup        : 'requestShow',
 			onRequestHidePopup        : 'requestHide',
@@ -556,6 +562,20 @@
 					moon.History.ignorePopState();
 				}
 			}
+		},
+
+		/**
+		* @private
+		*/
+		backKeyHandler: function() {
+			if (this.showing) {
+				this.hide();
+			}
+
+			if (this.spotlight && !this.spotlightDisabled) {
+				this.doRequestSpot();
+			}
+			return true;
 		},
 
 		/**
