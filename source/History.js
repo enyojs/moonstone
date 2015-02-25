@@ -169,8 +169,21 @@
 					this.createChrome(this.lunaServiceComponents);
 					this._getAppID();
 				}
+
+				if (this.enableBackHistoryAPI) {
+					this._initHistoryState();
+				}
 			};
 		}),
+
+		/**
+		* To prevent back to previous page in browser, we mark initial state.
+		*
+		* @private
+		*/
+		_initHistoryState: function () {
+			history.pushState({currentObjId: 'historyMaster'}, '', '');
+		},
 
 		/**
 		* When our platform is "PalmSystem", we need the appID to access the proper appinfo.json.
@@ -353,6 +366,9 @@
 
 			switch (state) {
 			case 'empty':
+				if (history.state.currentObjId == 'historyMaster') {
+					this._initHistoryState();
+				}
 				break;
 			case 'silence':
 			//Popstate event should be ignored on following 2 conditions.
