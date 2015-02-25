@@ -1,14 +1,58 @@
 (function (enyo, scope) {
 
-	var _marqueeOnHoverControl = null,
+	/**
+	* There are a couple scenarios (window blurs and changing from pointer mode to 5-way) in which
+	* we'd like to stop an actively on-hover marqueeing control. This private instance manages
+	* those events centrally to minimize unnecessary Signal's subscribers.
+	*
+	* @private
+	*/
+	var observer = new enyo.Component({
 
-	_setMarqueeOnHoverControl = function(oControl) {
-		_marqueeOnHoverControl = oControl;
-	},
+		/**
+		* @private
+		*/
+		hoverControl: null,
 
-	_getMarqueeOnHoverControl = function() {
-		return _marqueeOnHoverControl;
-	};
+		/**
+		* @private
+		*/
+		components: [
+			{kind: 'Signals', onSpotlightModeChanged: 'handleModeChanged', onblur: 'handleBlur'}
+		],
+
+		/**
+		* @private
+		*/
+		_setMarqueeOnHoverControl: function(oControl) {
+			this.hoverControl = oControl;
+		},
+
+		/**
+		* @private
+		*/
+		_getMarqueeOnHoverControl: function() {
+			return this.hoverControl;
+		},
+
+		/**
+		* @private
+		*/
+		handleModeChanged: function (sender, event) {
+			if (!event.pointerMode && this.hoverControl) {
+				this.hoverControl._marquee_leave();
+			}
+		},
+
+		/**
+		* @private
+		*/
+		handleBlur: function (sender, event) {
+			if (this.hoverControl) {
+				this.hoverControl._marquee_leave();
+			}
+		}
+	});
 
 	/**
 	* Fires to queue up a list of child animations.
@@ -245,8 +289,8 @@
 		*/
 		destroy: enyo.inherit(function (sup) {
 			return function () {
-				if (this === _getMarqueeOnHoverControl()) {
-					_setMarqueeOnHoverControl(null);
+				if (this === observer._getMarqueeOnHoverControl()) {
+					observer._setMarqueeOnHoverControl(null);
 				}
 				sup.apply(this, arguments);
 			};
@@ -321,7 +365,7 @@
 			if ((this.marqueeOnHover && !this.marqueeOnSpotlight) ||
 			(this.disabled && this.marqueeOnSpotlight)) {
 				if (this.marqueeOnHover) {
-					_setMarqueeOnHoverControl(this);
+					observer._setMarqueeOnHoverControl(this);
 				}
 				this.startMarquee();
 			}
@@ -334,7 +378,7 @@
 			this._marquee_isHovered = false;
 			if ((this.marqueeOnHover && !this.marqueeOnSpotlight) || (this.disabled && this.marqueeOnSpotlight)) {
 				if (this.marqueeOnHover) {
-					_setMarqueeOnHoverControl(null);
+					observer._setMarqueeOnHoverControl(null);
 				}
 				this.stopMarquee();
 			}
@@ -1142,14 +1186,4 @@
 		*/
 		style: 'overflow: hidden;'
 	});
-
-	enyo.dispatcher.features.push(
-		function (e) {
-			if ("blur" === e.type && window === e.target) {
-				// Stop marquee when onblur event comes from window
-				var c = _getMarqueeOnHoverControl();
-				if (c) c._marquee_leave();
-			}
-		}
-	);
 })(enyo, this);
