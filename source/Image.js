@@ -113,9 +113,9 @@
 		* @private
 		*/
 		bindings: [
+			{from: '.sizing', to: '.$.image.sizing'},
 			{from: '.src', to: '.$.image.src'},
 			{from: '.alt', to: '.$.image.alt'},
-			{from: '.sizing', to: '.$.image.sizing'},
 			{from: '.position', to: '.$.image.position'}
 		],
 
