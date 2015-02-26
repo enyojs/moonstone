@@ -117,7 +117,7 @@
 		var p = moon.DataGridList.delegates.verticalGrid = enyo.clone(enyo.DataGridList.delegates.verticalGrid);
 		enyo.kind.extendMethods(p, {
 			/**
-			* Overriding refresh() to resize scroller and stop scrolling.
+			* Overriding refresh() to stop scroller and stop scrolling.
 			*
 			* @method
 			* @private
