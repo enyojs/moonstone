@@ -125,7 +125,7 @@
 			refresh: enyo.inherit(function (sup) {
 				return function (list) {
 					sup.apply(this, arguments);
-					list.$.scroller.resize();
+					list.$.scroller.stop();
 				};
 			}),
 
