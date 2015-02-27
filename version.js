@@ -5,5 +5,5 @@
 	@namespace moon
 */
 if (enyo && enyo.version) {
-	enyo.version.moonstone = "2.5.3-pre.15.t";
+	enyo.version.moonstone = "2.5.3-pre.17.t";
 }
