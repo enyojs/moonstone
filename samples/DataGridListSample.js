@@ -87,8 +87,6 @@ enyo.kind({
 enyo.kind({
 	name: "moon.sample.GridSampleItem",
 	kind: "moon.GridListImageItem",
-	mixins: ["moon.SelectionOverlaySupport"],
-	selectionOverlayVerticalOffset: 35,
 	mixins: ["moon.BadgeOverlaySupport"],
 	type: "video",
 	subCaption: "Sub Caption",
