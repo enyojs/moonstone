@@ -4675,6 +4675,14 @@ html {
   border-color: #cf0652;
   opacity: 1;
 }
+.moon-badge-overlay-support-scrim {
+  display: block;
+  z-index: 1000;
+  width: 100%;
+  height: 2.29167rem;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+}
 .moon-thumb {
   -webkit-transform-origin: 0rem 0rem;
   border: none;
