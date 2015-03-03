@@ -8,7 +8,8 @@
 		{"name": "Buttons", "samples": [
 			{"name": "Button", "path":"$lib/moonstone/samples/ButtonSample"},
 			{"name": "Toggle Button", "path":"$lib/moonstone/samples/ToggleButtonSample"},
-			{"name": "Icon Button", "path":"$lib/moonstone/samples/IconButtonSample"}
+			{"name": "Icon Button", "path":"$lib/moonstone/samples/IconButtonSample"},
+			{"name": "Progress Button", "path":"$lib/moonstone/samples/ProgressButtonSample"}
 		]},
 		{"name": "Clock", "path":"$lib/moonstone/samples/ClockSample"},
 		{"name": "Divider", "path":"$lib/moonstone/samples/DividerSample"},
@@ -33,7 +34,10 @@
 			{"name": "Selectable Item", "path":"$lib/moonstone/samples/SelectableItemSample"},
 			{"name": "Radio Item", "path":"$lib/moonstone/samples/RadioItemSample"},
 			{"name": "Checkbox Item", "path":"$lib/moonstone/samples/CheckboxItemSample"},
-			{"name": "Toggle Item", "path":"$lib/moonstone/samples/ToggleItemSample"}
+			{"name": "Toggle Item", "path":"$lib/moonstone/samples/ToggleItemSample"},
+			{"name": "Image Item", "path":"$lib/moonstone/samples/ImageItemSample"},
+			{"name": "Labeled Text Item", "path":"$lib/moonstone/samples/LabeledTextItemSample"},
+			{"name": "Expandable List Item", "path":"$lib/moonstone/samples/ExpandableListItemSample"}
 		]},
 		{"name": "List", "samples": [
 			{"name": "List Items", "samples": [
@@ -44,6 +48,7 @@
 			{"name": "Data Grid List", "path":"$lib/moonstone/samples/DataGridListSample", "css":"sample"}
 		]},
 		{"name": "List Actions", "path":"$lib/moonstone/samples/ListActionsSample"},
+		{"name": "Marquee", "path":"$lib/moonstone/samples/MarqueeSample"},
 		{"name": "Media", "samples": [
 			{"name": "Fullscreen Video Player", "path":"$lib/moonstone/samples/VideoPlayerSample"},
 			{"name": "Inline Video Player", "path":"$lib/moonstone/samples/PanelsVideoPlayerSample"},
@@ -67,6 +72,7 @@
 			{"name": "Date Picker", "path":"$lib/moonstone/samples/DatePickerSample"},
 			{"name": "Time Picker", "path":"$lib/moonstone/samples/TimePickerSample", "css":"sample"},
 			{"name": "Integer Picker", "path":"$lib/moonstone/samples/IntegerPickerSample"},
+			{"name": "Simple Integer Picker", "path":"$lib/moonstone/samples/SimpleIntegerPickerSample"},
 			{"name": "Calendar", "path":"$lib/moonstone/samples/CalendarSample"}
 		]},
 		{"name": "Popups", "samples": [
@@ -85,7 +91,7 @@
 		{"name": "Spinner", "path":"$lib/moonstone/samples/SpinnerSample"},
 		{"name": "Text", "samples": [
 			{"name": "Body Text", "path":"$lib/moonstone/samples/BodyTextSample"},
-			{"name": "Expandable Text", "path":"$lib/moonstone/samples/ExpandableTextSample"},
+			{"name": "Expandable Text", "path":"$lib/moonstone/samples/ExpandableTextSample"}
 		]},
 		{"name": "Tooltip", "path":"$lib/moonstone/samples/TooltipSample"}
 	]
