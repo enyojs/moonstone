@@ -71,7 +71,17 @@
 			* @default 'ease-out'
 			* @public
 			*/
-			clientTimingFunction: 'ease-out'
+			clientTimingFunction: 'ease-out',
+
+			/**
+			* Facade for the [titleUpperCase]{@link moon.Header#titleUpperCase} property
+			* of the embedded {@link moon.Header}.
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
+			titleUpperCase: true
 		},
 
 		/**
@@ -83,39 +93,31 @@
 		],
 
 		/**
+		* @private
+		*/
+		bindings: [
+			{from: 'title', to: '$.header.title'},
+			{from: 'titleUpperCase', to: '$.header.titleUpperCase'}
+		],
+
+		/**
 		* @method
 		* @private
 		*/
 		create: enyo.inherit(function (sup) {
 			return function () {
 				sup.apply(this, arguments);
-				this.titleChanged();
-				this.headerComponentsChanged();
+
+				var transValue = enyo.format('opacity %.ms %.', this.clientDuration, this.clientTimingFunction);
+				this.$.client.applyStyle('-webkit-transition', transValue);
+				this.$.client.applyStyle('transition', transValue);
+
+				if (this.headerComponents) {
+					var owner = this.hasOwnProperty('headerComponents') ? this.getInstanceOwner() : this;
+					this.$.header.createComponents(this.headerComponents, {owner: owner});
+				}
 			};
 		}),
-
-		/**
-		* @private
-		*/
-		init: function () {
-			var transValue = enyo.format('opacity %.ms %.', this.clientDuration, this.clientTimingFunction);
-			this.$.client.applyStyle('-webkit-transition', transValue);
-			this.$.client.applyStyle('transition', transValue);
-		},
-
-		/**
-		* @private
-		*/
-		titleChanged: function () {
-			this.$.header.set('title', this.title);
-		},
-
-		/**
-		* @private
-		*/
-		headerComponentsChanged: function () {
-			this.$.header.createComponents(this.headerComponents, {owner: this});
-		},
 
 		/**
 		* @public
