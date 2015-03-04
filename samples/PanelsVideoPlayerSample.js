@@ -90,7 +90,7 @@ enyo.kind({
 		}
 		// Set source by sources array
 		this.sources = [
-			{src: undefined, type: "video/mp4"},
+			{src: "http://media.w3.org/2010/05/video/movie_300.mp4", type: "video/mp4"},
 			{src: "http://media.w3.org/2010/05/video/movie_300.ogv", type: "video/ogg"},
 			{src: "http://media.w3.org/2010/05/video/movie_300.webm", type: "video/webm"}
 		];
@@ -103,9 +103,8 @@ enyo.kind({
 		}
 		// Set source by sources array
 		this.sources = [
-			{src: null, type: "video/mp4"},
-			{src: "http://media.w3.org/2010/05/bunny/movie.ogv", type: "video/ogg"},
-			{src: "http://media.w3.org/2010/05/bunny/movie.webm", type: "video/webm"}
+			{src: "http://media.w3.org/2010/05/bunny/movie.mp4", type: "video/mp4"},
+			{src: "http://media.w3.org/2010/05/bunny/movie.ogv", type: "video/ogg"}
 		];
 		this.$.player.setSources(this.sources);
 		this.$.videoInfoHeader.setTitle("Bunny Video");
