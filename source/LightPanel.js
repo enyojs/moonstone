@@ -108,7 +108,7 @@
 			return function () {
 				sup.apply(this, arguments);
 
-				var transValue = enyo.format('opacity %.ms %.', this.clientDuration, this.clientTimingFunction);
+				var transValue = 'opacity ' + this.clientDuration + 'ms ' + this.clientTimingFunction;
 				this.$.client.applyStyle('-webkit-transition', transValue);
 				this.$.client.applyStyle('transition', transValue);
 
