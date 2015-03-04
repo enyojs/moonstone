@@ -67,7 +67,8 @@ enyo.kind({
 				selected: false,
 				text: "Item " + idx + title,
 				subText: subTitle,
-				url: "http://placehold.it/300x300/" + Math.floor(Math.random()*0x1000000).toString(16) + "/ffffff&text=Image " + idx
+				url: "http://placehold.it/300x300/" + Math.floor(Math.random()*0x1000000).toString(16) + "/ffffff&text=Image " + idx,
+				placeholder: enyo.Image.placeholder
 			});
 		}
 		// update our internal index so it will always generate unique values
@@ -90,9 +91,11 @@ enyo.kind({
 	mixins: ["moon.SelectionOverlaySupport"],
 	selectionOverlayVerticalOffset: 35,
 	subCaption: "Sub Caption",
+	imageSizing: "cover",
 	bindings: [
 		{from: ".model.text", to: ".caption"},
 		{from: ".model.subText", to: ".subCaption"},
-		{from: ".model.url", to: ".source"}
+		{from: ".model.url", to: ".source"},
+		{from: ".model.placeholder", to: ".placeholder"}
 	]
 });
