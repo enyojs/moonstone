@@ -1,7 +1,7 @@
 (function (enyo, scope) {
 	/**
 	* {@link moon.DayPicker}, which extends {@link moon.ExpandablePicker}, is
-	* a drop-down picker menu that solicits day of the week from the user. 
+	* a drop-down picker menu that solicits day of the week from the user.
 	*
 	* ```
 	* {kind: 'moon.DayPicker'}
@@ -13,7 +13,7 @@
 	*
 	* The content of representative value can be changed.
 	* ```
-	* {kind: 'moon.DayPicker', everyWeekday:'Weekdays', everyWeekend:'Weekends', everyday:'Daily'}
+	* {kind: 'moon.DayPicker', everyWeekdayText:'Weekdays', everyWeekendText:'Weekends', everyDayText:'Daily'}
 	* ```
 	*
 	* @class moon.DayPicker
@@ -47,7 +47,7 @@
 		/**
 		* @private
 		*/
-		content: moon.$L('Select days'), 
+		content: moon.$L('Select days'),
 
 		/**
 		* @private
@@ -59,10 +59,10 @@
 			* Text to be displayed when all of the day are selected.
 			*
 			* @type {String}
-			* @default 'Everyday'
+			* @default 'Every Day'
 			* @public
 			*/
-			everydayText: moon.$L('Everyday'),
+			everyDayText: moon.$L('Every Day'),
 
 			/**
 			* Text to be displayed when all of the weekday are selected.
@@ -125,7 +125,7 @@
 			var joinIndex = this.selectedIndex.join();
 
 			if (indexLength === 7) {
-				return this.everydayText;
+				return this.everyDayText;
 			} else if (indexLength === 5 && joinIndex == '0,1,2,3,4') {
 				return this.everyWeekdayText;
 			} else if (indexLength === 2 && joinIndex == '5,6') {
