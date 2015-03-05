@@ -323,6 +323,7 @@
 		* @public
 		*/
 		animateTo: function(start, end) {
+			start = this.clampValue(this.min, this.max, start);
 			end = this.clampValue(this.min, this.max, end); // Moved from animatorStep
 			this.animatingTo = end;
 
