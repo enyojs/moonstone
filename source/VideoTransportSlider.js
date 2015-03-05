@@ -367,9 +367,9 @@
 		* @private
 		*/
 		enterTapArea: function(sender, e) {
+			this.startPreview();
 			if (!this.disabled) {
 				this.addClass('visible');
-				this.startPreview();
 				this.doEnterTapArea();
 			}
 		},
