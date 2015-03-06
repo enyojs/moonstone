@@ -87,33 +87,6 @@
 			value: null,
 
 			/**
-			* Optional label for hour
-			*
-			* @type {String}
-			* @default moon.$L('hour')
-			* @public
-			*/
-			hourText: moon.$L('hour'),		// i18n 'HOUR' label in moon.DurationPicker widget
-
-			/**
-			* Optional label for minute
-			*
-			* @type {String}
-			* @default moon.$L('minute')
-			* @public
-			*/
-			minuteText: moon.$L('minute'),		// i18n 'MINUTE' label in moon.DurationPicker widget
-
-			/**
-			* Optional label for second
-			*
-			* @type {String}
-			* @default moon.$L('second')
-			* @public
-			*/
-			secondText: moon.$L('second'),		// i18n 'SECOND' label in moon.DurationPicker widget
-
-			/**
 			* The template format of the picker
 			*
 			* @type {String}
@@ -161,13 +134,67 @@
 		templateArray: [],
 
 		/**
+		* Optional label for hour
+		*
+		* @type {String}
+		* @default moon.$L('hour')
+		* @private
+		*/
+		hourText: moon.$L('hour'),		// i18n 'HOUR' label in moon.DurationPicker widget
+
+		/**
+		* Optional label for minute
+		*
+		* @type {String}
+		* @default moon.$L('minute')
+		* @private
+		*/
+		minuteText: moon.$L('minute'),		// i18n 'MINUTE' label in moon.DurationPicker widget
+
+		/**
+		* Optional label for second
+		*
+		* @type {String}
+		* @default moon.$L('second')
+		* @private
+		*/
+		secondText: moon.$L('second'),		// i18n 'SECOND' label in moon.DurationPicker widget
+
+		/**
+		* Optional label for hours
+		*
+		* @type {String}
+		* @default moon.$L('hours')
+		* @private
+		*/
+		hoursText: moon.$L('hours'),		// i18n 'HOURS' label in moon.DurationPicker widget
+
+		/**
+		* Optional label for minutes
+		*
+		* @type {String}
+		* @default moon.$L('minutes')
+		* @private
+		*/
+		minutesText: moon.$L('minutes'),	// i18n 'MINUTES' label in moon.DurationPicker widget
+
+		/**
+		* Optional label for seconds
+		*
+		* @type {String}
+		* @default moon.$L('seconds')
+		* @private
+		*/
+		secondsText: moon.$L('seconds'),	// i18n 'SECONDS' label in moon.DurationPicker widget
+
+		/**
 		* Optional label for Start Button
 		*
 		* @type {String}
 		* @default moon.$L('Start')
 		* @private
 		*/
-		startText: moon.$L('Start'),			// i18n 'Start' label in moon.DurationPicker buttons
+		startText: moon.$L('Start'),		// i18n 'Start' label in moon.DurationPicker buttons
 
 		/**
 		* Optional label for Pause Button
@@ -176,7 +203,7 @@
 		* @default moon.$L('Pause')
 		* @private
 		*/
-		pauseText: moon.$L('Pause'),			// i18n 'Pause' label in moon.DurationPicker buttons
+		pauseText: moon.$L('Pause'),		// i18n 'Pause' label in moon.DurationPicker buttons
 
 		/**
 		* Optional label for Cancel Button
@@ -185,7 +212,7 @@
 		* @default moon.$L('Cancel')
 		* @private
 		*/
-		cancelText: moon.$L('Cancel'),			// i18n 'Cancel' label in moon.DurationPicker buttons
+		cancelText: moon.$L('Cancel'),		// i18n 'Cancel' label in moon.DurationPicker buttons
 
 		/**
 		* Optional label for Resume Button
@@ -194,7 +221,7 @@
 		* @default moon.$L('Resume')
 		* @private
 		*/
-		resumeText: moon.$L('Resume'),			// i18n 'Resume' label in moon.DurationPicker buttons
+		resumeText: moon.$L('Resume'),		// i18n 'Resume' label in moon.DurationPicker buttons
 
 		/**
 		* Content for Start Button
@@ -519,13 +546,13 @@
 					item = this.templateArray[idx];
 					switch (item) {
 						case 'h':
-							text = text + ' ' + this.values['hour'] + ' ' + (this.values['hour'] == 1 ? moon.$L('Hour') : moon.$L('Hours'));
+							text = text + ' ' + this.values['hour'] + ' ' + (this.values['hour'] == 1 ? this.hourText : this.hoursText);
 							break;
 						case 'm':
-							text = text + ' ' + this.values['minute'] + ' ' + (this.values['minute'] == 1 ? moon.$L('Minute') : moon.$L('Minutes'));
+							text = text + ' ' + this.values['minute'] + ' ' + (this.values['minute'] == 1 ? this.minuteText : this.minutesText);
 							break;
 						case 's':
-							text = text + ' ' + this.values['second'] + ' ' + (this.values['second'] == 1 ? moon.$L('Second') : moon.$L('Seconds'));
+							text = text + ' ' + this.values['second'] + ' ' + (this.values['second'] == 1 ? this.secondText : this.secondsText);
 							break;
 					}
 				}
@@ -541,9 +568,9 @@
 			var hr = this.values['hour'];
 			var mn = this.values['minute'];
 			var ss = this.values['second'];
+			ss--;
 			if (hr <= 0 && mn <= 0 && ss <= 0) {
 				this.pickerExpired();
-				return;
 			} else {
 				if (ss === 0 ) {
 					ss = 59;
@@ -557,12 +584,10 @@
 						this.values['minute'] = mn;
 						this.values['hour'] = hr;
 					}
-				} else {
-					ss--;
-					this.values['second'] = ss;
 				}
-				this.set('value', this.formatValue());
 			}
+			this.values['second'] = ss;
+			this.set('value', this.formatValue());
 		},
 
 		/**
@@ -656,12 +681,11 @@
 		startTimer: function () {
 			window.clearInterval(this.timer);
 			if (this.value) {
-				this.set('countdown', true);
-				this.tick();
 				this.timer = window.setInterval(
 					enyo.bind (this, function () {
 						this.tick();
 					}), 1000);
+				this.set('countdown', true);
 			}
 		},
 
