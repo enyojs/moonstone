@@ -133,7 +133,7 @@
 		* @private
 		*/
 		selectionOverlayHorizontalOffsetChanged: function () {
-			this.$.selectionScrimIcon.applyStyle((this.rtl ? 'right' : 'left'), this.selectionOverlayHorizontalOffset + '%');
+			this.$.selectionScrimIcon.applyStyle('left', this.selectionOverlayHorizontalOffset + '%');
 		}
 	};
 
