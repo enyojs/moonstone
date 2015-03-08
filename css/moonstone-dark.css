@@ -3384,7 +3384,7 @@ html {
   color: #ffffff;
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
-  transition: -webkit-transform 0.2s linear, opacity 0.2s linear;
+  -webkit-transition: -webkit-transform 0.2s linear, opacity 0.2s linear;
   transition: transform 0.2s linear, opacity 0.2s linear;
   opacity: 1;
   text-align: center;
