@@ -1040,9 +1040,11 @@ html {
 }
 .moon-checkbox.moon-toggle-switch.animated .moon-icon {
   -webkit-transition: background-color 0.2s, left 0.2s;
+  transition: background-color 0.2s, left 0.2s;
 }
 .moon-checkbox.moon-toggle-switch.animated .moon-icon:after {
   -webkit-transition: color 0.2s;
+  transition: color 0.2s;
 }
 .moon-toggle-item {
   display: block;
@@ -1920,6 +1922,12 @@ html {
   color: #ffffff;
   background-color: #cf0652;
 }
+.moon-input[type=number] {
+  -moz-appearance: textfield;
+}
+.moon-input[type=number]:hover {
+  -moz-appearance: none;
+}
 .moon-input-decorator .moon-focused .moon-input {
   cursor: text;
 }
@@ -2562,20 +2570,25 @@ html {
   width: 100%;
   height: 100%;
   -webkit-transform: translateZ(0) translateY(100%);
+  transform: translateZ(0) translateY(100%);
 }
 .moon-list-actions-drawer-client.open {
   -webkit-transform: translateZ(0) translateY(0);
+  tranform: translateZ(0) translateY(0);
 }
 .moon-list-actions-drawer-client.animated {
   -webkit-transition: -webkit-transform 0.225s cubic-bezier(0.25, 0.1, 0.25, 1);
+  transition: transform 0.225s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 .moon-medium-header .moon-list-actions-drawer-client,
 .moon-small-header .moon-list-actions-drawer-client {
   -webkit-transform: translateZ(0) translateY(-100%);
+  transform: translateZ(0) translateY(-100%);
 }
 .moon-medium-header .moon-list-actions-drawer-client.open,
 .moon-small-header .moon-list-actions-drawer-client.open {
   -webkit-transform: translateZ(0) translateY(0);
+  transform: translateZ(0) translateY(0);
 }
 .moon-list-actions.stacked .enyo-fittable-rows-layout > * {
   height: auto !important;
@@ -2793,6 +2806,130 @@ html {
     -webkit-transform: rotateZ(600deg);
   }
 }
+@keyframes spinBall {
+  0% {
+    transform: rotateZ(13deg);
+  }
+  /* Slow down toward the top */
+  15% {
+    transform: rotateZ(160deg);
+  }
+  25% {
+    transform: rotateZ(200deg);
+  }
+  30% {
+    transform: rotateZ(225deg);
+  }
+  /* Speed back up as the ball falls */
+  /* Impact at last ball */
+  33% {
+    transform: rotateZ(321deg);
+  }
+  39%,
+  67% {
+    transform: rotateZ(347deg);
+  }
+  /* Small bounce forward */
+  72% {
+    transform: rotateZ(383deg);
+  }
+  79%,
+  100% {
+    transform: rotateZ(373deg);
+  }
+}
+@keyframes spinBall2 {
+  /* Small bounce forward */
+  0% {
+    transform: rotateZ(347deg);
+  }
+  5% {
+    transform: rotateZ(383deg);
+  }
+  12%,
+  33% {
+    transform: rotateZ(373deg);
+  }
+  33.01% {
+    transform: rotateZ(13deg);
+  }
+  /* Slow down toward the top */
+  48% {
+    transform: rotateZ(160deg);
+  }
+  58% {
+    transform: rotateZ(200deg);
+  }
+  63% {
+    transform: rotateZ(225deg);
+  }
+  /* Speed back up as the ball falls */
+  /* Impact at last ball */
+  67% {
+    transform: rotateZ(321deg);
+  }
+  72%,
+  100% {
+    transform: rotateZ(347deg);
+  }
+}
+@keyframes spinBall3 {
+  /* Impact at last ball */
+  0%,
+  100% {
+    transform: rotateZ(321deg);
+  }
+  5%,
+  33% {
+    transform: rotateZ(347deg);
+  }
+  /* Small bounce forward */
+  38% {
+    transform: rotateZ(383deg);
+  }
+  45%,
+  66% {
+    transform: rotateZ(373deg);
+  }
+  66.01% {
+    transform: rotateZ(13deg);
+  }
+  /* Slow down toward the top */
+  81% {
+    transform: rotateZ(160deg);
+  }
+  91% {
+    transform: rotateZ(200deg);
+  }
+  97% {
+    transform: rotateZ(225deg);
+  }
+  /* Speed back up as the ball falls */
+}
+@keyframes propellerBall {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+@keyframes propellerBall2 {
+  0% {
+    transform: rotateZ(120deg);
+  }
+  100% {
+    transform: rotateZ(480deg);
+  }
+}
+@keyframes propellerBall3 {
+  0% {
+    transform: rotateZ(240deg);
+  }
+  100% {
+    transform: rotateZ(600deg);
+  }
+}
 .moon-spinner {
   min-height: 3rem;
   min-width: 3rem;
@@ -2830,6 +2967,7 @@ html {
 }
 .moon-spinner.running .moon-spinner-ball {
   -webkit-animation-play-state: running;
+  animation-play-state: running;
 }
 .moon-spinner .moon-spinner-ball-decorator {
   position: relative;
@@ -2843,12 +2981,15 @@ html {
   font-size: 90%;
   line-height: 0.4em;
   -webkit-animation: none 1.83s linear infinite;
+  animation: none 1.83s linear infinite;
   -webkit-animation-play-state: paused;
+  animation-play-state: paused;
   height: 15%;
   width: 15%;
   left: 42.5%;
   bottom: 15%;
   -webkit-transform-origin: center -133.33333333%;
+  transform-origin: center -133.33333333%;
 }
 .moon-spinner .moon-spinner-ball:after {
   content: "\0F0013";
@@ -2856,18 +2997,24 @@ html {
 }
 .moon-spinner .moon-spinner-ball1 {
   -webkit-animation-name: spinBall;
+  animation-name: spinBall;
   color: #69cdff;
   -webkit-transform: rotateZ(13deg);
+  transform: rotateZ(13deg);
 }
 .moon-spinner .moon-spinner-ball2 {
   -webkit-animation-name: spinBall2;
+  animation-name: spinBall2;
   color: #ff4a4a;
   -webkit-transform: rotateZ(347deg);
+  transform: rotateZ(347deg);
 }
 .moon-spinner .moon-spinner-ball3 {
   -webkit-animation-name: spinBall3;
+  animation-name: spinBall3;
   color: #ffb80d;
   -webkit-transform: rotateZ(321deg);
+  transform: rotateZ(321deg);
 }
 .moon-spinner .moon-spinner-client {
   float: left;
@@ -3034,12 +3181,48 @@ html {
     -webkit-transform: translateY(-100%);
   }
 }
+@keyframes panel-outer {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes panel-inner {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes breadcrumb-outer {
+  0% {
+    transform: translateY(0%);
+  }
+  36%,
+  100% {
+    transform: translateY(100%);
+  }
+}
+@keyframes breadcrumb-inner {
+  0% {
+    transform: translateY(0%);
+  }
+  36%,
+  100% {
+    transform: translateY(-100%);
+  }
+}
 .moon-panel.moon-composite .moon-panel-viewport,
 .moon-panel.moon-composite .moon-panel-content-wrapper,
 .moon-panel.moon-composite .moon-panel-breadcrumb-viewport,
 .moon-panel.moon-composite .moon-panel-small-header-wrapper {
   -webkit-animation-fill-mode: both;
   -webkit-animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+  animation-timing-function: ease-in-out;
   -webkit-transform: translateZ(0);
   -ms-transform: translateZ(0);
   -o-transform: translateZ(0);
@@ -3056,24 +3239,29 @@ html {
 .moon-panel.growing .moon-panel-viewport,
 .moon-panel.shrinking .moon-panel-viewport {
   -webkit-animation-name: panel-outer;
+  animation-name: panel-outer;
 }
 .moon-panel.growing .moon-panel-breadcrumb-viewport,
 .moon-panel.shrinking .moon-panel-breadcrumb-viewport {
   -webkit-animation-name: breadcrumb-outer;
+  animation-name: breadcrumb-outer;
 }
 .moon-panel.growing .moon-panel-content-wrapper,
 .moon-panel.shrinking .moon-panel-content-wrapper {
   -webkit-animation-name: panel-inner;
+  animation-name: panel-inner;
 }
 .moon-panel.growing .moon-panel-small-header-wrapper,
 .moon-panel.shrinking .moon-panel-small-header-wrapper {
   -webkit-animation-name: breadcrumb-inner;
+  animation-name: breadcrumb-inner;
 }
 .moon-panel.growing .moon-panel-viewport,
 .moon-panel.growing .moon-panel-content-wrapper,
 .moon-panel.growing .moon-panel-breadcrumb-viewport,
 .moon-panel.growing .moon-panel-small-header-wrapper {
   -webkit-animation-duration: 0.4s;
+  animation-duration: 0.4s;
 }
 .moon-panel.shrinking .moon-panel-viewport,
 .moon-panel.shrinking .moon-panel-content-wrapper,
@@ -3081,18 +3269,24 @@ html {
 .moon-panel.shrinking .moon-panel-small-header-wrapper {
   -webkit-animation-duration: 0.5s;
   -webkit-animation-direction: reverse;
+  animation-duration: 0.5s;
+  animation-direction: reverse;
 }
 .moon-panel.shrunken .moon-panel-viewport {
   -webkit-transform: translateY(-101%);
+  transform: translateY(-101%);
 }
 .moon-panel.shrunken .moon-panel-content-wrapper {
   -webkit-transform: translateY(101%);
+  transform: translateY(101%);
 }
 .moon-panel:not(.shrunken) .moon-panel-breadcrumb-viewport {
   -webkit-transform: translateY(101%);
+  transform: translateY(101%);
 }
 .moon-panel:not(.shrunken) .moon-panel-small-header-wrapper {
   -webkit-transform: translateY(-101%);
+  transform: translateY(-101%);
 }
 /* Panels */
 .moon-panels.activity,
@@ -3185,7 +3379,9 @@ html {
   content: "\0F0003";
   color: #ffffff;
   -webkit-transform: translate3d(0, 0, 0);
-  transition: -webkit-transform 0.2s linear, opacity 0.2s linear;
+  transform: translate3d(0, 0, 0);
+  -webkit-transition: -webkit-transform 0.2s linear, opacity 0.2s linear;
+  transition: transform 0.2s linear, opacity 0.2s linear;
   opacity: 1;
   text-align: center;
 }
@@ -3195,6 +3391,7 @@ html {
 .moon-panels-handle.spotlight:before {
   background-color: #cf0652;
   -webkit-transform: translate3d(-5rem, 0, 0);
+  transform: translate3d(-5rem, 0, 0);
 }
 .moon-panels-handle.stashed:before {
   opacity: 0;
@@ -3339,15 +3536,18 @@ html {
 .moon-input-header .moon-input.moon-header-title {
   position: static;
 }
-.moon-input-header .moon-input.moon-header-title::-webkit-input-placeholder {
+.moon-input-header .moon-input.moon-header-title::-webkit-input-placeholder,
+.moon-input-header .moon-input.moon-header-title::-moz-placeholder {
   color: #b1b1b1;
   margin-top: 0.5rem;
   line-height: 1.25em;
 }
-.enyo-locale-non-latin .moon-input-header .moon-input.moon-header-title::-webkit-input-placeholder {
+.enyo-locale-non-latin .moon-input-header .moon-input.moon-header-title::-webkit-input-placeholder,
+.enyo-locale-non-latin .moon-input-header .moon-input.moon-header-title::-moz-input-placeholder {
   line-height: 1.5em;
 }
-.moon-input-header-input-decorator.spotlight .moon-input::-webkit-input-placeholder {
+.moon-input-header-input-decorator.spotlight .moon-input::-webkit-input-placeholder,
+.moon-input-header-input-decorator.spotlight .moon-input::-moz-input-placeholder {
   color: #ffffff;
 }
 .moon-input-header-input-decorator.spotlight > .moon-input {
@@ -3357,7 +3557,8 @@ html {
 .moon-input-header-input-decorator.spotlight.moon-focused > .moon-input {
   background: none;
 }
-.moon-input-header-input-decorator.spotlight.moon-focused > .moon-input::-webkit-input-placeholder {
+.moon-input-header-input-decorator.spotlight.moon-focused > .moon-input::-webkit-input-placeholder,
+.moon-input-header-input-decorator.spotlight.moon-focused > .moon-input::-moz-input-placeholder {
   color: #b1b1b1;
 }
 .moon-drawer-partial-client {
@@ -4677,6 +4878,7 @@ html {
 }
 .moon-thumb {
   -webkit-transform-origin: 0rem 0rem;
+  transform-origin: 0rem 0rem;
   border: none;
   background: rgba(50, 50, 50, 0.8);
   width: 0.125rem;
