@@ -167,16 +167,6 @@
 		activator: null,
 
 		/**
-		* @private
-		*/
-		directShowHide: false,
-
-		/**
-		* @private
-		*/
-		initialDuration: null,
-
-		/**
 		* Creates chrome components.
 		*
 		* @private
@@ -192,7 +182,6 @@
 		create: function () {
 			this.inherited(arguments);
 			this.animateChanged();
-			this.initialDuration = this.getComputedStyleValue('-webkit-transition-duration', '0.4s');
 		},
 
 		/**
@@ -487,13 +476,6 @@
 			if (anim) {
 				this.set('animate', anim);
 			}
-		},
-
-		/**
-		* @private
-		*/
-		directShowHideChanged: function (old, val) {
-			this.set('animate', !val);
 		},
 
 		/**
