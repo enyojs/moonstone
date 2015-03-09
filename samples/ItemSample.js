@@ -46,7 +46,49 @@ enyo.kind({
 					}, style: "float: right; margin: 10px 0px 10px 10px", alt: "Image Two"},
 					{kind: "moon.BodyText", style: "margin: 10px 0", content: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa."}
 				]}
-			]}
+			]},
+			{classes:"moon-1v"},
+			{kind: "moon.Divider", content: "ItemOverlay Sample"},
+			{
+				components: [
+					{kind: "moon.Item", components: [
+						{kind: "moon.ItemOverlay", autoHide: true, right: true, components:[
+							{kind: "moon.Icon", icon: "arrowlargeup", small: true},
+							{kind: "moon.Icon", icon: "arrowlargedown", small: true},
+							{kind: "moon.Icon", icon: "arrowlargeleft", small: true},
+							{kind: "moon.Icon", icon: "arrowlargeright", small: true}
+						]},
+						{kind: "moon.MarqueeText", content: "Item   with   icons   auto   hides"}
+					]},
+					{kind: "moon.Item", components: [
+						{kind: "moon.ItemOverlay", autoHide: false, right: true, components:[
+							{kind: "moon.Icon", icon: "arrowlargeup", small: true},
+							{kind: "moon.Icon", icon: "arrowlargedown", small: true},
+							{kind: "moon.Icon", icon: "arrowlargeleft", small: true},
+							{kind: "moon.Icon", icon: "arrowlargeright", small: true}
+						]},
+						{kind: "moon.MarqueeText", content: "Item   with   icons   on   right   side"}
+					]},
+					{kind: "moon.Item", components: [
+						{kind: "moon.ItemOverlay", autoHide: false, right: false, components:[
+							{kind: "moon.Icon", icon: "arrowlargeup", small: true},
+							{kind: "moon.Icon", icon: "arrowlargedown", small: true},
+							{kind: "moon.Icon", icon: "arrowlargeleft", small: true},
+							{kind: "moon.Icon", icon: "arrowlargeright", small: true}
+						]},
+						{kind: "moon.MarqueeText", content: "Item   with   icons   on   left   side"}
+					]},
+					{kind: "moon.Item", components: [
+						{kind: "moon.ItemOverlay", autoHide: false, right: false, components:[
+							{kind: "moon.Icon", icon: "arrowlargeup", small: true}
+						]},
+						{kind: "moon.ItemOverlay", autoHide: false, right: true, components:[
+							{kind: "moon.Icon", icon: "arrowlargedown", small: true}
+						]},
+						{kind: "moon.MarqueeText", content: "Item   with   icons   on   both   sides"}
+					]}
+				]
+			}
 		]}
 	]
 });
