@@ -1907,6 +1907,10 @@ html {
 .moon-time-picker-wrap .moon-date-picker-wrap {
   display: inline-block;
 }
+/* Duration Picker */
+.moon-duration-picker-item {
+  text-align: center;
+}
 /* Input.css */
 .moon-input {
   padding: 0;
