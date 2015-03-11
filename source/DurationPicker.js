@@ -22,7 +22,7 @@
 		* @default moon.$L('hour')
 		* @private
 		*/
-		hourLabelText = moon.$L('hour'),		// i18n 'HOUR' label in moon.DurationPicker widget
+		hourLabelText = moon.$L('hour'),	// i18n 'HOUR' label in moon.DurationPicker widget
 
 		/**
 		* Optional label for minuteLabel
@@ -49,7 +49,7 @@
 		* @default moon.$L('Hour')
 		* @private
 		*/
-		hourText = moon.$L('Hour'),				// i18n 'HOUR' label in moon.DurationPicker widget
+		hourText = moon.$L('Hour'),		// i18n 'HOUR' label in moon.DurationPicker widget
 
 		/**
 		* Optional label for minute
@@ -58,7 +58,7 @@
 		* @default moon.$L('Minute')
 		* @private
 		*/
-		minuteText = moon.$L('Minute'),			// i18n 'MINUTE' label in moon.DurationPicker widget
+		minuteText = moon.$L('Minute'),		// i18n 'MINUTE' label in moon.DurationPicker widget
 
 		/**
 		* Optional label for second
@@ -67,7 +67,7 @@
 		* @default moon.$L('Second')
 		* @private
 		*/
-		secondText = moon.$L('Second'),			// i18n 'SECOND' label in moon.DurationPicker widget
+		secondText = moon.$L('Second'),		// i18n 'SECOND' label in moon.DurationPicker widget
 
 		/**
 		* Optional label for hours
@@ -76,7 +76,7 @@
 		* @default moon.$L('Hours')
 		* @private
 		*/
-		hoursText = moon.$L('Hours'),			// i18n 'HOURS' label in moon.DurationPicker widget
+		hoursText = moon.$L('Hours'),		// i18n 'HOURS' label in moon.DurationPicker widget
 
 		/**
 		* Optional label for minutes
@@ -85,7 +85,7 @@
 		* @default moon.$L('Minutes')
 		* @private
 		*/
-		minutesText = moon.$L('Minutes'),		// i18n 'MINUTES' label in moon.DurationPicker widget
+		minutesText = moon.$L('Minutes'),	// i18n 'MINUTES' label in moon.DurationPicker widget
 
 		/**
 		* Optional label for seconds
@@ -94,7 +94,7 @@
 		* @default moon.$L('Seconds')
 		* @private
 		*/
-		secondsText = moon.$L('Seconds'),		// i18n 'SECONDS' label in moon.DurationPicker widget
+		secondsText = moon.$L('Seconds'),	// i18n 'SECONDS' label in moon.DurationPicker widget
 
 		/**
 		* Optional label for Start Button
@@ -103,7 +103,7 @@
 		* @default moon.$L('Start')
 		* @private
 		*/
-		startText = moon.$L('Start'),			// i18n 'Start' label in moon.DurationPicker buttons
+		startText = moon.$L('Start'),		// i18n 'Start' label in moon.DurationPicker buttons
 
 		/**
 		* Optional label for Pause Button
@@ -112,7 +112,7 @@
 		* @default moon.$L('Pause')
 		* @private
 		*/
-		pauseText = moon.$L('Pause'),			// i18n 'Pause' label in moon.DurationPicker buttons
+		pauseText = moon.$L('Pause'),		// i18n 'Pause' label in moon.DurationPicker buttons
 
 		/**
 		* Optional label for Cancel Button
@@ -121,7 +121,7 @@
 		* @default moon.$L('Cancel')
 		* @private
 		*/
-		cancelText = moon.$L('Cancel'),			// i18n 'Cancel' label in moon.DurationPicker buttons
+		cancelText = moon.$L('Cancel'),		// i18n 'Cancel' label in moon.DurationPicker buttons
 
 		/**
 		* Optional label for Resume Button
@@ -130,7 +130,7 @@
 		* @default moon.$L('Resume')
 		* @private
 		*/
-		resumeText = moon.$L('Resume');			// i18n 'Resume' label in moon.DurationPicker buttons
+		resumeText = moon.$L('Resume');		// i18n 'Resume' label in moon.DurationPicker buttons
 
 	/*
 	* @class moon.DurationPicker
@@ -802,7 +802,7 @@
 		moon.setInterval = function ( func, delay) {
 			var timer = new Interval(func, delay);
 			setTimeout(function () { 
-				tickInterval(timer); 
+				moon.tickInterval(timer); 
 			}, delay);
 			return timer;
 		};
@@ -812,20 +812,20 @@
 		*/
 		moon.clearInterval = function (timer) {
 			timer.stopped = true;
-			tickInterval(timer);
+			moon.tickInterval(timer);
 		};
 
 		/*
 		* @private
 		*/
-		tickInterval = function (timer) {
+		moon.tickInterval = function (timer) {
 			if (timer.stopped) {
 				return false;
 			}
 			timer.func();
 			timer.curDelay = timer.curDelay + timer.delay;
 			setTimeout(function () {
-				tickInterval(timer);
+				moon.tickInterval(timer);
 			}, Math.round(timer.curDelay - (enyo.perfNow() - timer.startInterval)));
 		};
 	})();
