@@ -12,7 +12,127 @@
 	* `moon.DurationPicker` is a [control]{@link enyo.Control} that can display -- or allow the
 	* selection of -- a duration expressed in hours, minutes and seconds, the selection
 	* display is configurable using template.
-	*
+	*/
+
+	var 
+		/**
+		* Optional label for hourLabel
+		*
+		* @type {String}
+		* @default moon.$L('hour')
+		* @private
+		*/
+		hourLabelText = moon.$L('hour'),		// i18n 'HOUR' label in moon.DurationPicker widget
+
+		/**
+		* Optional label for minuteLabel
+		*
+		* @type {String}
+		* @default moon.$L('minute')
+		* @private
+		*/
+		minuteLabelText = moon.$L('minute'),	// i18n 'MINUTE' label in moon.DurationPicker widget
+
+		/**
+		* Optional label for secondLabel
+		*
+		* @type {String}
+		* @default moon.$L('second')
+		* @private
+		*/
+		secondLabelText = moon.$L('second'),	// i18n 'SECOND' label in moon.DurationPicker widget
+
+		/**
+		* Optional label for hour
+		*
+		* @type {String}
+		* @default moon.$L('Hour')
+		* @private
+		*/
+		hourText = moon.$L('Hour'),				// i18n 'HOUR' label in moon.DurationPicker widget
+
+		/**
+		* Optional label for minute
+		*
+		* @type {String}
+		* @default moon.$L('Minute')
+		* @private
+		*/
+		minuteText = moon.$L('Minute'),			// i18n 'MINUTE' label in moon.DurationPicker widget
+
+		/**
+		* Optional label for second
+		*
+		* @type {String}
+		* @default moon.$L('Second')
+		* @private
+		*/
+		secondText = moon.$L('Second'),			// i18n 'SECOND' label in moon.DurationPicker widget
+
+		/**
+		* Optional label for hours
+		*
+		* @type {String}
+		* @default moon.$L('Hours')
+		* @private
+		*/
+		hoursText = moon.$L('Hours'),			// i18n 'HOURS' label in moon.DurationPicker widget
+
+		/**
+		* Optional label for minutes
+		*
+		* @type {String}
+		* @default moon.$L('Minutes')
+		* @private
+		*/
+		minutesText = moon.$L('Minutes'),		// i18n 'MINUTES' label in moon.DurationPicker widget
+
+		/**
+		* Optional label for seconds
+		*
+		* @type {String}
+		* @default moon.$L('Seconds')
+		* @private
+		*/
+		secondsText = moon.$L('Seconds'),		// i18n 'SECONDS' label in moon.DurationPicker widget
+
+		/**
+		* Optional label for Start Button
+		*
+		* @type {String}
+		* @default moon.$L('Start')
+		* @private
+		*/
+		startText = moon.$L('Start'),			// i18n 'Start' label in moon.DurationPicker buttons
+
+		/**
+		* Optional label for Pause Button
+		*
+		* @type {String}
+		* @default moon.$L('Pause')
+		* @private
+		*/
+		pauseText = moon.$L('Pause'),			// i18n 'Pause' label in moon.DurationPicker buttons
+
+		/**
+		* Optional label for Cancel Button
+		*
+		* @type {String}
+		* @default moon.$L('Cancel')
+		* @private
+		*/
+		cancelText = moon.$L('Cancel'),			// i18n 'Cancel' label in moon.DurationPicker buttons
+
+		/**
+		* Optional label for Resume Button
+		*
+		* @type {String}
+		* @default moon.$L('Resume')
+		* @private
+		*/
+		resumeText = moon.$L('Resume');			// i18n 'Resume' label in moon.DurationPicker buttons
+
+	/*
 	* @class moon.DurationPicker
 	* @ui
 	* @public
@@ -134,96 +254,6 @@
 		templateArray: [],
 
 		/**
-		* Optional label for hour
-		*
-		* @type {String}
-		* @default moon.$L('hour')
-		* @private
-		*/
-		hourText: moon.$L('hour'),		// i18n 'HOUR' label in moon.DurationPicker widget
-
-		/**
-		* Optional label for minute
-		*
-		* @type {String}
-		* @default moon.$L('minute')
-		* @private
-		*/
-		minuteText: moon.$L('minute'),		// i18n 'MINUTE' label in moon.DurationPicker widget
-
-		/**
-		* Optional label for second
-		*
-		* @type {String}
-		* @default moon.$L('second')
-		* @private
-		*/
-		secondText: moon.$L('second'),		// i18n 'SECOND' label in moon.DurationPicker widget
-
-		/**
-		* Optional label for hours
-		*
-		* @type {String}
-		* @default moon.$L('hours')
-		* @private
-		*/
-		hoursText: moon.$L('hours'),		// i18n 'HOURS' label in moon.DurationPicker widget
-
-		/**
-		* Optional label for minutes
-		*
-		* @type {String}
-		* @default moon.$L('minutes')
-		* @private
-		*/
-		minutesText: moon.$L('minutes'),	// i18n 'MINUTES' label in moon.DurationPicker widget
-
-		/**
-		* Optional label for seconds
-		*
-		* @type {String}
-		* @default moon.$L('seconds')
-		* @private
-		*/
-		secondsText: moon.$L('seconds'),	// i18n 'SECONDS' label in moon.DurationPicker widget
-
-		/**
-		* Optional label for Start Button
-		*
-		* @type {String}
-		* @default moon.$L('Start')
-		* @private
-		*/
-		startText: moon.$L('Start'),		// i18n 'Start' label in moon.DurationPicker buttons
-
-		/**
-		* Optional label for Pause Button
-		*
-		* @type {String}
-		* @default moon.$L('Pause')
-		* @private
-		*/
-		pauseText: moon.$L('Pause'),		// i18n 'Pause' label in moon.DurationPicker buttons
-
-		/**
-		* Optional label for Cancel Button
-		*
-		* @type {String}
-		* @default moon.$L('Cancel')
-		* @private
-		*/
-		cancelText: moon.$L('Cancel'),		// i18n 'Cancel' label in moon.DurationPicker buttons
-
-		/**
-		* Optional label for Resume Button
-		*
-		* @type {String}
-		* @default moon.$L('Resume')
-		* @private
-		*/
-		resumeText: moon.$L('Resume'),		// i18n 'Resume' label in moon.DurationPicker buttons
-
-		/**
 		* Content for Start Button
 		*
 		* @type {String}
@@ -311,8 +341,8 @@
 				'second': 0
 			};
 			this.templateArray = [];
-			this.startContent = this.startText;
-			this.pauseContent = this.pauseText;
+			this.startContent = startText;
+			this.pauseContent = pauseText;
 			this.initTemplate();
 			this.setupPickers();
 			if(this.value !== '') {
@@ -338,7 +368,7 @@
 						this.createComponent(
 							{name: 'hourPicker', classes: 'moon-date-picker-wrap', components:[
 								{kind: 'moon.IntegerPicker', name: 'hour', min: 0, max: 23, wrap: true, value: this.values.hour, disabled: this.countdown},
-								{name: 'hourLabel', content: this.hourText, classes: 'moon-date-picker-label moon-divider-text'}
+								{name: 'hourLabel', content: hourLabelText, classes: 'moon-date-picker-label moon-divider-text'}
 							]}
 						);
 						break;
@@ -346,7 +376,7 @@
 						this.createComponent(
 							{name: 'minutePicker', classes: 'moon-date-picker-wrap', components:[
 								{kind: 'moon.IntegerPicker', name: 'minute', classes: 'moon-date-picker-field', min: 0, max: 59, wrap: true, value: this.values.minute, disabled: this.countdown},
-								{name: 'minuteLabel', content: this.minuteText, classes: 'moon-date-picker-label moon-divider-text'}
+								{name: 'minuteLabel', content: minuteLabelText, classes: 'moon-date-picker-label moon-divider-text'}
 							]}
 						);
 						break;
@@ -354,7 +384,7 @@
 						this.createComponent(
 							{name: 'secondPicker', classes: 'moon-date-picker-wrap', components:[
 								{kind: 'moon.IntegerPicker', name: 'second', classes: 'moon-date-picker-field', min: 0, max: 59, wrap: true, value: this.values.second, disabled: this.countdown},
-								{name: 'secondLabel', content: this.secondText, classes: 'moon-date-picker-label moon-divider-text'}
+								{name: 'secondLabel', content: secondLabelText, classes: 'moon-date-picker-label moon-divider-text'}
 							]}
 						);
 						break;
@@ -364,19 +394,19 @@
 				this.createComponent(
 					{name: 'hourPicker', classes: 'moon-date-picker-wrap', components:[
 						{kind: 'moon.IntegerPicker', name: 'hour', min: 0, max: 23, wrap: true, value: this.values.hour, disabled: this.countdown},
-						{name: 'hourLabel', content: this.hourText, classes: 'moon-date-picker-label moon-divider-text'}
+						{name: 'hourLabel', content: hourLabelText, classes: 'moon-date-picker-label moon-divider-text'}
 					]}
 				);
 				this.createComponent(
 					{name: 'minutePicker', classes: 'moon-date-picker-wrap', components:[
 						{kind: 'moon.IntegerPicker', name: 'minute', classes: 'moon-date-picker-field', min: 0, max: 59, wrap: true, value: this.values.minute, disabled: this.countdown},
-						{name: 'minuteLabel', content: this.minuteText, classes: 'moon-date-picker-label moon-divider-text'}
+						{name: 'minuteLabel', content: minuteLabelText, classes: 'moon-date-picker-label moon-divider-text'}
 					]}
 				);
 				this.createComponent(
 					{name: 'secondPicker', classes: 'moon-date-picker-wrap', components:[
 						{kind: 'moon.IntegerPicker', name: 'second', classes: 'moon-date-picker-field', min: 0, max: 59, wrap: true, value: this.values.second, disabled: this.countdownSS},
-						{name: 'secondLabel', content: this.secondText, classes: 'moon-date-picker-label moon-divider-text'}
+						{name: 'secondLabel', content: secondLabelText, classes: 'moon-date-picker-label moon-divider-text'}
 					]}
 				);
 			}
@@ -546,13 +576,13 @@
 					item = this.templateArray[idx];
 					switch (item) {
 						case 'h':
-							text = text + ' ' + this.values['hour'] + ' ' + (this.values['hour'] == 1 ? this.hourText : this.hoursText);
+							text = text + ' ' + this.values['hour'] + ' ' + (this.values['hour'] == 1 ? hourText : hoursText);
 							break;
 						case 'm':
-							text = text + ' ' + this.values['minute'] + ' ' + (this.values['minute'] == 1 ? this.minuteText : this.minutesText);
+							text = text + ' ' + this.values['minute'] + ' ' + (this.values['minute'] == 1 ? minuteText : minutesText);
 							break;
 						case 's':
-							text = text + ' ' + this.values['second'] + ' ' + (this.values['second'] == 1 ? this.secondText : this.secondsText);
+							text = text + ' ' + this.values['second'] + ' ' + (this.values['second'] == 1 ? secondText : secondsText);
 							break;
 					}
 				}
@@ -570,9 +600,11 @@
 			var ss = this.values['second'];
 			ss--;
 			if (hr <= 0 && mn <= 0 && ss <= 0) {
+				this.values['second'] = ss;
+				this.set('value', this.formatValue());
 				this.pickerExpired();
 			} else {
-				if (ss === 0 ) {
+				if (ss <= 0 ) {
 					ss = 59;
 					this.values['second'] = ss;
 					if (mn > 0 ) {
@@ -636,7 +668,7 @@
 		startTapped: function () {
 			if (this.pauseDisabled) {
 				if(this.values['hour'] || this.values['minute'] || this.values['second']) {
-					this.set('startContent', this.cancelText);
+					this.set('startContent', cancelText);
 					this.startPicker();
 				}
 			} else {
@@ -649,10 +681,10 @@
 		*/
 		pauseTapped: function () {
 			if (this.countdown) {
-				this.set('pauseContent', this.resumeText);
+				this.set('pauseContent', resumeText);
 				this.pauseTimer();
 			} else {
-				this.set('pauseContent', this.pauseText);
+				this.set('pauseContent', pauseText);
 				this.startTimer();
 			}
 		},
@@ -669,8 +701,8 @@
 		* @private
 		*/
 		cancelPicker: function () {
-			this.set('startContent', this.startText);
-			this.set('pauseContent', this.pauseText);
+			this.set('startContent', startText);
+			this.set('pauseContent', pauseText);
 			this.set('pauseDisabled', true);
 			this.pauseTimer();
 		},
@@ -679,12 +711,10 @@
 		* @private
 		*/
 		startTimer: function () {
-			window.clearInterval(this.timer);
 			if (this.value) {
-				this.timer = window.setInterval(
-					enyo.bind (this, function () {
-						this.tick();
-					}), 1000);
+				this.timer = moon.setInterval(enyo.bind (this, function () {
+					this.tick();
+				}), 1000);
 				this.set('countdown', true);
 			}
 		},
@@ -694,7 +724,7 @@
 		*/
 		pauseTimer: function () {
 			this.set('countdown', false);
-			window.clearInterval(this.timer);
+			moon.clearInterval(this.timer);
 		},
 
 		/**
@@ -749,57 +779,54 @@
 			} else {
 				this.set('active', true);
 			}
-		},
-
-		/**
-		* @private
-		*/
-		startTextChanged: function (was, is) {
-			this.$.startContent.set('content', is);
-		},
-
-		/**
-		* @private
-		*/
-		pauseTextChanged: function (was, is) {
-			this.$.pauseContent.set('content', is);
-		},
-
-		/**
-		* @private
-		*/
-		cancelTextChanged: function (was, is) {
-			if (this.pauseDisabled)
-				this.$.startContent.set('content', is);
-		},
-
-		/**
-		* @private
-		*/
-		resumeTextChanged: function (was, is) {
-			if (!this.countdown)
-				this.$.pauseContent.set('content', is);
-		},
-
-		/**
-		* @private
-		*/
-		hourTextChanged: function (was, is) {
-			this.$.hourLabel.set('content', is);
-		},
-
-		/**
-		* @private
-		*/
-		minuteTextChanged: function (was, is) {
-			this.$.minuteLabel.set('content', is);
-		},
-
-		/**
-		* @private
-		*/
-		secondTextChanged: function (was, is) {
-			this.$.secondLabel.set('content', is);
 		}
 	});
+
+	(function () {
+		/* A replacement for window.setInterval() function, It use window.setTimeout() to perform the interval functionality
+		* It is based on enyo.perfNow() and use setInterval() and clearInterval() function as like with window
+		*
+		*/
+
+		/* Interval Object */
+		var Interval = function (func, delay) {
+			this.startInterval = enyo.perfNow();
+			this.stopped = false;
+			this.func = func;
+			this.curDelay = this.delay = delay;
+		};
+
+		/*
+		* @name moon.setInterval
+		*/
+		moon.setInterval = function ( func, delay) {
+			var timer = new Interval(func, delay);
+			setTimeout(function () { 
+				tickInterval(timer); 
+			}, delay);
+			return timer;
+		};
+
+		/*
+		* @name moon.setInterval
+		*/
+		moon.clearInterval = function (timer) {
+			timer.stopped = true;
+			tickInterval(timer);
+		};
+
+		/*
+		* @private
+		*/
+		tickInterval = function (timer) {
+			if (timer.stopped) {
+				return false;
+			}
+			timer.func();
+			timer.curDelay = timer.curDelay + timer.delay;
+			setTimeout(function () {
+				tickInterval(timer);
+			}, Math.round(timer.curDelay - (enyo.perfNow() - timer.startInterval)));
+		};
+	})();
 })(enyo, this);
