@@ -1,8 +1,17 @@
-.moon-badge-overlay-support-scrim {
-	display: block;
-	z-index: 1000;
-	width: 100%;
-	height: 55px;
+.moon-badge-overlay-support .moon-image-client {
 	color: white;
+	padding: 0;
 	background-color: rgba(0, 0, 0, 0.5);
+	.moon-icon {
+		width: 36px;
+		height: 36px;
+	}
+}
+.moon-badge-overlay-support .moon-image {
+	display: block;
+	margin: 0;
+}
+.moon-badge-overlay-support.top .moon-image-client {
+	bottom: initial;
+	top: 0;
 }

@@ -9,12 +9,12 @@
 	* there is nothing by default.
 	*
 	* The item has to define a
-	* [type]{@link moon.BadgeOverlaySupport#type} MIME type of this 
+	* [badgeType]{@link moon.BadgeOverlaySupport#badgeType} MIME type of this 
 	* item. Possible values are 'video', 'audio' , 'image'. Defaulted as 'image'.
 	*
 	* ```javascript
 	* {name: 'list', kind: 'moon.DataList', components: [
-	*	{mixins: ['moon.BadgeOverlaySupport'], type: 'video',
+	*	{mixins: ['moon.BadgeOverlaySupport'], badgeType: 'video',
 	*		kind: 'moon.ImageItem', bindings: [
 	*			{from: '.model.title', to: '.label'},
 	*			{from: '.model.description', to: '.text'},
@@ -25,12 +25,12 @@
 	* ```
 	*
 	* The item may define a
-	* [badgeScrimIcon]{@link moon.BadgeOverlaySupport#badgeScrimIcon} URL to
+	* [badgeSrc]{@link moon.BadgeOverlaySupport#badgeSrc} URL to
 	* override the default icon.
 	*
 	* ```javascript
 	* {name: 'list', kind: 'moon.DataList', components: [
-	*	{mixins: ['moon.BadgeOverlaySupport'], type: 'video', badgeScrimIcon: 'assets/my-icon.png',
+	*	{mixins: ['moon.BadgeOverlaySupport'], badgeType: 'video', badgeSrc: 'assets/my-icon.png',
 	*		kind: 'moon.ImageItem', bindings: [
 	*			{from: '.model.title', to: '.label'},
 	*			{from: '.model.description', to: '.text'},
@@ -41,11 +41,11 @@
 	* ```
 	*
 	* The item may define a
-	* [align]{@link moon.BadgeOverlaySupport#align} to
+	* [position]{@link moon.BadgeOverlaySupport#position} to
 	* specify position of badge. Possible values are 'top' or 'bottom'. Defaulted as 'bottom'.
 	* ```javascript
 	* {name: 'list', kind: 'moon.DataList', components: [
-	*	{mixins: ['moon.BadgeOverlaySupport'], type: 'video', align: 'top',
+	*	{mixins: ['moon.BadgeOverlaySupport'], badgeType: 'video', position: 'top',
 	*		kind: 'moon.ImageItem', bindings: [
 	*			{from: '.model.title', to: '.label'},
 	*			{from: '.model.description', to: '.text'},
@@ -74,71 +74,85 @@
 		* Possible values are "image", "audio" or "video".
 		* Defaulted as 'image'.
 		*
-		* @name moon.BadgeOverlaySupport#type
+		* @name moon.BadgeOverlaySupport#badgeType
 		* @type {String}
 		* @default undefined
 		* @public
 		*/
+		badgeType: null,
 
 		/**
-		* URL for icon to be used in place of default icon.
+		* Font icon to be used in place of default icon.
 		*
-		* @name moon.BadgeOverlaySupport#badgeScrimIcon
+		* @name moon.BadgeOverlaySupport#badgeIcon
 		* @type {String}
 		* @default undefined
 		* @public
 		*/
+		badgeIcon: null,
+
+		/**
+		* Url for icon to be used in place of default icon.
+		*
+		* @name moon.BadgeOverlaySupport#badgeSrc
+		* @type {String}
+		* @default undefined
+		* @public
+		*/
+		badgeSrc: null,
 
 		/**
 		* Sepcifies the alignment position of badge.
 		* Possible values are 'top' or 'bottom'.
 		* Defaulted as 'bottom'.
 		*
-		* @name moon.BadgeOverlaySupport#badgeScrimIcon
+		* @name moon.BadgeOverlaySupport#position
 		* @type {String}
 		* @default undefined
 		* @public
 		*/
+		position: null,
+		
 		/**
 		* @method
 		* @private
 		*/
 		create: enyo.inherit(function (sup) {
 			return function () {
+				this.kindComponents = enyo.Component.overrideComponents(this.kindComponents, this._badgeOverride);
 				sup.apply(this, arguments);
-				if(this.type && this.type != "image") {
-					this.createChrome(this._badgeScrim);
-					// Allow the icon to be modified by user
-					if (this.badgeScrimIcon) {
-						this.$.badgeScrimIcon.set('icon','');
-					}
-					this.alignChanged();
+				if (this.badgeSrc) {
+					this.$.badgeScrimIcon.set('icon','');
 				}
+				this.positionChanged();
+				this.badgeTypeChanged();
 			};
 		}),
-
 		/**
 		* @private
 		*/
 		bindings: [
-			{from: '.badgeScrimIcon', to: '.$.badgeScrimIcon.src'}
+			{from: '.badgeSrc', to: '$.badgeScrimIcon.src'},
+			{from: '.badgeIcon', to: '$.badgeScrimIcon.icon', transform: function(val){ return val ? val : 'play'}}
 		],
 
 		/**
 		* @private
 		*/
-		_badgeScrim: [
-			{name:'badgeScrim', classes: 'enyo-fit moon-badge-overlay-support-scrim', components: [
-				{name:'badgeScrimIcon', kind: 'moon.Icon', small: false, icon: 'play', spotlight: false}
-			]}
-		],
-
-		alignChanged: function() {
-			if(this.$.badgeScrim) {
-				// TODO: identify the proper value based on height of image.
-				this.$.badgeScrim.applyStyle("top", this.align=='top'?0:'125px'); 
-			}
+		_badgeOverride: {
+			image: { kind:"moon.Image", components:[{name:'badgeScrimIcon', kind: 'moon.Icon', small: false, icon: 'play', spotlight: false}] }
 		},
+		positionChanged: function() {
+			this.addRemoveClass("top", this.position == 'top');
+		},
+		badgeTypeChanged: function() {
+			this.$.image.destroyClientControls();
+			if(this.badgeType && this.badgeType == "image") {
+				this.$.image.destroyClientControls();
+			} else {
+				this.$.image.createComponent({name:'badgeScrimIcon', kind: 'moon.Icon', small: false, icon: 'play', spotlight: false});
+			}
+		}
 	};
 
 })(enyo, this);
