@@ -1135,6 +1135,7 @@
 		* @private
 		*/
 		applyShowAnimation: function (direct) {
+			this.$.clientWrapper.applyStyle('transition', direct ? null : 'transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)');
 			this.$.clientWrapper.applyStyle('-webkit-transition', direct ? null : '-webkit-transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)');
 			enyo.dom.transform(this.$.clientWrapper, {translateX: 0});
 		},
@@ -1143,6 +1144,7 @@
 		* @private
 		*/
 		applyHideAnimation: function (direct) {
+			this.$.clientWrapper.applyStyle('transition', direct ? null : 'transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)');
 			this.$.clientWrapper.applyStyle('-webkit-transition', direct ? null : '-webkit-transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)');
 			enyo.dom.transform(this.$.clientWrapper, {translateX: '100%'});
 		},

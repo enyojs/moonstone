@@ -42,3 +42,6 @@ made the following API changes in Moonstone:
 
 * In `moon.Scroller`, added `hideScrollColumnsWhenFit`, a Boolean flag that may
     be set to `true` to force paging controls to be hidden (default is `false`).
+
+* Moved `setLastFocusedControl()` method from `moon.ScrollStrategy` to
+    `moon.Scroller`.
