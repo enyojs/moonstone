@@ -663,7 +663,10 @@
 		showingChangedHandler: enyo.inherit(function (sup) {
 			return function () {
 				sup.apply(this, arguments);
-				if(this.showing) {
+
+				// Only force a scrolling to the item corresponding to the current value if it is
+				// not already displayed.
+				if (this.showing && !this.$.repeater.fetchRowNode(this.valueToIndex(this.get('value')))) {
 					this.scrollToValue();
 				}
 			};
