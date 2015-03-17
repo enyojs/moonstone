@@ -515,23 +515,23 @@
 				zeroValue = true,
 				durFormat = new ilib.DurFmt({length: 'full', useNative: false});
 			if (this.values) {
-				for (idx = 0; idx < this.templateArray.length; idx++) {
-					item = this.templateArray[idx];
+				for (var idx = 0; idx < this.templateArray.length; idx++) {
+					var item = this.templateArray[idx];
 					switch (item) {
 						case 'h':
-							if (this.values['hour'] != 0) {
+							if (this.values['hour'] !== 0) {
 								val.hour = this.values['hour'];
 								zeroValue = false;
 							}
 						break;
 						case 'm':
-							if (this.values['minute'] != 0) {
+							if (this.values['minute'] !== 0) {
 								val.minute = this.values['minute'];
 								zeroValue = false;
 							}
 						break;
 						case 's':
-							if (this.values['second'] != 0) {
+							if (this.values['second'] !== 0) {
 								val.second = this.values['second'];
 								zeroValue = false;
 							}
@@ -542,7 +542,7 @@
 			if (zeroValue) {
 				this.noneTextUpdate();
 			} else {
-				text = durFormat.format(val)
+				text = durFormat.format(val);
 				this.$.currentValue.set('content', text);
 				this.doDurationChange({name: this.name, value: text});
 			}
