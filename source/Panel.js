@@ -108,28 +108,7 @@
 			* @default 'large'
 			* @public
 			*/
-			headerType: 'large',
-
-			/**
-			* Facade for the [small]{@link moon.Header#small} property of the embedded
-			* {@link moon.Header}. Note that this property will be deprecated soon. Until
-			* it is removed, `'smallHeader: true'` refers to the historical header size,
-			* which is now equivalent to `type: 'medium'`.
-			*
-			* @type {Boolean}
-			* @default false
-			* @public
-			*/
-			smallHeader: false,
-
-			/**
-			* If `true`, the header collapses when the panel body is scrolled down.
-			*
-			* @type {Boolean}
-			* @default false
-			* @public
-			*/
-			collapsingHeader: false,
+			headerType: 'medium',
 
 			/**
 			* Facade for the [allowHtml]{@link enyo.Control#allowHtml} property of the
@@ -145,7 +124,7 @@
 			* Facade for the [backgroundSrc]{@link moon.Header#backgroundSrc} property
 			* of the embedded {@link moon.Header}.
 			*
-			* @type {(String|String[]|moon.ri.selectSrc~src|moon.ri.selectSrc~src[])}
+			* @type {(String|String[])}
 			* @default null
 			* @public
 			*/
@@ -182,26 +161,6 @@
 			titleUpperCase: true
 		},
 
-		/**
-		* @private
-		*/
-		events: {
-			/**
-			* {@link moon.Panel#onPreTransitionComplete}
-			*/
-			onPreTransitionComplete: '',
-			/**
-			* {@link moon.Panel#onPostTransitionComplete}
-			*/
-			onPostTransitionComplete: ''
-		},
-
-		/**
-		* @private
-		*/
-		handlers: {
-			onScroll: 'scroll'
-		},
 
 		/**
 		* @private
@@ -221,45 +180,21 @@
 		/**
 		* @private
 		*/
-		headerOption: null, //* Deprecated
-
-		/**
-		* @private
-		*/
-		preventTransform: !moon.config.accelerate,
-
-		/**
-		* @private
-		*/
-		preventAccelerate: !moon.config.accelerate,
+		useFlex: true,
 
 		/**
 		* @private
 		*/
 		panelTools : [
-			{name: 'breadcrumb', ontap: 'handleBreadcrumbTap', classes: 'moon-panel-breadcrumb', components: [
-				{name: 'breadcrumbViewport', classes: 'moon-panel-breadcrumb-viewport', components: [
-					{name: 'breadcrumbBackground', classes: 'moon-panel-small-header-wrapper', components: [
-						{name: 'breadcrumbTitleAbove', classes: 'moon-super-header-text moon-panel-small-header-title-above'},
-						{name: 'breadcrumbText', mixins: ['moon.MarqueeSupport', 'moon.MarqueeItem'], classes: 'moon-sub-header-text moon-panel-small-header'}
-					]}
-				]}
-			]},
-			{name: 'viewport', classes: 'moon-panel-viewport', onwebkitAnimationEnd: 'animationComplete', components: [
-				{name: 'contentWrapper', kind:'FittableRows', classes: 'moon-panel-content-wrapper', components: [
-					/* header will be created here programmatically in createTools after mixing-in headerOptions */
-					{name: 'panelBody', kind: 'FittableRows', fit: true, classes: 'moon-panel-body'}
-				]}
-			]},
-
-			{name: 'animator', kind: 'enyo.StyleAnimator', onComplete: 'animationComplete'},
+			/* header will be created here programmatically in createTools after mixing-in headerOptions */
+			{name: 'panelBody', kind: 'FittableRows', fit: true, classes: 'moon-panel-body'},
 			{name: 'spotlightDummy', spotlight: false, style: 'width:0;height:0;'}
 		],
 
 		/**
 		* @private
 		*/
-		headerConfig : {name: 'header', kind: 'moon.Header', onComplete: 'headerAnimationComplete', isChrome: true},
+		headerConfig : {name: 'header', kind: 'moon.Header', isChrome: true},
 
 		/**
 		* @private
@@ -284,38 +219,30 @@
 		*/
 		headerComponents: [],
 
-		/**
-		* @private
-		*/
-		isBreadcrumb: false,
+		// /**
+		// * @private
+		// */
+		// isBreadcrumb: false,
 
-		/**
-		* @private
-		*/
-		isOffscreen: false,
+		// /**
+		// * @private
+		// */
+		// isOffscreen: false,
 
 		/**
 		* @private
 		*/
 		isHeaderCollapsed: false,
 
-		/**
-		* @private
-		*/
-		shrinking: false,
+		// /**
+		// * @private
+		// */
+		// shrinking: false,
 
-		/**
-		* @private
-		*/
-		growing: false,
-
-		/**
-		* Set by {@link moon.BreadcrumbArranger} during {@link moon.BreadcrumbArranger#size}
-		* based on the value of {@link moon.Panels#animate}.
-		*
-		* @private
-		*/
-		animate: !moon.config.accelerate,
+		// /**
+		// * @private
+		// */
+		// growing: false,
 
 		/**
 		* @private
@@ -329,9 +256,8 @@
 			}
 			this.autoNumberChanged();
 			// Note: This line will be deprecated soon. For backward compatiblity, I leave it for a while.
-			this.smallHeaderChanged();
+			// this.smallHeaderChanged();
 			this.headerTypeChanged();
-			this.animateChanged();
 		},
 
 		/**
@@ -354,7 +280,7 @@
 			var hc = enyo.clone(this.headerConfig || {});
 			hc.addBefore = this.$.panelBody;
 			enyo.mixin(hc, this.headerOptions || this.headerOption);
-			this.$.contentWrapper.createComponent(hc, {owner:this});
+			this.createComponent(hc, {owner:this});
 		},
 
 		/**
@@ -364,25 +290,21 @@
 		reflow: function () {
 			this.inherited(arguments);
 			this.getInitAnimationValues();
-			this.updateViewportSize();
-			this.shrinkAsNeeded();
+			this.updatePanelBodySize();
 		},
 
 		/**
 		* Updates `this.$.contentWrapper` to have the height/width of `this`.
 		* @private
 		*/
-		updateViewportSize: function () {
+		updatePanelBodySize: function () {
 			var node = this.hasNode();
 
 			if (!node || this.isBreadcrumb) {
 				return;
 			}
 
-			this.$.viewport.applyStyle('height', enyo.dom.unit(this.initialHeight, 'rem'));
-			this.$.viewport.applyStyle('width', enyo.dom.unit(this.initialWidth, 'rem'));
-			this.$.contentWrapper.applyStyle('height', enyo.dom.unit(this.initialHeight, 'rem'));
-			this.$.contentWrapper.applyStyle('width', enyo.dom.unit(this.initialWidth, 'rem'));
+			this.$.panelBody.applyStyle('height', this.initialHeight + 'px');
 		},
 
 		/**
@@ -399,60 +321,13 @@
 		updateSpotability: function () {
 			if (this.isOffscreen) {
 				this.spotlightDisabled = true;
-				this.removeSpottableProps();
-				this.removeSpottableBreadcrumbProps();
 			} else {
-				if (this.isBreadcrumb) {
-					this.spotlightDisabled = true;
-					this.addSpottableBreadcrumbProps();
+				this.spotlightDisabled = false;
+				this.$.spotlightDummy.spotlight = false;
+				if (!enyo.Spotlight.isSpottable(this)) {
+					// make dummy div spottable if there is no spottable child
+					this.$.spotlightDummy.spotlight = true;
 				}
-				else {
-					this.spotlightDisabled = false;
-					this.$.spotlightDummy.spotlight = false;
-					if (!enyo.Spotlight.isSpottable(this)) {
-						// make dummy div spottable if there is no spottable child
-						this.$.spotlightDummy.spotlight = true;
-					}
-				}
-			}
-		},
-
-		/**
-		* @private
-		*/
-		handleBreadcrumbTap: function (sender, event) {
-			event.breadcrumbTap = true;
-		},
-
-		/**
-		* Note: `smallHeader` will be deprecated soon.
-		* @private
-		*/
-		scroll: function (sender, event) {
-			if (this.collapsingHeader && ((this.headerType === 'large') || !this.smallHeader)) {
-				if (event.originator.y < 0) {
-					this.collapseHeader();
-				} else {
-					this.expandHeader();
-				}
-			}
-		},
-
-		/**
-		* @private
-		*/
-		animateChanged: function () {
-			this.addRemoveClass('moon-composite', this.animate);
-		},
-
-		/**
-		* Note: This method will be deprecated soon.
-		* @private
-		*/
-		smallHeaderChanged: function () {
-			this.$.header.setSmall(this.smallHeader);
-			if (this.generated) {
-				this.$.contentWrapper.resize();
 			}
 		},
 
@@ -461,28 +336,9 @@
 		*/
 		headerTypeChanged: function () {
 			this.$.header.setType(this.headerType);
+			this.$.header.adjustTitleWidth();
 			if (this.generated) {
-				this.$.contentWrapper.resize();
-			}
-		},
-
-		/**
-		* @private
-		*/
-		collapseHeader: function () {
-			if (!this.isHeaderCollapsed) {
-				this.$.header.collapseToSmall();
-				this.isHeaderCollapsed = true;
-			}
-		},
-
-		/**
-		* @private
-		*/
-		expandHeader: function () {
-			if (this.isHeaderCollapsed) {
-				this.$.header.expandToLarge();
-				this.isHeaderCollapsed = false;
+				this.resize();
 			}
 		},
 
@@ -511,40 +367,7 @@
 		/**
 		* @private
 		*/
-		addSpottableBreadcrumbProps: function () {
-			this.$.breadcrumbBackground.set('spotlight', true);
-		},
-
-		/**
-		* @private
-		*/
-		removeSpottableBreadcrumbProps: function () {
-			this.$.breadcrumbBackground.set('spotlight', false);
-			this.$.breadcrumbBackground.removeClass('spotlight');
-		},
-
-		/**
-		* @private
-		*/
-		removeSpottableProps: function () {
-			this.$.breadcrumbBackground.set('spotlight', false);
-		},
-
-		/**
-		* @private
-		*/
-		shrinkAsNeeded: function () {
-			if (this.needsToShrink) {
-				this.shrink();
-				this.needsToShrink = false;
-			}
-		},
-
-		/**
-		* @private
-		*/
 		enableMarquees: function () {
-			this.$.breadcrumbText.enableMarquee();
 			this.$.header.enableMarquee();
 		},
 
@@ -552,7 +375,6 @@
 		* @private
 		*/
 		disableMarquees: function () {
-			this.$.breadcrumbText.disableMarquee();
 			this.$.header.disableMarquee();
 		},
 
@@ -562,14 +384,8 @@
 		startMarqueeAsNeeded: function (info) {
 			var onscreen = !info.offscreen;
 			if (onscreen) {
-				if (this.isBreadcrumb) {
-					this.$.breadcrumbText.enableMarquee();
-					this.$.breadcrumbText.startMarquee();
-				}
-				else {
-					this.$.header.enableMarquee();
-					this.$.header.startMarquee();
-				}
+				this.$.header.enableMarquee();
+				this.$.header.startMarquee();
 			}
 		},
 
@@ -588,9 +404,6 @@
 			this.set('isBreadcrumb', info.breadcrumb);
 			this.set('isOffscreen', info.offscreen);
 			this.updateSpotability();
-			if (this.isBreadcrumb) {
-				this.needsToShrink = true;
-			}
 			this.disableMarquees();
 			this.startMarqueeAsNeeded(info);
 		},
@@ -602,10 +415,6 @@
 		preTransition: function (info) {
 			this.disableMarquees();
 			this.addClass('transitioning');
-			if (!this.shrinking && info.breadcrumb && (!this.isBreadcrumb || this.growing)) {
-				this.shrinkAnimation();
-				return true;
-			}
 
 			return false;
 		},
@@ -616,12 +425,6 @@
 		*/
 		postTransition: function (info) {
 			this.removeClass('transitioning');
-
-			if (!this.growing && !info.breadcrumb && (this.isBreadcrumb || this.shrinking) && this.hasClass('shrunk')) {
-                //only grow if it has been shrunk before
-				this.growAnimation();
-				return true;
-			}
 
 			return false;
 		},
@@ -634,14 +437,6 @@
 			if (!info.animate) {
 				this.disableMarquees();
 			}
-
-            if (this.isBreadcrumb && !info.breadcrumb) {
-                this.grow();
-            }
-
-            if (!this.isBreadcrumb && info.breadcrumb) {
-                this.shrink();
-            }
 
 			this.set('isBreadcrumb', info.breadcrumb);
 			this.set('isOffscreen', info.offscreen);
@@ -668,107 +463,15 @@
 		},
 
 		/**
-		* @private
-		*/
-		shrinkAnimation: function () {
-			this.growing = false;
-			this.shrinking = true;
-			this.addClass('shrunken');
-			this.addClass('shrinking');
-		},
-
-		/**
-		* @private
-		*/
-		shrink: function () {
-			this.addClass('shrunken');
-		},
-
-		/**
-		* @private
-		*/
-		growAnimation: function () {
-			this.growing = true;
-			this.shrinking = false;
-			this.addClass('growing');
-			this.removeClass('shrunken');
-		},
-
-		/**
-		* @private
-		*/
-		grow: function () {
-			this.removeClass('shrunken');
-		},
-
-		/**
 		* Was protected
 		* @private
 		*/
 		getInitAnimationValues: function () {
-			var node = this.hasNode(),
-				paddingT = parseInt(enyo.dom.getComputedStyleValue(node, 'padding-top'), 10),
-				paddingR = parseInt(enyo.dom.getComputedStyleValue(node, 'padding-right'), 10),
-				paddingB = parseInt(enyo.dom.getComputedStyleValue(node, 'padding-bottom'), 10),
-				paddingL = parseInt(enyo.dom.getComputedStyleValue(node, 'padding-left'), 10);
-			this.initialHeight = node.offsetHeight - paddingT - paddingB;
-			this.initialWidth = node.offsetWidth   - paddingR - paddingL;
-		},
-
-		/**
-		* @private
-		*/
-		haltAnimations: function () {
-			this.removeClass('growing');
-			this.removeClass('shrinking');
-		},
-
-		/**
-		* @private
-		*/
-		preTransitionComplete: function () {
-			this.shrinking = false;
-			this.doPreTransitionComplete();
-		},
-
-		/**
-		* @private
-		*/
-		postTransitionComplete: function () {
-			this.growing = false;
-			this.doPostTransitionComplete();
-		},
-
-		/**
-		* @private
-		*/
-		animationComplete: function (sender, event) {
-			if (this.shrinking) {
-				this.removeClass('shrinking');
-				this.preTransitionComplete();
-				return true;
-			}
-			if (this.growing) {
-				this.removeClass('growing');
-				this.postTransitionComplete();
-				return true;
-			}
-		},
-
-		/**
-		* @private
-		*/
-		headerAnimationComplete: function (sender, event) {
-			if (event.animation) {
-				switch (event.animation.name) {
-				case 'collapseToSmall':
-				case 'expandToLarge':
-					// FIXME: It would be better to call this during the animation so it resizes
-					// smoothly, but that's not possible with CSS transitions; it will jump now
-					this.resize();
-					return true;	// We stop header animation event bubble up here.
-				}
-			}
+			var node = this.hasNode(), headerNode = this.$.header.hasNode(), panelNode = this.$.panelBody.hasNode()
+				paddingT = parseInt(enyo.dom.getComputedStyleValue(panelNode, 'padding-top'), 10),
+				headerHeight = headerNode.getBoundingClientRect().height,
+				panelHeight = node.getBoundingClientRect().height;
+			this.initialHeight = panelHeight - headerHeight - paddingT;
 		}
 	});
 })(enyo, this);

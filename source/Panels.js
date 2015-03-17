@@ -149,6 +149,8 @@
 		*/
 		panelStack: null,
 
+		fractions: {panel: 1, breadcrumb: 1},
+
 		/**
 		* @private
 		*/
@@ -172,14 +174,31 @@
 		*/
 		handleTools: [
 			{name: 'backgroundScrim', kind: 'enyo.Control', classes: 'moon-panels-background-scrim'},
-			{name: 'clientWrapper', kind: 'enyo.Control', classes: 'enyo-fill enyo-arranger moon-panels-client', components: [
-				{name: 'scrim', classes: 'moon-panels-panel-scrim', components: [
-					{name: 'branding', kind: 'enyo.Image', sizing: 'contain', classes: 'moon-panels-branding'}
-				]},
-				{name: 'client', tag: null}
+			{name: 'clientWrapper', kind: 'enyo.Control', classes: 'enyo-fill', components: [
+				{name: 'scrim', classes: 'moon-panels-panel-scrim'},
+				{name: 'breadcrumbs', classes: 'moon-panels-breadcrumbs'},
+				{name: 'panelsViewport', classes: 'moon-panels-viewport', components: [
+					{name: 'client', tag: null}
+				]}
 			]},
 			{name: 'showHideHandle', kind: 'moon.PanelsHandle', classes: 'hidden', canGenerate: false, ontap: 'handleTap', onSpotlightLeft: 'handleSpotLeft', onSpotlightRight: 'handleSpotRight', onSpotlightFocused: 'handleFocused', onSpotlightBlur: 'handleBlur'},
 			{name: 'showHideAnimator', kind: 'enyo.StyleAnimator', onComplete: 'showHideAnimationComplete'}
+		],
+
+		/**
+		* @private
+		*/	
+		tools: [
+			{name: "animator", kind: 'moon.MoonAnimator', onStep: 'step', useBezier: true, onEnd: 'animationEnded', configs: { 
+				panel: {
+					forward: { startValue: 0, endValue: 1, delay: 0, duration: 430, bezier: [.69,.01,.97,.59]},
+					backward: { startValue: 0, endValue: 1, delay: 0, duration: 500, bezier: [.06,.53,.38,.99] }
+				},
+				breadcrumb: {
+					forward: { startValue: 0, endValue: 1, delay: 430, duration: 70, bezier: [.46,.28,.76,.57] },
+					backward: { startValue: 0, endValue: 1, delay: 250, duration: 250, bezier: [.08,.51,.24,.99] }
+				}
+			}}
 		],
 
 		/**
@@ -213,7 +232,7 @@
 		*
 		* @private
 		*/
-		arrangerKind: 'moon.BreadcrumbArranger',
+		arrangerKind: 'moon.MoonArranger',
 
 		/**
 		* Index of panel set in the middle of transition.
@@ -253,6 +272,31 @@
 		*/
 		inTransition: function () {
 			return this.transitioning;
+		},
+
+		/**
+		* Returns list of breadcrumb object 
+		*
+		* @return {Array} List of breadcrumbs.
+		* @public
+		*/
+		getBreadcrumbs: function () {
+			return this.$.breadcrumbs ? this.$.breadcrumbs.children : [];
+		},
+
+		/**
+		* Returns maximum number of breadcrub that can be fit in the breadcrumb area
+		*
+		* @return {Number} Number of breadcrumbs.
+		* @public
+		*/
+		getBreadcrumbMax: function () {
+			if (this.pattern == 'always-viewing') return 1;
+			switch(moon.ri.getAspectRatioName()) {
+				case 'hdtv': return 10; 
+				case 'cinema': return 10;
+				default: return 10;
+			}
 		},
 
 		/**
@@ -426,6 +470,55 @@
 		},
 
 		/**
+		* @private
+		*/
+		refresh: function () {
+			this.fractions['panel'] = 1;
+			this.fractions['breadcrumb'] = 1;
+			this.inherited(arguments);
+		},
+
+		/**
+		* @private
+		*/
+		step: function (sender) {
+			for(var k in sender.values) {
+				this.fractions[k] = sender.values[k];
+			}
+			this.inherited(arguments);
+			return true;
+		},
+
+		/**
+		* @private
+		*/
+		stepTransition: function () {
+			if (this.hasNode()) {
+				// select correct transition points and normalize fraction.
+				this.arrangement = this.arrangement ? this.arrangement : {}
+				for(var k in this.fractions) {
+					this.arrangement[k] = this.calcArrangement(this.fractions[k]);
+				}
+				if (this.layout) {
+					this.layout.flowArrangement();
+				}
+			}
+		},
+
+		calcArrangement: function(fraction) {
+			// select correct transition points and normalize fraction.
+			var t$ = this.transitionPoints;
+			var r = (fraction || 0) * (t$.length-1);
+			var i = Math.floor(r);
+			r = r - i;
+			var s = t$[i], f = t$[i+1];
+			// get arrangements and lerp between them
+			var s0 = this.fetchArrangement(s);
+			var s1 = this.fetchArrangement(f);
+			return s0 && s1 ? enyo.Panels.lerp(s0, s1, r) : (s0 || s1);
+		},
+
+		/**
 		* @method
 		* @private
 		*/
@@ -447,6 +540,7 @@
 		initComponents: function () {
 			this.applyPattern();
 			this.inherited(arguments);
+			this.createBreadcrumbs();
 			this.initializeShowHideHandle();
 			this.handleShowingChanged();
 			this.allowBackKeyChanged();
@@ -483,7 +577,7 @@
 					this.hide();
 				}
 			} else {
-				var n = (oEvent.breadcrumbTap) ? this.getPanelIndex(oEvent.originator) : -1;
+				var n = (oEvent.breadcrumbTap) ? oEvent.index : -1;
 				// If tapped on not current panel (breadcrumb), go to that panel
 				if (n >= 0 && n !== this.getIndex()) {
 					this.setIndex(n);
@@ -825,6 +919,8 @@
 		getTransitionInfo: function (inPanelIndex) {
 			var to = (this.toIndex || this.toIndex === 0) ? this.toIndex : this.index;
 			var info = this.getPanelInfo(inPanelIndex, to);
+			info.isOffscreen = (inPanelIndex != to);
+			info.isBreadcrumb = (inPanelIndex < to);
 			info.from = this.fromIndex;
 			info.to = this.toIndex;
 			info.index = inPanelIndex;
@@ -923,13 +1019,13 @@
 		*
 		* @private
 		*/
-		indexChanged: function () {
+		indexChanged: function (old) {
 			var activePanel = this.getActive();
 
 			if (activePanel && activePanel.isBreadcrumb) {
 				activePanel.removeSpottableBreadcrumbProps();
 			}
-
+			this.$.animator.direction = (old < this.index) ? 'forward' : 'backward';
 			this.inherited(arguments);
 
 			this.displayBranding();
@@ -1046,7 +1142,7 @@
 		* @private
 		*/
 		applyAlwaysViewingPattern: function () {
-			this.setArrangerKind('moon.BreadcrumbArranger');
+			this.setArrangerKind('moon.MoonArranger');
 			this.addClass('always-viewing');
 			this.panelCoverRatio = 0.5;
 			this.useHandle = (this.useHandle === 'auto') ? true : this.useHandle;
@@ -1058,12 +1154,21 @@
 		* @private
 		*/
 		applyActivityPattern: function () {
-			this.setArrangerKind('moon.BreadcrumbArranger');
+			this.setArrangerKind('moon.MoonArranger');
 			this.addClass('activity');
 			this.showFirstBreadcrumb = true;
 			this.useHandle = (this.useHandle === 'auto') ? false : this.useHandle;
 			this.createChrome(this.handleTools);
 			this.breadcrumbGap = 0;
+		},
+
+		createBreadcrumbs: function () {
+			// Create Breadcrumb divs
+			var len = this.getPanels().length, index = 0;
+			while (index<len) {
+				this.$.breadcrumbs.createComponent({kind: 'moon.Breadcrumb', index: index}, {owner: this});
+				index++;
+			}
 		},
 
 		/**
@@ -1285,6 +1390,48 @@
 			}
 
 			return true;
+		}
+
+	});
+
+	enyo.kind(
+		/** @lends moon.Breadcrumb.prototype */ {
+
+		/**
+		* @private
+		*/
+		name: 'moon.Breadcrumb',
+
+		/*
+		* @private
+		*/
+		kind: 'enyo.Control',
+
+		spotlight: true,
+
+		handlers: {
+			ontap: 'tapHandler'
+		},
+
+		/*
+		* @private
+		*/
+		classes: 'moon-panels-breadcrumb',
+
+		components: [
+			{name: 'number', classes: 'moon-panels-breadcrumb-header'}
+		],
+		bindings: [
+			{from: 'index', to: '$.number.content', transform: 'formatNumber'}
+		],
+		formatNumber: function(n) {
+			n++;
+			return '< ' + ((n < 10) ? '0' : '') + n;
+		},
+		tapHandler: function(sender, ev) {
+			// decorate
+			ev.breadcrumbTap = true;
+			ev.index = this.index;
 		}
 	});
 

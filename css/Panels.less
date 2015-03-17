@@ -18,10 +18,36 @@
 	* {
 		pointer-events: auto;
 	}
-
+	.moon-panels-breadcrumb {
+		position: absolute;
+		height: 100%;
+		width: 100px;
+		right: -100px;
+		&.spotlight {
+			background: #cf0652;
+		}
+		.moon-panels-breadcrumb-header {
+			border-top: 0.25rem solid #CCCCCC;
+			padding-top: 6px;
+			margin: 12px 20px;
+			font-family: "Moonstone Miso";
+			font-size: 32px;
+		}		
+	}
 	.moon-panel {
+		position: absolute;
 		height: auto;
 		margin: 0;
+	}
+}
+
+.moon-panels {
+	&.activity .moon-panels-breadcrumb-header {
+		color: #a6a6a6;
+	}
+	&.always-viewing .moon-panels-breadcrumb-header {
+		color: white;
+		border-top: 0.25rem solid white;
 	}
 }
 
@@ -44,11 +70,28 @@
 	}
 }
 
+.moon-panels-viewport > * {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+.moon-panels-breadcrumbs,
+.moon-panels-viewport,
 .moon-panels-panel-scrim {
+	overflow: hidden;
 	position: absolute;
 	height: 100%;
 }
 
+.moon-panels.activity .moon-panels-breadcrumbs {
+	left: 0;
+	width: 100px;
+}
+.moon-panels.activity .moon-panels-viewport {
+	left: 100px;
+	right: 0;
+}
 .moon-panels.activity .moon-panels-panel-scrim {
 	left: 0;
 	width: 100%;
@@ -63,7 +106,14 @@
 		background-position: bottom center;
 	}
 }
-
+.moon-panels.always-viewing .moon-panels-breadcrumbs {
+	left: 0;
+	width: 50%;
+}
+.moon-panels.always-viewing .moon-panels-viewport {
+	left: 50%;
+	width: 50%;
+}
 .moon-panels.always-viewing .moon-panels-panel-scrim {
 	left: 50%;
 	width: 50%;
