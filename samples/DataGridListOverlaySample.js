@@ -3,14 +3,14 @@ enyo.kind({
 	kind: "moon.Panels",
 	pattern: "activity",
 	classes: "moon enyo-fit enyo-unselectable",
+	handlers: {
+		onBadgeIconTap: 'badgeTap',
+		onBadgeTap: 'badgeDetailTap',
+	},
 	components: [
 		{kind: "moon.Panel", classes:"moon-6h", title:"Menu", components: [
-			{kind:"moon.Item", content:"Scroll"},
-			{kind:"moon.Item", content:"the"},
-			{kind:"moon.Item", content:"Data Grid List"},
-			{kind:"moon.Item", content:"to"},
-			{kind:"moon.Item", content:"the"},
-			{kind:"moon.Item", content:"Right!"}
+			{kind:"moon.Item", content:"Selected item is:"},
+			{name:"selectedItem", kind:"moon.Item", content:""},
 		]},
 		{kind: "moon.Panel", joinToPrev: true, title:"Data Grid List", headerComponents: [
 			{kind: "moon.ToggleButton", content:"Selection", name:"selectionToggle"},
@@ -47,22 +47,23 @@ enyo.kind({
 			{name: "gridList", fit: true, spacing: 20, minWidth: 180, minHeight: 270, kind: "moon.DataGridList", scrollerOptions: { kind: "moon.Scroller", vertical:"scroll", horizontal: "hidden", spotlightPagingControls: true }, components: [
 				{ kind: "moon.sample.GridSampleItem" }
 			]}
-		]}
+		]},
+		
 	],
 	bindings: [
-		{from: ".collection", to: ".$.gridList.collection"},
-		{from: ".$.selectionToggle.value", to: ".$.gridList.selection", oneWay: false},
-		{from: ".$.selectionTypeGroup.active", to: ".$.gridList.selectionType",
+		{from: "collection", to: "$.gridList.collection"},
+		{from: "$.selectionToggle.value", to: "$.gridList.selection", oneWay: false},
+		{from: "$.selectionTypeGroup.active", to: "$.gridList.selectionType",
 			transform: function (selected) {
 				return selected && selected.value;
 			}
 		},
-		{from: ".$.badgeTypeGroup.active", to: ".gridItemBadgeType",
+		{from: "$.badgeTypeGroup.active", to: "gridItemBadgeType",
 			transform: function (selected) {
 				return selected && selected.value;
 			}
 		},
-		{from: ".$.badgePositionGroup.active", to: ".gridItemBadgePosition",
+		{from: "$.badgePositionGroup.active", to: "gridItemBadgePosition",
 			transform: function (selected) {
 				return selected && selected.value;
 			}
@@ -102,7 +103,13 @@ enyo.kind({
 		collection.remove(collection.models);
 		// and we insert all new records that will update the list
 		collection.add(this.generateRecords());
-	}
+	},
+	badgeTap: function(sender, ev) {
+		this.$.selectedItem.setContent(ev.model.get("text") + " played.");
+	},
+	badgeDetailTap: function(sender, ev) {
+		this.$.selectedItem.setContent(ev.model.get("text") + " details tapped.");
+	},
 });
 
 enyo.kind({
@@ -111,10 +118,10 @@ enyo.kind({
 	mixins: ["moon.BadgeOverlaySupport", "moon.SelectionOverlaySupport"],
 	subCaption: "Sub Caption",
 	bindings: [
-		{from: ".model.text", to: ".caption"},
-		{from: ".model.subText", to: ".subCaption"},
-		{from: ".model.url", to: ".source"},
-		{from: ".model.badgeType", to: ".badgeType"},
-		{from: ".model.position", to: ".position"}
+		{from: "model.text", to: "caption"},
+		{from: "model.subText", to: "subCaption"},
+		{from: "model.url", to: "source"},
+		{from: "model.badgeType", to: "badgeType"},
+		{from: "model.position", to: "position"}
 	]
 });

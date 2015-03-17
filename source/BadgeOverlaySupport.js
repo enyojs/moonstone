@@ -112,7 +112,23 @@
 		* @public
 		*/
 		position: null,
-		
+
+		/**
+		* @private
+		*/
+		events: {
+
+			/**
+			* {@link moon.BadgeOverlaySupport#onBadgeTap}
+			*/
+			onBadgeTap: '',
+
+			/**
+			* {@link moon.BadgeOverlaySupport#onBadgeIconTap}
+			*/
+			onBadgeIconTap: ''
+		},
+
 		/**
 		* @method
 		* @private
@@ -121,37 +137,83 @@
 			return function () {
 				this.kindComponents = enyo.Component.overrideComponents(this.kindComponents, this._badgeOverride);
 				sup.apply(this, arguments);
+				this.positionChanged();
+				this.badgeTypeChanged();
 				if (this.badgeSrc) {
 					this.$.badgeScrimIcon.set('icon','');
 				}
-				this.positionChanged();
-				this.badgeTypeChanged();
 			};
 		}),
+		
 		/**
 		* @private
 		*/
 		bindings: [
-			{from: '.badgeSrc', to: '$.badgeScrimIcon.src'},
-			{from: '.badgeIcon', to: '$.badgeScrimIcon.icon', transform: function(val){ return val ? val : 'play'}}
+			{from: 'badgeSrc', to: '$.badgeScrimIcon.src'},
+			{from: 'badgeIcon', to: '$.badgeScrimIcon.icon', transform: function(val){ return val ? val : 'play';}}
 		],
 
 		/**
 		* @private
 		*/
 		_badgeOverride: {
-			image: { kind:"moon.Image", components:[{name:'badgeScrimIcon', kind: 'moon.Icon', small: false, icon: 'play', spotlight: false}] }
+			image: { kind:"moon.Image", components:[{ 
+					name:'badgeScrimIcon', kind: 'moon.Icon', small: false, icon: 'play', spotlight: false
+				}]
+			}
 		},
+
+		/**
+		* @private
+		*/
 		positionChanged: function() {
 			this.addRemoveClass("top", this.position == 'top');
 		},
+
+		/**
+		* @private
+		*/
 		badgeTypeChanged: function() {
-			this.$.image.destroyClientControls();
-			if(this.badgeType && this.badgeType == "image") {
-				this.$.image.destroyClientControls();
-			} else {
-				this.$.image.createComponent({name:'badgeScrimIcon', kind: 'moon.Icon', small: false, icon: 'play', spotlight: false});
+			var image = this.$.image;
+			image.destroyClientControls();
+			if(this.badgeType && this.badgeType != "image") {
+				image.createComponent(this._badgeOverride.image.components[0]);
 			}
+		},
+
+		/**
+		* @method
+		* @private
+		*/
+		dispatchEvent: enyo.inherit(function (sup) {
+			return function (sEventName, oEvent, oSender) {
+				if (oEvent && !oEvent.delegate) {
+					if (sEventName=='ontap'){
+						if(this.badgeTap(oSender, oEvent)) {
+							return true;
+						}
+					}
+				}
+				return sup.apply(this, arguments);
+			};
+		}),
+
+		/**
+		* @method
+		* @private
+		*/
+		badgeTap: function (inSender, inEvent) {
+			if (inEvent && inEvent.originator) {
+				switch(inEvent.originator.name) {
+					case 'badgeScrimIcon':
+						this.bubble('onBadgeIconTap', inEvent);
+						return true;
+					case 'client':
+						this.bubble('onBadgeTap', inEvent);
+						return true;
+				}
+			}
+			return false;
 		}
 	};
 
