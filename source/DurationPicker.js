@@ -16,85 +16,31 @@
 
 	var 
 		/**
-		* Optional label for hourLabel
-		*
-		* @type {String}
-		* @default moon.$L('hour')
-		* @private
-		*/
-		hourLabelText = moon.$L('hour'),	// i18n 'HOUR' label in moon.DurationPicker widget
-
-		/**
-		* Optional label for minuteLabel
-		*
-		* @type {String}
-		* @default moon.$L('minute')
-		* @private
-		*/
-		minuteLabelText = moon.$L('minute'),	// i18n 'MINUTE' label in moon.DurationPicker widget
-
-		/**
-		* Optional label for secondLabel
-		*
-		* @type {String}
-		* @default moon.$L('second')
-		* @private
-		*/
-		secondLabelText = moon.$L('second'),	// i18n 'SECOND' label in moon.DurationPicker widget
-
-		/**
 		* Optional label for hour
 		*
 		* @type {String}
-		* @default moon.$L('Hour')
+		* @default moon.$L("1#hour|#hours")
 		* @private
 		*/
-		hourText = moon.$L('Hour'),		// i18n 'HOUR' label in moon.DurationPicker widget
+		hourText = moon.$L("1#hour|#hours"),		// i18n 'HOUR' label in moon.DurationPicker widget
 
 		/**
 		* Optional label for minute
 		*
 		* @type {String}
-		* @default moon.$L('Minute')
+		* @default moon.$L('1#minute|#minutes')
 		* @private
 		*/
-		minuteText = moon.$L('Minute'),		// i18n 'MINUTE' label in moon.DurationPicker widget
+		minuteText = moon.$L('1#minute|#minutes'),	// i18n 'MINUTE' label in moon.DurationPicker widget
 
 		/**
 		* Optional label for second
 		*
 		* @type {String}
-		* @default moon.$L('Second')
+		* @default moon.$L('1#second|#seconds')
 		* @private
 		*/
-		secondText = moon.$L('Second'),		// i18n 'SECOND' label in moon.DurationPicker widget
-
-		/**
-		* Optional label for hours
-		*
-		* @type {String}
-		* @default moon.$L('Hours')
-		* @private
-		*/
-		hoursText = moon.$L('Hours'),		// i18n 'HOURS' label in moon.DurationPicker widget
-
-		/**
-		* Optional label for minutes
-		*
-		* @type {String}
-		* @default moon.$L('Minutes')
-		* @private
-		*/
-		minutesText = moon.$L('Minutes'),	// i18n 'MINUTES' label in moon.DurationPicker widget
-
-		/**
-		* Optional label for seconds
-		*
-		* @type {String}
-		* @default moon.$L('Seconds')
-		* @private
-		*/
-		secondsText = moon.$L('Seconds'),	// i18n 'SECONDS' label in moon.DurationPicker widget
+		secondText = moon.$L('1#second|#seconds'),	// i18n 'SECOND' label in moon.DurationPicker widget
 
 		/**
 		* Optional label for Start Button
@@ -103,7 +49,7 @@
 		* @default moon.$L('Start')
 		* @private
 		*/
-		startText = moon.$L('Start'),		// i18n 'Start' label in moon.DurationPicker buttons
+		startText = moon.$L('Start'),			// i18n 'Start' label in moon.DurationPicker buttons
 
 		/**
 		* Optional label for Pause Button
@@ -112,7 +58,7 @@
 		* @default moon.$L('Pause')
 		* @private
 		*/
-		pauseText = moon.$L('Pause'),		// i18n 'Pause' label in moon.DurationPicker buttons
+		pauseText = moon.$L('Pause'),			// i18n 'Pause' label in moon.DurationPicker buttons
 
 		/**
 		* Optional label for Cancel Button
@@ -121,7 +67,7 @@
 		* @default moon.$L('Cancel')
 		* @private
 		*/
-		cancelText = moon.$L('Cancel'),		// i18n 'Cancel' label in moon.DurationPicker buttons
+		cancelText = moon.$L('Cancel'),			// i18n 'Cancel' label in moon.DurationPicker buttons
 
 		/**
 		* Optional label for Resume Button
@@ -130,7 +76,7 @@
 		* @default moon.$L('Resume')
 		* @private
 		*/
-		resumeText = moon.$L('Resume');		// i18n 'Resume' label in moon.DurationPicker buttons
+		resumeText = moon.$L('Resume');			// i18n 'Resume' label in moon.DurationPicker buttons
 
 	/*
 	* @class moon.DurationPicker
@@ -138,8 +84,8 @@
 	* @public
 	*/
 
-	enyo.kind(
-		/** @lends moon.DurationPicker.prototype */ {
+	enyo.kind({
+		/** @lends moon.DurationPicker.prototype */
 
 		/**
 		* @private
@@ -179,50 +125,6 @@
 			* {@link moon.DurationPicker#event:onCountdownExpired}
 			*/
 			onPickerExpired: ''
-		},
-
-		/**
-		* @public
-		* @lends moon.DurationPicker.prototype
-		*/
-		published: {
-
-			/**
-			* Text to be displayed as the current value if no item is currently selected
-			*
-			* @type {String}
-			* @default ''
-			* @public
-			*/
-			noneText: '',
-
-			/**
-			* The value of the picker, expressed as a standard JavaScript 
-			* object.
-			*
-			* @type {String}
-			* @default null
-			* @public
-			*/
-			value: null,
-
-			/**
-			* The template format of the picker
-			*
-			* @type {String}
-			* @default ''
-			* @public
-			*/
-			template: '',
-
-			/**
-			* Enable and disable the timer feature of duration picker
-			*
-			* @type {Boolean}
-			* @default true
-			* @public
-			*/
-			enableTimer: true
 		},
 
 		/**
@@ -279,6 +181,92 @@
 		pauseDisabled: true,
 
 		/**
+		* @type {Boolean}
+		* @default true
+		* @private
+		*/
+		showHour: false,
+
+		/**
+		* @type {Boolean}
+		* @default true
+		* @private
+		*/
+		showMinute: false,
+
+		/**
+		* @type {Boolean}
+		* @default true
+		* @private
+		*/
+		showSecond: false,
+
+		/**
+		* @type {String}
+		* @default null
+		* @private
+		*/
+		hourStr: null,
+
+		/**
+		* @type {String}
+		* @default null
+		* @private
+		*/
+		minuteStr: null,
+
+		/**
+		* @type {String}
+		* @default null
+		* @private
+		*/
+		secondStr : null,
+
+		/**
+		* @public
+		* @lends moon.DurationPicker.prototype
+		*/
+		published: {
+
+			/**
+			* Text to be displayed as the current value if no item is currently selected
+			*
+			* @type {String}
+			* @default ''
+			* @public
+			*/
+			noneText: '',
+
+			/**
+			* The value of the picker, expressed as a standard JavaScript 
+			* object.
+			*
+			* @type {String}
+			* @default null
+			* @public
+			*/
+			value: null,
+
+			/**
+			* The template format of the picker
+			*
+			* @type {String}
+			* @default ''
+			* @public
+			*/
+			template: '',
+
+			/**
+			* Enable and disable the timer feature of duration picker
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
+			enableTimer: true
+		},
+
+		/**
 		* @private
 		*/
 		components: [
@@ -306,22 +294,11 @@
 			{from: 'startContent', to: '$.startButton.content'},
 			{from: 'pauseContent', to: '$.pauseButton.content'},
 			{from: 'pauseDisabled', to: '$.pauseButton.disabled'},
-			{from: 'enableTimer', to: '$.buttonPlaceHolder.showing'}
+			{from: 'enableTimer', to: '$.buttonPlaceHolder.showing'},
+			{from: 'showHour', to: '$.hourPicker.showing'},
+			{from: 'showMinute', to: '$.minutePicker.showing'},
+			{from: 'showSecond', to: '$.secondPicker.showing'}
 		],
-
-		/**
-		* @fires moon.DurationePicker#onChange
-		* @private
-		*/
-		handleChangeEvent: function (sender, ev) {
-			if (ev && ev.originator === this) {
-				// Don't handle our own change events
-				return;
-			} else {
-				this.updateValue(sender, ev);
-				return true;
-			}
-		},
 
 		/**
 		* @private
@@ -340,15 +317,18 @@
 				'minute': 0,
 				'second': 0
 			};
+			this.hourStr = new ilib.String(hourText);
+			this.minuteStr = new ilib.String(minuteText);
+			this.secondStr = new ilib.String(secondText);
 			this.templateArray = [];
 			this.startContent = startText;
 			this.pauseContent = pauseText;
-			this.initTemplate();
 			this.setupPickers();
+			this.initTemplate();
 			if(this.value !== '') {
 				this.valueChanged();
 			} else {
-				this.noneTextChanged();
+				this.noneTextUpdate();
 			}
 		},
 
@@ -358,59 +338,24 @@
 		* @private
 		*/
 		setupPickers: function () {
-			var len, idx, item;
-			len = this.templateArray.length;
-			if (len) {
-				for (idx = 0; idx < len; idx++) {
-					item = this.templateArray[idx];
-					switch (item) {
-					case 'h':
-						this.createComponent(
-							{name: 'hourPicker', classes: 'moon-date-picker-wrap', components:[
-								{kind: 'moon.IntegerPicker', name: 'hour', min: 0, max: 23, wrap: true, value: this.values.hour, disabled: this.countdown},
-								{name: 'hourLabel', content: hourLabelText, classes: 'moon-date-picker-label moon-divider-text'}
-							]}
-						);
-						break;
-					case 'm':
-						this.createComponent(
-							{name: 'minutePicker', classes: 'moon-date-picker-wrap', components:[
-								{kind: 'moon.IntegerPicker', name: 'minute', classes: 'moon-date-picker-field', min: 0, max: 59, wrap: true, value: this.values.minute, disabled: this.countdown},
-								{name: 'minuteLabel', content: minuteLabelText, classes: 'moon-date-picker-label moon-divider-text'}
-							]}
-						);
-						break;
-					case 's':
-						this.createComponent(
-							{name: 'secondPicker', classes: 'moon-date-picker-wrap', components:[
-								{kind: 'moon.IntegerPicker', name: 'second', classes: 'moon-date-picker-field', min: 0, max: 59, wrap: true, value: this.values.second, disabled: this.countdown},
-								{name: 'secondLabel', content: secondLabelText, classes: 'moon-date-picker-label moon-divider-text'}
-							]}
-						);
-						break;
-					}
-				}
-			} else {
-				this.createComponent(
-					{name: 'hourPicker', classes: 'moon-date-picker-wrap', components:[
-						{kind: 'moon.IntegerPicker', name: 'hour', min: 0, max: 23, wrap: true, value: this.values.hour, disabled: this.countdown},
-						{name: 'hourLabel', content: hourLabelText, classes: 'moon-date-picker-label moon-divider-text'}
-					]}
-				);
-				this.createComponent(
-					{name: 'minutePicker', classes: 'moon-date-picker-wrap', components:[
-						{kind: 'moon.IntegerPicker', name: 'minute', classes: 'moon-date-picker-field', min: 0, max: 59, wrap: true, value: this.values.minute, disabled: this.countdown},
-						{name: 'minuteLabel', content: minuteLabelText, classes: 'moon-date-picker-label moon-divider-text'}
-					]}
-				);
-				this.createComponent(
-					{name: 'secondPicker', classes: 'moon-date-picker-wrap', components:[
-						{kind: 'moon.IntegerPicker', name: 'second', classes: 'moon-date-picker-field', min: 0, max: 59, wrap: true, value: this.values.second, disabled: this.countdownSS},
-						{name: 'secondLabel', content: secondLabelText, classes: 'moon-date-picker-label moon-divider-text'}
-					]}
-				);
-			}
-			this.render();
+			this.createComponent(
+				{name: 'hourPicker', classes: 'moon-date-picker-wrap', components:[
+					{kind: 'moon.IntegerPicker', name: 'hour', min: 0, max: 23, wrap: true, value: this.values.hour, disabled: this.countdown},
+					{name: 'hourLabel', content: this.hourStr.formatChoice(1), classes: 'moon-date-picker-label moon-divider-text'}
+				]}
+			);
+			this.createComponent(
+				{name: 'minutePicker', classes: 'moon-date-picker-wrap', components:[
+					{kind: 'moon.IntegerPicker', name: 'minute', classes: 'moon-date-picker-field', min: 0, max: 59, wrap: true, value: this.values.minute, disabled: this.countdown},
+					{name: 'minuteLabel', content: this.minuteStr.formatChoice(1), classes: 'moon-date-picker-label moon-divider-text'}
+				]}
+			);
+			this.createComponent(
+				{name: 'secondPicker', classes: 'moon-date-picker-wrap', components:[
+					{kind: 'moon.IntegerPicker', name: 'second', classes: 'moon-date-picker-field', min: 0, max: 59, wrap: true, value: this.values.second, disabled: this.countdownSS},
+					{name: 'secondLabel', content: this.secondStr.formatChoice(1), classes: 'moon-date-picker-label moon-divider-text'}
+				]}
+			);
 		},
 
 		/**
@@ -425,14 +370,47 @@
 					//only accepts the hour, minute, second template values 'h', 'm' and 's'
 					if (this.templateArray.indexOf(o) < 0 && (o == 'h' || o == 'm' || o == 's' )) {
 						this.templateArray.push(o);
+						switch (o) {
+						case 'h':
+							this.set('showHour', true);
+							break;
+						case 'm':
+							this.set('showMinute', true);
+							break;
+						case 's':
+							this.set('showSecond', true);
+							break;
+						default:
+							break;
+						}
 					}
 				}
 				if (!this.templateArray.length) {
 					this.templateArray.push('h','m','s');
+					this.set('showHour', true);
+					this.set('showMinute', true);
+					this.set('showSecond', true);
 				}
 				return;
 			}
+			this.set('showHour', true);
+			this.set('showMinute', true);
+			this.set('showSecond', true);
 			this.templateArray.push('h','m','s');
+		},
+
+		/**
+		* @fires moon.DurationePicker#onChange
+		* @private
+		*/
+		handleChangeEvent: function (sender, ev) {
+			if (ev && ev.originator === this) {
+				// Don't handle our own change events
+				return;
+			} else {
+				this.updateValue(sender, ev);
+				return true;
+			}
 		},
 
 		/**
@@ -440,51 +418,43 @@
 		*/
 		templateChanged: function () {
 			this.templateArray = [];
-			this.deletePickers();
+			this.hidePickers();
 			this.initTemplate();
-			this.setupPickers();
-			this.setupArray();
-			this.setValue(this.formatValue());
-		},
-
-		/**
-		* @private
-		*/
-		setupArray: function () {
-			if (this.template.indexOf('h') < 0)
-				this.values['hour'] = 0;
-			if (this.template.indexOf('m') < 0)
-				this.values['minute'] = 0;
-			if (this.template.indexOf('s') < 0)
-				this.values['second'] = 0;
+			this.updateText();
 		},
 
 		/**
 		* If no item is selected, uses [`noneText`]{@link moon.DurationPicker#noneText}
-		* as current value and if nonoText value is not provided, use 'Pick Duration'
+		* as current value and if noneText value is not provided, use 'Pick Duration'
 		* as default.
 		*
 		* @private
 		*/
+		noneTextUpdate: function () {
+			this.$.currentValue.set('content', moon.$L(this.getNoneText()) || moon.$L('Pick Duration'));
+			this.doDurationChange({name: this.name, value: this.$.currentValue.content});
+		},
+
+		/**
+		* @private
+		*/
 		noneTextChanged: function () {
 			if (this.value == null || this.value === '') {
-				this.$.currentValue.set('content', moon.$L(this.getNoneText()) || moon.$L('Pick Duration'));
+				this.noneTextUpdate();
 			}
 		},
 
-		
 		/**
 		* @private
 		*/
 		valueChanged: function () {
 			if (this.value == null || this.value === '') {
 				this.resetPicker();
-				this.noneTextChanged();
-				this.doDurationChange({name: this.name, value: this.$.currentValue.content});
+				this.noneTextUpdate();
 			} else {
 				this.createValues();
 				this.updatePicker();
-				this.$.currentValue.set('content', this.formatText());
+				this.updateText();
 			}
 		},
 
@@ -495,38 +465,30 @@
 			var tempValue;
 			if (this.value != null && this.value !== '') {
 				var timeArray = this.value.toString().split(':');
-				for (var idx = 0; idx < this.templateArray.length; idx++) {
-					var item = this.templateArray[idx];
-					switch (item) {
-						case 'h':
-						if (this.$.hourPicker || !this.$.hourPicker && timeArray.length > 2) {
-							tempValue = Math.round(timeArray.shift());
-							if (isNaN(tempValue) || tempValue > 23 || tempValue < 0) {
-								tempValue = 0;
-							}
-							this.values['hour'] = tempValue;
-						}
-						break;
-						case 'm':
-						if (this.$.minutePicker || !this.$.minutePicker && timeArray.length > 1) {
-							tempValue = Math.round(timeArray.shift());
-							if (isNaN(tempValue) || tempValue > 59 || tempValue < 0) {
-								tempValue = 0;
-							}
-							this.values['minute'] = tempValue;
-						}
-						break;
-						case 's':
-						if (this.$.secondPicker || !this.$.secondPicker && timeArray.length > 0) {
-							tempValue = Math.round(timeArray.shift());
-							if (isNaN(tempValue) || tempValue> 59 || tempValue < 0) {
-								tempValue = 0;
-							}
-							this.values['second'] = tempValue;
-						break;
-						}
+				tempValue = 0;
+				if (this.showHour || !this.showHour && timeArray.length > 2) {
+					tempValue = Math.round(timeArray.shift());
+					if (isNaN(tempValue) || tempValue > 23 || tempValue < 0) {
+						tempValue = 0;
 					}
 				}
+				this.values['hour'] = tempValue;
+				tempValue = 0;
+				if (this.showMinute || !this.showMinute && timeArray.length > 1) {
+					tempValue = Math.round(timeArray.shift());
+					if (isNaN(tempValue) || tempValue > 59 || tempValue < 0) {
+						tempValue = 0;
+					}
+				}
+				this.values['minute'] = tempValue;
+				tempValue = 0;
+				if (this.showSecond || !this.showSecond && timeArray.length > 0) {
+					tempValue = Math.round(timeArray.shift());
+					if (isNaN(tempValue) || tempValue> 59 || tempValue < 0) {
+						tempValue = 0;
+					}
+				}
+				this.values['second'] = tempValue;
 			}
 		},
 
@@ -534,112 +496,99 @@
 		* @private
 		*/
 		updatePicker: function () {
-			if (this.$.hourPicker && this.$.hour.value != this.values['hour'])
+			if (this.$.hour.value != this.values['hour'])
 				this.$.hour.set('value', this.values['hour']);
 
-			if (this.$.minutePicker && this.$.minute.value != this.values['minute'])
+			if (this.$.minute.value != this.values['minute'])
 				this.$.minute.set('value', this.values['minute']);
 
-			if (this.$.secondPicker && this.$.second.value != this.values['second'])
+			if (this.$.second.value != this.values['second'])
 				this.$.second.set('value',this.values['second']);
 		},
 
 		/**
 		* @private
 		*/
-		formatValue: function () {
-			var item, idx, val = '';
-			for (idx = 0; idx < this.templateArray.length; idx++) {
-				item = this.templateArray[idx];
-				switch (item) {
-					case 'h':
-						val = val + ':' + this.values['hour'];
-						break;
-					case 'm':
-						val = val + ':' + this.values['minute'];
-						break;
-					case 's':
-						val = val + ':' + this.values['second'];
-						break;
-				}
-			}
-			return val.substring(1);
-		},
-
-		/**
-		* @private
-		*/
-		formatText: function () {
-			var item, idx, text = '';
+		updateText: function () {
+			var text, 
+				val = {},
+				zeroValue = true,
+				durFormat = new ilib.DurFmt({length: 'full', useNative: false});
 			if (this.values) {
 				for (idx = 0; idx < this.templateArray.length; idx++) {
 					item = this.templateArray[idx];
 					switch (item) {
 						case 'h':
-							text = text + ' ' + this.values['hour'] + ' ' + (this.values['hour'] == 1 ? hourText : hoursText);
-							break;
+							if (this.values['hour'] != 0) {
+								val.hour = this.values['hour'];
+								zeroValue = false;
+							}
+						break;
 						case 'm':
-							text = text + ' ' + this.values['minute'] + ' ' + (this.values['minute'] == 1 ? minuteText : minutesText);
-							break;
+							if (this.values['minute'] != 0) {
+								val.minute = this.values['minute'];
+								zeroValue = false;
+							}
+						break;
 						case 's':
-							text = text + ' ' + this.values['second'] + ' ' + (this.values['second'] == 1 ? secondText : secondsText);
-							break;
+							if (this.values['second'] != 0) {
+								val.second = this.values['second'];
+								zeroValue = false;
+							}
+						break;
 					}
 				}
 			}
-			this.doDurationChange({name: this.name, value: text});
-			return text.trim();
+			if (zeroValue) {
+				this.noneTextUpdate();
+			} else {
+				text = durFormat.format(val)
+				this.$.currentValue.set('content', text);
+				this.doDurationChange({name: this.name, value: text});
+			}
 		},
 
 		/**
 		* @private
 		*/
 		tick: function () {
-			var hr = this.values['hour'];
-			var mn = this.values['minute'];
-			var ss = this.values['second'];
+			var hr = this.values['hour'],
+				mn = this.values['minute'],
+				ss = this.values['second'];
 			ss--;
 			if (hr <= 0 && mn <= 0 && ss <= 0) {
-				this.values['second'] = ss;
-				this.set('value', this.formatValue());
+				this.set('value','');
 				this.pickerExpired();
+				return;
 			} else {
-				if (ss <= 0 ) {
+				if (ss <= 0) {
 					ss = 59;
-					this.values['second'] = ss;
-					if (mn > 0 ) {
+					if (mn > 0) {
 						mn--;
-						this.values['minute'] = mn;
 					} else {
 						mn = 59;
 						hr--;
-						this.values['minute'] = mn;
-						this.values['hour'] = hr;
 					}
 				}
 			}
-			this.values['second'] = ss;
-			this.set('value', this.formatValue());
+			this.set('value', hr+':'+mn+':'+ss);
 		},
 
 		/**
 		* @private
 		*/
 		updateValue: function (sender, ev) {
-			var hour = this.$.hourPicker ? this.$.hour.get('value') : this.values['hour'];
-			var minute = this.$.minutePicker ? this.$.minute.get('value') : this.values['minute'];
-			var second = this.$.secondPicker ? this.$.second.get('value') : this.values['second'];
-			if (ev.name == 'second' && this.values['second'] == second) {
+			var hour = this.$.hour.get('value'),
+				minute = this.$.minute.get('value'),
+				second = this.$.second.get('value');
+			if (ev.name == this.secondStr.formatChoice(1) && this.values['second'] == second) {
 				return;
-			} else if (ev.name == 'minute' &&  this.values['minute'] == minute) {
+			} else if (ev.name == this.minuteStr.formatChoice(1) &&  this.values['minute'] == minute) {
 				return;
-			} else if (ev.name == 'hour' && this.values['hour'] == hour) {
+			} else if (ev.name == this.hourStr.formatChoice(1) && this.values['hour'] == hour) {
 				return;
 			}
-			this.values['second'] = second;
-			this.values['minute'] = minute;
-			this.values['hour'] = hour;
-			this.set('value', this.formatValue());
+			this.set('value', hour+':'+minute+':'+second);
 		},
 
 		/**
@@ -654,12 +603,9 @@
 		* @private
 		*/
 		countdownChanged: function () {
-			if (this.$.hour)
-				this.$.hour.set('disabled', this.countdown);
-			if (this.$.minute)
-				this.$.minute.set('disabled', this.countdown);
-			if (this.$.second)
-				this.$.second.set('disabled' , this.countdown);
+			this.$.hour.set('disabled', this.countdown);
+			this.$.minute.set('disabled', this.countdown);
+			this.$.second.set('disabled' , this.countdown);
 		},
 
 		/**
@@ -730,10 +676,10 @@
 		/**
 		* @private
 		*/
-		deletePickers: function () {
-			if (this.$.hourPicker) this.$.hourPicker.destroy();
-			if (this.$.minutePicker) this.$.minutePicker.destroy();
-			if (this.$.secondPicker) this.$.secondPicker.destroy();
+		hidePickers: function () {
+			this.set('showHour', false);
+			this.set('showMinute', false);
+			this.set('showSecond', false);
 		},
 
 		/**
