@@ -5,12 +5,12 @@ enyo.kind({
 	classes: "moon enyo-fit enyo-unselectable",
 	handlers: {
 		onBadgeIconTap: 'badgeTap',
-		onBadgeTap: 'badgeDetailTap',
+		onBadgeTap: 'badgeDetailTap'
 	},
 	components: [
 		{kind: "moon.Panel", classes:"moon-6h", title:"Menu", components: [
 			{kind:"moon.Item", content:"Selected item is:"},
-			{name:"selectedItem", kind:"moon.Item", content:""},
+			{name:"selectedItem", kind:"moon.Item", content:""}
 		]},
 		{kind: "moon.Panel", joinToPrev: true, title:"Data Grid List", headerComponents: [
 			{kind: "moon.ToggleButton", content:"Selection", name:"selectionToggle"},
@@ -47,8 +47,7 @@ enyo.kind({
 			{name: "gridList", fit: true, spacing: 20, minWidth: 180, minHeight: 270, kind: "moon.DataGridList", scrollerOptions: { kind: "moon.Scroller", vertical:"scroll", horizontal: "hidden", spotlightPagingControls: true }, components: [
 				{ kind: "moon.sample.GridSampleItem" }
 			]}
-		]},
-		
+		]}
 	],
 	bindings: [
 		{from: "collection", to: "$.gridList.collection"},
@@ -109,7 +108,7 @@ enyo.kind({
 	},
 	badgeDetailTap: function(sender, ev) {
 		this.$.selectedItem.setContent(ev.model.get("text") + " details tapped.");
-	},
+	}
 });
 
 enyo.kind({
