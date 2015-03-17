@@ -72,6 +72,16 @@
 			spotlightPagingControls: false,
 
 			/**
+			* If 'true', paging controls are hidden when content fit in scroller
+			* even when spotlightPagingControls is true.
+			*
+			* @type {Boolean}
+			* @default false
+			* @public
+			*/
+			hideScrollColumnsWhenFit: false,
+
+			/**
 			* Relative parameter used to determine scroll speed.
 			*
 			* @type {Number}
@@ -224,7 +234,8 @@
 			{from: '.scrollWheelMultiplier',		to:'.$.strategy.scrollWheelMultiplier'},
 			{from: '.scrollWheelPageMultiplier',	to:'.$.strategy.scrollWheelPageMultiplier'},
 			{from: '.paginationPageMultiplier',		to:'.$.strategy.paginationPageMultiplier'},
-			{from: '.paginationScrollMultiplier',	to:'.$.strategy.paginationScrollMultiplier'}
+			{from: '.paginationScrollMultiplier',	to:'.$.strategy.paginationScrollMultiplier'},
+			{from: '.hideScrollColumnsWhenFit',		to:'.$.strategy.hideScrollColumnsWhenFit'}
 		],
 
 		/**

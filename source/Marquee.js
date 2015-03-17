@@ -1,4 +1,59 @@
 (function (enyo, scope) {
+
+	/**
+	* There are a couple scenarios (window blurs and changing from pointer mode to 5-way) in which
+	* we'd like to stop an actively on-hover marqueeing control. This private instance manages
+	* those events centrally to minimize unnecessary Signal's subscribers.
+	*
+	* @private
+	*/
+	var observer = new enyo.Component({
+
+		/**
+		* @private
+		*/
+		hoverControl: null,
+
+		/**
+		* @private
+		*/
+		components: [
+			{kind: 'Signals', onSpotlightModeChanged: 'handleModeChanged', onblur: 'handleBlur'}
+		],
+
+		/**
+		* @private
+		*/
+		_setMarqueeOnHoverControl: function(oControl) {
+			this.hoverControl = oControl;
+		},
+
+		/**
+		* @private
+		*/
+		_getMarqueeOnHoverControl: function() {
+			return this.hoverControl;
+		},
+
+		/**
+		* @private
+		*/
+		handleModeChanged: function (sender, event) {
+			if (!event.pointerMode && this.hoverControl) {
+				this.hoverControl._marquee_leave();
+			}
+		},
+
+		/**
+		* @private
+		*/
+		handleBlur: function (sender, event) {
+			if (this.hoverControl) {
+				this.hoverControl._marquee_leave();
+			}
+		}
+	});
+
 	/**
 	* Fires to queue up a list of child animations.
 	*
@@ -232,6 +287,19 @@
 		* @method
 		* @private
 		*/
+		destroy: enyo.inherit(function (sup) {
+			return function () {
+				if (this === observer._getMarqueeOnHoverControl()) {
+					observer._setMarqueeOnHoverControl(null);
+				}
+				sup.apply(this, arguments);
+			};
+		}),
+
+		/**
+		* @method
+		* @private
+		*/
 		dispatchEvent: enyo.inherit(function (sup) {
 			return function (sEventName, oEvent, oSender) {
 				// Needed for proper onenter/onleave handling
@@ -296,6 +364,9 @@
 			this._marquee_isHovered = true;
 			if ((this.marqueeOnHover && !this.marqueeOnSpotlight) ||
 			(this.disabled && this.marqueeOnSpotlight)) {
+				if (this.marqueeOnHover) {
+					observer._setMarqueeOnHoverControl(this);
+				}
 				this.startMarquee();
 			}
 		},
@@ -306,6 +377,9 @@
 		_marquee_leave: function (sender, ev) {
 			this._marquee_isHovered = false;
 			if ((this.marqueeOnHover && !this.marqueeOnSpotlight) || (this.disabled && this.marqueeOnSpotlight)) {
+				if (this.marqueeOnHover) {
+					observer._setMarqueeOnHoverControl(null);
+				}
 				this.stopMarquee();
 			}
 		},
@@ -1112,5 +1186,4 @@
 		*/
 		style: 'overflow: hidden;'
 	});
-
 })(enyo, this);

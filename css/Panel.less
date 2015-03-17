@@ -145,6 +145,26 @@
 	36%, 100% {-webkit-transform: translateY(-100%);}
 }
 
+@keyframes panel-outer {
+	0%   {transform: translateY(-100%);}
+	100% {transform: translateY(0);}
+}
+
+@keyframes panel-inner {
+	0%   {transform: translateY(100%);}
+	100% {transform: translateY(0);}
+}
+
+@keyframes breadcrumb-outer {
+	0%,       {transform: translateY(0%);}
+	36%, 100% {transform: translateY(100%);}
+}
+
+@keyframes breadcrumb-inner {
+	0%        {transform: translateY(0%);}
+	36%, 100% {transform: translateY(-100%);}
+}
+
 .moon-panel {
 
 	&.moon-composite {
@@ -154,6 +174,8 @@
 		.moon-panel-small-header-wrapper {
 			-webkit-animation-fill-mode: both;
 			-webkit-animation-timing-function: ease-in-out;
+			animation-fill-mode: both;
+			animation-timing-function: ease-in-out;
 
 			// Re-using the .moon-composite class to cascade compositing to child elements without
 			// requiring the class be added in code to each of those elements
@@ -168,15 +190,19 @@
 	&.shrinking {
 		.moon-panel-viewport {
 			-webkit-animation-name: panel-outer;
+			animation-name: panel-outer;
 		}
 		.moon-panel-breadcrumb-viewport {
 			-webkit-animation-name: breadcrumb-outer;
+			animation-name: breadcrumb-outer;
 		}
 		.moon-panel-content-wrapper {
 			-webkit-animation-name: panel-inner;
+			animation-name: panel-inner;
 		}
 		.moon-panel-small-header-wrapper {
 			-webkit-animation-name: breadcrumb-inner;
+			animation-name: breadcrumb-inner;
 		}
 	}
 	&.growing {
@@ -185,6 +211,7 @@
 		.moon-panel-breadcrumb-viewport,
 		.moon-panel-small-header-wrapper {
 			-webkit-animation-duration: 0.4s;
+			animation-duration: 0.4s;
 		}
 	}
 	&.shrinking {
@@ -194,22 +221,28 @@
 		.moon-panel-small-header-wrapper {
 			-webkit-animation-duration: 0.5s;
 			-webkit-animation-direction: reverse;
+			animation-duration: 0.5s;
+			animation-direction: reverse;
 		}
 	}
 	&.shrunken {
 		.moon-panel-viewport {
 			-webkit-transform: translateY(-101%);
+			transform: translateY(-101%);
 		}
 		.moon-panel-content-wrapper {
 			-webkit-transform: translateY(101%);
+			transform: translateY(101%);
 		}
 	}
 	&:not(.shrunken) {
 		.moon-panel-breadcrumb-viewport {
 			-webkit-transform: translateY(101%);
+			transform: translateY(101%);
 		}
 		.moon-panel-small-header-wrapper {
 			-webkit-transform: translateY(-101%);
+			transform: translateY(-101%);
 		}
 	}
 }
