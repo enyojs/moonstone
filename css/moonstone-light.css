@@ -422,31 +422,25 @@ html {
   -webkit-font-kerning: normal;
   font-kerning: normal;
 }
-.moon-sub-header-text {
-  font-family: "MuseoSans 700";
-  font-size: 1.25rem;
-  color: #4b4b4b;
-}
 .moon-super-header-text {
   font-family: "Moonstone Miso";
   font-size: 1.375rem;
   -webkit-font-kerning: normal;
 }
-.moon-popup-header-text {
-  font-family: "Moonstone Miso";
-  font-size: 3rem;
-  -webkit-font-kerning: normal;
-}
-.moon-divider-text {
-  font-family: "MuseoSans 700 Italic";
-  font-size: 0.875rem;
+.moon-sub-header-text {
+  font-family: "MuseoSans 700";
+  font-size: 1.25rem;
   color: #4b4b4b;
+}
+.moon-header-sub-title-below {
+  font-family: "MuseoSans 300";
+  font-size: 1.125rem;
 }
 .moon-body-text {
   font-family: "MuseoSans 300";
-  font-size: 1.125rem;
+  font-size: 1.375rem;
   color: #4b4b4b;
-  line-height: 1.375rem;
+  line-height: 1.625rem;
 }
 .moon-body-text a:link {
   color: #cf0652;
@@ -465,14 +459,14 @@ html {
   text-decoration: none;
 }
 .moon-body-large-text {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 .moon-bold-text {
   font-family: "MuseoSans 900";
-  font-size: 1.125rem;
+  font-size: 1.375rem;
   color: #4b4b4b;
-  line-height: 1.375rem;
+  line-height: 1.625rem;
 }
 .moon-bold-text a:link {
   color: #cf0652;
@@ -495,7 +489,7 @@ html {
 }
 .moon-large-button-text {
   font-family: "Moonstone Miso Bold";
-  font-size: 1.375rem;
+  font-size: 1.5rem;
   -webkit-font-kerning: normal;
 }
 .moon-small-button-text {
@@ -507,6 +501,23 @@ html {
   font-family: "Moonstone Icons";
   font-size: 3rem;
   color: #ffffff;
+}
+.moon-popup-header-text,
+.moon-dialog-title {
+  font-family: "Moonstone Miso";
+  font-size: 3rem;
+  -webkit-font-kerning: normal;
+}
+.moon-dialog-sub-title {
+  font-size: 1.125rem;
+}
+.moon-dialog-content {
+  font-size: 1.25rem;
+}
+.moon-divider-text {
+  font-family: "MuseoSans 700 Italic";
+  font-size: 1rem;
+  color: #4b4b4b;
 }
 .enyo-locale-non-latin .moon,
 .enyo-locale-non-latin .moon input,
@@ -1123,7 +1134,7 @@ html {
 /* Item.css */
 .moon-item {
   font-family: "MuseoSans 700";
-  font-size: 1.25rem;
+  font-size: 1.375rem;
   color: #4b4b4b;
   line-height: 1.2em;
   padding: 0.5rem;
@@ -1437,9 +1448,9 @@ html {
 }
 .moon-expandable-list-item-client .moon-item {
   font-family: "MuseoSans 300";
-  font-size: 1.125rem;
+  font-size: 1.375rem;
   color: #4b4b4b;
-  line-height: 1.375rem;
+  line-height: 1.625rem;
 }
 .moon-expandable-list-item-client .moon-item a:link {
   color: #cf0652;
@@ -1509,8 +1520,8 @@ html {
 /* Current Value */
 .moon-expandable-picker-current-value {
   font-family: "MuseoSans 300";
-  font-size: 1.125rem;
-  line-height: 1.375rem;
+  font-size: 1.375rem;
+  line-height: 1.625rem;
   color: #4b4b4b;
   margin: 0rem;
 }
@@ -1687,9 +1698,9 @@ html {
 }
 .moon-gridlist-imageitem .sub-caption {
   font-family: "MuseoSans 300";
-  font-size: 1.125rem;
+  font-size: 1.375rem;
   color: #4b4b4b;
-  line-height: 1.375rem;
+  line-height: 1.625rem;
 }
 .moon-gridlist-imageitem .sub-caption a:link {
   color: #cf0652;
@@ -2452,7 +2463,7 @@ html {
   border: 0;
   cursor: pointer;
   background: transparent;
-  height: 4.125rem;
+  height: 4.875rem;
   width: 12.5rem;
   color: #4b4b4b;
   resize: none;
@@ -2624,9 +2635,9 @@ html {
 /* Text */
 .moon-labeledtextitem .text {
   font-family: "MuseoSans 300";
-  font-size: 1.125rem;
+  font-size: 1.375rem;
   color: #4b4b4b;
-  line-height: 1.375rem;
+  line-height: 1.625rem;
   text-transform: none;
   margin: 0rem;
   padding: 0rem;
@@ -3725,9 +3736,6 @@ html {
 .moon-dialog-title {
   margin-bottom: 0.5rem;
 }
-.moon-dialog-sub-title {
-  font-size: 1rem;
-}
 .moon-dialog-client-wrapper {
   min-height: 4.5rem;
 }
@@ -4003,7 +4011,7 @@ html {
 }
 .moon-video-transport-slider-popup-label {
   font-family: "Moonstone Miso Bold";
-  font-size: 1.375rem;
+  font-size: 1.5rem;
   -webkit-font-kerning: normal;
   white-space: nowrap;
   color: #4b4b4b;
@@ -4450,9 +4458,9 @@ html {
 }
 .moon-video-player-info-subsubtitle {
   font-family: "MuseoSans 300";
-  font-size: 1.125rem;
+  font-size: 1.375rem;
   color: #4b4b4b;
-  line-height: 1.375rem;
+  line-height: 1.625rem;
   font-style: italic;
   color: #ffffff;
   display: inline-block;
@@ -4484,9 +4492,9 @@ html {
 }
 .moon-video-player-info-description {
   font-family: "MuseoSans 300";
-  font-size: 1.125rem;
+  font-size: 1.375rem;
   color: #4b4b4b;
-  line-height: 1.375rem;
+  line-height: 1.625rem;
   color: #ffffff;
   white-space: normal;
   margin-bottom: 1rem;
