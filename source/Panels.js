@@ -291,7 +291,7 @@
 		* @public
 		*/
 		getBreadcrumbMax: function () {
-			if (this.pattern == 'always-viewing') return 1;
+			if (this.pattern == 'activity') return 1;
 			switch(moon.ri.getAspectRatioName()) {
 				case 'hdtv': return 10; 
 				case 'cinema': return 10;
@@ -473,8 +473,9 @@
 		* @private
 		*/
 		refresh: function () {
-			this.fractions['panel'] = 1;
-			this.fractions['breadcrumb'] = 1;
+			for(var k in this.$.animator.configs) {
+				this.fractions[k] = 1;
+			}
 			this.inherited(arguments);
 		},
 
@@ -495,9 +496,10 @@
 		stepTransition: function () {
 			if (this.hasNode()) {
 				// select correct transition points and normalize fraction.
-				this.arrangement = this.arrangement ? this.arrangement : {}
+				this.arrangement = this.arrangement ? this.arrangement : {};
 				for(var k in this.fractions) {
-					this.arrangement[k] = this.calcArrangement(this.fractions[k]);
+					var controls = this['get' + enyo.cap(k) + 's']();
+					this.arrangement[k] = this.calcArrangement(this.getPanels(), this.fractions[k]);
 				}
 				if (this.layout) {
 					this.layout.flowArrangement();
@@ -505,7 +507,7 @@
 			}
 		},
 
-		calcArrangement: function(fraction) {
+		calcArrangement: function(c$, fraction) {
 			// select correct transition points and normalize fraction.
 			var t$ = this.transitionPoints;
 			var r = (fraction || 0) * (t$.length-1);
@@ -513,9 +515,24 @@
 			r = r - i;
 			var s = t$[i], f = t$[i+1];
 			// get arrangements and lerp between them
-			var s0 = this.fetchArrangement(s);
-			var s1 = this.fetchArrangement(f);
+			var s0 = this.fetchArrangement(c$, s);
+			var s1 = this.fetchArrangement(c$, f);
 			return s0 && s1 ? enyo.Panels.lerp(s0, s1, r) : (s0 || s1);
+		},
+
+		/**
+		* Fetches the arrangement at a specified index, initializing it if necessary.
+		*
+		* @param  {Number} index - The index of the desired arrangement from `transitionPoints`.
+		* @return {Object} The desired arrangement object.
+		* @private
+		*/
+		fetchArrangement: function (c$, index) {
+			if ((index != null) && !this.arrangements[index] && this.layout) {
+				this.layout._arrange(index);
+				this.arrangements[index] = this.readArrangement(c$);
+			}
+			return this.arrangements[index];
 		},
 
 		/**
@@ -1164,7 +1181,8 @@
 
 		createBreadcrumbs: function () {
 			// Create Breadcrumb divs
-			var len = this.getPanels().length, index = 0;
+			var len = Math.max(0, Math.min(this.getPanels().length-1, this.getBreadcrumbMax()+1)),
+				index = 0;
 			while (index<len) {
 				this.$.breadcrumbs.createComponent({kind: 'moon.Breadcrumb', index: index}, {owner: this});
 				index++;

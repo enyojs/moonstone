@@ -23,45 +23,71 @@ enyo.kind({
 	
 	//* @protected
 	size: function() {
-		var c$ = this.container.getPanels(), i, c;
-		// panel arrangement positions
+		var c$ = this.container.getPanels(),
+			p_len = c$ ? c$.length : 0;
+
 		this.container.transitionPositions = {};
 
-		for (i=0; (c=c$[i]); i++) {
-			this.calcTransitionPositions(i);
+		for (var i=0; i<p_len; i++) {
+			this.calcTransitionPositions(p_len, i);
 		}
 	},
-	calcTransitionPositions: function(i) {
-		var c$ = this.container.getPanels(), j, c;
-		for (j=0; (c=c$[j]); j++) {
-			this.container.transitionPositions[j + "." + i] = (j - i);
+	calcTransitionPositions: function(p_len, active) {
+		var i;
+		for (i=0; i<p_len; i++) {
+			this.container.transitionPositions[i + "." + active] = (i - active);
 			if (this.debug) {
-				console.log('transitionPositions [' + j + '.' + i + '] ' + this.container.transitionPositions[j + '.' + i]);
+				console.log('transitionPositions [' + i + '.' + active + '] ' + this.container.transitionPositions[i + '.' + active]);
 			}
 		}
 	},
 	arrange: function(inC, inName) {
-		var i, c;
+		var i, c, xPos, inArrangement;
 		var c$ = this.container.getPanels();
-		var s = this.container.clamp(inName);
+		var active = this.container.clamp(inName);
 
 		for (i=0; (c=c$[i]); i++) {
-			var xPos = this.container.transitionPositions[i + "." + s],
-				inArrangement = {left: xPos*100, top: 0};
+			xPos = this.container.transitionPositions[i + "." + active];
+			inArrangement = {left: xPos*100};
 			if (this.debug) {
-				console.log('arrangeControl [' + i + '.' + s + '] ', inArrangement);
+				console.log('arrangeControl [' + i + '.' + active + '] ', inArrangement);
 			}
 			this.arrangeControl(c, inArrangement); // Remember left position on each Panel
-			
 		}
 	},
 	flowArrangement: function () {
-		var a$ = this.container.arrangement,
-			c = this.container;
+		var con = this.container,
+			a$ = con.arrangement,
+			ps = con.getPanels(),
+			bs = con.getBreadcrumbs(),
+			active = this.container.index,
+			start = active-bs.length,
+			end = active,
+			index, i, a, c;
+
 		if (a$) {
-			this._flowArrangement(a$['panel'], c.getPanels());
-			this._flowArrangement(a$['breadcrumb'], c.getBreadcrumbs());
+			// Adjust index for direction
+			if (con.fromIndex > con.toIndex) {
+				start = start+1;
+				end = end+1;
+			}
+			// Flow panel
+			for (i=0; (c=ps[i]) && (a$['panel'][i]); i++) {
+				this.flowControl(c, a$['panel'][i]);
+			}
+			// Flow breadcrumb
+			for (i=start; i<end; i++) {
+				c = bs[this.wrap(i,bs.length)];
+				a = a$['breadcrumb'][this.wrap(i, ps.length)];
+				this.flowControl(c, a);
+
+				// Adjust breadcrumb label
+				c.set('index', this.wrap(i, ps.length)); 
+			}
 		}
+	},
+	wrap: function(value, length) {
+		return (value+length)%length;
 	},
 	_flowArrangement: function(a, c$) {
 		for (var i=0, c; (c=c$[i]) && (a[i]); i++) {
