@@ -1,0 +1,32 @@
+/* IconButton.css */
+.moon-icon-button {
+	color: @moon-icon-button-font-color;
+	background-color: @moon-icon-button-bg-color;
+
+	&.hover:hover:not(.disabled),
+	&.spotlight {
+		color: @moon-spotlight-text-color;
+		background-color: @moon-icon-button-spotlight-bg-color;
+	}
+
+	&.active:not(.spotlight),
+	&:active,
+	&.pressed,
+	&.hover:hover:not(.disabled):active {
+		color: @moon-icon-button-font-color;
+		background-color: @moon-icon-button-active-bg-color;
+		border-color: @moon-icon-button-active-border-color;
+	}
+
+	// 'Selected+Focus' state
+	&.active.spotlight:not(.contextual-popup-button) {
+		border-color: @moon-active-spotlight-border-color;
+		background-color: @moon-icon-button-spotlight-bg-color;
+		color: @moon-spotlight-text-color;
+
+		&:active,
+		&.pressed {
+			border-color: @moon-icon-button-active-border-color;
+		}
+	}
+}

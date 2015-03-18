@@ -1,0 +1,44 @@
+.moon-panel-small-header {
+	color: @moon-header-text-color;
+}
+
+.spotlight .moon-panel-small-header {
+	color:@moon-spotlight-text-color;
+}
+.moon-panel-small-header-title-above {
+	color: @moon-header-text-color;
+	border-top-color: @moon-spotlight-text-color;
+}
+.spotlight .moon-panel-small-header-title-above {
+	color: @moon-spotlight-text-color;
+}
+
+.moon-panel .moon-panel-small-header-wrapper.spotlight {
+	background: @moon-accent;
+	color: @moon-white;
+}
+
+/* Activity Panels Overrides */
+.moon-panels.activity {
+	.moon-panel-small-header-title-above {
+		border-top-color: @moon-header-border-color;
+	}
+	.moon-panel-small-header,
+	.moon-panel-small-header-title-above {
+		color: @moon-header-text-color;
+	}
+	.moon-panel-small-header-wrapper.spotlight {
+		.moon-panel-small-header,
+		.moon-panel-small-header-title-above {
+			color: @moon-white;
+		}
+	}
+}
+
+/* AlwaysViewing Overrides */
+.moon-panels.always-viewing {
+	.moon-panel-small-header,
+	.moon-panel-small-header-title-above {
+		color: @moon-white;
+	}
+}

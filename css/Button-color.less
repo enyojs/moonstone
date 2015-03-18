@@ -1,0 +1,66 @@
+/* Button */
+.moon-button {
+	background-color: @moon-button-background-color;
+	color: @moon-button-text-color;
+
+	&.active,
+	&.pressed,
+	&.spotlight.pressed,
+	&.spotlight:active {
+		border-color: @moon-spotlight-border-color;
+		background-color: @moon-button-background-color;
+		color: @moon-button-text-color;
+	}
+
+	&.spotlight {
+		background-color: @moon-spotlight-border-color;
+		color: @moon-spotlight-text-color;
+	}
+
+	// 'Selected+Focus' state
+	&.active.spotlight:not(.contextual-popup-button) {
+		border-color: @moon-active-spotlight-border-color;
+		background-color: @moon-spotlight-border-color;
+		color: @moon-spotlight-text-color;
+
+		&:active,
+		&.pressed {
+			border-color: @moon-spotlight-border-color;
+		}
+	}
+
+	&[disabled] {
+		color: @moon-button-disabled-text-color;
+		background-color: @moon-button-disabled-bg-color;
+	}
+}
+
+.moon-neutral .moon-button {
+	color: @moon-neutral-button-text-color;
+	background-color: @moon-neutral-button-bg-color;
+
+	&.spotlight {
+		background-color: @moon-spotlight-color;
+
+		* {
+			color: @moon-spotlight-text-color;
+		}
+	}
+
+	&.active,
+	&.pressed,
+	&.spotlight.pressed,
+	&.spotlight:active {
+		border-color: @moon-spotlight-border-color;
+		background-color: @moon-neutral-button-bg-color;
+
+		* {
+			color: @moon-neutral-button-text-color;
+		}
+	}
+
+	&[disabled] {
+		color: @moon-neutral-button-disabled-text-color;
+		background-color: @moon-neutral-button-disabled-bg-color;
+	}
+}
