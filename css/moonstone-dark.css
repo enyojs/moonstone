@@ -375,7 +375,7 @@ html {
   direction: rtl;
 }
 .moon-divider-border {
-  border-bottom: 0.125rem solid #a6a6a6;
+  border-bottom: 0.125rem solid #595959;
 }
 .moon-neutral-divider-border {
   border-bottom: 0.125rem solid #ffffff;
@@ -657,11 +657,11 @@ html {
 .moon-icon-button {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
-  color: #a6a6a6;
+  color: #cccccc;
   width: 3.5rem;
   height: 3.5rem;
   border-radius: 1.75rem;
-  background-color: #404040;
+  background-color: #4d4d4d;
   background-size: 3rem 6rem;
   border: 0.25rem solid transparent;
   background-position: center 0;
@@ -693,8 +693,8 @@ html {
 .moon-icon-button:active,
 .moon-icon-button.pressed,
 .moon-icon-button.hover:hover:not(.disabled):active {
-  color: #a6a6a6;
-  background-color: #404040;
+  color: #cccccc;
+  background-color: #4d4d4d;
   background-position: center 0;
   border-color: #cf0652;
 }
@@ -922,7 +922,7 @@ html {
   opacity: 0.3;
 }
 .moon-divider {
-  border-bottom: 0.125rem solid #a6a6a6;
+  border-bottom: 0.125rem solid #595959;
   margin: 0 0.5rem 1rem 0.5rem;
   padding-bottom: 0.125rem;
 }
@@ -1013,7 +1013,7 @@ html {
   width: 2.5rem;
   height: 1.25rem;
   line-height: 1.25rem;
-  background-color: #404040;
+  background-color: #4d4d4d;
   font-family: "Moonstone Icons";
   overflow: hidden;
   text-align: left;
@@ -1044,7 +1044,7 @@ html {
   color: #cf0652;
 }
 .moon-checkbox.moon-toggle-switch[disabled] {
-  background-color: #404040;
+  background-color: #4d4d4d;
 }
 .moon-checkbox.moon-toggle-switch[disabled] .moon-icon {
   color: #a6a6a6;
@@ -1221,7 +1221,7 @@ html {
   height: 3.5rem;
   line-height: 3rem;
   border-radius: 416.625rem;
-  background-color: #404040;
+  background-color: #4d4d4d;
   border: 0.25rem solid transparent;
   cursor: pointer;
   white-space: nowrap;
@@ -1231,7 +1231,7 @@ html {
   max-width: 12.5rem;
   padding: 0 0.75rem;
   margin: 0 0.5rem;
-  color: #a6a6a6;
+  color: #cccccc;
 }
 .moon-button > * {
   text-align: center;
@@ -1249,8 +1249,8 @@ html {
 .moon-button.spotlight.pressed,
 .moon-button.spotlight:active {
   border: 0.25rem solid #cf0652;
-  background-color: #404040;
-  color: #a6a6a6;
+  background-color: #4d4d4d;
+  color: #cccccc;
 }
 .moon-button.spotlight {
   background-color: #cf0652;
@@ -1559,7 +1559,7 @@ html {
 .moon-header {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
-  color: #a6a6a6;
+  color: #cccccc;
   height: 15rem;
   border-top: 0.125rem solid #505050;
   border-bottom: 0.25rem solid #404040;
@@ -3111,7 +3111,7 @@ html {
 }
 .moon-panel-small-header {
   margin-top: 1rem;
-  color: #a6a6a6;
+  color: #cccccc;
   display: block;
   overflow: hidden;
   padding: 0rem;
@@ -3120,7 +3120,7 @@ html {
   color: #ffffff;
 }
 .moon-panel-small-header-title-above {
-  color: #a6a6a6;
+  color: #cccccc;
   border-top: 0.125rem solid #ffffff;
   padding-top: 0.25rem;
 }
@@ -3143,7 +3143,7 @@ html {
 }
 .moon-panels.activity .moon-panel-small-header,
 .moon-panels.activity .moon-panel-small-header-title-above {
-  color: #a6a6a6;
+  color: #cccccc;
 }
 .moon-panels.activity .moon-panel-small-header-wrapper.spotlight .moon-panel-small-header,
 .moon-panels.activity .moon-panel-small-header-wrapper.spotlight .moon-panel-small-header-title-above {
@@ -3535,7 +3535,7 @@ html {
   display: inline-block;
   box-sizing: border-box;
   line-height: 1em;
-  color: #a6a6a6;
+  color: #cccccc;
   width: 100%;
   text-overflow: ellipsis;
 }
@@ -3549,7 +3549,7 @@ html {
 }
 .moon-input-header .moon-input.moon-header-title::-webkit-input-placeholder,
 .moon-input-header .moon-input.moon-header-title::-moz-placeholder {
-  color: #333333;
+  color: #595959;
   margin-top: 0.5rem;
   line-height: 1.25em;
 }
@@ -3570,7 +3570,7 @@ html {
 }
 .moon-input-header-input-decorator.spotlight.moon-focused > .moon-input::-webkit-input-placeholder,
 .moon-input-header-input-decorator.spotlight.moon-focused > .moon-input::-moz-input-placeholder {
-  color: #333333;
+  color: #595959;
 }
 .moon-drawer-partial-client {
   padding: 1.5rem 0.75rem 0.75rem;
