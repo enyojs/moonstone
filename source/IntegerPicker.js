@@ -664,9 +664,9 @@
 			return function () {
 				sup.apply(this, arguments);
 
-				// Only force a scrolling to the item corresponding to the current value if it is
-				// not already displayed.
-				if (this.showing && !this.$.repeater.fetchRowNode(this.valueToIndex(this.get('value')))) {
+				// Only force a scroll to the item corresponding to the current value if it is not
+				// already displayed.
+				if (this.showing && !this.$.repeater.fetchRowNode(this.valueToIndex(this.value))) {
 					this.scrollToValue();
 				}
 			};
