@@ -1833,8 +1833,10 @@
 		updateSpinner: function() {
 			var spinner = this.$.spinner;
 			if (this.autoShowSpinner && this._isPlaying && !this._canPlay && !this._errorCode) {
+				this.addClass("spinner-showing");
 				spinner.start();
 			} else if (spinner.getShowing()) {
+				this.removeClass("spinner-showing");
 				spinner.stop();
 			}
 		},
