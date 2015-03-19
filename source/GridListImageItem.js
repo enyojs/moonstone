@@ -33,6 +33,20 @@
 
 		/**
 		* @private
+		* @lends moon.Button.prototype
+		*/
+		published: {
+			/**
+			* @type {String}
+			* @default ''
+			* @public
+			*/
+			placeholder: enyo.Image.placeholder
+		
+		},
+		
+		/**
+		* @private
 		*/
 		spotlight: true,
 
