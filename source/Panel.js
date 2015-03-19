@@ -229,10 +229,10 @@
 		// */
 		// isOffscreen: false,
 
-		/**
-		* @private
-		*/
-		isHeaderCollapsed: false,
+		// /**
+		// * @private
+		// */
+		// isHeaderCollapsed: false,
 
 		// /**
 		// * @private

@@ -68,8 +68,6 @@
 				bY = 3 * (p2.y - p1.y) - cY,
 				aY = p3.y - p0.y - cY - bY;
 
-			var x = ((p3.x - p0.x - 3 * (p1.x - p0.x) - 3 * (p2.x - p1.x) - 3 * (p1.x - p0.x)) * Math.pow(t, 3)) + ((3 * (p2.x - p1.x) - 3 * (p1.x - p0.x)) * Math.pow(t, 2)) + (3 * (p1.x - p0.x) * t) + p0.x;
-
 			var x = (aX * Math.pow(t, 3)) + (bX * Math.pow(t, 2)) + (cX * t) + p0.x;
 			var y = (aY * Math.pow(t, 3)) + (bY * Math.pow(t, 2)) + (cY * t) + p0.y;
 
@@ -85,35 +83,40 @@
 
 		buildBezierTable: function() {
 			if (!this.useBezier) return;
+			
 			var start = enyo.perfNow(), end;
-			var config, dir, e, b, x, last = {x:0, y:0};
-			for (var k in this.configs) {
-				config = this.configs[k];
-				for (var d in config) {
-					dir = config[d];
-					e = dir.bezier;
-					dir.bezierTable = {};
 
-					for (var i=0; i<=1; i+=this.accuracy){
-						b = this.bezier(i, e[0], e[1], e[2], e[3]);
-	 
-						// Linear Interpolation
-						for (var j=last.x; j<b.x; j+=this.accuracy) {
-							dir.bezierTable[Math.ceil(j*100)] = last.y + (j - last.x) * (b.y-last.y) / (b.x - last.x);
-						}
-						last = b;
+			this.iterateConfig(this.bindSafely(function(obj, dir, config) {
+				var last = {x:0, y:0},
+					conf = config.bezier,	// Format: { x1, y1, x2, y2 }, values between 0 and 1
+					ret, i, j, start, end;
+
+				config.bezierTable = {};
+
+				for (i = 0; i <= 1; i += this.accuracy){
+					// Todo: Modify bezier function to have input as x and output as y.
+					ret = this.bezier(i, conf[0], conf[1], conf[2], conf[3]);
+
+					// Linear Interpolation
+					//  - Bezier curve table which is having X as a key between 0 and 100.
+					//  - Y value is having value between 0 and 1.
+					for (j = last.x; j < ret.x; j += 0.01) {
+						config.bezierTable[(j*100)<<0] = last.y + (j - last.x) * (ret.y-last.y) / (ret.x - last.x);
 					}
-					for (j=last.x; j<=1; j+=this.accuracy) {
-						dir.bezierTable[Math.ceil(j*100)] = 1;
-					}
+					last = ret;
 				}
-			}
+				// Fill rest of table to 1
+				for (i = (last.x*100)<<0; i <= 100; i++) {
+					config.bezierTable[i] = 1;
+				}
+			}));
+
 			end = enyo.perfNow();
+			
 			if (this.debug) {
 				console.log('Build Bezier Table takes', end - start, 'ms')
 			}
 		},
-
 
 
 		/** 
@@ -125,14 +128,17 @@
 		*/
 		play: function (props) {
 			var duration = 0;
-			for (var k in this.configs) {
-				var config = this.configs[k], 
-					dir = config[this.direction];
-				this.values[k] = dir.startValue;
-				duration = Math.max(dir.delay + dir.duration, duration);
-			}
+
+			this.iterateConfig(this.bindSafely(function(obj, dir, config) {
+				this.values[obj] = config.startValue;
+
+				// Find maximum duration for the whole animation
+				duration = Math.max(config.delay + config.duration, duration);
+			}), this.direction);
+
 			this.duration = duration;
 			this.inherited(arguments);
+
 			return this;
 		},
 
@@ -145,15 +151,12 @@
 		reverse: function () {
 			if (this.isAnimating()) {
 				this.inherited(arguments);
-				for (var k in this.configs) {
-					var config = this.configs[k], 
-						dir = config[this.direction];
-
+				this.iterateConfig(this.bindSafely(function(obj, dir, config) {
 					// swap start and end values
-					var startValue = dir.startValue;
-					dir.startValue = dir.endValue;
-					dir.endValue = startValue;
-				}
+					var startValue = config.startValue;
+					config.startValue = config.endValue;
+					config.endValue = startValue;
+				}), this.direction);
 				return this;
 			}
 		},
@@ -166,39 +169,38 @@
 		* @private
 		*/
 		next: function () {
-			var k, f, config, dir, args;
 			this.t1 = enyo.perfNow();
 			this.dt = this.t1 - this.t0;
 			this.fraction = this.dt / this.duration;
 
-			for (k in this.configs) {
-				config = this.configs[k];
-				dir = config[this.direction];
+			this.iterateConfig(this.bindSafely(function(obj, dir, config) {
+				var fraction;
 
-				if (this.dt - dir.delay >= 0) {
-					if (this.dt - dir.delay >= dir.duration) {
-						this.values[k] = dir.endValue;
-						this.fractions[k] = 1;
+				if (this.dt - config.delay < 0) return;
+
+				if (this.dt - config.delay >= config.duration) {
+					this.values[obj] = config.endValue;
+					this.fractions[obj] = 1;
+					return;
+				}
+
+				if (this.useBezier) {
+					// Use bezier function
+					fraction = (this.dt - config.delay) / config.duration;
+					f = this.fractions[obj] = config.bezierTable[(fraction*100)<<0];
+					this.values[obj] = config.startValue + f * (config.endValue - config.startValue);
+				} else {
+					// Use easing function
+					if (config.easing.length === 1) {
+						// time independent
+						this.fractions[obj] = enyo.easedLerp(this.t0 + config.delay, config.duration, config.easing, this.reversed);
+						this.values[obj] = config.startValue + this.fractions[obj] * (config.endValue - config.startValue);
 					} else {
-						if (this.useBezier) {
-							var e = dir.bezier, fraction = (this.dt - dir.delay) / dir.duration;
-							var value = dir.bezierTable[Math.ceil(fraction*100)];
-							f = this.fractions[k] = value;
-							this.values[k] = dir.startValue + f * (dir.endValue - dir.startValue);
-						} else {
-							args = dir.easing.length;
-							if (args === 1) {
-								// time independent
-								f = this.fractions[k] = enyo.easedLerp(this.t0 + dir.delay, dir.duration, dir.easing, this.reversed);
-								this.values[k] = dir.startValue + f * (dir.endValue - dir.startValue);
-							} else {
-								this.values[k] = enyo.easedComplexLerp(this.t0 + dir.delay, dir.duration, dir.easing, this.reversed,
-									this.dt - dir.delay, dir.startValue, (dir.endValue - dir.startValue));
-							}
-						}
+						this.values[obj] = enyo.easedComplexLerp(this.t0 + config.delay, config.duration, config.easing, this.reversed,
+							this.dt - config.delay, config.startValue, (config.endValue - config.startValue));
 					}
 				}
-			}
+			}), this.direction);
 
 			if (this.shouldEnd()) {
 				this.fire('onStep');
@@ -209,6 +211,22 @@
 			} else {
 				this.fire('onStep');
 				this.requestNext();
+			}
+		},
+
+		iterateConfig: function(callback, direction) {
+			var obj, dir;
+
+			for (obj in this.configs) {
+				if (direction) {
+					// for specified direction
+					callback(obj, direction, this.configs[obj][direction]);
+				} else {
+					// for all directions
+					for (dir in this.configs[obj]) {
+						callback(obj, dir, this.configs[obj][dir]);
+					}
+				}
 			}
 		}
 	});

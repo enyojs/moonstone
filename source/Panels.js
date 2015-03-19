@@ -316,6 +316,7 @@
 			this.reflow();
 			oPanel.show();
 			oPanel.resize();
+			this.addRemoveBreadcrumb();
 			this.setIndex(lastIndex+1);
 			this.isModifyingPanels = false;
 			return oPanel;
@@ -367,7 +368,7 @@
 			for (nPanel = 0; nPanel < oPanels.length; ++nPanel) {
 				oPanels[nPanel].resize();
 			}
-
+			this.addRemoveBreadcrumb();
 			// If transition was explicitly set to false, since null or undefined indicate "never set" or unset
 			if (options.transition === false) {
 				this.setIndexDirect(lastIndex);
@@ -498,16 +499,15 @@
 				// select correct transition points and normalize fraction.
 				this.arrangement = this.arrangement ? this.arrangement : {};
 				for(var k in this.fractions) {
-					var controls = this['get' + enyo.cap(k) + 's']();
-					this.arrangement[k] = this.calcArrangement(this.getPanels(), this.fractions[k]);
+					this.arrangement[k] = this.calcArrangement(this.fractions[k]);
 				}
-				if (this.layout) {
+				if (this.layout && this.arrangement['panel'] && this.arrangement['breadcrumb'] ) {
 					this.layout.flowArrangement();
 				}
 			}
 		},
 
-		calcArrangement: function(c$, fraction) {
+		calcArrangement: function(fraction) {
 			// select correct transition points and normalize fraction.
 			var t$ = this.transitionPoints;
 			var r = (fraction || 0) * (t$.length-1);
@@ -515,24 +515,9 @@
 			r = r - i;
 			var s = t$[i], f = t$[i+1];
 			// get arrangements and lerp between them
-			var s0 = this.fetchArrangement(c$, s);
-			var s1 = this.fetchArrangement(c$, f);
+			var s0 = this.fetchArrangement(s);
+			var s1 = this.fetchArrangement(f);
 			return s0 && s1 ? enyo.Panels.lerp(s0, s1, r) : (s0 || s1);
-		},
-
-		/**
-		* Fetches the arrangement at a specified index, initializing it if necessary.
-		*
-		* @param  {Number} index - The index of the desired arrangement from `transitionPoints`.
-		* @return {Object} The desired arrangement object.
-		* @private
-		*/
-		fetchArrangement: function (c$, index) {
-			if ((index != null) && !this.arrangements[index] && this.layout) {
-				this.layout._arrange(index);
-				this.arrangements[index] = this.readArrangement(c$);
-			}
-			return this.arrangements[index];
 		},
 
 		/**
@@ -557,7 +542,7 @@
 		initComponents: function () {
 			this.applyPattern();
 			this.inherited(arguments);
-			this.createBreadcrumbs();
+			this.addRemoveBreadcrumb();
 			this.initializeShowHideHandle();
 			this.handleShowingChanged();
 			this.allowBackKeyChanged();
@@ -1179,13 +1164,23 @@
 			this.breadcrumbGap = 0;
 		},
 
-		createBreadcrumbs: function () {
-			// Create Breadcrumb divs
+		/**
+		* @private
+		*/
+		addRemoveBreadcrumb: function () {
+			// If we have 1 panel then we don't need breadcrumb.
+			// If we have more then 1 panel then we need panel - 1 number of breadcrumbs.
+			// But, if we can only see 1 breadcrumb on screen like activity pattern 
+			// then we need 2 breadcrumbs to show animation.
 			var len = Math.max(0, Math.min(this.getPanels().length-1, this.getBreadcrumbMax()+1)),
 				index = 0;
-			while (index<len) {
+			while (index < len) {
 				this.$.breadcrumbs.createComponent({kind: 'moon.Breadcrumb', index: index}, {owner: this});
 				index++;
+			}
+			// If we have more than the number of necessary breadcrumb then destroy.
+			while (this.$.breadcrumbs.length > len) {
+				this.$.breadcrumbs[this.$.breadcrumbs.length].destroy();
 			}
 		},
 
@@ -1425,8 +1420,14 @@
 		*/
 		kind: 'enyo.Control',
 
+		/*
+		* @private
+		*/
 		spotlight: true,
 
+		/*
+		* @private
+		*/
 		handlers: {
 			ontap: 'tapHandler'
 		},
@@ -1436,16 +1437,34 @@
 		*/
 		classes: 'moon-panels-breadcrumb',
 
+		/*
+		* @private
+		*/
 		components: [
 			{name: 'number', classes: 'moon-panels-breadcrumb-header'}
 		],
+
+		/*
+		* @private
+		*/
 		bindings: [
 			{from: 'index', to: '$.number.content', transform: 'formatNumber'}
 		],
+
+		/*
+		* @private
+		*/
 		formatNumber: function(n) {
+			// Disable spotlight when offscreen
+			this.set('spotlightDisabled', n<0);
+
 			n++;
 			return '< ' + ((n < 10) ? '0' : '') + n;
 		},
+
+		/*
+		* @private
+		*/
 		tapHandler: function(sender, ev) {
 			// decorate
 			ev.breadcrumbTap = true;
