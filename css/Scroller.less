@@ -1,3 +1,5 @@
+/* TODO: Clean up / reduce this file after new scroller implementation is completely integrated. */
+
 .moon-scroller-client-wrapper,
 .moon-scroller-viewport {
 	box-sizing: border-box;
@@ -112,4 +114,29 @@
 	bottom:  @moon-icon-button-small-size;
 	right: 0px;
 	width:  @moon-icon-button-small-size;
+}
+
+.moon-scroller-hthumb,
+.moon-scroller-vthumb {
+	transition: opacity 0.1s linear;
+	-moz-transition: opacity 0.1s linear;
+	-webkit-transition: opacity 0.1s linear;
+}
+.moon-scroller-hthumb {
+	bottom:  @moon-icon-button-small-size/2 - 2;
+}
+.moon-scroller-vthumb {
+	right:  @moon-icon-button-small-size/2 - 2;
+}
+.moon-scroller-hthumb.hidden,
+.moon-scroller-vthumb.hidden {
+	opacity: 0;
+}
+
+.moon-scroller-client-wrapper .enyo-new-thumb {
+	background: @moon-thumb-bg-color;	
+}
+
+.moon-neutral .moon-scroller-client-wrapper .enyo-new-thumb {
+	background: @moon-neutral-thumb-bg-color;
 }

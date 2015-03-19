@@ -4637,6 +4637,7 @@ html {
   line-height: normal;
   color: #ffffff;
 }
+/* TODO: Clean up / reduce this file after new scroller implementation is completely integrated. */
 .moon-scroller-client-wrapper,
 .moon-scroller-viewport {
   box-sizing: border-box;
@@ -4744,6 +4745,28 @@ html {
   bottom: 2.5rem;
   right: 0rem;
   width: 2.5rem;
+}
+.moon-scroller-hthumb,
+.moon-scroller-vthumb {
+  transition: opacity 0.1s linear;
+  -moz-transition: opacity 0.1s linear;
+  -webkit-transition: opacity 0.1s linear;
+}
+.moon-scroller-hthumb {
+  bottom: 1.16667rem;
+}
+.moon-scroller-vthumb {
+  right: 1.16667rem;
+}
+.moon-scroller-hthumb.hidden,
+.moon-scroller-vthumb.hidden {
+  opacity: 0;
+}
+.moon-scroller-client-wrapper .enyo-new-thumb {
+  background: #a6a6a6;
+}
+.moon-neutral .moon-scroller-client-wrapper .enyo-new-thumb {
+  background: #ffffff;
 }
 .moon-expandable-input .moon-input-decorator {
   width: 100%;
@@ -4876,6 +4899,7 @@ html {
   border-color: #cf0652;
   opacity: 1;
 }
+/* TODO: Retire this file after new scroller implementation is completely integrated. */
 .moon-thumb {
   -webkit-transform-origin: 0rem 0rem;
   transform-origin: 0rem 0rem;
@@ -4887,22 +4911,6 @@ html {
 }
 .moon-neutral .moon-thumb {
   background: #ffffff;
-}
-.moon-scroller-hthumb,
-.moon-scroller-vthumb {
-  transition: opacity 0.1s linear;
-  -moz-transition: opacity 0.1s linear;
-  -webkit-transition: opacity 0.1s linear;
-}
-.moon-scroller-hthumb {
-  bottom: 1.16667rem;
-}
-.moon-scroller-vthumb {
-  right: 1.16667rem;
-}
-.moon-scroller-hthumb.hidden,
-.moon-scroller-vthumb.hidden {
-  opacity: 0;
 }
 .moon-image {
   display: inline-block;

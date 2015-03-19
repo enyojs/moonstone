@@ -87,9 +87,7 @@
 				components: [
 				{
 					name: 'list',
-					kind: 'enyo.NewDataList',
-					touch: false,
-					style: 'width: 1374px;',
+					kind: 'moon.NewDataList',
 					minItemHeight: 270,
 					minItemWidth: 180,
 					spacing: 20,
