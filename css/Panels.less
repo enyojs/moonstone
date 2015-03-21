@@ -1,74 +1,117 @@
 /* Panels */
-.moon-panels.activity,
-.moon-panels.always-viewing {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	box-sizing: border-box;
-	padding: 18px 12px;
-	overflow: visible;
-	pointer-events: none;
-
-	&.moon-composite {
-		.moon-panels-background-scrim {
-			.moon-composite();
-		}
-	}
-
-	* {
-		pointer-events: auto;
-	}
-	.moon-panels-breadcrumb {
-		position: absolute;
-		height: 100%;
-		width: 100px;
-		right: -100px;
-		&.spotlight {
-			background: #cf0652;
-		}
-		.moon-panels-breadcrumb-header {
-			border-top: 0.25rem solid #CCCCCC;
-			padding-top: 6px;
-			margin: 12px 20px;
-			font-family: "Moonstone Miso";
-			font-size: 32px;
-		}		
-	}
-	.moon-panel {
-		position: absolute;
-		height: auto;
-		margin: 0;
-	}
-}
-
 .moon-panels {
-	&.activity .moon-panels-breadcrumb-header {
-		color: #a6a6a6;
+	&.activity,
+	&.always-viewing {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		overflow: visible;
+		pointer-events: none;
+
+		&.moon-composite {
+			.moon-panels-background-scrim {
+				.moon-composite();
+			}
+		}
+
+		* {
+			pointer-events: auto;
+		}
+		.moon-panels-breadcrumb {
+			position: absolute;
+			height: 100%;
+			width: 96px;
+			right: -96px;
+
+			.moon-panels-breadcrumb-header {
+				border-top: 0.25rem solid #ccc;
+				padding-top: 6px;
+				margin: @moon-app-keepout;
+				font-family: @moon-super-header-font-family;
+				font-size: @moon-breadcrumb-text-size;
+			}
+			&.spotlight {
+				background: @moon-spotlight-color;
+				color: @moon-spotlight-text-color;
+
+				.moon-panels-breadcrumb-header {
+					border-color: @moon-spotlight-text-color;
+				}
+			}
+		}
+		.moon-panel {
+			box-sizing: border-box;
+			padding: @moon-app-keepout @moon-spotlight-outset;
+		}
 	}
-	&.always-viewing .moon-panels-breadcrumb-header {
-		color: white;
-		border-top: 0.25rem solid white;
+
+	&.activity {
+		.moon-panels-breadcrumbs {
+			left: 0;
+			width: 96px;
+		}
+		.moon-panels-viewport {
+			left: 96px;
+			right: 0;
+		}
+		.moon-panels-panel-scrim {
+			left: 0;
+			width: 100%;
+			background-color: @moon-panels-scrim-activity-bg-color;
+
+			.moon-panels-branding {
+				position: absolute;
+				top: @moon-panel-breadcrumb-height + 12px; // breadcrumb height + padding
+				width: @moon-panel-breadcrumb-inner-width;
+				bottom: @moon-app-keepout;
+				left: @moon-app-keepout;
+				background-position: bottom center;
+			}
+		}
+		.moon-panel + .moon-panel {
+			padding-left: 0;
+		}
+	}
+
+	&.always-viewing {
+		.moon-panels-breadcrumb-header {
+			color: white;
+			border-top: 6px solid white;
+		}
+		.moon-panels-breadcrumbs {
+			left: 0;
+			width: 50%;
+		}
+		.moon-panels-viewport,
+		.moon-panels-panel-scrim {
+			left: 50%;
+			width: 50%;
+		}
+		.moon-panels-panel-scrim {
+			background-color: @moon-panels-scrim-always-viewing-bg-color;
+		}
+	}
+
+	// Scrim
+	.moon-panels-background-scrim {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		background-color: black;
+		pointer-events: none;
+		opacity: 0;
+		transition: opacity 0.5s linear;
+		-webkit-transition: opacity 0.5s linear;
+		-moz-transition: opacity 0.5s linear;
+
+		&.visible {
+			opacity: 0.2;
+		}
 	}
 }
 
-/* Scrim */
-.moon-panels .moon-panels-background-scrim {
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	background-color: black;
-	pointer-events: none;
-	opacity: 0;
-	transition: opacity 0.5s linear;
-	-webkit-transition: opacity 0.5s linear;
-	-moz-transition: opacity 0.5s linear;
-
-	&.visible {
-		opacity: 0.2;
-	}
-}
 
 .moon-panels-viewport > * {
 	position: absolute;
@@ -82,42 +125,6 @@
 	overflow: hidden;
 	position: absolute;
 	height: 100%;
-}
-
-.moon-panels.activity .moon-panels-breadcrumbs {
-	left: 0;
-	width: 100px;
-}
-.moon-panels.activity .moon-panels-viewport {
-	left: 100px;
-	right: 0;
-}
-.moon-panels.activity .moon-panels-panel-scrim {
-	left: 0;
-	width: 100%;
-	background-color: @moon-panels-scrim-activity-bg-color;
-
-	.moon-panels-branding {
-		position: absolute;
-		top: @moon-panel-breadcrumb-height + 12px; // breadcrumb height + padding
-		width: @moon-panel-breadcrumb-inner-width;
-		bottom: 18px;
-		left: 18px;
-		background-position: bottom center;
-	}
-}
-.moon-panels.always-viewing .moon-panels-breadcrumbs {
-	left: 0;
-	width: 50%;
-}
-.moon-panels.always-viewing .moon-panels-viewport {
-	left: 50%;
-	width: 50%;
-}
-.moon-panels.always-viewing .moon-panels-panel-scrim {
-	left: 50%;
-	width: 50%;
-	background-color: @moon-panels-scrim-always-viewing-bg-color;
 }
 
 /* Show/Hide Handle */
