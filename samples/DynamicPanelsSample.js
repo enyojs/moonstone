@@ -10,7 +10,7 @@ enyo.kind({
 	},
 	pushSinglePanel: function() {
 		this.$.panels.pushPanels([
-			{title: "Panel " + this.$.panels.getPanels().length, classes: "moon-7h", titleBelow: "Sub-title", subTitleBelow: "Sub-sub title", components: [
+			{title: "Panel " + this.$.panels.getPanels().length, titleBelow: "Sub-title", subTitleBelow: "Sub-sub title", components: [
 				{kind: "moon.Scroller", fit:true, components: [
 					{kind: "enyo.Repeater", count: 30, components: [
 						{kind: "moon.Item", content: "Dummy Item", ontap: "next"}
@@ -30,16 +30,16 @@ enyo.kind({
 			]}
 		], {owner: this});
 	},
-	pushJoinedPanels: function() {
+	pushTwoPanels: function() {
 		this.$.panels.pushPanels([
-			{title: "Panel " + this.$.panels.getPanels().length, classes: "moon-7h", titleBelow: "Joined Panel 1", subTitleBelow: "Sub-sub title", components: [
+			{title: "Panel " + this.$.panels.getPanels().length, titleBelow: "Panel 1", subTitleBelow: "Sub-sub title", components: [
 				{kind: "moon.Scroller", fit:true, components: [
 					{kind: "enyo.Repeater", count: 30, components: [
 						{kind: "moon.Item", content: "Dummy Item", ontap: "next"}
 					]}
 				]}
 			]},
-			{joinToPrev:true, title: "Panel " + (this.$.panels.getPanels().length+1), classes: "moon-7h", titleBelow: "Joined Panel 2", subTitleBelow: "Sub-sub title", components: [
+			{title: "Panel " + (this.$.panels.getPanels().length+1), titleBelow: "Panel 2", subTitleBelow: "Sub-sub title", components: [
 				{kind: "moon.Scroller", fit:true, components: [
 					{kind: "enyo.Repeater", count: 30, components: [
 						{kind: "moon.Item", content: "Dummy Item", ontap: "next"}
@@ -48,7 +48,7 @@ enyo.kind({
 			]}
 		], {owner: this});
 	},
-	pushSeveralPanels: function() {
+	pushThreePanels: function() {
 		this.$.panels.pushPanels([
 			{title: "Panel " + this.$.panels.getPanels().length, titleBelow: "1 of 3 Panels", subTitleBelow: "Sub-sub title", components: [
 				{kind: "moon.Scroller", fit:true, components: [
@@ -82,9 +82,9 @@ enyo.kind({
 		if (index < (length-1)) {
 			this.$.panels.next();
 		} else if (length % 5 === 0) {
-			this.pushSeveralPanels();
+			this.pushThreePanels();
 		} else if (length % 3 === 0) {
-			this.pushJoinedPanels();
+			this.pushTwoPanels();
 		} else {
 			this.pushSinglePanel();
 		}

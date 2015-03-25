@@ -58,7 +58,7 @@
 			};
 		}),
 
-		bezier: function(t, x1, y1, x2, y2) {
+		bezier: function (t, x1, y1, x2, y2) {
 			var p0 = {x: 0, y: 0}, p1 = {x: x1, y: y1}, p2 = {x: x2, y: y2}, p3 = {x: 1, y: 1};
 			var cX = 3 * (p1.x - p0.x),
 				bX = 3 * (p2.x - p1.x) - cX,
@@ -74,22 +74,22 @@
 			return {x: x, y: y};
 		},
 
-		addConfig: function(config) {
+		addConfig: function (config) {
 			if (config) {
 				enyo.mixin(this.configs, config);
 			}
 			this.buildBezierTable();
 		},
 
-		buildBezierTable: function() {
+		buildBezierTable: function () {
 			if (!this.useBezier) return;
 			
 			var start = enyo.perfNow(), end;
 
-			this.iterateConfig(this.bindSafely(function(obj, dir, config) {
+			this.iterateConfig(this, function(obj, dir, config) {
 				var last = {x:0, y:0},
 					conf = config.bezier,	// Format: { x1, y1, x2, y2 }, values between 0 and 1
-					ret, i, j, start, end;
+					ret, i, j;
 
 				config.bezierTable = {};
 
@@ -109,7 +109,7 @@
 				for (i = (last.x*100)<<0; i <= 100; i++) {
 					config.bezierTable[i] = 1;
 				}
-			}));
+			});
 
 			end = enyo.perfNow();
 			
@@ -129,12 +129,12 @@
 		play: function (props) {
 			var duration = 0;
 
-			this.iterateConfig(this.bindSafely(function(obj, dir, config) {
+			this.iterateConfig(this, function(obj, dir, config) {
 				this.values[obj] = config.startValue;
 
 				// Find maximum duration for the whole animation
 				duration = Math.max(config.delay + config.duration, duration);
-			}), this.direction);
+			}, this.direction);
 
 			this.duration = duration;
 			this.inherited(arguments);
@@ -151,12 +151,12 @@
 		reverse: function () {
 			if (this.isAnimating()) {
 				this.inherited(arguments);
-				this.iterateConfig(this.bindSafely(function(obj, dir, config) {
+				this.iterateConfig(this, function(obj, dir, config) {
 					// swap start and end values
 					var startValue = config.startValue;
 					config.startValue = config.endValue;
 					config.endValue = startValue;
-				}), this.direction);
+				}, this.direction);
 				return this;
 			}
 		},
@@ -173,8 +173,8 @@
 			this.dt = this.t1 - this.t0;
 			this.fraction = this.dt / this.duration;
 
-			this.iterateConfig(this.bindSafely(function(obj, dir, config) {
-				var fraction;
+			this.iterateConfig(this, function(obj, dir, config) {
+				var fraction, f;
 
 				if (this.dt - config.delay < 0) return;
 
@@ -200,7 +200,7 @@
 							this.dt - config.delay, config.startValue, (config.endValue - config.startValue));
 					}
 				}
-			}), this.direction);
+			}, this.direction);
 
 			if (this.shouldEnd()) {
 				this.fire('onStep');
@@ -213,18 +213,17 @@
 				this.requestNext();
 			}
 		},
-
-		iterateConfig: function(callback, direction) {
+		iterateConfig: function (scope, callback, direction) {
 			var obj, dir;
 
 			for (obj in this.configs) {
 				if (direction) {
 					// for specified direction
-					callback(obj, direction, this.configs[obj][direction]);
+					callback.call(scope, obj, direction, this.configs[obj][direction]);
 				} else {
 					// for all directions
 					for (dir in this.configs[obj]) {
-						callback(obj, dir, this.configs[obj][dir]);
+						callback.call(scope, obj, dir, this.configs[obj][dir]);
 					}
 				}
 			}

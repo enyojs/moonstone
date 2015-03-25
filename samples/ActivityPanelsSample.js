@@ -29,7 +29,7 @@ enyo.kind({
 					{kind: "moon.Item", content: "Item Twenty", ontap: "next1"}
 				]}
 			]},
-			{title: "Second Panel", defaultSpotlightControl: "defaultControl", joinToPrev: true, components: [
+			{title: "Second Panel", defaultSpotlightControl: "defaultControl", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next2"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next2"},
 				{name: "defaultControl", kind: "moon.Item", content: "Item Three (default focus for panel)", ontap: "next2"},
@@ -43,7 +43,7 @@ enyo.kind({
 				{kind: "moon.Item", content: "Item Four", ontap: "next3"},
 				{kind: "moon.Item", content: "Item Five", ontap: "next3"}
 			]},
-			{title: "Fourth", joinToPrev: true, titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
+			{title: "Fourth", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next4"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next4"},
 				{kind: "moon.Item", content: "Item Three", ontap: "next4"},
@@ -57,7 +57,7 @@ enyo.kind({
 				{kind: "moon.Item", content: "Item Four", ontap: "next5"},
 				{kind: "moon.Item", content: "Item Five", ontap: "next5"}
 			]},
-			{title: "Sixth Panel with a very long title", joinToPrev: true, titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
+			{title: "Sixth Panel with a very long title", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next6"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next6"},
 				{kind: "moon.Item", content: "Item Three", ontap: "next6"},

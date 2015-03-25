@@ -467,11 +467,13 @@
 		* @private
 		*/
 		getInitAnimationValues: function () {
-			var node = this.hasNode(), headerNode = this.$.header.hasNode(), panelNode = this.$.panelBody.hasNode()
-				paddingT = parseInt(enyo.dom.getComputedStyleValue(panelNode, 'padding-top'), 10),
-				headerHeight = headerNode.getBoundingClientRect().height,
-				panelHeight = node.getBoundingClientRect().height;
-			this.initialHeight = panelHeight - headerHeight - paddingT;
+			var panelNode = this.hasNode(), headerNode = this.$.header.hasNode(), bodyNode = this.$.panelBody.hasNode()
+				panelPaddingT = parseInt(enyo.dom.getComputedStyleValue(panelNode, 'padding-top'), 10),
+				panelPaddingB = parseInt(enyo.dom.getComputedStyleValue(panelNode, 'padding-bottom'), 10),
+				bodyPaddingT = parseInt(enyo.dom.getComputedStyleValue(bodyNode, 'padding-top'), 10),
+				panelHeight = panelNode.getBoundingClientRect().height,
+				headerHeight = headerNode.getBoundingClientRect().height;
+			this.initialHeight = panelHeight - headerHeight - (panelPaddingT + panelPaddingB + bodyPaddingT);
 		}
 	});
 })(enyo, this);

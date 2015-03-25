@@ -284,6 +284,11 @@
 			return this.$.breadcrumbs ? this.$.breadcrumbs.children : [];
 		},
 
+		getBreadcrumbForIndex: function (index) {
+			var breadcrumbs = this.getBreadcrumbs();
+			return breadcrumbs[(index + breadcrumbs.length) % breadcrumbs.length];
+		},
+
 		/**
 		* Returns maximum number of breadcrub that can be fit in the breadcrumb area
 		*
@@ -294,9 +299,37 @@
 			if (this.pattern == 'activity') return 1;
 			switch(moon.ri.getAspectRatioName()) {
 				case 'hdtv': return 10; 
-				case 'cinema': return 10;
+				case 'cinema': return 13;
 				default: return 10;
 			}
+		},
+
+		/**
+		* Returns range of breadcrumb index.
+		*
+		* @return {Object} Object contains start and end value as a hash. '{start: start, end: end}'
+		* @public
+		*/
+		getBreadcrumbRange: function () {
+			/** To support fly weight pattern, we use a concept of a window.
+			    If we are seeing maximum 1 breadcrumb on screen (case of activity pattern),
+			    we arrange 2 breadcrumbs at a time (current and previous) to show animation.
+			    If we move forward from index 2 to 3 (active is 3), the window can be [2, 3].
+			*/
+			var end = this.index,
+				start = end - this.getBreadcrumbs().length;
+
+			// If we move backward from index 4 to 3 (active is 3), the window can be [3, 4].
+			if (this.fromIndex > this.toIndex) {
+				start = start+1;
+				end = end+1;
+			}
+			return {start: start, end: end};
+		},
+
+		recalcLayout: function () {
+			this.arrangements = [];
+			this.layout && this.layout.calcTransitionPositions();
 		},
 
 		/**
@@ -313,10 +346,10 @@
 			var lastIndex = this.getPanels().length - 1,
 				oPanel = this.createComponent(info, moreInfo);
 			oPanel.render();
-			this.reflow();
+			this.recalcLayout();
 			oPanel.show();
 			oPanel.resize();
-			this.addRemoveBreadcrumb();
+			this.addRemoveBreadcrumb(true);
 			this.setIndex(lastIndex+1);
 			this.isModifyingPanels = false;
 			return oPanel;
@@ -347,7 +380,7 @@
 		*	`null` if panels could not be created.
 		* @public
 		*/
-		pushPanels: function(info, commonInfo, options) { // added
+		pushPanels: function (info, commonInfo, options) { // added
 			if (this.transitioning || this.isModifyingPanels) { return null; }
 			this.isModifyingPanels = true;
 
@@ -359,7 +392,7 @@
 			for (nPanel = 0; nPanel < oPanels.length; ++nPanel) {
 				oPanels[nPanel].render();
 			}
-			this.reflow();
+			this.recalcLayout();
 			if (options.targetIndex || options.targetIndex === 0) {
 				lastIndex = options.targetIndex;
 			}
@@ -368,7 +401,7 @@
 			for (nPanel = 0; nPanel < oPanels.length; ++nPanel) {
 				oPanels[nPanel].resize();
 			}
-			this.addRemoveBreadcrumb();
+			this.addRemoveBreadcrumb(true);
 			// If transition was explicitly set to false, since null or undefined indicate "never set" or unset
 			if (options.transition === false) {
 				this.setIndexDirect(lastIndex);
@@ -395,6 +428,7 @@
 			while (panels.length > index && index >= 0) {
 				panels[panels.length - 1].destroy();
 			}
+			this.addRemoveBreadcrumb(true);
 			this.isModifyingPanels = false;
 		},
 
@@ -507,7 +541,7 @@
 			}
 		},
 
-		calcArrangement: function(fraction) {
+		calcArrangement: function (fraction) {
 			// select correct transition points and normalize fraction.
 			var t$ = this.transitionPoints;
 			var r = (fraction || 0) * (t$.length-1);
@@ -1022,12 +1056,32 @@
 		* @private
 		*/
 		indexChanged: function (old) {
-			var activePanel = this.getActive();
+			var panels = this.getPanels(),
+				range = this.getBreadcrumbRange(),
+				i;
 
-			if (activePanel && activePanel.isBreadcrumb) {
-				activePanel.removeSpottableBreadcrumbProps();
+			panels[this.index] && panels[this.index].set('spotlightDisabled', false);
+			panels[old] && panels[old].set('spotlightDisabled', true);
+			
+			// Blocking spotlight while change index
+			this.$.breadcrumbs.set('spotlight', false);
+
+			// Set index to breadcrumb to display number
+			for (i=range.start; i<range.end; i++) {
+				control = this.getBreadcrumbForIndex(i);
+				control.set('index', i);
 			}
+
+			// Set animation direction to use proper timing function before start animation
 			this.$.animator.direction = (old < this.index) ? 'forward' : 'backward';
+			
+			// First panel in activity pattern is using full width
+			if (this.pattern == 'activity' && ((this.fromIndex > this.toIndex && this.toIndex == 0) ||
+				(this.fromIndex == undefined && this.toIndex == undefined))) {
+				this.removeClass('transition');	// We don't use transition while move backward
+				this.addClass('first');
+			}
+
 			this.inherited(arguments);
 
 			this.displayBranding();
@@ -1052,7 +1106,25 @@
 				var panels = this.getPanels(),
 					toIndex = this.toIndex,
 					fromIndex = this.fromIndex,
-					i, panel, info, popFrom;
+					backward, i, panel, info, popFrom,
+					end = this.index,
+					start = end - this.getBreadcrumbs().length;
+
+				this.$.breadcrumbs.set('spotlight', undefined);
+
+				// Turn off spotlight focus for offscreen breadcrumbs
+				for (i=start; i<end; i++) {
+					control = this.getBreadcrumbForIndex(i);
+					control.set('spotlight', (i>=0) && (this.index-i <= this.getBreadcrumbMax()));
+					// console.log(control.name, this.index, i, control.get('spotlight'));
+				}
+
+				if (this.pattern == 'activity') {
+					if (this.fromIndex < this.toIndex && this.fromIndex == 0) {
+						this.addClass('transition');	// We use transition after move forward
+						this.removeClass('first');
+					}
+				}
 
 				this.notifyPanels('transitionFinished');
 				sup.apply(this, arguments);
@@ -1167,21 +1239,20 @@
 		/**
 		* @private
 		*/
-		addRemoveBreadcrumb: function () {
+		addRemoveBreadcrumb: function (forceRender) {
 			// If we have 1 panel then we don't need breadcrumb.
 			// If we have more then 1 panel then we need panel - 1 number of breadcrumbs.
 			// But, if we can only see 1 breadcrumb on screen like activity pattern 
 			// then we need 2 breadcrumbs to show animation.
-			var len = Math.max(0, Math.min(this.getPanels().length-1, this.getBreadcrumbMax()+1)),
-				index = 0;
-			while (index < len) {
-				this.$.breadcrumbs.createComponent({kind: 'moon.Breadcrumb', index: index}, {owner: this});
-				index++;
+			var len = Math.max(0, Math.min(this.getPanels().length-1, this.getBreadcrumbMax()+1));
+			while (this.getBreadcrumbs().length < len) {
+				b = this.$.breadcrumbs.createComponent({kind: 'moon.Breadcrumb'}, {owner: this});
+				forceRender && b.render();
 			}
 			// If we have more than the number of necessary breadcrumb then destroy.
-			while (this.$.breadcrumbs.length > len) {
-				this.$.breadcrumbs[this.$.breadcrumbs.length].destroy();
-			}
+			while (this.getBreadcrumbs().length > len) {
+				this.$.breadcrumbs[this.getBreadcrumbs().length].destroy();
+ 			}
 		},
 
 		/**
@@ -1415,6 +1486,13 @@
 		*/
 		name: 'moon.Breadcrumb',
 
+		published: {
+			/*
+			* @private
+			*/
+			index: 0
+		},
+
 		/*
 		* @private
 		*/
@@ -1454,18 +1532,14 @@
 		/*
 		* @private
 		*/
-		formatNumber: function(n) {
-			// Disable spotlight when offscreen
-			this.set('spotlightDisabled', n<0);
-
-			n++;
+		formatNumber: function (n) {
 			return '< ' + ((n < 10) ? '0' : '') + n;
 		},
 
 		/*
 		* @private
 		*/
-		tapHandler: function(sender, ev) {
+		tapHandler: function (sender, ev) {
 			// decorate
 			ev.breadcrumbTap = true;
 			ev.index = this.index;

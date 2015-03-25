@@ -3294,8 +3294,6 @@ html {
   position: absolute;
   width: 100%;
   height: 100%;
-  box-sizing: border-box;
-  padding: 0.75rem 0.5rem;
   overflow: visible;
   pointer-events: none;
 }
@@ -3311,12 +3309,81 @@ html {
 .moon-panels.always-viewing * {
   pointer-events: auto;
 }
+.moon-panels.activity .moon-panels-breadcrumb,
+.moon-panels.always-viewing .moon-panels-breadcrumb {
+  position: absolute;
+  height: 100%;
+  width: 4rem;
+  right: -4rem;
+}
+.moon-panels.activity .moon-panels-breadcrumb .moon-panels-breadcrumb-header,
+.moon-panels.always-viewing .moon-panels-breadcrumb .moon-panels-breadcrumb-header {
+  border-top: 0.25rem solid #ccc;
+  padding-top: 0.25rem;
+  margin: 0.75rem;
+  font-family: "Moonstone Miso";
+  font-size: 1.375rem;
+}
+.moon-panels.activity .moon-panels-breadcrumb.spotlight,
+.moon-panels.always-viewing .moon-panels-breadcrumb.spotlight {
+  background: #cf0652;
+  color: #ffffff;
+}
+.moon-panels.activity .moon-panels-breadcrumb.spotlight .moon-panels-breadcrumb-header,
+.moon-panels.always-viewing .moon-panels-breadcrumb.spotlight .moon-panels-breadcrumb-header {
+  border-color: #ffffff;
+}
 .moon-panels.activity .moon-panel,
 .moon-panels.always-viewing .moon-panel {
-  height: auto;
-  margin: 0;
+  box-sizing: border-box;
+  padding: 0.75rem 0.5rem;
 }
-/* Scrim */
+.moon-panels.activity .moon-panels-breadcrumbs {
+  left: 0;
+  width: 4rem;
+}
+.moon-panels.activity .moon-panels-viewport {
+  left: 4rem;
+  right: 0;
+}
+.moon-panels.activity .moon-panels-panel-scrim {
+  left: 0;
+  width: 100%;
+  background-color: #ededed;
+}
+.moon-panels.activity .moon-panels-panel-scrim .moon-panels-branding {
+  position: absolute;
+  top: 15.5rem;
+  width: 8.75rem;
+  bottom: 0.75rem;
+  left: 0.75rem;
+  background-position: bottom center;
+}
+.moon-panels.activity .moon-panel + .moon-panel {
+  padding-left: 0;
+}
+.moon-panels.activity.first .moon-panels-breadcrumbs {
+  left: -4rem;
+}
+.moon-panels.activity.first .moon-panels-viewport {
+  left: 0;
+}
+.moon-panels.always-viewing .moon-panels-breadcrumb-header {
+  color: white;
+  border-top: 0.25rem solid white;
+}
+.moon-panels.always-viewing .moon-panels-breadcrumbs {
+  left: 0;
+  width: 50%;
+}
+.moon-panels.always-viewing .moon-panels-viewport,
+.moon-panels.always-viewing .moon-panels-panel-scrim {
+  left: 50%;
+  width: 50%;
+}
+.moon-panels.always-viewing .moon-panels-panel-scrim {
+  background-color: #ededed;
+}
 .moon-panels .moon-panels-background-scrim {
   position: absolute;
   left: 0;
@@ -3333,27 +3400,17 @@ html {
 .moon-panels .moon-panels-background-scrim.visible {
   opacity: 0.2;
 }
-.moon-panels-panel-scrim {
+.moon-panels-viewport > * {
   position: absolute;
+  width: 100%;
   height: 100%;
 }
-.moon-panels.activity .moon-panels-panel-scrim {
-  left: 0;
-  width: 100%;
-  background-color: #ededed;
-}
-.moon-panels.activity .moon-panels-panel-scrim .moon-panels-branding {
+.moon-panels-breadcrumbs,
+.moon-panels-viewport,
+.moon-panels-panel-scrim {
+  overflow: hidden;
   position: absolute;
-  top: 15.5rem;
-  width: 8.75rem;
-  bottom: 0.75rem;
-  left: 0.75rem;
-  background-position: bottom center;
-}
-.moon-panels.always-viewing .moon-panels-panel-scrim {
-  left: 50%;
-  width: 50%;
-  background-color: #ededed;
+  height: 100%;
 }
 /* Show/Hide Handle */
 .moon-panels-handle {
