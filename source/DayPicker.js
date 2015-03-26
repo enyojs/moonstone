@@ -146,15 +146,16 @@
 				this.days = sdf.getDaysOfWeek();
 				this.firstDayOfWeek = this.firstDayOfWeek || li.getFirstDayOfWeek();
 
+				var index;
 				if (this.firstDayOfWeek == 1) {
-					for (var i = 1; i < this.daysComponents.length; i++) {
-						this.daysComponents[i-1].content = daysFullName[i];
+					for (index = 1; index < this.daysComponents.length; index++) {
+						this.daysComponents[index-1].content = daysFullName[index];
 					}
 					this.daysComponents[6].content = daysFullName[0];
 					this.days.push(this.days.shift());
 				} else {
-					for (var i = 0; i < this.daysComponents.length; i++) {
-						this.daysComponents[i].content = daysFullName[i];
+					for (index = 0; index < this.daysComponents.length; index++) {
+						this.daysComponents[index].content = daysFullName[index];
 					}
 				}
 			}
