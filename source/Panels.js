@@ -189,7 +189,7 @@
 		* @private
 		*/	
 		tools: [
-			{name: "animator", kind: 'moon.MoonAnimator', onStep: 'step', useBezier: true, onEnd: 'animationEnded', configs: { 
+			{name: 'animator', kind: 'moon.MoonAnimator', onStep: 'step', useBezier: true, onEnd: 'animationEnded', configs: { 
 				panel: {
 					forward: { startValue: 0, endValue: 1, delay: 0, duration: 430, bezier: [.69,.01,.97,.59]},
 					backward: { startValue: 0, endValue: 1, delay: 0, duration: 500, bezier: [.06,.53,.38,.99] }
@@ -297,11 +297,8 @@
 		*/
 		getBreadcrumbMax: function () {
 			if (this.pattern == 'activity') return 1;
-			switch(moon.ri.getAspectRatioName()) {
-				case 'hdtv': return 10; 
-				case 'cinema': return 13;
-				default: return 10;
-			}
+			// Always viewing panel is using half screen to show breadcrumbs
+			return Math.round(scope.innerWidth / 2 / 100);
 		},
 
 		/**
@@ -361,7 +358,7 @@
 		* @typedef {Object} moon.Panels.pushPanels~options
 		* @property {Number} targetIndex - The panel index number to immediately switch to. Leaving
 		*	this blank or not setting it will perform the default action, which transitions to the
-		*	first of the new panels. Setting this to a negative and other "out of bounds" values
+		*	first of the new panels. Setting this to a negative and other 'out of bounds' values
 		*	work in conjunction with the `wrap: true` property. Negative values count backward from
 		*	the end, while indices greater than the total Panels' panel length wrap around and start
 		*	counting again from the beginning.
@@ -402,7 +399,7 @@
 				oPanels[nPanel].resize();
 			}
 			this.addRemoveBreadcrumb(true);
-			// If transition was explicitly set to false, since null or undefined indicate "never set" or unset
+			// If transition was explicitly set to false, since null or undefined indicate 'never set' or unset
 			if (options.transition === false) {
 				this.setIndexDirect(lastIndex);
 			} else {
@@ -899,7 +896,9 @@
 		*/
 		shouldAnimate: function () {
 			if (this._willMove == null) {
+				/*jshint -W093 */
 				return (this._willMove = this.animate && this.shouldArrange());
+				/*jshint +W093 */
 			}
 			else {
 				return this._willMove;
@@ -1058,7 +1057,7 @@
 		indexChanged: function (old) {
 			var panels = this.getPanels(),
 				range = this.getBreadcrumbRange(),
-				i;
+				control, i;
 
 			panels[this.index] && panels[this.index].set('spotlightDisabled', false);
 			panels[old] && panels[old].set('spotlightDisabled', true);
@@ -1076,8 +1075,8 @@
 			this.$.animator.direction = (old < this.index) ? 'forward' : 'backward';
 			
 			// First panel in activity pattern is using full width
-			if (this.pattern == 'activity' && ((this.fromIndex > this.toIndex && this.toIndex == 0) ||
-				(this.fromIndex == undefined && this.toIndex == undefined))) {
+			if (this.pattern == 'activity' && ((this.fromIndex > this.toIndex && this.toIndex === 0) ||
+				(this.fromIndex === undefined && this.toIndex === undefined))) {
 				this.removeClass('transition');	// We don't use transition while move backward
 				this.addClass('first');
 			}
@@ -1106,11 +1105,11 @@
 				var panels = this.getPanels(),
 					toIndex = this.toIndex,
 					fromIndex = this.fromIndex,
-					backward, i, panel, info, popFrom,
+					i, panel, info, popFrom,
 					end = this.index,
 					start = end - this.getBreadcrumbs().length;
 
-				this.$.breadcrumbs.set('spotlight', undefined);
+				this.$.breadcrumbs.set('spotlight', null);
 
 				// Turn off spotlight focus for offscreen breadcrumbs
 				for (i=start; i<end; i++) {
@@ -1244,14 +1243,22 @@
 			// If we have more then 1 panel then we need panel - 1 number of breadcrumbs.
 			// But, if we can only see 1 breadcrumb on screen like activity pattern 
 			// then we need 2 breadcrumbs to show animation.
-			var len = Math.max(0, Math.min(this.getPanels().length-1, this.getBreadcrumbMax()+1));
-			while (this.getBreadcrumbs().length < len) {
-				b = this.$.breadcrumbs.createComponent({kind: 'moon.Breadcrumb'}, {owner: this});
-				forceRender && b.render();
+			var len = Math.max(0, Math.min(this.getPanels().length-1, this.getBreadcrumbMax()+1)),
+				defs = [], breadcrumbs, i;
+
+			for(i=0; i<len; i++) {
+				defs[i] = {kind: 'moon.Breadcrumb'};
+			}
+			this.$.breadcrumbs.createComponent(defs, {owner: this});
+			if (forceRender) {
+				breadcrumbs = this.getBreadcrumbs();
+				for (i=0; i<len; i++) {
+					breadcrumbs[i].render();
+				}
 			}
 			// If we have more than the number of necessary breadcrumb then destroy.
 			while (this.getBreadcrumbs().length > len) {
-				this.$.breadcrumbs[this.getBreadcrumbs().length].destroy();
+				this.getBreadcrumbs()[this.getBreadcrumbs().length-1].destroy();
  			}
 		},
 

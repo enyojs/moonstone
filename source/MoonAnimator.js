@@ -41,16 +41,29 @@
 			configs: {}
 		},
 
-		duration: 500,
-
+		/**
+		* @private
+		*/
 		accuracy: 0.01,
 
+		/**
+		* @private
+		*/
 		values: {},
 
+		/**
+		* @private
+		*/
 		fractions: {},
 
-		debug: true, 
+		/**
+		* @private
+		*/
+		debug: false, 
 
+		/**
+		* @private
+		*/
 		constructed: enyo.inherit(function (sup) {
 			return function() {
 				sup.apply(this, arguments);
@@ -58,6 +71,9 @@
 			};
 		}),
 
+		/**
+		* @private
+		*/
 		bezier: function (t, x1, y1, x2, y2) {
 			var p0 = {x: 0, y: 0}, p1 = {x: x1, y: y1}, p2 = {x: x2, y: y2}, p3 = {x: 1, y: 1};
 			var cX = 3 * (p1.x - p0.x),
@@ -74,6 +90,20 @@
 			return {x: x, y: y};
 		},
 
+		/** 
+		* Add configuration for animation.
+		*
+		* The config can be specified for each object which needs to be animated. 
+		* Each config consists of two direction, forward and backward.
+		*
+		* panel: {
+		*			forward: { startValue: 0, endValue: 1, delay: 0, duration: 430, bezier: [.69,.01,.97,.59]},
+		*			backward: { startValue: 0, endValue: 1, delay: 0, duration: 500, bezier: [.06,.53,.38,.99] }
+		* 		}
+		* 
+		* @param {Object} config 
+		* @public
+		*/
 		addConfig: function (config) {
 			if (config) {
 				enyo.mixin(this.configs, config);
@@ -81,6 +111,12 @@
 			this.buildBezierTable();
 		},
 
+		/**
+		* Build bezier curve table as a function of x and y.
+		* Interpolate the intermediate values in the table.
+		*
+		* @private
+		*/
 		buildBezierTable: function () {
 			if (!this.useBezier) return;
 			
@@ -129,14 +165,14 @@
 		play: function (props) {
 			var duration = 0;
 
+			// Find maximum duration for the whole animation
 			this.iterateConfig(this, function(obj, dir, config) {
 				this.values[obj] = config.startValue;
-
-				// Find maximum duration for the whole animation
 				duration = Math.max(config.delay + config.duration, duration);
 			}, this.direction);
 
 			this.duration = duration;
+
 			this.inherited(arguments);
 
 			return this;
@@ -213,6 +249,10 @@
 				this.requestNext();
 			}
 		},
+		
+		/**
+		* @private
+		*/
 		iterateConfig: function (scope, callback, direction) {
 			var obj, dir;
 

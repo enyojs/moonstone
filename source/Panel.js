@@ -467,7 +467,7 @@
 		* @private
 		*/
 		getInitAnimationValues: function () {
-			var panelNode = this.hasNode(), headerNode = this.$.header.hasNode(), bodyNode = this.$.panelBody.hasNode()
+			var panelNode = this.hasNode(), headerNode = this.$.header.hasNode(), bodyNode = this.$.panelBody.hasNode(),
 				panelPaddingT = parseInt(enyo.dom.getComputedStyleValue(panelNode, 'padding-top'), 10),
 				panelPaddingB = parseInt(enyo.dom.getComputedStyleValue(panelNode, 'padding-bottom'), 10),
 				bodyPaddingT = parseInt(enyo.dom.getComputedStyleValue(bodyNode, 'padding-top'), 10),
