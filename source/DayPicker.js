@@ -89,21 +89,37 @@
 			* @default 'Nothing selected'
 			* @public
 			*/
-			noneText: moon.$L('Nothing selected')
+			noneText: moon.$L('Nothing selected'),
+
+			/**
+			*
+			* The first day of the week in the current locale.
+			* Valid values are `0` (i.e., Sunday) or `1` (Monday). Default is `null`.
+			*
+			* @type {Number}
+			* @default null
+			* @public
+			*/
+			firstDayOfWeek: null
 		},
 
 		/**
 		* @private
 		*/
-		dayOfTheWeek: [
+		daysComponents: [
+			{content: 'Sunday'},
 			{content: 'Monday'},
 			{content: 'Tuesday'},
 			{content: 'Wednesday'},
 			{content: 'Thursday'},
 			{content: 'Friday'},
-			{content: 'Saturday'},
-			{content: 'Sunday'}
+			{content: 'Saturday'}
 		],
+
+		/**
+		* @private
+		*/
+		days: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
 
 		/**
 		* @private
@@ -112,38 +128,91 @@
 			return function() {
 				// super initialization
 				sup.apply(this, arguments);
-
-				this.createComponents(this.dayOfTheWeek);
+				this.initILib();
+				this.createComponents(this.daysComponents);
+				this.createComponent({kind: 'enyo.Signals', onlocalechange: 'handleLocaleChangeEvent'});
 			};
 		}),
 
 		/**
 		* @private
 		*/
+		initILib: function () {
+			if (typeof ilib !== 'undefined') {
+				var df = new ilib.DateFmt({length: "full"});
+				var sdf = new ilib.DateFmt({length: "long"});
+				var li = new ilib.LocaleInfo(ilib.getLocale());
+				var daysFullName = df.getDaysOfWeek();
+				this.days = sdf.getDaysOfWeek();
+				this.firstDayOfWeek = this.firstDayOfWeek || li.getFirstDayOfWeek();
+
+				if (this.firstDayOfWeek == 1) {
+					for (var i = 1; i < this.daysComponents.length; i++) {
+						this.daysComponents[i-1].content = daysFullName[i];
+					}
+					this.daysComponents[6].content = daysFullName[0];
+					this.days.push(this.days.shift());
+				} else {
+					for (var i = 0; i < this.daysComponents.length; i++) {
+						this.daysComponents[i].content = daysFullName[i];
+					}
+				}
+			}
+		},
+
+		/**
+		* @private
+		*/
+		handleLocaleChangeEvent: function () {
+			if (typeof ilib !== 'undefined') {
+				this.initILib();
+				this.refresh();
+			}
+		},
+
+		/**
+		* @private
+		*/
 		multiSelectCurrentValue: function () {
+			var str = this.checkDays();
+			if (str){
+				return str;
+			}
+
+			for (var i=0; i < this.selectedIndex.length; i++) {
+				if (!str) {
+					str = this.days[this.selectedIndex[i]];
+				} else {
+					str = str + ', ' + this.days[this.selectedIndex[i]];
+				}
+			}
+			return str || this.getNoneText();
+		},
+
+		/**
+		* @private
+		*/
+		checkDays: function () {
 			var indexLength = this.selectedIndex.length;
 			var joinIndex = this.selectedIndex.join();
 
 			if (indexLength === 7) {
 				return this.everyDayText;
-			} else if (indexLength === 5 && joinIndex == '0,1,2,3,4') {
-				return this.everyWeekdayText;
-			} else if (indexLength === 2 && joinIndex == '5,6') {
-				return this.everyWeekendText;
 			}
 
-			var controls = this.getCheckboxControls();
-			var str = '';
-			for (var i=0; i < this.selectedIndex.length; i++) {
-				if (!str) {
-					str = controls[this.selectedIndex[i]].getContent().substring(0,3);
-				} else {
-					str = str + ', ' + controls[this.selectedIndex[i]].getContent().substring(0,3);
+			if (this.firstDayOfWeek == 1) {
+				if (joinIndex == '0,1,2,3,4') {
+					return this.everyWeekdayText;
+				} else if (joinIndex == '5,6') {
+					return this.everyWeekendText;
+				}
+			} else {
+				if (joinIndex == '1,2,3,4,5') {
+					return this.everyWeekdayText;
+				} else if (joinIndex == '0,6') {
+					return this.everyWeekendText;
 				}
 			}
-			return str || this.getNoneText();
 		}
-
 	});
-
 })(enyo, this);
