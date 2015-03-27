@@ -4754,6 +4754,9 @@ html {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
+.moon-expandable-input .moon-input-decorator:not(.spotlight) .moon-input {
+  pointer-events: none;
+}
 .moon-expandable-input .moon-input {
   width: 100%;
 }

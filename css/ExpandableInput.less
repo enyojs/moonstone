@@ -4,6 +4,10 @@
 		box-sizing: border-box;
 		margin-top: @moon-spotlight-outset;
 		margin-bottom: @moon-spotlight-outset;
+
+		&:not(.spotlight) .moon-input {
+			pointer-events: none;
+		}
 	}
 	.moon-input {
 		width: 100%;
