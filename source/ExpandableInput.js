@@ -99,7 +99,7 @@
 				]},
 				{name: 'currentValue', kind: 'moon.MarqueeText', classes: 'moon-expandable-picker-current-value'}
 			]},
-			{name: 'drawer', kind: 'enyo.Drawer', resizeContainer:false, classes:'moon-expandable-list-item-client indented', components: [
+			{name: 'drawer', kind: 'enyo.Drawer', resizeContainer:false, classes:'moon-expandable-list-item-client indented', onDrawerAnimationEnd: 'drawerAnimationEnd', components: [
 				{name: 'inputDecorator', kind: 'moon.InputDecorator', onSpotlightBlur: 'inputBlur', onSpotlightFocus: 'inputFocus', onSpotlightDown: 'inputDown', components: [
 					{name: 'clientInput', kind: 'moon.Input', onchange: 'doChange', onkeyup: 'inputKeyUp'}
 				]}
@@ -113,7 +113,6 @@
 			{from: '.value', to: '.$.clientInput.value', oneWay: false},
 			{from: '.placeholder', to: '.$.clientInput.placeholder'},
 			{from: '.showCurrentValue', to: '.$.currentValue.showing'},
-			{from: '.currentValueText', to: '.$.currentValue.content'},
 			{from: '.disabled', to: '.$.headerWrapper.disabled'}
 		],
 
@@ -121,10 +120,16 @@
 		* @private
 		*/
 		computed: {
-			'showCurrentValue': ['open', 'value', 'noneText'],
-			'currentValueText': ['value', 'noneText']
+			'showCurrentValue': ['open', 'value', 'noneText']
 		},
 
+		/**
+		* @private
+		*/
+		create: function() {
+			this.inherited(arguments);
+			this.currentValueText();
+		},
 		/**
 		* Computed property
 		*
@@ -140,7 +145,9 @@
 		* @private
 		*/
 		currentValueText: function () {
-			return (this.value === '') ? this.noneText : this.value;
+			var value = (this.value === '') ? this.noneText : this.value;
+			this.$.currentValue.setContent(value);
+			return value;
 		},
 
 		/**
@@ -267,6 +274,16 @@
 			enyo.Spotlight.spot(this.$.headerWrapper);
 			enyo.Spotlight.setPointerMode(mode);
 			this.toggleActive();
+		},
+
+		/**
+		*
+		* @private
+		*/
+		drawerAnimationEnd: function() {
+			if (!this.open) {
+				this.$.currentValue.setContent(this.value);
+			}
 		}
 	});
 
