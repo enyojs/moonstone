@@ -90,18 +90,29 @@
 			* @public
 			*/
 			noneText: moon.$L('Nothing selected'),
-
-			/**
-			*
-			* The first day of the week in the current locale.
-			* Valid values are `0` (i.e., Sunday) or `1` (Monday). Default is `null`.
-			*
-			* @type {Number}
-			* @default null
-			* @public
-			*/
-			firstDayOfWeek: null
 		},
+
+		/**
+		* @private
+		*/
+		firstDayOfWeek: 0,
+
+		/**
+		* @private
+		*/
+		weekEndStart: 6,
+
+		/**
+		* @private
+		*/
+		weekEndEnd: 0,
+
+		/**
+		* @private
+		*/
+		tools: [
+			{kind: 'enyo.Signals', onlocalechange: 'handleLocaleChangeEvent'}
+		],
 
 		/**
 		* @private
@@ -128,9 +139,9 @@
 			return function() {
 				// super initialization
 				sup.apply(this, arguments);
+				this.createChrome(this.tools);
 				this.initILib();
 				this.createComponents(this.daysComponents);
-				this.createComponent({kind: 'enyo.Signals', onlocalechange: 'handleLocaleChangeEvent'});
 			};
 		}),
 
@@ -144,19 +155,26 @@
 				var li = new ilib.LocaleInfo(ilib.getLocale());
 				var daysFullName = df.getDaysOfWeek();
 				this.days = sdf.getDaysOfWeek();
-				this.firstDayOfWeek = this.firstDayOfWeek || li.getFirstDayOfWeek();
+				this.firstDayOfWeek = li.getFirstDayOfWeek();
+				this.weekEndStart = li.getWeekEndStart();
+				this.weekEndEnd = li.getWeekEndEnd();
 
 				var index;
-				if (this.firstDayOfWeek == 1) {
+				switch (this.firstDayOfWeek) {
+				case 0 :
+					for (index = 0; index < this.daysComponents.length; index++) {
+						this.daysComponents[index].content = daysFullName[index];
+					}
+					break;
+				case 1 :
 					for (index = 1; index < this.daysComponents.length; index++) {
 						this.daysComponents[index-1].content = daysFullName[index];
 					}
 					this.daysComponents[6].content = daysFullName[0];
 					this.days.push(this.days.shift());
-				} else {
-					for (index = 0; index < this.daysComponents.length; index++) {
-						this.daysComponents[index].content = daysFullName[index];
-					}
+					this.weekEndStart = this.weekEndStart ? this.weekEndStart-1 : 6;
+					this.weekEndEnd = this.weekEndEnd ? this.weekEndEnd-1 : 6;
+					break;
 				}
 			}
 		},
@@ -165,10 +183,10 @@
 		* @private
 		*/
 		handleLocaleChangeEvent: function () {
-			if (typeof ilib !== 'undefined') {
-				this.initILib();
-				this.refresh();
-			}
+			this.destroyClientControls();
+			this.initILib();
+			this.createComponents(this.daysComponents);
+			this.render();
 		},
 
 		/**
@@ -196,23 +214,35 @@
 		checkDays: function () {
 			var indexLength = this.selectedIndex.length;
 			var joinIndex = this.selectedIndex.join();
+			var hasWeekEnd = this.checkWeekEnd();
 
-			if (indexLength === 7) {
+			switch (indexLength) {
+			case 7 :
 				return this.everyDayText;
+			case 5 :
+				if (!hasWeekEnd) {
+					return this.everyWeekdayText;
+				}
+				break;
+			case 2 :
+				if (hasWeekEnd) {
+					return this.everyWeekendText;
+				}
+				break;
 			}
+		},
 
-			if (this.firstDayOfWeek == 1) {
-				if (joinIndex == '0,1,2,3,4') {
-					return this.everyWeekdayText;
-				} else if (joinIndex == '5,6') {
-					return this.everyWeekendText;
-				}
-			} else {
-				if (joinIndex == '1,2,3,4,5') {
-					return this.everyWeekdayText;
-				} else if (joinIndex == '0,6') {
-					return this.everyWeekendText;
-				}
+		/**
+		* @private
+		*/
+		checkWeekEnd: function () {
+			var bWeekEndStart = this.selectedIndex.indexOf(this.weekEndStart);
+			var bWeekEndEnd = this.selectedIndex.indexOf(this.weekEndEnd);
+
+			if (bWeekEndStart >= 0 && bWeekEndEnd >= 0) {
+				return true;
+			} else if (bWeekEndStart == -1 && bWeekEndEnd == -1) {
+				return false;
 			}
 		}
 	});
