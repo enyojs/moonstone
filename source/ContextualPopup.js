@@ -206,7 +206,6 @@
 		and the dependent decorator code inorder to handle some special cases.
 		*/
 		hide: function(inSender, e) {
-
 			if (this.tapCaptured) {
 				this.tapCaptured = false;
 				this.popupActivated = true;
