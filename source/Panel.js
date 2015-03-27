@@ -108,7 +108,7 @@
 			* @default 'large'
 			* @public
 			*/
-			headerType: 'medium',
+			headerType: 'large',
 
 			/**
 			* Facade for the [allowHtml]{@link enyo.Control#allowHtml} property of the
@@ -188,7 +188,7 @@
 		panelTools : [
 			/* header will be created here programmatically in createTools after mixing-in headerOptions */
 			{name: 'panelBody', kind: 'FittableRows', fit: true, classes: 'moon-panel-body'},
-			{name: 'spotlightDummy', spotlight: false, style: 'width:0;height:0;'}
+			{name: 'spotlightDummy', spotlight: false, style: 'width:0; height:0;'}
 		],
 
 		/**
@@ -219,30 +219,10 @@
 		*/
 		headerComponents: [],
 
-		// /**
-		// * @private
-		// */
-		// isBreadcrumb: false,
-
-		// /**
-		// * @private
-		// */
-		// isOffscreen: false,
-
-		// /**
-		// * @private
-		// */
-		// isHeaderCollapsed: false,
-
-		// /**
-		// * @private
-		// */
-		// shrinking: false,
-
-		// /**
-		// * @private
-		// */
-		// growing: false,
+		/**
+		* @private
+		*/
+		isOffscreen: false,
 
 		/**
 		* @private
@@ -255,8 +235,6 @@
 				this.$.header.createComponents(this.headerComponents, {owner: owner});
 			}
 			this.autoNumberChanged();
-			// Note: This line will be deprecated soon. For backward compatiblity, I leave it for a while.
-			// this.smallHeaderChanged();
 			this.headerTypeChanged();
 		},
 
@@ -300,7 +278,7 @@
 		updatePanelBodySize: function () {
 			var node = this.hasNode();
 
-			if (!node || this.isBreadcrumb) {
+			if (!node) {
 				return;
 			}
 
@@ -359,14 +337,6 @@
 		/**
 		* @private
 		*/
-		generateAutoNumber: function () {
-			var adjustedIndex = this.indexInContainer() + 1;
-			return (adjustedIndex < 10) ? '0'+ adjustedIndex : adjustedIndex;
-		},
-
-		/**
-		* @private
-		*/
 		enableMarquees: function () {
 			this.$.header.enableMarquee();
 		},
@@ -401,32 +371,10 @@
 		* @private
 		*/
 		initPanel: function (info) {
-			this.set('isBreadcrumb', info.breadcrumb);
-			this.set('isOffscreen', info.offscreen);
+			this.set('isOffscreen', info.isOffscreen);
 			this.updateSpotability();
 			this.disableMarquees();
 			this.startMarqueeAsNeeded(info);
-		},
-
-		/**
-		* Called directly by {@link moon.Panels}.
-		* @private
-		*/
-		preTransition: function (info) {
-			this.disableMarquees();
-			this.addClass('transitioning');
-
-			return false;
-		},
-
-		/**
-		* Called directly by {@link moon.Panels}.
-		* @private
-		*/
-		postTransition: function (info) {
-			this.removeClass('transitioning');
-
-			return false;
 		},
 
 		/**
@@ -438,8 +386,7 @@
 				this.disableMarquees();
 			}
 
-			this.set('isBreadcrumb', info.breadcrumb);
-			this.set('isOffscreen', info.offscreen);
+			this.set('isOffscreen', info.isOffscreen);
 			this.updateSpotability();
 			this.startMarqueeAsNeeded(info);
 		},

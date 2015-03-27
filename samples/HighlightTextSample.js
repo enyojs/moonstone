@@ -6,8 +6,8 @@ enyo.kind({
 	name: "moon.sample.HighlightTextSample",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
-		{kind: "moon.Panels", pattern:"activity", classes:"enyo-fit", components: [
-			{kind: "moon.Panel", title:"STATIC", titleBelow:"Simple items", subTitleBelow: "Case insensitive", classes:"moon-6h", components: [
+		{kind: "moon.Panels", pattern:"activity", classes:"enyo-fit", useHandle: false, components: [
+			{kind: "moon.Panel", title:"STATIC", titleBelow:"Simple items", subTitleBelow: "Case insensitive", components: [
 				{kind: "moon.Scroller", fit: true, components: [
 					{kind: "moon.Divider", content:"Standard highlight"},
 					{kind: "moon.Item", components: [
@@ -36,7 +36,7 @@ enyo.kind({
 					{kind: "moon.Button", content: "Dynamic Content Change", ontap: "changeContent"}
 				]}
 			]},
-			{name: "inputPanel", kind: "moon.Panel", headerOptions: {kind: "moon.InputHeader"}, classes:"moon-6h", joinToPrev: true, oninput: "search", components: [
+			{name: "inputPanel", kind: "moon.Panel", headerOptions: {kind: "moon.InputHeader"}, oninput: "search", components: [
 				{kind: "moon.DataList", fit: true, name:"list", components: [
 					{kind: "moon.Item", bindings: [
 						{from: ".model.text", to:".$.text.content"},

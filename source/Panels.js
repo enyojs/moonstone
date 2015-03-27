@@ -119,17 +119,7 @@
 			* @default false
 			* @public
 			*/
-			popOnBack: false,
-
-			/**
-			* The source of the image used for branding in the lower left region of the Panels
-			* (only applies to Panels using the `'activity'` pattern).
-			*
-			* @type {String|moon.ri.selectSrc~src}
-			* @default ''
-			* @public
-			*/
-			brandingSrc: ''
+			popOnBack: false
 		},
 
 		/**
@@ -149,6 +139,9 @@
 		*/
 		panelStack: null,
 
+		/**
+		* @private
+		*/
 		fractions: {panel: 1, breadcrumb: 1},
 
 		/**
@@ -160,13 +153,10 @@
 			onSpotlightRight:			'spotlightRight',
 			onSpotlightLeft:			'spotlightLeft',
 			onSpotlightUp:				'spotlightUp',
-			onSpotlightDown:			'spotlightDown',
+
 			onSpotlightFocus:			'spotlightFocus',
 			onSpotlightContainerLeave:	'onSpotlightPanelLeave',
-			onSpotlightContainerEnter:	'onSpotlightPanelEnter',
-
-			onPreTransitionComplete:	'preTransitionComplete',
-			onPostTransitionComplete:	'postTransitionComplete'
+			onSpotlightContainerEnter:	'onSpotlightPanelEnter'
 		},
 
 		/**
@@ -214,20 +204,6 @@
 		draggable: false,
 
 		/**
-		* Value may be between `0` and `1`, inclusive.
-		*
-		* @private
-		*/
-		panelCoverRatio: 1,
-
-		/**
-		* Will be `true` for 'activity' pattern, and `false` for 'alwaysviewing' pattern.
-		*
-		* @private
-		*/
-		showFirstBreadcrumb: false,
-
-		/**
 		* Default to using `moon.BreadcrumbArranger`.
 		*
 		* @private
@@ -242,13 +218,6 @@
 		queuedIndex: null,
 
 		/**
-		* Flag for initial transition.
-		*
-		* @private
-		*/
-		_initialTransition: true,
-
-		/**
 		* Flag for blocking consecutive push/pop/replace panel actions to protect
 		* create/render/destroy time.
 		*
@@ -257,11 +226,18 @@
 		isModifyingPanels: false,
 
 		/**
-		* Flag to indicate if the Panels are currently transitioning to a new index
+		* Flag to indicate if the Panels are currently transitioning to a new index.
 		*
 		* @private
 		*/
 		transitioning: false,
+
+		/**
+		* Width of breadcrumb.
+		*
+		* @private
+		*/
+		breadcrumbWidth: enyo.ri.scale(96),
 
 		/**
 		* Checks the state of panel transitions.
@@ -297,8 +273,8 @@
 		*/
 		getBreadcrumbMax: function () {
 			if (this.pattern == 'activity') return 1;
-			// Always viewing panel is using half screen to show breadcrumbs
-			return Math.round(scope.innerWidth / 2 / 100);
+			// Always viewing pattern is using half screen to show breadcrumbs
+			return Math.round(scope.innerWidth / 2 / this.breadcrumbWidth);
 		},
 
 		/**
@@ -324,6 +300,10 @@
 			return {start: start, end: end};
 		},
 
+		/*
+		* We just recalculate transition position on pushPanel, because reflow is high cost operation.
+		* @private
+		*/
 		recalcLayout: function () {
 			this.arrangements = [];
 			this.layout && this.layout.calcTransitionPositions();
@@ -343,10 +323,9 @@
 			var lastIndex = this.getPanels().length - 1,
 				oPanel = this.createComponent(info, moreInfo);
 			oPanel.render();
-			this.recalcLayout();
-			oPanel.show();
 			oPanel.resize();
-			this.addRemoveBreadcrumb(true);
+			this.addBreadcrumb(true);
+			this.recalcLayout();
 			this.setIndex(lastIndex+1);
 			this.isModifyingPanels = false;
 			return oPanel;
@@ -389,16 +368,15 @@
 			for (nPanel = 0; nPanel < oPanels.length; ++nPanel) {
 				oPanels[nPanel].render();
 			}
-			this.recalcLayout();
 			if (options.targetIndex || options.targetIndex === 0) {
 				lastIndex = options.targetIndex;
 			}
 			lastIndex = this.clamp(lastIndex);
-			this.getPanels()[lastIndex].show();
 			for (nPanel = 0; nPanel < oPanels.length; ++nPanel) {
 				oPanels[nPanel].resize();
 			}
-			this.addRemoveBreadcrumb(true);
+			this.addBreadcrumb(true);
+			this.recalcLayout();
 			// If transition was explicitly set to false, since null or undefined indicate 'never set' or unset
 			if (options.transition === false) {
 				this.setIndexDirect(lastIndex);
@@ -419,13 +397,17 @@
 		popPanels: function (index) {
 			if (this.transitioning || this.isModifyingPanels) {return;}
 			this.isModifyingPanels = true;
-			var panels = this.getPanels();
-			index = index || panels.length - 1;
+			var panels = this.getPanels(), breadcrumb,
+				index = index || panels.length - 1;
 
 			while (panels.length > index && index >= 0) {
 				panels[panels.length - 1].destroy();
+				if (index <= this.getBreadcrumbMax()) {
+					breadcrumb = this.getBreadcrumbForIndex(panels.length - 1);
+					breadcrumb.destroy(); 
+				}
 			}
-			this.addRemoveBreadcrumb(true);
+			this.recalcLayout();
 			this.isModifyingPanels = false;
 		},
 
@@ -563,7 +545,6 @@
 				// we need to ensure our handler has the opportunity to modify the flow during
 				// initialization
 				this.showingChanged();
-				this.brandingSrcChanged();
 			};
 		}),
 
@@ -573,7 +554,7 @@
 		initComponents: function () {
 			this.applyPattern();
 			this.inherited(arguments);
-			this.addRemoveBreadcrumb();
+			this.addBreadcrumb();
 			this.initializeShowHideHandle();
 			this.handleShowingChanged();
 			this.allowBackKeyChanged();
@@ -593,7 +574,6 @@
 					this._directHide();
 				}
 			}
-			this.displayBranding();
 		},
 
 		/**
@@ -635,10 +615,7 @@
 			}
 			var orig = oEvent.originator,
 				idx;
-			// Don't allow left-movement from a breadcrumb
-			if (orig.name === 'breadcrumbBackground') {
-				return true;
-			}
+
 			if (orig instanceof moon.Panel) {
 				idx = this.getPanelIndex(orig);
 				if (idx === 0) {
@@ -665,12 +642,7 @@
 			var orig = oEvent.originator,
 				idx = this.getPanelIndex(orig),
 				next = this.getPanels()[idx + 1];
-			if (orig.name === 'breadcrumbBackground') {
-				// Upon pressing right from a pointer-focused breadcrumb, just jump
-				// to the current panel to keep focus visible
-				enyo.Spotlight.spot(next);
-				return true;
-			}
+
 			if (next && orig instanceof moon.Panel) {
 				if (this.useHandle === true && this.handleShowing && next.isOffscreen) {
 					enyo.Spotlight.spot(this.$.showHideHandle);
@@ -685,17 +657,10 @@
 		/**
 		* @private
 		*/
-		spotlightDown: function (oSender, oEvent) {
-			if (oEvent.originator.name === 'breadcrumbBackground') { return true; }
-		},
-
-		/**
-		* @private
-		*/
 		spotlightFocus: function (oSender, oEvent) {
 			var orig = oEvent.originator;
 			var idx = this.getPanelIndex(orig);
-			if (this.index !== idx && idx !== -1 && orig.name !== 'breadcrumbBackground') {
+			if (this.index !== idx && idx !== -1) {
 				this.setIndex(idx);
 			}
 		},
@@ -831,20 +796,19 @@
 				index = this.clamp(index);
 			}
 
-			if (index === this.index) {
+			if (index === this.index || this.toIndex !== null) {
 				return;
 			}
 
-			if (this.toIndex !== null) {
-				return;
-			}
+			// Clear before start
+			this.queuedIndex = null;
+			this._willMove = null;
 
-			this.notifyPanels('initPanel');
+			// Set indexes before notify panels
 			this.fromIndex = this.index;
 			this.toIndex = index;
 
-			this.queuedIndex = null;
-			this._willMove = null;
+			this.notifyPanels('initPanel');
 
 			// Ensure any VKB is closed when transitioning panels
 			this.blurActiveElementIfHiding(index);
@@ -859,10 +823,10 @@
 				}
 
 				this.startTransition();
-				this.triggerPreTransitions();
-			} else {
-				this._setIndex(this.toIndex);
+				this.addClass('transitioning');
 			}
+
+			this._setIndex(this.toIndex);
 		},
 
 		/**
@@ -878,8 +842,8 @@
 				for (var i = 0; i < panels.length; i++) {
 					panel = panels[i];
 					if (activeComponent.isDescendantOf(panel)) {
-						panelInfo = this.getPanelInfo(i, index);
-						if (panelInfo.offscreen) {
+						panelInfo = this.getTransitionInfo(i, index);
+						if (panelInfo.isOffscreen) {
 							document.activeElement.blur();
 						}
 						break;
@@ -932,7 +896,8 @@
 		animationEnded: enyo.inherit(function (sup) {
 			return function () {
 				if (this.animate) {
-					this.triggerPostTransitions();
+					this.removeClass('transitioning');
+					this.completed();
 				} else {
 					sup.apply(this, arguments);
 				}
@@ -944,108 +909,15 @@
 		/**
 		* @private
 		*/
-		getPanelInfo: function (inPanelIndex, inActiveIndex) {
-			return this.layout.getPanelInfo && this.layout.getPanelInfo(inPanelIndex, inActiveIndex) || {};
-		},
-
-		/**
-		* @private
-		*/
 		getTransitionInfo: function (inPanelIndex) {
-			var to = (this.toIndex || this.toIndex === 0) ? this.toIndex : this.index;
-			var info = this.getPanelInfo(inPanelIndex, to);
+			var to = (this.toIndex || this.toIndex === 0) ? this.toIndex : this.index,
+				info = {};
 			info.isOffscreen = (inPanelIndex != to);
-			info.isBreadcrumb = (inPanelIndex < to);
 			info.from = this.fromIndex;
 			info.to = this.toIndex;
 			info.index = inPanelIndex;
 			info.animate = this.animate;
 			return info;
-		},
-
-		/**
-		* If any panel has a pre-transition, pushes the panel's index to `preTransitionWaitList`.
-		*
-		* @private
-		*/
-		triggerPreTransitions: function () {
-			var panels = this.getPanels(),
-				info;
-
-			this.preTransitionWaitlist = [];
-
-			for(var i = 0, panel; (panel = panels[i]); i++) {
-				info = this.getTransitionInfo(i);
-				if (panel.preTransition && panel.preTransition(info)) {
-					this.preTransitionWaitlist.push(i);
-				}
-			}
-
-			if (this.preTransitionWaitlist.length === 0) {
-				this._setIndex(this.toIndex);
-			}
-		},
-
-		/**
-		* @private
-		*/
-		preTransitionComplete: function (sender, event) {
-			var index = this.getPanels().indexOf(event.originator);
-
-			for (var i = 0; i < this.preTransitionWaitlist.length; i++) {
-				if (this.preTransitionWaitlist[i] === index) {
-					this.preTransitionWaitlist.splice(i,1);
-					break;
-				}
-			}
-
-			if (this.preTransitionWaitlist.length === 0) {
-				this._setIndex(this.toIndex);
-			}
-
-			return true;
-		},
-
-		/**
-		* @private
-		*/
-		triggerPostTransitions: function () {
-			var panels = this.getPanels(),
-				info;
-
-			this.postTransitionWaitlist = [];
-
-			for(var i = 0, panel; (panel = panels[i]); i++) {
-				info = this.getTransitionInfo(i);
-				if (panel.postTransition && panel.postTransition(info)) {
-					this.postTransitionWaitlist.push(i);
-				}
-			}
-
-			if (this.postTransitionWaitlist.length === 0) {
-				this.completed();
-				return true;
-			}
-		},
-
-		/**
-		* @private
-		*/
-		postTransitionComplete: function (sender, event) {
-			var index = this.getPanels().indexOf(event.originator);
-
-			for (var i = 0; i < this.postTransitionWaitlist.length; i++) {
-				if (this.postTransitionWaitlist[i] === index) {
-					this.postTransitionWaitlist.splice(i,1);
-					break;
-				}
-			}
-
-			if (this.postTransitionWaitlist.length === 0) {
-				this.completed();
-			}
-
-			return true;
 		},
 
 		/**
@@ -1059,16 +931,15 @@
 				range = this.getBreadcrumbRange(),
 				control, i;
 
-			panels[this.index] && panels[this.index].set('spotlightDisabled', false);
-			panels[old] && panels[old].set('spotlightDisabled', true);
-			
-			// Blocking spotlight while change index
-			this.$.breadcrumbs.set('spotlight', false);
+			if (this.$.breadcrumbs) {
+				// Blocking spotlight while change index
+				this.$.breadcrumbs.set('spotlight', false);
 
-			// Set index to breadcrumb to display number
-			for (i=range.start; i<range.end; i++) {
-				control = this.getBreadcrumbForIndex(i);
-				control.set('index', i);
+				// Set index to breadcrumb to display number
+				for (i=range.start; i<range.end; i++) {
+					control = this.getBreadcrumbForIndex(i);
+					control.set('index', i);
+				}
 			}
 
 			// Set animation direction to use proper timing function before start animation
@@ -1077,13 +948,10 @@
 			// First panel in activity pattern is using full width
 			if (this.pattern == 'activity' && ((this.fromIndex > this.toIndex && this.toIndex === 0) ||
 				(this.fromIndex === undefined && this.toIndex === undefined))) {
-				this.removeClass('transition');	// We don't use transition while move backward
 				this.addClass('first');
 			}
 
 			this.inherited(arguments);
-
-			this.displayBranding();
 		},
 
 		notifyPanels: function (method) {
@@ -1109,18 +977,18 @@
 					end = this.index,
 					start = end - this.getBreadcrumbs().length;
 
-				this.$.breadcrumbs.set('spotlight', null);
+				if (this.$.breadcrumbs) {
+					this.$.breadcrumbs.set('spotlight', null);
 
-				// Turn off spotlight focus for offscreen breadcrumbs
-				for (i=start; i<end; i++) {
-					control = this.getBreadcrumbForIndex(i);
-					control.set('spotlight', (i>=0) && (this.index-i <= this.getBreadcrumbMax()));
-					// console.log(control.name, this.index, i, control.get('spotlight'));
+					// Turn off spotlight focus for offscreen breadcrumbs
+					for (i=start; i<end; i++) {
+						control = this.getBreadcrumbForIndex(i);
+						control.set('spotlight', (i>=0) && (this.index-i <= this.getBreadcrumbMax()));
+					}
 				}
 
 				if (this.pattern == 'activity') {
 					if (this.fromIndex < this.toIndex && this.fromIndex == 0) {
-						this.addClass('transition');	// We use transition after move forward
 						this.removeClass('first');
 					}
 				}
@@ -1134,7 +1002,7 @@
 					for (i = 0; (panel = panels[i]); i++) {
 						info = this.getTransitionInfo(i);
 						// If a panel is onscreen, don't pop it
-						if ((i > toIndex) && !info.offscreen) {
+						if ((i > toIndex) && !info.isOffscreen) {
 							popFrom++;
 						}
 					}
@@ -1200,10 +1068,10 @@
 		applyPattern: function () {
 			switch (this.pattern) {
 			case 'alwaysviewing':
-				this.applyAlwaysViewingPattern();
-				break;
 			case 'activity':
-				this.applyActivityPattern();
+				this.addClass(this.pattern);
+				this.useHandle = (this.useHandle === 'auto') ? true : this.useHandle;
+				this.createChrome(this.handleTools);
 				break;
 			default:
 				this.useHandle = false;
@@ -1214,48 +1082,43 @@
 		/**
 		* @private
 		*/
-		applyAlwaysViewingPattern: function () {
-			this.setArrangerKind('moon.MoonArranger');
-			this.addClass('always-viewing');
-			this.panelCoverRatio = 0.5;
-			this.useHandle = (this.useHandle === 'auto') ? true : this.useHandle;
-			this.createChrome(this.handleTools);
-			this.breadcrumbGap = 20;
-		},
+		addBreadcrumb: function (forceRender) {
+			if (!this.$.breadcrumbs) return;
 
-		/**
-		* @private
-		*/
-		applyActivityPattern: function () {
-			this.setArrangerKind('moon.MoonArranger');
-			this.addClass('activity');
-			this.showFirstBreadcrumb = true;
-			this.useHandle = (this.useHandle === 'auto') ? false : this.useHandle;
-			this.createChrome(this.handleTools);
-			this.breadcrumbGap = 0;
-		},
-
-		/**
-		* @private
-		*/
-		addRemoveBreadcrumb: function (forceRender) {
 			// If we have 1 panel then we don't need breadcrumb.
 			// If we have more then 1 panel then we need panel - 1 number of breadcrumbs.
 			// But, if we can only see 1 breadcrumb on screen like activity pattern 
 			// then we need 2 breadcrumbs to show animation.
-			var len = Math.max(0, Math.min(this.getPanels().length-1, this.getBreadcrumbMax()+1)),
-				defs = [], breadcrumbs, i;
+			var len = Math.max(2, Math.min(this.getPanels().length-1, this.getBreadcrumbMax()+1)),
+				defs = [], 
+				prevLen = this.getBreadcrumbs().length,
+				breadcrumbs, i;
 
-			for(i=0; i<len; i++) {
+			for(i=0; i<len-prevLen; i++) {
 				defs[i] = {kind: 'moon.Breadcrumb'};
 			}
-			this.$.breadcrumbs.createComponent(defs, {owner: this});
+			this.$.breadcrumbs.createComponents(defs, {owner: this});
 			if (forceRender) {
 				breadcrumbs = this.getBreadcrumbs();
-				for (i=0; i<len; i++) {
+				for (i=prevLen; i<len; i++) {
 					breadcrumbs[i].render();
 				}
 			}
+		},
+
+		/**
+		* @private
+		*/
+		removeBreadcrumb: function () {
+			if (!this.$.breadcrumbs) return;
+
+			// If we have 1 panel then we don't need breadcrumb.
+			// If we have more then 1 panel then we need panel - 1 number of breadcrumbs.
+			// But, if we can only see 1 breadcrumb on screen like activity pattern 
+			// then we need 2 breadcrumbs to show animation.
+			var len = Math.max(2, Math.min(this.getPanels().length-1, this.getBreadcrumbMax()+1)),
+				i;
+
 			// If we have more than the number of necessary breadcrumb then destroy.
 			while (this.getBreadcrumbs().length > len) {
 				this.getBreadcrumbs()[this.getBreadcrumbs().length-1].destroy();
@@ -1383,28 +1246,6 @@
 		hideAnimationComplete: function () {
 			if (this.handleShowing) {
 				this.$.showHideHandle.removeClass('hidden');
-			}
-		},
-
-		/**
-		* @private
-		*/
-		displayBranding: function () {
-			if (this.$.branding) {
-				if (this.pattern == 'activity' && this.getPanelInfo(0, this.index).breadcrumb) {
-					this.$.branding.show();
-				} else {
-					this.$.branding.hide();
-				}
-			}
-		},
-
-		/**
-		* @private
-		*/
-		brandingSrcChanged: function () {
-			if (this.$.branding) {
-				this.$.branding.set('src', this.brandingSrc);
 			}
 		},
 
@@ -1540,7 +1381,8 @@
 		* @private
 		*/
 		formatNumber: function (n) {
-			return '< ' + ((n < 10) ? '0' : '') + n;
+			var i=n+1;
+			return '< ' + ((i < 10) ? '0' : '') + i;
 		},
 
 		/*

@@ -3,74 +3,76 @@ enyo.kind({
 	classes: "moon enyo-fit enyo-unselectable",
 	components: [
 		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", components: [
-			{kind: "moon.Panel", title: "Video", classes: "moon-4h", components: [
-				{kind: "moon.Divider", content: "Select video content"},
-				{name: "vidContents", kind: "Group", style: "margin-top: 20px;", components: [
-					{kind: "moon.SelectableItem", content: "Counter", onActivate: "webMovieCounter"},
-					{kind: "moon.SelectableItem", selected: true, content: "Bunny", onActivate: "webMovieBunny"},
-					{kind: "moon.SelectableItem", content: "Sintel", onActivate: "webMovieSintel"},
-					{kind: "moon.SelectableItem", content: "Error URL", onActivate: "error"}
+			{kind: "moon.Panel", title: "Video", layoutKind: 'FittableColumnsLayout', components: [
+				{name: 'menu', classes: "moon-4h", components: [
+					{kind: "moon.Divider", content: "Select video content"},
+					{name: "vidContents", kind: "Group", style: "margin-top: 20px;", components: [
+						{kind: "moon.SelectableItem", content: "Counter", onActivate: "webMovieCounter"},
+						{kind: "moon.SelectableItem", selected: true, content: "Bunny", onActivate: "webMovieBunny"},
+						{kind: "moon.SelectableItem", content: "Sintel", onActivate: "webMovieSintel"},
+						{kind: "moon.SelectableItem", content: "Error URL", onActivate: "error"}
+					]},
+					{classes:"moon-vspacing-m", components: [
+						{kind: "moon.Button", content: "Unload", ontap: "unload"},
+						{kind: "moon.Button", content:"Reload", ontap:"load"},
+						{kind: "moon.ToggleButton", name:"autoplayToggle", content:"AutoPlay"}
+					]}
 				]},
-				{classes:"moon-vspacing-m", components: [
-					{kind: "moon.Button", content: "Unload", ontap: "unload"},
-					{kind: "moon.Button", content:"Reload", ontap:"load"},
-					{kind: "moon.ToggleButton", name:"autoplayToggle", content:"AutoPlay"}
+				{name: 'videoarea', fit: true, components: [
+					{
+						fit: true,
+						components: [{
+							name: "player",
+							kind: "moon.VideoPlayer",
+							inline:true,
+							classes: "moon-8h",
+							poster: "$lib/moonstone/samples/assets/video-poster.png",
+							infoComponents: [{
+								kind: "moon.VideoInfoBackground",
+								orient: "left",
+								fit: true,
+								components: [
+									{
+										kind: "moon.ChannelInfo",
+										channelNo: "13",
+										channelName: "AMC",
+										classes: "moon-2h",
+										components: [
+											{content: "3D"},
+											{content: "Live"},
+											{content: "REC 08:22", classes: "moon-video-player-info-redicon"}
+										]
+									},
+									{
+										kind: "moon.VideoInfoHeader",
+										title: "Downton Abbey",
+										subTitle: "Mon June 21, 7:00 - 8:00pm",
+										subSubTitle: "R - TV 14, V, L, SC",
+										description: "The series, set in the Youkshire country estate of Downton Abbey, depicts the lives of the aristocratic Crawley famiry and"
+									}
+								]
+							}, {
+								kind: "moon.VideoInfoBackground",
+								orient: "right",
+								components: [
+									{kind:"moon.Clock"}
+								]
+							}],
+							components: [
+								{kind: "moon.VideoFullscreenToggleButton"},
+								{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+								{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+								{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+								{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+								{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+								{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+								{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+								{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+								{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"}
+							]
+						}]
+					}
 				]}
-			]},
-			{kind: "moon.Panel", joinToPrev: true, title: "Player", layoutKind: "FittableColumnsLayout", classes: "moon-7h", components: [
-				{
-					fit: true,
-					components: [{
-						name: "player",
-						kind: "moon.VideoPlayer",
-						inline:true,
-						classes: "moon-8h",
-						poster: "$lib/moonstone/samples/assets/video-poster.png",
-						infoComponents: [{
-							kind: "moon.VideoInfoBackground",
-							orient: "left",
-							fit: true,
-							components: [
-								{
-									kind: "moon.ChannelInfo",
-									channelNo: "13",
-									channelName: "AMC",
-									classes: "moon-2h",
-									components: [
-										{content: "3D"},
-										{content: "Live"},
-										{content: "REC 08:22", classes: "moon-video-player-info-redicon"}
-									]
-								},
-								{
-									kind: "moon.VideoInfoHeader",
-									title: "Downton Abbey",
-									subTitle: "Mon June 21, 7:00 - 8:00pm",
-									subSubTitle: "R - TV 14, V, L, SC",
-									description: "The series, set in the Youkshire country estate of Downton Abbey, depicts the lives of the aristocratic Crawley famiry and"
-								}
-							]
-						}, {
-							kind: "moon.VideoInfoBackground",
-							orient: "right",
-							components: [
-								{kind:"moon.Clock"}
-							]
-						}],
-						components: [
-							{kind: "moon.VideoFullscreenToggleButton"},
-							{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-							{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-							{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-							{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-							{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-							{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-							{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-							{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-							{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"}
-						]
-					}]
-				}
 			]}
 		]}
 	],

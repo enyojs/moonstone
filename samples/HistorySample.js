@@ -75,29 +75,29 @@ enyo.kind({
 					{kind: 'moon.IconButton', small: false, classes: 'moon-icon-video-round-controls-style'}
 				]},
 				{name: 'panels', kind: 'moon.Panels', pattern: 'activity', classes: 'enyo-fit', useHandle: true, onShowingChanged: 'panelsShowingChanged', components: [
-					{title: 'First Panel', classes: 'moon-7h', titleBelow:'Sub-title', subTitleBelow:'Sub-sub title', components: [
+					{title: 'First Panel', titleBelow:'Sub-title', subTitleBelow:'Sub-sub title', components: [
 						{kind: 'moon.Item', content: 'Item One', ontap: 'next1'},
 						{kind: 'moon.Item', content: 'Item Two', ontap: 'next1'},
 						{kind: 'moon.Item', content: 'Item Three', ontap: 'next1'},
 						{kind: 'moon.Item', content: 'Item Four', ontap: 'next1'},
 						{kind: 'moon.ToggleItem', content: 'Show/Hide Side Handle', checked: true,  onchange: 'handleShowingChanged'}
 					]},
-					{title: 'Second Panel', classes: 'moon-7h',
-						joinToPrev: true, components: [
+					{title: 'Second Panel',
+						components: [
 						{kind: 'moon.Item', content: 'Item One', ontap: 'next2'},
 						{kind: 'moon.Item', content: 'Item Two', ontap: 'next2'},
 						{kind: 'moon.Item', content: 'Item Three', ontap: 'next2'},
 						{kind: 'moon.Item', content: 'Item Four', ontap: 'next2'},
 						{kind: 'moon.Item', content: 'Item Five', ontap: 'next2'}
 					]},
-					{title: 'Third Panel', classes: 'moon-7h', titleBelow:'Sub-title', subTitleBelow:'Sub-sub title', components: [
+					{title: 'Third Panel', titleBelow:'Sub-title', subTitleBelow:'Sub-sub title', components: [
 						{kind: 'moon.Item', content: 'Item One', ontap: 'next3'},
 						{kind: 'moon.Item', content: 'Item Two', ontap: 'next3'},
 						{kind: 'moon.Item', content: 'Item Three', ontap: 'next3'},
 						{kind: 'moon.Item', content: 'Item Four', ontap: 'next3'},
 						{kind: 'moon.Item', content: 'Item Five', ontap: 'next3'}
 					]},
-					{title: 'Fourth', classes: 'moon-7h', joinToPrev: true, titleBelow:'Sub-title', subTitleBelow:'Sub-sub title', headerComponents: [
+					{title: 'Fourth', titleBelow:'Sub-title', subTitleBelow:'Sub-sub title', headerComponents: [
 						{kind: 'moon.Button', content: 'Basic Popup', ontap: 'showPopup', popup: 'basicPopup'},
 						{kind: 'moon.ContextualPopupDecorator',	components:	[
 							{content: 'ContextualPopup'},
@@ -127,14 +127,14 @@ enyo.kind({
 							{kind: 'moon.Button', content: 'Hide Direct', ontap: 'hidePopup', popup: 'directPopup', direct: true}
 						]}
 					]},
-					{title: 'Fifth', classes: 'moon-7h', titleBelow:'Sub-title', subTitleBelow:'Sub-sub title', components: [
+					{title: 'Fifth', titleBelow:'Sub-title', subTitleBelow:'Sub-sub title', components: [
 						{kind: 'moon.Item', content: 'Item One', ontap: 'next5'},
 						{kind: 'moon.Item', content: 'Item Two', ontap: 'next5'},
 						{kind: 'moon.Item', content: 'Item Three', ontap: 'next5'},
 						{kind: 'moon.Item', content: 'Item Four', ontap: 'next5'},
 						{kind: 'moon.Item', content: 'Item Five', ontap: 'next5'}
 					]},
-					{title: 'Sixth', classes: 'moon-7h', joinToPrev: true, titleBelow:'Sub-title', subTitleBelow:'Sub-sub title', headerComponents: [
+					{title: 'Sixth', titleBelow:'Sub-title', subTitleBelow:'Sub-sub title', headerComponents: [
 						//* List actions with default width
 						{kind: "moon.ListActions", name:"listActions", icon:"drawer", proportionalWidth: true, listActions: [
 							{action:"category2", components: [
@@ -157,7 +157,7 @@ enyo.kind({
 						{kind: 'moon.Item', content: 'Item Four', ontap: 'next6'},
 						{kind: 'moon.Item', content: 'Item Five', ontap: 'next6'}
 					]},
-					{title: 'Seventh', classes: 'moon-7h', titleBelow:'Sub-title', subTitleBelow:'Sub-sub title', components: [
+					{title: 'Seventh', titleBelow:'Sub-title', subTitleBelow:'Sub-sub title', components: [
 						{kind: 'moon.Item', content: 'Item One'},
 						{kind: 'moon.Item', content: 'Item Two'},
 						{kind: 'moon.Item', content: 'Item Three'},

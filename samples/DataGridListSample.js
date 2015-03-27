@@ -4,15 +4,7 @@ enyo.kind({
 	pattern: "activity",
 	classes: "moon enyo-fit enyo-unselectable",
 	components: [
-		{kind: "moon.Panel", classes:"moon-6h", title:"Menu", components: [
-			{kind:"moon.Item", content:"Scroll"},
-			{kind:"moon.Item", content:"the"},
-			{kind:"moon.Item", content:"Data Grid List"},
-			{kind:"moon.Item", content:"to"},
-			{kind:"moon.Item", content:"the"},
-			{kind:"moon.Item", content:"Right!"}
-		]},
-		{kind: "moon.Panel", joinToPrev: true, title:"Data Grid List", headerComponents: [
+		{kind: "moon.Panel", title:"Data Grid List", headerComponents: [
 			{kind: "moon.ToggleButton", content:"Selection", name:"selectionToggle"},
 			{kind: "moon.ContextualPopupDecorator", components: [
 				{kind: "moon.ContextualPopupButton", content:"Selection Type"},

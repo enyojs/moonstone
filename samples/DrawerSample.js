@@ -44,7 +44,7 @@ enyo.kind({
 					pattern: "activity",
 					classes: "enyo-fit",
 					components: [
-						{title: "First Panel", classes: "moon-7h", components: [
+						{title: "First Panel", components: [
 							{kind: "moon.Scroller", horizontal: "hidden", classes: "enyo-fill", components: [
 								{kind: "moon.ExpandablePicker", onChange: "pickerChangedImg", content: "Select Image", components: [
 									{content: "Music",value: "$lib/moonstone/samples/assets/drawer_icon.png"},
@@ -67,28 +67,28 @@ enyo.kind({
 								{kind: "moon.Item", content: "Item Two", ontap: "next"}
 							]}
 						]},
-						{title: "Second Panel", classes: "moon-7h", components: [
+						{title: "Second Panel", components: [
 							{kind: "moon.Item", content: "Item One", ontap: "next"},
 							{kind: "moon.Item", content: "Item Two", ontap: "next"},
 							{kind: "moon.Item", content: "Item Three", ontap: "next"},
 							{kind: "moon.Item", content: "Item Four", ontap: "next"},
 							{kind: "moon.Item", content: "Item Five", ontap: "next"}
 						]},
-						{title: "Third Panel", classes: "moon-7h", components: [
+						{title: "Third Panel", components: [
 							{kind: "moon.Item", content: "Item One", ontap: "next"},
 							{kind: "moon.Item", content: "Item Two", ontap: "next"},
 							{kind: "moon.Item", content: "Item Three", ontap: "next"},
 							{kind: "moon.Item", content: "Item Four", ontap: "next"},
 							{kind: "moon.Item", content: "Item Five", ontap: "next"}
 						]},
-						{title: "Fourth Panel", classes: "moon-7h", components: [
+						{title: "Fourth Panel", components: [
 							{kind: "moon.Item", content: "Item One", ontap: "next"},
 							{kind: "moon.Item", content: "Item Two", ontap: "next"},
 							{kind: "moon.Item", content: "Item Three", ontap: "next"},
 							{kind: "moon.Item", content: "Item Four", ontap: "next"},
 							{kind: "moon.Item", content: "Item Five", ontap: "next"}
 						]},
-						{title: "Fifth Panel", classes: "moon-7h", components: [
+						{title: "Fifth Panel", components: [
 							{kind: "moon.Item", content: "Item One", ontap: "next"},
 							{kind: "moon.Item", content: "Item Two", ontap: "next"},
 							{kind: "moon.Item", content: "Item Three", ontap: "next"},

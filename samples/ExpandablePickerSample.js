@@ -2,8 +2,8 @@ enyo.kind({
 	name: "moon.sample.ExpandablePickerSample",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
-		{kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", components: [
-			{kind: "moon.Panel", name: "nonGroupedPanel", onChange: "pickerChanged", title: "Expandable", headerType: "medium", titleBelow: "Not grouped", style: "width:50%;", components: [
+		{kind: "moon.Panels", useHandle: false, pattern: "activity", classes: "enyo-fit", components: [
+			{kind: "moon.Panel", name: "nonGroupedPanel", onChange: "pickerChanged", title: "Expandable", headerType: "medium", titleBelow: "Not grouped", components: [
 				{kind: "moon.Scroller", horizontal: "hidden", classes: "enyo-fill", components: [
 					{style: "max-width: 500px;", components: [
 						{kind: "moon.ExpandablePicker", noneText: "Nothing selected", content: "Expandable Picker", allowHtml:true, components: [
@@ -52,7 +52,7 @@ enyo.kind({
 					]}
 				]}
 			]},
-			{kind: "moon.Panel", name: "groupedPanel", onChange: "pickerChanged", title: "Pickers", headerType: "medium", titleBelow: "Grouped", joinToPrev:true, components: [
+			{kind: "moon.Panel", name: "groupedPanel", onChange: "pickerChanged", title: "Pickers", headerType: "medium", titleBelow: "Grouped", components: [
 				{kind: "enyo.Group", tag:null, highlander: true, components: [
 					{kind: "moon.Scroller", horizontal: "hidden", classes: "enyo-fill", components: [
 						{style: "max-width: 500px;", components: [
