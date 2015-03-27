@@ -89,7 +89,7 @@
 			* @default 'Nothing selected'
 			* @public
 			*/
-			noneText: moon.$L('Nothing selected'),
+			noneText: moon.$L('Nothing selected')
 		},
 
 		/**
@@ -213,7 +213,6 @@
 		*/
 		checkDays: function () {
 			var indexLength = this.selectedIndex.length;
-			var joinIndex = this.selectedIndex.join();
 			var hasWeekEnd = this.checkWeekEnd();
 
 			switch (indexLength) {
