@@ -192,7 +192,6 @@
 			// TODO: adding a hacky workaround to prevent undesired collapse of the control when
 			// initiating a drag on the InputDecorator control on the TV (guarding against both
 			// 'drag' and 'dragstart')
-			enyo.log(eventType);
 			if (enyo.Spotlight.getPointerMode() && eventType !== 'onSpotlightFocus'
 				&& eventType !== 'mouseover' && eventType !== 'dragstart' && eventType !== 'drag') {
 				this.toggleActive();
