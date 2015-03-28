@@ -189,8 +189,10 @@
 		*/
 		inputBlur: function (sender, ev) {
 			var eventType = enyo.Spotlight.getLastEvent().type;
+			// TODO: adding a hacky workaround to prevent undesired collapse of the control when
+			// initiating a drag on the InputDecorator control on the TV
 			if (enyo.Spotlight.getPointerMode() && eventType !== 'onSpotlightFocus'
-				&& eventType !== 'mouseover' && ev.originator !== this.$.inputDecorator) {
+				&& eventType !== 'mouseover' && eventType !== 'dragstart') {
 				this.toggleActive();
 			}
 		},
