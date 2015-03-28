@@ -161,7 +161,9 @@
 			if (this.getOpen()) {
 				this.setActive(false);
 				this.$.clientInput.blur();
+				this.$.inputDecorator.addClass('disabled');
 			} else {
+				this.$.inputDecorator.removeClass('disabled');
 				this.setActive(true);
 				enyo.Spotlight.unspot();
 				this.focusInput();
