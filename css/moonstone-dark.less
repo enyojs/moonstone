@@ -6,3 +6,23 @@
 
 // Moonstone rules defined here
 @import "moonstone-rules.less";
+
+.moon-theme-light {
+	@import "moonstone-variables-light.less";
+	@import "moonstone-rules-color.less";
+	@import "moonstone-text-color.less";
+
+	color: @moon-sub-header-text-color;
+	background-color: @moon-background-color;
+
+	// These should be in the same order as they are in moonstone-rules.less
+	@import "Icon-color.less";
+	@import "IconButton-color.less";
+	@import "Item-color.less";
+	@import "Button-color.less";
+	@import "Header-color.less";
+	@import "Spinner-color.less";
+	@import "Panel-color.less";
+	@import "Panels-color.less";
+	@import "FormCheckbox-color.less";
+}

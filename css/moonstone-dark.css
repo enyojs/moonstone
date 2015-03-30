@@ -4851,3 +4851,258 @@ html {
   margin-top: 0.875rem;
   margin-bottom: 1.75rem;
 }
+.moon-theme-light {
+  /* Common classes applicable to multiple controls */
+  /* Text definitions */
+  color: #4b4b4b;
+  background-color: #ededed;
+  /* Icon.css */
+  /* IconButton.css */
+  /* Item.css */
+  /* Button */
+  /* Spinner.css */
+  /* Activity Panels Overrides */
+  /* AlwaysViewing Overrides */
+  /* Scrim */
+  /* Show/Hide Handle */
+  /* FormCheckbox.css */
+}
+.moon-theme-light .moon-divider-border {
+  border-bottom-color: #4b4b4b;
+}
+.moon-theme-light .moon-neutral-divider-border {
+  border-bottom-color: #ffffff;
+}
+.moon-theme-light .moon-sub-header-text {
+  font-family: "MuseoSans 700";
+  font-size: 1.25rem;
+  color: #4b4b4b;
+}
+.moon-theme-light .moon-divider-text {
+  color: #4b4b4b;
+}
+.moon-theme-light .moon-body-text {
+  color: #4b4b4b;
+}
+.moon-theme-light .moon-body-text a:link {
+  color: #cf0652;
+  text-decoration: none;
+}
+.moon-theme-light .moon-body-text a:visited {
+  color: #cf0652;
+  text-decoration: none;
+}
+.moon-theme-light .moon-body-text a:hover {
+  color: #cf0652;
+  text-decoration: none;
+}
+.moon-theme-light .moon-body-text a:active {
+  color: #cf0652;
+  text-decoration: none;
+}
+.moon-theme-light .moon-bold-text {
+  color: #4b4b4b;
+}
+.moon-theme-light .moon-bold-text a:link {
+  color: #cf0652;
+  text-decoration: none;
+}
+.moon-theme-light .moon-bold-text a:visited {
+  color: #cf0652;
+  text-decoration: none;
+}
+.moon-theme-light .moon-bold-text a:hover {
+  color: #cf0652;
+  text-decoration: none;
+}
+.moon-theme-light .moon-bold-text a:active {
+  color: #cf0652;
+  text-decoration: none;
+}
+.moon-theme-light .moon-icon-text {
+  color: #ffffff;
+}
+.moon-theme-light .moon-icon,
+.moon-theme-light .moon-icon-toggle {
+  color: #4b4b4b;
+}
+.moon-theme-light .spotlight .moon-icon {
+  color: #ffffff;
+}
+.moon-theme-light .moon-icon-button {
+  color: #999999;
+  background-color: #ffffff;
+}
+.moon-theme-light .moon-icon-button.hover:hover:not(.disabled),
+.moon-theme-light .moon-icon-button.spotlight {
+  color: #ffffff;
+  background-color: #cf0652;
+}
+.moon-theme-light .moon-icon-button.active:not(.spotlight),
+.moon-theme-light .moon-icon-button:active,
+.moon-theme-light .moon-icon-button.pressed,
+.moon-theme-light .moon-icon-button.hover:hover:not(.disabled):active {
+  color: #999999;
+  background-color: #ffffff;
+  border-color: #cf0652;
+}
+.moon-theme-light .moon-icon-button.active.spotlight:not(.contextual-popup-button) {
+  border-color: #ffffff;
+  background-color: #cf0652;
+  color: #ffffff;
+}
+.moon-theme-light .moon-icon-button.active.spotlight:not(.contextual-popup-button):active,
+.moon-theme-light .moon-icon-button.active.spotlight:not(.contextual-popup-button).pressed {
+  border-color: #cf0652;
+}
+.moon-theme-light .moon-item {
+  font-family: "MuseoSans 700";
+  font-size: 1.25rem;
+  color: #4b4b4b;
+}
+.moon-theme-light .moon-item.spotlight {
+  background-color: #cf0652;
+  color: #ffffff;
+}
+.moon-theme-light .enyo-locale-non-latin .moon-item {
+  font-family: "Moonstone LG Display Bold";
+  font-size: 1.25rem;
+}
+.moon-theme-light .moon-button {
+  background-color: #ffffff;
+  color: #4b4b4b;
+}
+.moon-theme-light .moon-button.active,
+.moon-theme-light .moon-button.pressed,
+.moon-theme-light .moon-button.spotlight.pressed,
+.moon-theme-light .moon-button.spotlight:active {
+  border-color: #cf0652;
+  background-color: #ffffff;
+  color: #4b4b4b;
+}
+.moon-theme-light .moon-button.spotlight {
+  background-color: #cf0652;
+  color: #ffffff;
+}
+.moon-theme-light .moon-button.active.spotlight:not(.contextual-popup-button) {
+  border-color: #ffffff;
+  background-color: #cf0652;
+  color: #ffffff;
+}
+.moon-theme-light .moon-button.active.spotlight:not(.contextual-popup-button):active,
+.moon-theme-light .moon-button.active.spotlight:not(.contextual-popup-button).pressed {
+  border-color: #cf0652;
+}
+.moon-theme-light .moon-button[disabled] {
+  color: #b3b3b3;
+  background-color: #ffffff;
+}
+.moon-theme-light .moon-neutral .moon-button {
+  color: #4b4b4b;
+  background-color: #ffffff;
+}
+.moon-theme-light .moon-neutral .moon-button.spotlight {
+  background-color: #cf0652;
+}
+.moon-theme-light .moon-neutral .moon-button.spotlight * {
+  color: #ffffff;
+}
+.moon-theme-light .moon-neutral .moon-button.active,
+.moon-theme-light .moon-neutral .moon-button.pressed,
+.moon-theme-light .moon-neutral .moon-button.spotlight.pressed,
+.moon-theme-light .moon-neutral .moon-button.spotlight:active {
+  border-color: #cf0652;
+  background-color: #ffffff;
+}
+.moon-theme-light .moon-neutral .moon-button.active *,
+.moon-theme-light .moon-neutral .moon-button.pressed *,
+.moon-theme-light .moon-neutral .moon-button.spotlight.pressed *,
+.moon-theme-light .moon-neutral .moon-button.spotlight:active * {
+  color: #4b4b4b;
+}
+.moon-theme-light .moon-neutral .moon-button[disabled] {
+  color: #b3b3b3;
+  background-color: #ffffff;
+}
+.moon-theme-light .moon-header {
+  color: #4b4b4b;
+  border-top-color: #4b4b4b;
+  border-bottom-color: #4b4b4b;
+}
+.moon-theme-light .moon-neutral .moon-header {
+  border-top-color: #ffffff;
+  border-bottom-color: #ffffff;
+}
+.moon-theme-light .moon-spinner {
+  color: #ffffff;
+  background-color: #4d4d4d;
+}
+.moon-theme-light .moon-spinner .moon-spinner-ball1 {
+  color: #69cdff;
+}
+.moon-theme-light .moon-spinner .moon-spinner-ball2 {
+  color: #ff4a4a;
+}
+.moon-theme-light .moon-spinner .moon-spinner-ball3 {
+  color: #ffb80d;
+}
+.moon-theme-light .moon-panel-small-header {
+  color: #4b4b4b;
+}
+.moon-theme-light .spotlight .moon-panel-small-header {
+  color: #ffffff;
+}
+.moon-theme-light .moon-panel-small-header-title-above {
+  color: #4b4b4b;
+  border-top-color: #ffffff;
+}
+.moon-theme-light .spotlight .moon-panel-small-header-title-above {
+  color: #ffffff;
+}
+.moon-theme-light .moon-panel .moon-panel-small-header-wrapper.spotlight {
+  background: #cf0652;
+  color: #ffffff;
+}
+.moon-theme-light .moon-panels.activity .moon-panel-small-header-title-above {
+  border-top-color: #4b4b4b;
+}
+.moon-theme-light .moon-panels.activity .moon-panel-small-header,
+.moon-theme-light .moon-panels.activity .moon-panel-small-header-title-above {
+  color: #4b4b4b;
+}
+.moon-theme-light .moon-panels.activity .moon-panel-small-header-wrapper.spotlight .moon-panel-small-header,
+.moon-theme-light .moon-panels.activity .moon-panel-small-header-wrapper.spotlight .moon-panel-small-header-title-above {
+  color: #ffffff;
+}
+.moon-theme-light .moon-panels.always-viewing .moon-panel-small-header,
+.moon-theme-light .moon-panels.always-viewing .moon-panel-small-header-title-above {
+  color: #ffffff;
+}
+.moon-theme-light .moon-panels.activity .moon-panels-panel-scrim {
+  background-color: #ededed;
+}
+.moon-theme-light .moon-panels.always-viewing .moon-panels-panel-scrim {
+  background-color: #ededed;
+}
+.moon-theme-light .moon-panels-handle:before {
+  background-color: #4b4b4b;
+  color: #ffffff;
+}
+.moon-theme-light .moon-panels-handle.spotlight:before {
+  background-color: #cf0652;
+}
+.moon-theme-light .moon-item.moon-formcheckbox-item {
+  background: none;
+}
+.moon-theme-light .moon-item.moon-formcheckbox-item .moon-checkbox {
+  background-color: #ffffff;
+}
+.moon-theme-light .moon-formcheckbox-item.spotlight .moon-checkbox {
+  background-color: #cf0652;
+}
+.moon-theme-light .moon-formcheckbox-item.spotlight .moon-checkbox-item-label-wrapper {
+  color: #4b4b4b;
+}
+.moon-theme-light .moon-neutral .moon-formcheckbox-item.spotlight .moon-checkbox-item-label-wrapper {
+  color: #ffffff;
+}

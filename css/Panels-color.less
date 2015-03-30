@@ -1,0 +1,21 @@
+/* Scrim */
+.moon-panels.activity .moon-panels-panel-scrim {
+	background-color: @moon-panels-scrim-activity-bg-color;
+}
+
+.moon-panels.always-viewing .moon-panels-panel-scrim {
+	background-color: @moon-panels-scrim-always-viewing-bg-color;
+}
+
+/* Show/Hide Handle */
+.moon-panels-handle {
+
+	&:before {
+		background-color: @moon-panels-handle-bg-color;
+		color: @moon-spotlight-text-color;
+	}
+
+	&.spotlight:before {
+		background-color: @moon-panels-spot-fg-color;
+	}
+}
