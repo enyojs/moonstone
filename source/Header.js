@@ -284,7 +284,7 @@
 				]}
 			]},
 			{name: 'titleBelow', kind: 'moon.MarqueeText', classes: 'moon-sub-header-text moon-header-title-below'},
-			{name: 'subTitleBelow', kind: 'moon.MarqueeText', classes: 'moon-body-text moon-header-sub-title-below'},
+			{name: 'subTitleBelow', kind: 'moon.MarqueeText', classes: 'moon-sub-header-text moon-header-sub-title-below'},
 			{name: 'client', classes: 'moon-hspacing moon-header-client'},
 			{name: 'animator', kind: 'enyo.StyleAnimator', onComplete: 'animationComplete'}
 		],

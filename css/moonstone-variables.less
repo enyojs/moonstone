@@ -53,16 +53,20 @@
 @moon-superscript-text-size:        24px;
 @moon-large-text-size:              48px;
 @moon-pre-text-size:                24px;
-@moon-popup-header-font-size:       72px;
-@moon-sub-header-font-size:         30px;
-@moon-super-header-font-size:       33px;
-@moon-body-font-size:               27px;
-@moon-divider-font-size:            21px;
-@moon-button-large-font-size:       33px;
-@moon-button-small-font-size:       27px;
 @moon-header-font-size:             126px;
-@moon-small-header-font-size:   	60px;
-@moon-small-header-sub-header-font-size:   	27px;
+@moon-super-header-font-size:       33px;
+@moon-sub-header-font-size:         30px;
+@moon-sub-header-below-font-size:   27px;
+@moon-small-header-font-size:       60px;
+@moon-small-header-sub-header-font-size:   @moon-sub-header-below-font-size;
+@moon-body-font-size:               33px;
+@moon-item-font-size:               33px;
+@moon-popup-header-font-size:       72px;
+@moon-popup-sub-header-font-size:   27px;
+@moon-popup-content-font-size:   	30px;
+@moon-divider-font-size:            24px;
+@moon-button-large-font-size:       36px;
+@moon-button-small-font-size:       27px;
 @moon-clock-minute-font-size:       60px;
 @moon-clock-text-font-size:         54px;
 @moon-clock-meridiem-font-size:     24px;
@@ -104,17 +108,18 @@
 @moon-non-latin-medium-header-line-height: 1.5em;
 @moon-non-latin-small-header-line-height: 1.5em;
 
-@moon-popup-header-font-family: "Moonstone Miso";
+@moon-popup-header-font-family: @moon-header-font-family;
 @moon-popup-header-font-weight: normal;
 @moon-popup-header-letter-spacing: normal;
 @moon-popup-header-font-style: normal;
 @moon-popup-header-line-height: normal;
 
-@moon-sub-header-font-family: "MuseoSans 700";
+@moon-sub-header-font-family: @moon-font-family;
 @moon-sub-header-font-weight: normal;
 @moon-sub-header-letter-spacing: 0;
 @moon-sub-header-font-style: normal;
 @moon-sub-header-line-height: 2em;
+@moon-sub-header-below-font-family: @moon-font-family-light;
 
 @moon-super-header-font-family: "Moonstone Miso";
 @moon-super-header-font-weight: normal;
