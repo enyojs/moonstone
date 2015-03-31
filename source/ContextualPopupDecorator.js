@@ -136,6 +136,7 @@
 		*/
 		requestSpot: function (inSender, inEvent) {
 			enyo.Spotlight.spot(this);
+			return true;
 		}
 	});
 
