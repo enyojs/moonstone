@@ -1,0 +1,32 @@
+// mixin classes for create the moontone text classes
+.moon-sub-header-text-base (@font-size, @font-color) {
+	font-family: @moon-sub-header-font-family;
+	font-size: @font-size;
+	color: @font-color;
+}
+/* Text definitions */
+.moon-sub-header-text {
+	.moon-sub-header-text-base (@moon-sub-header-font-size, @moon-sub-header-text-color);
+}
+.moon-divider-text {
+	color: @moon-divider-text-color;
+}
+.moon-body-text {
+	color: @moon-body-text-color;
+
+	a:link {color: @moon-spotlight-color; text-decoration:none;}
+	a:visited {color: @moon-spotlight-color; text-decoration:none;}
+	a:hover {color: @moon-spotlight-color; text-decoration:none;}
+	a:active {color: @moon-spotlight-color; text-decoration:none;}
+}
+.moon-bold-text {
+	color: @moon-body-text-color;
+
+	a:link {color: @moon-spotlight-color; text-decoration:none;}
+	a:visited {color: @moon-spotlight-color; text-decoration:none;}
+	a:hover {color: @moon-spotlight-color; text-decoration:none;}
+	a:active {color: @moon-spotlight-color; text-decoration:none;}
+}
+.moon-icon-text {
+	color: @moon-icon-color;
+}
