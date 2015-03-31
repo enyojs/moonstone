@@ -177,8 +177,8 @@
 
 		/**
 		* @private
-		*/	
-		tools: [
+		*/
+		animatorTools: [
 			{name: 'animator', kind: 'moon.MoonAnimator', onStep: 'step', useBezier: true, onEnd: 'animationEnded', configs: { 
 				panel: {
 					forward: { startValue: 0, endValue: 1, delay: 0, duration: 430, bezier: [.69,.01,.97,.59]},
@@ -305,8 +305,12 @@
 		* @private
 		*/
 		recalcLayout: function () {
-			this.arrangements = [];
-			this.layout && this.layout.calcTransitionPositions();
+			if (this.layout && this.layout.calcTransitionPositions) {
+				this.arrangements = [];
+				this.layout.calcTransitionPositions();
+			} else {
+				this.reflow();
+			}
 		},
 
 		/**
@@ -323,9 +327,9 @@
 			var lastIndex = this.getPanels().length - 1,
 				oPanel = this.createComponent(info, moreInfo);
 			oPanel.render();
-			oPanel.resize();
 			this.addBreadcrumb(true);
 			this.recalcLayout();
+			oPanel.resize();
 			this.setIndex(lastIndex+1);
 			this.isModifyingPanels = false;
 			return oPanel;
@@ -368,6 +372,8 @@
 			for (nPanel = 0; nPanel < oPanels.length; ++nPanel) {
 				oPanels[nPanel].render();
 			}
+			this.addBreadcrumb(true);
+			this.recalcLayout();	
 			if (options.targetIndex || options.targetIndex === 0) {
 				lastIndex = options.targetIndex;
 			}
@@ -375,8 +381,6 @@
 			for (nPanel = 0; nPanel < oPanels.length; ++nPanel) {
 				oPanels[nPanel].resize();
 			}
-			this.addBreadcrumb(true);
-			this.recalcLayout();
 			// If transition was explicitly set to false, since null or undefined indicate 'never set' or unset
 			if (options.transition === false) {
 				this.setIndexDirect(lastIndex);
@@ -402,7 +406,7 @@
 
 			while (panels.length > index && index >= 0) {
 				panels[panels.length - 1].destroy();
-				if (index <= this.getBreadcrumbMax()) {
+				if (this.pattern != 'none' && index <= this.getBreadcrumbMax()) {
 					breadcrumb = this.getBreadcrumbForIndex(panels.length - 1);
 					breadcrumb.destroy(); 
 				}
@@ -487,8 +491,10 @@
 		* @private
 		*/
 		refresh: function () {
-			for(var k in this.$.animator.configs) {
-				this.fractions[k] = 1;
+			if (this.$.animator instanceof moon.MoonAnimator) {
+				for(var k in this.$.animator.configs) {
+					this.fractions[k] = 1;
+				}
 			}
 			this.inherited(arguments);
 		},
@@ -497,8 +503,10 @@
 		* @private
 		*/
 		step: function (sender) {
-			for(var k in sender.values) {
-				this.fractions[k] = sender.values[k];
+			if (this.$.animator instanceof moon.MoonAnimator) {
+				for(var k in this.$.animator.configs) {
+					this.fractions[k] = sender.values[k];
+				}
 			}
 			this.inherited(arguments);
 			return true;
@@ -508,19 +516,28 @@
 		* @private
 		*/
 		stepTransition: function () {
-			if (this.hasNode()) {
-				// select correct transition points and normalize fraction.
+			if (!this.hasNode()) return;
+
+			if (this.$.animator instanceof moon.MoonAnimator) {
 				this.arrangement = this.arrangement ? this.arrangement : {};
-				for(var k in this.fractions) {
-					this.arrangement[k] = this.calcArrangement(this.fractions[k]);
+				for(var k in this.$.animator.configs) {
+					this.arrangement[k] = this.interpolatesArrangement(this.fractions[k]);
 				}
 				if (this.layout && this.arrangement['panel'] && this.arrangement['breadcrumb'] ) {
 					this.layout.flowArrangement();
 				}
+			} else {
+				this.inherited(arguments);
 			}
 		},
 
-		calcArrangement: function (fraction) {
+		/**
+		* Interpolates between arrangements as needed.
+		*
+		* @param {Number} [fraction] - A value between 0 to 1.
+		* @private
+		*/
+		interpolatesArrangement: function (fraction) {
 			// select correct transition points and normalize fraction.
 			var t$ = this.transitionPoints;
 			var r = (fraction || 0) * (t$.length-1);
@@ -931,7 +948,7 @@
 				range = this.getBreadcrumbRange(),
 				control, i;
 
-			if (this.$.breadcrumbs) {
+			if (this.pattern != 'none') {
 				// Blocking spotlight while change index
 				this.$.breadcrumbs.set('spotlight', false);
 
@@ -942,9 +959,10 @@
 				}
 			}
 
-			// Set animation direction to use proper timing function before start animation
-			this.$.animator.direction = (old < this.index) ? 'forward' : 'backward';
-			
+			if (this.$.animator instanceof moon.MoonAnimator) {
+				// Set animation direction to use proper timing function before start animation
+				this.$.animator.direction = (old < this.index) ? 'forward' : 'backward';
+			}
 			// First panel in activity pattern is using full width
 			if (this.pattern == 'activity' && ((this.fromIndex > this.toIndex && this.toIndex === 0) ||
 				(this.fromIndex === undefined && this.toIndex === undefined))) {
@@ -977,7 +995,7 @@
 					end = this.index,
 					start = end - this.getBreadcrumbs().length;
 
-				if (this.$.breadcrumbs) {
+				if (this.pattern != 'none') {
 					this.$.breadcrumbs.set('spotlight', null);
 
 					// Turn off spotlight focus for offscreen breadcrumbs
@@ -1072,6 +1090,7 @@
 				this.addClass(this.pattern);
 				this.useHandle = (this.useHandle === 'auto') ? true : this.useHandle;
 				this.createChrome(this.handleTools);
+				this.tools = this.animatorTools;
 				break;
 			default:
 				this.useHandle = false;
@@ -1083,7 +1102,7 @@
 		* @private
 		*/
 		addBreadcrumb: function (forceRender) {
-			if (!this.$.breadcrumbs) return;
+			if (this.pattern == 'none' || !this.$.breadcrumbs) return;
 
 			// If we have 1 panel then we don't need breadcrumb.
 			// If we have more then 1 panel then we need panel - 1 number of breadcrumbs.
@@ -1110,7 +1129,7 @@
 		* @private
 		*/
 		removeBreadcrumb: function () {
-			if (!this.$.breadcrumbs) return;
+			if (this.pattern == 'none' || !this.$.breadcrumbs) return;
 
 			// If we have 1 panel then we don't need breadcrumb.
 			// If we have more then 1 panel then we need panel - 1 number of breadcrumbs.
