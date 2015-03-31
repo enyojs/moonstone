@@ -395,9 +395,7 @@
 		*/
 		updateText: function () {
 			var text,
-				val = {},
-				zeroValue = true;
-
+				val = {};
 			if (this.values && (this.values['hour'] !== 0 || this.values['minute'] !== 0 || this.values['second'] !== 0)) {
 				val.hour = this.values['hour'];
 				val.minute = this.values['minute'];
