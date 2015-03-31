@@ -951,7 +951,7 @@ html {
 }
 /* Right to left */
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox {
-  left: 0.625rem;
+  left: 0.375rem;
   right: auto;
 }
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label-wrapper {
@@ -1038,13 +1038,16 @@ html {
 .moon-checkbox.moon-toggle-switch[disabled] .moon-icon {
   color: #4b4b4b;
 }
-.moon-checkbox.moon-toggle-switch.animated .moon-icon {
-  -webkit-transition: background-color 0.2s, left 0.2s;
-  transition: background-color 0.2s, left 0.2s;
+.moon-checkbox.moon-toggle-switch.animated {
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.2s;
 }
-.moon-checkbox.moon-toggle-switch.animated .moon-icon:after {
-  -webkit-transition: color 0.2s;
-  transition: color 0.2s;
+.moon-checkbox.moon-toggle-switch.animated .moon-icon {
+  -webkit-transition: left 0.2s, color 0.2s;
+  transition: left 0.2s, color 0.2s;
+}
+.moon-toggle-item.spotlight .moon-checkbox.moon-toggle-switch .moon-icon {
+  opacity: 1;
 }
 .moon-toggle-item {
   display: block;
