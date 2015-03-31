@@ -300,7 +300,7 @@
 		* @private
 		*/
 		popupLabelComponents: [
-			{name: 'feedback', kind:'moon.VideoFeedback'},
+			{name: 'feedback', kind:'moon.VideoFeedback', showing:false},
 			{name: 'popupLabelText'}
 		],
 
