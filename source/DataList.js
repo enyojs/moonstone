@@ -493,6 +493,19 @@
 		moon.DataList.delegates.horizontal = enyo.clone(moon.DataList.delegates.horizontal);
 		var exts = {
 			/**
+			* Overriding refresh() to stop scroller and stop scrolling.
+			*
+			* @method
+			* @private
+			*/
+			refresh: enyo.inherit(function (sup) {
+				return function (list) {
+					sup.apply(this, arguments);
+					list.$.scroller.stop();
+				};
+			}),
+
+			/**
 			* Overriding scrollToControl() to specify Moonstone-specific scroller options.
 			* No need to call the super method, so we don't wrap in enyo.inherit().
 			*
