@@ -135,6 +135,15 @@
 		pauseDisabled: true,
 
 		/**
+		* Refresh time in milliseconds.
+		*
+		* @type {Number}
+		* @default 1000
+		* @public
+		*/
+		refresh: 1000,
+
+		/**
 		* @public
 		* @lends moon.DurationPicker.prototype
 		*/
@@ -160,22 +169,40 @@
 			value: null,
 
 			/**
-			* The template format of the picker
-			*
-			* @type {String}
-			* @default ''
-			* @public
-			*/
-			template: '',
-
-			/**
 			* Enable and disable the timer feature of duration picker
 			*
 			* @type {Boolean}
 			* @default true
 			* @public
 			*/
-			enableTimer: true
+			enableTimer: true,
+
+			/**
+			* Show/hide the hour picker in duration picker
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
+			showHour: true,
+
+			/**
+			* Show/hide the minute picker in duration picker
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
+			showMinute: true,
+
+			/**
+			* Show/hide the second picker in duration picker
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
+			showSecond: true
 		},
 
 		/**
@@ -232,11 +259,10 @@
 			this.hourStr = new ilib.String(hourText);
 			this.minuteStr = new ilib.String(minuteText);
 			this.secondStr = new ilib.String(secondText);
-			this.templateArray = [];
+			this.durFormat = new ilib.DurFmt({length: 'full', useNative: false});
 			this.startContent = startText;
 			this.pauseContent = pauseText;
 			this.setupPickers();
-			this.initTemplate();
 			if(this.value !== '') {
 				this.valueChanged();
 			} else {
@@ -271,47 +297,6 @@
 		},
 
 		/**
-		* @private
-		*/
-		initTemplate: function () {
-			if (this.template) {
-				var orderingArr = this.template.toLowerCase().split('');
-				var o,f,l;
-				for (f = 0, l = orderingArr.length; f < l; f++) {
-					o = orderingArr[f].toLowerCase();
-					//only accepts the hour, minute, second template values 'h', 'm' and 's'
-					if (this.templateArray.indexOf(o) < 0 && (o == 'h' || o == 'm' || o == 's' )) {
-						this.templateArray.push(o);
-						switch (o) {
-						case 'h':
-							this.set('showHour', true);
-							break;
-						case 'm':
-							this.set('showMinute', true);
-							break;
-						case 's':
-							this.set('showSecond', true);
-							break;
-						default:
-							break;
-						}
-					}
-				}
-				if (!this.templateArray.length) {
-					this.templateArray.push('h','m','s');
-					this.set('showHour', true);
-					this.set('showMinute', true);
-					this.set('showSecond', true);
-				}
-				return;
-			}
-			this.set('showHour', true);
-			this.set('showMinute', true);
-			this.set('showSecond', true);
-			this.templateArray.push('h','m','s');
-		},
-
-		/**
 		* @fires moon.DurationePicker#onChange
 		* @private
 		*/
@@ -323,16 +308,6 @@
 				this.updateValue(sender, ev);
 				return true;
 			}
-		},
-
-		/**
-		* @private
-		*/
-		templateChanged: function () {
-			this.templateArray = [];
-			this.hidePickers();
-			this.initTemplate();
-			this.updateText();
 		},
 
 		/**
@@ -374,34 +349,31 @@
 		* @private
 		*/
 		createValues: function () {
-			var tempValue;
-			if (this.value != null && this.value !== '') {
-				var timeArray = this.value.toString().split(':');
-				tempValue = 0;
-				if (this.showHour || !this.showHour && timeArray.length > 2) {
-					tempValue = Math.round(timeArray.shift());
-					if (isNaN(tempValue) || tempValue > 23 || tempValue < 0) {
-						tempValue = 0;
-					}
+			var tempValue = 0,
+				timeArray = this.value.toString().split(':');
+			if (this.showHour || !this.showHour && timeArray.length > 2) {
+				tempValue = Math.round(timeArray.shift());
+				if (isNaN(tempValue) || tempValue > 23 || tempValue < 0) {
+					tempValue = 0;
 				}
-				this.values['hour'] = tempValue;
-				tempValue = 0;
-				if (this.showMinute || !this.showMinute && timeArray.length > 1) {
-					tempValue = Math.round(timeArray.shift());
-					if (isNaN(tempValue) || tempValue > 59 || tempValue < 0) {
-						tempValue = 0;
-					}
-				}
-				this.values['minute'] = tempValue;
-				tempValue = 0;
-				if (this.showSecond || !this.showSecond && timeArray.length > 0) {
-					tempValue = Math.round(timeArray.shift());
-					if (isNaN(tempValue) || tempValue> 59 || tempValue < 0) {
-						tempValue = 0;
-					}
-				}
-				this.values['second'] = tempValue;
 			}
+			this.values['hour'] = tempValue;
+			tempValue = 0;
+			if (this.showMinute || !this.showMinute && timeArray.length > 1) {
+				tempValue = Math.round(timeArray.shift());
+				if (isNaN(tempValue) || tempValue > 59 || tempValue < 0) {
+					tempValue = 0;
+				}
+			}
+			this.values['minute'] = tempValue;
+			tempValue = 0;
+			if (this.showSecond || !this.showSecond && timeArray.length > 0) {
+				tempValue = Math.round(timeArray.shift());
+				if (isNaN(tempValue) || tempValue> 59 || tempValue < 0) {
+					tempValue = 0;
+				}
+			}
+			this.values['second'] = tempValue;
 		},
 
 		/**
@@ -422,41 +394,19 @@
 		* @private
 		*/
 		updateText: function () {
-			var text, 
+			var text,
 				val = {},
-				zeroValue = true,
-				durFormat = new ilib.DurFmt({length: 'full', useNative: false});
-			if (this.values) {
-				for (var idx = 0; idx < this.templateArray.length; idx++) {
-					var item = this.templateArray[idx];
-					switch (item) {
-						case 'h':
-							if (this.values['hour'] !== 0) {
-								val.hour = this.values['hour'];
-								zeroValue = false;
-							}
-						break;
-						case 'm':
-							if (this.values['minute'] !== 0) {
-								val.minute = this.values['minute'];
-								zeroValue = false;
-							}
-						break;
-						case 's':
-							if (this.values['second'] !== 0) {
-								val.second = this.values['second'];
-								zeroValue = false;
-							}
-						break;
-					}
-				}
-			}
-			if (zeroValue) {
-				this.noneTextUpdate();
-			} else {
-				text = durFormat.format(val);
+				zeroValue = true;
+
+			if (this.values && (this.values['hour'] !== 0 || this.values['minute'] !== 0 || this.values['second'] !== 0)) {
+				val.hour = this.values['hour'];
+				val.minute = this.values['minute'];
+				val.second = this.values['second'];
+				text = this.durFormat.format(val);
 				this.$.currentValue.set('content', text);
 				this.doDurationChange({name: this.name, value: text});
+			} else {
+				this.noneTextUpdate();
 			}
 		},
 
@@ -568,12 +518,20 @@
 		/**
 		* @private
 		*/
+		refreshJob: function () {
+		if (this.countdown) {
+				this.tick();
+				this.startJob('refresh', this.bindSafely('refreshJob'), this.refresh);
+			}
+		},
+
+		/**
+		* @private
+		*/
 		startTimer: function () {
 			if (this.value) {
-				this.timer = moon.setInterval(enyo.bind (this, function () {
-					this.tick();
-				}), 1000);
 				this.set('countdown', true);
+				this.startJob('refresh', this.bindSafely('refreshJob'), this.refresh);
 			}
 		},
 
@@ -582,16 +540,6 @@
 		*/
 		pauseTimer: function () {
 			this.set('countdown', false);
-			moon.clearInterval(this.timer);
-		},
-
-		/**
-		* @private
-		*/
-		hidePickers: function () {
-			this.set('showHour', false);
-			this.set('showMinute', false);
-			this.set('showSecond', false);
 		},
 
 		/**
@@ -639,52 +587,4 @@
 			}
 		}
 	});
-
-	(function () {
-		/* A replacement for window.setInterval() function, It use window.setTimeout() to perform the interval functionality
-		* It is based on enyo.perfNow() and use setInterval() and clearInterval() function as like with window
-		*
-		*/
-
-		/* Interval Object */
-		var Interval = function (func, delay) {
-			this.startInterval = enyo.perfNow();
-			this.stopped = false;
-			this.func = func;
-			this.curDelay = this.delay = delay;
-		};
-
-		/*
-		* @name moon.setInterval
-		*/
-		moon.setInterval = function ( func, delay) {
-			var timer = new Interval(func, delay);
-			setTimeout(function () { 
-				moon.tickInterval(timer); 
-			}, delay);
-			return timer;
-		};
-
-		/*
-		* @name moon.setInterval
-		*/
-		moon.clearInterval = function (timer) {
-			timer.stopped = true;
-			moon.tickInterval(timer);
-		};
-
-		/*
-		* @private
-		*/
-		moon.tickInterval = function (timer) {
-			if (timer.stopped) {
-				return false;
-			}
-			timer.func();
-			timer.curDelay = timer.curDelay + timer.delay;
-			setTimeout(function () {
-				moon.tickInterval(timer);
-			}, Math.round(timer.curDelay - (enyo.perfNow() - timer.startInterval)));
-		};
-	})();
 })(enyo, this);

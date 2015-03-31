@@ -11,17 +11,13 @@ enyo.kind({
 						{kind: 'moon.DurationPicker', name: 'pickerDuration',
 							noneText: 'Pick Duration',
 							content: 'Duration',
-							value: '10:20:0', 
-							template: 'h:m:s',
+							value: '10:20:0',
 							onDurationChange: 'durationChanged',
-							onPickerExpired: 'pickerExpired'
+							onPickerExpired: 'pickerExpired',
+							showHour: false
 						}
 					]}
 				]},
-				{kind: 'moon.InputDecorator', components: [
-					{kind: 'moon.Input', placeholder: 'h:m:s', name: 'newTemplate'}
-				]},
-				{kind: 'moon.Button', name: 'setTemplate', content: 'Set Template', ontap: 'setNewTemplate', small: true},
 				{kind: 'moon.InputDecorator', components: [
 					{kind: 'moon.Input', placeholder: '__:__:__', name: 'newValue'}
 				]},
@@ -34,14 +30,14 @@ enyo.kind({
 				{kind: 'moon.Scroller', components: [
 					{classes: 'moon-7h moon-vspacing-s', components: [
 						{kind: 'moon.DurationPicker', name: 'pickerDurationDisabled', disabled: true, noneText: 'Pick Duration', content: 'Duration',
-							value: '20:20', template: 'm:s'}
+							value: '20:20:10'}
 					]}
 				]},
 				{kind: 'moon.Scroller', fit:true, components: [
 					{kind: 'moon.Divider', content: 'DurationPicker without Timer'},
 					{classes: 'moon-7h moon-vspacing-s', components: [
 						{kind: 'moon.DurationPicker', name: 'pickerDurationNonTimer', enableTimer: false, noneText: 'Pick Duration', content: 'Duration',
-							value: '2:2:20', template: 'hms'}
+							value: '2:2:20', showSecond: false}
 					]}
 				]}
 			]}
@@ -62,8 +58,5 @@ enyo.kind({
 	},
 	setNewValue: function () {
 		this.$.pickerDuration.set('value', this.$.newValue.value);
-	},
-	setNewTemplate: function () {
-		this.$.pickerDuration.set('template', this.$.newTemplate.value);
 	}
 });
