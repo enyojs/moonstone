@@ -715,16 +715,21 @@
 		* @private
 		*/
 		requestScrollIntoView: function(sender, event) {
-			var showVertical, showHorizontal,
+			var originator, showVertical, showHorizontal,
 				bubble = false;
 			if (!enyo.Spotlight.getPointerMode() || event.scrollInPointerMode === true) {
+				originator = event.originator;
+				showVertical = this.showVertical();
+				showHorizontal = this.showHorizontal();
+				this.scrollBounds = this._getScrollBounds();
+				this.setupBounds();
 				showVertical = this.showVertical();
 				showHorizontal = this.showHorizontal();
 				this.scrollBounds = this._getScrollBounds();
 				this.setupBounds();
 				this.scrollBounds = null;
-				if (showVertical || showHorizontal) {
-					this.animateToControl(event.originator, event.scrollFullPage, event.scrollInPointerMode || false);
+				if ((showVertical || showHorizontal) && (originator.showing)) {
+					this.animateToControl(originator, event.scrollFullPage, event.scrollInPointerMode || false);
 					if ((showVertical && this.$.scrollMath.bottomBoundary) || (showHorizontal && this.$.scrollMath.rightBoundary)) {
 						this.alertThumbs();
 					}
