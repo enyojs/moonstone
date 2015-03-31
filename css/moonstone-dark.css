@@ -3058,9 +3058,10 @@ html {
 .moon-panels.activity,
 .moon-panels.alwaysviewing {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
   pointer-events: none;
 }
 .moon-panels.activity.moon-composite .moon-panels-background-scrim,
