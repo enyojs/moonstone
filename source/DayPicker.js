@@ -219,12 +219,12 @@
 			case 7 :
 				return this.everyDayText;
 			case 5 :
-				if (!hasWeekEnd) {
+				if (hasWeekEnd === false) {
 					return this.everyWeekdayText;
 				}
 				break;
 			case 2 :
-				if (hasWeekEnd) {
+				if (hasWeekEnd === true) {
 					return this.everyWeekendText;
 				}
 				break;
