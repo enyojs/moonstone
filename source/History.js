@@ -363,7 +363,7 @@
 
 			switch (state) {
 			case 'empty':
-				if (history.state.currentObjId == 'historyMaster') {
+				if (!history.state || history.state.currentObjId == 'historyMaster') {
 					this._initHistoryState();
 				}
 				break;
