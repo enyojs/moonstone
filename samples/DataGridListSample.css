@@ -1,0 +1,11 @@
+.moon-gridlist-imageitem.horizontal > img {
+    height: 100%;
+    width: auto;
+    display: inline-block;
+}
+
+.moon-gridlist-imageitem.horizontal > .captionArea {
+    margin-left: 12px;
+    display: inline-block;
+}
+

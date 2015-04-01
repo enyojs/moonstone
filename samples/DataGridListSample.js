@@ -14,7 +14,15 @@ enyo.kind({
 		]},
 		{name: 'dataListPanel', kind: "moon.Panel", joinToPrev: true, title:"Data Grid List", headerComponents: [
 			{kind: "moon.ToggleButton", content:"Selection", name:"selectionToggle"},
-			{kind: "moon.ToggleButton", content:"HorizontalItem", name:"horizontalItemToggle"},
+			{kind: "moon.ContextualPopupDecorator", components: [
+				{kind: "moon.ContextualPopupButton", content:"Item Type"},
+				{kind: "moon.ContextualPopup", classes:"moon-4h", components: [
+					{kind: "moon.RadioItemGroup", name: "itemTypeGroup", components: [
+						{content: "GridList Image Item", value: "GridListImageItem", selected: true},
+						{content: "Horizontal Image Item", value: "HorizontalGridListImageItem"}
+					]}
+				]}
+			]},
 			{kind: "moon.ContextualPopupDecorator", components: [
 				{kind: "moon.ContextualPopupButton", content:"Selection Type"},
 				{kind: "moon.ContextualPopup", classes:"moon-4h", components: [
@@ -37,46 +45,54 @@ enyo.kind({
 					]}
 				]}
 			]}
-		], components: [
-			{name: "gridList", fit: true, spacing: 20, minWidth: 180, minHeight: 270, kind: "moon.DataGridList", scrollerOptions: { kind: "moon.Scroller", vertical:"scroll", horizontal: "hidden", spotlightPagingControls: true }, components: [
-				{ kind: "moon.sample.GridSampleItem" }
-			]}
 		]}
 	],
 	bindings: [
 		{from: ".collection", to: ".$.dataList.collection"},
 		{from: ".collection", to: ".$.gridList.collection"},
+		{from: ".$.itemTypeGroup.active", to: ".$.gridList.itemType",
+			transform: function (selected) {
+				if (selected && selected.value) {
+					this.selectItemType(selected.value);
+				}
+			}
+		},
 		{from: ".$.selectionTypeGroup.active", to: ".$.gridList.selectionType",
 			transform: function (selected) {
 				return selected && selected.value;
 			}
 		},
-		{from: ".$.selectionToggle.value", to: ".$.gridList.selection", oneWay: false},
-		{from: ".$.horizontalItemToggle.value", to: ".useHorizonalItem", oneWay: false}
+		{from: ".$.selectionToggle.value", to: ".$.gridList.selection", oneWay: false}
 	],
 	create: function () {
 		this.inherited(arguments);
 		// we set the collection that will fire the binding and add it to the list
 		this.set("collection", new enyo.Collection(this.generateRecords(500)));
 	},
-	useHorizonalItemChanged: function() {
-		if (this.useHorizonalItem) {
+	selectItemType: function(value) {
+		if (this.$.gridList) {
 			this.$.gridList.destroy();
+		}
+
+		switch (value) {
+		case 'GridListImageItem':
 			this.$.dataListPanel.createComponent(
-				{name: "gridList", fit: true, spacing: 20, minWidth: 600, minHeight: 100, kind: "moon.DataGridList", scrollerOptions: { kind: "moon.Scroller", vertical:"scroll", horizontal: "hidden", spotlightPagingControls: true }, components: [
-					{
-						kind: "moon.HorizontalGridListImageItem",
-						bindings: [
-							{from: ".model.text", to: ".caption"},
-							{from: ".model.subText", to: ".subCaption"},
-							{from: ".model.url", to: ".source"}
-						]
-					}
+				{name: "gridList", fit: true, spacing: 20, minWidth: 180, minHeight: 270, kind: "moon.DataGridList", scrollerOptions: { kind: "moon.Scroller", vertical:"scroll", horizontal: "hidden", spotlightPagingControls: true }, components: [
+					{kind: "moon.sample.GridSampleItem"}
 				]}, {owner: this}
 			);
-			this.$.dataListPanel.render();
-			this.set("collection", new enyo.Collection(this.generateRecords(4)));
+			break;
+		case 'HorizontalGridListImageItem':
+			this.$.dataListPanel.createComponent(
+				{name: "gridList", fit: true, spacing: 20, minWidth: 600, minHeight: 100, kind: "moon.DataGridList", scrollerOptions: { kind: "moon.Scroller", vertical:"scroll", horizontal: "hidden", spotlightPagingControls: true }, components: [
+					{kind: "moon.HorizontalGridListImageItem"}
+				]}, {owner: this}
+			);
+			break;
 		}
+
+		this.$.dataListPanel.render();
+		this.set("collection", new enyo.Collection(this.generateRecords(4)));
 	},
 	generateRecords: function (count) {
 		var records = [],
@@ -109,7 +125,6 @@ enyo.kind({
 	name: "moon.sample.GridSampleItem",
 	kind: "moon.GridListImageItem",
 	mixins: ["moon.SelectionOverlaySupport"],
-	orientation: 'horizontal',
 	selectionOverlayVerticalOffset: 35,
 	subCaption: "Sub Caption",
 	bindings: [
@@ -117,4 +132,28 @@ enyo.kind({
 		{from: ".model.subText", to: ".subCaption"},
 		{from: ".model.url", to: ".source"}
 	]
+});
+
+enyo.kind({
+	name: 'moon.HorizontalGridListImageItem',
+	kind: 'moon.GridListImageItem',
+	mixins: ["moon.SelectionOverlaySupport"],
+
+	selectionOverlayVerticalOffset: 50,
+	selectionOverlayHorizontalOffset: 90,
+	centered: false,
+
+	events: {
+		onSelectionEnable: ''
+	},
+
+	classes: 'horizontal',
+
+	create: function() {
+		this.inherited(arguments);
+
+		this.createComponent({name: 'captionArea', classes: 'captionArea'});
+		this.$.caption.setContainer(this.$.captionArea);
+		this.$.subCaption.setContainer(this.$.captionArea);
+	}
 });

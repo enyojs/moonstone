@@ -15,7 +15,6 @@ enyo.depends(
 	'SimpleIntegerPicker.js',
 	'Calendar.js',
 	'GridListImageItem.js',
-	'HorizontalGridListImageItem.js',
 	'Checkbox.js',
 	'CheckboxItem.js',
 	'ToggleText.js',
