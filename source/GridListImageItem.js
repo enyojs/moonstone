@@ -33,6 +33,7 @@
 
 		/**
 		* @private
+		* @lends moon.GridListImageItem.prototype
 		*/
 		published: {
 			/**
