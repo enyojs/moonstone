@@ -5106,3 +5106,9 @@ html {
 .moon-theme-dark .moon-neutral .moon-formcheckbox-item.spotlight .moon-checkbox-item-label-wrapper {
   color: #ffffff;
 }
+.moon-theme-dark .moon-thumb {
+  background: #a6a6a6;
+}
+.moon-theme-dark .moon-neutral .moon-thumb {
+  background: #ffffff;
+}
