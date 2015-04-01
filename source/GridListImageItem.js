@@ -33,12 +33,11 @@
 
 		/**
 		* @private
-		* @lends moon.Button.prototype
 		*/
 		published: {
 			/**
 			* @type {String}
-			* @default ''
+			* @default enyo.Image.placeholder
 			* @public
 			*/
 			placeholder: enyo.Image.placeholder
