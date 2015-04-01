@@ -12,8 +12,9 @@ enyo.kind({
 			{kind:"moon.Item", content:"the"},
 			{kind:"moon.Item", content:"Right!"}
 		]},
-		{kind: "moon.Panel", joinToPrev: true, title:"Data Grid List", headerComponents: [
+		{name: 'dataListPanel', kind: "moon.Panel", joinToPrev: true, title:"Data Grid List", headerComponents: [
 			{kind: "moon.ToggleButton", content:"Selection", name:"selectionToggle"},
+			{kind: "moon.ToggleButton", content:"HorizontalItem", name:"horizontalItemToggle"},
 			{kind: "moon.ContextualPopupDecorator", components: [
 				{kind: "moon.ContextualPopupButton", content:"Selection Type"},
 				{kind: "moon.ContextualPopup", classes:"moon-4h", components: [
@@ -50,17 +51,37 @@ enyo.kind({
 				return selected && selected.value;
 			}
 		},
-		{from: ".$.selectionToggle.value", to: ".$.gridList.selection", oneWay: false}
+		{from: ".$.selectionToggle.value", to: ".$.gridList.selection", oneWay: false},
+		{from: ".$.horizontalItemToggle.value", to: ".useHorizonalItem", oneWay: false}
 	],
 	create: function () {
 		this.inherited(arguments);
 		// we set the collection that will fire the binding and add it to the list
-		this.set("collection", new enyo.Collection(this.generateRecords()));
+		this.set("collection", new enyo.Collection(this.generateRecords(500)));
 	},
-	generateRecords: function () {
+	useHorizonalItemChanged: function() {
+		if (this.useHorizonalItem) {
+			this.$.gridList.destroy();
+			this.$.dataListPanel.createComponent(
+				{name: "gridList", fit: true, spacing: 20, minWidth: 600, minHeight: 100, kind: "moon.DataGridList", scrollerOptions: { kind: "moon.Scroller", vertical:"scroll", horizontal: "hidden", spotlightPagingControls: true }, components: [
+					{
+						kind: "moon.HorizontalGridListImageItem",
+						bindings: [
+							{from: ".model.text", to: ".caption"},
+							{from: ".model.subText", to: ".subCaption"},
+							{from: ".model.url", to: ".source"}
+						]
+					}
+				]}, {owner: this}
+			);
+			this.$.dataListPanel.render();
+			this.set("collection", new enyo.Collection(this.generateRecords(4)));
+		}
+	},
+	generateRecords: function (count) {
 		var records = [],
 			idx     = this.modelIndex || 0;
-		for (; records.length < 500; ++idx) {
+		for (; records.length < count; ++idx) {
 			var title = (idx % 8 === 0) ? " with long title" : "";
 			var subTitle = (idx % 8 === 0) ? "Lorem ipsum dolor sit amet" : "Subtitle";
 			records.push({
@@ -88,6 +109,7 @@ enyo.kind({
 	name: "moon.sample.GridSampleItem",
 	kind: "moon.GridListImageItem",
 	mixins: ["moon.SelectionOverlaySupport"],
+	orientation: 'horizontal',
 	selectionOverlayVerticalOffset: 35,
 	subCaption: "Sub Caption",
 	bindings: [

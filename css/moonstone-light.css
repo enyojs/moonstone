@@ -1714,6 +1714,18 @@ html {
   border: 0.25rem solid #404040;
   background-color: #404040;
 }
+.moon-gridlist-imageitem.horizontal {
+  width: 50%;
+}
+.moon-gridlist-imageitem.horizontal > img {
+  height: 100%;
+  width: auto;
+  display: inline-block;
+}
+.moon-gridlist-imageitem.horizontal > .captionArea {
+  margin-left: 0.5rem;
+  display: inline-block;
+}
 .moon-gridlist-imageitem.spotlight {
   border: 0.25rem solid #cf0652;
   background-color: #cf0652;
