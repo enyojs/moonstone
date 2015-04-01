@@ -55,7 +55,8 @@
 		handlers: {
 			onActivate: 'activated',
 			onShow: 'popupShown',
-			onHide: 'popupHidden'
+			onHide: 'popupHidden',
+			onRequestSpot: 'requestSpot'
 		},
 
 		/**
@@ -126,6 +127,16 @@
 		*/
 		requestHidePopup: function () {
 			this.waterfallDown('onRequestHidePopup');
+		},
+
+		/**
+		* When back key is pressed, return spotlight focus to popup button
+		*
+		* @private
+		*/
+		requestSpot: function (inSender, inEvent) {
+			enyo.Spotlight.spot(this);
+			return true;
 		}
 	});
 
