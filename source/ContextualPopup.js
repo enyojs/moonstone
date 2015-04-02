@@ -212,9 +212,9 @@
 		and the dependent decorator code inorder to handle some special cases.
 		*/
 		hide: function(inSender, e) {
-
 			if (this.tapCaptured) {
 				this.tapCaptured = false;
+				this.popupActivated = true;
 			} else {
 				this.popupActivated = false;
 			}
@@ -480,12 +480,9 @@
 		* @private
 		*/
 		capturedTap: function (inSender, inEvent) {
-			// If same activator tapped sequentially, we notice that this popup is already activeted.
-			if (inEvent.dispatchTarget.isDescendantOf(this.activator)) {
-				this.popupActivated = true;
+			// If same activator tapped sequentially, the state of the popup is remembered.
+			if (this.downEvent && this.downEvent.dispatchTarget.isDescendantOf(this.activator)) {
 				this.tapCaptured = true;
-			} else {
-				this.popupActivated = false;
 			}
 			this.inherited(arguments);
 		},
