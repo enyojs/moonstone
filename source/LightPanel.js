@@ -120,6 +120,24 @@
 		}),
 
 		/**
+		* This overridable method is called when the panel is the currently active panel.
+		*
+		* @public
+		*/
+		activated: function () {},
+
+		/**
+		* This overridable method is called when the panel is no longer the currently active panel.
+		*
+		* @public
+		*/
+		deactivated: function () {},
+
+		/**
+		* Determines whether or not we should perform post-transition work.
+		*
+		* @return {Boolean} - If `true`, we should not run the
+		*	{@link enyo.LightPanels#postTransition} method.
 		* @public
 		*/
 		shouldSkipPostTransition: function () {
@@ -127,6 +145,8 @@
 		},
 
 		/**
+		* This overridable method is called after a transition.
+		*
 		* @public
 		*/
 		postTransition: function () {
