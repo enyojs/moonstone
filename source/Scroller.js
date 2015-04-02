@@ -159,7 +159,12 @@
 		*/
 		handlers: {
 			onSpotlightScrollUp:'spotlightWheel',
-			onSpotlightScrollDown:'spotlightWheel'
+			onSpotlightScrollDown:'spotlightWheel',
+			onSpotlightContainerEnter:'spotlightContainerEnter',
+			onSpotlightContainerLeave:'spotlightContainerLeave',
+			onenter:'enter',
+			onleave:'leave',
+			onmove:'move'
 		},
 
 		/**
@@ -188,6 +193,11 @@
 		* @private
 		*/
 		spotlight: 'container',
+
+		/**
+		* @private
+		*/
+		handlePageUpDownKey: false,
 
 		/**
 		* Scrolls until the specified [control]{@link enyo.Control} is in view. If
@@ -245,6 +255,7 @@
 			this.inherited(arguments);
 			this.spotlightPagingControlsChanged();
 			this.scrollWheelMovesFocusChanged();
+			this.createChrome([{kind:"enyo.Signals", onkeyup:"keyup"}]);
 
 			this.$.strategy.measureScrollColumns = this.measureScrollColumns;
 
@@ -294,6 +305,76 @@
 						return true;
 					}
 				}
+			}
+		},
+
+		/**
+		* @private
+		*/
+		getHandlePageUpDownKey: function () {
+			return this.handlePageUpDownKey;
+		},
+
+		/**
+		* @private
+		*/
+		setHandlePageUpDownKey: function (param) {
+			this.handlePageUpDownKey = param;
+		},
+
+		/**
+		* @private
+		*/
+		spotlightContainerEnter: function (inSender, inEvent) {
+			this.setHandlePageUpDownKey(true);
+		},
+
+		/**
+		* @private
+		*/
+		spotlightContainerLeave: function (inSender, inEvent) {
+			this.setHandlePageUpDownKey(false);
+		},
+
+		/**
+		* @private
+		*/
+		enter: function (inSender, inEvent) {
+			this.setHandlePageUpDownKey(true);
+		},
+
+		/**
+		* @private
+		*/
+		leave: function (inSender, inEvent) {
+			this.setHandlePageUpDownKey(false);
+		},
+
+		/**
+		* @private
+		*/
+		move: function (inSender, inEvent) {
+			if (!this.getHandlePageUpDownKey()) {
+				this.setHandlePageUpDownKey(true);
+			}
+		},
+
+		/**
+		* @private
+		*/
+		keyup: function (inSender, inEvent) {
+			var KEY_POINTER_PAGE_UP = 33;
+			var KEY_POINTER_PAGE_DOWN = 34;
+
+			if (!this.getHandlePageUpDownKey()) {
+				return;
+			}
+
+			var strategy = this.getStrategy();
+			if (inEvent.keyCode === KEY_POINTER_PAGE_UP) {
+				strategy.$.pageUpControl.sendPaginateEvent();
+			} else if (inEvent.keyCode === KEY_POINTER_PAGE_DOWN) {
+				strategy.$.pageDownControl.sendPaginateEvent();
 			}
 		},
 
