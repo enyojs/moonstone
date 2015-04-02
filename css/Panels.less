@@ -2,11 +2,6 @@
 .moon-panels {
 	&.activity,
 	&.alwaysviewing {
-		position: absolute;
-		left: 0;
-		right: 0;
-		top: 0;
-		bottom: 0;
 		pointer-events: none;
 
 		&.moon-composite {
@@ -21,12 +16,12 @@
 		.moon-panels-breadcrumb {
 			position: absolute;
 			height: 100%;
-			width: 96px;
-			right: -96px;
+			width: @moon-breadcrumb-width;
+			right: -@moon-breadcrumb-width;
 
 			.moon-panels-breadcrumb-header {
 				border-top: 0.25rem solid #ccc;
-				padding-top: 6px;
+				padding-top: 3px;
 				margin: @moon-app-keepout;
 				font-family: @moon-super-header-font-family;
 				font-size: @moon-breadcrumb-text-size;
@@ -49,10 +44,10 @@
 	&.activity {
 		.moon-panels-breadcrumbs {
 			left: 0;
-			width: 96px;
+			width: @moon-breadcrumb-width;
 		}
 		.moon-panels-viewport {
-			left: 96px;
+			left: @moon-breadcrumb-width;
 			right: 0;
 			> *:not(:first-child) {
 				position: absolute;
@@ -61,7 +56,7 @@
 			}
 			> *:first-child {
 				position: absolute;
-				left: -96px;
+				left: -@moon-breadcrumb-width;
 				right: 0;
 				height: 100%;
 			}
@@ -84,9 +79,6 @@
 			padding-left: 0;
 		}
 		&.first {
-			.moon-panels-breadcrumbs {
-				left: -96px;
-			}
 			.moon-panels-viewport {
 				overflow: visible;
 			}
@@ -138,7 +130,7 @@
 }
 
 // Base set of styling for scrim to prevent receiving user input while transitioning
-.moon-panel:after {
+.moon-panels-client-wrapper:after {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -148,9 +140,10 @@
 // Adding the content property here, instead of above, means that this element will only appear in
 // the DOM during ".transitioning". This was altered to improve marquee animation performance.
 // Pseudo-elements without a content property cannot receive styling.
-.moon-panels.transitioning .moon-panel:after {
+.moon-panels.transitioning .moon-panels-client-wrapper:after {
 	content: '';
 }
+
 
 .moon-panels:not(.activity):not(.alwaysviewing) {
 	.moon-panels-viewport > * {

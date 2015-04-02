@@ -34,7 +34,7 @@
 		/**
 		* @private
 		*/
-		classes : 'moon-panels',
+		classes : 'moon-panels enyo-fit',
 
 		/**
 		* @private
@@ -119,7 +119,16 @@
 			* @default false
 			* @public
 			*/
-			popOnBack: false
+			popOnBack: false,
+
+			/**
+			* When `true`, focus can move from panel to breadcrumb when press left key. (Experimental)
+			*
+			* @type {Boolean}
+			* @default false
+			* @public
+			*/
+			leftKeyToBreadcrumb: false
 		},
 
 		/**
@@ -149,11 +158,8 @@
 		*/
 		handlers: {
 			ontap:						'tapped',
-
 			onSpotlightRight:			'spotlightRight',
 			onSpotlightLeft:			'spotlightLeft',
-			onSpotlightUp:				'spotlightUp',
-
 			onSpotlightFocus:			'spotlightFocus',
 			onSpotlightContainerLeave:	'onSpotlightPanelLeave',
 			onSpotlightContainerEnter:	'onSpotlightPanelEnter'
@@ -164,7 +170,7 @@
 		*/
 		handleTools: [
 			{name: 'backgroundScrim', kind: 'enyo.Control', classes: 'moon-panels-background-scrim'},
-			{name: 'clientWrapper', kind: 'enyo.Control', classes: 'enyo-fill', components: [
+			{name: 'clientWrapper', kind: 'enyo.Control', classes: 'enyo-fill moon-panels-client-wrapper', components: [
 				{name: 'scrim', classes: 'moon-panels-panel-scrim'},
 				{name: 'breadcrumbs', classes: 'moon-panels-breadcrumbs'},
 				{name: 'panelsViewport', classes: 'moon-panels-viewport', components: [
@@ -260,6 +266,11 @@
 			return this.$.breadcrumbs ? this.$.breadcrumbs.children : [];
 		},
 
+		/**
+		* Returns reference of breadcrumb for specific index.
+		*
+		* @public
+		*/
 		getBreadcrumbForIndex: function (index) {
 			var breadcrumbs = this.getBreadcrumbs();
 			return breadcrumbs[(index + breadcrumbs.length) % breadcrumbs.length];
@@ -300,7 +311,7 @@
 			return {start: start, end: end};
 		},
 
-		/*
+		/**
 		* We just recalculate transition position on pushPanel, because reflow is high cost operation.
 		* @private
 		*/
@@ -491,7 +502,7 @@
 		* @private
 		*/
 		refresh: function () {
-			if (this.$.animator instanceof moon.MoonAnimator) {
+			if (this.isMoonAnimatorUsed) {
 				for(var k in this.$.animator.configs) {
 					this.fractions[k] = 1;
 				}
@@ -503,7 +514,7 @@
 		* @private
 		*/
 		step: function (sender) {
-			if (this.$.animator instanceof moon.MoonAnimator) {
+			if (this.isMoonAnimatorUsed) {
 				for(var k in this.$.animator.configs) {
 					this.fractions[k] = sender.values[k];
 				}
@@ -518,7 +529,7 @@
 		stepTransition: function () {
 			if (!this.hasNode()) return;
 
-			if (this.$.animator instanceof moon.MoonAnimator) {
+			if (this.isMoonAnimatorUsed) {
 				this.arrangement = this.arrangement ? this.arrangement : {};
 				for(var k in this.$.animator.configs) {
 					this.arrangement[k] = this.interpolatesArrangement(this.fractions[k]);
@@ -571,6 +582,7 @@
 		initComponents: function () {
 			this.applyPattern();
 			this.inherited(arguments);
+			this.isMoonAnimatorUsed = (this.$.animator instanceof moon.MoonAnimator);
 			this.addBreadcrumb();
 			this.initializeShowHideHandle();
 			this.handleShowingChanged();
@@ -631,10 +643,9 @@
 				//queuedIndex could have out boundary value. It will be managed in setIndex()
 			}
 			var orig = oEvent.originator,
-				idx;
+				idx = this.getPanelIndex(orig);
 
 			if (orig instanceof moon.Panel) {
-				idx = this.getPanelIndex(orig);
 				if (idx === 0) {
 					if (this.showing && (this.useHandle === true) && this.handleShowing) {
 						this.hide();
@@ -642,8 +653,10 @@
 					}
 				}
 				else {
-					this.previous();
-					return true;
+					if (!this.leftKeyToBreadcrumb) {
+						this.previous();
+						return true;
+					}
 				}
 			}
 		},
@@ -657,11 +670,10 @@
 				//queuedIndex could have out boundary value. It will be managed in setIndex()
 			}
 			var orig = oEvent.originator,
-				idx = this.getPanelIndex(orig),
-				next = this.getPanels()[idx + 1];
+				idx = this.getPanelIndex(orig);
 
-			if (next && orig instanceof moon.Panel) {
-				if (this.useHandle === true && this.handleShowing && next.isOffscreen) {
+			if (orig instanceof moon.Panel) {
+				if (this.useHandle === true && this.handleShowing && idx == this.index) {
 					enyo.Spotlight.spot(this.$.showHideHandle);
 				}
 				else {
@@ -938,40 +950,129 @@
 		},
 
 		/**
+		* Set index to breadcrumb to display number
+		*
+		* @private
+		*/
+		assignBreadcrumbIndex: function() {
+			var range = this.getBreadcrumbRange(),
+				control, i;
+
+			if (this.pattern != 'none') {
+				for (i=range.start; i<range.end; i++) {
+					control = this.getBreadcrumbForIndex(i);
+					control.set('index', i);
+				}
+			}
+		},
+
+		/**
+		* @private
+		*/
+		addBreadcrumb: function (forceRender) {
+			if (this.pattern == 'none' || !this.$.breadcrumbs) return;
+
+			// If we have 1 panel then we don't need breadcrumb.
+			// If we have more then 1 panel then we need panel - 1 number of breadcrumbs.
+			// But, if we can only see 1 breadcrumb on screen like activity pattern 
+			// then we need 2 breadcrumbs to show animation.
+			var len = Math.max(2, Math.min(this.getPanels().length-1, this.getBreadcrumbMax()+1)),
+				defs = [], 
+				prevLen = this.getBreadcrumbs().length,
+				breadcrumbs, i;
+
+			for(i=0; i<len-prevLen; i++) {
+				defs[i] = {kind: 'moon.Breadcrumb'};
+			}
+			this.$.breadcrumbs.createComponents(defs, {owner: this});
+			if (forceRender) {
+				breadcrumbs = this.getBreadcrumbs();
+				for (i=prevLen; i<len; i++) {
+					breadcrumbs[i].render();
+				}
+			}
+		},
+
+		/**
+		* @private
+		*/
+		removeBreadcrumb: function () {
+			if (this.pattern == 'none' || !this.$.breadcrumbs) return;
+
+			// If we have 1 panel then we don't need breadcrumb.
+			// If we have more then 1 panel then we need panel - 1 number of breadcrumbs.
+			// But, if we can only see 1 breadcrumb on screen like activity pattern 
+			// then we need 2 breadcrumbs to show animation.
+			var len = Math.max(2, Math.min(this.getPanels().length-1, this.getBreadcrumbMax()+1)),
+				i;
+
+			// If we have more than the number of necessary breadcrumb then destroy.
+			while (this.getBreadcrumbs().length > len) {
+				this.getBreadcrumbs()[this.getBreadcrumbs().length-1].destroy();
+ 			}
+		},
+
+		/**
+		* Assign direction property on animator to select proper timing function.
+		*
+		* @private
+		*/
+		getDirection: function() {
+			return  (this.fromIndex == this.toIndex) ? 'none' : 
+					(this.fromIndex < this.toIndex) ? 'forward' : 'backward';
+		},
+
+		/**
+		* @private
+		*/
+		adjustFirstPanelBeforeTransition: function() {
+			var from = this.fromIndex,
+				to = this.toIndex;
+			// First panel in activity pattern is using full width
+			if (this.pattern == 'activity') {
+				if ((from > to && to === 0) || (from === undefined && to === undefined)) {
+					this.addClass('first');
+					this.$.breadcrumbs.hide();
+				}
+				if (from < to && from == 0) {
+					this.$.breadcrumbs.show();
+				}
+			}
+		},
+
+		/**
+		* @private
+		*/
+		adjustFirstPanelAfterTransition: function() {
+			var from = this.fromIndex,
+				to = this.toIndex;
+			if (this.pattern == 'activity' && from < to && from == 0) {
+				this.removeClass('first');
+			}
+		},
+
+		/**
 		* When index changes, make sure to update the breadcrumbed panel's `spotlight` property
 		* (to avoid {@glossary Spotlight} issues).
 		*
 		* @private
 		*/
 		indexChanged: function (old) {
-			var panels = this.getPanels(),
-				range = this.getBreadcrumbRange(),
-				control, i;
 
-			if (this.pattern != 'none') {
-				// Blocking spotlight while change index
-				this.$.breadcrumbs.set('spotlight', false);
+			this.assignBreadcrumbIndex();
 
-				// Set index to breadcrumb to display number
-				for (i=range.start; i<range.end; i++) {
-					control = this.getBreadcrumbForIndex(i);
-					control.set('index', i);
-				}
-			}
-
-			if (this.$.animator instanceof moon.MoonAnimator) {
-				// Set animation direction to use proper timing function before start animation
-				this.$.animator.direction = (old < this.index) ? 'forward' : 'backward';
-			}
-			// First panel in activity pattern is using full width
-			if (this.pattern == 'activity' && ((this.fromIndex > this.toIndex && this.toIndex === 0) ||
-				(this.fromIndex === undefined && this.toIndex === undefined))) {
-				this.addClass('first');
-			}
+			// Set animation direction to use proper timing function before start animation
+			// This direction is only consumed by MoonAnimator.
+			this.$.animator.direction = this.getDirection();	
+			
+			this.adjustFirstPanelBeforeTransition();
 
 			this.inherited(arguments);
 		},
 
+		/**
+		* @private
+		*/
 		notifyPanels: function (method) {
 			var panels = this.getPanels(),
 				panel, info, i;
@@ -986,59 +1087,48 @@
 		/**
 		* @private
 		*/
+		processPopOnBack: function() {
+			var panels = this.getPanels(),
+				toIndex = this.toIndex,
+				fromIndex = this.fromIndex,
+				i, panel, info, popFrom;
+			// Automatically pop off panels that are no longer on screen
+			if (this.popOnBack && (toIndex < fromIndex)) {
+				popFrom = toIndex + 1;
+				for (i = 0; (panel = panels[i]); i++) {
+					info = this.getTransitionInfo(i);
+					// If a panel is onscreen, don't pop it
+					if ((i > toIndex) && !info.isOffscreen) {
+						popFrom++;
+					}
+				}
+
+				this.popPanels(popFrom);
+			}
+		},
+
+		processQueuedKey: function() {
+			// queuedIndex becomes -1 when left key input is occurred
+			// during transition from index 1 to 0.
+			// We can hide panels if we use handle.
+			if (this.queuedIndex === -1 && this.useHandle) {
+				this.hide();
+			} else if (this.queuedIndex !== null) {
+				this.setIndex(this.queuedIndex);
+			}
+		},
+
+		/**
+		* @private
+		*/
 		finishTransition: enyo.inherit(function (sup) {
 			return function () {
-				var panels = this.getPanels(),
-					toIndex = this.toIndex,
-					fromIndex = this.fromIndex,
-					i, panel, info, popFrom,
-					end = this.index,
-					start = end - this.getBreadcrumbs().length;
-
-				if (this.pattern != 'none') {
-					this.$.breadcrumbs.set('spotlight', null);
-
-					// Turn off spotlight focus for offscreen breadcrumbs
-					for (i=start; i<end; i++) {
-						control = this.getBreadcrumbForIndex(i);
-						control.set('spotlight', (i>=0) && (this.index-i <= this.getBreadcrumbMax()));
-					}
-				}
-
-				if (this.pattern == 'activity') {
-					if (this.fromIndex < this.toIndex && this.fromIndex == 0) {
-						this.removeClass('first');
-					}
-				}
-
+				this.adjustFirstPanelAfterTransition();
 				this.notifyPanels('transitionFinished');
 				sup.apply(this, arguments);
-
-				// Automatically pop off panels that are no longer on screen
-				if (this.popOnBack && (toIndex < fromIndex)) {
-					popFrom = toIndex + 1;
-					for (i = 0; (panel = panels[i]); i++) {
-						info = this.getTransitionInfo(i);
-						// If a panel is onscreen, don't pop it
-						if ((i > toIndex) && !info.isOffscreen) {
-							popFrom++;
-						}
-					}
-
-					this.popPanels(popFrom);
-				}
-
-				// queuedIndex becomes -1 when left key input is occurred
-				// during transition from index 1 to 0.
-				// We can hide panels if we use handle.
-				if (this.queuedIndex === -1 && this.useHandle) {
-					this.hide();
-				} else if (this.queuedIndex !== null) {
-					this.setIndex(this.queuedIndex);
-				}
-
+				this.processPopOnBack();
+				this.processQueuedKey();
 				enyo.Spotlight.unmute(this);
-				// Spot the active panel
 				enyo.Spotlight.spot(this.getActive());
 			};
 		}),
@@ -1096,52 +1186,6 @@
 				this.useHandle = false;
 				break;
 			}
-		},
-
-		/**
-		* @private
-		*/
-		addBreadcrumb: function (forceRender) {
-			if (this.pattern == 'none' || !this.$.breadcrumbs) return;
-
-			// If we have 1 panel then we don't need breadcrumb.
-			// If we have more then 1 panel then we need panel - 1 number of breadcrumbs.
-			// But, if we can only see 1 breadcrumb on screen like activity pattern 
-			// then we need 2 breadcrumbs to show animation.
-			var len = Math.max(2, Math.min(this.getPanels().length-1, this.getBreadcrumbMax()+1)),
-				defs = [], 
-				prevLen = this.getBreadcrumbs().length,
-				breadcrumbs, i;
-
-			for(i=0; i<len-prevLen; i++) {
-				defs[i] = {kind: 'moon.Breadcrumb'};
-			}
-			this.$.breadcrumbs.createComponents(defs, {owner: this});
-			if (forceRender) {
-				breadcrumbs = this.getBreadcrumbs();
-				for (i=prevLen; i<len; i++) {
-					breadcrumbs[i].render();
-				}
-			}
-		},
-
-		/**
-		* @private
-		*/
-		removeBreadcrumb: function () {
-			if (this.pattern == 'none' || !this.$.breadcrumbs) return;
-
-			// If we have 1 panel then we don't need breadcrumb.
-			// If we have more then 1 panel then we need panel - 1 number of breadcrumbs.
-			// But, if we can only see 1 breadcrumb on screen like activity pattern 
-			// then we need 2 breadcrumbs to show animation.
-			var len = Math.max(2, Math.min(this.getPanels().length-1, this.getBreadcrumbMax()+1)),
-				i;
-
-			// If we have more than the number of necessary breadcrumb then destroy.
-			while (this.getBreadcrumbs().length > len) {
-				this.getBreadcrumbs()[this.getBreadcrumbs().length-1].destroy();
- 			}
 		},
 
 		/**
@@ -1228,13 +1272,6 @@
 		},
 
 		/**
-		* @private
-		*/
-		getOffscreenXPosition: function () {
-			return this.$.clientWrapper.getBounds().width;
-		},
-
-		/**
 		* Hide/show animation complete.
 		*
 		* @private
@@ -1316,17 +1353,17 @@
 		*/
 		name: 'moon.PanelsHandle',
 
-		/*
+		/**
 		* @private
 		*/
 		kind: 'enyo.Control',
 
-		/*
+		/**
 		* @private
 		*/
 		classes: 'moon-panels-handle',
 
-		/*
+		/**
 		* We override getAbsoluteShowing so that the handle's spottability is not dependent on the
 		* showing state of its parent, the {@link moon.Panels} control.
 		*
@@ -1353,6 +1390,10 @@
 		*/
 		name: 'moon.Breadcrumb',
 
+		/**
+		* @private
+		* @lends moon.Breadcrumb.prototype
+		*/
 		published: {
 			/*
 			* @private
@@ -1360,43 +1401,45 @@
 			index: 0
 		},
 
-		/*
+		/**
 		* @private
 		*/
 		kind: 'enyo.Control',
 
-		/*
+		/**
 		* @private
 		*/
 		spotlight: true,
 
-		/*
+		/**
 		* @private
 		*/
 		handlers: {
-			ontap: 'tapHandler'
+			ontap: 'tapHandler',
+			onSpotlightFocus: 'focusHandler',
+			onSpotlightRight: 'rightHandler'
 		},
 
-		/*
+		/**
 		* @private
 		*/
 		classes: 'moon-panels-breadcrumb',
 
-		/*
+		/**
 		* @private
 		*/
 		components: [
 			{name: 'number', classes: 'moon-panels-breadcrumb-header'}
 		],
 
-		/*
+		/**
 		* @private
 		*/
 		bindings: [
 			{from: 'index', to: '$.number.content', transform: 'formatNumber'}
 		],
 
-		/*
+		/**
 		* @private
 		*/
 		formatNumber: function (n) {
@@ -1404,13 +1447,37 @@
 			return '< ' + ((i < 10) ? '0' : '') + i;
 		},
 
-		/*
+		/**
 		* @private
 		*/
-		tapHandler: function (sender, ev) {
+		tapHandler: function (sender, event) {
 			// decorate
-			ev.breadcrumbTap = true;
-			ev.index = this.index;
+			event.breadcrumbTap = true;
+			event.index = this.index;
+		},
+
+		/**
+		* Block focus on offscreen breadcrumb.
+		* @private
+		*/
+		focusHandler: function(sender, event) {
+			var bounds = this.getAbsoluteBounds(),
+				containerBounds = this.container.getAbsoluteBounds(),
+				right = bounds ? bounds.right : null,
+				left = bounds ? bounds.left : null,
+				panelEdge = containerBounds ? containerBounds.right : null;
+			if (right <= 0 || left >= panelEdge) return true;
+		},
+
+		/** 
+		* @private
+		*/	
+		rightHandler: function(sender, event) {
+			var panels = this.owner;
+			if (this.index+1 ==	panels.index) {
+				enyo.Spotlight.spot(panels.getActive());
+				return true;
+			}
 		}
 	});
 

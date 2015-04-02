@@ -3,7 +3,7 @@ enyo.kind({
 	classes: "moon enyo-fit enyo-unselectable",
 	style: "background: gray url('http://lorempixel.com/1920/1080/')",
 	components: [
-		{name: "panels", kind: "moon.Panels", pattern: "alwaysviewing", classes: "enyo-fit", useHandle: false, components: [
+		{name: "panels", kind: "moon.Panels", pattern: "alwaysviewing", components: [
 			{title: "First Panel", titleBelow: "Sub-title", subTitleBelow:"Sub-sub title", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next"},

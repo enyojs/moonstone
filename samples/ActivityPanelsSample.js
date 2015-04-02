@@ -2,7 +2,7 @@ enyo.kind({
 	name: "moon.sample.ActivityPanelsSample",
 	classes: "moon enyo-fit enyo-unselectable",
 	components: [
-		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", style: "z-index: 1000;", brandingSrc: "$lib/moonstone/samples/assets/default-movie.png", components: [
+		{name: "panels", kind: "moon.Panels", pattern: "activity", components: [
 			{title: "First Panel", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", headerComponents: [
 				{kind: "moon.ToggleButton", small:true, content:"Medium", name:"mediumHeaderToggle", ontap: "typeTapped"},
 				{kind: "moon.ToggleButton", small:true, content:"Small", name:"smallHeaderToggle", ontap: "typeTapped"}
