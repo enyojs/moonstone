@@ -1,3 +1,5 @@
+/* TODO: Retire this file after new scroller implementation is completely integrated. */
+
 .moon-thumb {
 	-webkit-transform-origin: 0px 0px;
 	transform-origin: 0px 0px;
@@ -9,21 +11,4 @@
 }
 .moon-neutral .moon-thumb {
 	background: @moon-neutral-thumb-bg-color;
-}
-
-.moon-scroller-hthumb,
-.moon-scroller-vthumb {
-	transition: opacity 0.1s linear;
-	-moz-transition: opacity 0.1s linear;
-	-webkit-transition: opacity 0.1s linear;
-}
-.moon-scroller-hthumb {
-	bottom:  @moon-icon-button-small-size/2 - 2;
-}
-.moon-scroller-vthumb {
-	right:  @moon-icon-button-small-size/2 - 2;
-}
-.moon-scroller-hthumb.hidden,
-.moon-scroller-vthumb.hidden {
-	opacity: 0;
 }

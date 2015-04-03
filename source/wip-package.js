@@ -5,5 +5,9 @@
 * and are subject to future changes, so you may use these only "at your own risk".
 */
 enyo.depends(
-	'AudioPlayback.js'
+	'AudioPlayback.js',
+	'Scrollable.js',
+	'NewDataList.js',
+	'NewPagingControl.js',
+	'ScrollControls.js'
 );
