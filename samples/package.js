@@ -85,7 +85,6 @@ enyo.depends(
 	"ListActionsSample.js",
 	"MarqueeSample.css",
 	"MarqueeSample.js",
-	"NewDataListSample.js",
 	"ObjectActionHorizontalTypeSample.css",
 	"ObjectActionHorizontalTypeSample.js",
 	"ObjectActionVerticalTypeSample.css",
