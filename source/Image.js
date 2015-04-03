@@ -125,11 +125,11 @@
 		* @private
 		*/
 		bindings: [
-			{from: '.src', to: '.$.image.src'},
-			{from: '.alt', to: '.$.image.alt'},
-			{from: '.sizing', to: '.$.image.sizing'},
-			{from: '.position', to: '.$.image.position'},
-			{from: '.backgroundColor', to: '.$.image.backgroundColor'}
+			{from: 'src', to: '$.image.src'},
+			{from: 'alt', to: '$.image.alt'},
+			{from: 'sizing', to: '$.image.sizing'},
+			{from: 'position', to: '$.image.position'},
+			{from: 'backgroundColor', to: '$.image.backgroundColor'}
 		],
 
 		/**
