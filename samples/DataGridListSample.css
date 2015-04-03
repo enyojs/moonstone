@@ -1,10 +1,10 @@
-.moon-gridlist-imageitem.horizontal > img {
+.moon-gridlist-imageitem.horizontal-gridList-image-item > img {
     height: 100%;
     width: auto;
     display: inline-block;
 }
 
-.moon-gridlist-imageitem.horizontal > .captionArea {
+.moon-gridlist-imageitem.horizontal-gridList-image-item > .captionArea {
     margin-left: 12px;
     display: inline-block;
 }
