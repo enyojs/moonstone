@@ -43,23 +43,24 @@ enyo.kind({
 	pattern: "activity",
 	classes: "moon enyo-fit enyo-unselectable",
 	components: [
-		{kind: "moon.Panel", classes:"moon-6h", title:"Menu", components: [
-			{kind:"moon.Item", content:"Scroll"},
-			{kind:"moon.Item", content:"the"},
-			{kind:"moon.Item", content:"Data Grid List"},
-			{kind:"moon.Item", content:"to"},
-			{kind:"moon.Item", content:"the"},
-			{kind:"moon.Item", content:"Right!"}
-		]},
-		{kind: "moon.Panel", joinToPrev: true, title:"Data Grid List", headerComponents: [
-			{kind: "moon.ToggleButton", content:"Selection", name:"selectionToggle"},
+		{name: 'listPanel', kind: "moon.Panel", joinToPrev: true, title:"Data Grid List", headerComponents: [
+			{kind: "moon.ToggleButton", content:"Selection", name:"selectionToggle", onChange: 'selectionChanged'},
 			{kind: "moon.ContextualPopupDecorator", components: [
 				{kind: "moon.ContextualPopupButton", content:"Selection Type"},
 				{kind: "moon.ContextualPopup", classes:"moon-4h", components: [
-					{kind: "moon.RadioItemGroup", name: "selectionTypeGroup", components: [
+					{kind: "moon.RadioItemGroup", name: "selectionTypeGroup", onActiveChanged: 'selectionTypeChanged', components: [
 						{content: "Single", value: "single", selected: true},
 						{content: "Multiple", value: "multi"},
 						{content: "Group", value: "group"}
+					]}
+				]}
+			]},
+			{kind: "moon.ContextualPopupDecorator", components: [
+				{kind: "moon.ContextualPopupButton", content:"Item Type"},
+				{kind: "moon.ContextualPopup", classes:"moon-6h", components: [
+					{kind: "moon.RadioItemGroup", name: "itemTypeGroup", onActiveChanged: 'itemTypeChanged', components: [
+						{content: "ImageItem", value: "GridListImageItem", selected: true},
+						{content: "HorizontalImageItem", value: "HorizontalGridListImageItem"}
 					]}
 				]}
 			]},
@@ -75,40 +76,20 @@ enyo.kind({
 					]}
 				]}
 			]}
-		], components: [
-			/**
-			{name: "gridList", fit: true, spacing: 20, minWidth: 180, minHeight: 270, kind: "moon.DataGridList", scrollerOptions: { kind: "moon.Scroller", vertical:"scroll", horizontal: "hidden", spotlightPagingControls: true }, components: [
-				{ kind: "moon.sample.GridSampleItem" }
-			]}
-			*/
-			/**
-			*	Horizontal GridList Image Item
-			*/
-			{name: "gridList", fit: true, spacing: 20, minWidth: 600, minHeight: 100, kind: "moon.DataGridList", scrollerOptions: { kind: "moon.Scroller", vertical:"scroll", horizontal: "hidden", spotlightPagingControls: true }, components: [
-				{ kind: "moon.HorizontalGridListImageItem" }
-			]}
-
 		]}
 	],
 	bindings: [
-		{from: ".collection", to: ".$.dataList.collection"},
-		{from: ".collection", to: ".$.gridList.collection"},
-		{from: ".$.selectionTypeGroup.active", to: ".$.gridList.selectionType",
-			transform: function (selected) {
-				return selected && selected.value;
-			}
-		},
-		{from: ".$.selectionToggle.value", to: ".$.gridList.selection", oneWay: false}
+		{from: ".collection", to: ".$.dataList.collection"}
 	],
 	create: function () {
 		this.inherited(arguments);
 		// we set the collection that will fire the binding and add it to the list
-		this.set("collection", new enyo.Collection(this.generateRecords()));
+		this.generateDataGridList('GridListImageItem');
 	},
-	generateRecords: function () {
+	generateRecords: function (amount) {
 		var records = [],
 			idx     = this.modelIndex || 0;
-		for (; records.length < 500; ++idx) {
+		for (; records.length < amount; ++idx) {
 			var title = (idx % 8 === 0) ? " with long title" : "";
 			var subTitle = (idx % 8 === 0) ? "Lorem ipsum dolor sit amet" : "Subtitle";
 			records.push({
@@ -122,12 +103,45 @@ enyo.kind({
 		this.modelIndex = idx;
 		return records;
 	},
+	generateDataGridList: function(itemType) {
+		if (this.$.gridList) {
+			this.$.gridList.destroy();
+		}
+
+		var moreProps = {};
+
+		switch (itemType) {
+		case 'HorizontalGridListImageItem':
+			moreProps = {minWidth: 600, minHeight: 100, components: [{kind: "moon.HorizontalGridListImageItem"}] };
+			break;
+		default:
+			break;
+		}
+
+		var props = enyo.mixin({}, [this.dataListDefaults, moreProps]);
+		var c = this.$.listPanel.createComponent(props, {owner: this});
+		c.render();
+		this.set("collection", new enyo.Collection(this.generateRecords(100)));
+		this.$.gridList.set('collection', this.collection);
+	},
+	selectionChanged: function(inSender, inEvent) {
+		this.$.gridList.set('selection', inSender.value);
+	},
+	itemTypeChanged: function(inSender, inEvent) {
+		this.generateDataGridList(inSender.active.value);
+	},
+	selectionTypeChanged: function(inSender, inEvent) {
+		this.$.gridList.set('selectionType', inSender.active.value);
+	},
 	refreshItems: function () {
 		// we fetch our collection reference
 		var collection = this.get("collection");
 		// we now remove all of the current records from the collection
 		collection.remove(collection.models);
 		// and we insert all new records that will update the list
-		collection.add(this.generateRecords());
-	}
+		collection.add(this.generateRecords(100));
+	},
+	dataListDefaults: {name: 'gridList', kind: 'moon.DataGridList', collection: null, fit: true, spacing:20, minHeight: 270, minWidth: 180, scrollerOptions: { kind: "moon.Scroller", vertical:"scroll", horizontal: "hidden", spotlightPagingControls: true }, components: [
+		{kind: 'moon.sample.GridSampleItem'}
+	]}
 });
