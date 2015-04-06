@@ -1,6 +1,6 @@
 var
 	kind = require('enyo/kind'),
-	utils = require('enyo/utils')
+	utils = require('enyo/utils'),
 	Group = require('enyo/Group');
 
 var
@@ -49,7 +49,7 @@ module.exports = kind({
 				]},
 				{classes: 'moon-1v'},
 				{kind: Divider, content: 'Grouped Buttons: '},
-				{kind: 'enyo.Group', classes: 'moon-toggle-button-sample-group', components: [
+				{kind: Group, classes: 'moon-toggle-button-sample-group', components: [
 					{kind: ToggleButton, content: 'Apple', ontap: 'buttonTapped'},
 					{kind: ToggleButton, toggleOnLabel: 'Ripened Banana', toggleOffLabel: 'Raw Banana', value: true, ontap: 'buttonTapped'},
 					{kind: ToggleButton, toggleOnLabel: 'Sweet Saskatoonberry', toggleOffLabel: 'Bitter Saskatoonberry', ontap: 'buttonTapped'},

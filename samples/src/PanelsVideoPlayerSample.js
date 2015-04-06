@@ -1,5 +1,5 @@
 var
-	kind = require('enyo/kind')
+	kind = require('enyo/kind'),
 	Group = require('enyo/Group');
 
 var

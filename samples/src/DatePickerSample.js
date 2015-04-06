@@ -1,4 +1,5 @@
 var
+	hooks = require('enyo/hooks'),
 	kind = require('enyo/kind');
 
 var
@@ -77,7 +78,7 @@ module.exports = kind({
 		if (window.ilib) {
 			var locale = inEvent.selected.content,
 				val = (locale == 'Use Default Locale') ? null : locale;
-			enyo.updateLocale(locale);
+			hooks.updateLocale(locale);
 			this.$.picker.setLocale(val);
 			this.$.disabledPicker.setLocale(val);
 		}

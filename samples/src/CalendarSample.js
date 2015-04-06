@@ -1,5 +1,7 @@
 var
-	kind = require('enyo/kind');
+	kind = require('enyo/kind'),
+	hooks = require('enyo/hooks'),
+	updateLocale = hooks.updateLocale;
 
 var
 	FittableColumns = require('layout/FittableColumns'),
@@ -114,7 +116,7 @@ module.exports = kind({
 		if (window.ilib) {
 			var locale = inEvent.selected.content,
 				val = (locale == 'Use Default Locale') ? null : locale;
-			enyo.updateLocale(locale);
+			updateLocale(locale);
 			this.$.calendar.setLocale(val);
 			this.$.picker.setLocale(val);
 

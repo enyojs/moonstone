@@ -1,5 +1,5 @@
 var
-	kind = require('enyo/kind')
+	kind = require('enyo/kind'),
 	Repeater = require('enyo/Repeater');
 
 var

@@ -1,7 +1,7 @@
 var
 	kind = require('enyo/kind'),
 	Collection = require('enyo/Collection'),
-	DataRepeater = require('enyo/DataRepeater')
+	DataRepeater = require('enyo/DataRepeater'),
 	Group = require('enyo/Group');
 
 var

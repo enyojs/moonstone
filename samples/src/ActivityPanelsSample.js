@@ -2,9 +2,10 @@ var
 	kind = require('enyo/kind');
 
 var
+	Item = require('moonstone/Item'),
 	Panels = require('moonstone/Panels'),
-	ToggleButton = require('moonstone/ToggleButton'),
-	Item = require('moonstone/Item');
+	Scroller = require('moonstone/Scroller'),
+	ToggleButton = require('moonstone/ToggleButton');
 
 module.exports = kind({
 	name: 'moon.sample.ActivityPanelsSample',

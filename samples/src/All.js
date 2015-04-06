@@ -11,7 +11,7 @@ var
 	ContextualPopupDecorator = require('moonstone/ContextualPopupDecorator'),
 	DataList = require('moonstone/DataList'),
 	Divider = require('moonstone/Divider'),
-	Item = require('moonstone/Item')
+	Item = require('moonstone/Item'),
 	Panel = require('moonstone/Panel'),
 	Panels = require('moonstone/Panels'),
 	Scroller = require('moonstone/Scroller'),
@@ -85,7 +85,7 @@ var appRouter = kind({
 *
 * @namespace moon.sample
 */
-var All = module.exports = kind({
+module.exports = kind({
 	name: 'moon.sample.All',
 	classes: 'moon enyo-unselectable enyo-fit',
 	themes: {

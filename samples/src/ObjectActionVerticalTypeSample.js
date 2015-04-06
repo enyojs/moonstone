@@ -9,10 +9,10 @@ var
 var
 	Divider = require('moonstone/Divider'),
 	Scroller = require('moonstone/Scroller'),
-	ImageItem = require('moonstone/ImageItem'),
+	Item = require('moonstone/Item'),
 	Button = require('moonstone/Button'),
 	ObjectActionDecorator = require('moonstone/ObjectActionDecorator'),
-	BodyText = require('moonstone/BodyText')
+	BodyText = require('moonstone/BodyText');
 
 module.exports = kind({
 	name: 'moon.sample.ObjectActionVerticalTypeSample',

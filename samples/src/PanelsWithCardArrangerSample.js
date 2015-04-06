@@ -2,7 +2,7 @@ var
 	kind = require('enyo/kind');
 
 var
-	CardArranger = require('layout/CardArranger')
+	CardArranger = require('layout/CardArranger');
 
 var
 	Panels = require('moonstone/Panels'),

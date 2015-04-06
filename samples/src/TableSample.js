@@ -1,6 +1,6 @@
 var
 	kind = require('enyo/kind'),
-	utils = require('enyo/utils')
+	utils = require('enyo/utils'),
 	Control = require('enyo/Control');
 
 var

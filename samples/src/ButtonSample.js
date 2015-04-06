@@ -1,6 +1,5 @@
 var
 	kind = require('enyo/kind'),
-	drag = require('enyo/drag'),
 	Control = require('enyo/Control'),
 	Group = require('enyo/Group');
 
@@ -17,7 +16,7 @@ var
 	ToggleItem = require('moonstone/ToggleItem'),
 	BodyText = require('moonstone/BodyText');
 
-var ButtonSample = module.exports = kind({
+module.exports = kind({
 	name: 'moon.sample.ButtonSample',
 	kind: FittableRows,
 	classes: 'moon enyo-unselectable enyo-fit moon-button-sample',

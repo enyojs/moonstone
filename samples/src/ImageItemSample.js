@@ -1,6 +1,6 @@
 var
 	kind = require('enyo/kind'),
-	Image = require('enyo/Image');
+	Img = require('enyo/Image');
 
 var
 	Divider = require('moonstone/Divider'),
@@ -19,19 +19,19 @@ module.exports = kind({
 						components: [
 							{
 								kind: ImageItem,
-								source: Image.placeholder,
+								source: Img.placeholder,
 								label: 'Breaking Bad',
 								text: 'A struggling high school chemistry teacher who is diagnosed with inoperable lung cancer turns to a life of crime, producing and selling methamphetamine with a former student'
 							},
 							{
 								kind: ImageItem,
-								source: Image.placeholder,
+								source: Img.placeholder,
 								label: 'South Park',
 								text: 'Follows the misadventures of four irreverent grade schoolers in the quiet, dysfunctional town of South Park, Colorado.'
 							},
 							{
 								kind: ImageItem,
-								source: Image.placeholder,
+								source: Img.placeholder,
 								label: 'Paulie',
 								text: 'Life from a parrot\'s point of view.'
 							}
@@ -47,21 +47,21 @@ module.exports = kind({
 						components: [
 							{
 								kind: ImageItem,
-								source: Image.placeholder,
+								source: Img.placeholder,
 								label: 'Breaking Bad',
 								imageAlignRight: true,
 								text: 'A struggling high school chemistry teacher who is diagnosed with inoperable lung cancer turns to a life of crime, producing and selling methamphetamine with a former student'
 							},
 							{
 								kind: ImageItem,
-								source: Image.placeholder,
+								source: Img.placeholder,
 								label: 'South Park',
 								imageAlignRight: true,
 								text: 'Follows the misadventures of four irreverent grade schoolers in the quiet, dysfunctional town of South Park, Colorado.'
 							},
 							{
 								kind: ImageItem,
-								source: Image.placeholder,
+								source: Img.placeholder,
 								label: 'Paulie',
 								imageAlignRight: true,
 								text: 'Life from a parrot\'s point of view.'

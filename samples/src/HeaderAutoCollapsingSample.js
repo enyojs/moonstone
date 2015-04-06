@@ -6,7 +6,8 @@ var
 	IconButton = require('moonstone/IconButton'),
 	Item = require('moonstone/Item'),
 	Panel = require('moonstone/Panel'),
-	Panels = require('moonstone/Panels');
+	Panels = require('moonstone/Panels'),
+	Scroller = require('moonstone/Scroller');
 
 module.exports = kind({
 	name: 'moon.sample.HeaderAutoCollapsingSample',

@@ -8,6 +8,7 @@ var
 	BodyText = require('moonstone/BodyText'),
 	Divider = require('moonstone/Divider'),
 	Icon = require('moonstone/Icon'),
+	Item = require('moonstone/Item'),
 	Scroller = require('moonstone/Scroller');
 
 module.exports = kind({

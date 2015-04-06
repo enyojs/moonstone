@@ -2,7 +2,7 @@ var
 	kind = require('enyo/kind');
 
 var
-	CarouselArranger = require('layout/CarouselArranger')
+	CarouselArranger = require('layout/CarouselArranger');
 
 var
 	Panels = require('moonstone/Panels'),

@@ -46,7 +46,7 @@ module.exports = kind({
 					{content: 'Item 2'},
 					{content: 'Item 3'}
 				]},
-				{kind: 'enyo.Group', highlander: true, components: [
+				{kind: Group, highlander: true, components: [
 					{kind: ExpandableListItem,  open: true,
 						content: 'This is a grouped ExpandableListItem', components: [
 							{content: 'Item One'},
@@ -71,9 +71,9 @@ module.exports = kind({
 		{kind: Divider, content: 'Result'},
 		{kind: BodyText, name: 'console', content: 'Event'}
 	],
-	activateHandler: function(sender, sender) {
-		if (this.generated && sender.originator instanceof ExpandableListItem) {
-			this.$.console.setContent(sender.originator.getContent() + ' is now ' + (sender.originator.getActive() ? 'open' : 'closed'));
+	activateHandler: function(sender, event) {
+		if (this.generated && event.originator instanceof ExpandableListItem) {
+			this.$.console.setContent(event.originator.getContent() + ' is now ' + (event.originator.getActive() ? 'open' : 'closed'));
 		}
 	}
 });

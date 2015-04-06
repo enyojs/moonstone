@@ -8,11 +8,11 @@ var
 
 module.exports = kind({
 	name: 'moon.sample.FontSample',
-	kind: 'moon.Scroller',
+	kind: Scroller,
 	classes: 'moon enyo-unselectable enyo-fit moon-font-sample',
 	components: [
-		{kind: 'moon.Divider', content: 'Latin Font'},
-		{kind: 'enyo.Table', components: [
+		{kind: Divider, content: 'Latin Font'},
+		{kind: Table, components: [
 			{classes: 'moon-header-text', components: [
 				{content: 'HEADER'},
 				{content: '텔레비전'},
@@ -60,8 +60,8 @@ module.exports = kind({
 			]}
 		]},
 		{tag: 'br'},
-		{kind: 'moon.Divider', content: 'Non-latin Font'},
-		{kind: 'enyo.Table', classes: 'enyo-locale-non-latin', components: [
+		{kind: Divider, content: 'Non-latin Font'},
+		{kind: Table, classes: 'enyo-locale-non-latin', components: [
 			{classes: 'moon-header-text', components: [
 				{content: 'HEADER'},
 				{content: '텔레비전'},

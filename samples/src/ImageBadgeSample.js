@@ -7,7 +7,8 @@ var
 var
 	Divider = require('moonstone/Divider'),
 	Icon = require('moonstone/Icon'),
-	Image = require('moonstone/Image'),
+	Img = require('moonstone/Image'),
+	Item = require('moonstone/Item'),
 	Scroller = require('moonstone/Scroller');
 
 module.exports = kind({
@@ -17,13 +18,13 @@ module.exports = kind({
 	components: [
 		{kind: Scroller, fit: true, components: [
 			{kind: Divider, content: 'Image Badges:'},
-			{kind: Image, src: 'http://placehold.it/342x360&text=Image+One', alt: 'Image One', components: [
+			{kind: Img, src: 'http://placehold.it/342x360&text=Image+One', alt: 'Image One', components: [
 				{kind: Icon, icon: 'skipbackward'},
 				{kind: Icon, icon: 'play'},
 				{kind: Icon, icon: 'skipforward'},
 				{kind: Icon, icon: 'search', classes: 'float-right'}
 			]},
-			{kind: Image, src: {
+			{kind: Img, src: {
 				'hd' : 'http://placehold.it/228x240&text=Image+Two',
 				'fhd': 'http://placehold.it/342x360&text=Image+Two'
 			}, alt: 'Image Two', components: [
@@ -31,7 +32,7 @@ module.exports = kind({
 				{kind: Icon, icon: 'closex'},
 				{kind: Icon, icon: 'drawer', classes: 'float-right'}
 			]},
-			{kind: Image, src: {
+			{kind: Img, src: {
 				'hd' : 'http://placehold.it/120x160&text=Image+Three',
 				'fhd': 'http://placehold.it/180x240&text=Image+Three'
 			}, alt: 'Image Three', components: [
@@ -40,7 +41,7 @@ module.exports = kind({
 			
 			{kind: Divider, classes: 'image-badge-sample-divider', content: 'Image Badges - Show on Spotlight:'},
 			{kind: Item, components: [
-				{kind: Image, src: 'http://placehold.it/342x360&text=Image+One', alt: 'Image One', showBadgesOnSpotlight: true, components: [
+				{kind: Img, src: 'http://placehold.it/342x360&text=Image+One', alt: 'Image One', showBadgesOnSpotlight: true, components: [
 					{kind: Icon, icon: 'skipbackward'},
 					{kind: Icon, icon: 'play'},
 					{kind: Icon, icon: 'skipforward'},
@@ -48,7 +49,7 @@ module.exports = kind({
 				]}
 			]},
 			{kind: Item, components: [
-				{kind: Image, src: {
+				{kind: Img, src: {
 					'hd' : 'http://placehold.it/228x240&text=Image+Two',
 					'fhd': 'http://placehold.it/342x360&text=Image+Two'
 				}, alt: 'Image Two', showBadgesOnSpotlight: true, components: [
@@ -58,7 +59,7 @@ module.exports = kind({
 				]}
 			]},
 			{kind: Item, components: [
-				{kind: Image, src: {
+				{kind: Img, src: {
 					'hd' : 'http://placehold.it/120x160&text=Image+Three',
 					'fhd': 'http://placehold.it/180x240&text=Image+Three'
 				}, alt: 'Image Three', showBadgesOnSpotlight: true, components: [

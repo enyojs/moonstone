@@ -9,7 +9,7 @@ var
  	Divider = require('moonstone/Divider'),
  	IconButton = require('moonstone/IconButton'),
  	InputHeader = require('moonstone/InputHeader'),
- 	panel = require('moonstone/panel'),
+ 	Panel = require('moonstone/Panel'),
  	Panels = require('moonstone/Panels');
 
 module.exports = kind({

@@ -23,6 +23,7 @@ var
 	Panel = require('moonstone/Panel'),
 	Panels = require('moonstone/Panels'),
 	Popup = require('moonstone/Popup'),
+	Scroller = require('moonstone/Scroller'),
 	ToggleItem = require('moonstone/ToggleItem'),
 	VideoInfoBackground = require('moonstone/VideoInfoBackground'),
 	VideoInfoHeader = require('moonstone/VideoInfoHeader'),
@@ -176,7 +177,7 @@ module.exports = kind({
 							]},
 							{action: 'category1', components: [
 								{kind: Divider, content: 'Category 1 (DataRepeater)'},
-								{kind: 'enyo.DataRepeater', containerOptions: {kind: Scroller, classes: 'enyo-fill'}, name: 'repeater', fit: true, components: [
+								{kind: DataRepeater, containerOptions: {kind: Scroller, classes: 'enyo-fill'}, name: 'repeater', fit: true, components: [
 									{kind: ToggleItem, bindings: [{from: '.model.name', to: '.content'}]}
 								]}
 							]}

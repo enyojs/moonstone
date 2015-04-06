@@ -6,8 +6,9 @@ var
 
 var
 	BodyText = require('moonstone/BodyText'),
-	Divider = require('moonstone/Divider')
-	Scroller = require('moonstone/Scroller');
+	Divider = require('moonstone/Divider'),
+	Scroller = require('moonstone/Scroller'),
+	ToggleButton = require('moonstone/ToggleButton');
 
 module.exports = kind({
 	name: 'moon.sample.BodyLargeTextSample',

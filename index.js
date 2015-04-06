@@ -37,3 +37,4 @@ if (platform.webos >= 4) {
 
 // ensure that these are registered
 require('./lib/resolution');
+require('./lib/fonts');

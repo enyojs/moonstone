@@ -6,12 +6,12 @@ var
 	FittableRows = require('layout/FittableRows');
 
 var
+	BodyText = require('moonstone/BodyText'),
 	Divider = require('moonstone/Divider'),
-	Scroller = require('moonstone/Scroller'),
-	ImageItem = require('moonstone/ImageItem'),
 	IconButton = require('moonstone/IconButton'),
+	ImageItem = require('moonstone/ImageItem'),
 	ObjectActionDecorator = require('moonstone/ObjectActionDecorator'),
-	BodyText = require('moonstone/BodyText')
+	Scroller = require('moonstone/Scroller');
 
 module.exports = kind({
 	name: 'moon.sample.ObjectActionHorizontalTypeSample',

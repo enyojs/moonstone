@@ -1,10 +1,8 @@
 var
 	kind = require('enyo/kind'),
-	drag = require('enyo/drag'),
 	Collection = require('enyo/Collection');
 
 var
-	ri = require('moonstone/resolution'),
 	Button = require('moonstone/Button'),
 	CheckboxItem = require('moonstone/CheckboxItem'),
 	ContextualPopup = require('moonstone/ContextualPopup'),
@@ -17,7 +15,7 @@ var
 	Panel = require('moonstone/Panel'),
 	Panels = require('moonstone/Panels'),
 	RadioItemGroup = require('moonstone/RadioItemGroup'),
-	Scroller = require('moonstone/Scroller')
+	Scroller = require('moonstone/Scroller'),
 	SelectionOverlaySupport = require('moonstone/SelectionOverlaySupport'),
 	ToggleButton = require('moonstone/ToggleButton');
 
@@ -25,7 +23,7 @@ var
 
 var GridSampleItem = kind({
 	name: 'moon.sample.GridSampleItem',
-	kind: 'moon.GridListImageItem',
+	kind: GridListImageItem,
 	mixins: [SelectionOverlaySupport],
 	selectionOverlayVerticalOffset: 35,
 	subCaption: 'Sub Caption',
@@ -36,7 +34,7 @@ var GridSampleItem = kind({
 	]
 });
 
-var DataGridListSample = module.exports = kind({
+module.exports = kind({
 	name: 'moon.sample.DataGridListSample',
 	kind: Panels,
 	pattern: 'activity',

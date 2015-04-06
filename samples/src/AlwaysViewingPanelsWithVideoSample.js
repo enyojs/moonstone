@@ -6,13 +6,13 @@ var
 	ChannelInfo = require('moonstone/ChannelInfo'),
 	Clock = require('moonstone/Clock'),
 	ContextualPopup = require('moonstone/ContextualPopup'),
-	ContextualPopupDecorator = require('moonstone/ContextualPopupDecorator')
+	ContextualPopupDecorator = require('moonstone/ContextualPopupDecorator'),
 	IconButton = require('moonstone/IconButton'),
 	Item = require('moonstone/Item'),
 	Panels = require('moonstone/Panels'),
 	ToggleItem = require('moonstone/ToggleItem'),
 	Tooltip = require('moonstone/Tooltip'),
-	TooltipDecorator = require('moonstone/TooltipDecorator')
+	TooltipDecorator = require('moonstone/TooltipDecorator'),
 	VideoInfoBackground = require('moonstone/VideoInfoBackground'),
 	VideoInfoHeader = require('moonstone/VideoInfoHeader'),
 	VideoPlayer = require('moonstone/VideoPlayer');

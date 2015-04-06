@@ -5,7 +5,7 @@ var
 	BodyText = require('moonstone/BodyText'),
 	Divider = require('moonstone/Divider'),
 	Icon = require('moonstone/Icon'),
-	Image = require('moonstone/Image'),
+	Img = require('moonstone/Image'),
 	Item = require('moonstone/Item'),
 	Marquee = require('moonstone/Marquee'),
 	MarqueeText = Marquee.Text,
@@ -34,18 +34,18 @@ module.exports = kind({
 				]},
 				{kind: Item, components: [
 					{kind: MarqueeText, content: 'Item with more complex components'},
-					{kind: Image, src: {
+					{kind: Img, src: {
 						'hd' : 'http://placehold.it/288x60&text=Image+One',
 						'fhd': 'http://placehold.it/432x90&text=Image+One'
 					}, alt: 'Image One'},
-					{kind: Image, src: {
+					{kind: Img, src: {
 						'hd' : 'http://placehold.it/288x60&text=Image+Two',
 						'fhd': 'http://placehold.it/432x90&text=Image+Two'
-					}, alt: 'Image Two'}
+					}, alt: 'Img Two'}
 				]},
 				{kind: Item, components: [
 					{kind: MarqueeText, content: 'Item with more complex components'},
-					{kind: Image, src: {
+					{kind: Img, src: {
 						'hd' : 'http://placehold.it/100x100&text=Image+Three',
 						'fhd': 'http://placehold.it/150x150&text=Image+Three'
 					}, style: 'float: left; margin: 10px 10px 10px 0', alt: 'Image Two'},
@@ -53,7 +53,7 @@ module.exports = kind({
 				]},
 				{kind: Item, components: [
 					{kind: MarqueeText, content: 'Item with more complex components'},
-					{kind: Image, src: {
+					{kind: Img, src: {
 						'hd' : 'http://placehold.it/100x100&text=Image+Four',
 						'fhd': 'http://placehold.it/150x150&text=Image+Four'
 					}, style: 'float: right; margin: 10px 0px 10px 10px', alt: 'Image Two'},

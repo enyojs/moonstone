@@ -1,6 +1,6 @@
 var
 	kind = require('enyo/kind'),
-	Image = require('enyo/Image')
+	Img = require('enyo/Image'),
 	Repeater = require('enyo/Repeater');
 
 var
@@ -16,7 +16,7 @@ module.exports = kind({
 		{kind: Scroller, vertical: 'hidden', spotlight: 'container', style: 'white-space: nowrap;', components: [
 			{kind: Repeater, count: '50', components: [
 				{kind: Item, classes: 'moon-scroller-sample-item enyo', style: 'display:inline-block;', components: [
-					{kind: Image, src: 'images/enyo-icon.png'}
+					{kind: Img, src: 'images/enyo-icon.png'}
 				]}
 			]}
 		]}
