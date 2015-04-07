@@ -38,6 +38,32 @@ enyo.kind({
 });
 
 enyo.kind({
+	name: 'moon.HorizontalGridListItem',
+	kind: 'moon.GridListImageItem',
+	mixins: ['moon.SelectionOverlaySupport'],
+
+	selectionOverlayVerticalOffset: 50,
+	selectionOverlayHorizontalOffset: 5,
+	centered: false,
+
+	components: [
+		{name: 'caption', classes: 'caption'},
+		{name: 'subCaption', classes: 'sub-caption'}
+	],
+
+	bindings: [
+		{from: 'model.text', to: 'caption'},
+		{from: 'model.subText', to: 'subCaption'}
+	],
+
+	classes: 'horizontal-gridList-item',
+
+	imageSizingChanged: function() {
+		return true;
+	}
+});
+
+enyo.kind({
 	name: 'moon.sample.DataGridListSample',
 	kind: 'moon.Panels',
 	pattern: 'activity',
@@ -60,7 +86,8 @@ enyo.kind({
 				{kind: 'moon.ContextualPopup', classes:'moon-6h', components: [
 					{kind: 'moon.RadioItemGroup', name: 'itemTypeGroup', onActiveChanged: 'itemTypeChanged', components: [
 						{content: 'ImageItem', value: 'GridListImageItem', selected: true},
-						{content: 'HorizontalImageItem', value: 'HorizontalGridListImageItem'}
+						{content: 'HorizontalImageItem', value: 'HorizontalGridListImageItem'},
+						{content: 'HorizontalItem', value: 'HorizontalGridListItem'}
 					]}
 				]}
 			]},
@@ -113,6 +140,9 @@ enyo.kind({
 		case 'HorizontalGridListImageItem':
 			moreProps = {minWidth: 600, minHeight: 100, components: [{kind: 'moon.HorizontalGridListImageItem'}] };
 			break;
+		case 'HorizontalGridListItem':
+			moreProps = {minWidth: 600, minHeight: 100, components: [{kind: 'moon.HorizontalGridListItem'}] };
+			break;
 		default:
 			break;
 		}
@@ -121,7 +151,12 @@ enyo.kind({
 		var c = this.$.listPanel.createComponent(props, {owner: this});
 		c.render();
 		this.set('collection', new enyo.Collection(this.generateRecords(100)));
+
 		this.$.gridList.set('collection', this.collection);
+		this.$.gridList.set('selection', this.$.selectionToggle.value);
+		if (this.$.selectionTypeGroup.active) {
+			this.$.gridList.set('selectionType', this.$.selectionTypeGroup.active.value);
+		}
 	},
 	selectionChanged: function(inSender, inEvent) {
 		this.$.gridList.set('selection', inSender.value);

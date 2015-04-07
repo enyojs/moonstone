@@ -5,7 +5,12 @@
 }
 
 .moon-gridlist-imageitem.horizontal-gridList-image-item > .captionArea {
+    height: 100%;
     margin-left: 12px;
     display: inline-block;
+}
+
+.moon-gridlist-imageitem.horizontal-gridList-item {
+    padding: 12px 0 0 99px;
 }
 
