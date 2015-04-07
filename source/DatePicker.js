@@ -340,7 +340,7 @@
 		* @private
 		*/
 		monthLength: function (inYear, inMonth) {
-			if (inYear && (inMonth == 0 || inMonth)) {
+			if (inYear && (inMonth === 0 || inMonth)) {
 				if (typeof ilib !== 'undefined') {
 					return this._tf.cal.getMonLength(inMonth, inYear);
 				} else {
@@ -348,7 +348,7 @@
 				}
 			}
 		},
-		
+
 		/**
 		* @private
 		*/
