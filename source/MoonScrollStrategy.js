@@ -723,8 +723,6 @@
 				showHorizontal = this.showHorizontal();
 				this.scrollBounds = this._getScrollBounds();
 				this.setupBounds();
-				showVertical = this.showVertical();
-				showHorizontal = this.showHorizontal();
 				this.scrollBounds = null;
 				if ((showVertical || showHorizontal) && (originator.showing)) {
 					this.animateToControl(originator, event.scrollFullPage, event.scrollInPointerMode || false);

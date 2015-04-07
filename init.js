@@ -11,7 +11,10 @@
 	* @type {Object}
 	*/
 	moon.config = enyo.mixin({
-		accelerate: true
+		accelerate: true,
+		renderOnShow: {
+			expandableListDrawer: true
+		}
 	}, moon.config);
 
 	// Override the default holdpulse config to account for greater delays between keydown and keyup

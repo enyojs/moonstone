@@ -5043,6 +5043,28 @@ html {
 .moon-icon-exitfullscreen.moon-icon-exitfullscreen-font-style {
   font-size: 4rem;
 }
+.moon-light-panel .client {
+  opacity: 0;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+.moon-light-panel .client.populated {
+  opacity: 1;
+}
+.moon-light-panel:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+.moon-light-panel.transitioning {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+.moon-light-panel.transitioning:after {
+  content: '';
+}
 /* Put this at the end because we want these to take precedence over others */
 .moon-neutral {
   background-color: #686868;

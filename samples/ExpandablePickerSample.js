@@ -48,6 +48,11 @@ enyo.kind({
 							{bindings: [
 								{from: ".model.label", to: ".content"}
 							]}
+						]},
+						{kind: "moon.ExpandablePicker", content: "Initially Hidden Items Picker", renderItemsOnShow: true, components: [
+							{content: "Item 1"},
+							{content: "Item 2", active: true},
+							{content: "Item 3"}
 						]}
 					]}
 				]}
@@ -98,6 +103,11 @@ enyo.kind({
 								{bindings: [
 									{from: ".model.label", to: ".content"}
 								]}
+							]},
+							{kind: "moon.ExpandablePicker", content: "Initially Hidden Items Picker", renderItemsOnShow: true, components: [
+								{content: "Item 1"},
+								{content: "Item 2", active: true},
+								{content: "Item 3"}
 							]}
 						]}
 					]}

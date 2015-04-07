@@ -1,0 +1,32 @@
+.moon-light-panel {
+	.client {
+		opacity: 0;
+		-webkit-transform: translateZ(0);
+		transform: translateZ(0);
+
+		&.populated {
+			opacity: 1;
+		}
+	}
+
+	// Base set of styling for scrim to prevent receiving user input while transitioning
+	&:after {
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+	}
+
+	// Adding the content property here, instead of above, means that this element will only appear in
+	// the DOM during ".transitioning". This was altered to improve marquee animation performance.
+	// Pseudo-elements without a content property cannot receive styling.
+	&.transitioning {
+		-webkit-transform: translateZ(0);
+		transform: translateZ(0);
+
+		&:after {
+			content: '';
+		}
+	}
+}

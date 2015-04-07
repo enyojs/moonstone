@@ -189,7 +189,7 @@
 				]},
 				{name: 'currentValue', kind: 'moon.MarqueeText', classes: 'moon-expandable-picker-current-value'}
 			]},
-			{name: 'drawer', kind: 'enyo.Drawer', resizeContainer:false, classes:'moon-expandable-list-item-client', components: [
+			{name: 'drawer', kind: 'moon.ExpandableListDrawer', resizeContainer:false, classes:'moon-expandable-list-item-client', onDrawerAnimationEnd: 'handleDrawerAnimationEnd', components: [
 				{name: 'client', tag: null, kind: 'Group', onActivate: 'activated', highlander: true},
 				{name: 'helpText', kind:'moon.BodyText', canGenerate: false, classes: 'moon-expandable-picker-help-text'}
 			]}
@@ -214,7 +214,7 @@
 					this.selectedIndex = (this.selectedIndex != -1) ? this.selectedIndex : [];
 				}
 				// super initialization
-				sup.apply(this, arguments);	
+				sup.apply(this, arguments);
 
 				this.selectedIndexChanged();
 				this.noneTextChanged();
@@ -239,7 +239,7 @@
 		*/
 		rendered: function () {
 			this.inherited(arguments);
-			this.isRendered = true;
+			if (!this.$.drawer.renderOnShow) this.isDrawerRendered = true;
 		},
 
 		/**
@@ -457,7 +457,7 @@
 		generateHelpText: function () {
 			this.$.helpText.canGenerate = true;
 			this.$.helpText.render();
-		},		
+		},
 
 		/**
 		* When an item is chosen, marks it as checked and closes the picker.
@@ -492,16 +492,16 @@
 				}
 			}
 
-			if (this.getAutoCollapseOnSelect() && this.isRendered && this.getOpen()) {
+			if (this.getAutoCollapseOnSelect() && this.isDrawerRendered && this.getOpen()) {
 				this.startJob('selectAndClose', 'selectAndClose', this.selectAndCloseDelayMS);
 			}
 
 			return true;
 		},
-		
+
 		/**
 		* Returns the picker items. Override point for child kinds altering the source of the items.
-		* 
+		*
 		* @private
 		*/
 		getCheckboxControls: function () {
@@ -552,6 +552,13 @@
 			}
 			this.$.client.setHighlander(!this.multipleSelection);
 			this.selectedChanged();
+		},
+
+		/**
+		* @private
+		*/
+		handleDrawerAnimationEnd: function () {
+			if (!this.isDrawerRendered) this.isDrawerRendered = true;
 		}
 	});
 

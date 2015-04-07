@@ -1,4 +1,43 @@
 (function (enyo, scope) {
+
+	/**
+	* @class moon.ExpandableListDrawer
+	* @extends enyo.Control
+	* @ui
+	* @public
+	*/
+	enyo.kind(
+		/** @lends moon.ExpandableListDrawer.prototype */ {
+
+		/**
+		* @private
+		*/
+		name: 'moon.ExpandableListDrawer',
+
+		/**
+		* @private
+		*/
+		kind: 'enyo.Drawer',
+
+		/**
+		* @private
+		*/
+		open: false,
+
+		/**
+		* @private
+		*/
+		renderOnShow: moon.config.renderOnShow && moon.config.renderOnShow.expandableListDrawer,
+
+		/**
+		* @private
+		*/
+		openChanged: function () {
+			if (this.open && this.renderOnShow && !this.showing && !this.generated) this.show();
+			this.inherited(arguments);
+		}
+	});
+
 	/**
 	* {@link moon.ExpandableListItem}, which extends {@link moon.Item}, displays a header
 	* while also allowing additional content to be stored in an {@link enyo.Drawer}. When
@@ -154,7 +193,7 @@
 			{name: 'headerContainer', classes: 'moon-expandable-list-item-header moon-expandable-picker-header moon-expandable-list-header', onSpotlightFocus: 'headerFocus', ontap: 'expandContract', components: [
 				{name: 'header', kind: 'moon.MarqueeText'}
 			]},
-			{name: 'drawer', kind: 'enyo.Drawer', resizeContainer:false, classes: 'moon-expandable-list-item-client', components: [
+			{name: 'drawer', kind: 'moon.ExpandableListDrawer', resizeContainer:false, classes: 'moon-expandable-list-item-client', components: [
 				{name: 'client', kind: 'Group', tag: null}
 			]}
 		],
