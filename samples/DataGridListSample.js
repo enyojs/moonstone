@@ -37,7 +37,7 @@ enyo.kind({
 				]}
 			]}
 		], components: [
-			{name: "gridList", fit: true, spacing: 20, minWidth: 180, minHeight: 270, kind: "moon.DataGridList", scrollerOptions: { kind: "moon.Scroller", vertical:"scroll", horizontal: "hidden", spotlightPagingControls: true }, components: [
+			{name: "gridList", fit: true, spacing: 20, minWidth: 180, minHeight: 180, kind: "moon.DataGridList", scrollerOptions: { kind: "moon.Scroller", vertical:"scroll", horizontal: "hidden", spotlightPagingControls: true }, components: [
 				{ kind: "moon.sample.GridSampleItem" }
 			]}
 		]}
@@ -65,8 +65,9 @@ enyo.kind({
 			var subTitle = (idx % 8 === 0) ? "Lorem ipsum dolor sit amet" : "Subtitle";
 			records.push({
 				selected: false,
-				text: "Item " + idx + title,
+				text: "2013.05. " + idx + title,
 				subText: subTitle,
+				id: idx,
 				url: "http://placehold.it/300x300/" + Math.floor(Math.random()*0x1000000).toString(16) + "/ffffff&text=Image " + idx
 			});
 		}
@@ -87,9 +88,13 @@ enyo.kind({
 enyo.kind({
 	name: "moon.sample.GridSampleItem",
 	kind: "moon.GridListImageItem",
-	mixins: ["moon.SelectionOverlaySupport"],
-	selectionOverlayVerticalOffset: 35,
-	subCaption: "Sub Caption",
+	mixins: ["moon.TextOverlaySupport","moon.SelectionOverlaySupport"],
+	//can set how many line you want
+	overlaytextLineNum:3,
+	//can set marquee enable or not
+	useoverlaytextmarquee:false,
+	useCaption:false,
+	useSubCaption:false,
 	bindings: [
 		{from: ".model.text", to: ".caption"},
 		{from: ".model.subText", to: ".subCaption"},
