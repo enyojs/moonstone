@@ -305,12 +305,6 @@
 					values.fullYear = this.localeValue.getYears();
 					values.month = this.localeValue.getMonths();
 					values.date = this.localeValue.getDays();
-				} else {
-					// If date object is not instantiated from ilib, we use default value to avoid passing undefined params to iLib API
-					// Default values are based on unix time defined as the number of seconds that have elapsed since 1 Jan 1970
-					values.fullYear = 1970;
-					values.month = 1;
-					values.date = 1;
 				}
 				values.maxMonths = this._tf.cal.getNumMonths(values.fullYear);
 			} else {
@@ -346,13 +340,15 @@
 		* @private
 		*/
 		monthLength: function (inYear, inMonth) {
-			if (typeof ilib !== 'undefined') {
-				return this._tf.cal.getMonLength(inMonth, inYear);
-			} else {
-				return 32 - new Date(inYear, inMonth - 1, 32).getDate();
+			if (inYear && (inMonth == 0 || inMonth)) {
+				if (typeof ilib !== 'undefined') {
+					return this._tf.cal.getMonLength(inMonth, inYear);
+				} else {
+					return 32 - new Date(inYear, inMonth - 1, 32).getDate();
+				}
 			}
 		},
-
+		
 		/**
 		* @private
 		*/
