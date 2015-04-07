@@ -194,7 +194,7 @@
 					this.createComponent(
 						{classes: 'moon-date-picker-wrap', components:[
 							{kind:'moon.IntegerPicker', name:'day', classes:'moon-date-picker-field', wrap:true, digits:digits, min:1,
-							max:this.monthLength(values.fullYear, values.month), value: values.date, onChange: 'pickerChanged'},
+							max:values.maxDays, value: values.date, onChange: 'pickerChanged'},
 							{name: 'dayLabel', content: this.dayText, classes: 'moon-date-picker-label moon-divider-text'}
 						]});
 					break;
@@ -299,21 +299,26 @@
 		* @private
 		*/
 		calcPickerValues: function () {
-			var values = {};
+			var values = {
+				maxMonths: 12,
+				maxDays: 31
+			};
 			if (typeof ilib !== 'undefined') {
 				if (this.localeValue) {
 					values.fullYear = this.localeValue.getYears();
 					values.month = this.localeValue.getMonths();
 					values.date = this.localeValue.getDays();
 				}
-				values.maxMonths = this._tf.cal.getNumMonths(values.fullYear);
+				if (values.fullYear) {
+					values.maxMonths = this._tf.cal.getNumMonths(values.fullYear);
+					values.maxDays = this.monthLength(values.fullYear, values.month);
+				}
 			} else {
 				if (this.value) {
 					values.fullYear = this.value.getFullYear();
 					values.month = this.value.getMonth()+1;
 					values.date = this.value.getDate();
 				}
-				values.maxMonths = 12;
 			}
 			return values;
 		},
@@ -340,12 +345,10 @@
 		* @private
 		*/
 		monthLength: function (inYear, inMonth) {
-			if (inYear && (inMonth === 0 || inMonth)) {
-				if (typeof ilib !== 'undefined') {
-					return this._tf.cal.getMonLength(inMonth, inYear);
-				} else {
-					return 32 - new Date(inYear, inMonth - 1, 32).getDate();
-				}
+			if (typeof ilib !== 'undefined') {
+				return this._tf.cal.getMonLength(inMonth, inYear);
+			} else {
+				return 32 - new Date(inYear, inMonth - 1, 32).getDate();
 			}
 		},
 
