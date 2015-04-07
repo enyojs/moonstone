@@ -161,16 +161,26 @@
 		/**
 		* @private
 		*/
-		create: enyo.inherit(function(sup) {
-			return function(props) {
-				sup.apply(this, arguments);
-				scope.onpopstate = enyo.bind(this, function(inEvent) {this.popStateHandler();});
-				if (enyo.LunaService) {
-					this.createChrome(this.lunaServiceComponents);
-					this._getAppID();
-				}
-			};
-		}),
+		init: function() {
+			scope.onpopstate = enyo.bind(this, function(inEvent) {this.popStateHandler();});
+			if (enyo.LunaService) {
+				this.createChrome(this.lunaServiceComponents);
+				this._getAppID();
+			}
+
+			if (this.enableBackHistoryAPI) {
+				this._initHistoryState();
+			}
+		},
+
+		/**
+		* To prevent back to previous page in browser, we mark initial state.
+		*
+		* @private
+		*/
+		_initHistoryState: function () {
+			history.pushState({currentObjId: 'historyMaster'}, '', '');
+		},
 
 		/**
 		* When our platform is "PalmSystem", we need the appID to access the proper appinfo.json.
@@ -353,6 +363,9 @@
 
 			switch (state) {
 			case 'empty':
+				if (!history.state || history.state.currentObjId == 'historyMaster') {
+					this._initHistoryState();
+				}
 				break;
 			case 'silence':
 			//Popstate event should be ignored on following 2 conditions.
@@ -399,5 +412,9 @@
 			}
 			return true;
 		}
+	});
+
+	enyo.ready(function() {
+		moon.History.init();
 	});
 })(enyo, this);

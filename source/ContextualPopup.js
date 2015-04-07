@@ -67,6 +67,12 @@
 		/**
 		* @private
 		*/
+		events: {
+			onRequestSpot: ''
+		},
+		/**
+		* @private
+		*/
 		handlers: {
 			onRequestShowPopup        : 'requestShow',
 			onRequestHidePopup        : 'requestHide',
@@ -150,14 +156,14 @@
 		*
 		* @private
 		*/
-		widePopup: 200,
+		widePopup: moon.riScale(210),
 
 		/**
 		* Popups longer than this value are considered long (for layout purposes).
 		*
 		* @private
 		*/
-		longPopup: 200,
+		longPopup: moon.riScale(210),
 
 		/**
 		* Do not allow horizontal flush popups past spec'd amount of buffer space on left/right
@@ -165,7 +171,7 @@
 		*
 		* @private
 		*/
-		horizBuffer: 16,
+		horizBuffer: moon.riScale(15),
 
 		/**
 		* @private
@@ -206,9 +212,9 @@
 		and the dependent decorator code inorder to handle some special cases.
 		*/
 		hide: function(inSender, e) {
-
 			if (this.tapCaptured) {
 				this.tapCaptured = false;
+				this.popupActivated = true;
 			} else {
 				this.popupActivated = false;
 			}
@@ -474,12 +480,9 @@
 		* @private
 		*/
 		capturedTap: function (inSender, inEvent) {
-			// If same activator tapped sequentially, we notice that this popup is already activeted.
-			if (inEvent.dispatchTarget.isDescendantOf(this.activator)) {
-				this.popupActivated = true;
+			// If same activator tapped sequentially, the state of the popup is remembered.
+			if (this.downEvent && this.downEvent.dispatchTarget.isDescendantOf(this.activator)) {
 				this.tapCaptured = true;
-			} else {
-				this.popupActivated = false;
 			}
 			this.inherited(arguments);
 		},
@@ -556,6 +559,20 @@
 					moon.History.ignorePopState();
 				}
 			}
+		},
+
+		/**
+		* @private
+		*/
+		backKeyHandler: function() {
+			if (this.showing) {
+				this.hide();
+			}
+
+			if (this.spotlight && !this.spotlightDisabled) {
+				this.doRequestSpot();
+			}
+			return true;
 		},
 
 		/**

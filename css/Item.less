@@ -1,6 +1,6 @@
 /* Item.css */
 .moon-item {
-	.moon-sub-header-text;
+	.moon-text-base (@moon-item-font-size);
 	line-height: @moon-item-line-height;
 	padding: @moon-spotlight-outset;
 	position: relative;
@@ -17,6 +17,10 @@
 	&.disabled {
 		cursor: default;
 		opacity: @moon-disabled-opacity;
+	}
+
+	> .moon-icon:first-child, > .moon-icon:last-child {
+		.moon-item-icon-tap-area-adjust;
 	}
 }
 

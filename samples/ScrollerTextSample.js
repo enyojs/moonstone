@@ -12,7 +12,8 @@ enyo.kind({
 			{kind:"FittableColumns", noStretch:true, components: [
 				{fit:true, components: [
 					{kind:"moon.ToggleButton", name:"lengthToggle", content:"Long Text", value:true},
-					{kind:"moon.ToggleButton", name:"spotToggle", content:"Spot Paging Controls", value:false}
+					{kind:"moon.ToggleButton", name:"spotToggle", content:"Spot Paging Controls", value:false},
+					{kind:"moon.ToggleButton", name:"hideToggle", content:"Hide Paging Controls when fit", value:false}
 				]},
 				{kind:"moon.Button", content:"Sign me Up!"}
 			]}
@@ -22,6 +23,7 @@ enyo.kind({
 	shortText: "The quick brown fox jumped over the lazy dog.",
 	bindings: [
 		{from: "$.lengthToggle.value", to:"$.text.content", transform: function(val) { return val ? this.longText : this.shortText; } },
-		{from: "$.spotToggle.value", to:"$.scroller.spotlightPagingControls" }
+		{from: "$.spotToggle.value", to:"$.scroller.spotlightPagingControls" },
+		{from: "$.hideToggle.value", to:"$.scroller.hideScrollColumnsWhenFit" }
 	]
 });

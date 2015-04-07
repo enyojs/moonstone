@@ -55,7 +55,8 @@
 		handlers: {
 			onActivate: 'activated',
 			onShow: 'popupShown',
-			onHide: 'popupHidden'
+			onHide: 'popupHidden',
+			onRequestSpot: 'requestSpot'
 		},
 
 		/**
@@ -67,8 +68,7 @@
 			if (inEvent.sentFromPopup && inEvent.sentFromPopup.isDescendantOf(this)) {
 				return;
 			}
-
-			this.requestHidePopup();
+			
 			if (inEvent.originator.active) {
 				this.activator = inEvent.originator;
 				// if this ContextualPopup is already activated
@@ -126,6 +126,16 @@
 		*/
 		requestHidePopup: function () {
 			this.waterfallDown('onRequestHidePopup');
+		},
+
+		/**
+		* When back key is pressed, return spotlight focus to popup button
+		*
+		* @private
+		*/
+		requestSpot: function (inSender, inEvent) {
+			enyo.Spotlight.spot(this);
+			return true;
 		}
 	});
 

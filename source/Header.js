@@ -284,7 +284,7 @@
 				]}
 			]},
 			{name: 'titleBelow', kind: 'moon.MarqueeText', classes: 'moon-sub-header-text moon-header-title-below'},
-			{name: 'subTitleBelow', kind: 'moon.MarqueeText', classes: 'moon-body-text moon-header-sub-title-below'},
+			{name: 'subTitleBelow', kind: 'moon.MarqueeText', classes: 'moon-sub-header-text moon-header-sub-title-below'},
 			{name: 'client', classes: 'moon-hspacing moon-header-client'},
 			{name: 'animator', kind: 'enyo.StyleAnimator', onComplete: 'animationComplete'}
 		],
@@ -472,7 +472,7 @@
 					100: [{
 						control: this,
 						properties: {
-							'height': enyo.dom.unit(moon.ri.scale(260), 'rem')
+							'height': enyo.dom.unit(enyo.ri.scale(260), 'rem')
 						}
 					}, {
 						control: this.$.titleWrapper,
@@ -612,7 +612,7 @@
 				// Measure client area's width + 40px of spacing
 				client = this.$.client ? this.$.client.hasNode() : null,
 				clientWidth = client ? client.offsetWidth : null,
-				clientSpace = enyo.dom.unit(clientWidth + moon.ri.scale(36), 'rem'),
+				clientSpace = enyo.dom.unit(clientWidth + enyo.ri.scale(36), 'rem'),
 				rtl = this.rtl;
 
 			if (client) {

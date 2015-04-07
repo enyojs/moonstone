@@ -4,8 +4,8 @@
 }
 
 // mixin classes for create the moontone text classes
-.moon-sub-header-text-base (@font-size, @font-color) {
-	font-family: @moon-sub-header-font-family;
+.moon-text-base (@font-size, @font-color: @moon-text-color) {
+	font-family: @moon-font-family;
 	font-size: @font-size;
 	color: @font-color;
 }
@@ -38,25 +38,19 @@
 .moon-header-text {
 	font-family: @moon-header-font-family;
 	font-size: @moon-header-font-size;
-	.font-kerning
-}
-.moon-sub-header-text {
-	.moon-sub-header-text-base (@moon-sub-header-font-size, @moon-sub-header-text-color);
+	.font-kerning;
 }
 .moon-super-header-text {
 	font-family: @moon-super-header-font-family;
 	font-size: @moon-super-header-font-size;
 	-webkit-font-kerning: normal;
 }
-.moon-popup-header-text {
-	font-family: @moon-popup-header-font-family;
-	font-size: @moon-popup-header-font-size;
-	-webkit-font-kerning: normal;
+.moon-sub-header-text {
+	.moon-text-base (@moon-sub-header-font-size);
 }
-.moon-divider-text {
-	font-family: @moon-divider-font-family;
-	font-size: @moon-divider-font-size;
-	color: @moon-divider-text-color;
+.moon-header-sub-title-below {
+	font-family: @moon-sub-header-below-font-family;
+	font-size: @moon-sub-header-below-font-size;
 }
 .moon-body-text {
 	font-family: @moon-body-font-family;
@@ -99,6 +93,23 @@
 	font-family: @moon-icon-font-family;
 	font-size: @moon-icon-font-size;
 	color: @moon-icon-color;
+}
+.moon-popup-header-text,
+.moon-dialog-title {
+	font-family: @moon-popup-header-font-family;
+	font-size: @moon-popup-header-font-size;
+	-webkit-font-kerning: normal;
+}
+.moon-dialog-sub-title {
+	font-size: @moon-popup-sub-header-font-size;
+}
+.moon-dialog-content {
+	font-size: @moon-popup-content-font-size;
+}
+.moon-divider-text {
+	font-family: @moon-divider-font-family;
+	font-size: @moon-divider-font-size;
+	color: @moon-divider-text-color;
 }
 
 .enyo-locale-non-latin {

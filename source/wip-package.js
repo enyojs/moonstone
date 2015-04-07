@@ -8,4 +8,8 @@ enyo.depends(
 	'AudioPlayback.js',
 	'LightPanel.js',
 	'LightPanels.js'
+	'Scrollable.js',
+	'NewDataList.js',
+	'NewPagingControl.js',
+	'ScrollControls.js'
 );

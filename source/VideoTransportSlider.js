@@ -83,7 +83,7 @@
 		* @private
 		*/
 		kind: 'moon.Slider',
-		
+
 		/**
 		* @private
 		*/
@@ -93,7 +93,7 @@
 		* @private
 		*/
 		classes: 'moon-video-transport-slider',
-		
+
 		/**
 		* @private
 		* @lends moon.VideoTransportSlider.prototype
@@ -117,7 +117,7 @@
 			* @public
 			*/
 			rangeEnd: 100,
-			
+
 			/**
 			* The position where the slider begins, expressed as a number between `0` and `1`.
 			*
@@ -126,7 +126,7 @@
 			* @public
 			*/
 			beginPosition: 0.0625,
-			
+
 			/**
 			* The position where the slider ends, expressed as a number between `0` and `1`.
 			*
@@ -135,7 +135,7 @@
 			* @public
 			*/
 			endPosition: 0.9375,
-			
+
 			/**
 			* Controls the slider draw.
 			*
@@ -144,7 +144,7 @@
 			* @public
 			*/
 			syncTick: true,
-			
+
 			/**
 			* Determines whether the dummy area is shown.
 			*
@@ -153,7 +153,7 @@
 			* @public
 			*/
 			showDummyArea: true,
-			
+
 			/**
 			* When `true`, label is shown at the start and end positions.
 			*
@@ -162,7 +162,7 @@
 			* @public
 			*/
 			showTickText: true,
-			
+
 			/**
 			* When `true`, tick bar is shown at the start and end positions.
 			*
@@ -171,7 +171,7 @@
 			* @public
 			*/
 			showTickBar: true,
-			
+
 			/**
 			* When `true`, progress may extend past the hour markers.
 			*
@@ -189,7 +189,7 @@
 			* @public
 			*/
 			bgBarClasses: 'moon-video-transport-slider-bg-bar',
-			
+
 			/**
 			* CSS classes to apply to progress bar.
 			*
@@ -198,7 +198,7 @@
 			* @public
 			*/
 			barClasses: 'moon-video-transport-slider-bar-bar',
-			
+
 			/**
 			* CSS classes to apply to popup label.
 			*
@@ -207,7 +207,7 @@
 			* @public
 			*/
 			popupLabelClasses: 'moon-video-transport-slider-popup-label',
-			
+
 			/**
 			* CSS classes to apply to knob.
 			*
@@ -216,7 +216,7 @@
 			* @public
 			*/
 			knobClasses: 'moon-video-transport-slider-knob',
-			
+
 			/**
 			* CSS classes to apply to tap area.
 			*
@@ -225,7 +225,7 @@
 			* @public
 			*/
 			tapAreaClasses: 'moon-video-transport-slider-taparea',
-			
+
 			/**
 			* Color of value popup
 			*
@@ -234,7 +234,7 @@
 			* @public
 			*/
 			popupColor: '#fff',
-			
+
 			/**
 			* Popup offset in pixels.
 			*
@@ -243,7 +243,7 @@
 			* @public
 			*/
 			popupOffset: 25,
-			
+
 			/**
 			* Threshold value (percentage) for using animation effect on slider progress change.
 			*
@@ -252,7 +252,7 @@
 			* @public
 			*/
 			smallVariation: 1,
-			
+
 			/**
 			* Popup height in pixels.
 			*
@@ -262,7 +262,7 @@
 			*/
 			popupHeight: 67
 		},
-		
+
 		/**
 		* @private
 		*/
@@ -270,7 +270,7 @@
 			onTimeupdate: 'timeUpdate',
 			onresize: 'handleResize'
 		},
-		
+
 		/**
 		* @private
 		*/
@@ -281,7 +281,7 @@
 			onEnterTapArea: '',
 			onLeaveTapArea: ''
 		},
-		
+
 		/**
 		* @private
 		*/
@@ -300,7 +300,7 @@
 		* @private
 		*/
 		popupLabelComponents: [
-			{name: 'feedback', kind:'moon.VideoFeedback'},
+			{name: 'feedback', kind:'moon.VideoFeedback', showing:false},
 			{name: 'popupLabelText'}
 		],
 
@@ -367,9 +367,9 @@
 		* @private
 		*/
 		enterTapArea: function(sender, e) {
+			this.startPreview();
 			if (!this.disabled) {
 				this.addClass('visible');
-				this.startPreview();
 				this.doEnterTapArea();
 			}
 		},
@@ -389,6 +389,9 @@
 		*/
 		preview: function(sender, e) {
 			if (!this.disabled && !this.dragging) {
+				if (!this._previewMode) {
+					this.startPreview();
+				}
 				var v = this.calcKnobPosition(e);
 				this.currentTime = this.transformToVideo(v);
 				this._updateKnobPosition(this.currentTime);
@@ -621,7 +624,7 @@
 			}
 			return (val - this.rangeStart) / this.scaleFactor;
 		},
-		
+
 		/**
 		* If user presses `this.$.tapArea`, seeks to that point.
 		*
@@ -683,7 +686,7 @@
 
 			return true;
 		},
-		
+
 		/**
 		* If `drag`, bubbles [onSeek]{@link moon.VideoTransportSlider#onSeek} event and
 		* overrides parent `drag` handler.
@@ -806,7 +809,7 @@
 		padDigit: function(val) {
 			return (val) ? (String(val).length < 2) ? '0'+val : val : '00';
 		},
-		
+
 		/**
 		* Sends current status to [feedback]{@link moon.VideoFeedback} control in response to
 		* user input.

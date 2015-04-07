@@ -43,11 +43,17 @@
 			color: @moon-checkbox-toggle-switch-color;
 		}
 	}
-	&.animated .moon-icon {
-		-webkit-transition: background-color 0.2s, left 0.2s;
+	&.animated {
+		-webkit-transition: background-color 0.2s;
+		transition: background-color 0.2s;
 
-		&:after {
-			-webkit-transition: color 0.2s;
+		.moon-icon {
+			-webkit-transition: left 0.2s, color 0.2s;
+			transition: left 0.2s, color 0.2s;
 		}
 	}
+}
+.moon-toggle-item.spotlight .moon-checkbox.moon-toggle-switch .moon-icon {
+	// to override the ghost checkmark opacity rules, since this inherits its style from moon-checkbox
+	opacity: 1;
 }

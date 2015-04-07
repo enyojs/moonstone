@@ -72,7 +72,17 @@
 			* @default 8
 			* @public
 			*/
-			paginationScrollMultiplier: 8
+			paginationScrollMultiplier: 8,
+
+			/**
+			* If 'true', paging controls are hidden when content fit in scroller
+			* even when spotlightPagingControls is true.
+			*
+			* @type {Boolean}
+			* @default false
+			* @public
+			*/
+			hideScrollColumnsWhenFit: false
 		},
 
 		/**
@@ -705,16 +715,17 @@
 		* @private
 		*/
 		requestScrollIntoView: function(sender, event) {
-			var showVertical, showHorizontal,
+			var originator, showVertical, showHorizontal,
 				bubble = false;
 			if (!enyo.Spotlight.getPointerMode() || event.scrollInPointerMode === true) {
-				this.scrollBounds = this._getScrollBounds();
-				this.setupBounds();
+				originator = event.originator;
 				showVertical = this.showVertical();
 				showHorizontal = this.showHorizontal();
+				this.scrollBounds = this._getScrollBounds();
+				this.setupBounds();
 				this.scrollBounds = null;
-				if (showVertical || showHorizontal) {
-					this.animateToControl(event.originator, event.scrollFullPage, event.scrollInPointerMode || false);
+				if ((showVertical || showHorizontal) && (originator.showing)) {
+					this.animateToControl(originator, event.scrollFullPage, event.scrollInPointerMode || false);
 					if ((showVertical && this.$.scrollMath.bottomBoundary) || (showHorizontal && this.$.scrollMath.rightBoundary)) {
 						this.alertThumbs();
 					}
@@ -835,7 +846,8 @@
 		showVertical: function() {
 			return (this.getVertical() == 'scroll' ||
 					(this.getVertical() !== 'hidden' &&
-					((-1 * this.$.scrollMath.bottomBoundary > 0) || this.spotlightPagingControls)));
+					((-1 * this.$.scrollMath.bottomBoundary > 0) ||
+					(this.spotlightPagingControls && !this.hideScrollColumnsWhenFit))));
 		},
 
 		/**
@@ -846,7 +858,17 @@
 		showHorizontal: function() {
 			return (this.getHorizontal() == 'scroll' ||
 					(this.getHorizontal() !== 'hidden' &&
-					((-1 * this.$.scrollMath.rightBoundary > 0) || this.spotlightPagingControls)));
+					((-1 * this.$.scrollMath.rightBoundary > 0) ||
+					(this.spotlightPagingControls && !this.hideScrollColumnsWhenFit))));
+		},
+
+		/**
+		* Update bounds after change hideScrollColumnsWhenFit option changes.
+		*
+		* @private
+		*/
+		hideScrollColumnsWhenFitChanged: function(old) {
+			this.requestSetupBounds();
 		},
 
 		/**
