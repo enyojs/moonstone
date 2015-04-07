@@ -188,7 +188,7 @@ html {
 /* ----- Moonstone (Icons) ------ */
 @font-face {
   font-family: "Moonstone Icons";
-  src: local("Moonstone "), url("../fonts/moonstone.ttf") format("truetype");
+  src: local("Moonstone"), url("../fonts/moonstone.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
