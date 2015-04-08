@@ -7,7 +7,8 @@ enyo.kind({
 	bindings: [
 		{from: 'model.text', to: 'caption'},
 		{from: 'model.subText', to: 'subCaption'},
-		{from: 'model.url', to: 'source'}
+		{from: 'model.url', to: 'source'},
+		{from: 'model.selected', to: 'selected', oneWay: false}
 	]
 });
 
@@ -130,10 +131,29 @@ enyo.kind({
 
 		switch (itemType) {
 		case 'HorizontalGridListImageItem':
-			moreProps = {minWidth: 600, minHeight: 100, components: [{kind: 'moon.HorizontalGridListImageItem'}] };
+			moreProps = {minWidth: 600, minHeight: 100,
+				components: [{
+					kind: 'moon.HorizontalGridListImageItem',
+					bindings: [
+						{from: 'model.text', to: 'caption'},
+						{from: 'model.subText', to: 'subCaption'},
+						{from: 'model.url', to: 'source'},
+						{from: 'model.selected', to: 'selected', oneWay: false}
+					]
+				}]
+			};
 			break;
 		case 'HorizontalGridListItem':
-			moreProps = {minWidth: 600, minHeight: 100, components: [{kind: 'moon.HorizontalGridListItem'}] };
+			moreProps = {minWidth: 600, minHeight: 100,
+				components: [{
+					kind: 'moon.HorizontalGridListItem',
+					bindings: [
+						{from: 'model.text', to: 'caption'},
+						{from: 'model.subText', to: 'subCaption'},
+						{from: 'model.selected', to: 'selected', oneWay: false}
+					]
+				}]
+			};
 			break;
 		default:
 			break;
