@@ -1,1 +1,1 @@
-../../enyo/tools/lessc.sh ./package.js --ri
+../../enyo/tools/lessc.sh ./package.js
