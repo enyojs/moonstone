@@ -16,24 +16,18 @@ enyo.kind({
 	name: 'moon.HorizontalGridListImageItem',
 	kind: 'moon.GridListImageItem',
 	mixins: ['moon.SelectionOverlaySupport'],
+	classes: 'horizontal-gridList-image-item',
 
 	selectionOverlayVerticalOffset: 50,
 	selectionOverlayHorizontalOffset: 95,
-	centered: false,
-
-	bindings: [
-		{from: 'model.text', to: 'caption'},
-		{from: 'model.subText', to: 'subCaption'},
-		{from: 'model.url', to: 'source'}
-	],
-
-	classes: 'horizontal-gridList-image-item'
+	centered: false
 });
 
 enyo.kind({
 	name: 'moon.HorizontalGridListItem',
-	kind: 'moon.GridListImageItem',
+	kind: 'moon.Item',
 	mixins: ['moon.SelectionOverlaySupport'],
+	classes: 'moon-gridlist-imageitem horizontal-gridList-item',
 
 	selectionOverlayVerticalOffset: 50,
 	selectionOverlayHorizontalOffset: 5,
@@ -44,16 +38,18 @@ enyo.kind({
 		{name: 'subCaption', classes: 'sub-caption'}
 	],
 
+	published: {
+		caption: '',
+		subCaption: '',
+		selected: false
+	},
+
 	bindings: [
-		{from: 'model.text', to: 'caption'},
-		{from: 'model.subText', to: 'subCaption'}
-	],
-
-	classes: 'horizontal-gridList-item',
-
-	imageSizingChanged: function() {
-		return true;
-	}
+		{from: 'caption', to: '$.caption.content'},
+		{from: 'caption', to: '$.caption.showing', kind: 'enyo.EmptyBinding'},
+		{from: 'subCaption', to: '$.subCaption.content'},
+		{from: 'subCaption', to: '$.subCaption.showing', kind: 'enyo.EmptyBinding'}
+	]
 });
 
 enyo.kind({
