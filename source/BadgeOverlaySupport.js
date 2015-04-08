@@ -4,12 +4,12 @@
 	* to any {@link moon.DataList} or {@link moon.DataGridList} item to provide an overlay
 	* that is activated when the list contains items of type Video/Audio/Image.
 	*
-	* The BadgeOverlaySupport purpose is to show an icon badge on top of item to indicate 
+	* The BadgeOverlaySupport purpose is to show an icon badge on top of item to indicate
 	* the type of item. Like for Video/Audio it will show a default play icon and for Image
 	* there is nothing by default.
 	*
 	* The item has to define a
-	* [badgeType]{@link moon.BadgeOverlaySupport#badgeType} MIME type of this 
+	* [badgeType]{@link moon.BadgeOverlaySupport#badgeType} MIME type of this
 	* item. Possible values are 'video', 'audio' , 'image'. Defaulted as 'image'.
 	*
 	* ```javascript
@@ -70,7 +70,7 @@
 		classes: 'moon-badge-overlay-support',
 
 		/**
-		* Identifies the MIME type of badge. 
+		* Identifies the MIME type of badge.
 		* Possible values are "image", "audio" or "video".
 		* Defaulted as 'image'.
 		*
@@ -144,7 +144,7 @@
 				}
 			};
 		}),
-		
+
 		/**
 		* @private
 		*/
@@ -157,8 +157,8 @@
 		* @private
 		*/
 		_badgeOverride: {
-			image: { kind:"moon.Image", components:[{ 
-					name:'badgeScrimIcon', kind: 'moon.Icon', small: false, icon: 'play', spotlight: false
+			image: { kind:"moon.Image", components:[{
+					name:'badgeScrimIcon', kind: 'moon.Icon', small: true, icon: 'play', spotlight: false
 				}]
 			}
 		},
