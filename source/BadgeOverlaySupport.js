@@ -43,6 +43,7 @@
 	* The item may define a
 	* [position]{@link moon.BadgeOverlaySupport#position} to
 	* specify position of badge. Possible values are 'top' or 'bottom'. Defaulted as 'bottom'.
+	*
 	* ```javascript
 	* {name: 'list', kind: 'moon.DataList', components: [
 	*	{mixins: ['moon.BadgeOverlaySupport'], badgeType: 'video', position: 'top',
@@ -53,9 +54,10 @@
 	*		]
 	*	}
 	* ]}
+	* ```
 	*
 	* @mixin moon.BadgeOverlaySupport
-	* @protected
+	* @public
 	*/
 	moon.BadgeOverlaySupport = {
 
@@ -79,7 +81,7 @@
 		* @default undefined
 		* @public
 		*/
-		badgeType: null,
+		badgeType: undefined,
 
 		/**
 		* Font icon to be used in place of default icon.
@@ -89,7 +91,7 @@
 		* @default undefined
 		* @public
 		*/
-		badgeIcon: null,
+		badgeIcon: undefined,
 
 		/**
 		* Url for icon to be used in place of default icon.
@@ -99,7 +101,7 @@
 		* @default undefined
 		* @public
 		*/
-		badgeSrc: null,
+		badgeSrc: undefined,
 
 		/**
 		* Sepcifies the alignment position of badge.
@@ -111,21 +113,13 @@
 		* @default undefined
 		* @public
 		*/
-		position: null,
+		position: undefined,
 
 		/**
 		* @private
 		*/
 		events: {
-
-			/**
-			* {@link moon.BadgeOverlaySupport#onBadgeTap}
-			*/
 			onBadgeTap: '',
-
-			/**
-			* {@link moon.BadgeOverlaySupport#onBadgeIconTap}
-			*/
 			onBadgeIconTap: ''
 		},
 
@@ -157,8 +151,8 @@
 		* @private
 		*/
 		_badgeOverride: {
-			image: { kind:"moon.Image", components:[{
-					name:'badgeScrimIcon', kind: 'moon.Icon', small: true, icon: 'play', spotlight: false
+			image: {kind: 'moon.Image', components:[{
+					name: 'badgeScrimIcon', kind: 'moon.Icon', small: true, icon: 'play', spotlight: false
 				}]
 			}
 		},
@@ -166,17 +160,17 @@
 		/**
 		* @private
 		*/
-		positionChanged: function() {
-			this.addRemoveClass("top", this.position == 'top');
+		positionChanged: function () {
+			this.addRemoveClass('top', this.position == 'top');
 		},
 
 		/**
 		* @private
 		*/
-		badgeTypeChanged: function() {
+		badgeTypeChanged: function () {
 			var image = this.$.image;
 			image.destroyClientControls();
-			if(this.badgeType && this.badgeType != "image") {
+			if(this.badgeType && this.badgeType != 'image') {
 				image.createComponent(this._badgeOverride.image.components[0]);
 			}
 		},
@@ -188,8 +182,8 @@
 		dispatchEvent: enyo.inherit(function (sup) {
 			return function (sEventName, oEvent, oSender) {
 				if (oEvent && !oEvent.delegate) {
-					if (sEventName=='ontap'){
-						if(this.badgeTap(oSender, oEvent)) {
+					if (sEventName == 'ontap') {
+						if (this.badgeTap(oSender, oEvent)) {
 							return true;
 						}
 					}
@@ -203,14 +197,14 @@
 		* @private
 		*/
 		badgeTap: function (inSender, inEvent) {
-			if (inEvent && inEvent.originator) {
-				switch(inEvent.originator.name) {
-					case 'badgeScrimIcon':
-						this.bubble('onBadgeIconTap', inEvent);
-						return true;
-					case 'client':
-						this.bubble('onBadgeTap', inEvent);
-						return true;
+			if (inEvent && inEvent.dispatchTarget) {
+				var target = inEvent.dispatchTarget;
+				if (target.isDescendantOf(inSender.$.badgeScrimIcon)) {
+					this.bubble('onBadgeIconTap', inEvent);
+					return true;
+				} else if (target.isDescendantOf(this.$.image)) {
+					this.bubble('onBadgeTap', inEvent);
+					return true;
 				}
 			}
 			return false;
