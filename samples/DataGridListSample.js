@@ -17,7 +17,7 @@ enyo.kind({
 	mixins: ['moon.SelectionOverlaySupport'],
 
 	selectionOverlayVerticalOffset: 50,
-	selectionOverlayHorizontalOffset: 90,
+	selectionOverlayHorizontalOffset: 95,
 	centered: false,
 
 	bindings: [

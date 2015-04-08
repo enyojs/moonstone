@@ -8,7 +8,7 @@
 .moon-gridlist-imageitem.horizontal-gridList-image-item > .caption,
 .moon-gridlist-imageitem.horizontal-gridList-image-item > .sub-caption {
 	position: relative;
-	top: 20px;
+	top: 18%;
     width: auto;
     overflow: hidden;
 }

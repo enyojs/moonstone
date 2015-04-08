@@ -27,6 +27,7 @@ enyo.depends(
 	"ClockSample.js",
 	"ContextualPopupSample.css",
 	"ContextualPopupSample.js",
+	"DataGridListSample.css",
 	"DataGridListSample.js",
 	"DataListSample.css",
 	"DataListSample.js",
