@@ -26,15 +26,7 @@ enyo.kind({
 		{from: 'model.url', to: 'source'}
 	],
 
-	classes: 'horizontal-gridList-image-item',
-
-	create: function() {
-		this.inherited(arguments);
-
-		this.createComponent({name: 'captionArea', classes: 'captionArea'});
-		this.$.caption.setContainer(this.$.captionArea);
-		this.$.subCaption.setContainer(this.$.captionArea);
-	}
+	classes: 'horizontal-gridList-image-item'
 });
 
 enyo.kind({
@@ -150,7 +142,7 @@ enyo.kind({
 		var props = enyo.mixin({}, [this.dataListDefaults, moreProps]);
 		var c = this.$.listPanel.createComponent(props, {owner: this});
 		c.render();
-		this.set('collection', new enyo.Collection(this.generateRecords(100)));
+		this.set('collection', new enyo.Collection(this.generateRecords(40)));
 
 		this.$.gridList.set('collection', this.collection);
 		this.$.gridList.set('selection', this.$.selectionToggle.value);
