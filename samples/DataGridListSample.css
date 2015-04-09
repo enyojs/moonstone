@@ -1,0 +1,25 @@
+.moon-gridlist-imageitem.horizontal-gridList-image-item > img {
+    height: 100%;
+    width: auto;
+    margin-right: 12px;
+    float: left;
+}
+
+.moon-gridlist-imageitem.horizontal-gridList-image-item > .caption,
+.moon-gridlist-imageitem.horizontal-gridList-image-item > .sub-caption {
+	position: relative;
+	top: 18%;
+    width: auto;
+    overflow: hidden;
+}
+
+.moon-gridlist-imageitem.horizontal-gridList-item {
+    padding: 12px 0 0 99px;
+}
+
+.moon-gridlist-imageitem.horizontal-gridList-item > .caption,
+.moon-gridlist-imageitem.horizontal-gridList-item > .sub-caption {
+	position: relative;
+	top: 18%;
+    overflow: hidden;
+}
