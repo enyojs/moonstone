@@ -8,6 +8,9 @@ var
 	FittableRows = require('layout/FittableRows');
 
 var
+	ilib = require('enyo-ilib').ilib;
+
+var
 	BodyText = require('moonstone/BodyText'),
 	Button = require('moonstone/Button'),
 	Calendar = require('moonstone/Calendar'),
@@ -88,7 +91,7 @@ module.exports = kind({
 	],
 	create: function(){
 		this.inherited(arguments);
-		if (!window.ilib) {
+		if (!ilib) {
 			this.$.localePicker.hide();
 			this.$.dowLengthPicker.hide();
 			this.log('iLib not present -- hiding locale & dow length picker');
@@ -108,12 +111,12 @@ module.exports = kind({
 	},
 
 	updateCurrentString: function (date) {
-		var formatted = window.ilib ? this.df.format(date) : date.toDateString();
+		var formatted = ilib ? this.df.format(date) : date.toDateString();
 		this.$.result.setContent('Current Date' + ' changed to ' + formatted);
 	},
 
 	setLocale: function(inSender, inEvent){
-		if (window.ilib) {
+		if (ilib) {
 			var locale = inEvent.selected.content,
 				val = (locale == 'Use Default Locale') ? null : locale;
 			updateLocale(locale);

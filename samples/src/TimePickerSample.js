@@ -6,6 +6,9 @@ var
 	FittableRows = require('layout/FittableRows');
 
 var
+	ilib = require('enyo-ilib').ilib;
+
+var
 	BodyText = require('moonstone/BodyText'),
 	Button = require('moonstone/Button'),
 	DatePicker = require('moonstone/DatePicker'),
@@ -59,14 +62,14 @@ module.exports = kind({
 	],
 	create: function (){
 		FittableRows.prototype.create.apply(this, arguments);
-		if (!window.ilib) {
+		if (!ilib) {
 			this.$.pickerLocale.hide();
 			this.log('iLib not present -- hiding locale picker');
 		}
 		this.set('value', new Date('Mar 09 2014 01:59'));
 	},
 	setLocale: function (sender, event){
-		if (window.ilib) {
+		if (ilib) {
 			var locale = event.selected.content,
 				val = (locale == 'Use Default Locale') ? null : locale;
 			hooks.updateLocale(locale);

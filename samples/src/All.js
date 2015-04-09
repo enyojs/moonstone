@@ -6,6 +6,9 @@ var
 	Router = require('enyo/Router');
 
 var
+	ilib = require('enyo-ilib').ilib;
+
+var
 	Button = require('moonstone/Button'),
 	ContextualPopup = require('moonstone/ContextualPopup'),
 	ContextualPopupDecorator = require('moonstone/ContextualPopupDecorator'),
@@ -329,7 +332,7 @@ module.exports = kind({
 	},
 	checkLocale: function () {
 		// Reset locale in the event one of the samples changes it
-		if (typeof ilib !== 'undefined' && ilib.getLocale() != this.locale) {
+		if (ilib && ilib.getLocale() != this.locale) {
 			this.localeChanged(ilib.getLocale(), this.locale);
 		}
 	}
