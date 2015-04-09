@@ -31,10 +31,28 @@
 	overflow: hidden;
 	position: relative;
 	z-index: 1;
+	height: 100%;
+
+	&.spotlight {
+		background-color: #cf0652;
+		color: #ffffff;
+	}
+
+	.moon-simple-picker-input {
+		width: 100%;
+	}
+	
+	.moon-simple-picker-input-decorator.moon-input-decorator:not(.moon-input-header-input-decorator) {
+		padding: 0 0.75rem;
+		margin: 0;
+		width: 100%;
+		height: 100%;
+	}
 }
 
 .moon-simple-picker-client {
 	white-space: nowrap;
+	height: 100%;
 
 	.moon-marquee {
 		text-align: center;

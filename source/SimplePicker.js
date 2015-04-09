@@ -74,7 +74,8 @@
 		* @private
 		*/
 		events: {
-			onChange: ''
+			onChange: '',
+			onInputChanged: ''
 		},
 
 		/**
@@ -136,7 +137,18 @@
 			* @default false
 			* @public
 			*/
-			block: false
+			block: false,
+
+			/**
+			* When 'true', editable input field can be used in item area.
+			* User can tap on item or press enter in 5way to enable input mode.
+			* To escape from input mode, tap outside input field or press enter. 
+			*
+			* @type {Boolean}
+			* @default false
+			* @public
+			*/
+			input: true			
 		},
 
 		/**
@@ -155,9 +167,12 @@
 		* @private
 		*/
 		components: [
-			{name: 'buttonLeft',  kind: 'moon.IconButton', noBackground:true, classes: 'moon-simple-picker-button left', icon:'arrowlargeleft', onSpotlightKeyDown:'configureSpotlightHoldPulse', onSpotlightSelect: 'left', ondown: 'downLeft', onholdpulse:'left', defaultSpotlightDisappear: 'buttonRight'},
-			{kind: 'enyo.Control', name: 'clientWrapper', classes:'moon-simple-picker-client-wrapper', components: [
-				{kind: 'enyo.Control', name: 'client', classes: 'moon-simple-picker-client'}
+			{name: 'buttonLeft', kind: 'moon.IconButton', noBackground:true, classes: 'moon-simple-picker-button left', icon:'arrowlargeleft', onSpotlightKeyDown:'configureSpotlightHoldPulse', onSpotlightSelect: 'left', ondown: 'downLeft', onholdpulse:'left', defaultSpotlightDisappear: 'buttonRight'},
+			{name: 'clientWrapper', kind: 'enyo.Control', ontap: 'clientTapHandler', classes:'moon-simple-picker-client-wrapper', components: [
+				{name: 'client', kind: 'enyo.Control', classes: 'moon-simple-picker-client'},
+				{name: 'inputDecorator', kind: 'moon.InputDecorator', showing: false, classes: 'moon-simple-picker-input-decorator', components: [
+					{name: 'input', kind: 'moon.Input', classes: 'moon-simple-picker-input', onblur: 'blurHandler'}
+				]}
 			]},
 			{name: 'buttonRight', kind: 'moon.IconButton', noBackground:true, classes: 'moon-simple-picker-button right', icon:'arrowlargeright', onSpotlightKeyDown:'configureSpotlightHoldPulse', onSpotlightSelect: 'right', ondown: 'downRight', onholdpulse:'right', defaultSpotlightDisappear: 'buttonLeft'}
 		],
@@ -175,8 +190,56 @@
 				this.updateMarqueeDisable();
 				this.blockChanged();
 				this.showHideNavButtons();
+				this.inputChanged();
 			};
 		}),
+
+		inputChanged: function() {
+			this.$.clientWrapper.set('spotlight', this.input);
+		},
+
+		clientTapHandler: function() {
+			if (!this.input || this.inputMode || !this.$.clientWrapper.spotlight) return;
+			this.switchMode(true);
+		},
+
+		blurHandler: function() {
+			if (!this.input || !this.inputMode) return;
+			this.switchMode(false);
+			this.updateSelected();
+		},
+
+		switchMode: function(inputMode) {
+			this.inputMode = inputMode;
+			if (inputMode) {
+				this.$.client.hide();
+				this.$.inputDecorator.show();
+				this.$.input.set('value', this.selected ? this.selected.content : '');
+				this.$.clientWrapper.set('spotlgiht', false);
+				this.$.input.focus();
+			} else {
+				this.$.client.show();
+				this.$.inputDecorator.hide();
+				this.$.clientWrapper.set('spotlgiht', true);
+				enyo.Spotlight.spot(this.$.clientWrapper);
+			}
+		},
+
+		updateSelected: function() {
+			if (this.selected) {
+				var old = this.selected.get('content'),
+					value = this.$.input.get('value');
+				if (value != old) {
+					this.selected.set('content', value);
+					this.doInputChanged({
+						selectedIndex: this.selectedIndex,
+						selected: this.selected,
+						value: value,
+						old: old
+					});
+				}
+			}
+		},
 
 		/**
 		* @private
@@ -369,6 +432,7 @@
 		* @private
 		*/
 		selectedIndexChanged: function() {
+			this.blurHandler();	
 			enyo.dom.transform(this.$.client, {translateX: (this.selectedIndex * -100) + '%'});
 			this.updateMarqueeDisable();
 			this.setSelected(this.getClientControls()[this.selectedIndex]);
