@@ -93,7 +93,19 @@
 			* @default ''
 			* @public
 			*/
-			position: ''
+			position: '',
+			
+			/**
+			* This property sets the background color of the [image]{@link enyo.Image}.
+			* Additionally, you can clear background color on load event by adding onload handler.
+			* Note that onload handler will work only when no sizing value is set.
+			* Because, background image can not handle onload event. 
+			*
+			* @type {String}
+			* @default ''
+			* @public
+			*/
+			backgroundColor: ''			
 		},
 
 		/**
@@ -113,10 +125,11 @@
 		* @private
 		*/
 		bindings: [
-			{from: '.src', to: '.$.image.src'},
-			{from: '.alt', to: '.$.image.alt'},
-			{from: '.sizing', to: '.$.image.sizing'},
-			{from: '.position', to: '.$.image.position'}
+			{from: 'src', to: '$.image.src'},
+			{from: 'alt', to: '$.image.alt'},
+			{from: 'sizing', to: '$.image.sizing'},
+			{from: 'position', to: '$.image.position'},
+			{from: 'backgroundColor', to: '$.image.backgroundColor'}
 		],
 
 		/**
