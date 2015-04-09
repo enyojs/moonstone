@@ -173,8 +173,8 @@
 		*
 		* @private
 		*/
-		inputFocus: function (inSender, inEvent) {
-			var direction = inEvent && inEvent.dir;
+		inputFocus: function (sender, ev) {
+			var direction = ev && ev.dir;
 			if (this.getOpen() && direction) {
 				this.focusInput();
 			}
@@ -187,9 +187,13 @@
 		*
 		* @private
 		*/
-		inputBlur: function (inSender, inEvent) {
+		inputBlur: function (sender, ev) {
 			var eventType = enyo.Spotlight.getLastEvent().type;
-			if (enyo.Spotlight.getPointerMode() && eventType !== 'onSpotlightFocus' && eventType !== 'mouseover') {
+			// TODO: adding a hacky workaround to prevent undesired collapse of the control when
+			// initiating a drag on the InputDecorator control on the TV (guarding against both
+			// 'drag' and 'dragstart')
+			if (enyo.Spotlight.getPointerMode() && eventType !== 'onSpotlightFocus'
+				&& eventType !== 'mouseover' && eventType !== 'dragstart' && eventType !== 'drag') {
 				this.toggleActive();
 			}
 		},
@@ -197,8 +201,8 @@
 		/**
 		* @private
 		*/
-		inputKeyUp: function (inSender, inEvent) {
-			if (inEvent.keyCode === 13) {
+		inputKeyUp: function (sender, ev) {
+			if (ev.keyCode === 13) {
 				this.closeDrawerAndHighlightHeader();
 			}
 		},
@@ -215,8 +219,8 @@
 		*
 		* @private
 		*/
-		spotlightDown: function (inSender, inEvent) {
-			if (inEvent.originator === this.$.headerWrapper && this.getOpen()) {
+		spotlightDown: function (sender, ev) {
+			if (ev.originator === this.$.headerWrapper && this.getOpen()) {
 				this.focusInput();
 			}
 		},
@@ -242,7 +246,7 @@
 		*
 		* @private
 		*/
-		inputDown: function (inSender, inEvent) {
+		inputDown: function (sender, ev) {
 			if (this.getLockBottom()) {
 				this.focusInput();
 			} else {
