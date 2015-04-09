@@ -134,26 +134,16 @@
 		deactivated: function () {},
 
 		/**
-		* Determines whether or not we should perform post-transition work.
-		*
-		* @return {Boolean} - If `true`, we should not run the
-		*	{@link enyo.LightPanels#postTransition} method.
-		* @public
-		*/
-		shouldSkipPostTransition: function () {
-			return this._skipPostTransition;
-		},
-
-		/**
 		* This overridable method is called after a transition.
 		*
 		* @public
 		*/
 		postTransition: function () {
-			this.createComponents(this.clientComponents);
-			this.$.client.render();
-			this.$.client.addClass('populated');
-			this._skipPostTransition = true;
+			if (!this.$.client.children.length) {
+				this.createComponents(this.clientComponents);
+				this.$.client.render();
+				this.$.client.addClass('populated');
+			}
 
 			if (!enyo.Spotlight.getCurrent()) {
 				enyo.Spotlight.spot(this);
