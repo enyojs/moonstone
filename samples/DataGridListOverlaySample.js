@@ -45,7 +45,7 @@ enyo.kind({
 			]}
 		], components: [
 			{name: 'gridList', fit: true, spacing: 20, minWidth: 180, minHeight: 270, kind: 'moon.DataGridList', scrollerOptions: { kind: 'moon.Scroller', vertical:'scroll', horizontal: 'hidden', spotlightPagingControls: true }, components: [
-				{ kind: 'moon.sample.GridSampleItem' }
+				{ kind: 'moon.sample.GridSampleOverlayItem' }
 			]}
 		]}
 	],
@@ -112,7 +112,7 @@ enyo.kind({
 });
 
 enyo.kind({
-	name: 'moon.sample.GridSampleItem',
+	name: 'moon.sample.GridSampleOverlayItem',
 	kind: 'moon.GridListImageItem',
 	mixins: ['moon.BadgeOverlaySupport', 'moon.SelectionOverlaySupport'],
 	subCaption: 'Sub Caption',
