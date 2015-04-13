@@ -471,6 +471,7 @@
 			this.$.repeater.set('rowOffset', index);
 			this.$.repeater.set('count', count || 1);
 			this.$.repeater.render();
+			this.$.scroller.getStrategy().calcBoundaries();
 		},
 
 		/**
