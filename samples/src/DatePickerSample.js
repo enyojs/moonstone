@@ -6,7 +6,7 @@ var
 	FittableRows = require('layout/FittableRows');
 
 var
-	ilib = require('enyo-ilib').ilib;
+	ilib = require('enyo-ilib');
 
 var
 	Scroller = require('moonstone/Scroller'),

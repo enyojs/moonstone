@@ -6,7 +6,7 @@ var
 	Router = require('enyo/Router');
 
 var
-	ilib = require('enyo-ilib').ilib;
+	ilib = require('enyo-ilib');
 
 var
 	Button = require('moonstone/Button'),

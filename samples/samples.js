@@ -2483,7 +2483,7 @@ function decodeUtf8Char (str) {
   }
 }
 
-},{"base64-js":3,"ieee754":4,"is-array":5}],8:[function(require,module,exports){
+},{"base64-js":3,"ieee754":4,"is-array":5}],7:[function(require,module,exports){
 (function (process,global){
 /*
  * ilibglobal.js - define the ilib name space
@@ -2817,7 +2817,7 @@ ilib.Loader = function() {};
  * An example implementation for nodejs might be:
  * 
  * <pre>
- * var fs = require
+ * var fs = require("fs");
  * 
  * var myLoader = function() {};
  * myLoader.prototype = new ilib.Loader();
@@ -41235,7 +41235,7 @@ module.exports = gesture.drag =
 		dispatcher.dispatch(e);
 	}
 };
-},{"../../enyo":12,"./dispatcher":86,"./gesture":91,"./platform":102,"./utils":106}],7:[function(require,module,exports){
+},{"../../enyo":12,"./dispatcher":86,"./gesture":91,"./platform":102,"./utils":106}],9:[function(require,module,exports){
 /*
  * glue.js - glue code to fit ilib into enyo
  *
@@ -41256,429 +41256,431 @@ module.exports = gesture.drag =
  */
 
 var
-	dom = require('../enyo/lib/dom'),
-	hooks = require('../enyo/lib/hooks'),
-	platform = require('../enyo/lib/platform'),
-	utils = require('../enyo/lib/utils'),
-	Ajax = require('../enyo/lib/Ajax'),
-	Control = require('../enyo/lib/Control');
+	dom = require('../../enyo/lib/dom'),
+	hooks = require('../../enyo/lib/hooks'),
+	platform = require('../../enyo/lib/platform'),
+	utils = require('../../enyo/lib/utils'),
+	Ajax = require('../../enyo/lib/Ajax'),
+	Control = require('../../enyo/lib/Control');
 
 var
 	ZoneInfoFile = require('./zoneinfo');
-	ilibStandard = require('./ilib/js/ilib-dyn-standard'),
-	ilib = ilibStandard.ilib;
 
-var enyoLoader = function() {
-	this.base = "ilib/";
-	if (platform.platformName === "webos") {
-		this.webos = true;
-	}
-};
+module.exports = function (ilib) {
 
-enyoLoader.prototype = new ilib.Loader();
-enyoLoader.prototype.constructor = enyoLoader;
-
-enyoLoader.prototype._createZoneFile = function (path) {
-	var zone = path.substring(path.indexOf("zoneinfo"));
-
-	// remove the .json suffix to get the name of the zone
-	zone = zone.substring(0, zone.length-5);
-
-	try {
-		var zif = new ZoneInfoFile("/usr/share/" + zone);
-
-		// only get the info for this year. Later we can get the info
-		// for any historical or future year too
-		return zif.getIlibZoneInfo(new Date());
-	} catch (e) {
-		// no file, so just return nothing
-		return undefined;
-	}
-};
-
-enyoLoader.prototype._pathjoin = function (root, subpath) {
-	if (!root || !root.length) {
-		return subpath;
-	}
-	if (!subpath || !subpath.length) {
-		return root;
-	}
-	return root + (root.charAt(root.length-1) !== '/' ? '/' : "") + subpath;
-};
-
-/**
- * Load the list of files asynchronously. This uses recursion in
- * order to create a queue of files that will be loaded serially.
- * Each layer, starting at the bottom, loads a file and then loads
- * the layer on top of it. The very top file on the stack will have
- * zero files to load, so instead it will be the one to call the
- * callback to notify the caller that all the content is loaded.
- *
- * @param {Object} context function to call this method in the context of
- * @param {Array.<string>} paths array of strings containing relative paths for required locale data files
- * @param {Array} results empty array in which to place the resulting json when it is loaded from a file
- * @param {Object} params An object full of parameters that the caller is passing to this function to help load the files
- * @param {function(Array.<Object>)} callback callback to call when this function is finished attempting
- * to load all the files that exist and can be loaded
- */
-enyoLoader.prototype._loadFilesAsync = function (context, paths, results, params, callback) {
-	var root = "resources";
-	if (params && typeof(params.root) !== "undefined") {
-		root = params.root;
-	}
-	if (paths.length > 0) {
-		var path = paths.shift(),
-			url = undefined;
-
-		if (this.webos && path.indexOf("zoneinfo") !== -1) {
-			results.push(this._createZoneFile(path));
-		} else {
-			if (this.isAvailable(root, path)) {
-				url = this._pathjoin(root, path);
-			} else if (this.isAvailable(this.base + "locale", path)) {
-				url = this._pathjoin(this._pathjoin(this.base, "locale"), path)
-			}
-
-			var resultFunc = function(inSender, json) {
-                // console.log("enyo-ilib/glue: " + (!inSender.failed && json ? "success" : "failed"));
-				results.push(!inSender.failed && (typeof(json) === 'object') ? json : undefined);
-				if (paths.length > 0) {
-					this._loadFilesAsync(context, paths, results, params, callback);
-				} else {
-					// only the bottom item on the stack will call
-					// the callback
-					callback.call(context, results);
-				}
-			};
-
-			if (url) {
-				var ajax = new Ajax({
-					url: url,
-					cacheBust: false
-				});
-				// console.log("enyo-ilib/glue: browser/async: attempting to load " + url);
-				ajax.response(this, resultFunc);
-				ajax.error(this, resultFunc);
-				ajax.go();
-			} else {
-				// nothing to load, so go to the next file
-				resultFunc({}, undefined);
-			}
+	var enyoLoader = function() {
+		this.base = "ilib/";
+		if (platform.platformName === "webos") {
+			this.webos = true;
 		}
-	}
-};
+	};
 
-enyoLoader.prototype.loadFiles = function(paths, sync, params, callback) {
-	if (sync) {
-		var ret = [];
+	enyoLoader.prototype = new ilib.Loader();
+	enyoLoader.prototype.constructor = enyoLoader;
+
+	enyoLoader.prototype._createZoneFile = function (path) {
+		var zone = path.substring(path.indexOf("zoneinfo"));
+
+		// remove the .json suffix to get the name of the zone
+		zone = zone.substring(0, zone.length-5);
+
+		try {
+			var zif = new ZoneInfoFile("/usr/share/" + zone);
+
+			// only get the info for this year. Later we can get the info
+			// for any historical or future year too
+			return zif.getIlibZoneInfo(new Date());
+		} catch (e) {
+			// no file, so just return nothing
+			return undefined;
+		}
+	};
+
+	enyoLoader.prototype._pathjoin = function (root, subpath) {
+		if (!root || !root.length) {
+			return subpath;
+		}
+		if (!subpath || !subpath.length) {
+			return root;
+		}
+		return root + (root.charAt(root.length-1) !== '/' ? '/' : "") + subpath;
+	};
+
+	/**
+	 * Load the list of files asynchronously. This uses recursion in
+	 * order to create a queue of files that will be loaded serially.
+	 * Each layer, starting at the bottom, loads a file and then loads
+	 * the layer on top of it. The very top file on the stack will have
+	 * zero files to load, so instead it will be the one to call the
+	 * callback to notify the caller that all the content is loaded.
+	 *
+	 * @param {Object} context function to call this method in the context of
+	 * @param {Array.<string>} paths array of strings containing relative paths for required locale data files
+	 * @param {Array} results empty array in which to place the resulting json when it is loaded from a file
+	 * @param {Object} params An object full of parameters that the caller is passing to this function to help load the files
+	 * @param {function(Array.<Object>)} callback callback to call when this function is finished attempting
+	 * to load all the files that exist and can be loaded
+	 */
+	enyoLoader.prototype._loadFilesAsync = function (context, paths, results, params, callback) {
 		var root = "resources";
-		var locdata = this._pathjoin(this.base, "locale");
 		if (params && typeof(params.root) !== "undefined") {
 			root = params.root;
 		}
-		// synchronous
-		utils.forEach(paths, function (path) {
-			if (this.webos && path.indexOf("zoneinfo") !== -1) {
-				ret.push(this._createZoneFile(path));
-			} else {
-				var found = false;
+		if (paths.length > 0) {
+			var path = paths.shift(),
+				url = undefined;
 
-				var handler = function(inSender, json) {
-                    // console.log((!inSender.failed && json ? "success" : "failed"));
-					if (!inSender.failed && typeof(json) === 'object') {
-						ret.push(json);
-						found = true;
+			if (this.webos && path.indexOf("zoneinfo") !== -1) {
+				results.push(this._createZoneFile(path));
+			} else {
+				if (this.isAvailable(root, path)) {
+					url = this._pathjoin(root, path);
+				} else if (this.isAvailable(this.base + "locale", path)) {
+					url = this._pathjoin(this._pathjoin(this.base, "locale"), path)
+				}
+
+				var resultFunc = function(inSender, json) {
+	                // console.log("enyo-ilib/glue: " + (!inSender.failed && json ? "success" : "failed"));
+					results.push(!inSender.failed && (typeof(json) === 'object') ? json : undefined);
+					if (paths.length > 0) {
+						this._loadFilesAsync(context, paths, results, params, callback);
+					} else {
+						// only the bottom item on the stack will call
+						// the callback
+						callback.call(context, results);
 					}
 				};
 
-				// console.log("browser/sync: attempting to load lib/enyo-ilib/ilib/locale/" + path);
-				if (this.isAvailable(root, path)) {
+				if (url) {
 					var ajax = new Ajax({
-						url: this._pathjoin(root, path),
-						sync: true,
+						url: url,
 						cacheBust: false
 					});
-
-					ajax.response(this, handler);
-					ajax.error(this, handler);
+					// console.log("enyo-ilib/glue: browser/async: attempting to load " + url);
+					ajax.response(this, resultFunc);
+					ajax.error(this, resultFunc);
 					ajax.go();
-				}
-
-				if (!found && this.isAvailable(locdata, path)) {
-					var ajax = new Ajax({
-						url: this._pathjoin(locdata, path),
-						sync: true,
-						cacheBust: false
-					});
-
-					ajax.response(this, handler);
-					ajax.error(this, handler);
-					ajax.go();
-				}
-
-				if (!found) {
-					// not there, so fill in a blank entry in the array
-					ret.push(undefined);
+				} else {
+					// nothing to load, so go to the next file
+					resultFunc({}, undefined);
 				}
 			}
-		}, this);
-
-		if (typeof(callback) === 'function') {
-			callback.call(this, ret);
 		}
-		return ret;
-	}
-
-	// asynchronous
-	var results = [];
-	this._loadFilesAsync(this, paths, results, params, callback);
-};
-
-enyoLoader.prototype._loadManifest = function (root, subpath) {
-	if (!this.manifest) {
-		this.manifest = {};
-	}
-
-	var dirpath = this._pathjoin(root, subpath);
-	var filepath = this._pathjoin(dirpath, "ilibmanifest.json");
-
-	// util.print("enyo loader: loading manifest " + filepath + "\n");
-	var ajax = new Ajax({
-		url: filepath,
-		sync: true,
-		cacheBust: false,
-		handleAs: "json"
-	});
-
-	var handler = function(inSender, json) {
-        // console.log((!inSender.failed && json ? "success" : "failed"));
-		// star indicates there was no ilibmanifest.json, so always try to load files from that dir
-		this.manifest[dirpath] = (!inSender.failed && typeof(json) === 'object') ? json.files : "*";
 	};
 
-	ajax.response(this, handler);
-	ajax.error(this, handler);
-	ajax.go();
-},
-
-enyoLoader.prototype._loadStandardManifests = function() {
-	// util.print("enyo loader: load manifests\n");
-	if (!this.manifest) {
-		this._loadManifest(this.base, "locale"); // standard ilib locale data
-		this._loadManifest("", "resources");     // the app's resources dir
-	}
-};
-enyoLoader.prototype.listAvailableFiles = function() {
-	// util.print("enyo loader: list available files called\n");
-	this._loadStandardManifests();
-	return this.manifest;
-};
-enyoLoader.prototype.isAvailable = function(root, path) {
-	this._loadStandardManifests();
-
-	if (!this.manifest[root]) {
-		// maybe it's a custom root? If so, try to load
-		// the manifest file first in case it is there
-		this._loadManifest(root, "");
-	}
-
-	// util.print("enyo loader: isAvailable " + path + "? ");
-	// star means attempt to load everything because there was no manifest in that dir
-	if (this.manifest[root] === "*" || ilib.indexOf(this.manifest[root], path) !== -1) {
-		// util.print("true\n");
-		return true;
-	}
-
-	// util.print("false\n");
-	return false;
-};
-
-ilib.setLoaderCallback(new enyoLoader());
-
-if (typeof(window.UILocale) !== 'undefined') {
-	// this is a hack until GF-1581 is fixed
-	ilib.setLocale(window.UILocale);
-}
-
-/*
- * Tell whether or not the given locale is considered a non-Latin locale for webOS purposes. This controls
- * which fonts are used in various places to show the various languages. An undefined spec parameter means
- * to test the current locale.
- *
- * @param {ilib.Locale|string|undefined} spec locale specifier or locale object of the locale to test, or undefined
- * to test the current locale
- */
-function isNonLatinLocale (spec) {
-	var li = new ilib.LocaleInfo(spec),
-		locale = li.getLocale();
-
-    // We use the non-latin fonts for these languages (even though their scripts are technically considered latin)
-    var nonLatinLanguageOverrides = ["bs", "cs", "ha", "hr", "hu", "lv", "lt", "pl", "ro", "sr", "sl", "tr", "vi"];
-    // We use the latin fonts (with non-Latin fallback) for these languages (even though their scripts are non-latin)
-    var latinLanguageOverrides = ["ko"];
-	return ((li.getScript() !== "Latn" || utils.indexOf(locale.getLanguage(), nonLatinLanguageOverrides) !== -1) &&
-		(utils.indexOf(locale.getLanguage(), latinLanguageOverrides) < 0));
-};
-
-// enyo.updateI18NClasses should be called after every setLocale, but there isn't such a callback in current version
-function updateI18NClasses () {
-    var li = new ilib.LocaleInfo(); // for the current locale
-    var locale = li.getLocale();
-	var base = "enyo-locale-";
-
-    // Remove old style definitions (hack style becouse enyo.dom doesn't have methods like enyo.dom.getBodyClasses, enyo.dom.removeBodyClass)
-    if (document && document.body && document.body.className && document.body.className) {
-        document.body.className = document.body.className.replace(new RegExp('(^|\\s)'+ base +'[^\\s]*', 'g'), '');
-    }
-
-	if (isNonLatinLocale(locale)) {
-		// allow enyo to define other fonts for non-Latin languages, or for certain
-		// Latin-based languages where the characters with some accents don't appear in the
-		// regular fonts, creating a strange "ransom note" look with a mix of fonts in the
-		// same word. So, treat it like a non-Latin language in order to get all the characters
-		// to display with the same font.
-		dom.addBodyClass(base + "non-latin");
-	}
-
-	var scriptName = li.getScript();
-	if (scriptName !== 'Latn' && scriptName !== 'Cyrl' && scriptName !== 'Grek') {
-		// GF-45884: allow enyo to avoid setting italic fonts for those scripts that do not
-		// commonly use italics
-		dom.addBodyClass(base + "non-italic");
-	}
-
-	// allow enyo to apply right-to-left styles to the app and widgets if necessary
-	var script = new ilib.ScriptInfo(scriptName);
-	if (script.getScriptDirection() === "rtl") {
-		dom.addBodyClass(base + "right-to-left");
-		Control.prototype.rtl = true;
-	} else {
-		Control.prototype.rtl = false;
-	}
-
-	// allow enyo or the apps to give CSS classes that are specific to the language, country, or script
-	if (locale.getLanguage()) {
-		dom.addBodyClass(base + locale.getLanguage());
-		if (locale.getScript()) {
-			dom.addBodyClass(base + locale.getLanguage() + "-" + locale.getScript());
-			if (locale.getRegion()) {
-				dom.addBodyClass(base + locale.getLanguage() + "-" + locale.getScript() + "-" + locale.getRegion());
+	enyoLoader.prototype.loadFiles = function(paths, sync, params, callback) {
+		if (sync) {
+			var ret = [];
+			var root = "resources";
+			var locdata = this._pathjoin(this.base, "locale");
+			if (params && typeof(params.root) !== "undefined") {
+				root = params.root;
 			}
-		} else if (locale.getRegion()) {
-			dom.addBodyClass(base + locale.getLanguage() + "-" + locale.getRegion());
-		}
-	}
-	if (locale.getScript()) {
-		dom.addBodyClass(base + locale.getScript());
-	}
-	if (locale.getRegion()) {
-		dom.addBodyClass(base + locale.getRegion());
-	}
-	// Recreate the case mappers to use the just-recently-set locale
- 	setCaseMappers();
-};
+			// synchronous
+			utils.forEach(paths, function (path) {
+				if (this.webos && path.indexOf("zoneinfo") !== -1) {
+					ret.push(this._createZoneFile(path));
+				} else {
+					var found = false;
 
-/*
- * Reset the $L function to use ilib instead of the dummy function that enyo
- * comes with by default.
- */
-hooks.$L = function (string) {
-	var str;
-	if (!hooks.$L.rb) {
-		hooks.$L.setLocale();
-	}
-	if (typeof(string) === 'string') {
-		if (!hooks.$L.rb) {
-			return string;
-		}
-		str = hooks.$L.rb.getString(string);
-	} else if (typeof(string) === 'object') {
-		if (typeof(string.key) !== 'undefined' && typeof(string.value) !== 'undefined') {
-			if (!hooks.$L.rb) {
-				return string.value;
+					var handler = function(inSender, json) {
+	                    // console.log((!inSender.failed && json ? "success" : "failed"));
+						if (!inSender.failed && typeof(json) === 'object') {
+							ret.push(json);
+							found = true;
+						}
+					};
+
+					// console.log("browser/sync: attempting to load lib/enyo-ilib/ilib/locale/" + path);
+					if (this.isAvailable(root, path)) {
+						var ajax = new Ajax({
+							url: this._pathjoin(root, path),
+							sync: true,
+							cacheBust: false
+						});
+
+						ajax.response(this, handler);
+						ajax.error(this, handler);
+						ajax.go();
+					}
+
+					if (!found && this.isAvailable(locdata, path)) {
+						var ajax = new Ajax({
+							url: this._pathjoin(locdata, path),
+							sync: true,
+							cacheBust: false
+						});
+
+						ajax.response(this, handler);
+						ajax.error(this, handler);
+						ajax.go();
+					}
+
+					if (!found) {
+						// not there, so fill in a blank entry in the array
+						ret.push(undefined);
+					}
+				}
+			}, this);
+
+			if (typeof(callback) === 'function') {
+				callback.call(this, ret);
 			}
-			str = hooks.$L.rb.getString(string.value, string.key);
-		} else {
-			str = "";
+			return ret;
 		}
-	} else {
-		str = string;
-	}
-	return str.toString();
-};
 
-/**
- * Set the locale for the strings that $L loads. This may reload the
- * string resources if necessary.
- * @param {string} spec the locale specifier
- */
-hooks.$L.setLocale = function (spec) {
-	var locale = new ilib.Locale(spec);
-	if (!hooks.$L.rb || spec !== hooks.$L.rb.getLocale().getSpec()) {
-		hooks.$L.rb = new ilib.ResBundle({
-			locale: locale,
-			type: "html",
-			name: "strings",
+		// asynchronous
+		var results = [];
+		this._loadFilesAsync(this, paths, results, params, callback);
+	};
+
+	enyoLoader.prototype._loadManifest = function (root, subpath) {
+		if (!this.manifest) {
+			this.manifest = {};
+		}
+
+		var dirpath = this._pathjoin(root, subpath);
+		var filepath = this._pathjoin(dirpath, "ilibmanifest.json");
+
+		// util.print("enyo loader: loading manifest " + filepath + "\n");
+		var ajax = new Ajax({
+			url: filepath,
 			sync: true,
-			lengthen: true		// if pseudo-localizing, this tells it to lengthen strings
+			cacheBust: false,
+			handleAs: "json"
 		});
-	}
-};
 
-var toLowerCaseMapper, toUpperCaseMapper;
+		var handler = function(inSender, json) {
+	        // console.log((!inSender.failed && json ? "success" : "failed"));
+			// star indicates there was no ilibmanifest.json, so always try to load files from that dir
+			this.manifest[dirpath] = (!inSender.failed && typeof(json) === 'object') ? json.files : "*";
+		};
 
-/**
- * Set CaseMapper object references to ilib's current locale (its most recently set, by default)
- */
-function setCaseMappers () {
-	toLowerCaseMapper = new ilib.CaseMapper({direction: "tolower"});
-	toUpperCaseMapper = new ilib.CaseMapper({direction: "toupper"});
-};
+		ajax.response(this, handler);
+		ajax.error(this, handler);
+		ajax.go();
+	},
 
-/**
- * Override Enyo's toLowerCase and toUpperCase methods with these fancy ones
- * that call iLib's locale-safe case mapper.
- */
-utils.toLowerCase = function (inString) {
-	if (inString != null) {
-		return toLowerCaseMapper.map(inString.toString());
-	}
-	return inString;
-};
-utils.toUpperCase = function (inString) {
-	if (inString != null) {
-		return toUpperCaseMapper.map(inString.toString());
-	}
-	return inString;
-};
-
-/**
- * This Enyo hook lets us know that the system locale has changed and gives
- * us a chance to update the iLib locale before Enyo broadcasts its
- * `onlocalechange` signal.
- * Provide an inLocale string, like "en-US" or "ja-JP", to conveniently set
- * that locale immediately. Provide nothing, and reset the locale back to the
- * browser's default language.
- */
-(function(originalUpdateLocale) {
-	hooks.updateLocale = function(inLocale) {
-		// blow away the cache to force it to reload the manifest files for the new app
-		if (ilib._load) ilib._load.manifest = undefined;
-		ilib.setLocale(inLocale || navigator.language);
-		hooks.$L.setLocale(inLocale || navigator.language);
-		updateI18NClasses();
-		originalUpdateLocale();
+	enyoLoader.prototype._loadStandardManifests = function() {
+		// util.print("enyo loader: load manifests\n");
+		if (!this.manifest) {
+			this._loadManifest(this.base, "locale"); // standard ilib locale data
+			this._loadManifest("", "resources");     // the app's resources dir
+		}
 	};
-})(hooks.updateLocale);
+	enyoLoader.prototype.listAvailableFiles = function() {
+		// util.print("enyo loader: list available files called\n");
+		this._loadStandardManifests();
+		return this.manifest;
+	};
+	enyoLoader.prototype.isAvailable = function(root, path) {
+		this._loadStandardManifests();
 
-// we go ahead and run this once during loading of iLib settings are valid
-// during the loads of later libraries.
-hooks.updateLocale(null, true);
+		if (!this.manifest[root]) {
+			// maybe it's a custom root? If so, try to load
+			// the manifest file first in case it is there
+			this._loadManifest(root, "");
+		}
 
-module.exports.ilib = ilib;
-module.exports.updateI18NClasses = updateI18NClasses;
-module.exports.isNonLatinLocale = isNonLatinLocale;
-},{"../enyo/lib/Ajax":13,"../enyo/lib/Control":26,"../enyo/lib/dom":87,"../enyo/lib/hooks":92,"../enyo/lib/platform":102,"../enyo/lib/utils":106,"./ilib/js/ilib-dyn-standard":8,"./zoneinfo":11}],31:[function(require,module,exports){
+		// util.print("enyo loader: isAvailable " + path + "? ");
+		// star means attempt to load everything because there was no manifest in that dir
+		if (this.manifest[root] === "*" || ilib.indexOf(this.manifest[root], path) !== -1) {
+			// util.print("true\n");
+			return true;
+		}
+
+		// util.print("false\n");
+		return false;
+	};
+
+	ilib.setLoaderCallback(new enyoLoader());
+
+	if (typeof(window.UILocale) !== 'undefined') {
+		// this is a hack until GF-1581 is fixed
+		ilib.setLocale(window.UILocale);
+	}
+
+	/*
+	 * Tell whether or not the given locale is considered a non-Latin locale for webOS purposes. This controls
+	 * which fonts are used in various places to show the various languages. An undefined spec parameter means
+	 * to test the current locale.
+	 *
+	 * @param {ilib.Locale|string|undefined} spec locale specifier or locale object of the locale to test, or undefined
+	 * to test the current locale
+	 */
+	function isNonLatinLocale (spec) {
+		var li = new ilib.LocaleInfo(spec),
+			locale = li.getLocale();
+
+	    // We use the non-latin fonts for these languages (even though their scripts are technically considered latin)
+	    var nonLatinLanguageOverrides = ["bs", "cs", "ha", "hr", "hu", "lv", "lt", "pl", "ro", "sr", "sl", "tr", "vi"];
+	    // We use the latin fonts (with non-Latin fallback) for these languages (even though their scripts are non-latin)
+	    var latinLanguageOverrides = ["ko"];
+		return ((li.getScript() !== "Latn" || utils.indexOf(locale.getLanguage(), nonLatinLanguageOverrides) !== -1) &&
+			(utils.indexOf(locale.getLanguage(), latinLanguageOverrides) < 0));
+	};
+
+	// enyo.updateI18NClasses should be called after every setLocale, but there isn't such a callback in current version
+	function updateI18NClasses () {
+	    var li = new ilib.LocaleInfo(); // for the current locale
+	    var locale = li.getLocale();
+		var base = "enyo-locale-";
+
+	    // Remove old style definitions (hack style becouse enyo.dom doesn't have methods like enyo.dom.getBodyClasses, enyo.dom.removeBodyClass)
+	    if (document && document.body && document.body.className && document.body.className) {
+	        document.body.className = document.body.className.replace(new RegExp('(^|\\s)'+ base +'[^\\s]*', 'g'), '');
+	    }
+
+		if (isNonLatinLocale(locale)) {
+			// allow enyo to define other fonts for non-Latin languages, or for certain
+			// Latin-based languages where the characters with some accents don't appear in the
+			// regular fonts, creating a strange "ransom note" look with a mix of fonts in the
+			// same word. So, treat it like a non-Latin language in order to get all the characters
+			// to display with the same font.
+			dom.addBodyClass(base + "non-latin");
+		}
+
+		var scriptName = li.getScript();
+		if (scriptName !== 'Latn' && scriptName !== 'Cyrl' && scriptName !== 'Grek') {
+			// GF-45884: allow enyo to avoid setting italic fonts for those scripts that do not
+			// commonly use italics
+			dom.addBodyClass(base + "non-italic");
+		}
+
+		// allow enyo to apply right-to-left styles to the app and widgets if necessary
+		var script = new ilib.ScriptInfo(scriptName);
+		if (script.getScriptDirection() === "rtl") {
+			dom.addBodyClass(base + "right-to-left");
+			Control.prototype.rtl = true;
+		} else {
+			Control.prototype.rtl = false;
+		}
+
+		// allow enyo or the apps to give CSS classes that are specific to the language, country, or script
+		if (locale.getLanguage()) {
+			dom.addBodyClass(base + locale.getLanguage());
+			if (locale.getScript()) {
+				dom.addBodyClass(base + locale.getLanguage() + "-" + locale.getScript());
+				if (locale.getRegion()) {
+					dom.addBodyClass(base + locale.getLanguage() + "-" + locale.getScript() + "-" + locale.getRegion());
+				}
+			} else if (locale.getRegion()) {
+				dom.addBodyClass(base + locale.getLanguage() + "-" + locale.getRegion());
+			}
+		}
+		if (locale.getScript()) {
+			dom.addBodyClass(base + locale.getScript());
+		}
+		if (locale.getRegion()) {
+			dom.addBodyClass(base + locale.getRegion());
+		}
+		// Recreate the case mappers to use the just-recently-set locale
+	 	setCaseMappers();
+	};
+
+	/*
+	 * Reset the $L function to use ilib instead of the dummy function that enyo
+	 * comes with by default.
+	 */
+	hooks.$L = function (string) {
+		var str;
+		if (!hooks.$L.rb) {
+			hooks.$L.setLocale();
+		}
+		if (typeof(string) === 'string') {
+			if (!hooks.$L.rb) {
+				return string;
+			}
+			str = hooks.$L.rb.getString(string);
+		} else if (typeof(string) === 'object') {
+			if (typeof(string.key) !== 'undefined' && typeof(string.value) !== 'undefined') {
+				if (!hooks.$L.rb) {
+					return string.value;
+				}
+				str = hooks.$L.rb.getString(string.value, string.key);
+			} else {
+				str = "";
+			}
+		} else {
+			str = string;
+		}
+		return str.toString();
+	};
+
+	/**
+	 * Set the locale for the strings that $L loads. This may reload the
+	 * string resources if necessary.
+	 * @param {string} spec the locale specifier
+	 */
+	hooks.$L.setLocale = function (spec) {
+		var locale = new ilib.Locale(spec);
+		if (!hooks.$L.rb || spec !== hooks.$L.rb.getLocale().getSpec()) {
+			hooks.$L.rb = new ilib.ResBundle({
+				locale: locale,
+				type: "html",
+				name: "strings",
+				sync: true,
+				lengthen: true		// if pseudo-localizing, this tells it to lengthen strings
+			});
+		}
+	};
+
+	var toLowerCaseMapper, toUpperCaseMapper;
+
+	/**
+	 * Set CaseMapper object references to ilib's current locale (its most recently set, by default)
+	 */
+	function setCaseMappers () {
+		toLowerCaseMapper = new ilib.CaseMapper({direction: "tolower"});
+		toUpperCaseMapper = new ilib.CaseMapper({direction: "toupper"});
+	};
+
+	/**
+	 * Override Enyo's toLowerCase and toUpperCase methods with these fancy ones
+	 * that call iLib's locale-safe case mapper.
+	 */
+	utils.toLowerCase = function (inString) {
+		if (inString != null) {
+			return toLowerCaseMapper.map(inString.toString());
+		}
+		return inString;
+	};
+	utils.toUpperCase = function (inString) {
+		if (inString != null) {
+			return toUpperCaseMapper.map(inString.toString());
+		}
+		return inString;
+	};
+
+	/**
+	 * This Enyo hook lets us know that the system locale has changed and gives
+	 * us a chance to update the iLib locale before Enyo broadcasts its
+	 * `onlocalechange` signal.
+	 * Provide an inLocale string, like "en-US" or "ja-JP", to conveniently set
+	 * that locale immediately. Provide nothing, and reset the locale back to the
+	 * browser's default language.
+	 */
+	(function(originalUpdateLocale) {
+		hooks.updateLocale = function(inLocale) {
+			// blow away the cache to force it to reload the manifest files for the new app
+			if (ilib._load) ilib._load.manifest = undefined;
+			ilib.setLocale(inLocale || navigator.language);
+			hooks.$L.setLocale(inLocale || navigator.language);
+			updateI18NClasses();
+			originalUpdateLocale();
+		};
+	})(hooks.updateLocale);
+
+	// we go ahead and run this once during loading of iLib settings are valid
+	// during the loads of later libraries.
+	hooks.updateLocale(null, true);
+
+	return {
+		updateI18NClasses: updateI18NClasses,
+		isNonLatinLocale: isNonLatinLocale
+	};
+};
+},{"../../enyo/lib/Ajax":13,"../../enyo/lib/Control":26,"../../enyo/lib/dom":87,"../../enyo/lib/hooks":92,"../../enyo/lib/platform":102,"../../enyo/lib/utils":106,"./zoneinfo":11}],31:[function(require,module,exports){
 (function (global){
 require('../../enyo');
 
@@ -43851,8 +43853,8 @@ require('../../../enyo');
 
 var
 	kind = require('../kind'),
-	utils = require('../utils'),
-	floatingLayer = require('../floatingLayer');
+	utils = require('../utils');
+
 var
 	Control = require('../Control');
 
@@ -43917,7 +43919,7 @@ var Scrim = module.exports = kind(
 		this.inherited(arguments);
 		this.zStack = [];
 		if (this.floating) {
-			this.setParent(floatingLayer);
+			this.setParent(Control.floatingLayer);
 		}
 	},
 
@@ -44055,7 +44057,7 @@ var ScrimSingleton = kind(
 Scrim.scrim = new ScrimSingleton({floating: true, classes: 'enyo-scrim-translucent'});
 Scrim.scrimTransparent = new ScrimSingleton({floating: true, classes: 'enyo-scrim-transparent'});
 Scrim.ScrimSingleton = ScrimSingleton;
-},{"../../../enyo":12,"../Control":26,"../floatingLayer":89,"../kind":96,"../utils":106}],64:[function(require,module,exports){
+},{"../../../enyo":12,"../Control":26,"../kind":96,"../utils":106}],64:[function(require,module,exports){
 require('../../enyo');
 
 var
@@ -45824,13 +45826,16 @@ if (document.createElement('div').classList) {
     };
 }
 
-},{"../../enyo/lib/Control":26,"../../enyo/lib/dispatcher":86,"../../enyo/lib/dom":87,"../../enyo/lib/utils":106}],9:[function(require,module,exports){
+},{"../../enyo/lib/Control":26,"../../enyo/lib/dispatcher":86,"../../enyo/lib/dom":87,"../../enyo/lib/utils":106}],8:[function(require,module,exports){
 var
-	glue = require('./glue');
+	glue = require('./lib/glue'),
+	ilib = require('./ilib/js/ilib-dyn-standard').ilib;
 
-module.exports = glue;
-module.exports.version = '2.6.0-pre.5.dev';
-},{"./glue":7}],144:[function(require,module,exports){
+ilib.enyo = glue(ilib);
+ilib.enyo.version = '2.6.0-pre.5-dev';
+
+module.exports = ilib;
+},{"./ilib/js/ilib-dyn-standard":7,"./lib/glue":9}],144:[function(require,module,exports){
 var
 	kind = require('../../../enyo/lib/kind'),
 	Drawer = require('../../../enyo/lib/Drawer');
@@ -51219,7 +51224,7 @@ var
 	platform = require('../../enyo/lib/platform');
 
 var
-	ilib = require('../../enyo-ilib').ilib;
+	ilib = require('../../enyo-ilib');
 
 /**
 * `moon-fonts` is the locale-specific font generator, allowing any locale to have its own custom
@@ -51404,12 +51409,12 @@ if (ilib) {
 
 	funLocaleSpecificFonts();
 }
-},{"../../enyo-ilib":9,"../../enyo/lib/hooks":92,"../../enyo/lib/platform":102}],203:[function(require,module,exports){
+},{"../../enyo-ilib":8,"../../enyo/lib/hooks":92,"../../enyo/lib/platform":102}],203:[function(require,module,exports){
 var
 	hooks = require('../../enyo/lib/hooks');
 
 var
-	ilib = require('../../enyo-ilib').ilib;
+	ilib = require('../../enyo-ilib');
 
 var $L;
 
@@ -51439,7 +51444,7 @@ if (ilib) {
 }
 
 module.exports = $L;
-},{"../../enyo-ilib":9,"../../enyo/lib/hooks":92}],20:[function(require,module,exports){
+},{"../../enyo-ilib":8,"../../enyo/lib/hooks":92}],20:[function(require,module,exports){
 require('../../../enyo');
 
 
@@ -53851,7 +53856,7 @@ var
 	Signals = require('../../../enyo/lib/Signals');
 
 var
-	ilib = require('../../../enyo-ilib').ilib;
+	ilib = require('../../../enyo-ilib');
 
 /**
 * Used to set a static time for {@link moon.Clock} to display.
@@ -54128,7 +54133,7 @@ module.exports = kind(
 		this.updateDate();
 	}
 });
-},{"../../../enyo-ilib":9,"../../../enyo/lib/Control":26,"../../../enyo/lib/Signals":68,"../../../enyo/lib/kind":96,"../../../moonstone":119}],147:[function(require,module,exports){
+},{"../../../enyo-ilib":8,"../../../enyo/lib/Control":26,"../../../enyo/lib/Signals":68,"../../../enyo/lib/kind":96,"../../../moonstone":119}],147:[function(require,module,exports){
 require('../../../moonstone');
 
 var
@@ -60628,7 +60633,7 @@ var
 	Control = require('../../../enyo/lib/Control');
 
 var
-	ilib = require('../../../enyo-ilib').ilib;
+	ilib = require('../../../enyo-ilib');
 
 var
 	$L = require('../i18n'),
@@ -61002,7 +61007,7 @@ module.exports = kind(
 		}
 	}
 });
-},{"../../../enyo-ilib":9,"../../../enyo/lib/Control":26,"../../../enyo/lib/job":93,"../../../enyo/lib/kind":96,"../../../enyo/lib/pathResolver":101,"../../../enyo/lib/utils":106,"../../../moonstone":119,"../Icon":153,"../i18n":203}],185:[function(require,module,exports){
+},{"../../../enyo-ilib":8,"../../../enyo/lib/Control":26,"../../../enyo/lib/job":93,"../../../enyo/lib/kind":96,"../../../enyo/lib/pathResolver":101,"../../../enyo/lib/utils":106,"../../../moonstone":119,"../Icon":153,"../i18n":203}],185:[function(require,module,exports){
 require('../../../moonstone');
 
 var
@@ -61019,7 +61024,7 @@ var
 	Spotlight = require('../../../spotlight');
 
 var
-	ilib = require('../../../enyo-ilib').ilib;
+	ilib = require('../../../enyo-ilib');
 
 var
 	ProgressBar = require('../ProgressBar');
@@ -61980,7 +61985,7 @@ module.exports = kind(
 		this.throttleJob('sliderChanging', function() { this.doChanging(data); }, this.changeDelayMS);
 	}
 });
-},{"../../../enyo-ilib":9,"../../../enyo/lib/Animator":15,"../../../enyo/lib/Control":26,"../../../enyo/lib/Popup":56,"../../../enyo/lib/dom":87,"../../../enyo/lib/kind":96,"../../../enyo/lib/logger":97,"../../../enyo/lib/resolution":104,"../../../enyo/lib/utils":106,"../../../moonstone":119,"../../../spotlight":275,"../ProgressBar":172}],159:[function(require,module,exports){
+},{"../../../enyo-ilib":8,"../../../enyo/lib/Animator":15,"../../../enyo/lib/Control":26,"../../../enyo/lib/Popup":56,"../../../enyo/lib/dom":87,"../../../enyo/lib/kind":96,"../../../enyo/lib/logger":97,"../../../enyo/lib/resolution":104,"../../../enyo/lib/utils":106,"../../../moonstone":119,"../../../spotlight":275,"../ProgressBar":172}],159:[function(require,module,exports){
 require('../../../moonstone');
 
 var
@@ -65802,7 +65807,7 @@ var
 	Spotlight = require('../../../spotlight');
 
 var
-	ilib = require('../../../enyo-ilib').ilib;
+	ilib = require('../../../enyo-ilib');
 
 var
 	Slider = require('../Slider'),
@@ -66639,7 +66644,7 @@ module.exports = kind(
 		this.$.feedback.feedback(msg, params, persist, leftSrc, rightSrc, this.isInPreview());
 	}
 });
-},{"../../../enyo-ilib":9,"../../../enyo/lib/Control":26,"../../../enyo/lib/kind":96,"../../../moonstone":119,"../../../spotlight":275,"../Slider":185,"../VideoFeedback":196}],150:[function(require,module,exports){
+},{"../../../enyo-ilib":8,"../../../enyo/lib/Control":26,"../../../enyo/lib/kind":96,"../../../moonstone":119,"../../../spotlight":275,"../Slider":185,"../VideoFeedback":196}],150:[function(require,module,exports){
 require('../../../moonstone');
 
 var
@@ -71275,7 +71280,7 @@ var
 	Group = require('../../../enyo/lib/Group');
 
 var
-	ilib = require('../../../enyo-ilib').ilib;
+	ilib = require('../../../enyo-ilib');
 
 var
 	SimplePicker = require('../SimplePicker');
@@ -72413,7 +72418,7 @@ module.exports = kind(
 		this.updateDays();
 	}
 });
-},{"../../../enyo-ilib":9,"../../../enyo/lib/Control":26,"../../../enyo/lib/Group":37,"../../../enyo/lib/kind":96,"../../../enyo/lib/utils":106,"../../../moonstone":119,"../SimplePicker":184}],240:[function(require,module,exports){
+},{"../../../enyo-ilib":8,"../../../enyo/lib/Control":26,"../../../enyo/lib/Group":37,"../../../enyo/lib/kind":96,"../../../enyo/lib/utils":106,"../../../moonstone":119,"../SimplePicker":184}],240:[function(require,module,exports){
 var
 	kind = require('../../../enyo/lib/kind');
 
@@ -72457,7 +72462,7 @@ var
 	CarouselArranger = require('../../../layout/lib/CarouselArranger');
 
 var
-	ilib = require('../../../enyo-ilib').ilib;
+	ilib = require('../../../enyo-ilib');
 
 var
 	$L = require('../i18n'),
@@ -74641,7 +74646,7 @@ module.exports = kind(
 		return true;
 	}
 });
-},{"../../../enyo-ilib":9,"../../../enyo/lib/Animator":15,"../../../enyo/lib/Control":26,"../../../enyo/lib/Signals":68,"../../../enyo/lib/Video":83,"../../../enyo/lib/dispatcher":86,"../../../enyo/lib/dom":87,"../../../enyo/lib/kind":96,"../../../enyo/lib/utils":106,"../../../layout/lib/CarouselArranger":110,"../../../layout/lib/FittableColumns":113,"../../../layout/lib/Panels":118,"../../../moonstone":119,"../../../spotlight":275,"../History":152,"../IconButton":154,"../Spinner":186,"../VideoFullscreenToggleButton":197,"../VideoTransportSlider":201,"../i18n":203}],160:[function(require,module,exports){
+},{"../../../enyo-ilib":8,"../../../enyo/lib/Animator":15,"../../../enyo/lib/Control":26,"../../../enyo/lib/Signals":68,"../../../enyo/lib/Video":83,"../../../enyo/lib/dispatcher":86,"../../../enyo/lib/dom":87,"../../../enyo/lib/kind":96,"../../../enyo/lib/utils":106,"../../../layout/lib/CarouselArranger":110,"../../../layout/lib/FittableColumns":113,"../../../layout/lib/Panels":118,"../../../moonstone":119,"../../../spotlight":275,"../History":152,"../IconButton":154,"../Spinner":186,"../VideoFullscreenToggleButton":197,"../VideoTransportSlider":201,"../i18n":203}],160:[function(require,module,exports){
 require('../../../moonstone');
 
 var
@@ -76116,7 +76121,7 @@ var
 	Spotlight = require('../../../spotlight');
 
 var
-	ilib = require('../../../enyo-ilib').ilib;
+	ilib = require('../../../enyo-ilib');
 
 var
 	ExpandableListDrawer = require('../ExpandableListDrawer'),
@@ -76469,7 +76474,7 @@ module.exports = kind(
 		this.render();
 	}
 });
-},{"../../../enyo-ilib":9,"../../../enyo/lib/Control":26,"../../../enyo/lib/Signals":68,"../../../enyo/lib/kind":96,"../../../moonstone":119,"../../../spotlight":275,"../ExpandableListDrawer":144,"../ExpandableListItem":145,"../Item":162,"../Marquee":166}],142:[function(require,module,exports){
+},{"../../../enyo-ilib":8,"../../../enyo/lib/Control":26,"../../../enyo/lib/Signals":68,"../../../enyo/lib/kind":96,"../../../moonstone":119,"../../../spotlight":275,"../ExpandableListDrawer":144,"../ExpandableListItem":145,"../Item":162,"../Marquee":166}],142:[function(require,module,exports){
 require('../../../moonstone');
 
 var
@@ -80345,7 +80350,7 @@ var
 	kind = require('../../../enyo/lib/kind');
 
 var
-	ilib = require('../../../enyo-ilib').ilib;
+	ilib = require('../../../enyo-ilib');
 
 var
 	DateTimePickerBase = require('../DateTimePickerBase'),
@@ -80714,7 +80719,7 @@ module.exports = kind(
 		this.$.dayLabel.setContent(inNewValue);
 	}
 });
-},{"../../../enyo-ilib":9,"../../../enyo/lib/kind":96,"../../../moonstone":119,"../DateTimePickerBase":136,"../IntegerPicker":161,"../i18n":203}],183:[function(require,module,exports){
+},{"../../../enyo-ilib":8,"../../../enyo/lib/kind":96,"../../../moonstone":119,"../DateTimePickerBase":136,"../IntegerPicker":161,"../i18n":203}],183:[function(require,module,exports){
 require('../../../moonstone');
 
 var
@@ -80908,7 +80913,7 @@ var
 	Control = require('../../../enyo/lib/Control');
 
 var
-	ilib = require('../../../enyo-ilib').ilib;
+	ilib = require('../../../enyo-ilib');
 
 var
 	DateTimePickerBase = require('../DateTimePickerBase'),
@@ -81578,7 +81583,7 @@ var TimePicker = module.exports = kind(
 TimePicker.HourPicker = HourPicker;
 TimePicker.MinutePicker = MinutePicker;
 TimePicker.MeridiemPicker = MeridiemPicker;
-},{"../../../enyo-ilib":9,"../../../enyo/lib/Control":26,"../../../enyo/lib/kind":96,"../../../enyo/lib/platform":102,"../../../moonstone":119,"../DateTimePickerBase":136,"../IntegerPicker":161,"../i18n":203}],134:[function(require,module,exports){
+},{"../../../enyo-ilib":8,"../../../enyo/lib/Control":26,"../../../enyo/lib/kind":96,"../../../enyo/lib/platform":102,"../../../moonstone":119,"../DateTimePickerBase":136,"../IntegerPicker":161,"../i18n":203}],134:[function(require,module,exports){
 require('../../../moonstone');
 
 var
@@ -83205,7 +83210,7 @@ var
 	FittableRows = require('../../../layout/lib/FittableRows');
 
 var
-	ilib = require('../../../enyo-ilib').ilib;
+	ilib = require('../../../enyo-ilib');
 
 var
 	$L = require('../../../moonstone/lib/i18n'),
@@ -83282,7 +83287,7 @@ module.exports = kind({
 		this.$.clock.setDate(null);
 	}
 });
-},{"../../../enyo-ilib":9,"../../../enyo/lib/hooks":92,"../../../enyo/lib/kind":96,"../../../layout/lib/FittableRows":115,"../../../moonstone/lib/Button":123,"../../../moonstone/lib/Clock":129,"../../../moonstone/lib/ExpandablePicker":146,"../../../moonstone/lib/Input":158,"../../../moonstone/lib/InputDecorator":159,"../../../moonstone/lib/Scroller":180,"../../../moonstone/lib/i18n":203}],226:[function(require,module,exports){
+},{"../../../enyo-ilib":8,"../../../enyo/lib/hooks":92,"../../../enyo/lib/kind":96,"../../../layout/lib/FittableRows":115,"../../../moonstone/lib/Button":123,"../../../moonstone/lib/Clock":129,"../../../moonstone/lib/ExpandablePicker":146,"../../../moonstone/lib/Input":158,"../../../moonstone/lib/InputDecorator":159,"../../../moonstone/lib/Scroller":180,"../../../moonstone/lib/i18n":203}],226:[function(require,module,exports){
 var
 	kind = require('../../../enyo/lib/kind');
 
@@ -86926,7 +86931,7 @@ var
 	FittableRows = require('../../../layout/lib/FittableRows');
 
 var
-	ilib = require('../../../enyo-ilib').ilib;
+	ilib = require('../../../enyo-ilib');
 
 var
 	BodyText = require('../../../moonstone/lib/BodyText'),
@@ -87100,7 +87105,7 @@ module.exports = kind({
 		this.$.calendar.setValue(null);
 	}
 });
-},{"../../../enyo-ilib":9,"../../../enyo/lib/hooks":92,"../../../enyo/lib/kind":96,"../../../layout/lib/FittableColumns":113,"../../../layout/lib/FittableRows":115,"../../../moonstone/lib/BodyText":121,"../../../moonstone/lib/Button":123,"../../../moonstone/lib/Calendar":124,"../../../moonstone/lib/DatePicker":135,"../../../moonstone/lib/Divider":138,"../../../moonstone/lib/ExpandablePicker":146,"../../../moonstone/lib/Input":158,"../../../moonstone/lib/InputDecorator":159,"../../../moonstone/lib/Scroller":180}],220:[function(require,module,exports){
+},{"../../../enyo-ilib":8,"../../../enyo/lib/hooks":92,"../../../enyo/lib/kind":96,"../../../layout/lib/FittableColumns":113,"../../../layout/lib/FittableRows":115,"../../../moonstone/lib/BodyText":121,"../../../moonstone/lib/Button":123,"../../../moonstone/lib/Calendar":124,"../../../moonstone/lib/DatePicker":135,"../../../moonstone/lib/Divider":138,"../../../moonstone/lib/ExpandablePicker":146,"../../../moonstone/lib/Input":158,"../../../moonstone/lib/InputDecorator":159,"../../../moonstone/lib/Scroller":180}],220:[function(require,module,exports){
 var
 	hooks = require('../../../enyo/lib/hooks'),
 	kind = require('../../../enyo/lib/kind');
@@ -87109,7 +87114,7 @@ var
 	FittableRows = require('../../../layout/lib/FittableRows');
 
 var
-	ilib = require('../../../enyo-ilib').ilib;
+	ilib = require('../../../enyo-ilib');
 
 var
 	Scroller = require('../../../moonstone/lib/Scroller'),
@@ -87210,7 +87215,7 @@ module.exports = kind({
 		return true;
 	}
 });
-},{"../../../enyo-ilib":9,"../../../enyo/lib/hooks":92,"../../../enyo/lib/kind":96,"../../../layout/lib/FittableRows":115,"../../../moonstone/lib/BodyText":121,"../../../moonstone/lib/Button":123,"../../../moonstone/lib/DatePicker":135,"../../../moonstone/lib/Divider":138,"../../../moonstone/lib/ExpandablePicker":146,"../../../moonstone/lib/Input":158,"../../../moonstone/lib/InputDecorator":159,"../../../moonstone/lib/Scroller":180}],143:[function(require,module,exports){
+},{"../../../enyo-ilib":8,"../../../enyo/lib/hooks":92,"../../../enyo/lib/kind":96,"../../../layout/lib/FittableRows":115,"../../../moonstone/lib/BodyText":121,"../../../moonstone/lib/Button":123,"../../../moonstone/lib/DatePicker":135,"../../../moonstone/lib/Divider":138,"../../../moonstone/lib/ExpandablePicker":146,"../../../moonstone/lib/Input":158,"../../../moonstone/lib/InputDecorator":159,"../../../moonstone/lib/Scroller":180}],143:[function(require,module,exports){
 require('../../../moonstone');
 
 var
@@ -87536,7 +87541,7 @@ var
 	FittableRows = require('../../../layout/lib/FittableRows');
 
 var
-	ilib = require('../../../enyo-ilib').ilib;
+	ilib = require('../../../enyo-ilib');
 
 var
 	BodyText = require('../../../moonstone/lib/BodyText'),
@@ -87628,7 +87633,7 @@ module.exports = kind({
 		return true;
 	}
 });
-},{"../../../enyo-ilib":9,"../../../enyo/lib/hooks":92,"../../../enyo/lib/kind":96,"../../../layout/lib/FittableRows":115,"../../../moonstone/lib/BodyText":121,"../../../moonstone/lib/Button":123,"../../../moonstone/lib/DatePicker":135,"../../../moonstone/lib/Divider":138,"../../../moonstone/lib/ExpandablePicker":146,"../../../moonstone/lib/Scroller":180,"../../../moonstone/lib/TimePicker":190}],133:[function(require,module,exports){
+},{"../../../enyo-ilib":8,"../../../enyo/lib/hooks":92,"../../../enyo/lib/kind":96,"../../../layout/lib/FittableRows":115,"../../../moonstone/lib/BodyText":121,"../../../moonstone/lib/Button":123,"../../../moonstone/lib/DatePicker":135,"../../../moonstone/lib/Divider":138,"../../../moonstone/lib/ExpandablePicker":146,"../../../moonstone/lib/Scroller":180,"../../../moonstone/lib/TimePicker":190}],133:[function(require,module,exports){
 require('../../../moonstone');
 
 var
@@ -87860,7 +87865,7 @@ var
 	Router = require('../../../enyo/lib/Router');
 
 var
-	ilib = require('../../../enyo-ilib').ilib;
+	ilib = require('../../../enyo-ilib');
 
 var
 	Button = require('../../../moonstone/lib/Button'),
@@ -88191,7 +88196,7 @@ module.exports = kind({
 		}
 	}
 });
-},{"../../../enyo-ilib":9,"../../../enyo/lib/Collection":22,"../../../enyo/lib/DataRepeater":31,"../../../enyo/lib/Router":61,"../../../enyo/lib/hooks":92,"../../../enyo/lib/kind":96,"../../../moonstone/lib/Button":123,"../../../moonstone/lib/ContextualPopup":130,"../../../moonstone/lib/ContextualPopupDecorator":132,"../../../moonstone/lib/DataList":134,"../../../moonstone/lib/Divider":138,"../../../moonstone/lib/Item":162,"../../../moonstone/lib/Panel":169,"../../../moonstone/lib/Panels":170,"../../../moonstone/lib/Scroller":180,"../../../moonstone/lib/ToggleButton":191,"../../../moonstone/lib/ToggleItem":192}],219:[function(require,module,exports){
+},{"../../../enyo-ilib":8,"../../../enyo/lib/Collection":22,"../../../enyo/lib/DataRepeater":31,"../../../enyo/lib/Router":61,"../../../enyo/lib/hooks":92,"../../../enyo/lib/kind":96,"../../../moonstone/lib/Button":123,"../../../moonstone/lib/ContextualPopup":130,"../../../moonstone/lib/ContextualPopupDecorator":132,"../../../moonstone/lib/DataList":134,"../../../moonstone/lib/Divider":138,"../../../moonstone/lib/Item":162,"../../../moonstone/lib/Panel":169,"../../../moonstone/lib/Panels":170,"../../../moonstone/lib/Scroller":180,"../../../moonstone/lib/ToggleButton":191,"../../../moonstone/lib/ToggleItem":192}],219:[function(require,module,exports){
 var
 	kind = require('../../../enyo/lib/kind'),
 	utils = require('../../../enyo/lib/utils'),

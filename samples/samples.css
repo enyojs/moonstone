@@ -443,6 +443,15 @@ body .enyo-fit {
   position: absolute;
   z-index: 10;
 }
+/* reset */
+button {
+  font-size: inherit;
+  font-family: inherit;
+}
+button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
 /* ----- MISO ------ */
 @font-face {
   font-family: "Moonstone Miso";
@@ -1748,11 +1757,66 @@ html {
 .enyo-data-list.horizontal .page {
   width: auto;
 }
+.moon-marquee {
+  width: auto;
+  text-overflow: ellipsis;
+  white-space: pre !important;
+  overflow: hidden;
+  text-align: left;
+}
+.moon-marquee span {
+  pointer-events: none !important;
+}
+.moon-marquee .moon-marquee-text-wrapper {
+  width: 100%;
+  pointer-events: none;
+  width: auto;
+  overflow: hidden;
+}
+.moon-marquee .moon-marquee-text {
+  pointer-events: none;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+  white-space: pre !important;
+  position: relative;
+  left: 0px;
+}
+.moon-marquee .animate-marquee {
+  text-overflow: clip;
+  overflow: visible;
+}
+.enyo-locale-right-to-left .moon-marquee {
+  text-align: right;
+}
+.moon-marquee.allow-wrap {
+  white-space: normal !important;
+}
 .moon-drawer-partial-client {
   padding: 36px 18px 18px;
 }
 .moon-drawer-client {
   padding: 18px;
+}
+/* Checkbox.css */
+.moon-checkbox {
+  cursor: pointer;
+  height: 36px;
+}
+.moon-checkbox .moon-icon {
+  visibility: hidden;
+  margin: 0;
+  padding: 0;
+}
+.moon-checkbox[checked] .moon-icon {
+  visibility: visible;
+}
+.spotlight .moon-checkbox[checked]:after {
+  color: #ffffff;
+}
+.spotlight .moon-checkbox:not([checked]):not([disabled]) .moon-icon {
+  visibility: visible;
+  opacity: 0.3;
 }
 /* IconButton.css */
 .moon-icon-button {
@@ -5000,126 +5064,6 @@ html {
   right: -12px;
   bottom: -12px;
   left: -12px;
-}
-/* TODO: Clean up / reduce this file after new scroller implementation is completely integrated. */
-.moon-scroller-client-wrapper,
-.moon-scroller-viewport {
-  box-sizing: border-box;
-  height: 100%;
-  overflow: hidden;
-}
-/* CSS for moon.ScrollStrategy */
-.matrix-scroll-client {
-  width: auto;
-  height: auto;
-  position: relative;
-  overflow: visible;
-}
-.moon-scroller-client-wrapper.v-scroll-enabled {
-  padding-right: 72px;
-}
-.enyo-locale-right-to-left .moon-scroller-client-wrapper.v-scroll-enabled {
-  padding-right: 0;
-  padding-left: 72px;
-}
-.moon-scroller-client-wrapper.h-scroll-enabled {
-  padding-bottom: 60px;
-}
-/* Default states for horizontal and vertical scrollbars */
-.moon-scroller-v-column,
-.moon-scroller-h-column {
-  position: absolute;
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.1s linear;
-  -moz-transition: opacity 0.1s linear;
-  -webkit-transition: opacity 0.1s linear;
-  transform: translateZ(0);
-  -o-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  -moz-transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-}
-/* Flip the horizontal scroller for RTL mode */
-.enyo-locale-right-to-left .moon-scroller-h-column {
-  -webkit-transform: translateZ(1px) scale(-1);
-}
-/* Toggle opacity with .visible class */
-.moon-scroller-v-column.visible,
-.moon-scroller-h-column.visible {
-  opacity: 1;
-}
-/* Toggle opacity when enabled */
-.moon-scroller-v-column.v-scroll-enabled,
-.moon-scroller-h-column.h-scroll-enabled {
-  visibility: visible;
-}
-/* Default position for vertical scrollbar */
-.moon-scroller-v-column {
-  top: 0px;
-  bottom: 0px;
-  right: 12px;
-  width: 60px;
-}
-.enyo-locale-right-to-left .moon-scroller-v-column {
-  right: auto;
-  left: 12px;
-}
-/* Default position for horizontal scrollbar */
-.moon-scroller-h-column {
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  height: 60px;
-}
-/* Shorten vertical column when horizontal column is enabled */
-.moon-scroller-v-column.h-scroll-enabled {
-  bottom: 60px;
-}
-/* Shorten horizontal column when vertical column is enabled */
-.moon-scroller-h-column.v-scroll-enabled {
-  right: 60px;
-}
-.enyo-locale-right-to-left .moon-scroller-h-column.v-scroll-enabled {
-  right: 0;
-  left: 60px;
-}
-.moon-scroller-thumb-container {
-  position: absolute;
-}
-.moon-scroller-hthumb-container {
-  left: 60px;
-  right: 60px;
-  bottom: 0px;
-  height: 60px;
-}
-.moon-scroller-vthumb-container {
-  top: 60px;
-  bottom: 60px;
-  right: 0px;
-  width: 60px;
-}
-.moon-scroller-hthumb,
-.moon-scroller-vthumb {
-  transition: opacity 0.1s linear;
-  -moz-transition: opacity 0.1s linear;
-  -webkit-transition: opacity 0.1s linear;
-}
-.moon-scroller-hthumb {
-  bottom: 28px;
-}
-.moon-scroller-vthumb {
-  right: 28px;
-}
-.moon-scroller-hthumb.hidden,
-.moon-scroller-vthumb.hidden {
-  opacity: 0;
-}
-.moon-scroller-client-wrapper .enyo-new-thumb {
-  background: #a6a6a6;
-}
-.moon-neutral .moon-scroller-client-wrapper .enyo-new-thumb {
-  background: #ffffff;
 }
 /* Panels */
 .moon-panels.activity,
