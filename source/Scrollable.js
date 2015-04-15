@@ -35,6 +35,9 @@
 				}
 			}
 			return !bubble;
-		}
+		},
+
+		// TODO: Figure out if there's something better than making every Scrollable a container
+		spotlight: 'container'
 	};
 })(enyo, moon, this);
