@@ -4340,23 +4340,26 @@ html {
 .moon-icon-button.moon-icon-video-more-controls-font-style {
   font-size: 4.5rem;
 }
-.moon-video-fullscreen-control .moon-icon.moon-icon-button.active:not(.disabled),
-.moon-video-fullscreen-control .moon-icon.moon-icon-button:active:not(.disabled),
-.moon-video-fullscreen-control .moon-icon.moon-icon-button.pressed:not(.disabled),
-.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight:not(.disabled),
-.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight.pressed:not(.disabled),
-.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight:active:not(.disabled) {
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.disabled {
+  pointer-events: none;
+}
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.active,
+.moon-video-fullscreen-control .moon-icon.moon-icon-button:active,
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.pressed,
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight,
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight.pressed,
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight:active {
   background-position: 0 -3.5rem;
   border: 0rem;
   background-color: transparent;
   color: #cf0652;
 }
-.moon-video-fullscreen-control .moon-icon.moon-icon-button.active:not(.disabled).moon-icon-video-round-controls-style,
-.moon-video-fullscreen-control .moon-icon.moon-icon-button:active:not(.disabled).moon-icon-video-round-controls-style,
-.moon-video-fullscreen-control .moon-icon.moon-icon-button.pressed:not(.disabled).moon-icon-video-round-controls-style,
-.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight:not(.disabled).moon-icon-video-round-controls-style,
-.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight.pressed:not(.disabled).moon-icon-video-round-controls-style,
-.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight:active:not(.disabled).moon-icon-video-round-controls-style {
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.active.moon-icon-video-round-controls-style,
+.moon-video-fullscreen-control .moon-icon.moon-icon-button:active.moon-icon-video-round-controls-style,
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.pressed.moon-icon-video-round-controls-style,
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight.moon-icon-video-round-controls-style,
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight.pressed.moon-icon-video-round-controls-style,
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight:active.moon-icon-video-round-controls-style {
   color: #ffffff;
   background-color: #cf0652;
 }
