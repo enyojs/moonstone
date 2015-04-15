@@ -46,7 +46,7 @@
 		/**
 		* @private
 		*/
-		minSize: 20,
+		minSize: 40,
 
 		/**
 		* @private
