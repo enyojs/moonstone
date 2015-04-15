@@ -3,13 +3,11 @@
 	var baseScreenType = 'fhd',
 		riRatio,
 		screenType,
-		screenTypeObject;
+		screenTypeObject,
+		oldScreenType;
 
 	var getScreenTypeObject = function (type) {
 		type = type || screenType;
-		if (type == screenType && screenTypeObject) {
-			return screenTypeObject;
-		}
 		var types = scope.moon.ri.screenTypes;
 		return types.filter(function (elem) {
 			return (type == elem.name);
@@ -69,6 +67,14 @@
 
 		updateScreenTypeOnBody: function (type) {
 			type = type || screenType;
+			if (oldScreenType) {
+				enyo.dom.removeClass(document.body, 'moon-res-' + oldScreenType.toLowerCase());
+				enyo.dom.removeClass(document.body, 'enyo-res-' + oldScreenType.toLowerCase());
+				var oldScrObj = getScreenTypeObject(oldScreenType);
+				if (oldScrObj.aspectRatioName) {
+					enyo.dom.removeClass(document.body, 'enyo-aspect-ratio-' + oldScrObj.aspectRatioName.toLowerCase());
+				}
+			}
 			if (type) {
 				enyo.dom.addBodyClass('moon-res-' + type.toLowerCase());
 				enyo.dom.addBodyClass('enyo-res-' + type.toLowerCase());
@@ -187,6 +193,7 @@
 		},
 
 		init: function () {
+			oldScreenType = screenType;
 			screenType = this.getScreenType();
 			screenTypeObject = getScreenTypeObject();
 			this.updateScreenTypeOnBody();
