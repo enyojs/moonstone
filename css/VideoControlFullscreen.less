@@ -111,16 +111,17 @@
 }
 .moon-video-fullscreen-control {
 	.moon-icon.moon-icon-button {
+		&.disabled {
+			pointer-events: none;
+		}
 		&.active, &:active, &.pressed, &.spotlight, &.spotlight.pressed, &.spotlight:active {
-			&:not(.disabled) {
-				background-position: 0 -(@moon-icon-button-size);
-				border: 0px;
-				background-color: transparent;
-				color: @moon-accent;
-				&.moon-icon-video-round-controls-style {
-				  color: @moon-icon-video-round-controls-font-spotlight-color;
-				  background-color: @moon-accent;
-				}
+			background-position: 0 -(@moon-icon-button-size);
+			border: 0px;
+			background-color: transparent;
+			color: @moon-accent;
+			&.moon-icon-video-round-controls-style {
+				color: @moon-icon-video-round-controls-font-spotlight-color;
+				background-color: @moon-accent;
 			}
 		}
 	}
