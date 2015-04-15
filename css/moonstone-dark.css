@@ -4065,6 +4065,9 @@ html {
 .moon-icon-button.moon-icon-video-more-controls-font-style {
   font-size: 4.5rem;
 }
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.disabled {
+  pointer-events: none;
+}
 .moon-video-fullscreen-control .moon-icon.moon-icon-button.active,
 .moon-video-fullscreen-control .moon-icon.moon-icon-button:active,
 .moon-video-fullscreen-control .moon-icon.moon-icon-button.pressed,
