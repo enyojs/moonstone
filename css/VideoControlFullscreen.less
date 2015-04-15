@@ -109,12 +109,12 @@
 .moon-icon-button.moon-icon-video-more-controls-font-style {
   font-size: @moon-icon-arrowextendshrink-font-size;
 }
-.moon-video-fullscreen-control .moon-icon.moon-icon-button.active,
-.moon-video-fullscreen-control .moon-icon.moon-icon-button:active,
-.moon-video-fullscreen-control .moon-icon.moon-icon-button.pressed,
-.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight,
-.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight.pressed,
-.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight:active {
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.active:not(.disabled),
+.moon-video-fullscreen-control .moon-icon.moon-icon-button:active:not(.disabled),
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.pressed:not(.disabled),
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight:not(.disabled),
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight.pressed:not(.disabled),
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight:active:not(.disabled) {
 	background-position: 0 -(@moon-icon-button-size);
 	border: 0px;
 	background-color: transparent;
