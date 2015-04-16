@@ -1088,13 +1088,13 @@ html {
 .moon-button.moon-toggle-button {
   text-align: center;
   position: relative;
-  padding-right: 2.375rem;
+  padding-right: 2.875rem;
 }
 .moon-button.moon-toggle-button:after {
   position: absolute;
   content: "";
   top: 1.0625rem;
-  right: 0.75rem;
+  right: 1.25rem;
   width: 0.625rem;
   height: 0.625rem;
   border-radius: 416.625rem;
@@ -1123,11 +1123,11 @@ html {
   right: 0.75rem;
 }
 .enyo-locale-right-to-left .moon-button.moon-toggle-button {
-  padding-right: 0.75rem;
-  padding-left: 2.375rem;
+  padding-right: 1.25rem;
+  padding-left: 2.875rem;
 }
 .enyo-locale-right-to-left .moon-button.moon-toggle-button:after {
-  left: 0.75rem;
+  left: 1.25rem;
   right: auto;
 }
 .enyo-locale-right-to-left .moon-button.moon-toggle-button.small {
@@ -1246,7 +1246,7 @@ html {
   width: auto;
   min-width: 3.5rem;
   max-width: 12.5rem;
-  padding: 0 0.75rem;
+  padding: 0 1.25rem;
   margin: 0 0.5rem;
   color: #4b4b4b;
 }
@@ -2081,7 +2081,7 @@ html {
 .moon-progress-button.in-progress:active:hover:not([disabled]),
 .moon-progress-button.in-progress {
   color: #ffffff;
-  padding: 0.25rem 1rem;
+  padding: 0.25rem 1.5rem;
   border-width: 0;
 }
 .moon-progress-button.completed .moon-progress-button-bar {
@@ -2243,7 +2243,7 @@ html {
 }
 .enyo-locale-right-to-left .moon-button.contextual-popup-button {
   padding-left: 2rem;
-  padding-right: 0.75rem;
+  padding-right: 1.25rem;
 }
 .enyo-locale-right-to-left .moon-button.contextual-popup-button:after {
   left: 0.5rem;
@@ -3795,7 +3795,7 @@ html {
   white-space: nowrap;
   color: #ffffff;
   text-align: center;
-  padding: 0rem 0.83333rem;
+  padding: 0rem 1.33333rem;
   background-color: #4d4d4d;
 }
 .enyo-locale-non-latin .moon-tooltip-label {
