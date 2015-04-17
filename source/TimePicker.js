@@ -360,7 +360,16 @@
 			* @default false
 			* @public
 			*/
-			hoursZeroPadded: false
+			hoursZeroPadded: false,
+			
+			/**
+			* When `true`, bottom text will be displayed
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
+			bottomTextEnable: true
 		},
 
 		/**
@@ -449,31 +458,40 @@
 				case 'k':
 					this.wrapComponent(
 						{name: 'timeWrapper', classes: 'moon-time-picker-wrap'},
-						{classes: 'moon-date-picker-wrap', components:[
-							{kind: 'moon.HourPicker', name:'hour', formatter: this.hourFormatter || this, value: valueHours, onChange: 'hourPickerChanged'},
-							{name: 'hourLabel', content: this.hourText, classes: 'moon-date-picker-label moon-divider-text'}
+						{name: 'hourWrapper', classes: 'moon-date-picker-wrap', components:[
+							{kind: 'moon.HourPicker', name:'hour', formatter: this.hourFormatter || this, value: valueHours, onChange: 'hourPickerChanged'}						
 						]},
 						this
 					);
+
+					if(this.bottomTextEnable){
+						this.$.hourWrapper.createComponent({name: 'hourLabel', content: this.hourText, classes: 'moon-date-picker-label moon-divider-text'}, {owner: this});
+					}
 					break;
 				case 'm':
 					this.wrapComponent(
 						{name: 'timeWrapper', classes: 'moon-time-picker-wrap'},
-						{classes: 'moon-date-picker-wrap', components:[
-							{kind: 'moon.MinutePicker', name:'minute', formatter: this.minuteFormatter || this, value: valueMinutes, onChange: 'minutePickerChanged'},
-							{name: 'minuteLabel', content: this.minuteText, classes: 'moon-date-picker-label moon-divider-text'}
+						{name: 'minuteWrapper', classes: 'moon-date-picker-wrap', components:[
+							{kind: 'moon.MinutePicker', name:'minute', formatter: this.minuteFormatter || this, value: valueMinutes, onChange: 'minutePickerChanged'}
 						]},
 						this
 					);
+
+					if(this.bottomTextEnable){
+						this.$.minuteWrapper.createComponent({name: 'minuteLabel', content: this.minuteText, classes: 'moon-date-picker-label moon-divider-text'}, {owner: this});
+					}
 					break;
 				case 'a':
 					if (this.meridiemEnable === true) {
 						this.createComponent(
-							{classes: 'moon-date-picker-wrap', components:[
-								{kind:'moon.MeridiemPicker', name:'meridiem', classes:'moon-date-picker-field', value: valueHours > 12 ? 1 : 0, meridiems: this.meridiems || ['am','pm'], onChange: 'meridiemPickerChanged'},
-								{name: 'meridiemLabel', content: this.meridiemText, classes: 'moon-date-picker-label moon-divider-text'}
+							{name: 'meridiemWrapper', classes: 'moon-date-picker-wrap', components:[
+								{kind:'moon.MeridiemPicker', name:'meridiem', classes:'moon-date-picker-field', value: valueHours > 12 ? 1 : 0, meridiems: this.meridiems || ['am','pm'], onChange: 'meridiemPickerChanged'}
 							]}
 						);
+
+						if(this.bottomTextEnable){
+						this.$.meridiemWrapper.createComponent({name: 'meridiemLabel', content: this.meridiemText, classes: 'moon-date-picker-label moon-divider-text'});
+						}
 					}
 					break;
 				default:
