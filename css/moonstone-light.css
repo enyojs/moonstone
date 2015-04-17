@@ -1524,7 +1524,7 @@ html {
 }
 .enyo-locale-right-to-left .moon-expandable-picker-header {
   padding-left: 1.75rem;
-  padding-right: 0;
+  padding-right: 0.5rem;
 }
 .enyo-locale-right-to-left .moon-expandable-picker-header:after {
   left: 0.54167rem;
