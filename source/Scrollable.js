@@ -1,5 +1,14 @@
 (function (enyo, moon, scope) {
 	moon.Scrollable = {
+
+		// We make ourselves a Spotlight container so that 5-way
+		// navigation stays within our bounds by default...
+		spotlight: 'container',
+
+		// But when focus enters us, we should spot the nearest
+		// child, not whichever one was previously focused
+		spotlightRememberFocus: false,
+
 		handlers: {
 			onRequestScrollIntoView: 'handleRequestScrollIntoView'
 		},
@@ -35,9 +44,6 @@
 				}
 			}
 			return !bubble;
-		},
-
-		// TODO: Figure out if there's something better than making every Scrollable a container
-		spotlight: 'container'
+		}
 	};
 })(enyo, moon, this);
