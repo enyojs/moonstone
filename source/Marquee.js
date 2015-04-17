@@ -692,6 +692,7 @@
 				// can occur with a moon.Header that is located inside a moon.Scroller which has
 				// vertical scrollbars visible.
 				this._marquee_detectAlignment();
+				this._marquee_setTextOverflow();
 			};
 		}),
 
@@ -716,6 +717,19 @@
 				this._marquee_reset();
 			};
 		}),
+
+		_marquee_setTextOverflow: function () {
+			var node, rect;
+			node = this.$.marqueeText ? this.$.marqueeText.hasNode() : this.hasNode();
+			if (node) {
+				rect = node.getBoundingClientRect();
+				if (rect.width >= node.scrollWidth) {
+					this.applyStyle('text-overflow', 'clip');
+				} else {
+					this.applyStyle('text-overflow', 'ellipsis');
+				}
+			}
+		},
 
 		/**
 		* We must measure the content (after render) to determine if it's marqueeable, then to set
@@ -780,6 +794,7 @@
 		* @private
 		*/
 		_marquee_contentChanged: function () {
+			this._marquee_setTextOverflow();
 			this.detectTextDirectionality();
 			if (this.$.marqueeText) {
 				this.$.marqueeText.setContent(this.content);
@@ -899,7 +914,7 @@
 			if (this._marquee_distance == null) {
 				node = this.$.marqueeText ? this.$.marqueeText.hasNode() : this.hasNode();
 				rect = node.getBoundingClientRect();
-				this._marquee_distance = Math.floor(Math.abs(node.scrollWidth - rect.width));
+				this._marquee_distance = Math.ceil(Math.abs(node.scrollWidth - rect.width));
 			}
 
 			return this._marquee_distance;
