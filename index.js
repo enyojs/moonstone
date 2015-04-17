@@ -3,14 +3,14 @@
 var
 	platform = require('enyo/platform'),
 	dispatcher = require('enyo/dispatcher'),
-	drag = require('enyo/drag');
+	gesture = require('enyo/gesture');
 
 exports = module.exports = require('./lib/options');
 exports.version = '2.6.0-pre';
 
 // Override the default holdpulse config to account for greater delays between keydown and keyup
 // events in Moonstone with certain input devices.
-drag.configureHoldPulse({
+gesture.drag.configureHoldPulse({
 	frequency: 200,
 	events: [{name: 'hold', time: 400}],
 	resume: false,
