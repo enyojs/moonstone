@@ -205,7 +205,7 @@ html {
   src: local("LG Display-Light");
   font-weight: normal;
   font-style: normal;
-
+  
   /* We want "LG Display" to map to the bold variant, since that was originally the only option */
 }
 @font-face {
@@ -3595,6 +3595,11 @@ html {
 .moon-drawer-client {
   padding: 0.75rem;
 }
+.moon-drawer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
 /* Drawers.css */
 .moon-drawers {
   overflow: hidden;
@@ -3669,12 +3674,6 @@ html {
   -webkit-transition: -webkit-transform 0.35s ease-out;
   transition: transform 0.35s ease-out;
 }
-.moon-drawer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-}
-
 .moon-drawers-drawer-container {
   -webkit-transition: -webkit-transform 0.35s ease-out;
   transition: transform 0.35s ease-out;
