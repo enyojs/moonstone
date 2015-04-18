@@ -184,6 +184,9 @@
 			} else {
 				this.controlsOpenChanged();
 			}
+
+			if (moon.config.accelerate)
+				this.$.controlDrawer.$.client.setShowing(true);
 		},
 
 		/**
@@ -191,6 +194,8 @@
 		*/
 		calcDrawerHeight: function (drawersHeight) {
 			var clientHeight = drawersHeight;
+
+			this.fullHeight = clientHeight;
 			if (this.controlDrawerComponents == null) {
 				return clientHeight;
 			} else {
@@ -222,8 +227,9 @@
 		*/
 		openChanged: function () {
 			this.$.client.setOpen(this.open);
+
 			if (this.open) {
-				this.doActivate();
+				this.doActivate({height: this.fullHeight});
 				this.$.client.spotlightDisabled = false;
 				enyo.Spotlight.spot(this.$.client);
 				if (this.allowBackKey) {
@@ -231,7 +237,7 @@
 				}
 			} else {
 				this.$.client.spotlightDisabled = true;
-				this.doDeactivate();
+				this.doDeactivate({height: this.getControlsOpen() ? this.controlDrawerHeight : 0});
 			}
 		},
 
@@ -243,7 +249,7 @@
 		controlsOpenChanged: function () {
 			this.$.controlDrawer.setOpen(this.controlsOpen);
 			if (this.controlsOpen) {
-				this.doActivate();
+				this.doActivate({height: this.controlDrawerHeight});
 				this.$.controlDrawer.spotlightDisabled = false;
 				enyo.Spotlight.spot(this.$.controlDrawer);
 				if (this.allowBackKey) {
@@ -254,7 +260,7 @@
 					this.$.client.setOpen(false);
 				}
 				this.$.controlDrawer.spotlightDisabled = true;
-				this.doDeactivate();
+				this.doDeactivate({height: 0});
 			}
 		},
 
@@ -347,30 +353,33 @@
 		* @private
 		*/
 		openChanged: function () {
-			this.$.client.show();
-			if (this.hasNode()) {
-				if (this.$.animator.isAnimating()) {
-					this.$.animator.reverse();
-				} else {
-					var v = this.orient == 'v';
-					var d = v ? 'height' : 'width';
-					var p = v ? 'top' : 'left';
-					var s = this.drawerProps.height;
-					// unfixing the height/width is needed to properly
-					// measure the scrollHeight/Width DOM property, but
-					// can cause a momentary flash of content on some browsers
-					this.applyStyle(d, null);
+			if (!moon.config.accelerate) {
+				this.$.client.show();
 
-					if (this.animated) {
-						this.$.animator.play({
-							startValue: this.open ? 0 : s,
-							endValue: this.open ? s : 0,
-							dimension: d,
-							position: p
-						});
+				if (this.hasNode()) {
+					if (this.$.animator.isAnimating()) {
+						this.$.animator.reverse();
 					} else {
-						// directly run last frame if not animating
-						this.animatorEnd();
+						var v = this.orient == 'v';
+						var d = v ? 'height' : 'width';
+						var p = v ? 'top' : 'left';
+						var s = this.drawerProps.height;
+						// unfixing the height/width is needed to properly
+						// measure the scrollHeight/Width DOM property, but
+						// can cause a momentary flash of content on some browsers
+						this.applyStyle(d, null);
+
+						if (this.animated) {
+							this.$.animator.play({
+								startValue: this.open ? 0 : s,
+								endValue: this.open ? s : 0,
+								dimension: d,
+								position: p
+							});
+						} else {
+							// directly run last frame if not animating
+							this.animatorEnd();
+						}
 					}
 				}
 			}
@@ -405,7 +414,8 @@
 		drawerPropsChanged: function (){
 			this.$.client.applyStyle('height', enyo.dom.unit(this.drawerProps.height, 'rem'));
 			this.$.client.resize();
-			this.$.client.setShowing(this.open);
+			if (!moon.config.accelerate)
+				this.$.client.setShowing(this.open);
 		}
 	});
 

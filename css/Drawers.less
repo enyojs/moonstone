@@ -64,6 +64,7 @@
 	top: 0;
 	left: 0;
 	right: 0;
+	z-index: 1;
 
 	.moon-drawers-handles {
 		text-align: center;
@@ -85,6 +86,13 @@
 	position: relative;
 	height: 100%;
 	width: 100%;
+	-webkit-transition: -webkit-transform 0.35s ease-out;
+  transition: transform 0.35s ease-out;
+}
+
+.moon-drawers-drawer-container {
+  -webkit-transition: -webkit-transform 0.35s ease-out;
+  transition: transform 0.35s ease-out;
 }
 
 /* If a video player or other controls are behind the drawers, let events pass straight through to them. */

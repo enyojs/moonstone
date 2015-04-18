@@ -320,6 +320,7 @@
 					drawer.setControlsOpen(false);
 				}
 			}
+			this.$.client.spotlightDisabled = false;
 			this.updateActivator(false);
 		},
 
@@ -348,12 +349,42 @@
 		/**
 		* @private
 		*/
+		hideDrawers: function(except) {
+			var d$ = this.$.drawers.getControls();
+			for (var i=0; i<d$.length; i++) {
+				d$[i].setShowing(d$[i] === except);
+			}
+		},
+
+		/**
+		* @private
+		*/
+		animate: function(height) {
+			enyo.dom.transform(this.$.drawers, {translateY: height + 'px'});
+			enyo.dom.transform(this.$.client, {translateY: height + 'px'});
+		},
+
+		/**
+		* @private
+		*/
 		drawerActivated: function (sender, ev) {
-			if (ev.originator instanceof moon.Drawer) {
-				this.updateActivator(true);
-				// Hide client when fullscreen drawer is open so it is not focusable
-				if (ev.originator.getOpen()) {
-					this.$.client.hide();
+			if (moon.config.accelerate) {
+				if (ev.originator instanceof moon.Drawer) {
+					this.updateActivator(true);
+					// Hide() is expensive. Use spotlightDisabled feature instead
+					if (ev.originator.getOpen()) {
+						this.$.client.spotlightDisabled = true;
+					}
+					this.hideDrawers(ev.originator);
+					this.animate(ev.height);
+				}
+			} else {
+				if (ev.originator instanceof moon.Drawer) {
+					this.updateActivator(true);
+					// Hide client when fullscreen drawer is open so it is not focusable
+					if (ev.originator.getOpen()) {
+						this.$.client.hide();
+					}
 				}
 			}
 		},
@@ -362,13 +393,26 @@
 		* @private
 		*/
 		drawerDeactivated: function (sender, ev) {
-			if (ev.originator instanceof moon.Drawer) {
-				if (!ev.originator.getOpen() && !ev.originator.getControlsOpen()) {
-					this.updateActivator(false);
+			if (moon.config.accelerate) {
+				if (ev.originator instanceof moon.Drawer) {
+					if (!ev.originator.getOpen() && !ev.originator.getControlsOpen()) {
+						this.updateActivator(false);
+					}
+					// Show() is expensive. Use spotlightDisabled feature instead
+					if (ev.originator.getOpen()) {
+						this.$.client.spotlightDisabled = false;
+					}
+					this.animate(ev.height);
 				}
-				// Re-show client when closing fullscreen drawer
-				if (!ev.originator.getOpen()) {
-					this.$.client.show();
+			} else {
+				if (ev.originator instanceof moon.Drawer) {
+					if (!ev.originator.getOpen() && !ev.originator.getControlsOpen()) {
+						this.updateActivator(false);
+					}
+					// Re-show client when closing fullscreen drawer
+					if (!ev.originator.getOpen()) {
+						this.$.client.show();
+					}
 				}
 			}
 		},

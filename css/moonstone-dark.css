@@ -205,7 +205,7 @@ html {
   src: local("LG Display-Light");
   font-weight: normal;
   font-style: normal;
-  
+
   /* We want "LG Display" to map to the bold variant, since that was originally the only option */
 }
 @font-face {
@@ -3648,6 +3648,7 @@ html {
   top: 0;
   left: 0;
   right: 0;
+  z-index: 1;
 }
 .moon-drawers-handle-container .moon-drawers-handles {
   text-align: center;
@@ -3665,6 +3666,18 @@ html {
   position: relative;
   height: 100%;
   width: 100%;
+  -webkit-transition: -webkit-transform 0.35s ease-out;
+  transition: transform 0.35s ease-out;
+}
+.moon-drawer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.moon-drawers-drawer-container {
+  -webkit-transition: -webkit-transform 0.35s ease-out;
+  transition: transform 0.35s ease-out;
 }
 /* If a video player or other controls are behind the drawers, let events pass straight through to them. */
 .moon-drawers > * {
