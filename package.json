@@ -19,6 +19,9 @@
     "type": "git",
     "url": "https://github.com/enyojs/moonstone.git"
   },
+  "scripts": {
+    "test": "./node_modules/.bin/gulp"
+  },
   "maintainers": [
     {
       "name": "Enyo JS Framework Team",
@@ -30,5 +33,10 @@
       "type": "Apache-2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0"
     }
-  ]
+  ],
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-jshint": "^1.10.0",
+    "jshint-stylish": "^1.0.1"
+  }
 }
