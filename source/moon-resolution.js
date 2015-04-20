@@ -6,8 +6,11 @@
 		screenTypeObject,
 		oldScreenType;
 
-	var getScreenTypeObject = function (type) {
+	var getScreenTypeObject = function (type, ignoreCache) {
 		type = type || screenType;
+		if (type == screenType && !ignoreCache && screenTypeObject) {
+			return screenTypeObject;
+		}
 		var types = scope.moon.ri.screenTypes;
 		return types.filter(function (elem) {
 			return (type == elem.name);
@@ -195,7 +198,7 @@
 		init: function () {
 			oldScreenType = screenType;
 			screenType = this.getScreenType();
-			screenTypeObject = getScreenTypeObject();
+			screenTypeObject = getScreenTypeObject(screenType, true);
 			this.updateScreenTypeOnBody();
 			enyo.dom.unitToPixelFactors.rem = scope.moon.getUnitToPixelFactors();
 			riRatio = this.getRiRatio();
