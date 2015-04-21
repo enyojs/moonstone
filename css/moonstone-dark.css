@@ -4042,6 +4042,9 @@ html {
 .moon-video-transport-slider-popup-label > * {
   display: inline-block;
 }
+.enyo-locale-right-to-left .moon-video-transport-slider-popup-label {
+  direction: rtl;
+}
 .moon-video-transport-slider-indicator-wrapper {
   height: 3.5rem;
   top: 0;
@@ -4387,10 +4390,7 @@ html {
 }
 /* Feedback area */
 .moon-video-player-feedback {
-  margin-right: 0.5rem;
-}
-.enyo-locale-right-to-left .moon-video-player-feedback {
-  direction: rtl;
+  margin-right: 12px;
 }
 .moon-video-feedback-text {
   display: inline-block;
@@ -4443,11 +4443,14 @@ html {
 .enyo-locale-non-latin .moon-video-feedback-icon-right {
   margin-bottom: 0.125rem;
 }
+.enyo-locale-right-to-left .moon-video-player-feedback {
+  margin: 0 0 0 12px;
+}
 .enyo-locale-right-to-left .moon-icon.moon-video-feedback-icon-left {
-  margin: 0 0 0 0.5rem;
+  margin: 0 0 0 12px;
 }
 .enyo-locale-right-to-left .moon-icon.moon-video-feedback-icon-right {
-  margin: 0 0.5rem 0 0;
+  margin: 0 12px 0 0;
 }
 .moon-video-info-header {
   display: inline-block;
