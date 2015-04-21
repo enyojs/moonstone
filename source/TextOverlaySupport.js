@@ -63,8 +63,9 @@
 
 			//to handle not marquee case
 			//apply '-webkit-line-clamp' with this.overlayTextLineNum user provids
-			this._textTag === undefined && this.$.overlayText.applyStyle('-webkit-line-clamp', this.overlayTextLineNum+ ' !important');
-
+			if(this._textTag === undefined){
+				this.$.overlayText.applyStyle('-webkit-line-clamp', this.overlayTextLineNum+ " !important");
+			}
 			////to handle spotlightOverlayText
 			this.addRemoveClass('moon-text-overlay-support', this.useSpotlightOverlayText);
 			
@@ -87,7 +88,9 @@
 
 	showScrimChanged: function () {	
 		//only if this.useSpotlightOverlayText is false
-		this.useSpotlightOverlayText===false && this.$.textScrim.applyStyle('visibility', this.showScrim ? 'visible' : 'hidden');
+		if(this.useSpotlightOverlayText===false){
+			this.$.textScrim.applyStyle('visibility', this.showScrim ? 'visible' : 'hidden');
+		}
 	}
 };
 })(enyo, this);

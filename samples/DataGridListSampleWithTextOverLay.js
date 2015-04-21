@@ -62,7 +62,6 @@ enyo.kind({
 			idx     = this.modelIndex || 0;
 		for (; records.length < 500; ++idx) {
 			var title = (idx % 8 === 0) ? " with long title" : "";
-			var subTitle = (idx % 8 === 0) ? "Lorem ipsum dolor sit amet" : "Subtitle";
 			records.push({
 				selected: false,
 				text: "Item " + idx + title,
