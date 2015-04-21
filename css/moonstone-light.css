@@ -5065,6 +5065,48 @@ html {
 .moon-light-panel.transitioning:after {
   content: '';
 }
+.moon-text-overlay-support .moon-text-overlay-support-scrim {
+  visibility: hidden;
+}
+.moon-text-overlay-support.spotlight .moon-text-overlay-support-scrim {
+  visibility: visible;
+}
+.moon-text-overlay-support-scrim {
+  background: rgba(0, 0, 0, 0.5);
+}
+.moon-text-overlay-support-scrim-center {
+  margin: auto;
+  width: 100%;
+  display: table;
+  table-layout: fixed;
+}
+.moon-text-overlay-support-scrim-center > * {
+  position: relative;
+  display: block;
+  text-align: center;
+  width: 72%;
+  padding-left: 14%;
+  padding-right: 14%;
+  font-family: "MuseoSans 500";
+  font-size: 1rem;
+  line-height: 1.125rem;
+}
+.moon-text-overlay-upperText {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.moon-text-overlay-bottomText {
+  font-family: "Moonstone Miso Bold";
+  font-size: 2rem;
+  line-height: 2rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.3);
+  margin-top: 1px;
+}
 /* Put this at the end because we want these to take precedence over others */
 .moon-neutral {
   background-color: #686868;
