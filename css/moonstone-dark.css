@@ -4042,6 +4042,9 @@ html {
 .moon-video-transport-slider-popup-label > * {
   display: inline-block;
 }
+.enyo-locale-right-to-left .moon-video-transport-slider-popup-label {
+  direction: rtl;
+}
 .moon-video-transport-slider-indicator-wrapper {
   height: 3.5rem;
   top: 0;
@@ -4389,9 +4392,6 @@ html {
 .moon-video-player-feedback {
   margin-right: 0.5rem;
 }
-.enyo-locale-right-to-left .moon-video-player-feedback {
-  direction: rtl;
-}
 .moon-video-feedback-text {
   display: inline-block;
   color: #cf0652;
@@ -4442,6 +4442,9 @@ html {
 .enyo-locale-non-latin .moon-video-feedback-icon-left,
 .enyo-locale-non-latin .moon-video-feedback-icon-right {
   margin-bottom: 0.125rem;
+}
+.enyo-locale-right-to-left .moon-video-player-feedback {
+  margin: 0 0 0 0.5rem;
 }
 .enyo-locale-right-to-left .moon-icon.moon-video-feedback-icon-left {
   margin: 0 0 0 0.5rem;
