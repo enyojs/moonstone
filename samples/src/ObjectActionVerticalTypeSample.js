@@ -1,6 +1,7 @@
 var
 	kind = require('enyo/kind'),
 	utils = require('enyo/utils'),
+	Img = require('enyo/Image'),
 	Repeater = require('enyo/Repeater');
 
 var
@@ -30,7 +31,7 @@ module.exports = kind({
 					orientation: 'vertical',
 					components: [
 						{kind: Item, components: [
-							{name: 'image', kind: 'enyo.Image'}
+							{name: 'image', kind: Img}
 						]}
 					],
 					actionComponents: [

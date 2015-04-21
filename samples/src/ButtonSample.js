@@ -91,7 +91,7 @@ module.exports = kind({
 					{name: 'saskatoonberryButton', kind: Button, content: 'Saskatoonberry', ontap: 'buttonTapped'}
 				]},
 
-				{kind: 'moon.Divider', content: 'Hidden Buttons:'},
+				{kind: Divider, content: 'Hidden Buttons:'},
 				{name: 'hiddenButton', kind: Button, content: 'Hidden Button', renderOnShow: true, ontap: 'buttonTapped'},
 				{name: 'showButton', kind: Button, content: 'Show Hidden Button', ontap: 'showButtonTapped'}
 			]}
