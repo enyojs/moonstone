@@ -369,7 +369,7 @@
 			* @default true
 			* @public
 			*/
-			bottomTextEnable: true
+			showBottomText: true
 		},
 
 		/**
@@ -464,7 +464,7 @@
 						this
 					);
 
-					if(this.bottomTextEnable){
+					if(this.showBottomText){
 						this.$.hourWrapper.createComponent({name: 'hourLabel', content: this.hourText, classes: 'moon-date-picker-label moon-divider-text'}, {owner: this});
 					}
 					break;
@@ -477,7 +477,7 @@
 						this
 					);
 
-					if(this.bottomTextEnable){
+					if(this.showBottomText){
 						this.$.minuteWrapper.createComponent({name: 'minuteLabel', content: this.minuteText, classes: 'moon-date-picker-label moon-divider-text'}, {owner: this});
 					}
 					break;
@@ -489,8 +489,8 @@
 							]}
 						);
 
-						if(this.bottomTextEnable){
-						this.$.meridiemWrapper.createComponent({name: 'meridiemLabel', content: this.meridiemText, classes: 'moon-date-picker-label moon-divider-text'});
+						if(this.showBottomText){
+						this.$.meridiemWrapper.createComponent({name: 'meridiemLabel', content: this.meridiemText, classes: 'moon-date-picker-label moon-divider-text'}, {owner: this});
 						}
 					}
 					break;
@@ -675,6 +675,25 @@
 		*/
 		meridiemTextChanged: function (inOldvalue, inNewValue) {
 			this.$.meridiemLabel.setContent(inNewValue);
+		},
+
+		/**
+		* @private
+		*/
+		showBottomTextChanged: function (inOldvalue, inNewValue) {
+			if(inOldvalue===true && inNewValue===false){
+				this.$.hourLabel.destroy();
+				this.$.minuteLabel.destroy();
+				this.$.meridiemLabel.destroy();
+			}
+			else if(inOldvalue===false && inNewValue===true){
+				this.$.hourWrapper.createComponent({name: 'hourLabel', content: this.hourText, classes: 'moon-date-picker-label moon-divider-text'}, {owner: this});
+				this.$.minuteWrapper.createComponent({name: 'minuteLabel', content: this.minuteText, classes: 'moon-date-picker-label moon-divider-text'}, {owner: this});
+				this.$.meridiemWrapper.createComponent({name: 'meridiemLabel', content: this.meridiemText, classes: 'moon-date-picker-label moon-divider-text'});
+				this.$.hourWrapper.render();
+				this.$.minuteWrapper.render();
+				this.$.meridiemWrapper.render();
+			}
 		}
 	});
 
