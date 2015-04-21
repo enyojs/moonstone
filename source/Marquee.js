@@ -946,12 +946,12 @@
 			this.$.marqueeText.addClass('animate-marquee');
 
 			if (moon.config.accelerate) {
-				enyo.dom.transform(this, {translateZ: 0});
+				enyo.dom.transform(this.$.marqueeText, {translateZ: 0});
 				this.$.marqueeText.applyStyle('transition', 'transform ' + duration + 's linear');
 				this.$.marqueeText.applyStyle('-webkit-transition', '-webkit-transform ' + duration + 's linear');
 			} else {
 				this.$.marqueeText.applyStyle('transition', 'left ' + duration + 's linear');
-				this.$.marqueeText.applyStyle('-webkit-transition', 'left ' + duration + 's linear');	
+				this.$.marqueeText.applyStyle('-webkit-transition', 'left ' + duration + 's linear');
 			}
 
 			// Need this timeout for FF!
@@ -983,7 +983,7 @@
 				this.$.marqueeText.removeClass('animate-marquee');
 				if (moon.config.accelerate) {
 					enyo.dom.transform(this.$.marqueeText, {translateX: null});
-					enyo.dom.transform(this, {translateZ: null});
+					enyo.dom.transform(this.$.marqueeText, {translateZ: null});
 				} else {
 					this.$.marqueeText.applyStyle('left', null);
 				}
