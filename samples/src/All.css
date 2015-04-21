@@ -45,3 +45,7 @@
 	font-weight: bold;
 	margin-bottom: 8px;
 }
+
+.moon-sample-list-item {
+	text-decoration: none;
+}

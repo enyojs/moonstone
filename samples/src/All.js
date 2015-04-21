@@ -1,6 +1,7 @@
 var
 	hooks = require('enyo/hooks'),
 	kind = require('enyo/kind'),
+	Anchor = require('enyo/Anchor'),
 	Collection = require('enyo/Collection'),
 	DataRepeater = require('enyo/DataRepeater'),
 	Router = require('enyo/Router');
@@ -138,8 +139,13 @@ module.exports = kind({
 			{kind: Panel, title: 'Samples', headerType: 'small',
 				components: [
 					{name: 'list', kind: DataList, components: [
-						{kind: Item, ontap: 'chooseSample', classes: 'enyo-border-box', bindings: [
-							{from: 'model.label', to: 'content'}
+						{kind: Anchor, classes: 'moon-sample-list-item enyo-border-box', bindings: [
+							{from: 'model.label', to: '$.item.content'},
+							{from: 'model.name', to: 'href', transform: function (v) {
+								return '#' + v;
+							}}
+						], components: [
+							{name: 'item', kind: Item}
 						]}
 					]}
 				]
