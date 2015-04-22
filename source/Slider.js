@@ -106,6 +106,15 @@
 			tappable: true,
 
 			/**
+			* When `true`, jumpIncrement button will be displayed in both side of slider.
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
+			enableJumpIncrement: true,
+
+			/**
 			* CSS classes to apply to the knob.
 			*
 			* @type {String}
@@ -359,6 +368,9 @@
 			if (this.popupContentUpperCase !== null) this.uppercase = this.popupContentUpperCase;
 
 			this.createComponents(this.moreComponents);
+			if (this.enableJumpIncrement) {
+				this.createJumpIncrementButton();
+			}
 			this.initValue();
 			this.disabledChanged();
 			this.knobClassesChanged();
@@ -366,6 +378,16 @@
 			this.popupContentChanged();
 			this.tapAreaClassesChanged();
 			this.initSliderStyles();
+		},
+
+		/**
+		* @private
+		*/
+		createJumpIncrementButton: function() {
+			this.createComponents([
+				{name: 'buttonLeft',  kind: 'moon.IconButton', noBackground:true, classes: 'moon-simple-picker-button left', icon:'arrowlargeleft'/*, onSpotlightKeyDown:'configureSpotlightHoldPulse', onSpotlightSelect: 'left', ondown: 'downLeft', onholdpulse:'left', defaultSpotlightDisappear: 'buttonRight'*/},
+				{name: 'buttonRight', kind: 'moon.IconButton', noBackground:true, classes: 'moon-simple-picker-button right', icon:'arrowlargeright'/*, onSpotlightKeyDown:'configureSpotlightHoldPulse', onSpotlightSelect: 'right', ondown: 'downRight', onholdpulse:'right', defaultSpotlightDisappear: 'buttonLeft'*/}
+			]);
 		},
 
 		/**

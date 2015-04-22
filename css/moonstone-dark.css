@@ -2115,7 +2115,10 @@ html {
 }
 /* Slider Bar */
 .moon-slider {
-  margin: 2.5rem 2rem;
+  position: relative;
+  left: 3.375rem;
+  margin: 2.5rem 0.875rem;
+  max-width: 68rem;
 }
 .moon-slider.spotlight > .moon-progress-bar-bar {
   background-color: #cf0652;
@@ -2130,6 +2133,14 @@ html {
 .moon-slider.disabled {
   cursor: default;
   opacity: 0.6;
+}
+.moon-slider .moon-simple-picker-button.left {
+  top: -1rem;
+  left: -3.375rem;
+}
+.moon-slider .moon-simple-picker-button.right {
+  top: -1rem;
+  right: -3.375rem;
 }
 /* Slider Knob */
 .moon-slider-knob {
