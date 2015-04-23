@@ -155,10 +155,10 @@
 			{name: 'activator', classes: 'moon-drawers-activator', spotlight: true, ontap: 'activatorHandler', components: [
 				{name: 'activatorIcon', kind: 'moon.Icon', classes: 'moon-drawers-activator-icon', small: false}
 			]},
+			{name: 'drawers', classes:'moon-drawers-drawer-container'},
 			{name: 'handleContainer', classes: 'moon-drawers-handle-container', kind: 'enyo.Drawer', resizeContainer: false, open: false, spotlightDisabled: true, onpostresize: 'resizeHandleContainer', components: [
 				{name:'handles', classes: 'moon-neutral moon-drawers-handles'}
 			]},
-			{name: 'drawers', classes:'moon-drawers-drawer-container'},
 			{name: 'client', classes:'moon-drawers-client'}
 		],
 
