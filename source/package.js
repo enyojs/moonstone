@@ -86,5 +86,6 @@ enyo.depends(
 	'ExpandableText.js',
 	'keymap.js',
 	'History.js',
+	'TextOverlaySupport.js',
 	'moon-container-init.js'
 );
