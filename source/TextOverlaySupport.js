@@ -64,7 +64,7 @@
 			//to handle not marquee case
 			//apply '-webkit-line-clamp' with this.overlayTextLineNum user provids
 			if(this._textTag === undefined){
-				this.$.overlayText.applyStyle('-webkit-line-clamp', this.overlayTextLineNum+ " !important");
+				this.$.overlayText.addClass('moon-text-overlay-upperText-length'+this.overlayTextLineNum);
 			}
 			////to handle spotlightOverlayText
 			this.addRemoveClass('moon-text-overlay-support', this.useSpotlightOverlayText);

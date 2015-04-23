@@ -95,14 +95,14 @@ enyo.kind({
 	// moon.TextOverlaySupport is mixin
 	mixins: ["moon.TextOverlaySupport", "moon.SelectionOverlaySupport"],
 	// user can set how many lines are displayed
-	overlayTextLineNum: 2,
+	overlayTextLineNum: 1,
 	// user can set marquee is used or not
 	// if useOverlayTextMarquee is set true, overlayTextLineNum property is ignored
-	useOverlayTextMarquee: true,
+	useOverlayTextMarquee: false,
 	// user can set useSpotlightOverlayText is used or not
 	// useSpotlightOverlayText propery makes only spotlighed item be shown
 	// if useSpotlightOverlayText is set true, then showScrim property is ignored
-	useSpotlightOverlayText: true,
+	useSpotlightOverlayText: false,
 	bindings: [
 	// overlayText, overlaySubText, showScrim is published property
 	// so user can use these properties for binding
