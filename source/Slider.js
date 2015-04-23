@@ -115,6 +115,15 @@
 			enableJumpIncrement: true,
 
 			/**
+			* Sliders will increase or decrease as much as this value in either direction
+			* When jumpIncrement button is tapped.
+			*
+			* @type {Number}
+			* @default 10
+			* @public
+			*/
+			jumpIncrement: 10,
+			/**
 			* CSS classes to apply to the knob.
 			*
 			* @type {String}
@@ -385,8 +394,8 @@
 		*/
 		createJumpIncrementButton: function() {
 			this.createComponents([
-				{name: 'buttonLeft',  kind: 'moon.IconButton', noBackground:true, classes: 'moon-simple-picker-button left', icon:'arrowlargeleft'/*, onSpotlightKeyDown:'configureSpotlightHoldPulse', onSpotlightSelect: 'left', ondown: 'downLeft', onholdpulse:'left', defaultSpotlightDisappear: 'buttonRight'*/},
-				{name: 'buttonRight', kind: 'moon.IconButton', noBackground:true, classes: 'moon-simple-picker-button right', icon:'arrowlargeright'/*, onSpotlightKeyDown:'configureSpotlightHoldPulse', onSpotlightSelect: 'right', ondown: 'downRight', onholdpulse:'right', defaultSpotlightDisappear: 'buttonLeft'*/}
+				{name: 'buttonLeft',  kind: 'moon.IconButton', noBackground:true, classes: 'moon-simple-picker-button left', icon:'arrowlargeleft', onSpotlightKeyDown:'configureSpotlightHoldPulse', onSpotlightSelect: 'left', ondown: 'downLeft', onholdpulse:'left', defaultSpotlightDisappear: 'buttonRight'},
+				{name: 'buttonRight', kind: 'moon.IconButton', noBackground:true, classes: 'moon-simple-picker-button right', icon:'arrowlargeright', onSpotlightKeyDown:'configureSpotlightHoldPulse', onSpotlightSelect: 'right', ondown: 'downRight', onholdpulse:'right', defaultSpotlightDisappear: 'buttonLeft'}
 			]);
 		},
 
@@ -782,7 +791,7 @@
 		* @private
 		*/
 		tap: function(sender, e) {
-			if (this.tappable && !this.disabled) {
+			if (this.tappable && !this.disabled && !sender.isDescendantOf(this.$.buttonLeft) && !sender.isDescendantOf(this.$.buttonRight)) {
 				var v = this.calcKnobPosition(e);
 				v = (this.increment) ? this.calcIncrement(v) : v;
 				v = (this.constrainToBgProgress && v>this.bgProgress) ? this.bgProgress : v;
@@ -923,7 +932,7 @@
 			ctxLeft.fillStyle = bgColor;
 			// Draw shape with arrow on left
 			ctxLeft.moveTo(0, h);
-     		// arc(x, y, radius, startAngle, endAngle, counterClockwise);
+			// arc(x, y, radius, startAngle, endAngle, counterClockwise);
 			ctxLeft.arc(wre, bcy, bcr, 1.35 * Math.PI, 1.485 * Math.PI, false);
 			ctxLeft.lineTo(wre, hb);
 			ctxLeft.lineTo(wre, 0);
@@ -975,6 +984,83 @@
 		*/
 		sendChangingEvent: function(data) {
 			this.throttleJob('sliderChanging', function() { this.doChanging(data); }, this.changeDelayMS);
+		},
+
+				/**
+		* @private
+		*/
+		left: function(sender, e) {
+			if (e && e.sentHold) { return; }
+			this.previous(sender, e);
+		},
+
+		/**
+		* @private
+		*/
+		right: function(sender, e) {
+			if (e && e.sentHold) { return; }
+			this.next(sender, e);
+		},
+
+		/**
+		* @private
+		*/
+		downLeft: function(sender, e) {
+			e.configureHoldPulse({endHold: 'onLeave', delay: 300});
+			this.left(sender, e);
+		},
+
+		/**
+		* @private
+		*/
+		downRight: function(sender, e) {
+			e.configureHoldPulse({endHold: 'onLeave', delay: 300});
+			this.right(sender, e);
+		},
+
+		/**
+		* @private
+		*/
+		configureSpotlightHoldPulse: function(sender, e) {
+			if (e.keyCode === 13) {
+				e.configureHoldPulse({endHold: 'onLeave', delay: 300});
+			}
+		},
+
+		/**
+		* Decrement slider by jumpIncrement value. If chained from an event, {@link Spotlight}
+		* hold pulse events will be canceled once the first item is reached.
+		* When calling this method directly, no arguments are required.
+		*
+		* @param {Object} sender - (unused) Sender, if chained from event.
+		* @param {Object} e - Event object, if chained from event.
+		* @public
+		*/
+		previous: function(sender, e) {
+			if (!this.disabled) {
+				if (e && e.cancelHoldPulse) {
+					e.cancelHoldPulse();
+				}
+				this.setValue(this.getValue() - this.jumpIncrement);
+			}
+		},
+
+		/**
+		* Increment slider by jumpIncrement value. If chained from an event, {@link Spotlight}
+		* hold pulse events will be canceled once the last item is reached.
+		* When calling this method directly, no arguments are required.
+		*
+		* @param {Object} sender - (unused) Sender, if chained from event.
+		* @param {Object} e - Event object, if chained from event.
+		* @public
+		*/
+		next: function(sender, e) {
+			if (!this.disabled) {
+				if (e && e.cancelHoldPulse) {
+					e.cancelHoldPulse();
+				}
+				this.setValue(this.getValue() + this.jumpIncrement);
+			}
 		}
 	});
 
