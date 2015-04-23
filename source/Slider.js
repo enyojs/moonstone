@@ -437,6 +437,10 @@
 			this.setTappable(!this.disabled);
 			if (this.disabled) {
 				this.hideKnobStatus();
+				if (this.enableJumpIncrement) {
+					this.$.buttonLeft.setDisabled(true);
+					this.$.buttonRight.setDisabled(true);
+				}
 			}
 		},
 
