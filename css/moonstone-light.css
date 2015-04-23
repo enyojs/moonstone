@@ -4198,6 +4198,14 @@ html {
   width: 100% !important;
   height: 100% !important;
 }
+:full-screen-ancestor:not(iframe) {
+  position: absolute !important;
+  overflow: visible !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+}
 .moon-video-inline {
   padding-bottom: 3.5rem;
 }
