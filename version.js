@@ -7,7 +7,7 @@
 	*/
 
 	if (enyo && enyo.version) {
-		enyo.version.moonstone = "2.6.0-zzz.11";
+		enyo.version.moonstone = "2.6.0-zzz.12";
 	}
 
 })(enyo, this);
