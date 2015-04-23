@@ -115,8 +115,7 @@ Individual controls have two options of supporting this requirement to change fo
 	variants which select the correct font automatically.  This is the preferred approach.  Example:
 
 	```
-var require('enyo/kind'),
-	require('moonstone/Divider');
+var kind = require('enyo/kind');
 
 kind({
 	name: Divider,
@@ -159,7 +158,7 @@ All Moonstone controls must support "right-to-left" (RTL) layout, in addition to
 "left-to-right" layout. 
 
 Similar to fonts, the `ilib` library will apply an `.enyo-locale-right-to-left` class to `<body>`
-for this purpose.  The standard `.moon` class used on ever Moonstone app will automatically set the
+for this purpose.  The standard `.moon` class used on every Moonstone app will automatically set the
 `direction:rtl;` CSS property, which reverses the HTML layout flow direction and applies other
 specific text flow rules accordingly.  Native browser support for the `direction` property covers
 90% of the work of supporting RTL.
