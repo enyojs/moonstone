@@ -162,7 +162,6 @@
 		* @private
 		*/
 		init: function() {
-			scope.onpopstate = enyo.bind(this, function(inEvent) {this.popStateHandler();});
 			if (enyo.LunaService) {
 				this.createChrome(this.lunaServiceComponents);
 				this._getAppID();
@@ -171,6 +170,8 @@
 			if (this.enableBackHistoryAPI) {
 				this._initHistoryState();
 			}
+
+			this.enableBackHistoryAPIChanged();
 		},
 
 		/**
@@ -236,6 +237,17 @@
 		_getAppInfoHandler: function (inSender, inResponse) {
 			if(inResponse.appInfo !== undefined) {
 				this.enableBackHistoryAPI = !inResponse.appInfo.disableBackHistoryAPI;
+			}
+		},
+
+		/**
+		* @private
+		*/
+		enableBackHistoryAPIChanged: function () {
+			if (this.enableBackHistoryAPI) {
+				scope.onpopstate = enyo.bind(this, function() {this.popStateHandler();});
+			} else {
+				scope.onpopstate = null;
 			}
 		},
 
