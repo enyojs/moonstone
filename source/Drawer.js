@@ -184,9 +184,6 @@
 			} else {
 				this.controlsOpenChanged();
 			}
-
-			if (moon.config.accelerate)
-				this.$.controlDrawer.$.client.setShowing(true);
 		},
 
 		/**
