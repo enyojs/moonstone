@@ -1499,6 +1499,9 @@ html {
 .moon-expandable-list-item-client.indented {
   padding-left: 2rem;
 }
+.enyo-locale-right-to-left .moon-expandable-list-item-header {
+  padding-right: 0.5rem !important;
+}
 .enyo-locale-right-to-left .moon-expandable-list-item-client.indented {
   padding-left: 0;
   padding-right: 2rem;
@@ -1524,7 +1527,7 @@ html {
 }
 .enyo-locale-right-to-left .moon-expandable-picker-header {
   padding-left: 1.75rem;
-  padding-right: 0.5rem;
+  padding-right: 0;
 }
 .enyo-locale-right-to-left .moon-expandable-picker-header:after {
   left: 0.54167rem;
