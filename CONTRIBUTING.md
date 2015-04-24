@@ -118,7 +118,7 @@ Individual controls have two options of supporting this requirement to change fo
 var kind = require('enyo/kind');
 
 kind({
-	name: Divider,
+	name: 'moon.Divider',
 	classes: 'moon-divider moon-divider-text',  // moon-divider-text will automatically change font based on locale
 	...
 });
