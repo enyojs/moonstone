@@ -376,10 +376,11 @@
 			// property takes precedence if it exists.
 			if (this.popupContentUpperCase !== null) this.uppercase = this.popupContentUpperCase;
 
-			this.createComponents(this.moreComponents);
 			if (this.enableJumpIncrement) {
 				this.createJumpIncrementButton();
 			}
+			this.createComponents(this.moreComponents);
+
 			this.initValue();
 			this.disabledChanged();
 			this.knobClassesChanged();
@@ -393,10 +394,15 @@
 		* @private
 		*/
 		createJumpIncrementButton: function() {
-			this.createComponents([
-				{name: 'buttonLeft',  kind: 'moon.IconButton', noBackground:true, classes: 'moon-simple-picker-button left', icon:'arrowlargeleft', onSpotlightKeyDown:'configureSpotlightHoldPulse', onSpotlightSelect: 'left', ondown: 'downLeft', onholdpulse:'left', defaultSpotlightDisappear: 'buttonRight'},
-				{name: 'buttonRight', kind: 'moon.IconButton', noBackground:true, classes: 'moon-simple-picker-button right', icon:'arrowlargeright', onSpotlightKeyDown:'configureSpotlightHoldPulse', onSpotlightSelect: 'right', ondown: 'downRight', onholdpulse:'right', defaultSpotlightDisappear: 'buttonLeft'}
-			]);
+			this.createComponent({name: 'buttonLeft', kind: 'moon.IconButton', noBackground:true, classes: 'moon-simple-picker-button left', icon:'arrowlargeleft', onSpotlightKeyDown:'configureSpotlightHoldPulse', onSpotlightSelect: 'left', ondown: 'downLeft', onholdpulse:'left', defaultSpotlightDisappear: 'buttonRight'});
+			this.createComponent({name: 'sliderWrapper', classes: 'slider-wrapper', spotlight: true});
+			this.createComponent({name: 'buttonRight', kind: 'moon.IconButton', noBackground:true, classes: 'moon-simple-picker-button right', icon:'arrowlargeright', onSpotlightKeyDown:'configureSpotlightHoldPulse', onSpotlightSelect: 'right', ondown: 'downRight', onholdpulse:'right', defaultSpotlightDisappear: 'buttonLeft'});
+			this.$.progressAnimator.set('container', this.$.sliderWrapper);
+			this.$.bgbar.set('container', this.$.sliderWrapper);
+			this.$.bar.set('container', this.$.sliderWrapper);
+
+			this.set('spotlight', false);
+			this.controlParent = this.$.sliderWrapper;
 		},
 
 		/**

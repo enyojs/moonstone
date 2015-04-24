@@ -2120,13 +2120,16 @@ html {
   margin: 2.5rem 0.875rem;
   max-width: 68rem;
 }
-.moon-slider.spotlight > .moon-progress-bar-bar {
+.moon-slider.spotlight > .moon-progress-bar-bar,
+.moon-slider .slider-wrapper.spotlight > .moon-progress-bar-bar {
   background-color: #cf0652;
 }
-.moon-slider.spotlight > .moon-slider-knob {
+.moon-slider.spotlight > .moon-slider-knob,
+.moon-slider .slider-wrapper.spotlight > .moon-slider-knob {
   background-color: #cf0652;
 }
-.moon-slider.spotlight > .moon-slider-knob.spotselect {
+.moon-slider.spotlight > .moon-slider-knob.spotselect,
+.moon-slider .slider-wrapper.spotlight > .moon-slider-knob.spotselect {
   background-color: #4d4d4d;
   border: 0.25rem solid #cf0652;
 }
