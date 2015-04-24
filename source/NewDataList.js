@@ -14,14 +14,17 @@
 			onSpotlightLeft: 'guard5way'
 		},
 		guard5way: function (sender, event) {
-			var e, v, idx, maxIdx, dec, inc;
+			var e, v, idx, d2x, dec, inc, adjLast;
 
 			if (!enyo.Spotlight.Accelerator.isAccelerating()) return false;
 
 			e = event.type;
 			v = this.direction === 'vertical';
-			idx = event.originator.index;
-			maxIdx = this.get('data').length - 1;
+			// Important to use sender instead of event.originator here
+			// since, if we have nested repeaters, the index of the
+			// originator is probably not the one we want.
+			idx = sender.index;
+			d2x = this.dim2extent;
 
 			if (v) {
 				dec = 'onSpotlightUp';
@@ -34,9 +37,10 @@
 
 			switch (e) {
 				case dec:
-					return (this.first > 0) && ((idx - this.first) <= this.dim2extent);
+					return (idx - this.first) < d2x;
 				case inc:
-					return (this._last < maxIdx) && ((this._last - idx) <= this.dim2extent);
+					adjLast = d2x > 1 ? d2x * Math.ceil(this._last / d2x) : this._last;
+					return (adjLast - idx) < d2x;
 				default:
 					return false;
 			}

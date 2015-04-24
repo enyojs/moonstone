@@ -35,6 +35,13 @@
 				}
 			}
 			return !bubble;
-		}
+		},
+
+		suppressMouseEvents: enyo.inherit(function (sup) {
+			return function () {
+				sup.apply(this, arguments);
+				enyo.Spotlight.unspot();
+			};
+		})
 	};
 })(enyo, moon, this);
