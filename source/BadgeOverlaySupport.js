@@ -116,6 +116,19 @@
 		position: undefined,
 
 		/**
+		* Sepcifies whether badge should be transparent or not.
+		* Possible values are 'true' or 'false'.
+		* Defaulted as 'false'.
+		*
+		* @name moon.BadgeOverlaySupport#transparency
+		* @type {String}
+		* @default undefined
+		* @public
+		*/
+		transparency: false,
+
+
+		/**
 		* @private
 		*/
 		events: {
@@ -136,6 +149,7 @@
 				if (this.badgeSrc) {
 					this.$.badgeScrimIcon.set('icon','');
 				}
+				this.transparencyChanged();
 			};
 		}),
 
@@ -173,6 +187,13 @@
 			if(this.badgeType && this.badgeType != 'image') {
 				image.createComponent(this._badgeOverride.image.components[0]);
 			}
+		},
+
+		/**
+		* @private
+		*/
+		transparencyChanged: function() {
+			this.addRemoveClass('moon-badge-overlay-transparent', this.transparency)
 		},
 
 		/**
