@@ -4,11 +4,17 @@
 }
 
 // mixin classes for create the moontone text classes
-.moon-text-base (@font-size, @font-color: @moon-text-color) {
+.moon-text-base (@font-size) {
+	font-family: @moon-font-family;
+	font-size: @font-size;
+}
+
+.moon-text-base (@font-size, @font-color) {
 	font-family: @moon-font-family;
 	font-size: @font-size;
 	color: @font-color;
 }
+
 /* Text definitions */
 
 .moon-header-font {
