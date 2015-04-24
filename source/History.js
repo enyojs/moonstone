@@ -403,10 +403,15 @@
 		},
 
 		/**
+		*
 		* @private
 		*/
 		remoteBackKeyHandler: function (inSender, inEvent) {
-			if (inEvent.keySymbol == 'back' && this._currentObj && this._currentObj.getShowing()) {
+		// In keymap.js, we assigned specific keycode to 'back' string.
+		// It is only for back key button of remote controller with webOS environment.
+		// But more generally, we can use back space key of keyboard.
+		// 8 is webkit keycode of back space key.
+			if ((inEvent.keySymbol == 'back' || inEvent.keyCode === 8) && this._currentObj && this._currentObj.getShowing()) {
 				this._callBackKeyHandler();
 				this.ignorePopState();
 			}

@@ -12,8 +12,7 @@
 			19  : 'pause',
 			412 : 'rewind',
 			417 : 'fastforward',
-			461 : 'back',
-			8	: 'back'	//webkit keycode of backspace key in keyboard
+			461 : 'back'
 		});
 	}
 })(enyo, this);
