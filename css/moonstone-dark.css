@@ -3595,11 +3595,6 @@ html {
 .moon-drawer-client {
   padding: 0.75rem;
 }
-.moon-drawer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-}
 /* Drawers.css */
 .moon-drawers {
   overflow: hidden;

@@ -338,6 +338,15 @@
 			drawerProps: null
 		},
 
+		create: function() {
+			this.inherited(arguments);
+			if (moon.config.accelerate) {
+				this.applyStyle('position', 'absolute');
+				this.applyStyle('bottom', 0);
+				this.applyStyle('width', '100%');
+			}
+		},
+
 		/**
 		* @private
 		*/
