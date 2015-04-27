@@ -116,6 +116,18 @@
 		position: undefined,
 
 		/**
+		* Sepcifies the alignment position of badge icon.
+		* Possible values are 'left' or 'right'.
+		* Defaulted as 'left'.
+		*
+		* @name moon.BadgeOverlaySupport#badgeIconPosition
+		* @type {String}
+		* @default left
+		* @public
+		*/
+		badgeIconPosition: 'left',
+
+		/**
 		* Sepcifies whether badge should be transparent or not.
 		* Possible values are 'true' or 'false'.
 		* Defaulted as 'false'.
@@ -146,6 +158,7 @@
 				sup.apply(this, arguments);
 				this.positionChanged();
 				this.badgeTypeChanged();
+				this.badgeIconPositionChanged();
 				if (this.badgeSrc) {
 					this.$.badgeScrimIcon.set('icon','');
 				}
@@ -176,6 +189,13 @@
 		*/
 		positionChanged: function () {
 			this.addRemoveClass('top', this.position == 'top');
+		},
+
+		/**
+		* @private
+		*/
+		badgeIconPositionChanged: function() {
+			this.addRemoveClass('right', this.badgeIconPosition == 'right');
 		},
 
 		/**

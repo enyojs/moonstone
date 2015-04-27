@@ -4891,11 +4891,14 @@ html {
   bottom: initial;
   top: 0;
 }
+.moon-badge-overlay-support.right .moon-icon.small {
+  float: right;
+}
 .moon-badge-overlay-support .moon-image {
   display: block;
   margin: 0;
 }
-.moon-badge-overlay-transparent .moon-image-client {
+.moon-badge-overlay-support.moon-badge-overlay-transparent .moon-image-client {
   background-color: rgba(0, 0, 0, 0);
 }
 .moon-thumb {
