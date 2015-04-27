@@ -213,7 +213,7 @@
 		* @private
 		*/
 		transparencyChanged: function() {
-			this.addRemoveClass('moon-badge-overlay-transparent', this.transparency)
+			this.addRemoveClass('moon-badge-overlay-transparent', this.transparency);
 		},
 
 		/**
