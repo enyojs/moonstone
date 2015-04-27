@@ -2114,36 +2114,37 @@ html {
   -webkit-transform: translateX(-50%);
 }
 /* Slider Bar */
-.moon-slider {
+.moon-slider-wrapper.moon-progress-bar {
+  background-color: #000000;
+}
+.moon-slider-wrapper .moon-slider {
   position: relative;
-  left: 3.375rem;
-  margin: 2.5rem 0.875rem;
-  max-width: 68rem;
+  margin: 2.5rem 3.375rem;
+  height: 0.5rem;
+  background-color: #262626;
 }
-.moon-slider.spotlight > .moon-progress-bar-bar,
-.moon-slider .slider-wrapper.spotlight > .moon-progress-bar-bar {
+.moon-slider-wrapper .moon-simple-picker-button.left {
+  top: -1rem;
+}
+.moon-slider-wrapper .moon-simple-picker-button.right {
+  top: -1rem;
+}
+.moon-slider {
+  margin: 2.5rem 2rem;
+}
+.moon-slider.spotlight > .moon-progress-bar-bar {
   background-color: #cf0652;
 }
-.moon-slider.spotlight > .moon-slider-knob,
-.moon-slider .slider-wrapper.spotlight > .moon-slider-knob {
+.moon-slider.spotlight > .moon-slider-knob {
   background-color: #cf0652;
 }
-.moon-slider.spotlight > .moon-slider-knob.spotselect,
-.moon-slider .slider-wrapper.spotlight > .moon-slider-knob.spotselect {
+.moon-slider.spotlight > .moon-slider-knob.spotselect {
   background-color: #4d4d4d;
   border: 0.25rem solid #cf0652;
 }
 .moon-slider.disabled {
   cursor: default;
   opacity: 0.6;
-}
-.moon-slider .moon-simple-picker-button.left {
-  top: -1rem;
-  left: -3.375rem;
-}
-.moon-slider .moon-simple-picker-button.right {
-  top: -1rem;
-  right: -3.375rem;
 }
 /* Slider Knob */
 .moon-slider-knob {
