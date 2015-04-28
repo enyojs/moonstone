@@ -40,7 +40,9 @@
 		suppressMouseEvents: enyo.inherit(function (sup) {
 			return function () {
 				sup.apply(this, arguments);
-				enyo.Spotlight.unspot();
+				if (enyo.Spotlight.getPointerMode()) {
+					enyo.Spotlight.unspot();
+				}
 			};
 		})
 	};
