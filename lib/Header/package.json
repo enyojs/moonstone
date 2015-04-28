@@ -1,6 +1,6 @@
 {
 	"main": "Header.js",
-	"style": [
+	"styles": [
 		"Header.less"
 	]
 }

@@ -1,6 +1,6 @@
 {
 	"main": "ToggleSwitch.js",
-	"style": [
+	"styles": [
 		"ToggleSwitch.less"
 	]
 }

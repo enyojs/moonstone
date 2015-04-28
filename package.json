@@ -2,7 +2,7 @@
   "name": "moonstone",
   "version": "2.6.0-pre",
   "description": "Moonstone UI library for TV user interfaces.",
-  "style": [
+  "styles": [
     "css/moonstone-variables.less",
     "css/moonstone-fonts.less",
     "css/moonstone-grid.less",

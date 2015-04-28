@@ -1,6 +1,6 @@
 {
 	"main": "InputDecorator.js",
-	"style": [
+	"styles": [
 		"InputDecorator.less"
 	]
 }

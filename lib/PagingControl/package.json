@@ -1,6 +1,6 @@
 {
 	"main": "PagingControl.js",
-	"style": [
+	"styles": [
 		"PagingControl.less"
 	]
 }

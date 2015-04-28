@@ -1,6 +1,6 @@
 {
 	"main": "Marquee.js",
-	"style": [
+	"styles": [
 		"Marquee.less"
 	]
 }

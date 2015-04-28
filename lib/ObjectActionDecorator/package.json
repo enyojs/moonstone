@@ -1,6 +1,6 @@
 {
 	"main": "ObjectActionDecorator.js",
-	"style": [
+	"styles": [
 		"ObjectActionDecorator.less"
 	]
 }

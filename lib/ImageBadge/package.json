@@ -1,6 +1,6 @@
 {
 	"main": "ImageBadge.js",
-	"style": [
+	"styles": [
 		"ImageBadge.less"
 	]
 }

@@ -1,6 +1,6 @@
 {
 	"main": "ToggleItem.js",
-	"style": [
+	"styles": [
 		"ToggleItem.less"
 	]
 }
