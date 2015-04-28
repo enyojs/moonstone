@@ -728,7 +728,7 @@
 				this.scrollBounds = this._getScrollBounds();
 				this.setupBounds();
 				this.scrollBounds = null;
-				if ((showVertical || showHorizontal) && (originator.showing)) {
+				if ((showVertical || showHorizontal) && (originator.getAbsoluteShowing())) {
 					this.animateToControl(originator, event.scrollFullPage, event.scrollInPointerMode || false);
 					if ((showVertical && this.$.scrollMath.bottomBoundary) || (showHorizontal && this.$.scrollMath.rightBoundary)) {
 						this.alertThumbs();
