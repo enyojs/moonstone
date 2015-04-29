@@ -169,6 +169,11 @@
 			//* Todo: remove padding on client
 			this.$.client.$.client.addClass('moon-drawer-client');
 			this.$.controlDrawer.$.client.addClass('moon-drawer-partial-client');
+			if (moon.config.accelerate) {
+				this.applyStyle('position', 'absolute');
+				this.applyStyle('bottom', 0);
+				this.applyStyle('width', '100%');
+			}
 		},
 
 		/**
@@ -336,15 +341,6 @@
 			* @public
 			*/
 			drawerProps: null
-		},
-
-		create: function() {
-			this.inherited(arguments);
-			if (moon.config.accelerate) {
-				this.applyStyle('position', 'absolute');
-				this.applyStyle('bottom', 0);
-				this.applyStyle('width', '100%');
-			}
 		},
 
 		/**
