@@ -1,0 +1,42 @@
+{
+  "name": "moonstone",
+  "version": "2.6.0-pre",
+  "description": "Moonstone UI library for TV user interfaces.",
+  "styles": [
+    "css/moonstone-variables.less",
+    "css/moonstone-fonts.less",
+    "css/moonstone-grid.less",
+    "css/moonstone-text.less",
+    "css/moonstone-spacing.less",
+    "css/moonstone-rules.less"
+  ],
+  "assets": [
+    "fonts/**/*.ttf",
+    "images/**/*.png"
+  ],
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/enyojs/moonstone.git"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/gulp"
+  },
+  "maintainers": [
+    {
+      "name": "Enyo JS Framework Team",
+      "web": "http://enyojs.com/"
+    }
+  ],
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-jshint": "^1.10.0",
+    "jshint-stylish": "^1.0.1"
+  }
+}

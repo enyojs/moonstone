@@ -1,0 +1,42 @@
+{
+  "name": "enyo-moonstone",
+  "main": [
+    "index.js",
+    "lib",
+    "css",
+    "fonts",
+    "images"
+  ],
+  "version": "2.6.0",
+  "homepage": "https://github.com/enyojs/moonstone",
+  "authors": [
+    {"name": "EnyoJS Framework Team", "homepage": "http://enyojs.com/"}
+  ],
+  "description": "A cross platform TV UI library of modules for the EnyoJS JavaScript framework.",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "JavaScript",
+    "framework",
+    "js",
+    "javascript",
+    "library",
+    "enyo",
+    "enyojs",
+    "Enyo",
+    "EnyoJS",
+    "webos",
+    "WebOS",
+    "toolkit",
+    "components",
+    "mobile"
+  ],
+  "license": "Apache-2.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "test",
+    "docs"
+  ]
+}
