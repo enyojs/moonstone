@@ -837,7 +837,7 @@
 		* @private
 		*/
 		spotLeft: function(sender, e) {
-			if (this.selected) {
+			if (this.selected && !this.dragging) {
 				// If in the process of animating, work from the previously set value
 				var v = this.getValue() - (this.increment || 1);
 
@@ -850,7 +850,7 @@
 		* @private
 		*/
 		spotRight: function(sender, e) {
-			if (this.selected) {
+			if (this.selected && !this.dragging) {
 				var v = this.getValue() + (this.increment || 1);
 
 				this.set('value',v);
