@@ -1,3 +1,6 @@
+// Moonstone mixins defined here
+@import "moonstone-mixins.less";
+
 html {
 	font-size: 24px;
 	font-size: 24apx;
@@ -16,12 +19,6 @@ html {
 		font-size: 48apx;
 	}
 }
-
-// Import font styles
-@import "moonstone-fonts.less";
-
-// Import grid classes/mixins
-@import "moonstone-grid.less";
 
 /* Prevent browser's default focus treatment (at least in Chrome) */
 :focus {
@@ -59,94 +56,25 @@ html {
 	will-change: transform;
 }
 
-@import "moonstone-text.less";
-
 .border-box {
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 }
 
+.matrix3dsurface {
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
+    -webkit-transform-style: flat;
+    transform-style: flat;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    pointer-events: auto;
+    -webkit-user-select: none;
+}
+
 // LESS pre-calculations
 @moon-disabled-opacity-ie: @moon-disabled-opacity*100;
-
-// Individual widget CSS
-@import "Icon.less";
-@import "IconButton.less";
-@import "Marquee.less";
-@import "SimplePicker.less";
-@import "SimpleIntegerPicker.less";
-@import "Checkbox.less";
-@import "Divider.less";
-@import "CheckboxItem.less";
-@import "ToggleText.less";
-@import "ToggleSwitch.less";
-@import "ToggleItem.less";
-@import "ToggleButton.less";
-@import "Item.less";
-@import "ItemOverlay.less";
-@import "SelectableItem.less";
-@import "Button.less";
-@import "CaptionDecorator.less";
-@import "RadioItem.less";
-@import "RadioItemGroup.less";
-@import "ExpandableListItem.less";
-@import "ExpandablePicker.less";
-@import "ExpandableIntegerPicker.less";
-@import "Header.less";
-@import "GridListImageItem.less";
-@import "PagingControl.less";
-@import "IntegerPicker.less";
-@import "DatePicker.less";
-@import "TimePicker.less";
-@import "Input.less";
-@import "InputDecorator.less";
-@import "ProgressBar.less";
-@import "ProgressButton.less";
-@import "Slider.less";
-@import "RichText.less";
-@import "ContextualPopupButton.less";
-@import "ContextualPopupDecorator.less";
-@import "ContextualPopup.less";
-@import "TextArea.less";
-@import "ListActions.less";
-@import "LabeledTextItem.less";
-@import "ImageItem.less";
-@import "Spinner.less";
-@import "Panel.less";
-@import "Panels.less";
-@import "Accordion.less";
-@import "Calendar.less";
-@import "Table.less";
-@import "InputHeader.less";
-@import "Drawer.less";
-@import "Drawers.less";
-@import "Scrim.less";
-@import "Popup.less";
-@import "Dialog.less";
-@import "Tooltip.less";
-@import "AudioPlayback.less";
-@import "VideoPlayerSlider.less";
-@import "VideoPlayer.less";
-@import "VideoControlInline.less";
-@import "VideoControlFullscreen.less";
-@import "VideoFeedback.less";
-@import "VideoInfoHeader.less";
-@import "ChannelInfo.less";
-@import "VideoInfoBackground.less";
-@import "Clock.less";
-@import "Scroller.less";
-@import "ExpandableInput.less";
-@import "HighlightText.less";
-@import "ObjectActionDecorator.less";
-@import "FormCheckbox.less";
-@import "SelectionOverlaySupport.less";
-@import "Thumb.less";
-@import "Image.less";
-@import "ImageBadge.less";
-@import "ExpandableText.less";
-@import "BodyText.less";
-@import "VideoFullScreenToggleButton.less";
-@import "LightPanel.less";
 
 /* Put this at the end because we want these to take precedence over others */
 .moon-neutral {
@@ -163,5 +91,3 @@ html {
 .moon-light-gray * {
 	color: @moon-dark-gray;
 }
-
-@import "moonstone-spacing.less";

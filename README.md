@@ -2,6 +2,11 @@
 
 Moonstone UI library for TV user interfaces.
 
+## Samples
+
+All samples reside in a consolidated sample app for Enyo and its libraries:
+[enyo-strawman](https://github.com/enyojs/enyo-strawman)
+
 ## Changes
 
 Any time you commit a change to a `.less` file, you also need to regenerate the
