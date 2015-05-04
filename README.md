@@ -1,33 +1,25 @@
 # moonstone
 
-Moonstone UI library for TV user interfaces.
+The Moonstone library provides a toolbox of UI components that have been
+specially designed and optimized for use in TV-based applications.
+
+A complete [list of Moonstone
+controls](http://enyojs.com/docs/latest/index.html#/namespaces:moon) is
+available in the [Enyo API Reference](http://enyojs.com/docs/latest/index.html#/home),
+while more detailed information can be found in the [Enyo Developer
+Guide](http://enyojs.com/docs/latest/developer-guide/index.html).
 
 ## Samples
 
-All samples reside in a consolidated sample app for Enyo and its libraries:
-[enyo-strawman](https://github.com/enyojs/enyo-strawman)
-
-## Changes
-
-Any time you commit a change to a `.less` file, you also need to regenerate the
-top-level `.css` file for the library, as follows:
-
-    cd lib/moonstone/css
-    ../../../enyo/tools/lessc.sh ./all-package.js
-
-This will generate a new `moonstone-dark.css` and  `moonstone-light.css`, which you should check in along with
-your changes to the `.less` files.
-
-Please do not edit the top-level `CSS` files manually.  They should be
-treated as an output file; we should make changes to `.less` files only, then
-generate the CSS file using the above command.
+The Moonstone controls may be seen in action in the consolidated sample app,
+[enyo-strawman](https://github.com/enyojs/enyo-strawman).
 
 ## Copyright and License Information
 
 Unless otherwise specified, all content, including all source code files and
 documentation files in this repository are:
 
-Copyright (c) 2014 LG Electronics
+Copyright (c) 2014-2015 LG Electronics
 
 Unless otherwise specified or set forth in the NOTICE file, all content,
 including all source code files and documentation files in this repository are:
