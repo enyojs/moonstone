@@ -2310,11 +2310,11 @@ html {
 .moon-contextual-popup.left:before,
 .moon-contextual-popup.right:before {
   width: 0;
-  height: 0.25rem;
+  height: 0;
 }
 .moon-contextual-popup.below:before,
 .moon-contextual-popup.above:before {
-  width: 0.25rem;
+  width: 0;
   height: 0;
 }
 .moon-contextual-popup.left:after,
@@ -2338,7 +2338,7 @@ html {
   border-right: 0.75rem solid rgba(0, 0, 0, 0.5);
 }
 .moon-contextual-popup.left:after {
-  margin: -0.625rem auto auto -0.75rem;
+  margin: -0.75rem auto auto -0.625rem;
   border-top: 0.625rem solid transparent;
   border-bottom: 0.625rem solid transparent;
   border-right: 0.75rem solid #686868;
@@ -2347,13 +2347,13 @@ html {
   margin: -1rem auto auto -1rem;
 }
 .moon-contextual-popup.left.high:after {
-  margin: -0.875rem auto auto -0.75rem;
+  margin: -1rem auto auto -0.625rem;
 }
 .moon-contextual-popup.left.low:before {
   margin: auto auto -1rem -1rem;
 }
 .moon-contextual-popup.left.low:after {
-  margin: auto auto -0.875rem -0.75rem;
+  margin: auto auto -1rem -0.625rem;
 }
 .moon-contextual-popup.right {
   margin: 0 0 0 -1.5rem;
@@ -2364,13 +2364,13 @@ html {
   right: auto;
 }
 .moon-contextual-popup.right:before {
-  margin: -0.75rem auto auto 0.25rem;
+  margin: -0.625rem auto auto 0.25rem;
   border-top: 0.625rem solid transparent;
   border-bottom: 0.625rem solid transparent;
   border-left: 0.75rem solid rgba(0, 0, 0, 0.5);
 }
 .moon-contextual-popup.right:after {
-  margin: -0.625rem auto auto 0;
+  margin: -0.625rem auto auto -0.25rem;
   border-top: 0.625rem solid transparent;
   border-bottom: 0.625rem solid transparent;
   border-left: 0.75rem solid #686868;
@@ -2379,13 +2379,13 @@ html {
   margin: -1rem auto auto 0.25rem;
 }
 .moon-contextual-popup.right.high:after {
-  margin: -0.875rem auto auto 0;
+  margin: -1rem auto auto -0.25rem;
 }
 .moon-contextual-popup.right.low:before {
   margin: auto auto -1rem 0.25rem;
 }
 .moon-contextual-popup.right.low:after {
-  margin: auto auto -0.875rem 0;
+  margin: auto auto -1rem -0.25rem;
 }
 .moon-contextual-popup.below.right:before,
 .moon-contextual-popup.above.right:before,
@@ -2408,28 +2408,28 @@ html {
   top: 0;
 }
 .moon-contextual-popup.below:before {
-  margin: -1rem auto auto -0.75rem;
+  margin: -1rem auto auto -0.625rem;
   border-right: 0.625rem solid transparent;
   border-left: 0.625rem solid transparent;
   border-bottom: 0.75rem solid rgba(0, 0, 0, 0.5);
 }
 .moon-contextual-popup.below:after {
-  margin: -0.75rem auto auto -0.625rem;
+  margin: -0.625rem auto auto -0.625rem;
   border-right: 0.625rem solid transparent;
   border-left: 0.625rem solid transparent;
   border-bottom: 0.75rem solid #686868;
 }
 .moon-contextual-popup.below.right:before {
-  margin: -1.625rem auto auto -0.75rem;
+  margin: -1.625rem auto auto -0.625rem;
 }
 .moon-contextual-popup.below.right:after {
-  margin: -1.375rem auto auto -0.625rem;
+  margin: -1.25rem auto auto -0.625rem;
 }
 .moon-contextual-popup.below.left:before {
-  margin: -1.625rem -0.75rem auto auto;
+  margin: -1.625rem -0.625rem auto auto;
 }
 .moon-contextual-popup.below.left:after {
-  margin: -1.375rem -0.625rem auto auto;
+  margin: -1.25rem -0.625rem auto auto;
 }
 .moon-contextual-popup.above {
   margin: -1.5rem 0 0 0;
@@ -2439,28 +2439,28 @@ html {
   top: 100%;
 }
 .moon-contextual-popup.above:before {
-  margin: 0.25rem auto auto -0.75rem;
+  margin: 0.25rem auto auto -0.625rem;
   border-right: 0.625rem solid transparent;
   border-left: 0.625rem solid transparent;
   border-top: 0.75rem solid rgba(0, 0, 0, 0.5);
 }
 .moon-contextual-popup.above:after {
-  margin: 0 auto auto -0.625rem;
+  margin: -0.125rem auto auto -0.625rem;
   border-right: 0.625rem solid transparent;
   border-left: 0.625rem solid transparent;
   border-top: 0.75rem solid #686868;
 }
 .moon-contextual-popup.above.right:before {
-  margin: 0.25rem auto auto -0.75rem;
+  margin: 0.25rem auto auto -0.625rem;
 }
 .moon-contextual-popup.above.right:after {
-  margin: 0 auto auto -0.625rem;
+  margin: -0.125rem auto auto -0.625rem;
 }
 .moon-contextual-popup.above.left:before {
-  margin: 0.25rem -0.75rem auto auto;
+  margin: 0.25rem -0.625rem auto auto;
 }
 .moon-contextual-popup.above.left:after {
-  margin: 0 -0.625rem auto auto;
+  margin: -0.125rem -0.625rem auto auto;
 }
 .enyo-locale-right-to-left .moon-contextual-popup {
   direction: rtl;
