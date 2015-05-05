@@ -77,11 +77,11 @@
 	&.left:before,
 	&.right:before {
 		width: 0;
-		height: 6px;
+		height: 0;
 	}
 	&.below:before,
 	&.above:before {
-		width: 6px;
+		width: 0;
 		height: 0;
 	}
 	&.left:after,
@@ -104,7 +104,7 @@
 			.moon-popup-nub-left(@moon-contextual-popup-border-color);
 		}
 		&:after {
-			.moon-popup-nub-position(-@moon-contextual-popup-nub-height + 3, auto, -@moon-contextual-popup-nub-height, auto);
+			.moon-popup-nub-position(-@moon-contextual-popup-nub-height, auto, -@moon-contextual-popup-nub-height + 3, auto);
 			.moon-popup-nub-left(@moon-contextual-popup-bg-color);
 		}
 		&.high {
@@ -112,7 +112,7 @@
 				.moon-popup-nub-position(-@moon-contextual-popup-nub-height - 6, auto, -@moon-contextual-popup-nub-height - 6, auto);
 			}
 			&:after {
-				.moon-popup-nub-position(-@moon-contextual-popup-nub-height - 3, auto, -@moon-contextual-popup-nub-height, auto);
+				.moon-popup-nub-position(-@moon-contextual-popup-nub-height - 6, auto, -@moon-contextual-popup-nub-height + 3, auto);
 			}
 		}
 		&.low {
@@ -120,7 +120,7 @@
 				.moon-popup-nub-position(auto, -@moon-contextual-popup-nub-height - 6, -@moon-contextual-popup-nub-height - 6, auto);
 			}
 			&:after {
-				.moon-popup-nub-position(auto, -@moon-contextual-popup-nub-height - 3, -@moon-contextual-popup-nub-height, auto);
+				.moon-popup-nub-position(auto, -@moon-contextual-popup-nub-height - 6, -@moon-contextual-popup-nub-height + 3, auto);
 			}
 		}
 	}
@@ -134,11 +134,11 @@
 			right: auto;
 		}
 		&:before {
-			.moon-popup-nub-position(-@moon-contextual-popup-nub-height, auto, @moon-button-border-width, auto);
+			.moon-popup-nub-position(-@moon-contextual-popup-nub-height + 3, auto, @moon-button-border-width, auto);
 			.moon-popup-nub-right(@moon-contextual-popup-border-color);
 		}
 		&:after {
-			.moon-popup-nub-position(-@moon-contextual-popup-nub-height + 3, auto, 0, auto);
+			.moon-popup-nub-position(-@moon-contextual-popup-nub-height + 3, auto, -@moon-button-border-width, auto);
 			.moon-popup-nub-right(@moon-contextual-popup-bg-color);
 		}
 		&.high {
@@ -146,7 +146,7 @@
 				.moon-popup-nub-position(-@moon-contextual-popup-nub-height - 6, auto, @moon-button-border-width, auto);
 			}
 			&:after {
-				.moon-popup-nub-position(-@moon-contextual-popup-nub-height - 3, auto, 0, auto);
+				.moon-popup-nub-position(-@moon-contextual-popup-nub-height - 6, auto, -@moon-button-border-width, auto);
 			}
 		}
 		&.low {
@@ -154,7 +154,7 @@
 				.moon-popup-nub-position(auto, -@moon-contextual-popup-nub-height - 6, @moon-button-border-width, auto);
 			}
 			&:after {
-				.moon-popup-nub-position(auto, -@moon-contextual-popup-nub-height - 3, 0, auto);
+				.moon-popup-nub-position(auto, -@moon-contextual-popup-nub-height - 6, -@moon-button-border-width, auto);
 			}
 		}
 	}
@@ -180,27 +180,27 @@
 			top: 0;
 		}
 		&:before {
-			.moon-popup-nub-position(-@moon-contextual-popup-nub-height - 6, auto, -@moon-contextual-popup-nub-height, auto);
+			.moon-popup-nub-position(-@moon-contextual-popup-nub-height - 6, auto, -@moon-contextual-popup-nub-height + 3, auto);
 			.moon-popup-nub-below(@moon-contextual-popup-border-color);
 		}
 		&:after {
-			.moon-popup-nub-position(-@moon-contextual-popup-nub-height, auto, -@moon-contextual-popup-nub-height + 3, auto);
+			.moon-popup-nub-position(-@moon-contextual-popup-nub-height + 3, auto, -@moon-contextual-popup-nub-height + 3, auto);
 			.moon-popup-nub-below(@moon-contextual-popup-bg-color);
 		}
 		&.right {
 			&:before {
-				.moon-popup-nub-position(-@moon-contextual-popup-padding - @moon-button-border-width - @moon-contextual-popup-nub-height + 3, auto, -@moon-contextual-popup-nub-height, auto);
+				.moon-popup-nub-position(-@moon-contextual-popup-padding - @moon-button-border-width - @moon-contextual-popup-nub-height + 3, auto, -@moon-contextual-popup-nub-height + 3, auto);
 			}
 			&:after {
-				.moon-popup-nub-position(-@moon-contextual-popup-padding - @moon-contextual-popup-nub-height + 3, auto, -@moon-contextual-popup-nub-height + 3, auto);
+				.moon-popup-nub-position(-@moon-contextual-popup-padding - @moon-contextual-popup-nub-height + 6, auto, -@moon-contextual-popup-nub-height + 3, auto);
 			}
 		}
 		&.left {
 			&:before {
-				.moon-popup-nub-position(-@moon-contextual-popup-padding - @moon-button-border-width - @moon-contextual-popup-nub-height + 3, auto, auto, -@moon-contextual-popup-nub-height);
+				.moon-popup-nub-position(-@moon-contextual-popup-padding - @moon-button-border-width - @moon-contextual-popup-nub-height + 3, auto, auto, -@moon-contextual-popup-nub-height + 3);
 			}
 			&:after {
-				.moon-popup-nub-position(-@moon-contextual-popup-padding - @moon-contextual-popup-nub-height + 3, auto, auto, -@moon-contextual-popup-nub-height + 3);
+				.moon-popup-nub-position(-@moon-contextual-popup-padding - @moon-contextual-popup-nub-height + 6, auto, auto, -@moon-contextual-popup-nub-height + 3);
 			}
 		}
 	}
@@ -213,27 +213,27 @@
 			top: 100%;
 		}
 		&:before {
-			.moon-popup-nub-position(@moon-button-border-width, auto, -@moon-contextual-popup-nub-height, auto);
+			.moon-popup-nub-position(@moon-button-border-width, auto, -@moon-contextual-popup-nub-height + 3, auto);
 			.moon-popup-nub-above(@moon-contextual-popup-border-color);
 		}
 		&:after {
-			.moon-popup-nub-position(0, auto, -@moon-contextual-popup-nub-height + 3, auto);
+			.moon-popup-nub-position(-@moon-button-border-width + 3, auto, -@moon-contextual-popup-nub-height + 3, auto);
 			.moon-popup-nub-above(@moon-contextual-popup-bg-color);
 		}
 		&.right {
 			&:before {
-				.moon-popup-nub-position(@moon-button-border-width, auto, -@moon-contextual-popup-nub-height, auto);
+				.moon-popup-nub-position(@moon-button-border-width, auto, -@moon-contextual-popup-nub-height + 3, auto);
 			}
 			&:after {
-				.moon-popup-nub-position(0, auto, -@moon-contextual-popup-nub-height + 3, auto);
+				.moon-popup-nub-position(-@moon-button-border-width + 3, auto, -@moon-contextual-popup-nub-height + 3, auto);
 			}
 		}
 		&.left {
 			&:before {
-				.moon-popup-nub-position(@moon-button-border-width, auto, auto, -@moon-contextual-popup-nub-height);
+				.moon-popup-nub-position(@moon-button-border-width, auto, auto, -@moon-contextual-popup-nub-height + 3);
 			}
 			&:after {
-				.moon-popup-nub-position(0, auto, auto, -@moon-contextual-popup-nub-height + 3);
+				.moon-popup-nub-position(-@moon-button-border-width + 3, auto, auto, -@moon-contextual-popup-nub-height + 3);
 			}
 		}
 	}
