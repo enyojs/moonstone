@@ -1,0 +1,6 @@
+{
+	"main": "TextOverlaySupport.js",
+	"styles": [
+		"TextOverlaySupport.less"
+	]
+}

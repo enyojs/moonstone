@@ -1,0 +1,49 @@
+.moon-text-overlay-support .moon-text-overlay-support-scrim{
+  display: none;
+}
+
+.moon-text-overlay-support.spotlight .moon-text-overlay-support-scrim{
+  display: block;
+}
+
+.moon-text-overlay-support-scrim {
+  background: @moon-text-overlay-support-scrim-background-color;
+}
+
+.moon-text-overlay-support-scrim-center {
+  margin: auto;
+  width: 100%;
+  display: table;
+  table-layout: fixed;
+}
+
+.moon-text-overlay-support-scrim-center > * {
+  position: relative;
+  display: block; 
+  text-align: center;
+  width: @moon-text-overlay-support-text-width;
+  padding-left: @moon-text-overlay-support-text-padding-leftRight;
+  padding-right: @moon-text-overlay-support-text-padding-leftRight;
+  font-family: @moon-upperTextOverlay-font-family;
+  font-size: @moon-text-overlay-support-upperText-font-size;
+  line-height: @moon-text-overlay-support-upperText-line-height;
+
+}
+
+.moon-text-overlay-upperText {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.moon-text-overlay-bottomText {
+  font-family: @moon-bottomTextOverlay-font-family;
+  font-size: @moon-text-overlay-support-bottomText-font-size;
+  line-height: @moon-text-overlay-support-bottomText-line-height;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  color: @moon-text-overlay-support-bottomText-color;
+  margin-top: @moon-text-overlay-support-bottomText-margin-top;
+}
