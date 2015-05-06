@@ -1,9 +1,27 @@
 /* Slider Bar */
+.moon-slider-wrapper {
+	&.moon-progress-bar {
+		background-color: #000000;
+	}
+
+	& .moon-slider {
+		position: relative;
+		margin: 60px 81px;
+		height: 12px;
+		background-color: @moon-progress-bg-color;
+	}
+
+	& .moon-simple-picker-button.left {
+		top: -24px;
+	}
+
+	& .moon-simple-picker-button.right {
+		top: -24px;
+	}
+}
+
 .moon-slider {
-	position: relative;
-	left: 81px;	//iconButton size + slider margin
-	margin: 60px 21px;
-	max-width: 1632px; 	//in FHD, screen width - 2 * (moon border + iconButton size + slider margin) - scroller width
+	margin: 60px 48px;
 
 	&.spotlight {
 		> .moon-progress-bar-bar {
@@ -23,16 +41,6 @@
 	&.disabled {
 		cursor: default;
 		opacity: @moon-disabled-opacity;
-	}
-	
-	& .moon-simple-picker-button.left {
-		top: -24px;
-		left: -81px;
-	}
-
-	& .moon-simple-picker-button.right {
-		top: -24px;
-		right: -81px;
 	}
 }
 
