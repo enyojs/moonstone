@@ -33,6 +33,20 @@
 
 		/**
 		* @private
+		* @lends moon.GridListImageItem.prototype
+		*/
+		published: {
+			/**
+			* @type {String}
+			* @default enyo.Image.placeholder
+			* @public
+			*/
+			placeholder: enyo.Image.placeholder
+		
+		},
+		
+		/**
+		* @private
 		*/
 		spotlight: true,
 

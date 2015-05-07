@@ -43,9 +43,9 @@ enyo.kind({
 		]}
 	],
 	bindings: [
-		{from: ".collection", to: ".$.dataList.collection"},
-		{from: ".collection", to: ".$.gridList.collection"},
-		{from: ".$.selectionTypeGroup.active", to: ".$.gridList.selectionType",
+		{from: "collection", to: "$.dataList.collection"},
+		{from: "collection", to: "$.gridList.collection"},
+		{from: "$.selectionTypeGroup.active", to: "$.gridList.selectionType",
 			transform: function (selected) {
 				return selected && selected.value;
 			}
@@ -91,8 +91,9 @@ enyo.kind({
 	selectionOverlayVerticalOffset: 35,
 	subCaption: "Sub Caption",
 	bindings: [
-		{from: ".model.text", to: ".caption"},
-		{from: ".model.subText", to: ".subCaption"},
-		{from: ".model.url", to: ".source"}
+		{from: "model.text", to: "caption"},
+		{from: "model.subText", to: "subCaption"},
+		{from: "model.url", to: "source"},
+		{from: "model.placeholder", to: "placeholder"}
 	]
 });
