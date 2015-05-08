@@ -6,7 +6,7 @@
 		screenTypeObject,
 		oldScreenType;
 
-	var getScreenTypeObject = function (type, ignoreCache) {
+	var getScreenTypeObject = function (type) {
 		type = type || screenType;
 		if (screenTypeObject && screenTypeObject.name == type) {
 			return screenTypeObject;
