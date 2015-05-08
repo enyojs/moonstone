@@ -1499,7 +1499,7 @@ html {
 .moon-expandable-list-item-client.indented {
   padding-left: 2rem;
 }
-.enyo-locale-right-to-left .moon-expandable-list-item-header.moon-expandable-list-item-header {
+.enyo-locale-right-to-left .moon-expandable-list-item-header.moon-expandable-list-header {
   padding-right: 0.5rem;
 }
 .enyo-locale-right-to-left .moon-expandable-list-item-client.indented {
