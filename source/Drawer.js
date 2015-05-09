@@ -169,11 +169,6 @@
 			//* Todo: remove padding on client
 			this.$.client.$.client.addClass('moon-drawer-client');
 			this.$.controlDrawer.$.client.addClass('moon-drawer-partial-client');
-			if (moon.config.accelerate) {
-				this.applyStyle('position', 'absolute');
-				this.applyStyle('bottom', 0);
-				this.applyStyle('width', '100%');
-			}
 		},
 
 		/**
@@ -182,13 +177,10 @@
 		drawersRendered: function (inSender, inEvent) {
 			this.$.client.setDrawerProps({height: this.calcDrawerHeight(inEvent.drawersHeight)});
 			this.openChanged();
-			if (!this.controlsOpen) {
-				this.$.controlDrawer.setAnimated(false);
-				this.$.controlDrawer.setOpen(this.controlsOpen);
-				this.$.controlDrawer.setAnimated(true);
-			} else {
-				this.controlsOpenChanged();
-			}
+			this.$.controlDrawer.setAnimated(false);
+			this.$.controlDrawer.setOpen(true);
+			this.$.controlDrawer.setAnimated(true);
+			this.controlsOpenChanged();
 		},
 
 		/**
@@ -249,7 +241,7 @@
 		* @private
 		*/
 		controlsOpenChanged: function () {
-			this.$.controlDrawer.setOpen(this.controlsOpen);
+			//this.$.controlDrawer.setOpen(this.controlsOpen);
 			if (this.controlsOpen) {
 				this.doActivate({height: this.controlDrawerHeight});
 				this.$.controlDrawer.spotlightDisabled = false;
@@ -355,36 +347,6 @@
 		* @private
 		*/
 		openChanged: function () {
-			if (!moon.config.accelerate) {
-				this.$.client.show();
-
-				if (this.hasNode()) {
-					if (this.$.animator.isAnimating()) {
-						this.$.animator.reverse();
-					} else {
-						var v = this.orient == 'v';
-						var d = v ? 'height' : 'width';
-						var p = v ? 'top' : 'left';
-						var s = this.drawerProps.height;
-						// unfixing the height/width is needed to properly
-						// measure the scrollHeight/Width DOM property, but
-						// can cause a momentary flash of content on some browsers
-						this.applyStyle(d, null);
-
-						if (this.animated) {
-							this.$.animator.play({
-								startValue: this.open ? 0 : s,
-								endValue: this.open ? s : 0,
-								dimension: d,
-								position: p
-							});
-						} else {
-							// directly run last frame if not animating
-							this.animatorEnd();
-						}
-					}
-				}
-			}
 		},
 
 		/**
@@ -416,8 +378,6 @@
 		drawerPropsChanged: function (){
 			this.$.client.applyStyle('height', enyo.dom.unit(this.drawerProps.height, 'rem'));
 			this.$.client.resize();
-			if (!moon.config.accelerate)
-				this.$.client.setShowing(this.open);
 		}
 	});
 
