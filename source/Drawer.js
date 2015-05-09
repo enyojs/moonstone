@@ -170,9 +170,7 @@
 			this.$.client.$.client.addClass('moon-drawer-client');
 			this.$.controlDrawer.$.client.addClass('moon-drawer-partial-client');
 			if (moon.config.accelerate) {
-				this.applyStyle('position', 'absolute');
-				this.applyStyle('bottom', 0);
-				this.applyStyle('width', '100%');
+				this.addClass('moon-drawer-accelerate');
 			}
 		},
 
@@ -184,7 +182,7 @@
 			this.openChanged();
 			if (!this.controlsOpen) {
 				this.$.controlDrawer.setAnimated(false);
-				this.$.controlDrawer.setOpen(this.controlsOpen);
+				this.$.controlDrawer.setOpen(moon.config.accelerate ? true : this.controlsOpen);
 				this.$.controlDrawer.setAnimated(true);
 			} else {
 				this.controlsOpenChanged();
@@ -249,7 +247,9 @@
 		* @private
 		*/
 		controlsOpenChanged: function () {
-			this.$.controlDrawer.setOpen(this.controlsOpen);
+			if (!moon.config.accelerate)
+				this.$.controlDrawer.setOpen(this.controlsOpen);
+
 			if (this.controlsOpen) {
 				this.doActivate({height: this.controlDrawerHeight});
 				this.$.controlDrawer.spotlightDisabled = false;

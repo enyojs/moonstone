@@ -155,7 +155,7 @@
 			{name: 'activator', classes: 'moon-drawers-activator', spotlight: true, ontap: 'activatorHandler', components: [
 				{name: 'activatorIcon', kind: 'moon.Icon', classes: 'moon-drawers-activator-icon', small: false}
 			]},
-			{name: 'drawers', classes:'moon-drawers-drawer-container'},
+			{name: 'drawers', classes:'moon-drawers-drawer-container', ontransitionend: 'transitionend', onwebkitTransitionEnd: 'transitionend'},
 			{name: 'handleContainer', classes: 'moon-drawers-handle-container', kind: 'enyo.Drawer', resizeContainer: false, open: false, spotlightDisabled: true, onpostresize: 'resizeHandleContainer', components: [
 				{name:'handles', classes: 'moon-neutral moon-drawers-handles'}
 			]},
@@ -353,7 +353,7 @@
 		/**
 		* @private
 		*/
-		hideDrawers: function(except) {
+		hideDrawers: function (except) {
 			var d$ = this.$.drawers.getControls();
 			for (var i=0; i<d$.length; i++) {
 				d$[i].setShowing(d$[i] === except);
@@ -363,7 +363,7 @@
 		/**
 		* @private
 		*/
-		animate: function(height) {
+		animate: function (height) {
 			enyo.dom.transform(this.$.drawers, {translateY: height + 'px'});
 			enyo.dom.transform(this.$.client, {translateY: height + 'px'});
 		},
@@ -371,20 +371,27 @@
 		/**
 		* @private
 		*/
+		transitionend: function (sender, ev) {
+			// Support backward compatibility
+			if (ev.propertyName.indexOf('transform') != -1)
+				this.bubble('onDrawerAnimationEnd', ev);
+		},
+
+		/**
+		* @private
+		*/
 		drawerActivated: function (sender, ev) {
-			if (moon.config.accelerate) {
-				if (ev.originator instanceof moon.Drawer) {
-					this.updateActivator(true);
+			if (ev.originator instanceof moon.Drawer) {
+				this.updateActivator(true);
+
+				if (moon.config.accelerate) {
 					// Hide() is expensive. Use spotlightDisabled feature instead
 					if (ev.originator.getOpen()) {
 						this.$.client.spotlightDisabled = true;
 					}
 					this.hideDrawers(ev.originator);
 					this.animate(ev.height);
-				}
-			} else {
-				if (ev.originator instanceof moon.Drawer) {
-					this.updateActivator(true);
+				} else {
 					// Hide client when fullscreen drawer is open so it is not focusable
 					if (ev.originator.getOpen()) {
 						this.$.client.hide();
@@ -397,22 +404,17 @@
 		* @private
 		*/
 		drawerDeactivated: function (sender, ev) {
-			if (moon.config.accelerate) {
-				if (ev.originator instanceof moon.Drawer) {
-					if (!ev.originator.getOpen() && !ev.originator.getControlsOpen()) {
-						this.updateActivator(false);
-					}
+			if (ev.originator instanceof moon.Drawer) {
+				if (!ev.originator.getOpen() && !ev.originator.getControlsOpen()) {
+					this.updateActivator(false);
+				}
+				if (moon.config.accelerate) {
 					// Show() is expensive. Use spotlightDisabled feature instead
-					if (ev.originator.getOpen()) {
+					if (!ev.originator.getOpen()) {
 						this.$.client.spotlightDisabled = false;
 					}
 					this.animate(ev.height);
-				}
-			} else {
-				if (ev.originator instanceof moon.Drawer) {
-					if (!ev.originator.getOpen() && !ev.originator.getControlsOpen()) {
-						this.updateActivator(false);
-					}
+				} else {
 					// Re-show client when closing fullscreen drawer
 					if (!ev.originator.getOpen()) {
 						this.$.client.show();
