@@ -7,24 +7,24 @@
 /* LESS file.                                                               */
 
 .moon-item-icon-tap-area-adjust.small > .small-icon-tap-area {
-  left: -12px;
-  right: -12px;
+  left: -0.5rem;
+  right: -0.5rem;
 }
 html {
+  font-size: 1rem;
   font-size: 24px;
-  font-size: 24apx;
 }
 /* 720p screen size */
 @media only screen and (max-width: 1280px) {
   html {
+    font-size: 0.66667rem;
     font-size: 16px;
-    font-size: 16apx;
   }
 }
 @media only screen and (min-width: 2561px) {
   html {
+    font-size: 2rem;
     font-size: 48px;
-    font-size: 48apx;
   }
 }
 /* ----- MISO ------ */
@@ -222,143 +222,143 @@ html {
 }
 /* ------- Horizontal Dimensioning (columns) ------- */
 .moon-1h {
-  width: 60px;
+  width: 2.5rem;
 }
 .moon-2h {
-  width: 138px;
+  width: 5.75rem;
 }
 .moon-3h {
-  width: 216px;
+  width: 9rem;
 }
 .moon-4h {
-  width: 294px;
+  width: 12.25rem;
 }
 .moon-5h {
-  width: 372px;
+  width: 15.5rem;
 }
 .moon-6h {
-  width: 450px;
+  width: 18.75rem;
 }
 .moon-7h {
-  width: 528px;
+  width: 22rem;
 }
 .moon-8h {
-  width: 606px;
+  width: 25.25rem;
 }
 .moon-9h {
-  width: 684px;
+  width: 28.5rem;
 }
 .moon-10h {
-  width: 762px;
+  width: 31.75rem;
 }
 .moon-11h {
-  width: 840px;
+  width: 35rem;
 }
 .moon-12h {
-  width: 918px;
+  width: 38.25rem;
 }
 .moon-13h {
-  width: 996px;
+  width: 41.5rem;
 }
 .moon-14h {
-  width: 1074px;
+  width: 44.75rem;
 }
 .moon-15h {
-  width: 1152px;
+  width: 48rem;
 }
 .moon-16h {
-  width: 1230px;
+  width: 51.25rem;
 }
 .moon-17h {
-  width: 1308px;
+  width: 54.5rem;
 }
 .moon-18h {
-  width: 1386px;
+  width: 57.75rem;
 }
 .moon-19h {
-  width: 1464px;
+  width: 61rem;
 }
 .moon-20h {
-  width: 1542px;
+  width: 64.25rem;
 }
 /* ------- Vertical Dimensioning (columns) ------- */
 .moon-1v {
-  height: 42px;
+  height: 1.75rem;
 }
 .moon-2v {
-  height: 84px;
+  height: 3.5rem;
 }
 .moon-3v {
-  height: 126px;
+  height: 5.25rem;
 }
 .moon-4v {
-  height: 168px;
+  height: 7rem;
 }
 .moon-5v {
-  height: 210px;
+  height: 8.75rem;
 }
 .moon-6v {
-  height: 252px;
+  height: 10.5rem;
 }
 .moon-7v {
-  height: 294px;
+  height: 12.25rem;
 }
 .moon-8v {
-  height: 336px;
+  height: 14rem;
 }
 .moon-9v {
-  height: 378px;
+  height: 15.75rem;
 }
 .moon-10v {
-  height: 420px;
+  height: 17.5rem;
 }
 .moon-11v {
-  height: 462px;
+  height: 19.25rem;
 }
 .moon-12v {
-  height: 504px;
+  height: 21rem;
 }
 .moon-13v {
-  height: 546px;
+  height: 22.75rem;
 }
 .moon-14v {
-  height: 588px;
+  height: 24.5rem;
 }
 .moon-15v {
-  height: 630px;
+  height: 26.25rem;
 }
 .moon-16v {
-  height: 672px;
+  height: 28rem;
 }
 .moon-17v {
-  height: 714px;
+  height: 29.75rem;
 }
 .moon-18v {
-  height: 756px;
+  height: 31.5rem;
 }
 .moon-19v {
-  height: 798px;
+  height: 33.25rem;
 }
 .moon-20v {
-  height: 840px;
+  height: 35rem;
 }
 .moon-21v {
-  height: 882px;
+  height: 36.75rem;
 }
 .moon-22v {
-  height: 924px;
+  height: 38.5rem;
 }
 .moon-23v {
-  height: 966px;
+  height: 40.25rem;
 }
 .moon-24v {
-  height: 1008px;
+  height: 42rem;
 }
 .moon-25v {
-  height: 1050px;
+  height: 43.75rem;
 }
 .moon-26v {
-  height: 1092px;
+  height: 45.5rem;
 }
 /* Prevent browser's default focus treatment (at least in Chrome) */
 :focus {
@@ -367,11 +367,11 @@ html {
 /* Common classes applicable to multiple controls */
 .moon {
   font-family: "MuseoSans 700";
-  font-size: 30px;
+  font-size: 1.25rem;
   font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
-  padding: 18px;
+  padding: 0.75rem;
   color: #4b4b4b;
   background-color: #ededed;
 }
@@ -379,10 +379,10 @@ html {
   direction: rtl;
 }
 .moon-divider-border {
-  border-bottom: 3px solid #4b4b4b;
+  border-bottom: 0.125rem solid #4b4b4b;
 }
 .moon-neutral-divider-border {
-  border-bottom: 3px solid #ffffff;
+  border-bottom: 0.125rem solid #ffffff;
 }
 .moon-composite {
   -webkit-transform: translateZ(0);
@@ -400,51 +400,51 @@ html {
   font-family: "Moonstone Miso";
 }
 .moon-superscript {
-  font-size: 24px;
+  font-size: 1rem;
   vertical-align: top;
-  margin: 0 0 0 3px;
+  margin: 0 0 0 0.125rem;
   padding: 0;
 }
 .moon-pre-text {
-  font-size: 24px;
+  font-size: 1rem;
   vertical-align: top;
-  height: 48px;
-  line-height: 24px;
-  margin: 12px 3px 9px 0;
-  padding: 0px;
+  height: 2rem;
+  line-height: 1rem;
+  margin: 0.5rem 0.125rem 0.375rem 0;
+  padding: 0rem;
 }
 .moon-large-text {
-  font-size: 48px;
+  font-size: 2rem;
   vertical-align: top;
-  height: 48px;
+  height: 2rem;
   margin: 0;
   padding: 0;
 }
 .moon-header-text {
   font-family: "Moonstone Miso";
-  font-size: 126px;
+  font-size: 5.25rem;
   -webkit-font-kerning: normal;
   font-kerning: normal;
 }
 .moon-super-header-text {
   font-family: "Moonstone Miso";
-  font-size: 33px;
+  font-size: 1.375rem;
   -webkit-font-kerning: normal;
 }
 .moon-sub-header-text {
   font-family: "MuseoSans 700";
-  font-size: 30px;
+  font-size: 1.25rem;
   color: #4b4b4b;
 }
 .moon-header-sub-title-below {
   font-family: "MuseoSans 300";
-  font-size: 27px;
+  font-size: 1.125rem;
 }
 .moon-body-text {
   font-family: "MuseoSans 300";
-  font-size: 33px;
+  font-size: 1.375rem;
   color: #4b4b4b;
-  line-height: 39px;
+  line-height: 1.625rem;
 }
 .moon-body-text a:link {
   color: #cf0652;
@@ -463,14 +463,14 @@ html {
   text-decoration: none;
 }
 .moon-body-large-text {
-  font-size: 36px;
-  line-height: 48px;
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 .moon-bold-text {
   font-family: "MuseoSans 900";
-  font-size: 33px;
+  font-size: 1.375rem;
   color: #4b4b4b;
-  line-height: 39px;
+  line-height: 1.625rem;
 }
 .moon-bold-text a:link {
   color: #cf0652;
@@ -489,38 +489,38 @@ html {
   text-decoration: none;
 }
 .moon-body-text-spacing {
-  margin: 0 12px 42px 12px;
+  margin: 0 0.5rem 1.75rem 0.5rem;
 }
 .moon-large-button-text {
   font-family: "Moonstone Miso Bold";
-  font-size: 36px;
+  font-size: 1.5rem;
   -webkit-font-kerning: normal;
 }
 .moon-small-button-text {
   font-family: "Moonstone Miso Bold";
-  font-size: 27px;
+  font-size: 1.125rem;
   -webkit-font-kerning: normal;
 }
 .moon-icon-text {
   font-family: "Moonstone Icons";
-  font-size: 72px;
+  font-size: 3rem;
   color: #ffffff;
 }
 .moon-popup-header-text,
 .moon-dialog-title {
   font-family: "Moonstone Miso";
-  font-size: 72px;
+  font-size: 3rem;
   -webkit-font-kerning: normal;
 }
 .moon-dialog-sub-title {
-  font-size: 27px;
+  font-size: 1.125rem;
 }
 .moon-dialog-content {
-  font-size: 30px;
+  font-size: 1.25rem;
 }
 .moon-divider-text {
   font-family: "MuseoSans 700 Italic";
-  font-size: 24px;
+  font-size: 1rem;
   color: #4b4b4b;
 }
 .enyo-locale-non-latin .moon,
@@ -547,52 +547,52 @@ html {
   font-family: "Moonstone LG Display Bold";
 }
 .enyo-locale-non-latin .moon {
-  font-size: 30px;
+  font-size: 1.25rem;
 }
 .enyo-locale-non-latin .moon-superscript {
-  font-size: 24px;
+  font-size: 1rem;
 }
 .enyo-locale-non-latin .moon-pre-text {
-  font-size: 24px;
+  font-size: 1rem;
 }
 .enyo-locale-non-latin .moon-large-text {
-  font-size: 48px;
+  font-size: 2rem;
 }
 .enyo-locale-non-latin .moon-header-text {
-  font-size: 114px;
+  font-size: 4.75rem;
   line-height: 1.5em;
 }
 .enyo-locale-non-latin .moon-popup-header-text {
-  font-size: 66px;
+  font-size: 2.75rem;
 }
 .enyo-locale-non-latin .moon-sub-header-text {
-  font-size: 30px;
+  font-size: 1.25rem;
 }
 .enyo-locale-non-latin .moon-super-header-text {
-  font-size: 33px;
+  font-size: 1.375rem;
 }
 .enyo-locale-non-latin .moon-divider-text {
-  font-size: 27px;
+  font-size: 1.125rem;
   font-style: normal;
 }
 .enyo-locale-non-latin .moon-body-text {
-  font-size: 27px;
-  line-height: 33px;
+  font-size: 1.125rem;
+  line-height: 1.375rem;
 }
 .enyo-locale-non-latin .moon-body-large-text {
-  font-size: 30px;
-  line-height: 42px;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 .enyo-locale-non-latin .moon-bold-text {
-  font-size: 27px;
-  line-height: 33px;
+  font-size: 1.125rem;
+  line-height: 1.375rem;
 }
 .enyo-locale-non-latin .moon-large-button-text {
-  font-size: 36px;
+  font-size: 1.5rem;
   font-weight: normal;
 }
 .enyo-locale-non-latin .moon-small-button-text {
-  font-size: 27px;
+  font-size: 1.125rem;
   font-weight: normal;
 }
 .border-box {
@@ -602,55 +602,55 @@ html {
 /* Icon.css */
 .moon-icon,
 .moon-icon-toggle {
-  width: 48px;
-  height: 48px;
-  background-position: center -12px;
-  background-size: 72px 144px;
+  width: 2rem;
+  height: 2rem;
+  background-position: center -0.5rem;
+  background-size: 3rem 6rem;
   background-repeat: no-repeat;
   display: inline-block;
   vertical-align: middle;
-  margin: 12px;
+  margin: 0.5rem;
   font-family: "Moonstone", "Moonstone Icons";
-  font-size: 96px;
-  line-height: 48px;
+  font-size: 4rem;
+  line-height: 2rem;
   text-align: center;
   position: relative;
   color: #4b4b4b;
 }
 .moon-icon.small,
 .moon-icon-toggle.small {
-  background-position: center -6px;
-  background-size: 48px 96px;
-  width: 36px;
-  height: 36px;
-  font-size: 72px;
-  line-height: 36px;
+  background-position: center -0.25rem;
+  background-size: 2rem 4rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 3rem;
+  line-height: 1.5rem;
 }
 .moon-icon.small > .small-icon-tap-area,
 .moon-icon-toggle.small > .small-icon-tap-area {
   position: absolute;
-  top: -15px;
-  bottom: -15px;
-  left: -15px;
-  right: -15px;
+  top: -0.625rem;
+  bottom: -0.625rem;
+  left: -0.625rem;
+  right: -0.625rem;
   color: inherit;
-  line-height: 66px;
+  line-height: 2.75rem;
 }
 .moon-icon.font-lg-icons,
 .moon-icon-toggle.font-lg-icons {
   font-family: "LG Icons";
-  font-size: 48px;
+  font-size: 2rem;
 }
 .moon-icon.font-lg-icons.small,
 .moon-icon-toggle.font-lg-icons.small {
-  font-size: 36px;
+  font-size: 1.5rem;
 }
 .spotlight .moon-icon {
   color: #ffffff;
-  background-position: center -84px;
+  background-position: center -3.5rem;
 }
 .spotlight .moon-icon.small {
-  background-position: center -54px;
+  background-position: center -2.25rem;
 }
 .disabled .moon-icon,
 .moon-icon.disabled {
@@ -662,36 +662,36 @@ html {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   color: #999999;
-  width: 84px;
-  height: 84px;
-  border-radius: 42px;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 1.75rem;
   background-color: #ffffff;
-  background-size: 72px 144px;
-  border: 6px solid transparent;
+  background-size: 3rem 6rem;
+  border: 0.25rem solid transparent;
   background-position: center 0;
-  margin: 0 12px;
-  line-height: 72px;
+  margin: 0 0.5rem;
+  line-height: 3rem;
 }
 .moon-icon-button.small {
-  width: 60px;
-  height: 60px;
-  border-radius: 30px;
-  background-size: 48px 96px;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 1.25rem;
+  background-size: 2rem 4rem;
   background-position: center 0;
-  line-height: 48px;
+  line-height: 2rem;
 }
 .moon-icon-button.small > .small-icon-tap-area {
-  line-height: 78px;
+  line-height: 3.25rem;
 }
 .moon-icon-button.hover:hover:not(.disabled),
 .moon-icon-button.spotlight {
   color: #ffffff;
   background-color: #cf0652;
-  background-position: center -72px;
+  background-position: center -3rem;
 }
 .moon-icon-button.hover:hover:not(.disabled).small,
 .moon-icon-button.spotlight.small {
-  background-position: center -48px;
+  background-position: center -2rem;
 }
 .moon-icon-button.active:not(.spotlight),
 .moon-icon-button:active,
@@ -725,17 +725,17 @@ html {
 .moon-icon-button.active.spotlight:not(.contextual-popup-button):active,
 .moon-icon-button.active.spotlight:not(.contextual-popup-button).pressed {
   border-color: #cf0652;
-  background-position: center -72px;
+  background-position: center -3rem;
 }
 .moon-icon-button.active.spotlight:not(.contextual-popup-button):active.small,
 .moon-icon-button.active.spotlight:not(.contextual-popup-button).pressed.small {
-  background-position: center -48px;
+  background-position: center -2rem;
 }
 .spotlight .moon-icon-button {
-  background-position: center -72px;
+  background-position: center -3rem;
 }
 .spotlight .moon-icon-button.small {
-  background-position: center -48px;
+  background-position: center -2rem;
 }
 .moon-marquee {
   width: auto;
@@ -760,7 +760,7 @@ html {
   width: 100%;
   white-space: pre !important;
   position: relative;
-  left: 0px;
+  left: 0rem;
 }
 .moon-marquee .animate-marquee {
   text-overflow: clip;
@@ -774,11 +774,11 @@ html {
 }
 .moon-simple-picker {
   display: inline-block;
-  max-width: 360px;
+  max-width: 15rem;
   box-sizing: border-box;
-  padding: 0 72px;
+  padding: 0 3rem;
   position: relative;
-  height: 60px;
+  height: 2.5rem;
   vertical-align: middle;
   direction: ltr;
 }
@@ -816,13 +816,13 @@ html {
   display: inline-block;
   box-sizing: border-box;
   width: 100%;
-  line-height: 60px;
+  line-height: 2.5rem;
 }
 .moon-simple-picker-client.disabled {
   opacity: 0.35;
 }
 .moon-simple-integer-picker {
-  padding: 0 60px;
+  padding: 0 2.5rem;
 }
 .moon-simple-integer-picker .moon-scroll-picker-repeater {
   width: 100%;
@@ -832,83 +832,83 @@ html {
   display: inline-block;
 }
 .moon-simple-integer-picker .moon-scroll-picker {
-  height: 60px;
+  height: 2.5rem;
   border-top: 0;
   border-bottom: 0;
   width: 100%;
 }
 .moon-simple-integer-picker .moon-scroll-picker-item {
-  height: 60px;
-  line-height: 60px;
+  height: 2.5rem;
+  line-height: 2.5rem;
   padding: 0;
 }
 .moon-simple-integer-picker .moon-scroll-picker-overlay-container {
   top: 0;
-  line-height: 60px;
-  width: 60px;
-  height: 60px;
+  line-height: 2.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
 }
 .moon-simple-integer-picker .moon-scroll-picker-overlay-container.previous {
   left: 0;
 }
 .moon-simple-integer-picker .moon-scroll-picker-overlay-container.previous:after {
   content: "\0F0007";
-  line-height: 60px;
+  line-height: 2.5rem;
 }
 .moon-simple-integer-picker .moon-scroll-picker-overlay-container.previous.selected .moon-scroll-picker-overlay {
   border-bottom: 0;
-  border-left-width: 6px;
-  border-radius: 48px 0 0 48px;
+  border-left-width: 0.25rem;
+  border-radius: 2rem 0 0 2rem;
 }
 .moon-simple-integer-picker .moon-scroll-picker-overlay-container.previous.selected .moon-scroll-picker-overlay:after {
   content: "\0F0007";
-  line-height: 60px;
+  line-height: 2.5rem;
 }
 .moon-simple-integer-picker .moon-scroll-picker-overlay-container.next {
   right: 0;
 }
 .moon-simple-integer-picker .moon-scroll-picker-overlay-container.next:after {
   content: "\0F0008";
-  line-height: 60px;
+  line-height: 2.5rem;
 }
 .moon-simple-integer-picker .moon-scroll-picker-overlay-container.next.selected .moon-scroll-picker-overlay {
   border-top: 0;
-  border-right-width: 6px;
-  border-radius: 0 48px 48px 0;
+  border-right-width: 0.25rem;
+  border-radius: 0 2rem 2rem 0;
 }
 .moon-simple-integer-picker .moon-scroll-picker-overlay-container.next.selected .moon-scroll-picker-overlay:after {
   content: "\0F0008";
-  line-height: 60px;
+  line-height: 2.5rem;
 }
 .moon-simple-integer-picker .moon-scroll-picker-overlay-container .moon-scroll-picker-overlay {
   position: absolute;
-  height: 60px;
+  height: 2.5rem;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
 }
 .spotlight.moon-simple-integer-picker {
   background: #cf0652;
-  border-radius: 48px;
+  border-radius: 2rem;
 }
 .spotlight.moon-simple-integer-picker .moon-scroll-picker-overlay-container.next:after {
   content: "\0F0004";
-  line-height: 60px;
+  line-height: 2.5rem;
 }
 .spotlight.moon-simple-integer-picker .moon-scroll-picker-overlay-container.previous:after {
   content: "\0F0003";
-  line-height: 60px;
+  line-height: 2.5rem;
 }
 .enyo-locale-right-to-left .moon-simple-integer-picker .moon-scroll-picker {
   direction: ltr;
 }
 .enyo-locale-non-latin .moon-simple-integer-picker-item {
   font-family: "Moonstone LG Display Bold";
-  font-size: 30px;
+  font-size: 1.25rem;
 }
 /* Checkbox.css */
 .moon-checkbox {
   cursor: pointer;
-  height: 36px;
+  height: 1.5rem;
 }
 .moon-checkbox .moon-icon {
   visibility: hidden;
@@ -926,12 +926,12 @@ html {
   opacity: 0.3;
 }
 .moon-divider {
-  border-bottom: 3px solid #4b4b4b;
-  margin: 0 12px 24px 12px;
-  padding-bottom: 3px;
+  border-bottom: 0.125rem solid #4b4b4b;
+  margin: 0 0.5rem 1rem 0.5rem;
+  padding-bottom: 0.125rem;
 }
 .moon-neutral .moon-divider {
-  border-bottom: 3px solid #ffffff;
+  border-bottom: 0.125rem solid #ffffff;
 }
 .moon-checkbox-item {
   position: relative;
@@ -939,19 +939,19 @@ html {
 }
 .moon-checkbox-item .moon-checkbox {
   position: absolute;
-  top: 9px;
-  right: 9px;
+  top: 0.375rem;
+  right: 0.375rem;
 }
 .moon-checkbox-item .moon-checkbox-item-label-wrapper {
   height: 1.2em;
-  margin-right: 36px;
+  margin-right: 1.5rem;
 }
 .moon-checkbox-item.left-handed .moon-checkbox {
-  left: 9px;
+  left: 0.375rem;
 }
 .moon-checkbox-item.left-handed .moon-checkbox-item-label-wrapper {
-  margin-right: 0px;
-  margin-left: 36px;
+  margin-right: 0rem;
+  margin-left: 1.5rem;
 }
 .moon-checkbox-item .moon-icon.small > .small-icon-tap-area {
   left: 0;
@@ -962,24 +962,24 @@ html {
 }
 /* Special treatment inside of ExpandablePicker (checkbox nudged up) */
 .moon-expandable-picker .moon-checkbox-item .moon-checkbox {
-  top: 12px;
+  top: 0.5rem;
 }
 /* Right to left */
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox {
-  left: 9px;
+  left: 0.375rem;
   right: auto;
 }
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label-wrapper {
-  margin-left: 36px;
-  margin-right: 0px;
+  margin-left: 1.5rem;
+  margin-right: 0rem;
 }
 .enyo-locale-right-to-left .moon-checkbox-item.left-handed .moon-checkbox {
   left: auto;
-  right: 9px;
+  right: 0.375rem;
 }
 .enyo-locale-right-to-left .moon-checkbox-item.left-handed .moon-checkbox-item-label-wrapper {
-  margin-right: 36px;
-  margin-left: 0px;
+  margin-right: 1.5rem;
+  margin-left: 0rem;
 }
 /* ToggleText.css */
 .moon-checkbox.moon-toggle-text {
@@ -992,31 +992,31 @@ html {
   opacity: 0.35;
 }
 .moon-checkbox.moon-toggle-text[checked] {
-  background: transparent none no-repeat 0px 0px;
+  background: transparent none no-repeat 0rem 0rem;
 }
 .moon-checkbox-item.spotlight .moon-checkbox.moon-toggle-text[checked] {
-  background: transparent none no-repeat 0px 0px;
+  background: transparent none no-repeat 0rem 0rem;
 }
 .moon-toggle-text-text {
   position: absolute;
-  right: 0px;
-  top: 3px;
+  right: 0rem;
+  top: 0.125rem;
   text-align: right;
   color: #4b4b4b;
 }
 .enyo-locale-right-to-left .moon-toggle-text-text {
   right: auto;
-  left: 0px;
+  left: 0rem;
 }
 .moon-checkbox-item.spotlight .moon-toggle-text-text {
   color: #ffffff;
 }
 /* ToggleSwitch.css */
 .moon-checkbox.moon-toggle-switch {
-  border-radius: 15px;
-  width: 60px;
-  height: 30px;
-  line-height: 30px;
+  border-radius: 0.625rem;
+  width: 2.5rem;
+  height: 1.25rem;
+  line-height: 1.25rem;
   background-color: #ffffff;
   font-family: "Moonstone Icons";
   overflow: hidden;
@@ -1028,9 +1028,9 @@ html {
   background-color: transparent;
   left: 0;
   color: #4b4b4b;
-  width: 30px;
+  width: 1.25rem;
   height: inherit;
-  font-size: 60px;
+  font-size: 2.5rem;
   line-height: inherit;
 }
 .moon-checkbox.moon-toggle-switch .moon-icon .small-icon-tap-area {
@@ -1044,7 +1044,7 @@ html {
   background-color: #ffffff;
 }
 .moon-checkbox.moon-toggle-switch[checked] .moon-icon {
-  left: 30px;
+  left: 1.25rem;
   color: #cf0652;
 }
 .moon-checkbox.moon-toggle-switch[disabled] {
@@ -1069,82 +1069,82 @@ html {
   position: relative;
 }
 .moon-toggle-item .moon-checkbox.moon-toggle-switch {
-  top: 15px;
+  top: 0.625rem;
   /* To override top:10px set by .moon-checkbox-item .moon-checkbox so the indicator vertically middle align */
-  right: 12px;
+  right: 0.5rem;
 }
 .moon-toggle-item .moon-toggle-item-label-wrapper {
-  margin-right: 72px;
+  margin-right: 3rem;
 }
 .enyo-locale-right-to-left .moon-toggle-item .moon-checkbox.moon-toggle-switch {
-  left: 12px;
+  left: 0.5rem;
   right: auto;
 }
 .enyo-locale-right-to-left .moon-toggle-item .moon-toggle-item-label-wrapper {
-  margin-left: 72px;
+  margin-left: 3rem;
   margin-right: 0;
 }
 /* Toggle.css */
 .moon-button.moon-toggle-button {
   text-align: center;
   position: relative;
-  padding-right: 57px;
+  padding-right: 2.375rem;
 }
 .moon-button.moon-toggle-button:after {
   position: absolute;
   content: "";
-  top: 25.5px;
-  right: 18px;
-  width: 15px;
-  height: 15px;
-  border-radius: 9999px;
+  top: 1.0625rem;
+  right: 0.75rem;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 416.625rem;
   background-color: #b3b3b3;
-  border: solid 3px #ffffff;
+  border: solid 0.125rem #ffffff;
 }
 .moon-button.moon-toggle-button[disabled] {
-  border: 6px solid transparent;
+  border: 0.25rem solid transparent;
 }
 .moon-button.moon-toggle-button[disabled]:after {
   background-color: #b3b3b3;
-  border: solid 3px #ffffff;
+  border: solid 0.125rem #ffffff;
 }
 .moon-button.moon-toggle-button.moon-toggle-button-on {
-  border: solid 6px #cf0652;
+  border: solid 0.25rem #cf0652;
 }
 .moon-button.moon-toggle-button.moon-toggle-button-on:after {
   background-color: #cf0652;
-  border: solid 3px #ffffff;
+  border: solid 0.125rem #ffffff;
 }
 .moon-button.moon-toggle-button.small {
-  padding-right: 57px;
+  padding-right: 2.375rem;
 }
 .moon-button.moon-toggle-button.small:after {
-  top: 13.5px;
-  right: 18px;
+  top: 0.5625rem;
+  right: 0.75rem;
 }
 .enyo-locale-right-to-left .moon-button.moon-toggle-button {
-  padding-right: 18px;
-  padding-left: 57px;
+  padding-right: 0.75rem;
+  padding-left: 2.375rem;
 }
 .enyo-locale-right-to-left .moon-button.moon-toggle-button:after {
-  left: 18px;
+  left: 0.75rem;
   right: auto;
 }
 .enyo-locale-right-to-left .moon-button.moon-toggle-button.small {
-  padding-right: 18px;
-  padding-left: 57px;
+  padding-right: 0.75rem;
+  padding-left: 2.375rem;
 }
 .enyo-locale-right-to-left .moon-button.moon-toggle-button.small:after {
-  left: 18px;
+  left: 0.75rem;
   right: auto;
 }
 /* Item.css */
 .moon-item {
   font-family: "MuseoSans 700";
-  font-size: 33px;
+  font-size: 1.375rem;
   color: #4b4b4b;
   line-height: 1.2em;
-  padding: 12px;
+  padding: 0.5rem;
   position: relative;
 }
 .moon-item.spotlight {
@@ -1160,12 +1160,12 @@ html {
 }
 .moon-item > .moon-icon:first-child.small > .small-icon-tap-area,
 .moon-item > .moon-icon:last-child.small > .small-icon-tap-area {
-  left: -12px;
-  right: -12px;
+  left: -0.5rem;
+  right: -0.5rem;
 }
 .enyo-locale-non-latin .moon-item {
   font-family: "Moonstone LG Display Bold";
-  font-size: 30px;
+  font-size: 1.25rem;
 }
 /* ItemOverlay.less */
 .moon-item .moon-item-overlay {
@@ -1176,8 +1176,8 @@ html {
 }
 .moon-item .moon-item-overlay.beginning .moon-icon:first-child.small > .small-icon-tap-area,
 .moon-item .moon-item-overlay.ending .moon-icon:last-child.small > .small-icon-tap-area {
-  left: -12px;
-  right: -12px;
+  left: -0.5rem;
+  right: -0.5rem;
 }
 .moon-item .moon-item-overlay.beginning .moon-icon:first-child {
   margin-left: 0;
@@ -1201,53 +1201,53 @@ html {
 }
 .enyo-locale-right-to-left .moon-item .moon-item-overlay.beginning .moon-icon:first-child {
   margin-right: 0;
-  margin-left: 12px;
+  margin-left: 0.5rem;
 }
 .enyo-locale-right-to-left .moon-item .moon-item-overlay.ending .moon-icon:last-child {
   margin-left: 0;
-  margin-right: 12px;
+  margin-right: 0.5rem;
 }
 /* SelectableItem.css */
 .moon-selectable-item.selected {
-  padding: 12px 12px 12px 48px;
+  padding: 0.5rem 0.5rem 0.5rem 2rem;
 }
 .moon-selectable-item.selected:before {
   content: '';
   position: absolute;
-  left: 12px;
-  top: 18px;
-  width: 18px;
-  height: 18px;
-  border-radius: 9px;
+  left: 0.5rem;
+  top: 0.75rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 0.375rem;
   background-color: #cf0652;
 }
 .moon-selectable-item.selected.spotlight:before {
   background-color: #ffffff;
 }
 .enyo-locale-right-to-left .moon-selectable-item.selected {
-  padding: 12px 48px 12px 12px;
+  padding: 0.5rem 2rem 0.5rem 0.5rem;
 }
 .enyo-locale-right-to-left .moon-selectable-item.selected:before {
   left: auto;
-  right: 12px;
+  right: 0.5rem;
 }
 /* Button */
 .moon-button {
   position: relative;
   overflow: visible;
-  height: 84px;
-  line-height: 72px;
-  border-radius: 9999px;
+  height: 3.5rem;
+  line-height: 3rem;
+  border-radius: 416.625rem;
   background-color: #ffffff;
-  border: 6px solid transparent;
+  border: 0.25rem solid transparent;
   cursor: pointer;
   white-space: nowrap;
   display: inline-block;
   width: auto;
-  min-width: 84px;
-  max-width: 300px;
-  padding: 0 18px;
-  margin: 0 12px;
+  min-width: 3.5rem;
+  max-width: 12.5rem;
+  padding: 0 0.75rem;
+  margin: 0 0.5rem;
   color: #4b4b4b;
 }
 .moon-button > * {
@@ -1259,13 +1259,13 @@ html {
   text-align: center;
 }
 .moon-button.min-width {
-  min-width: 180px;
+  min-width: 7.5rem;
 }
 .moon-button.active,
 .moon-button.pressed,
 .moon-button.spotlight.pressed,
 .moon-button.spotlight:active {
-  border: 6px solid #cf0652;
+  border: 0.25rem solid #cf0652;
   background-color: #ffffff;
   color: #4b4b4b;
 }
@@ -1289,29 +1289,29 @@ html {
 }
 .moon-button > .button-tap-area {
   position: absolute;
-  border-radius: 9999px;
-  top: -6px;
-  bottom: -6px;
-  left: -6px;
-  right: -6px;
+  border-radius: 416.625rem;
+  top: -0.25rem;
+  bottom: -0.25rem;
+  left: -0.25rem;
+  right: -0.25rem;
 }
 .moon-button.small {
-  height: 60px;
-  min-width: 60px;
-  line-height: 48px;
-  padding: 0 18px;
+  height: 2.5rem;
+  min-width: 2.5rem;
+  line-height: 2rem;
+  padding: 0 0.75rem;
   position: relative;
   overflow: visible;
 }
 .moon-button.small.min-width {
-  min-width: 132px;
+  min-width: 5.5rem;
 }
 .moon-button.small > .button-tap-area {
   border-radius: 0;
-  top: -15px;
-  bottom: -15px;
-  left: -15px;
-  right: -15px;
+  top: -0.625rem;
+  bottom: -0.625rem;
+  left: -0.625rem;
+  right: -0.625rem;
 }
 .moon-neutral .moon-button {
   color: #4b4b4b;
@@ -1330,7 +1330,7 @@ html {
 .moon-neutral .moon-button.pressed,
 .moon-neutral .moon-button.spotlight.pressed,
 .moon-neutral .moon-button.spotlight:active {
-  border: 6px solid #cf0652;
+  border: 0.25rem solid #cf0652;
   background-color: #ffffff;
 }
 .moon-neutral .moon-button.active *,
@@ -1366,17 +1366,17 @@ html {
 /* Caption Decorator - Left/Right Captions */
 .moon-button-caption-decorator .moon-caption.left,
 .moon-button-caption-decorator .moon-caption.right {
-  height: 84px;
-  line-height: 84px;
+  height: 3.5rem;
+  line-height: 3.5rem;
 }
 .moon-button-caption-decorator .moon-caption.left {
   float: left;
-  padding-right: 12px;
+  padding-right: 0.5rem;
   text-align: left;
 }
 .moon-button-caption-decorator .moon-caption.right {
   float: right;
-  padding-left: 12px;
+  padding-left: 0.5rem;
   text-align: right;
 }
 /* Caption Decorator - Top/Bottom Captions */
@@ -1386,10 +1386,10 @@ html {
   text-align: center;
 }
 .moon-button-caption-decorator .moon-caption.top {
-  padding-bottom: 3px;
+  padding-bottom: 0.125rem;
 }
 .moon-button-caption-decorator .moon-caption.bottom {
-  padding-top: 3px;
+  padding-top: 0.125rem;
 }
 /* Caption Decorator - Show On Focus Captions */
 .moon-button-caption-decorator.showOnFocus .moon-caption {
@@ -1397,77 +1397,77 @@ html {
   z-index: 2;
   white-space: nowrap;
   float: none;
-  padding: 0px;
-  margin: 0px;
+  padding: 0rem;
+  margin: 0rem;
   display: none;
 }
 .moon-button-caption-decorator.showOnFocus.spotlight .moon-caption {
   display: block;
 }
 .moon-button-caption-decorator.showOnFocus .moon-caption.top {
-  margin-bottom: 3px;
+  margin-bottom: 0.125rem;
 }
 .moon-button-caption-decorator.showOnFocus .moon-caption.right {
-  margin-left: 12px;
+  margin-left: 0.5rem;
 }
 .moon-button-caption-decorator.showOnFocus .moon-caption.bottom {
-  margin-top: 3px;
+  margin-top: 0.125rem;
 }
 .moon-button-caption-decorator.showOnFocus .moon-caption.left {
-  margin-right: 12px;
+  margin-right: 0.5rem;
 }
 /* Radio Item */
 .moon-radio-item {
   display: inline-block;
-  max-width: 240px;
-  margin: 0 12px 0 0;
-  padding: 12px 12px 12px 48px;
+  max-width: 10rem;
+  margin: 0 0.5rem 0 0;
+  padding: 0.5rem 0.5rem 0.5rem 2rem;
 }
 .moon-radio-item:before {
   content: '';
   position: absolute;
-  left: 12px;
-  top: 18px;
-  width: 12px;
-  height: 12px;
-  border: solid 3px #ffffff;
-  border-radius: 9px;
+  left: 0.5rem;
+  top: 0.75rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border: solid 0.125rem #ffffff;
+  border-radius: 0.375rem;
   background-color: #b3b3b3;
 }
 .moon-radio-item.selected:before {
   background-color: #cf0652;
 }
 .enyo-locale-right-to-left .moon-radio-item {
-  margin: 0 0 0 12px;
-  padding: 12px 48px 12px 12px;
+  margin: 0 0 0 0.5rem;
+  padding: 0.5rem 2rem 0.5rem 0.5rem;
 }
 .enyo-locale-right-to-left .moon-radio-item:before {
   left: auto;
-  right: 12px;
+  right: 0.5rem;
 }
 /* Radio Item */
 .moon-radio-item-group {
   position: relative;
-  margin: 0 12px;
+  margin: 0 0.5rem;
 }
 /* ExpandableListItem Header*/
 .moon-expandable-list-item-header {
-  margin-bottom: 0px;
+  margin-bottom: 0rem;
   box-sizing: border-box;
   max-width: 100%;
 }
 .moon-expandable-list-header.moon-expandable-picker-header:after {
-  top: 15px;
+  top: 0.625rem;
 }
 /* Client Items */
 .moon-expandable-list-item.open .moon-expandable-list-item-client {
-  margin-bottom: 12px;
+  margin-bottom: 0.5rem;
 }
 .moon-expandable-list-item-client .moon-item {
   font-family: "MuseoSans 300";
-  font-size: 33px;
+  font-size: 1.375rem;
   color: #4b4b4b;
-  line-height: 39px;
+  line-height: 1.625rem;
 }
 .moon-expandable-list-item-client .moon-item a:link {
   color: #cf0652;
@@ -1487,47 +1487,47 @@ html {
 }
 .enyo-locale-non-latin .moon-expandable-list-item-client .moon-item {
   font-family: "Moonstone LG Display Light";
-  font-size: 27px;
-  line-height: 33px;
+  font-size: 1.125rem;
+  line-height: 1.375rem;
 }
 .moon-expandable-list-item-client .moon-item.spotlight {
   color: #ffffff;
 }
 .moon-expandable-list-item-client .moon-item:last-child {
-  margin-bottom: 0px;
+  margin-bottom: 0rem;
 }
 .moon-expandable-list-item-client.indented {
-  padding-left: 48px;
+  padding-left: 2rem;
 }
 .enyo-locale-right-to-left .moon-expandable-list-item-client.indented {
   padding-left: 0;
-  padding-right: 48px;
+  padding-right: 2rem;
 }
 /* Header Expandable */
 .moon-expandable-picker-header {
-  margin: 0px;
+  margin: 0rem;
   display: inline-block;
-  padding-right: 42px;
+  padding-right: 1.75rem;
   position: relative;
 }
 .moon-expandable-picker-header:after {
   position: absolute;
-  top: 0px;
-  right: 13px;
+  top: 0rem;
+  right: 0.54167rem;
   font-family: "Moonstone Icons";
   content: "\0F0001";
-  font-size: 48px;
-  line-height: 36px;
+  font-size: 2rem;
+  line-height: 1.5rem;
 }
 .moon-expandable-picker-header.spotlight {
   color: #ffffff;
 }
 .enyo-locale-right-to-left .moon-expandable-picker-header {
-  padding-left: 42px;
+  padding-left: 1.75rem;
   padding-right: 0;
 }
 .enyo-locale-right-to-left .moon-expandable-picker-header:after {
-  left: 13px;
+  left: 0.54167rem;
   right: auto;
 }
 /* Header Open */
@@ -1537,10 +1537,10 @@ html {
 /* Current Value */
 .moon-expandable-picker-current-value {
   font-family: "MuseoSans 300";
-  font-size: 33px;
-  line-height: 39px;
+  font-size: 1.375rem;
+  line-height: 1.625rem;
   color: #4b4b4b;
-  margin: 0px;
+  margin: 0rem;
 }
 .moon-expandable-picker-current-value a:link {
   color: #cf0652;
@@ -1566,8 +1566,8 @@ html {
 }
 .enyo-locale-non-latin .moon-expandable-picker-current-value {
   font-family: "Moonstone LG Display Light";
-  font-size: 27px;
-  line-height: 33px;
+  font-size: 1.125rem;
+  line-height: 1.375rem;
 }
 /* Help Text */
 .moon-expandable-picker-help-text {
@@ -1577,19 +1577,19 @@ html {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   color: #4b4b4b;
-  height: 360px;
-  border-top: 3px solid #4b4b4b;
-  border-bottom: 6px solid #4b4b4b;
+  height: 15rem;
+  border-top: 0.125rem solid #4b4b4b;
+  border-bottom: 0.25rem solid #4b4b4b;
   position: relative;
   max-width: 100%;
-  padding: 0 0 12px 0;
+  padding: 0 0 0.5rem 0;
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: top left;
-  margin: 0 12px;
+  margin: 0 0.5rem;
 }
 .moon-header .moon-header-title-above {
-  margin-top: 6px;
+  margin-top: 0.25rem;
   height: 1.2em;
   white-space: nowrap;
   overflow: hidden;
@@ -1600,28 +1600,28 @@ html {
 }
 .moon-header .moon-header-title {
   line-height: normal;
-  height: 156px;
+  height: 6.5rem;
 }
 .moon-header .moon-header-title .moon-marquee-text {
   white-space: nowrap;
 }
 .moon-header .moon-header-title-below,
 .moon-header .moon-header-sub-title-below {
-  height: 48px;
+  height: 2rem;
 }
 .moon-header.full-bleed {
-  padding: 0 18px 12px 18px;
+  padding: 0 0.75rem 0.5rem 0.75rem;
   border: 0;
 }
 .moon-header.full-bleed .moon-header-client {
-  left: 18px;
-  right: 18px;
+  left: 0.75rem;
+  right: 0.75rem;
 }
 .moon-header .moon-hspacing > * {
   vertical-align: bottom;
 }
 .moon-header.moon-medium-header {
-  height: 240px;
+  height: 10rem;
 }
 .moon-header.moon-medium-header .moon-header-title-above {
   display: none;
@@ -1631,10 +1631,10 @@ html {
 }
 .moon-header.moon-medium-header .moon-header-title-below,
 .moon-header.moon-medium-header .moon-header-sub-title-below {
-  height: 42px;
+  height: 1.75rem;
 }
 .moon-header.moon-small-header {
-  height: 120px;
+  height: 5rem;
 }
 .moon-header.moon-small-header .moon-header-title-above,
 .moon-header.moon-small-header .moon-header-title-below,
@@ -1642,17 +1642,17 @@ html {
   display: none;
 }
 .moon-header.moon-small-header .moon-header-title {
-  padding: 30px 0 0 0;
+  padding: 1.25rem 0 0 0;
   line-height: normal;
-  font-size: 60px;
-  height: 84px;
+  font-size: 2.5rem;
+  height: 3.5rem;
 }
 .moon-header.moon-small-header .moon-header-sub-title {
-  font-size: 27px;
+  font-size: 1.125rem;
 }
 .moon-header .moon-header-client {
   position: absolute;
-  bottom: 12px;
+  bottom: 0.5rem;
   left: 0;
   right: 0;
   text-align: right;
@@ -1666,11 +1666,11 @@ html {
   left: auto;
 }
 .moon-header .moon-header-client-text {
-  line-height: 60px;
+  line-height: 2.5rem;
 }
 .moon-neutral .moon-header {
-  border-top: 3px solid #ffffff;
-  border-bottom: 6px solid #ffffff;
+  border-top: 0.125rem solid #ffffff;
+  border-bottom: 0.25rem solid #ffffff;
 }
 .enyo-locale-non-latin .moon-header .moon-header-title {
   line-height: 1.5em;
@@ -1706,18 +1706,18 @@ html {
 .moon-gridlist-imageitem {
   display: inline-block;
   overflow: hidden;
-  border: 6px solid transparent;
+  border: 0.25rem solid transparent;
 }
 .moon-gridlist-imageitem .caption {
   font-family: "MuseoSans 700";
-  font-size: 30px;
+  font-size: 1.25rem;
   color: #4b4b4b;
 }
 .moon-gridlist-imageitem .sub-caption {
   font-family: "MuseoSans 300";
-  font-size: 33px;
+  font-size: 1.375rem;
   color: #4b4b4b;
-  line-height: 39px;
+  line-height: 1.625rem;
 }
 .moon-gridlist-imageitem .sub-caption a:link {
   color: #cf0652;
@@ -1736,11 +1736,11 @@ html {
   text-decoration: none;
 }
 .moon-gridlist-imageitem.selected {
-  border: 6px solid #404040;
+  border: 0.25rem solid #404040;
   background-color: #404040;
 }
 .moon-gridlist-imageitem.spotlight {
-  border: 6px solid #cf0652;
+  border: 0.25rem solid #cf0652;
   background-color: #cf0652;
 }
 .moon-gridlist-imageitem.selected .caption,
@@ -1751,7 +1751,7 @@ html {
 }
 .moon-gridlist-imageitem.sized-image.use-caption,
 .moon-gridlist-imageitem.sized-image.use-subcaption {
-  padding-bottom: 42px;
+  padding-bottom: 1.75rem;
 }
 .moon-gridlist-imageitem.sized-image > .caption,
 .moon-gridlist-imageitem.sized-image > .sub-caption {
@@ -1759,20 +1759,20 @@ html {
   bottom: 0;
 }
 .moon-gridlist-imageitem.sized-image.use-caption.use-subcaption {
-  padding-bottom: 84px;
+  padding-bottom: 3.5rem;
 }
 .moon-gridlist-imageitem.sized-image.use-caption.use-subcaption > .caption {
   position: absolute;
-  bottom: 36px;
+  bottom: 1.5rem;
 }
 .enyo-locale-non-latin .moon-gridlist-imageitem .caption {
   font-family: "Moonstone LG Display Bold";
-  font-size: 30px;
+  font-size: 1.25rem;
 }
 .enyo-locale-non-latin .moon-gridlist-imageitem .sub-caption {
   font-family: "Moonstone LG Display Light";
-  font-size: 27px;
-  line-height: 33px;
+  font-size: 1.125rem;
+  line-height: 1.375rem;
 }
 /* Scroller Page Controls */
 .moon-icon-button.moon-paging-button {
@@ -1809,10 +1809,10 @@ html {
 }
 .moon-scroll-picker {
   direction: ltr;
-  height: 96px;
-  border-top: solid 30px transparent;
-  border-bottom: solid 30px transparent;
-  border-radius: 48px;
+  height: 4rem;
+  border-top: solid 1.25rem transparent;
+  border-bottom: solid 1.25rem transparent;
+  border-radius: 2rem;
 }
 .spotlight .moon-scroll-picker {
   background: #cf0652;
@@ -1821,16 +1821,16 @@ html {
 }
 .moon-scroll-picker-item {
   white-space: nowrap;
-  padding: 0 6px 3px 6px;
-  min-width: 48px;
-  height: 96px;
-  line-height: 96px;
+  padding: 0 0.25rem 0.125rem 0.25rem;
+  min-width: 2rem;
+  height: 4rem;
+  line-height: 4rem;
   text-align: center;
   background: transparent;
 }
 .moon-scroll-picker-buffer {
   white-space: nowrap;
-  padding: 0 6px 3px 6px;
+  padding: 0 0.25rem 0.125rem 0.25rem;
   height: 0;
   opacity: 0;
 }
@@ -1838,7 +1838,7 @@ html {
   position: absolute;
   z-index: 1;
   width: 100%;
-  height: 30px;
+  height: 1.25rem;
   font-family: "Moonstone Icons";
 }
 .moon-scroll-picker-overlay-container.next {
@@ -1846,31 +1846,31 @@ html {
 }
 .moon-scroll-picker-overlay-container.next:after {
   content: "\0F0005";
-  font-size: 72px;
-  line-height: 39px;
+  font-size: 3rem;
+  line-height: 1.625rem;
 }
 .moon-scroll-picker-overlay-container.previous {
   bottom: 0;
 }
 .moon-scroll-picker-overlay-container.previous:after {
   content: "\0F0006";
-  font-size: 72px;
-  line-height: 27px;
+  font-size: 3rem;
+  line-height: 1.125rem;
 }
 .spotlight .moon-scroll-picker-overlay-container {
   color: #ffffff;
 }
 .spotlight .moon-scroll-picker-overlay-container.next:after {
   content: "\0F0002";
-  line-height: 45px;
+  line-height: 1.875rem;
 }
 .spotlight .moon-scroll-picker-overlay-container.previous:after {
   content: "\0F0001";
-  line-height: 24px;
+  line-height: 1rem;
 }
 .selected .moon-scroll-picker-overlay {
   position: absolute;
-  height: 36px;
+  height: 1.5rem;
   width: 100%;
   background-color: #cf0652;
 }
@@ -1879,47 +1879,47 @@ html {
   border-style: solid;
   border-width: 0;
   border-color: rgba(0, 0, 0, 0.2);
-  border-top-width: 6px;
-  border-radius: 48px 48px 0 0;
+  border-top-width: 0.25rem;
+  border-radius: 2rem 2rem 0 0;
 }
 .selected .moon-scroll-picker-overlay.next:after {
   content: "\0F0005";
-  font-size: 72px;
-  line-height: 33px;
+  font-size: 3rem;
+  line-height: 1.375rem;
 }
 .selected .moon-scroll-picker-overlay.previous {
   bottom: 0;
   border-style: solid;
   border-width: 0;
   border-color: rgba(0, 0, 0, 0.2);
-  border-bottom-width: 6px;
-  border-radius: 0 0 48px 48px;
+  border-bottom-width: 0.25rem;
+  border-radius: 0 0 2rem 2rem;
 }
 .selected .moon-scroll-picker-overlay.previous:after {
   content: "\0F0006";
-  font-size: 72px;
-  line-height: 45px;
+  font-size: 3rem;
+  line-height: 1.875rem;
 }
 .moon-scroll-picker-taparea {
   position: absolute;
-  top: -12px;
-  right: -12px;
-  bottom: -12px;
-  left: -12px;
+  top: -0.5rem;
+  right: -0.5rem;
+  bottom: -0.5rem;
+  left: -0.5rem;
 }
 /* DatePicker.css */
 .moon-date-picker-wrap {
-  min-width: 96px;
+  min-width: 4rem;
   text-align: center;
-  margin: 12px 0;
+  margin: 0.5rem 0;
   vertical-align: top;
 }
 .moon-date-picker-wrap.year {
-  min-width: 120px;
+  min-width: 5rem;
 }
 .moon-date-picker-label {
   text-align: center;
-  padding: 18px 12px;
+  padding: 0.75rem 0.5rem;
   white-space: nowrap;
 }
 .moon-date-picker-client {
@@ -1988,14 +1988,14 @@ html {
 .enyo-locale-non-latin.enyo-locale-mr .moon-input-decorator .moon-input,
 .enyo-locale-non-latin.enyo-locale-bn .moon-input-decorator .moon-input,
 .enyo-locale-non-latin.enyo-locale-pa .moon-input-decorator .moon-input {
-  font-size: 24px;
-  line-height: 48px;
+  font-size: 1rem;
+  line-height: 2rem;
 }
 /* InputDecorator.css */
 .moon-input-decorator:not(.moon-input-header-input-decorator),
 .moon-textarea-decorator {
-  margin: 6px;
-  border: 6px solid transparent;
+  margin: 0.25rem;
+  border: 0.25rem solid transparent;
   background-color: #ffffff;
   box-sizing: border-box;
 }
@@ -2011,7 +2011,7 @@ html {
 .moon-textarea-decorator .moon-icon.small,
 .moon-input-decorator:not(.moon-input-header-input-decorator) .spotlight .moon-icon.small,
 .moon-textarea-decorator .spotlight .moon-icon.small {
-  width: 18px;
+  width: 0.75rem;
   margin: 0;
   color: #4b4b4b;
 }
@@ -2020,18 +2020,18 @@ html {
   opacity: 0.35;
 }
 .moon-input-decorator:not(.moon-input-header-input-decorator) {
-  padding: 12px 30px;
-  border-radius: 30px;
+  padding: 0.5rem 1.25rem;
+  border-radius: 1.25rem;
 }
 .moon-textarea-decorator {
-  padding: 12px 18px;
-  border-radius: 12px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
 }
 .moon-expandable-input .moon-input-decorator:not(.moon-input-header-input-decorator) {
-  margin: 6px 0;
+  margin: 0.25rem 0;
 }
 .enyo-locale-non-latin .moon-input-decorator:not(.moon-input-header-input-decorator) {
-  padding: 6px 30px 12px;
+  padding: 0.25rem 1.25rem 0.5rem;
 }
 .enyo-locale-non-latin.enyo-locale-th .moon-input-decorator:not(.moon-input-header-input-decorator),
 .enyo-locale-non-latin.enyo-locale-ar .moon-input-decorator:not(.moon-input-header-input-decorator),
@@ -2047,15 +2047,15 @@ html {
 .enyo-locale-non-latin.enyo-locale-mr .moon-input-decorator:not(.moon-input-header-input-decorator),
 .enyo-locale-non-latin.enyo-locale-bn .moon-input-decorator:not(.moon-input-header-input-decorator),
 .enyo-locale-non-latin.enyo-locale-pa .moon-input-decorator:not(.moon-input-header-input-decorator) {
-  padding: 1px 30px;
+  padding: 1px 1.25rem;
 }
 /* ProgressBar.css */
 .moon-progress-bar {
   position: relative;
-  margin: 48px 18px;
-  height: 12px;
+  margin: 2rem 0.75rem;
+  height: 0.5rem;
   background-color: #323232;
-  min-width: 120px;
+  min-width: 5rem;
   direction: ltr;
 }
 .moon-progress-bg-bar,
@@ -2074,14 +2074,14 @@ html {
 .moon-progress-button {
   position: relative;
   overflow: hidden;
-  border: 6px solid transparent;
+  border: 0.25rem solid transparent;
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
 }
 .moon-progress-button.in-progress:active:hover:not([disabled]),
 .moon-progress-button.in-progress {
   color: #ffffff;
-  padding: 6px 24px;
+  padding: 0.25rem 1rem;
   border-width: 0;
 }
 .moon-progress-button.completed .moon-progress-button-bar {
@@ -2102,7 +2102,7 @@ html {
   position: absolute;
   top: 0;
   left: 0;
-  border-radius: 9999px;
+  border-radius: 416.625rem;
   background-color: #cf0652;
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
@@ -2115,7 +2115,7 @@ html {
 }
 /* Slider Bar */
 .moon-slider {
-  margin: 60px 48px;
+  margin: 2.5rem 2rem;
 }
 .moon-slider.spotlight > .moon-progress-bar-bar {
   background-color: #cf0652;
@@ -2125,7 +2125,7 @@ html {
 }
 .moon-slider.spotlight > .moon-slider-knob.spotselect {
   background-color: #ffffff;
-  border: 6px solid #cf0652;
+  border: 0.25rem solid #cf0652;
 }
 .moon-slider.disabled {
   cursor: default;
@@ -2134,29 +2134,29 @@ html {
 /* Slider Knob */
 .moon-slider-knob {
   position: absolute;
-  height: 60px;
-  width: 60px;
-  border-radius: 60px;
-  margin: -30px;
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 2.5rem;
+  margin: -1.25rem;
   background-color: #ffffff;
-  top: 6px;
-  border: solid 6px transparent;
+  top: 0.25rem;
+  border: solid 0.25rem transparent;
   box-sizing: border-box;
 }
 .moon-slider-knob:not(.spotselect).active,
 .moon-slider-knob:not(.spotselect).spotselect,
 .moon-slider-knob:not(.spotselect):active:not(.disabled) {
-  width: 90px;
-  height: 90px;
-  border-radius: 45px;
-  margin: -45px;
-  border: solid 6px transparent;
+  width: 3.75rem;
+  height: 3.75rem;
+  border-radius: 1.875rem;
+  margin: -1.875rem;
+  border: solid 0.25rem transparent;
   box-sizing: border-box;
 }
 .moon-slider-taparea {
   position: absolute;
-  top: -15px;
-  height: 39px;
+  top: -0.625rem;
+  height: 1.625rem;
   width: 100%;
 }
 /* Slider Popup */
@@ -2171,13 +2171,13 @@ html {
   vertical-align: top;
 }
 .moon-slider-popup .moon-slider-popup-left {
-  margin: 0 -1apx 0 0;
+  margin: 0 -1px 0 0;
 }
 .moon-slider-popup .moon-slider-popup-center {
   z-index: 21;
 }
 .moon-slider-popup .moon-slider-popup-right {
-  margin: 0 0 0 -1apx;
+  margin: 0 0 0 -1px;
 }
 .moon-slider-popup .moon-slider-popup-label {
   color: #ffffff;
@@ -2193,7 +2193,7 @@ html {
   transform: scaleX(-1);
 }
 .enyo-locale-non-latin .moon-slider-popup-label {
-  font-size: 30px;
+  font-size: 1.25rem;
 }
 /* RichText.css */
 .moon-textarea-decorator > .moon-richtext {
@@ -2206,20 +2206,20 @@ html {
 }
 /* ContextualPopupButton.css */
 .moon-button.contextual-popup-button {
-  padding-right: 48px;
+  padding-right: 2rem;
   position: relative;
 }
 .moon-button.contextual-popup-button:after {
   position: absolute;
-  right: 12px;
+  right: 0.5rem;
   font-family: "Moonstone Icons";
   content: "\0F0008";
-  font-size: 60px;
-  line-height: 72px;
+  font-size: 2.5rem;
+  line-height: 3rem;
   color: #cf0652;
 }
 .moon-button.contextual-popup-button.small:after {
-  line-height: 48px;
+  line-height: 2rem;
 }
 .moon-button.contextual-popup-button.spotlight {
   color: #ffffff;
@@ -2242,16 +2242,16 @@ html {
   color: #b3b3b3;
 }
 .enyo-locale-right-to-left .moon-button.contextual-popup-button {
-  padding-left: 48px;
-  padding-right: 18px;
+  padding-left: 2rem;
+  padding-right: 0.75rem;
 }
 .enyo-locale-right-to-left .moon-button.contextual-popup-button:after {
-  left: 12px;
+  left: 0.5rem;
   right: auto;
   content: "\0F0007";
 }
 .enyo-locale-right-to-left .moon-button.contextual-popup-button.small {
-  padding-right: 18px;
+  padding-right: 0.75rem;
 }
 /* ContextualPopupDecorator.css */
 .moon-contextual-popup-decorator {
@@ -2263,12 +2263,12 @@ html {
 }
 /* ContextualPopup */
 .moon-contextual-popup {
-  min-height: 96px;
-  min-width: 96px;
-  border-radius: 15px;
-  border: 6px solid rgba(0, 0, 0, 0.5);
+  min-height: 4rem;
+  min-width: 4rem;
+  border-radius: 0.625rem;
+  border: 0.25rem solid rgba(0, 0, 0, 0.5);
   color: #ffffff;
-  padding: 18px;
+  padding: 0.75rem;
   background-clip: padding-box;
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding-box;
@@ -2278,7 +2278,7 @@ html {
   background-color: #686868;
 }
 .moon-contextual-popup.reserve-close {
-  padding-right: 72px;
+  padding-right: 3rem;
 }
 .moon-contextual-popup:before,
 .moon-contextual-popup:after {
@@ -2300,21 +2300,21 @@ html {
 }
 .moon-contextual-popup.high:before,
 .moon-contextual-popup.high:after {
-  top: 42px;
+  top: 1.75rem;
 }
 .moon-contextual-popup.low:before,
 .moon-contextual-popup.low:after {
   top: auto;
-  bottom: 42px;
+  bottom: 1.75rem;
 }
 .moon-contextual-popup.left:before,
 .moon-contextual-popup.right:before {
   width: 0;
-  height: 6px;
+  height: 0.25rem;
 }
 .moon-contextual-popup.below:before,
 .moon-contextual-popup.above:before {
-  width: 6px;
+  width: 0.25rem;
   height: 0;
 }
 .moon-contextual-popup.left:after,
@@ -2325,38 +2325,38 @@ html {
   height: 0;
 }
 .moon-contextual-popup.left {
-  margin: 0 0 0 36px;
+  margin: 0 0 0 1.5rem;
 }
 .moon-contextual-popup.left:before,
 .moon-contextual-popup.left:after {
   left: 0;
 }
 .moon-contextual-popup.left:before {
-  margin: -18px auto auto -24px;
-  border-top: 15px solid transparent;
-  border-bottom: 15px solid transparent;
-  border-right: 18px solid rgba(0, 0, 0, 0.5);
+  margin: -0.75rem auto auto -1rem;
+  border-top: 0.625rem solid transparent;
+  border-bottom: 0.625rem solid transparent;
+  border-right: 0.75rem solid rgba(0, 0, 0, 0.5);
 }
 .moon-contextual-popup.left:after {
-  margin: -15px auto auto -18px;
-  border-top: 15px solid transparent;
-  border-bottom: 15px solid transparent;
-  border-right: 18px solid #686868;
+  margin: -0.625rem auto auto -0.75rem;
+  border-top: 0.625rem solid transparent;
+  border-bottom: 0.625rem solid transparent;
+  border-right: 0.75rem solid #686868;
 }
 .moon-contextual-popup.left.high:before {
-  margin: -24px auto auto -24px;
+  margin: -1rem auto auto -1rem;
 }
 .moon-contextual-popup.left.high:after {
-  margin: -21px auto auto -18px;
+  margin: -0.875rem auto auto -0.75rem;
 }
 .moon-contextual-popup.left.low:before {
-  margin: auto auto -24px -24px;
+  margin: auto auto -1rem -1rem;
 }
 .moon-contextual-popup.left.low:after {
-  margin: auto auto -21px -18px;
+  margin: auto auto -0.875rem -0.75rem;
 }
 .moon-contextual-popup.right {
-  margin: 0 0 0 -36px;
+  margin: 0 0 0 -1.5rem;
 }
 .moon-contextual-popup.right:before,
 .moon-contextual-popup.right:after {
@@ -2364,28 +2364,28 @@ html {
   right: auto;
 }
 .moon-contextual-popup.right:before {
-  margin: -18px auto auto 6px;
-  border-top: 15px solid transparent;
-  border-bottom: 15px solid transparent;
-  border-left: 18px solid rgba(0, 0, 0, 0.5);
+  margin: -0.75rem auto auto 0.25rem;
+  border-top: 0.625rem solid transparent;
+  border-bottom: 0.625rem solid transparent;
+  border-left: 0.75rem solid rgba(0, 0, 0, 0.5);
 }
 .moon-contextual-popup.right:after {
-  margin: -15px auto auto 0;
-  border-top: 15px solid transparent;
-  border-bottom: 15px solid transparent;
-  border-left: 18px solid #686868;
+  margin: -0.625rem auto auto 0;
+  border-top: 0.625rem solid transparent;
+  border-bottom: 0.625rem solid transparent;
+  border-left: 0.75rem solid #686868;
 }
 .moon-contextual-popup.right.high:before {
-  margin: -24px auto auto 6px;
+  margin: -1rem auto auto 0.25rem;
 }
 .moon-contextual-popup.right.high:after {
-  margin: -21px auto auto 0;
+  margin: -0.875rem auto auto 0;
 }
 .moon-contextual-popup.right.low:before {
-  margin: auto auto -24px 6px;
+  margin: auto auto -1rem 0.25rem;
 }
 .moon-contextual-popup.right.low:after {
-  margin: auto auto -21px 0;
+  margin: auto auto -0.875rem 0;
 }
 .moon-contextual-popup.below.right:before,
 .moon-contextual-popup.above.right:before,
@@ -2401,73 +2401,73 @@ html {
   right: 10%;
 }
 .moon-contextual-popup.below {
-  margin: 36px 0 0 0;
+  margin: 1.5rem 0 0 0;
 }
 .moon-contextual-popup.below:before,
 .moon-contextual-popup.below:after {
   top: 0;
 }
 .moon-contextual-popup.below:before {
-  margin: -24px auto auto -18px;
-  border-right: 15px solid transparent;
-  border-left: 15px solid transparent;
-  border-bottom: 18px solid rgba(0, 0, 0, 0.5);
+  margin: -1rem auto auto -0.75rem;
+  border-right: 0.625rem solid transparent;
+  border-left: 0.625rem solid transparent;
+  border-bottom: 0.75rem solid rgba(0, 0, 0, 0.5);
 }
 .moon-contextual-popup.below:after {
-  margin: -18px auto auto -15px;
-  border-right: 15px solid transparent;
-  border-left: 15px solid transparent;
-  border-bottom: 18px solid #686868;
+  margin: -0.75rem auto auto -0.625rem;
+  border-right: 0.625rem solid transparent;
+  border-left: 0.625rem solid transparent;
+  border-bottom: 0.75rem solid #686868;
 }
 .moon-contextual-popup.below.right:before {
-  margin: -39px auto auto -18px;
+  margin: -1.625rem auto auto -0.75rem;
 }
 .moon-contextual-popup.below.right:after {
-  margin: -33px auto auto -15px;
+  margin: -1.375rem auto auto -0.625rem;
 }
 .moon-contextual-popup.below.left:before {
-  margin: -39px -18px auto auto;
+  margin: -1.625rem -0.75rem auto auto;
 }
 .moon-contextual-popup.below.left:after {
-  margin: -33px -15px auto auto;
+  margin: -1.375rem -0.625rem auto auto;
 }
 .moon-contextual-popup.above {
-  margin: -36px 0 0 0;
+  margin: -1.5rem 0 0 0;
 }
 .moon-contextual-popup.above:before,
 .moon-contextual-popup.above:after {
   top: 100%;
 }
 .moon-contextual-popup.above:before {
-  margin: 6px auto auto -18px;
-  border-right: 15px solid transparent;
-  border-left: 15px solid transparent;
-  border-top: 18px solid rgba(0, 0, 0, 0.5);
+  margin: 0.25rem auto auto -0.75rem;
+  border-right: 0.625rem solid transparent;
+  border-left: 0.625rem solid transparent;
+  border-top: 0.75rem solid rgba(0, 0, 0, 0.5);
 }
 .moon-contextual-popup.above:after {
-  margin: 0 auto auto -15px;
-  border-right: 15px solid transparent;
-  border-left: 15px solid transparent;
-  border-top: 18px solid #686868;
+  margin: 0 auto auto -0.625rem;
+  border-right: 0.625rem solid transparent;
+  border-left: 0.625rem solid transparent;
+  border-top: 0.75rem solid #686868;
 }
 .moon-contextual-popup.above.right:before {
-  margin: 6px auto auto -18px;
+  margin: 0.25rem auto auto -0.75rem;
 }
 .moon-contextual-popup.above.right:after {
-  margin: 0 auto auto -15px;
+  margin: 0 auto auto -0.625rem;
 }
 .moon-contextual-popup.above.left:before {
-  margin: 6px -18px auto auto;
+  margin: 0.25rem -0.75rem auto auto;
 }
 .moon-contextual-popup.above.left:after {
-  margin: 0 -15px auto auto;
+  margin: 0 -0.625rem auto auto;
 }
 .enyo-locale-right-to-left .moon-contextual-popup {
   direction: rtl;
 }
 .enyo-locale-right-to-left .moon-contextual-popup.reserve-close {
-  padding-right: 18px;
-  padding-left: 72px;
+  padding-right: 0.75rem;
+  padding-left: 3rem;
 }
 .moon-contextual-popup-client {
   height: 100%;
@@ -2480,8 +2480,8 @@ html {
   border: 0;
   cursor: pointer;
   background: transparent;
-  height: 117px;
-  width: 300px;
+  height: 4.875rem;
+  width: 12.5rem;
   color: #4b4b4b;
   resize: none;
   overflow: auto;
@@ -2493,16 +2493,16 @@ html {
 }
 .moon-textarea::-webkit-scrollbar,
 .moon-richtext::-webkit-scrollbar {
-  width: 3px;
+  width: 0.125rem;
 }
 .moon-textarea::-webkit-scrollbar-track-piece,
 .moon-richtext::-webkit-scrollbar-track-piece {
-  border-radius: 9px;
+  border-radius: 0.375rem;
 }
 .moon-textarea::-webkit-scrollbar-thumb:vertical,
 .moon-richtext::-webkit-scrollbar-thumb:vertical {
   background-color: #a6a6a6;
-  border-radius: 9px;
+  border-radius: 0.375rem;
 }
 .moon-textarea-decorator.moon-focused .moon-textarea,
 .moon-textarea-decorator .moon-focused .moon-richtext {
@@ -2532,38 +2532,38 @@ html {
   right: 0;
 }
 .moon-header .list-actions-drawer {
-  top: -3px;
-  bottom: -6px;
+  top: -0.125rem;
+  bottom: -0.25rem;
 }
 /* Close button */
 .moon-icon-button.moon-list-actions-close {
   position: absolute;
-  right: 12px;
-  top: 12px;
+  right: 0.5rem;
+  top: 0.5rem;
   z-index: 2;
 }
 .enyo-locale-right-to-left .moon-icon-button.moon-list-actions-close {
   right: auto;
-  left: 12px;
+  left: 0.5rem;
 }
 /* Scroller */
 .moon-list-actions-scroller {
-  margin: 18px;
-  margin-right: 78px;
-  padding: 0px;
+  margin: 0.75rem;
+  margin-right: 3.25rem;
+  padding: 0rem;
   z-index: 1;
 }
 .enyo-locale-right-to-left .moon-list-actions-scroller {
-  margin-right: 12px;
-  margin-left: 78px;
+  margin-right: 0.5rem;
+  margin-left: 3.25rem;
 }
 /* Action menu */
 .moon-list-actions-menu {
   display: inline-block;
   vertical-align: top;
-  width: 300px;
+  width: 12.5rem;
   /* Do not change - used in JS */
-  min-width: 300px;
+  min-width: 12.5rem;
   /* Do not change - used in JS */
   float: right;
   box-sizing: border-box;
@@ -2575,7 +2575,7 @@ html {
   width: 100% !important;
 }
 .moon-list-actions-drawer.stacked .moon-list-actions-menu {
-  margin-bottom: 18px;
+  margin-bottom: 0.75rem;
   clear: both;
 }
 .moon-list-actions-menu .enyo-scroller {
@@ -2626,23 +2626,23 @@ html {
 }
 /* Labeled Text Item */
 .moon-labeledtextitem {
-  min-width: 336px;
-  height: 192px;
+  min-width: 14rem;
+  height: 8rem;
   overflow: hidden;
-  margin: 0px;
+  margin: 0rem;
 }
 /* Label */
 .moon-labeledtextitem .label {
   font-family: "MuseoSans 700";
-  font-size: 30px;
+  font-size: 1.25rem;
   color: #4b4b4b;
-  border-top: 3px solid #4b4b4b;
-  margin: 0px 0px 3px 0px;
-  padding: 6px 0px 0px 0px;
+  border-top: 0.125rem solid #4b4b4b;
+  margin: 0rem 0rem 0.125rem 0rem;
+  padding: 0.25rem 0rem 0rem 0rem;
 }
 .enyo-locale-non-latin .moon-labeledtextitem .label {
   font-family: "Moonstone LG Display Bold";
-  font-size: 30px;
+  font-size: 1.25rem;
 }
 .spotlight.moon-labeledtextitem .label,
 .spotlight .moon-labeledtextitem .label {
@@ -2652,12 +2652,12 @@ html {
 /* Text */
 .moon-labeledtextitem .text {
   font-family: "MuseoSans 300";
-  font-size: 33px;
+  font-size: 1.375rem;
   color: #4b4b4b;
-  line-height: 39px;
+  line-height: 1.625rem;
   text-transform: none;
-  margin: 0px;
-  padding: 0px;
+  margin: 0rem;
+  padding: 0rem;
 }
 .moon-labeledtextitem .text a:link {
   color: #cf0652;
@@ -2677,8 +2677,8 @@ html {
 }
 .enyo-locale-non-latin .moon-labeledtextitem .text {
   font-family: "Moonstone LG Display Light";
-  font-size: 27px;
-  line-height: 33px;
+  font-size: 1.125rem;
+  line-height: 1.375rem;
 }
 .spotlight.moon-labeledtextitem .text,
 .spotlight .moon-labeledtextitem .text {
@@ -2690,24 +2690,24 @@ html {
 .moon-imageitem {
   display: block;
   clear: both;
-  min-width: 540px;
-  margin-top: 0px;
-  padding-top: 0px;
-  height: 204px;
+  min-width: 22.5rem;
+  margin-top: 0rem;
+  padding-top: 0rem;
+  height: 8.5rem;
   overflow: hidden;
 }
 .moon-imageitem img {
-  width: 132px;
-  height: 192px;
-  padding: 0px;
-  margin: 12px 60px 12px 0px;
+  width: 5.5rem;
+  height: 8rem;
+  padding: 0rem;
+  margin: 0.5rem 2.5rem 0.5rem 0rem;
   display: inline-block;
   float: left;
 }
 .moon-imageitem.align-right img {
   float: right;
-  margin-right: 0px;
-  margin-left: 60px;
+  margin-right: 0rem;
+  margin-left: 2.5rem;
 }
 /* Spinner.css */
 @-webkit-keyframes spinBall {
@@ -2959,15 +2959,15 @@ html {
   }
 }
 .moon-spinner {
-  min-height: 72px;
-  min-width: 72px;
-  line-height: 72px;
+  min-height: 3rem;
+  min-width: 3rem;
+  line-height: 3rem;
   position: relative;
   display: inline-block;
   color: #ffffff;
   background-color: #4d4d4d;
-  border-radius: 42px;
-  margin: 0 12px;
+  border-radius: 1.75rem;
+  margin: 0 0.5rem;
 }
 .moon-spinner > * {
   display: inline-block;
@@ -2988,10 +2988,10 @@ html {
   background-color: transparent;
 }
 .moon-spinner.content {
-  padding: 6px;
+  padding: 0.25rem;
 }
 .moon-spinner.content .moon-spinner-client {
-  max-width: 399px;
+  max-width: 16.625rem;
 }
 .moon-spinner.running .moon-spinner-ball {
   -webkit-animation-play-state: running;
@@ -2999,8 +2999,8 @@ html {
 }
 .moon-spinner .moon-spinner-ball-decorator {
   position: relative;
-  width: 72px;
-  height: 72px;
+  width: 3rem;
+  height: 3rem;
   float: left;
 }
 .moon-spinner .moon-spinner-ball {
@@ -3046,7 +3046,7 @@ html {
 }
 .moon-spinner .moon-spinner-client {
   float: left;
-  line-height: 72px;
+  line-height: 3rem;
   margin: 0 2.6ex 0 0;
 }
 .enyo-locale-right-to-left .moon-spinner .moon-spinner-ball-decorator {
@@ -3070,7 +3070,7 @@ html {
 .moon-panel {
   overflow: hidden;
   padding: 0;
-  padding: 18px 12px;
+  padding: 0.75rem 0.5rem;
   height: 100%;
 }
 .moon-panel.enyo-fit {
@@ -3097,16 +3097,16 @@ html {
 .moon-panel-body {
   overflow: hidden;
   position: relative;
-  padding-top: 12px;
+  padding-top: 0.5rem;
   z-index: 1;
 }
 /* Breadcrumb */
 .moon-panel-breadcrumb {
-  width: 234px;
-  height: 360px;
+  width: 9.75rem;
+  height: 15rem;
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 0rem;
+  left: 0rem;
 }
 .moon-panel-breadcrumb-viewport {
   position: absolute;
@@ -3121,25 +3121,25 @@ html {
   position: absolute;
   bottom: 0;
   left: 0;
-  height: 360px;
+  height: 15rem;
   width: 100%;
-  padding: 0 12px 12px 12px;
+  padding: 0 0.5rem 0.5rem 0.5rem;
   box-sizing: border-box;
 }
 .moon-panel-small-header {
-  margin-top: 24px;
+  margin-top: 1rem;
   color: #4b4b4b;
   display: block;
   overflow: hidden;
-  padding: 0px;
+  padding: 0rem;
 }
 .spotlight .moon-panel-small-header {
   color: #ffffff;
 }
 .moon-panel-small-header-title-above {
   color: #4b4b4b;
-  border-top: 3px solid #ffffff;
-  padding-top: 6px;
+  border-top: 0.125rem solid #ffffff;
+  padding-top: 0.25rem;
 }
 .spotlight .moon-panel-small-header-title-above {
   color: #ffffff;
@@ -3149,14 +3149,14 @@ html {
   color: #ffffff;
 }
 .moon-panel .moon-panel-small-header-wrapper.spotlight .moon-panel-small-header-title-above {
-  border-top: 3px solid transparent;
+  border-top: 0.125rem solid transparent;
 }
 /* Activity Panels Overrides */
 .moon-panels.activity .moon-panel {
   padding: 0;
 }
 .moon-panels.activity .moon-panel-small-header-title-above {
-  border-top: 3px solid #4b4b4b;
+  border-top: 0.125rem solid #4b4b4b;
 }
 .moon-panels.activity .moon-panel-small-header,
 .moon-panels.activity .moon-panel-small-header-title-above {
@@ -3323,7 +3323,7 @@ html {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  padding: 18px 12px;
+  padding: 0.75rem 0.5rem;
   overflow: visible;
   pointer-events: none;
 }
@@ -3372,10 +3372,10 @@ html {
 }
 .moon-panels.activity .moon-panels-panel-scrim .moon-panels-branding {
   position: absolute;
-  top: 372px;
-  width: 210px;
-  bottom: 18px;
-  left: 18px;
+  top: 15.5rem;
+  width: 8.75rem;
+  bottom: 0.75rem;
+  left: 0.75rem;
   background-position: bottom center;
 }
 .moon-panels.always-viewing .moon-panels-panel-scrim {
@@ -3388,9 +3388,9 @@ html {
   position: absolute;
   top: 0;
   left: auto;
-  right: -132px;
+  right: -5.5rem;
   height: 100%;
-  width: 132px;
+  width: 5.5rem;
   z-index: 100;
 }
 .moon-panels-handle:before {
@@ -3399,11 +3399,11 @@ html {
   height: 100%;
   width: 100%;
   line-height: 100vh;
-  margin-left: -12px;
-  margin-right: 12px;
+  margin-left: -0.5rem;
+  margin-right: 0.5rem;
   background-color: #4b4b4b;
   font-family: "Moonstone Icons";
-  font-size: 144px;
+  font-size: 6rem;
   content: "\0F0003";
   color: #ffffff;
   -webkit-transform: translate3d(0, 0, 0);
@@ -3418,8 +3418,8 @@ html {
 }
 .moon-panels-handle.spotlight:before {
   background-color: #cf0652;
-  -webkit-transform: translate3d(-120px, 0, 0);
-  transform: translate3d(-120px, 0, 0);
+  -webkit-transform: translate3d(-5rem, 0, 0);
+  transform: translate3d(-5rem, 0, 0);
 }
 .moon-panels-handle.stashed:before {
   opacity: 0;
@@ -3430,11 +3430,11 @@ html {
 /* Header Accordion*/
 .moon-accordion .moon-expandable-list-item-header {
   display: inline-block;
-  padding-right: 42px;
+  padding-right: 1.75rem;
 }
 .enyo-locale-right-to-left .moon-accordion .moon-expandable-list-item-header {
   padding-right: 0;
-  padding-left: 42px;
+  padding-left: 1.75rem;
 }
 .moon-accordion .moon-accordion-header-wrapper {
   height: 1.2em;
@@ -3443,32 +3443,32 @@ html {
 .moon-calendar-picker {
   display: inline-block;
   text-align: center;
-  width: 588px;
+  width: 24.5rem;
   background-color: #686868;
-  border-radius: 15px;
-  margin: 0 18px;
-  padding: 18px 0;
+  border-radius: 0.625rem;
+  margin: 0 0.75rem;
+  padding: 0.75rem 0;
 }
 .moon-calendar-picker > * {
   display: inline-block;
 }
 .moon-calendar-picker .moon-simple-picker {
-  max-width: 252px;
+  max-width: 10.5rem;
 }
 .moon-calendar-picker .moon-simple-picker .moon-simple-picker-client > * {
   color: #ffffff;
 }
 .moon-calendar-picker .moon-calendar-picker-month {
-  margin: 0 0 0 30px;
+  margin: 0 0 0 1.25rem;
   float: left;
 }
 .moon-calendar-picker .moon-calendar-picker-year {
-  margin: 0 30px 0 0;
+  margin: 0 1.25rem 0 0;
   float: right;
 }
 .moon-calendar-picker .moon-calendar-picker-day {
   font-family: "MuseoSans 700";
-  font-size: 30px;
+  font-size: 1.25rem;
   color: #4b4b4b;
   text-align: center;
   vertical-align: middle;
@@ -3478,37 +3478,37 @@ html {
   display: inline-block;
 }
 .moon-calendar-picker .moon-calendar-picker-day.small {
-  font-size: 21px;
+  font-size: 0.875rem;
 }
 .moon-calendar-picker .moon-neutral .moon-calendar-picker-day-base {
-  width: 60px;
+  width: 2.5rem;
   color: #a2a2a2;
-  margin: 9px;
+  margin: 0.375rem;
   border-color: #a2a2a2;
   display: inline-block;
 }
 .enyo-locale-right-to-left .moon-calendar-picker-month {
-  margin: 0 30px 0 0;
+  margin: 0 1.25rem 0 0;
   float: right;
 }
 .enyo-locale-right-to-left .moon-calendar-picker-year {
-  margin: 0 0 0 30px;
+  margin: 0 0 0 1.25rem;
   float: left;
 }
 .moon-calendar-picker-date {
   font-family: "MuseoSans 700";
-  font-size: 30px;
+  font-size: 1.25rem;
   color: #ffffff;
-  width: 60px;
-  line-height: 60px;
-  border-radius: 9999px;
-  border: solid 9px transparent;
+  width: 2.5rem;
+  line-height: 2.5rem;
+  border-radius: 416.625rem;
+  border: solid 0.375rem transparent;
   display: inline-block;
 }
 .moon-calendar-picker-date.spotlight,
 .moon-calendar-picker-date.active {
   background-color: #cf0652;
-  border: solid 9px #686868;
+  border: solid 0.375rem #686868;
 }
 .moon-calendar-picker-date.moon-calendar-picker-date-shadow {
   color: #a2a2a2;
@@ -3518,11 +3518,11 @@ html {
 }
 .enyo-locale-non-latin .moon-calendar-picker-day {
   font-family: "Moonstone LG Display Bold";
-  font-size: 30px;
+  font-size: 1.25rem;
 }
 .enyo-locale-non-latin .moon-calendar-picker-date {
   font-family: "Moonstone LG Display Bold";
-  font-size: 30px;
+  font-size: 1.25rem;
 }
 /* Table.css */
 .moon-table-row.spotlight {
@@ -3530,23 +3530,23 @@ html {
   color: #ffffff;
 }
 .moon-table-row .moon-table-cell {
-  padding: 12px;
+  padding: 0.5rem;
   white-space: nowrap;
 }
 .moon-input-header-input-decorator {
-  margin: -1px 0px 0px;
-  padding: 0px;
-  border: 0px;
+  margin: -1px 0rem 0rem;
+  padding: 0rem;
+  border: 0rem;
   width: 100%;
   box-sizing: border-box;
   background-color: transparent;
 }
 .moon-input-header .moon-input-header-input-decorator > .moon-input {
   font-family: "Moonstone Miso";
-  font-size: 126px;
+  font-size: 5.25rem;
   -webkit-font-kerning: normal;
   font-kerning: normal;
-  margin: 0px;
+  margin: 0rem;
   padding-left: 1px;
   padding-right: 1px;
   display: inline-block;
@@ -3558,7 +3558,7 @@ html {
 }
 .enyo-locale-non-latin .moon-input-header .moon-input-header-input-decorator > .moon-input {
   font-family: "Moonstone LG Display";
-  font-size: 114px;
+  font-size: 4.75rem;
   line-height: 1.5em;
 }
 .moon-input-header .moon-input.moon-header-title {
@@ -3567,7 +3567,7 @@ html {
 .moon-input-header .moon-input.moon-header-title::-webkit-input-placeholder,
 .moon-input-header .moon-input.moon-header-title::-moz-placeholder {
   color: #b1b1b1;
-  margin-top: 12px;
+  margin-top: 0.5rem;
   line-height: 1.25em;
 }
 .enyo-locale-non-latin .moon-input-header .moon-input.moon-header-title::-webkit-input-placeholder,
@@ -3590,10 +3590,10 @@ html {
   color: #b1b1b1;
 }
 .moon-drawer-partial-client {
-  padding: 36px 18px 18px;
+  padding: 1.5rem 0.75rem 0.75rem;
 }
 .moon-drawer-client {
-  padding: 18px;
+  padding: 0.75rem;
 }
 .moon-drawer-accelerate {
   position: absolute;
@@ -3607,9 +3607,9 @@ html {
 .moon-drawers-activator {
   z-index: 100;
   font-family: "Moonstone Icons";
-  font-size: 42px;
-  line-height: 33px;
-  height: 0px;
+  font-size: 1.75rem;
+  line-height: 1.375rem;
+  height: 0rem;
   position: absolute;
   width: 100%;
   /* The activator & nub are white when a drawer is open */
@@ -3618,14 +3618,14 @@ html {
 .moon-drawers-activator:before {
   content: '';
   display: block;
-  height: 24px;
+  height: 1rem;
   background-color: #4b4b4b;
 }
 .moon-drawers-activator .moon-drawers-activator-icon {
-  margin: -15px auto 0;
-  width: 60px;
-  height: 36px;
-  border-radius: 0 0 36px 36px;
+  margin: -0.625rem auto 0;
+  width: 2.5rem;
+  height: 1.5rem;
+  border-radius: 0 0 1.5rem 1.5rem;
   display: block;
   background-color: #4b4b4b;
   background-repeat: no-repeat;
@@ -3656,12 +3656,12 @@ html {
 }
 .moon-drawers-handle-container .moon-drawers-handles {
   text-align: center;
-  padding: 48px 0 12px;
+  padding: 2rem 0 0.5rem;
 }
 .moon-drawers-handle-container .moon-drawers-handle {
   display: inline-block;
   text-align: start;
-  width: 240px;
+  width: 10rem;
 }
 .moon-drawers-container {
   position: relative;
@@ -3697,8 +3697,8 @@ html {
 		to set pointer events to auto or scrim will not function as expected.
 	*/
   pointer-events: none;
-  -webkit-transform: translateZ(0px);
-  transform: translateZ(0px);
+  -webkit-transform: translateZ(0rem);
+  transform: translateZ(0rem);
 }
 .moon-scrim.moon-scrim-translucent {
   pointer-events: auto;
@@ -3715,7 +3715,7 @@ html {
   position: absolute;
   bottom: 0;
   width: 100%;
-  padding: 48px;
+  padding: 2rem;
   box-sizing: border-box;
   overflow: hidden;
   -webkit-transform: translateY(100%) translateZ(0);
@@ -3732,12 +3732,12 @@ html {
   transform: translateY(0) translateZ(0);
 }
 .moon-popup.reserve-close {
-  padding-right: 72px;
+  padding-right: 3rem;
 }
 .moon-popup-close {
   position: absolute;
-  right: 12px;
-  top: 12px;
+  right: 0.5rem;
+  top: 0.5rem;
   margin: 0;
   background-color: transparent;
   background-repeat: no-repeat;
@@ -3750,37 +3750,37 @@ html {
   color: #ffffff;
 }
 .enyo-locale-right-to-left .moon-popup.reserve-close {
-  padding-right: 48px;
-  padding-left: 72px;
+  padding-right: 2rem;
+  padding-left: 3rem;
 }
 .enyo-locale-right-to-left .moon-popup-close {
   right: auto;
-  left: 12px;
+  left: 0.5rem;
 }
 /* Dialog.css */
 .moon-dialog {
-  padding: 24px 42px 42px;
+  padding: 1rem 1.75rem 1.75rem;
 }
 .moon-dialog-title {
-  margin-bottom: 12px;
+  margin-bottom: 0.5rem;
 }
 .moon-dialog-client-wrapper {
-  min-height: 108px;
+  min-height: 4.5rem;
 }
 .moon-dialog-content {
   margin: 0 0 0;
 }
 .moon-dialog-divider {
   padding-bottom: 0;
-  border-bottom-width: 3px;
-  margin: 18px 0 18px;
+  border-bottom-width: 0.125rem;
+  margin: 0.75rem 0 0.75rem;
 }
 .moon-dialog-client {
-  padding: 24px 0 0;
+  padding: 1rem 0 0;
   float: right;
 }
 .moon-dialog-client > * {
-  margin-left: 18px;
+  margin-left: 0.75rem;
   margin-right: 0;
 }
 .enyo-locale-right-to-left .moon-dialog-client {
@@ -3788,114 +3788,114 @@ html {
 }
 .enyo-locale-right-to-left .moon-dialog-client > * {
   margin-left: 0;
-  margin-right: 18px;
+  margin-right: 0.75rem;
 }
 .moon-tooltip {
   z-index: 20;
-  height: 68px;
+  height: 2.83333rem;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
   pointer-events: none;
 }
 .moon-tooltip-label {
   font-family: "Moonstone Miso Bold";
-  font-size: 27px;
+  font-size: 1.125rem;
   -webkit-font-kerning: normal;
-  height: 59px;
-  line-height: 59px;
+  height: 2.45833rem;
+  line-height: 2.45833rem;
   white-space: nowrap;
   color: #ffffff;
   text-align: center;
-  padding: 0px 20px;
+  padding: 0rem 0.83333rem;
   background-color: #4d4d4d;
 }
 .enyo-locale-non-latin .moon-tooltip-label {
   font-family: "Moonstone LG Display Bold";
-  font-size: 27px;
+  font-size: 1.125rem;
   font-weight: normal;
 }
 .moon-tooltip.below > .moon-tooltip-label {
-  margin: 9px 0px 0px;
+  margin: 0.375rem 0rem 0rem;
 }
 .moon-tooltip.above > .moon-tooltip-label {
-  margin: 0px 0px 9px;
+  margin: 0rem 0rem 0.375rem;
 }
 .moon-tooltip-label:before {
   position: absolute;
   content: "";
-  width: 84px;
-  height: 60px;
+  width: 3.5rem;
+  height: 2.5rem;
 }
 /* .above .left-arrow nub shape */
 .moon-tooltip.above.left-arrow .moon-tooltip-label {
-  border-radius: 34px 34px 34px 0px;
+  border-radius: 1.41667rem 1.41667rem 1.41667rem 0rem;
 }
 .moon-tooltip.above.left-arrow .moon-tooltip-label:before {
-  top: 29px;
-  left: -2px;
-  border-top: 29px solid #4d4d4d;
-  clip: rect(30px, 24px, 38px, 2px);
-  border-radius: 9999px;
+  top: 1.20833rem;
+  left: -0.08333rem;
+  border-top: 1.20833rem solid #4d4d4d;
+  clip: rect(1.25rem, 1rem, 1.58333rem, 0.08333rem);
+  border-radius: 416.625rem;
 }
 /* .above .right-arrow nub shape */
 .moon-tooltip.above.right-arrow .moon-tooltip-label {
-  border-radius: 34px 34px 0px 34px;
+  border-radius: 1.41667rem 1.41667rem 0rem 1.41667rem;
 }
 .moon-tooltip.above.right-arrow .moon-tooltip-label:before {
-  top: 29px;
-  right: -2px;
-  border-top: 29px solid #4d4d4d;
-  clip: rect(30px, 82px, 38px, 56px);
-  border-radius: 9999px;
+  top: 1.20833rem;
+  right: -0.08333rem;
+  border-top: 1.20833rem solid #4d4d4d;
+  clip: rect(1.25rem, 3.41667rem, 1.58333rem, 2.33333rem);
+  border-radius: 416.625rem;
 }
 /* .below .left-arrow nub shape */
 .moon-tooltip.below.left-arrow .moon-tooltip-label {
-  border-radius: 0 34px 34px 34px;
+  border-radius: 0 1.41667rem 1.41667rem 1.41667rem;
 }
 .moon-tooltip.below.left-arrow .moon-tooltip-label:before {
-  top: -50px;
-  left: -2px;
-  border-bottom: 29px solid #4d4d4d;
-  clip: rect(2px, 24px, 60px, 2px);
-  border-radius: 9999px;
+  top: -2.08333rem;
+  left: -0.08333rem;
+  border-bottom: 1.20833rem solid #4d4d4d;
+  clip: rect(0.08333rem, 1rem, 2.5rem, 0.08333rem);
+  border-radius: 416.625rem;
 }
 /* .below .right-arrow nub shape */
 .moon-tooltip.below.right-arrow .moon-tooltip-label {
-  border-radius: 34px 0px 34px 34px;
+  border-radius: 1.41667rem 0rem 1.41667rem 1.41667rem;
 }
 .moon-tooltip.below.right-arrow .moon-tooltip-label:before {
-  top: -50px;
-  right: -2px;
-  border-bottom: 29px solid #4d4d4d;
-  clip: rect(2px, 82px, 60px, 56px);
-  border-radius: 9999px;
+  top: -2.08333rem;
+  right: -0.08333rem;
+  border-bottom: 1.20833rem solid #4d4d4d;
+  clip: rect(0.08333rem, 3.41667rem, 2.5rem, 2.33333rem);
+  border-radius: 416.625rem;
 }
 /* AudioPlayback.css */
 .moon-audio-playback {
   background-color: #333333;
-  font-size: 30px;
+  font-size: 1.25rem;
 }
 .moon-audio-playback-track-icon {
   position: relative;
-  top: 6px;
-  left: 4px;
-  width: 128px;
-  height: 128px;
-  background: transparent url() no-repeat 0px 0px;
+  top: 0.25rem;
+  left: 0.16667rem;
+  width: 5.33333rem;
+  height: 5.33333rem;
+  background: transparent url() no-repeat 0rem 0rem;
   display: inline-block;
 }
 .moon-audio-playback-playtime {
-  font-size: 20px;
+  font-size: 0.83333rem;
 }
 .moon-audio-track-info,
 .moon-audio-control-buttons > * {
   display: inline-block;
-  top: 6px;
+  top: 0.25rem;
 }
 .moon-audio-play-time {
-  width: 80px;
-  font-size: 20px;
-  padding-top: 72px;
+  width: 3.33333rem;
+  font-size: 0.83333rem;
+  padding-top: 3rem;
 }
 .moon-audio-play-time.left {
   text-align: left;
@@ -3908,20 +3908,20 @@ html {
 }
 .moon-audio-track-info {
   width: 40%;
-  padding: 0 10px;
+  padding: 0 0.41667rem;
 }
 .enyo-locale-right-to-left .moon-audio-track-info {
   text-align: right;
   direction: rtl;
 }
 .moon-audio-top {
-  height: 65px;
-  padding-top: 15px;
+  height: 2.70833rem;
+  padding-top: 0.625rem;
 }
 /* AudioPlayback styles for IconButton */
 .moon-audio-icon-button {
   background-color: #808080;
-  margin: 8px 4px;
+  margin: 0.33333rem 0.16667rem;
 }
 .moon-audio-icon-button.left {
   float: left;
@@ -3931,44 +3931,44 @@ html {
 }
 /* AudioPlayback styles for Slider */
 .moon-audio-slider-container {
-  padding-top: 10px;
+  padding-top: 0.41667rem;
 }
 .moon-audio-slider.spotlight > .moon-slider-knob {
   background-color: #cf0652;
 }
 .moon-audio-slider > .moon-slider-knob,
 .moon-audio-slider > .moon-slider-knob.disabled:active:hover {
-  height: 30px;
-  width: 30px;
-  border-radius: 15px;
-  margin: -13px -16px;
+  height: 1.25rem;
+  width: 1.25rem;
+  border-radius: 0.625rem;
+  margin: -0.54167rem -0.66667rem;
   background-color: #808080;
 }
 .moon-audio-slider > .moon-slider-knob.active,
 .moon-audio-slider > .moon-slider-knob.spotselect,
 .moon-audio-slider > .moon-slider-knob:active:hover {
-  height: 34px;
-  width: 34px;
-  border-radius: 17px;
-  margin: -15px -18px;
+  height: 1.41667rem;
+  width: 1.41667rem;
+  border-radius: 0.70833rem;
+  margin: -0.625rem -0.75rem;
   background-color: #808080;
 }
 .moon-audio-slider.moon-progress-bar {
   background-color: #cccccc;
-  margin: 0px;
-  top: 10px;
+  margin: 0rem;
+  top: 0.41667rem;
 }
 .moon-audio-slider > .moon-progress-bar-bar {
   background-color: #666666;
 }
 /* AudioPlayback styles for queue */
 .moon-audio-playback-queue {
-  margin: 0px 40px;
+  margin: 0rem 1.66667rem;
 }
 /* AudioPlayback styles for queue list items */
 .moon-audio-queue-list {
-  height: 100px;
-  padding: 12px 16px;
+  height: 4.16667rem;
+  padding: 0.5rem 0.66667rem;
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
 }
@@ -3981,21 +3981,21 @@ html {
   vertical-align: middle;
 }
 .moon-audio-queue-album-art {
-  width: 80px;
-  height: 80px;
-  background: transparent none no-repeat 0px 0px;
-  padding-right: 10px;
+  width: 3.33333rem;
+  height: 3.33333rem;
+  background: transparent none no-repeat 0rem 0rem;
+  padding-right: 0.41667rem;
 }
 .enyo-locale-right-to-left .moon-audio-queue-album-art {
   padding-right: 0;
-  padding-left: 10px;
+  padding-left: 0.41667rem;
 }
 .moon-video-transport-slider {
-  height: 84px;
+  height: 3.5rem;
   background-color: #323232;
 }
 .moon-video-transport-slider .moon-slider-popup.above {
-  padding-left: 0px;
+  padding-left: 0rem;
 }
 /* ----- Knob ---- */
 .moon-video-transport-slider-knob,
@@ -4004,11 +4004,11 @@ html {
 .moon-video-transport-slider-knob.spotselect,
 .moon-video-transport-slider-knob:active:hover {
   position: absolute;
-  height: 6px;
-  width: 6px;
-  border-radius: 3px;
-  margin: -3px;
-  top: 24px;
+  height: 0.25rem;
+  width: 0.25rem;
+  border-radius: 0.125rem;
+  margin: -0.125rem;
+  top: 1rem;
   pointer-events: none;
 }
 .moon-video-transport-slider-knob {
@@ -4039,7 +4039,7 @@ html {
 }
 .moon-video-transport-slider-popup-label {
   font-family: "Moonstone Miso Bold";
-  font-size: 36px;
+  font-size: 1.5rem;
   -webkit-font-kerning: normal;
   white-space: nowrap;
   color: #4b4b4b;
@@ -4047,45 +4047,45 @@ html {
 }
 .enyo-locale-non-latin .moon-video-transport-slider-popup-label {
   font-family: "Moonstone LG Display Bold";
-  font-size: 36px;
+  font-size: 1.5rem;
   font-weight: normal;
 }
 .moon-video-transport-slider-popup-label > * {
   display: inline-block;
 }
 .moon-video-transport-slider-indicator-wrapper {
-  height: 84px;
+  height: 3.5rem;
   top: 0;
   position: absolute;
 }
 .moon-video-transport-slider-indicator-wrapper.start {
-  left: 0px;
+  left: 0rem;
 }
 .moon-video-transport-slider-indicator-wrapper.end {
-  right: 0px;
+  right: 0rem;
 }
 .moon-video-transport-slider-indicator-bar-left {
   position: absolute;
   left: 49.5%;
-  top: 24px;
-  width: 3px;
-  height: 30px;
+  top: 1rem;
+  width: 0.125rem;
+  height: 1.25rem;
   background-color: #ffffff;
 }
 .moon-video-transport-slider-indicator-bar-right {
   position: absolute;
   left: 49.5%;
-  top: 24px;
-  width: 3px;
-  height: 30px;
+  top: 1rem;
+  width: 0.125rem;
+  height: 1.25rem;
   background-color: #ffffff;
 }
 .moon-video-transport-slider-indicator-text {
   position: absolute;
   width: 100%;
-  height: 30px;
-  top: 24px;
-  font-size: 30px;
+  height: 1.25rem;
+  top: 1rem;
+  font-size: 1.25rem;
   font-family: "Moonstone Miso";
   font-weight: bold;
   color: #ffffff;
@@ -4114,7 +4114,7 @@ html {
   content: '';
 }
 .moon-video-player:not(.enyo-fullscreen) {
-  margin: 0 12px;
+  margin: 0 0.5rem;
 }
 .moon-video-player-container {
   display: block;
@@ -4125,7 +4125,7 @@ html {
 .moon-video-player-video {
   position: absolute;
   display: block;
-  margin: 0px auto;
+  margin: 0rem auto;
   height: 100%;
   width: 100%;
 }
@@ -4133,8 +4133,8 @@ html {
   position: absolute;
   top: 50%;
   left: 50%;
-  margin-top: -36px;
-  margin-left: -36px;
+  margin-top: -1.5rem;
+  margin-left: -1.5rem;
 }
 /* Fullscreen CSS */
 :-webkit-full-screen.moon-video-player {
@@ -4178,42 +4178,42 @@ html {
   position: static;
 }
 .moon-video-inline {
-  padding-bottom: 84px;
+  padding-bottom: 3.5rem;
 }
 .moon-video-inline-control {
   position: relative;
   width: 100%;
-  height: 84px;
+  height: 3.5rem;
   background-color: #252525;
 }
 .moon-video-inline-control .moon-video-inline-control-play-pause {
   position: absolute;
-  bottom: 12px;
-  left: 12px;
+  bottom: 0.5rem;
+  left: 0.5rem;
 }
 .moon-video-inline-control .moon-video-inline-control-fullscreen {
   position: absolute;
-  bottom: 12px;
-  right: 12px;
+  bottom: 0.5rem;
+  right: 0.5rem;
 }
 .moon-video-inline-control-text {
   font-family: "Moonstone Miso";
   position: absolute;
-  bottom: 21px;
-  left: 96px;
+  bottom: 0.875rem;
+  left: 4rem;
   background-color: transparent;
   color: #ffffff;
-  font-size: 33px;
+  font-size: 1.375rem;
 }
 .moon-video-inline-control-text > * {
   display: inline;
 }
 .moon-video-inline-control-progress {
   position: absolute;
-  bottom: 0px;
-  left: 0px;
+  bottom: 0rem;
+  left: 0rem;
   width: 0%;
-  height: 84px;
+  height: 3.5rem;
   background-color: #cf0652;
   transition: width 0.1s linear;
   -webkit-transition: width 0.1s linear;
@@ -4221,10 +4221,10 @@ html {
 }
 .moon-video-inline-control-bgprogress {
   position: absolute;
-  bottom: 0px;
-  left: 0px;
+  bottom: 0rem;
+  left: 0rem;
   width: 0%;
-  height: 84px;
+  height: 3.5rem;
   background-color: #393939;
   transition: width 0.1s linear;
   -webkit-transition: width 0.1s linear;
@@ -4240,12 +4240,12 @@ html {
 .moon-video-inline-control .moon-icon-button.spotlight:active {
   color: #393939;
   background-color: #ffffff;
-  background-position: 0px -48px;
+  background-position: 0rem -2rem;
 }
 .moon-video-inline-control .moon-icon-button.spotlight {
   color: #393939;
   background-color: #ffffff;
-  background-position: 0px -48px;
+  background-position: 0rem -2rem;
 }
 /* --- Fullscreen control --- */
 .moon-video-fullscreen-control {
@@ -4263,10 +4263,10 @@ html {
 .moon-video-player-header {
   width: 100%;
   font-family: "MuseoSans 700";
-  font-size: 30px;
+  font-size: 1.25rem;
   letter-spacing: 0;
   color: #ffffff;
-  padding: 12px 0 0 0;
+  padding: 0.5rem 0 0 0;
   direction: ltr;
 }
 .moon-video-player-header .moon-clock-hour,
@@ -4294,8 +4294,8 @@ html {
   direction: ltr;
 }
 .moon-video-player-controls {
-  height: 84px;
-  margin-bottom: 30px;
+  height: 3.5rem;
+  margin-bottom: 1.25rem;
 }
 .enyo-fittable-columns-layout.moon-video-player-controls {
   direction: ltr;
@@ -4305,8 +4305,8 @@ html {
   width: 100%;
 }
 .moon-video-player-more-controls {
-  border-left: 3px solid white;
-  padding-left: 6px;
+  border-left: 0.125rem solid white;
+  padding-left: 0.25rem;
 }
 .moon-video-player-more-controls > * {
   vertical-align: middle;
@@ -4315,41 +4315,41 @@ html {
   direction: rtl;
 }
 .moon-video-player-premium-placeholder-left {
-  width: 210px;
-  height: 84px;
-  padding-left: 90px;
+  width: 8.75rem;
+  height: 3.5rem;
+  padding-left: 3.75rem;
 }
 .moon-video-player-premium-placeholder-right {
-  width: 210px;
-  height: 84px;
-  padding-left: 6px;
+  width: 8.75rem;
+  height: 3.5rem;
+  padding-left: 0.25rem;
 }
 /* --- Buttons --- */
 .moon-video-fullscreen-control .moon-icon-button {
-  width: 84px;
-  height: 84px;
+  width: 3.5rem;
+  height: 3.5rem;
   border-radius: 0;
-  border: 0px;
+  border: 0rem;
   background-color: transparent;
-  background-position: 0px 0px;
-  background-size: 84px 168px;
+  background-position: 0rem 0rem;
+  background-size: 3.5rem 7rem;
   color: #ffffff;
-  line-height: 84px;
+  line-height: 3.5rem;
 }
 .moon-icon-playpause-font-style {
-  font-size: 216px;
+  font-size: 9rem;
 }
 .moon-icon-video-main-control-font-style {
-  font-size: 192px;
+  font-size: 8rem;
 }
 /* this style is used for the two side controls and placeholders */
 .moon-icon-button.moon-icon-video-round-controls-style {
   color: #000000;
   background-color: #ffffff;
-  border-radius: 9999px;
+  border-radius: 416.625rem;
 }
 .moon-icon-button.moon-icon-video-more-controls-font-style {
-  font-size: 108px;
+  font-size: 4.5rem;
 }
 .moon-video-fullscreen-control .moon-icon.moon-icon-button.active,
 .moon-video-fullscreen-control .moon-icon.moon-icon-button:active,
@@ -4357,8 +4357,8 @@ html {
 .moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight,
 .moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight.pressed,
 .moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight:active {
-  background-position: 0 -84px;
-  border: 0px;
+  background-position: 0 -3.5rem;
+  border: 0rem;
   background-color: transparent;
   color: #cf0652;
 }
@@ -4380,7 +4380,7 @@ html {
   text-align: center;
 }
 .moon-video-fullscreen-control .moon-video-player-control-buttons > * {
-  margin: 0 42px;
+  margin: 0 1.75rem;
 }
 .moon-video-fullscreen-control .moon-video-player-control-buttons > :first-child {
   margin-left: 0;
@@ -4390,15 +4390,15 @@ html {
 }
 /* ---- Slider container styling ---- */
 .moon-video-player-slider-container {
-  padding: 90px 0 0 0;
-  height: 84px;
+  padding: 3.75rem 0 0 0;
+  height: 3.5rem;
 }
 .moon-video-player-slider-container .moon-slider {
   margin: 0 0 0 !important;
 }
 /* Feedback area */
 .moon-video-player-feedback {
-  margin-right: 12px;
+  margin-right: 0.5rem;
 }
 .enyo-locale-right-to-left .moon-video-player-feedback {
   direction: rtl;
@@ -4411,12 +4411,12 @@ html {
 .moon-icon.moon-video-feedback-icon-left,
 .moon-icon.moon-video-feedback-icon-right {
   display: inline-block;
-  width: 36px;
-  margin: 0 0 0 12px;
+  width: 1.5rem;
+  margin: 0 0 0 0.5rem;
   /* margin-right is inherited from moon-video-player-feedback */
   color: #cf0652;
-  font-size: 120px;
-  line-height: 30px;
+  font-size: 5rem;
+  line-height: 1.25rem;
   /* use line-height to middle align the icon, the defaut 32px from moon-icon will make it too low */
 }
 .moon-icon.moon-video-feedback-icon-left .small-icon-tap-area,
@@ -4424,25 +4424,25 @@ html {
   line-height: inherit;
 }
 .moon-video-player-feedback .moon-icon.small {
-  background-position: center -3px;
+  background-position: center -0.125rem;
 }
 .moon-icon.moon-video-feedback-icon-left {
   margin-left: 0;
-  margin-right: 12px;
+  margin-right: 0.5rem;
 }
 .moon-icon.moon-video-feedback-icon-left.moon-icon-pausejumpbackward {
-  width: 36px;
+  width: 1.5rem;
 }
 .moon-icon.moon-video-feedback-icon-right.moon-icon-play {
-  font-size: 72px;
-  width: 24px;
+  font-size: 3rem;
+  width: 1rem;
 }
 .moon-icon.moon-video-feedback-icon-right.moon-icon-pause {
-  font-size: 72px;
-  width: 24px;
+  font-size: 3rem;
+  width: 1rem;
 }
 .moon-icon.moon-video-feedback-icon-right.moon-icon-pausejumpforward {
-  width: 36px;
+  width: 1.5rem;
 }
 .moon-video-player-feedback .moon-icon.small > .small-icon-tap-area {
   top: 0;
@@ -4452,26 +4452,26 @@ html {
 }
 .enyo-locale-non-latin .moon-video-feedback-icon-left,
 .enyo-locale-non-latin .moon-video-feedback-icon-right {
-  margin-bottom: 3px;
+  margin-bottom: 0.125rem;
 }
 .enyo-locale-right-to-left .moon-icon.moon-video-feedback-icon-left {
-  margin: 0 0 0 12px;
+  margin: 0 0 0 0.5rem;
 }
 .enyo-locale-right-to-left .moon-icon.moon-video-feedback-icon-right {
-  margin: 0 12px 0 0;
+  margin: 0 0.5rem 0 0;
 }
 .moon-video-info-header {
   display: inline-block;
   vertical-align: top;
-  max-width: 1110px;
+  max-width: 46.25rem;
 }
 .moon-video-player-info-datetime {
-  font-size: 33px;
-  margin-bottom: 30px;
+  font-size: 1.375rem;
+  margin-bottom: 1.25rem;
   white-space: nowrap;
 }
 .moon-video-player-info-title {
-  font-size: 126px;
+  font-size: 5.25rem;
   margin-bottom: 0;
   white-space: nowrap;
   -webkit-font-kerning: normal;
@@ -4484,27 +4484,27 @@ html {
 }
 .moon-video-player-info-subtitle {
   font-family: "MuseoSans 700";
-  font-size: 30px;
+  font-size: 1.25rem;
   color: #ffffff;
-  margin-bottom: 18px;
+  margin-bottom: 0.75rem;
   white-space: nowrap;
 }
 .enyo-locale-non-latin .moon-video-player-info-subtitle {
   font-family: "Moonstone LG Display Bold";
-  font-size: 30px;
+  font-size: 1.25rem;
   color: #ffffff;
 }
 .moon-video-player-info-subsubtitle {
   font-family: "MuseoSans 300";
-  font-size: 33px;
+  font-size: 1.375rem;
   color: #4b4b4b;
-  line-height: 39px;
+  line-height: 1.625rem;
   font-style: italic;
   color: #ffffff;
   display: inline-block;
   white-space: normal;
-  max-width: 1200px;
-  margin-bottom: 12px;
+  max-width: 50rem;
+  margin-bottom: 0.5rem;
 }
 .moon-video-player-info-subsubtitle a:link {
   color: #cf0652;
@@ -4524,23 +4524,23 @@ html {
 }
 .enyo-locale-non-latin .moon-video-player-info-subsubtitle {
   font-family: "Moonstone LG Display Light";
-  font-size: 27px;
-  line-height: 33px;
+  font-size: 1.125rem;
+  line-height: 1.375rem;
   color: #ffffff;
 }
 .moon-video-player-info-description {
   font-family: "MuseoSans 300";
-  font-size: 33px;
+  font-size: 1.375rem;
   color: #4b4b4b;
-  line-height: 39px;
+  line-height: 1.625rem;
   color: #ffffff;
   white-space: normal;
-  margin-bottom: 24px;
+  margin-bottom: 1rem;
   -webkit-line-clamp: 3;
   display: -webkit-inline-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
-  max-height: 96px;
+  max-height: 4rem;
 }
 .moon-video-player-info-description a:link {
   color: #cf0652;
@@ -4560,37 +4560,37 @@ html {
 }
 .enyo-locale-non-latin .moon-video-player-info-description {
   font-family: "Moonstone LG Display Light";
-  font-size: 27px;
-  line-height: 33px;
+  font-size: 1.125rem;
+  line-height: 1.375rem;
   color: #ffffff;
 }
 .moon-video-player-info-client {
   display: inline-block;
-  margin: 0 0 12px 18px;
+  margin: 0 0 0.5rem 0.75rem;
 }
 .enyo-locale-right-to-left .moon-video-player-info-client {
-  margin: 0 18px 12px 0;
+  margin: 0 0.75rem 0.5rem 0;
 }
 .moon-video-player-info-client > * {
   display: inline-block;
-  margin: 0 6px;
+  margin: 0 0.25rem;
 }
 .moon-channelinfo {
   display: inline-block;
   vertical-align: top;
   text-align: right;
   white-space: normal;
-  max-width: 810px;
+  max-width: 33.75rem;
 }
 .moon-channelinfo .moon-marquee {
   text-align: right;
 }
 .moon-video-player-channel-info-badges > * {
-  margin: 3px 0 3px 18px;
+  margin: 0.125rem 0 0.125rem 0.75rem;
 }
 .moon-video-player-channel-info-no {
   font-family: "Moonstone Miso";
-  font-size: 126px;
+  font-size: 5.25rem;
   -webkit-font-kerning: normal;
   font-kerning: normal;
   white-space: nowrap;
@@ -4602,9 +4602,9 @@ html {
 }
 .moon-video-player-channel-info-name {
   font-family: "MuseoSans 700";
-  font-size: 30px;
+  font-size: 1.25rem;
   color: #ffffff;
-  margin-bottom: 18px;
+  margin-bottom: 0.75rem;
   white-space: nowrap;
 }
 .enyo-locale-non-latin .moon-video-player-channel-info-name {
@@ -4612,13 +4612,13 @@ html {
 }
 .moon-video-player-info-icon {
   font-family: "MuseoSans 700";
-  font-size: 18px;
+  font-size: 0.75rem;
   color: #000000;
   background-color: #ffffff;
-  border-radius: 6px;
+  border-radius: 0.25rem;
   text-align: center;
   white-space: nowrap;
-  padding: 3px 9px;
+  padding: 0.125rem 0.375rem;
   display: inline-block;
 }
 .enyo-locale-non-latin .moon-video-player-info-icon {
@@ -4627,7 +4627,7 @@ html {
 .moon-video-player-info-redicon {
   background-color: #fe4a4b;
   color: #ffffff;
-  margin-top: 12px;
+  margin-top: 0.5rem;
 }
 .moon-background-wrapper {
   position: absolute;
@@ -4649,37 +4649,37 @@ html {
   height: 0;
 }
 .moon-background-wrapper-client-content.left {
-  padding: 0 30px 0 72px;
+  padding: 0 1.25rem 0 3rem;
   float: left;
 }
 .moon-background-wrapper-client-content.left:after {
   left: 100%;
   bottom: 0;
-  border-bottom: solid 999px transparent;
-  border-left: solid 171px #000000;
+  border-bottom: solid 41.625rem transparent;
+  border-left: solid 7.125rem #000000;
 }
 .moon-background-wrapper-client-content.right {
-  padding: 0 30px 0 0;
+  padding: 0 1.25rem 0 0;
   float: right;
 }
 .moon-background-wrapper-client-content.right:after {
   right: 100%;
   top: 0;
-  border-top: solid 999px transparent;
-  border-right: solid 171px #000000;
+  border-top: solid 41.625rem transparent;
+  border-right: solid 7.125rem #000000;
 }
 .moon-background-wrapper-client-content > * {
   display: inline-block;
-  margin: 0 30px;
+  margin: 0 1.25rem;
 }
 .enyo-locale-right-to-left .moon-background-wrapper-client-content > * {
   direction: rtl;
 }
 .moon-clock {
-  margin: 30px 18px 30px 36px;
+  margin: 1.25rem 0.75rem 1.25rem 1.5rem;
 }
 .moon-clock .moon-bold-text {
-  font-size: 54px;
+  font-size: 2.25rem;
   line-height: normal;
   color: #ffffff;
 }
@@ -4709,14 +4709,14 @@ html {
   -webkit-user-select: none;
 }
 .moon-scroller-client-wrapper.v-scroll-enabled {
-  padding-right: 72px;
+  padding-right: 3rem;
 }
 .enyo-locale-right-to-left .moon-scroller-client-wrapper.v-scroll-enabled {
   padding-right: 0;
-  padding-left: 72px;
+  padding-left: 3rem;
 }
 .moon-scroller-client-wrapper.h-scroll-enabled {
-  padding-bottom: 60px;
+  padding-bottom: 2.5rem;
 }
 /* Default states for horizontal and vertical scrollbars */
 .moon-scroller-v-column,
@@ -4749,48 +4749,48 @@ html {
 }
 /* Default position for vertical scrollbar */
 .moon-scroller-v-column {
-  top: 0px;
-  bottom: 0px;
-  right: 12px;
-  width: 60px;
+  top: 0rem;
+  bottom: 0rem;
+  right: 0.5rem;
+  width: 2.5rem;
 }
 .enyo-locale-right-to-left .moon-scroller-v-column {
   right: auto;
-  left: 12px;
+  left: 0.5rem;
 }
 /* Default position for horizontal scrollbar */
 .moon-scroller-h-column {
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  height: 60px;
+  left: 0rem;
+  right: 0rem;
+  bottom: 0rem;
+  height: 2.5rem;
 }
 /* Shorten vertical column when horizontal column is enabled */
 .moon-scroller-v-column.h-scroll-enabled {
-  bottom: 60px;
+  bottom: 2.5rem;
 }
 /* Shorten horizontal column when vertical column is enabled */
 .moon-scroller-h-column.v-scroll-enabled {
-  right: 60px;
+  right: 2.5rem;
 }
 .enyo-locale-right-to-left .moon-scroller-h-column.v-scroll-enabled {
   right: 0;
-  left: 60px;
+  left: 2.5rem;
 }
 .moon-scroller-thumb-container {
   position: absolute;
 }
 .moon-scroller-hthumb-container {
-  left: 60px;
-  right: 60px;
-  bottom: 0px;
-  height: 60px;
+  left: 2.5rem;
+  right: 2.5rem;
+  bottom: 0rem;
+  height: 2.5rem;
 }
 .moon-scroller-vthumb-container {
-  top: 60px;
-  bottom: 60px;
-  right: 0px;
-  width: 60px;
+  top: 2.5rem;
+  bottom: 2.5rem;
+  right: 0rem;
+  width: 2.5rem;
 }
 .moon-scroller-hthumb,
 .moon-scroller-vthumb {
@@ -4799,10 +4799,10 @@ html {
   -webkit-transition: opacity 0.1s linear;
 }
 .moon-scroller-hthumb {
-  bottom: 28px;
+  bottom: 1.16667rem;
 }
 .moon-scroller-vthumb {
-  right: 28px;
+  right: 1.16667rem;
 }
 .moon-scroller-hthumb.hidden,
 .moon-scroller-vthumb.hidden {
@@ -4817,14 +4817,14 @@ html {
 .moon-expandable-input .moon-input-decorator {
   width: 100%;
   box-sizing: border-box;
-  margin-top: 12px;
-  margin-bottom: 12px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 .moon-expandable-input .moon-input {
   width: 100%;
 }
 .enyo-locale-non-latin.enyo-locale-th .moon-expandable-input .moon-expandable-picker-current-value {
-  line-height: 54px;
+  line-height: 2.25rem;
 }
 .moon-highlight-text-highlighted {
   color: #cf0652;
@@ -4840,7 +4840,7 @@ html {
 .moon-objaction.vertical .moon-objaction-actions {
   opacity: 0;
   text-align: center;
-  padding: 0 12px;
+  padding: 0 0.5rem;
   box-sizing: border-box;
 }
 .moon-objaction.vertical .moon-objaction-actions.stretch > * {
@@ -4852,24 +4852,24 @@ html {
 .moon-objaction.horizontal .moon-objaction-client {
   display: table-cell;
   width: 100%;
-  padding-right: 12px;
+  padding-right: 0.5rem;
 }
 .moon-objaction.horizontal .moon-objaction-actions {
   display: table-cell;
   opacity: 0;
   white-space: nowrap;
   vertical-align: middle;
-  padding-right: 12px;
+  padding-right: 0.5rem;
 }
 .enyo-locale-right-to-left .moon-objaction-client.horizontal .moon-objaction-client {
   padding-right: auto;
-  padding-left: 12px;
+  padding-left: 0.5rem;
 }
 .moon-objaction.vertical .moon-objaction-client .moon-item.spotlight {
   background-color: transparent;
 }
 .moon-objaction.vertical .moon-objaction-client .moon-item > img {
-  padding: 12px;
+  padding: 0.5rem;
 }
 .moon-objaction.vertical .moon-objaction-client .moon-item.spotlight > img {
   background-color: #cf0652;
@@ -4877,36 +4877,36 @@ html {
 /* FormCheckbox.css */
 .moon-item.moon-formcheckbox-item {
   background: none;
-  padding: 0 0 0 12px;
-  margin-bottom: 12px;
+  padding: 0 0 0 0.5rem;
+  margin-bottom: 0.5rem;
 }
 .moon-item.moon-formcheckbox-item .moon-checkbox {
   position: absolute;
-  top: 6px;
-  left: 12px;
-  width: 48px;
-  height: 48px;
-  border-radius: 9999px;
+  top: 0.25rem;
+  left: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 416.625rem;
   background-color: #ffffff;
-  line-height: 48px;
+  line-height: 2rem;
   text-align: center;
 }
 .moon-item.moon-formcheckbox-item .moon-checkbox .moon-icon {
-  padding-bottom: 3px;
+  padding-bottom: 0.125rem;
 }
 .moon-item.moon-formcheckbox-item .moon-checkbox-item-label-wrapper {
-  padding: 12px 12px;
-  margin-left: 48px;
+  padding: 0.5rem 0.5rem;
+  margin-left: 2rem;
 }
 .enyo-locale-right-to-left .moon-item.moon-formcheckbox-item {
-  padding: 0 12px 0 0;
+  padding: 0 0.5rem 0 0;
 }
 .enyo-locale-right-to-left .moon-item.moon-formcheckbox-item .moon-checkbox-item-label-wrapper {
   margin-left: auto;
-  margin-right: 60px;
+  margin-right: 2.5rem;
 }
 .enyo-locale-right-to-left .moon-item.moon-formcheckbox-item .moon-checkbox {
-  right: 12px;
+  right: 0.5rem;
 }
 .moon-formcheckbox-item.spotlight .moon-checkbox {
   background-color: #cf0652;
@@ -4927,10 +4927,10 @@ html {
 }
 .selection-enabled .moon-selection-overlay-support-scrim .moon-icon {
   display: block;
-  width: 60px;
-  height: 60px;
-  line-height: 60px;
-  border: 6px solid #000000;
+  width: 2.5rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  border: 0.25rem solid #000000;
   background-color: white;
   color: transparent;
   -webkit-transform: translateX(-50%) translateY(-50%);
@@ -4947,12 +4947,12 @@ html {
 }
 /* TODO: Retire this file after new scroller implementation is completely integrated. */
 .moon-thumb {
-  -webkit-transform-origin: 0px 0px;
-  transform-origin: 0px 0px;
+  -webkit-transform-origin: 0rem 0rem;
+  transform-origin: 0rem 0rem;
   border: none;
   background: rgba(50, 50, 50, 0.8);
-  width: 3px;
-  height: 3px;
+  width: 0.125rem;
+  height: 0.125rem;
   border-radius: 0;
 }
 .moon-neutral .moon-thumb {
@@ -4960,7 +4960,7 @@ html {
 }
 .moon-image {
   display: inline-block;
-  margin: 0 12px;
+  margin: 0 0.5rem;
 }
 .moon-image.has-children {
   position: relative;
@@ -4979,7 +4979,7 @@ html {
   left: 0;
   right: 0;
   background: #6d6d6d;
-  padding: 12px;
+  padding: 0.5rem;
   overflow: hidden;
   display: block;
 }
@@ -4991,21 +4991,21 @@ html {
 }
 .moon-image-badge {
   font-family: "Moonstone Icons";
-  font-size: 72px;
+  font-size: 3rem;
   color: #ffffff;
   background-position: center center;
   position: relative;
-  bottom: 12px;
+  bottom: 0.5rem;
 }
 .spotlight .moon-image-badge {
-  top: 3px;
+  top: 0.125rem;
 }
 /* ExpandableText */
 .moon-expandable-text {
   overflow: hidden;
 }
 .moon-expandable-text .moon-expandable-text-content {
-  margin: 0 12px;
+  margin: 0 0.5rem;
   display: -webkit-inline-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
@@ -5013,16 +5013,16 @@ html {
 .moon-expandable-text .moon-expandable-text-button {
   float: right;
   display: inline-block;
-  padding: 12px 42px 12px 12px;
+  padding: 0.5rem 1.75rem 0.5rem 0.5rem;
   position: relative;
 }
 .moon-expandable-text .moon-expandable-text-button:after {
   position: absolute;
-  top: 12px;
-  right: 13px;
+  top: 0.5rem;
+  right: 0.54167rem;
   font-family: "Moonstone Icons";
   content: "\0F0002";
-  font-size: 48px;
+  font-size: 2rem;
 }
 .moon-expandable-text .moon-expandable-text-button.spotlight {
   background-color: #cf0652;
@@ -5035,14 +5035,14 @@ html {
   display: none;
 }
 .enyo-locale-non-latin .moon-expandable-text .moon-expandable-text-button:after {
-  top: 13px;
+  top: 0.54167rem;
 }
 .enyo-locale-right-to-left .moon-expandable-text .moon-expandable-text-button {
   float: left;
-  padding: 12px 12px 12px 42px;
+  padding: 0.5rem 0.5rem 0.5rem 1.75rem;
 }
 .enyo-locale-right-to-left .moon-expandable-text .moon-expandable-text-button:after {
-  left: 13px;
+  left: 0.54167rem;
   right: auto;
 }
 .moon-body-text-control {
@@ -5052,7 +5052,7 @@ html {
   text-align: right;
 }
 .moon-icon-exitfullscreen.moon-icon-exitfullscreen-font-style {
-  font-size: 96px;
+  font-size: 4rem;
 }
 .moon-light-panel .client {
   opacity: 0;
@@ -5100,7 +5100,7 @@ html {
 .moon-hspacing > * {
   display: inline-block;
   vertical-align: middle;
-  margin: 0 9px;
+  margin: 0 0.375rem;
 }
 .moon-hspacing.top > * {
   vertical-align: top;
@@ -5110,7 +5110,7 @@ html {
   margin-left: 0;
 }
 .enyo-locale-right-to-left .moon-hspacing > :first-child {
-  margin-left: 9px;
+  margin-left: 0.375rem;
   margin-right: 0;
 }
 .moon-hspacing > :last-child,
@@ -5118,7 +5118,7 @@ html {
   margin-right: 0;
 }
 .enyo-locale-right-to-left .moon-hspacing > :last-child {
-  margin-right: 9px;
+  margin-right: 0.375rem;
   margin-left: 0;
 }
 /* -------------------------- */
@@ -5126,7 +5126,7 @@ html {
 /* -------------------------- */
 .moon-vspacing > * {
   display: block;
-  margin: 9px 0;
+  margin: 0.375rem 0;
 }
 .moon-vspacing > :first-child {
   margin-top: 0;
@@ -5140,33 +5140,33 @@ html {
 .moon-vspacing-s > .moon-item:not(.moon-formcheckbox-item),
 .moon-vspacing-s > .moon-expandable-list-item:not(.open) .moon-item,
 .moon-vspacing-s > .moon-expandable-list-item.open {
-  padding-bottom: 9px;
+  padding-bottom: 0.375rem;
 }
 .moon-vspacing-s > .moon-button,
 .moon-vspacing-s > .moon-input-decorator,
 .moon-vspacing-s > .moon-formcheckbox-item {
-  margin-top: 4.5px;
-  margin-bottom: 9px;
+  margin-top: 0.1875rem;
+  margin-bottom: 0.375rem;
 }
 .moon-vspacing-m > .moon-item:not(.moon-formcheckbox-item),
 .moon-vspacing-m > .moon-expandable-list-item:not(.open) .moon-item,
 .moon-vspacing-m > .moon-expandable-list-item.open {
-  padding-bottom: 18px;
+  padding-bottom: 0.75rem;
 }
 .moon-vspacing-m > .moon-button,
 .moon-vspacing-m > .moon-input-decorator,
 .moon-vspacing-m > .moon-formcheckbox-item {
-  margin-top: 9px;
-  margin-bottom: 18px;
+  margin-top: 0.375rem;
+  margin-bottom: 0.75rem;
 }
 .moon-vspacing-l > .moon-item:not(.moon-formcheckbox-item),
 .moon-vspacing-l > .moon-expandable-list-item:not(.open) .moon-item,
 .moon-vspacing-l > .moon-expandable-list-item.open {
-  padding-bottom: 42px;
+  padding-bottom: 1.75rem;
 }
 .moon-vspacing-l > .moon-button,
 .moon-vspacing-l > .moon-input-decorator,
 .moon-vspacing-l > .moon-formcheckbox-item {
-  margin-top: 21px;
-  margin-bottom: 42px;
+  margin-top: 0.875rem;
+  margin-bottom: 1.75rem;
 }
