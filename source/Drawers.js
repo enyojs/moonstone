@@ -179,10 +179,6 @@
 			this.$.drawers.createComponents(this.drawers, {kind: 'moon.Drawer', owner:this.owner});
 			this.setupHandles();
 			this.updateActivator();
-			if (moon.config.accelerate) {
-				this.$.drawers.applyStyle('transition', 'transform 0.35s ease-out');
-				this.$.client.applyStyle('transition', 'transform 0.35s ease-out');
-			}
 		},
 
 		/**
