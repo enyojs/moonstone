@@ -3595,6 +3595,11 @@ html {
 .moon-drawer-client {
   padding: 0.75rem;
 }
+.moon-drawer-accelerate {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
 /* Drawers.css */
 .moon-drawers {
   overflow: hidden;
@@ -3661,10 +3666,16 @@ html {
 .moon-drawers-container {
   position: relative;
 }
+.moon-drawers-drawer-container {
+  transition: transform 0.35s ease-out;
+  -webkit-transition: -webkit-transform 0.35s ease-out;
+}
 .moon-drawers-client {
   position: relative;
   height: 100%;
   width: 100%;
+  transition: transform 0.35s ease-out;
+  -webkit-transition: -webkit-transform 0.35s ease-out;
 }
 /* If a video player or other controls are behind the drawers, let events pass straight through to them. */
 .moon-drawers > * {
