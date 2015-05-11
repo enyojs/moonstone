@@ -1,23 +1,6 @@
 language: node_js
 node_js:
   - "0.10"
-install:
-  npm -g install jshint &&
-  echo -e "\x1b\x5b35;1m*** Checking out Enyo\x1b\x5b0m" &&
-  cd .. &&
-  git clone --depth 1 https://github.com/enyojs/enyo.git enyo &&
-  mkdir lib &&
-  mv moonstone lib/moonstone
-script:
-  echo -e "\x1b\x5b35;1m*** Running JSHint\x1b\x5b0m" &&
-  cd lib/moonstone &&
-  jshint . &&
-  echo -e "\x1b\x5b35;1m*** Running lessc.sh to compile library CSS\x1b\x5b0m" &&
-  cd css &&
-  mv moonstone-dark.css moonstone-dark.css.fromgit &&
-  mv moonstone-light.css moonstone-light.css.fromgit &&
-  ../../../enyo/tools/lessc.sh --ri --enyo ../../../enyo/enyo.js all-package.js &&
-  echo -e "\x1b\x5b35;1m*** Comparing generated CSS to last checked in version\x1b\x5b0m" &&
-  diff moonstone-dark.css moonstone-dark.css.fromgit &&
-  diff moonstone-light.css moonstone-light.css.fromgit &&
-  echo -e "\x1b\x5b35;1m*** Moonstone tests complete\x1b\x5b0m"
+cache:
+  directories:
+  - $HOME/.npm

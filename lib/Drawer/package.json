@@ -1,0 +1,6 @@
+{
+	"main": "Drawer.js",
+	"styles": [
+		"Drawer.less"
+	]
+}
