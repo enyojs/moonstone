@@ -1,0 +1,6 @@
+{
+	"main": "Overlay.js",
+	"styles": [
+		"Overlay.less"
+	]
+}
