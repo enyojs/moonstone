@@ -95,11 +95,6 @@
 		/**
 		* @private
 		*/
-		firstDayOfWeek: 0,
-
-		/**
-		* @private
-		*/
 		weekEndStart: 6,
 
 		/**
@@ -155,12 +150,12 @@
 				var li = new ilib.LocaleInfo(ilib.getLocale());
 				var daysFullName = df.getDaysOfWeek();
 				this.days = sdf.getDaysOfWeek();
-				this.firstDayOfWeek = li.getFirstDayOfWeek();
+				var firstDayOfWeek = li.getFirstDayOfWeek();
 				this.weekEndStart = li.getWeekEndStart();
 				this.weekEndEnd = li.getWeekEndEnd();
 
 				var index;
-				switch (this.firstDayOfWeek) {
+				switch (firstDayOfWeek) {
 				case 0 :
 					for (index = 0; index < this.daysComponents.length; index++) {
 						this.daysComponents[index].content = daysFullName[index];
