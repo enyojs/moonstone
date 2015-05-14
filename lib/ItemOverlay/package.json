@@ -1,6 +1,6 @@
 {
 	"main": "ItemOverlay.js",
-	"style": [
+	"styles": [
 		"ItemOverlay.less"
 	]
 }

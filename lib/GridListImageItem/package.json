@@ -1,6 +1,6 @@
 {
 	"main": "GridListImageItem.js",
-	"style": [
+	"styles": [
 		"GridListImageItem.less"
 	]
 }

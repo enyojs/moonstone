@@ -1,6 +1,6 @@
 {
 	"main": "VideoFeedback.js",
-	"style": [
+	"styles": [
 		"VideoFeedback.less"
 	]
 }

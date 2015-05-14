@@ -1,6 +1,6 @@
 {
 	"main": "ExpandableListItem.js",
-	"style": [
+	"styles": [
 		"ExpandableListItem.less"
 	]
 }
