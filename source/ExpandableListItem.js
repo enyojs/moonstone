@@ -190,7 +190,7 @@
 		components: [
 			// headerContainer required to avoid bad scrollWidth returned in RTL for certain text
 			// widths (webkit bug)
-			{name: 'headerContainer', classes: 'moon-expandable-list-item-header moon-expandable-picker-header moon-expandable-list-header', onSpotlightFocus: 'headerFocus', ontap: 'expandContract', components: [
+			{name: 'headerContainer', kind: 'moon.Item', classes: 'moon-expandable-list-item-header moon-expandable-picker-header moon-expandable-list-header', onSpotlightFocus: 'headerFocus', ontap: 'expandContract', components: [
 				{name: 'header', kind: 'moon.MarqueeText'}
 			]},
 			{name: 'drawer', kind: 'moon.ExpandableListDrawer', resizeContainer:false, classes: 'moon-expandable-list-item-client', components: [
