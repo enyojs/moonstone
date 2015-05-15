@@ -24,7 +24,7 @@
 			frequency: 200,
 			events: [{name: 'hold', time: 400}],
 			resume: false,
-			moveTolerance: 16,
+			moveTolerance: 1500,
 			endHold: 'onMove'
 		});
 	}
