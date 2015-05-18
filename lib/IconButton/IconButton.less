@@ -26,8 +26,8 @@
 
 	&.hover:hover:not(.disabled),
 	&.spotlight {
-		color: @moon-spotlight-text-color;
-		background-color: @moon-icon-button-spotlight-bg-color;
+		color: @moon-spotlight-text-color !important;
+		background-color: @moon-icon-button-spotlight-bg-color !important;
 		background-position: center -@moon-icon-sprite-size;
 
 		&.small {
@@ -39,8 +39,8 @@
 	&:active,
 	&.pressed,
 	&.hover:hover:not(.disabled):active {
-		color: @moon-icon-button-font-color;
-		background-color: @moon-icon-button-active-bg-color;
+		color: @moon-icon-button-font-color !important;
+		background-color: @moon-icon-button-active-bg-color !important;
 		background-position: center 0;
 		border-color: @moon-icon-button-active-border-color;
 
@@ -66,8 +66,8 @@
 	// 'Selected+Focus' state
 	&.active.spotlight:not(.contextual-popup-button) {
 		border-color: @moon-active-spotlight-border-color;
-		background-color: @moon-icon-button-spotlight-bg-color;
-		color: @moon-spotlight-text-color;
+		background-color: @moon-icon-button-spotlight-bg-color !important;
+		color: @moon-spotlight-text-color !important;
 
 		&:active,
 		&.pressed {

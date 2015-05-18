@@ -112,6 +112,50 @@
 	.moon-header-client-text {
 		line-height: @moon-button-small-height;
 	}
+
+	//to handle transparent
+	.translucent-buttons(@translucent) {
+		color: @moon-button-translucent-font-color;
+		.moon-icon-button, .moon-button {
+			background-color: fade(@moon-button-translucent-background-color, @translucent);
+		}
+	}
+
+	&.translucentBy10-buttons {
+		.translucent-buttons(10%);
+	}
+
+	&.translucentBy20-buttons {
+		.translucent-buttons(20%);
+	}
+
+	&.translucentBy30-buttons {
+		.translucent-buttons(30%);
+	}
+
+	&.translucentBy40-buttons {
+		.translucent-buttons(40%);
+	}
+
+	&.translucentBy50-buttons {
+		.translucent-buttons(50%);
+	}
+
+	&.translucentBy60-buttons {
+		.translucent-buttons(60%);
+	}
+
+	&.translucentBy70-buttons {
+		.translucent-buttons(70%);
+	}
+
+	&.translucentBy80-buttons {
+		.translucent-buttons(80%);
+	}
+
+	&.translucentBy90-buttons {
+		.translucent-buttons(90%);
+	}
 }
 
 // neutral
