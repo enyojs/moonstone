@@ -5,15 +5,22 @@ release.  While this list should not be considered exhaustive, we hope it will
 provide useful guidance for those maintaining existing Moonstone apps, as well
 as those planning new ones.
 
-Since the release of Enyo 2.5.1.1, we have made many changes across Enyo and its
-related libraries to bring the framework into compliance with JavaScript's
-Module Pattern.  Significant changes have been made to the way that Enyo apps
-are structured and built; existing applications will need to be converted to
-be compatible with the new scheme.  (The conversion process is outlined in the
-Enyo 2.6 Conversion Guide.)
+Since the release of Enyo 2.5.1.1, we have made many changes across the
+framework to replace Enyo's proprietary loader (and its `package.js` manifest
+files) with a modular system based on the CommonJS format.
+
+Some of the most readily apparent changes involve the creation of new repos and the
+reorganization of existing ones; for example, samples, which were previously
+grouped together within each library, have now been consolidated in the new
+`enyo-strawman` repo.
+
+Less obvious, but no less significant, are the changes in the way that Enyo apps
+are structured and built.  Owners of existing applications will need to perform
+certain tasks to make their apps compatible with the new scheme.  (These are
+outlined in the Enyo 2.6 Conversion Guide.)
 
 In addition to the overarching structural changes, there have also been some
-significant changes in functionality.  Most notably, we have introduced support
+important changes in functionality.  Most notably, we have introduced support
 for resolution independence, a set of new abilities that allow apps to
 automatically scale themselves to run under different screen resolutions.  The
 `moon-resolution.js` file makes the resolution independence code from Enyo core
@@ -58,3 +65,8 @@ made the following API changes in Moonstone:
 
 * In `moon.Scroller`, added `hideScrollColumnsWhenFit`, a Boolean flag that may
     be set to `true` to force paging controls to be hidden (default is `false`).
+
+* In `moon.Slider`, added new properties `enableJumpIncrement` and
+    `jumpIncrement`, as well as new methods `previous()` and `next()`.
+
+* In `moon.TimePicker`, added `showPickerLabels` property.
