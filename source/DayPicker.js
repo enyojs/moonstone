@@ -167,11 +167,34 @@
 					}
 					this.daysComponents[6].content = daysFullName[0];
 					this.days.push(this.days.shift());
-					this.weekEndStart = this.weekEndStart ? this.weekEndStart-1 : 6;
-					this.weekEndEnd = this.weekEndEnd ? this.weekEndEnd-1 : 6;
+					this.weekEndStart = this.shiftValueOfDays(this.weekEndStart);
+					this.weekEndEnd = this.shiftValueOfDays(this.weekEndEnd);
+					break;
+				case 6 :
+					this.daysComponents[0].content = daysFullName[6];
+					for (index = 1; index < this.daysComponents.length; index++) {
+						this.daysComponents[index].content = daysFullName[index-1];
+					}
+					this.days.unshift(this.days.pop());
+					this.weekEndStart = this.unshiftValueOfDays(this.weekEndStart);
+					this.weekEndEnd = this.unshiftValueOfDays(this.weekEndEnd);
 					break;
 				}
 			}
+		},
+
+		/**
+		* @private
+		*/
+		shiftValueOfDays: function (value) {
+			return (this.value !== 0) ? this.value-1 : 6;
+		},
+
+		/**
+		* @private
+		*/
+		unshiftValueOfDays: function (value) {
+			return (this.value !== 6) ? this.value+1 : 0;
 		},
 
 		/**
@@ -188,7 +211,7 @@
 		* @private
 		*/
 		multiSelectCurrentValue: function () {
-			var str = this.checkDays();
+			var str = this.getRepresentativeString();
 			if (str){
 				return str;
 			}
@@ -206,20 +229,21 @@
 		/**
 		* @private
 		*/
-		checkDays: function () {
+		getRepresentativeString: function () {
 			var indexLength = this.selectedIndex.length;
-			var hasWeekEnd = this.checkWeekEnd();
+			var lengthOfWeekEnd = (this.weekEndStart === this.weekEndEnd) ? 1 : 2; 
+			var representativeStr = this.checkDays();
 
 			switch (indexLength) {
 			case 7 :
 				return this.everyDayText;
-			case 5 :
-				if (hasWeekEnd === false) {
+			case 7 - lengthOfWeekEnd :
+				if (representativeStr === "weekday") {
 					return this.everyWeekdayText;
 				}
 				break;
-			case 2 :
-				if (hasWeekEnd === true) {
+			case lengthOfWeekEnd :
+				if (representativeStr === "weekend") {
 					return this.everyWeekendText;
 				}
 				break;
@@ -229,14 +253,14 @@
 		/**
 		* @private
 		*/
-		checkWeekEnd: function () {
+		checkDays: function () {
 			var bWeekEndStart = this.selectedIndex.indexOf(this.weekEndStart);
 			var bWeekEndEnd = this.selectedIndex.indexOf(this.weekEndEnd);
 
 			if (bWeekEndStart >= 0 && bWeekEndEnd >= 0) {
-				return true;
+				return "weekend";
 			} else if (bWeekEndStart == -1 && bWeekEndEnd == -1) {
-				return false;
+				return "weekday";
 			}
 		}
 	});
