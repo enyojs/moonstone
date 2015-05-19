@@ -1,6 +1,6 @@
 {
 	"main": "HighlightText.js",
-	"style": [
+	"styles": [
 		"HighlightText.less"
 	]
 }

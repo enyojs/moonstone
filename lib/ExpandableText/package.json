@@ -1,6 +1,6 @@
 {
 	"main": "ExpandableText.js",
-	"style": [
+	"styles": [
 		"ExpandableText.less"
 	]
 }

@@ -1,6 +1,6 @@
 {
 	"main": "Table.js",
-	"style": [
+	"styles": [
 		"Table.less"
 	]
 }

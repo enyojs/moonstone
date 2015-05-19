@@ -1,6 +1,6 @@
 {
 	"main": "ExpandableInput.js",
-	"style": [
+	"styles": [
 		"ExpandableInput.less"
 	]
 }

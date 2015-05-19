@@ -1,6 +1,6 @@
 {
 	"main": "VideoInfoBackground.js",
-	"style": [
+	"styles": [
 		"VideoInfoBackground.less"
 	]
 }
