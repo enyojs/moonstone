@@ -238,8 +238,8 @@
 		* @private
 		*/
 		rendered: function () {
-			this.inherited(arguments);
-			if (!this.$.drawer.renderOnShow) this.isDrawerRendered = true;
+			this.inherited(arguments);			
+			if (!this.$.drawer.renderOnShow || this.getOpen()) this.isDrawerRendered = true;
 		},
 
 		/**
