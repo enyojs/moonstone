@@ -239,7 +239,7 @@
 		*/
 		rendered: function () {
 			this.inherited(arguments);			
-			if (this.getOpen()) this.isDrawerRendered = true;
+			if (!this.$.drawer.renderOnShow || this.getOpen()) this.isDrawerRendered = true;
 		},
 
 		/**
