@@ -105,6 +105,12 @@
 			*/
 			spotlightModal: false,
 
+			/* @type {Boolean}
+			* @default false
+			* @public
+			*/
+			modal: false,
+
 			/**
 			* If `false`, the close button is hidden; if `true`, it is shown. When this
 			* property is set to `'auto'` (the default), the close button is shown when
@@ -177,6 +183,10 @@
 		* @private
 		*/
 		activator: null,
+
+		bindings: [
+			{from: 'spotlightModal', to: 'modal', oneWay: false}
+		],
 
 		/**
 		* @private
@@ -448,6 +458,13 @@
 		},
 
 		/**
+		* @private
+		*/
+		modalChanged: function() {
+			this.showHideScrim(this.showing);
+		},
+
+		/**
 		* Called when [showCloseButton]{@link moon.ContextualPopup#showCloseButton} changes.
 		*
 		* @private
@@ -509,7 +526,7 @@
 		* @private
 		*/
 		showHideScrim: function (inShow) {
-			if (this.floating && (this.scrim || (this.modal && this.scrimWhenModal))) {
+			if (this.floating && (this.scrim || this.modal || this.scrimWhenModal)) {
 				var scrim = this.getScrim();
 				if (inShow && this.modal && this.scrimWhenModal) {
 					// move scrim to just under the popup to obscure rest of screen
@@ -538,7 +555,7 @@
 			// show a transparent scrim for modal popups if
 			// {@link moon.ContextualPopup#scrimWhenModal} is `true`, else show a
 			// regular scrim.
-			if (this.modal && this.scrimWhenModal) {
+			if (this.scrimWhenModal) {
 				return moon.scrimTransparent.make();
 			}
 			return moon.scrim.make();
