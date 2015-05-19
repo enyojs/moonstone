@@ -36,20 +36,20 @@
 	&.spotlight.pressed,
 	&.spotlight:active {
 		border: @moon-button-border-width solid @moon-spotlight-border-color;
-		background-color: @moon-button-background-color;
-		color: @moon-button-text-color;
+		background-color: @moon-button-background-color !important;
+		color: @moon-button-text-color !important;
 	}
 
 	&.spotlight {
-		background-color: @moon-spotlight-border-color;
-		color: @moon-spotlight-text-color;
+		background-color: @moon-spotlight-border-color !important;
+		color: @moon-spotlight-text-color !important;
 	}
 
 	// 'Selected+Focus' state
 	&.active.spotlight:not(.contextual-popup-button) {
 		border-color: @moon-active-spotlight-border-color;
-		background-color: @moon-spotlight-border-color;
-		color: @moon-spotlight-text-color;
+		background-color: @moon-spotlight-border-color !important;
+		color: @moon-spotlight-text-color !important;
 
 		&:active,
 		&.pressed {
@@ -103,10 +103,10 @@
 	}
 
 	&.spotlight {
-		background-color: @moon-spotlight-color;
+		background-color: @moon-spotlight-color !important;
 
 		* {
-			color: @moon-spotlight-text-color;
+			color: @moon-spotlight-text-color !important;
 		}
 	}
 
@@ -115,10 +115,10 @@
 	&.spotlight.pressed,
 	&.spotlight:active {
 		border: @moon-button-border-width solid @moon-spotlight-border-color;
-		background-color: @moon-neutral-button-bg-color;
+		background-color: @moon-neutral-button-bg-color !important;
 
 		* {
-			color: @moon-neutral-button-text-color;
+			color: @moon-neutral-button-text-color !important;
 		}
 	}
 
