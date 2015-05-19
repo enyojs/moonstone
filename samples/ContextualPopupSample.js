@@ -147,14 +147,14 @@ enyo.kind({
 			{
 				kind: 'moon.ContextualPopup',
 				name: 'buttonPopup',
-				classes: 'moon-8h moon-8v',
+				classes: 'moon-9h moon-8v',
 				modal: true,
 				autoDismiss: false,
 				spotlightModal: true,
 				components: [
 					{kind: 'moon.Scroller', horizontal: 'auto', classes: 'enyo-fill', components: [
-						{kind: 'moon.Button', content: 'Button'},
-						{kind: 'moon.ToggleButton', content: 'SpotlightModal', value: true, ontap: 'buttonToggled'},
+						{kind: 'moon.ToggleButton', content: 'SpotlightModal',  value: true, ontap: 'buttonToggled'},
+						{kind: 'moon.ToggleButton', content: 'Modal', value: true, ontap: 'modelToggled'},
 						{tag: 'br'},
 						{tag: 'br'},
 						{kind: 'moon.InputDecorator', spotlight: true, components: [
@@ -219,6 +219,9 @@ enyo.kind({
 			return val;
 		}}
 	],
+	modelToggled: function(inSender, inEvent) {
+		this.$.buttonPopup.setModal(inSender.getActive());
+	},
 	buttonToggled: function(inSender, inEvent) {
 		this.$.buttonPopup.setSpotlightModal(inSender.getActive());
 		this.$.buttonPopup.setAutoDismiss(!inSender.getActive());
