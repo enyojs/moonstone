@@ -971,7 +971,7 @@
 			}
 
 			offsetTop      = controlBounds.top - absoluteBounds.top;
-			offsetLeft     = (this.rtl ? controlBounds.right : controlBounds.left) - (this.rtl ? absoluteBounds.right : absoluteBounds.left);
+			offsetLeft     = (this.rtl ? absoluteBounds.right : controlBounds.left) - (this.rtl ? controlBounds.right : absoluteBounds.left);
 			offsetHeight   = controlBounds.height;
 			offsetWidth    = controlBounds.width;
 
