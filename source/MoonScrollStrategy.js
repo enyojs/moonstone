@@ -961,6 +961,9 @@
 				x,
 				y
 			;
+			
+			controlBounds.right = document.body.offsetWidth - controlBounds.right;
+			absoluteBounds.right = document.body.offsetWidth - absoluteBounds.right;
 
 			// Make absolute controlBounds relative to scroll position
 			controlBounds.top += scrollBounds.top;
@@ -971,7 +974,7 @@
 			}
 
 			offsetTop      = controlBounds.top - absoluteBounds.top;
-			offsetLeft     = (this.rtl ? absoluteBounds.right : controlBounds.left) - (this.rtl ? controlBounds.right : absoluteBounds.left);
+			offsetLeft     = (this.rtl ? controlBounds.right : controlBounds.left) - (this.rtl ? absoluteBounds.right : absoluteBounds.left);
 			offsetHeight   = controlBounds.height;
 			offsetWidth    = controlBounds.width;
 
