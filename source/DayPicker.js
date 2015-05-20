@@ -187,14 +187,14 @@
 		* @private
 		*/
 		shiftValueOfDays: function (value) {
-			return (this.value !== 0) ? this.value-1 : 6;
+			return (value !== 0) ? value-1 : 6;
 		},
 
 		/**
 		* @private
 		*/
 		unshiftValueOfDays: function (value) {
-			return (this.value !== 6) ? this.value+1 : 0;
+			return (value !== 6) ? value+1 : 0;
 		},
 
 		/**
