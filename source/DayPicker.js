@@ -144,57 +144,27 @@
 		* @private
 		*/
 		initILib: function () {
+			var i, index;
 			if (typeof ilib !== 'undefined') {
 				var df = new ilib.DateFmt({length: "full"});
 				var sdf = new ilib.DateFmt({length: "long"});
 				var li = new ilib.LocaleInfo(ilib.getLocale());
-				var daysFullName = df.getDaysOfWeek();
-				this.days = sdf.getDaysOfWeek();
-				var firstDayOfWeek = li.getFirstDayOfWeek();
+				var daysOfWeek = df.getDaysOfWeek();
+				var days = sdf.getDaysOfWeek();
+
+				this.firstDayOfWeek = li.getFirstDayOfWeek();
 				this.weekEndStart = li.getWeekEndStart();
 				this.weekEndEnd = li.getWeekEndEnd();
 
-				var index;
-				switch (firstDayOfWeek) {
-				case 0 :
-					for (index = 0; index < this.daysComponents.length; index++) {
-						this.daysComponents[index].content = daysFullName[index];
-					}
-					break;
-				case 1 :
-					for (index = 1; index < this.daysComponents.length; index++) {
-						this.daysComponents[index-1].content = daysFullName[index];
-					}
-					this.daysComponents[6].content = daysFullName[0];
-					this.days.push(this.days.shift());
-					this.weekEndStart = this.shiftValueOfDays(this.weekEndStart);
-					this.weekEndEnd = this.shiftValueOfDays(this.weekEndEnd);
-					break;
-				case 6 :
-					this.daysComponents[0].content = daysFullName[6];
-					for (index = 1; index < this.daysComponents.length; index++) {
-						this.daysComponents[index].content = daysFullName[index-1];
-					}
-					this.days.unshift(this.days.pop());
-					this.weekEndStart = this.unshiftValueOfDays(this.weekEndStart);
-					this.weekEndEnd = this.unshiftValueOfDays(this.weekEndEnd);
-					break;
+				// adjust order of days
+				this.daysComponents = [];
+				this.days = [];
+				for (i = 0; i < 7; i++) {
+					index = (i + this.firstDayOfWeek) % 7;
+					this.daysComponents[i] = {content: daysOfWeek[index]};
+					this.days[i] = days[index];
 				}
 			}
-		},
-
-		/**
-		* @private
-		*/
-		shiftValueOfDays: function (value) {
-			return (value !== 0) ? value-1 : 6;
-		},
-
-		/**
-		* @private
-		*/
-		unshiftValueOfDays: function (value) {
-			return (value !== 6) ? value+1 : 0;
 		},
 
 		/**
@@ -212,7 +182,7 @@
 		*/
 		multiSelectCurrentValue: function () {
 			var str = this.getRepresentativeString();
-			if (str){
+			if (str) {
 				return str;
 			}
 
@@ -230,37 +200,25 @@
 		* @private
 		*/
 		getRepresentativeString: function () {
-			var indexLength = this.selectedIndex.length;
-			var lengthOfWeekEnd = (this.weekEndStart === this.weekEndEnd) ? 1 : 2; 
-			var representativeStr = this.checkDays();
+			var bWeekEndStart = false,
+				bWeekEndEnd = false,
+				length = this.selectedIndex.length,
+				weekendLength = this.weekEndStart === this.weekEndEnd ? 1 : 2,
+				index, i;
 
-			switch (indexLength) {
-			case 7 :
-				return this.everyDayText;
-			case 7 - lengthOfWeekEnd :
-				if (representativeStr === "weekday") {
-					return this.everyWeekdayText;
-				}
-				break;
-			case lengthOfWeekEnd :
-				if (representativeStr === "weekend") {
-					return this.everyWeekendText;
-				}
-				break;
+			if (length == 7) return this.everyDayText;
+
+			for (i = 0; i < 7; i++) {
+				// convert the control index to day index
+				index = (this.selectedIndex[i] + this.firstDayOfWeek) % 7;
+				bWeekEndStart = bWeekEndStart || this.weekEndStart == index;
+				bWeekEndEnd = bWeekEndEnd || this.weekEndEnd == index;
 			}
-		},
 
-		/**
-		* @private
-		*/
-		checkDays: function () {
-			var bWeekEndStart = this.selectedIndex.indexOf(this.weekEndStart);
-			var bWeekEndEnd = this.selectedIndex.indexOf(this.weekEndEnd);
-
-			if (bWeekEndStart >= 0 && bWeekEndEnd >= 0) {
-				return "weekend";
-			} else if (bWeekEndStart == -1 && bWeekEndEnd == -1) {
-				return "weekday";
+			if (bWeekEndStart && bWeekEndEnd && length == weekendLength) {
+				return this.everyWeekendText;
+			} else if (!bWeekEndStart && !bWeekEndEnd && length == 7 - weekendLength) {
+				return this.everyWeekdayText;
 			}
 		}
 	});
