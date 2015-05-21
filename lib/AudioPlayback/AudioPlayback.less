@@ -3,92 +3,140 @@
 	background-color: @moon-audio-playback-bg-color;
 	font-size: 30px;
 }
-.moon-audio-playback-track-icon {
-	position: relative;
-	top: 6px;
-	left: 4px;
-	width: 128px;
-	height: 128px;
-	background: transparent url() no-repeat 0px 0px;
-	display: inline-block;
+.moon-audio-playback-top {
+	height: 65px;
+	margin-top: 15px;
 }
-.moon-audio-playback-playtime {
-	font-size: 20px;
+.moon-audio-playback-bottom {
+	margin-top: 15px;
 }
+
+.moon-audio-track-icon,
 .moon-audio-track-info,
-.moon-audio-control-buttons > * {
-	display: inline-block;
-	top: 6px;
+.moon-audio-control-buttons,
+.moon-audio-more-buttons {
+	position: absolute;
+	top: 41px;
 }
+.moon-audio-track-info {
+	left: 128px;
+	width: 400px;
+}
+.moon-audio-track-info > * {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.moon-audio-control-buttons {
+	left: 0;
+	right: 0;
+	text-align: center;
+}
+.moon-audio-more-buttons {
+	right: 18px; // Same as padding of .moon-drawer-partial-client
+	width: 500px;
+	text-align: right;
+}
+.moon-audio-track-icon {
+	left: 18px; // Same as padding of .moon-drawer-partial-client
+	width: 64px;
+	height: 64px;
+	background: gray url() no-repeat 0px 0px;
+}
+
 .moon-audio-play-time {
+	position: absolute;
+	bottom: 18px; // Same as padding of .moon-drawer-partial-client
 	width: 80px;
+	height: 84px;
+	line-height: 84px;
 	font-size: 20px;
-	padding-top: 72px;
 }
 .moon-audio-play-time.left {
-	text-align: left;
+	text-align: right;
+	left: 0;
 }
 .moon-audio-play-time.right {
-	text-align: right;
+	text-align: left;
+	right: 0;
 }
 .moon-audio-track-count.right {
 	float: right;
-}
-.moon-audio-track-info {
-	width: 40%;
-	padding: 0 10px;
 }
 .enyo-locale-right-to-left .moon-audio-track-info {
 	text-align: right;
 	direction: rtl;
 }
-.moon-audio-top {
-	height: 65px;
-	padding-top: 15px;
-}
+
+
+
 /* AudioPlayback styles for IconButton */
 .moon-audio-icon-button {
 	background-color: @moon-audio-icon-button-bg-color;
 	margin: 8px 4px;
 }
-.moon-audio-icon-button.left {
-	float: left;
-}
-.moon-audio-icon-button.right {
-	float: right;
-}
+
+
 /* AudioPlayback styles for Slider */
-.moon-audio-slider-container {
-	padding-top: 10px;
+
+@moon-audio-slider-knob-size: 6px;
+@moon-audio-slider-knob-offset: -18px;
+@moon-audio-slider-height: 84px;
+@moon-audio-slider-bg-color: #323232;
+
+.moon-audio-slider {
+	margin: 0;
+	height: @moon-audio-slider-height;
+	width: 100%;
+	background-color: @moon-audio-slider-bg-color;
 }
-.moon-audio-slider.spotlight > .moon-slider-knob {
-	background-color: @moon-audio-slider-knob-spotlight-bg-color;
+
+
+/* ----- Knob ---- */
+
+.moon-audio-slider-knob,
+.moon-audio-slider-knob.disabled:active:hover,
+.moon-audio-slider-knob.active,
+.moon-audio-slider-knob.spotselect,
+.moon-audio-slider-knob:active:hover {
+	position: absolute;
+	height: @moon-audio-slider-knob-size;
+	width: @moon-audio-slider-knob-size;
+	border-radius: @moon-audio-slider-knob-size/2;
+	margin: -@moon-audio-slider-knob-size/2;
+	top: @moon-audio-slider-height/2 + @moon-audio-slider-knob-offset;
+	pointer-events: none;
 }
-.moon-audio-slider > .moon-slider-knob,
-.moon-audio-slider > .moon-slider-knob.disabled:active:hover {
-	height: 30px;
-	width: 30px;
-	border-radius: 15px;
-	margin: -13px -16px;
-	background-color: @moon-audio-slider-knob-bg-color;
+.moon-audio-slider-knob {
+	background: transparent;
+	color: transparent;
 }
-.moon-audio-slider > .moon-slider-knob.active,
-.moon-audio-slider > .moon-slider-knob.spotselect,
-.moon-audio-slider > .moon-slider-knob:active:hover {
-	height: 34px;
-	width: 34px;
-	border-radius: 17px;
-	margin: -15px -18px;
-	background-color: @moon-audio-slider-knob-bg-color;
+.moon-audio-slider.visible .moon-audio-slider-knob,
+.moon-audio-slider.visible .moon-audio-slider-knob.disabled:active:hover {
+	background-color: #fff;
 }
-.moon-audio-slider.moon-progress-bar {
-	background-color: @moon-audio-progress-bar-bg-color;
-	margin: 0px;
-	top: 10px;
+
+/* ---- Bar ---- */
+.moon-audio-slider-bar-bar {
+	height: 100%;
+	background-color: @moon-accent;
+	position: absolute;
+	top: 0;
 }
-.moon-audio-slider > .moon-progress-bar-bar {
-	background-color: @moon-audio-progress-bar-bar-bg-color;
+.moon-audio-slider-bg-bar {
+	height: 100%;
+	background-color: @moon-dark-gray;
+	position: absolute;
+	top: 0;
 }
+.moon-audio-slider-taparea {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+}
+
+
+
 /* AudioPlayback styles for queue */
 .moon-audio-playback-queue {
 	margin: 0px 40px;
