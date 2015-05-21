@@ -111,7 +111,7 @@
 		initILib: function () {
 			this.inherited(arguments);
 			if (typeof ilib !== 'undefined' && this.value) {
-				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
+				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: 'local'});
 			}
 		},
 
@@ -125,7 +125,7 @@
 		getMinYear: function() {
 			if (typeof ilib !== 'undefined') {
 				var greg = ilib.Date.newInstance({
-					type: "gregorian",
+					type: 'gregorian',
 					year: this.minYear,
 					month: 1,
 					day: 1,
@@ -133,7 +133,7 @@
 				});
 				var localCalendarDate = ilib.Date.newInstance({
 					julianday: greg.getJulianDay(),
-					timezone: "local"
+					timezone: 'local'
 				});
 				return localCalendarDate.getYears();
 			} else {
@@ -151,7 +151,7 @@
 		getMaxYear: function() {
 			if (typeof ilib !== 'undefined') {
 				var greg = ilib.Date.newInstance({
-					type: "gregorian",
+					type: 'gregorian',
 					year: this.maxYear,
 					month: 1,
 					day: 1,
@@ -159,7 +159,7 @@
 				});
 				var localCalendarDate = ilib.Date.newInstance({
 					julianday: greg.getJulianDay(),
-					timezone: "local"
+					timezone: 'local'
 				});
 				return localCalendarDate.getYears();
 			} else {
@@ -245,11 +245,12 @@
 			var day = this.$.day.getValue(),
 				month = this.$.month.getValue(),
 				year = this.$.year.getValue(),
-				maxDays;
-			var valueHours = this.value ? this.value.getHours() : 0;
-			var valueMinutes = this.value ? this.value.getMinutes() : 0;
-			var valueSeconds = this.value ? this.value.getSeconds() : 0;
-			var valueMilliseconds = this.value ? this.value.getMilliseconds() : 0;
+				maxDays,
+				value = this.localeValue || this.value;
+			var valueHours = value ? value.getHours() : 0;
+			var valueMinutes = value ? value.getMinutes() : 0;
+			var valueSeconds = value ? value.getSeconds() : 0;
+			var valueMilliseconds = value ? value.getMilliseconds() : 0;
 
 			if (typeof ilib !== 'undefined') {
 				maxDays = this.monthLength(year, month);
@@ -260,7 +261,8 @@
 					hour: valueHours,
 					minute: valueMinutes,
 					second: valueSeconds,
-					millisecond: valueMilliseconds
+					millisecond: valueMilliseconds,
+					timezone: 'local'
 				});
 				this.setValue(this.localeValue.getJSDate());
 			} else {
@@ -280,7 +282,7 @@
 		*/
 		setChildPickers: function (inOld) {
 			if (this.value && typeof ilib !== 'undefined') {
-				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
+				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: 'local'});
 			}
 
 			if (this.localeValue || this.value) {
