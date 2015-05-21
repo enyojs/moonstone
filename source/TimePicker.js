@@ -53,14 +53,14 @@
 		published: {
 			/**
 			* The meridiem text to display if [meridiemEnable]{@link moon.TimePicker#meridiemEnable}
-			* is `true`. The first item is used if the `hour` is less than `11`; otherwise, the
+			* is `true`. The first item is used if the `hour` is less than `12`; otherwise, the
 			* second is used.
 			*
 			* @type {String[]}
-			* @default ['AM','PM']
+			* @default [{name: 'AM', start: '00:00', end: '11:59'}, {name: 'PM', start: '12:00', end: '23:59'}]
 			* @public
 			*/
-			meridiems: ['AM','PM']
+			meridiems: [{name: 'AM', start: '00:00', end: '11:59'}, {name: 'PM', start: '12:00', end: '23:59'}]
 		},
 
 		/**
@@ -76,7 +76,7 @@
 		*/
 		setupItem: function (inSender, inEvent) {
 			var index = inEvent.index % this.range || 0;
-			this.$.item.setContent(this.meridiems[index]);
+			this.$.item.setContent(this.meridiems[index]['name']);
 		}
 	});
 	
@@ -419,9 +419,11 @@
 					fmtParams.locale = this.locale;
 				}
 				var merFormatter = new ilib.DateFmt(fmtParams);
-				var am = ilib.Date.newInstance({hour:10});
-				var pm = ilib.Date.newInstance({hour:14});
-				this.meridiems = [merFormatter.format(am), merFormatter.format(pm)];
+				if (merFormatter.meridiems == 'chinese') {
+					merFormatter.meridiems = 'default';
+				}
+
+				this.meridiems = merFormatter.getMeridiemsRange(fmtParams);
 			}
 		},
 
