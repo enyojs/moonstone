@@ -75,7 +75,7 @@
 		* @private
 		*/
 		setupItem: function (inSender, inEvent) {
-			var index = inEvent.index % this.range;
+			var index = inEvent.index % this.range || 0;
 			this.$.item.setContent(this.meridiems[index]);
 		}
 	});
@@ -132,7 +132,7 @@
 		* @private
 		*/
 		setupItem: function (inSender, inEvent) {
-			var value = this.format(inEvent.index % this.range);
+			var value = this.format(inEvent.index % this.range || 0);
 			this.$.item.setContent(value);
 		}
 	});
