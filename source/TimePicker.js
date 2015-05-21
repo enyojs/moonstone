@@ -64,6 +64,22 @@
 		},
 
 		/**
+		* Return index of meridiems array for given hour
+		*
+		* @param  {Number} hour - hour between 0 to 23
+		* @return  {Number} index - index of this.meridiems
+		* @private
+		*/
+		getMeridiemIndex: function (hour) {
+			var meridiems = this.meridiems;
+			for (var i = 0; i < meridiems.length; i++) {
+				if (parseInt(meridiems[i]['start']) <= hour && hour <= parseInt(meridiems[i]['end'])) { 
+					return i; 
+				}
+			}
+		},
+
+		/**
 		* @private
 		*/
 		valueChanged: function () {
@@ -472,10 +488,11 @@
 					if (this.meridiemEnable === true) {
 						this.createComponent(
 							{classes: 'moon-date-picker-wrap', components:[
-								{kind:'moon.MeridiemPicker', name:'meridiem', classes:'moon-date-picker-field', value: valueHours > 12 ? 1 : 0, meridiems: this.meridiems || ['am','pm'], onChange: 'meridiemPickerChanged'},
+								{kind:'moon.MeridiemPicker', name:'meridiem', classes:'moon-date-picker-field', meridiems: this.meridiems || [{name: 'AM', start: '00:00', end: '11:59'}, {name: 'PM', start: '12:00', end: '23:59'}], onChange: 'meridiemPickerChanged'},
 								{name: 'meridiemLabel', content: this.meridiemText, classes: 'moon-date-picker-label moon-divider-text'}
 							]}
 						);
+						this.$.meridiem.value = this.$.meridiem.getMeridiemIndex(valueHours);
 					}
 					break;
 				default:
@@ -633,8 +650,8 @@
 				var hour = this.value.getHours();
 				this.$.hour.setValue(hour);
 				this.$.minute.setValue(this.value.getMinutes());
-				if (this.meridiemEnable === true) {
-					this.$.meridiem.setValue(hour > 11 ? 1 : 0);
+				if (this.meridiemEnable === true) {					
+					this.$.meridiem.setValue(this.$.meridiem.getMeridiemIndex(hour));
 				}
 			}
 			this.$.currentValue.setContent(this.formatValue());
