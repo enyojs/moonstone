@@ -732,8 +732,8 @@
 		_marquee_detectAlignment: function (forceAnimate, forceRtl) {
 			var alignment = null,
 				rtl = forceRtl || this.rtl,
-                animate = this._marquee_shouldAnimate();
-            
+				animate = this._marquee_shouldAnimate();
+			
 			// We only attempt to set the alignment of this control if the locale's directionality
 			// differs from the directionality of our current marqueeable control (as determined by
 			// the control's content or is explicitly specified).
@@ -820,7 +820,7 @@
 			if (!this.generated) return;
 
 			var distance = this._marquee_calcDistance();
-            
+			
 			// If there is no need to animate, return early
 			if (!this._marquee_shouldAnimate(distance)) {
 				this._marquee_fits = true;
@@ -900,15 +900,15 @@
 				node = this.$.marqueeText ? this.$.marqueeText.hasNode() : this.hasNode();
 				rect = node.getBoundingClientRect();
 				this._marquee_distance = Math.floor(Math.abs(node.scrollWidth - rect.width));
-                
-                //if the distance is exactly 0, then the ellipsis 
-                //most likely are hiding the content, and marquee does not
-                //need to animate
-                if(this._marquee_distance === 0) {
-                    this.applyStyle('text-overflow', 'clip');    
-                } else {
-                    this.applyStyle('text-overflow', 'ellipsis');   
-                }
+				
+				//if the distance is exactly 0, then the ellipsis 
+				//most likely are hiding the content, and marquee does not
+				//need to animate
+				if(this._marquee_distance === 0) {
+					this.applyStyle('text-overflow', 'clip');    
+				} else {
+					this.applyStyle('text-overflow', 'ellipsis');   
+				}
 			}
 
 			return this._marquee_distance;
