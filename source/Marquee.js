@@ -691,6 +691,7 @@
 				// result in the appropriate text-align rule not being applied. For example, this
 				// can occur with a moon.Header that is located inside a moon.Scroller which has
 				// vertical scrollbars visible.
+				this._marquee_calcDistance();
 				this._marquee_detectAlignment();
 			};
 		}),
@@ -731,15 +732,14 @@
 		*/
 		_marquee_detectAlignment: function (forceAnimate, forceRtl) {
 			var alignment = null,
-				rtl = forceRtl || this.rtl,
-				animate = this._marquee_shouldAnimate();
+				rtl = forceRtl || this.rtl;
 			
 			// We only attempt to set the alignment of this control if the locale's directionality
 			// differs from the directionality of our current marqueeable control (as determined by
 			// the control's content or is explicitly specified).
 			if (enyo.Control.prototype.rtl != rtl || this.centered) {
 				// If we will be marqueeing, we know the alignment needs to be set based on directionality.
-				if (forceAnimate || animate) {
+				if (forceAnimate || this._marquee_shouldAnimate()) {
 					if (rtl) {
 						alignment = 'right';
 					} else {
