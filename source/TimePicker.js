@@ -457,10 +457,10 @@
 				}
 			}
 
+			values = this.calcPickerValues();
+
 			for(f = 0, l = doneArr.length; f < l; f++) {
 				o = doneArr[f];
-				var valueHours = this.value ? this.value.getHours() : 0;
-				var valueMinutes = this.value ? this.value.getMinutes() : 0;
 	
 				switch (o){
 				case 'h':
@@ -468,7 +468,7 @@
 					this.wrapComponent(
 						{name: 'timeWrapper', classes: 'moon-time-picker-wrap'},
 						{classes: 'moon-date-picker-wrap', components:[
-							{kind: 'moon.HourPicker', name:'hour', formatter: this.hourFormatter || this, value: valueHours, onChange: 'hourPickerChanged'},
+							{kind: 'moon.HourPicker', name:'hour', formatter: this.hourFormatter || this, value: values.hour, onChange: 'hourPickerChanged'},
 							{name: 'hourLabel', content: this.hourText, classes: 'moon-date-picker-label moon-divider-text'}
 						]},
 						this
@@ -478,7 +478,7 @@
 					this.wrapComponent(
 						{name: 'timeWrapper', classes: 'moon-time-picker-wrap'},
 						{classes: 'moon-date-picker-wrap', components:[
-							{kind: 'moon.MinutePicker', name:'minute', formatter: this.minuteFormatter || this, value: valueMinutes, onChange: 'minutePickerChanged'},
+							{kind: 'moon.MinutePicker', name:'minute', formatter: this.minuteFormatter || this, value: values.minute, onChange: 'minutePickerChanged'},
 							{name: 'minuteLabel', content: this.minuteText, classes: 'moon-date-picker-label moon-divider-text'}
 						]},
 						this
@@ -492,7 +492,7 @@
 								{name: 'meridiemLabel', content: this.meridiemText, classes: 'moon-date-picker-label moon-divider-text'}
 							]}
 						);
-						this.$.meridiem.value = this.$.meridiem.getMeridiemIndex(valueHours);
+						this.$.meridiem.value = this.$.meridiem.getMeridiemIndex(values.hour);
 					}
 					break;
 				default:
@@ -655,6 +655,23 @@
 				}
 			}
 			this.$.currentValue.setContent(this.formatValue());
+		},
+
+		/**
+		* @private
+		*/
+		calcPickerValues: function () {
+			var values = {};
+				value = this.localeValue || this.value;
+
+			if (value) {
+				values.hour = value.getHours();
+				values.minute = value.getMinutes();
+			} else {
+				values.hour = values.minute = 0;
+			}
+
+			return values;
 		},
 
 		/**
