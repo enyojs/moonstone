@@ -611,15 +611,21 @@
 		meridiemPickerChanged: function (sender, event) {
 			if(this.syncingPickers) return true;
 
-			var hour = this.$.hour.get('value'),
-				value = event.value;
+			var meridiems = this.meridiems,
+				hour = this.$.hour.getValue(),
+				oldIndex = event.old,
+				newIndex = this.$.meridiem.getMeridiemIndex(hour, this.$.minute.getValue()),
+				offset = hour - parseInt(meridiems[oldIndex]['start']);
 
-			if (this.value) {
-				// value is 0 for am, 1 for pm
-				// reset the hour to < 12 and then add 12 if it's pm
-				hour = hour%12 + value*12;
-				this.updateHours(hour);
+			var start = parseInt(meridiems[newIndex]['start']),
+				end = parseInt(meridiems[newIndex]['end']);
+			hour = offset + start;				
+
+			if (hour > end) {
+				hour = end;
 			}
+
+			this.updateHours(hour);
 
 			return true;
 		},
