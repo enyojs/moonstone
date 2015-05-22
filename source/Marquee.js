@@ -731,14 +731,15 @@
 		*/
 		_marquee_detectAlignment: function (forceAnimate, forceRtl) {
 			var alignment = null,
-				rtl = forceRtl || this.rtl;
-
+				rtl = forceRtl || this.rtl,
+                animate = this._marquee_shouldAnimate();
+            
 			// We only attempt to set the alignment of this control if the locale's directionality
 			// differs from the directionality of our current marqueeable control (as determined by
 			// the control's content or is explicitly specified).
 			if (enyo.Control.prototype.rtl != rtl || this.centered) {
 				// If we will be marqueeing, we know the alignment needs to be set based on directionality.
-				if (forceAnimate || this._marquee_shouldAnimate()) {
+				if (forceAnimate || animate) {
 					if (rtl) {
 						alignment = 'right';
 					} else {
@@ -819,7 +820,7 @@
 			if (!this.generated) return;
 
 			var distance = this._marquee_calcDistance();
-
+            
 			// If there is no need to animate, return early
 			if (!this._marquee_shouldAnimate(distance)) {
 				this._marquee_fits = true;
@@ -884,6 +885,16 @@
 		*/
 		_marquee_shouldAnimate: function (distance) {
 			distance = (distance && distance >= 0) ? distance : this._marquee_calcDistance();
+            
+            //if the distance is exactly 0, then the ellipsis 
+            //most likely are hiding the content, and marquee does not
+            //need to animate
+            if(distance === 0) {
+                this.applyStyle('text-overflow', 'clip');    
+            } else {
+                this.applyStyle('text-ellipsis', 'clip');   
+            }
+            
 			return (distance > 0);
 		},
 
