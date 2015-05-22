@@ -573,7 +573,7 @@
 		hourPickerChanged: function (sender, event) {
 			if(this.syncingPickers) return true;
 
-			var hour = event.value;
+			var hour = this.value.getHours() + (event.value - event.old);
 
 			if (this.value) {
 				this.updateHours(hour);
@@ -638,7 +638,7 @@
 			if (valueTime == this.value.getTime()) {
 				this.value = new Date(valueTime + this.dstOffset);
 			}
-
+			
 			this.set('value', this.value, {force: true});
 		},
 
@@ -647,11 +647,11 @@
 		*/
 		setChildPickers: function (inOld) {
 			if (this.value) {
-				var hour = this.value.getHours();
-				this.$.hour.setValue(hour);
-				this.$.minute.setValue(this.value.getMinutes());
+				var values = this.calcPickerValues()
+				this.$.hour.setValue(values.hour);
+				this.$.minute.setValue(values.minute);
 				if (this.meridiemEnable === true) {					
-					this.$.meridiem.setValue(this.$.meridiem.getMeridiemIndex(hour));
+					this.$.meridiem.setValue(this.$.meridiem.getMeridiemIndex(values.hour));
 				}
 			}
 			this.$.currentValue.setContent(this.formatValue());
@@ -673,6 +673,18 @@
 
 			return values;
 		},
+
+		/**
+		* @private
+		*/
+		valueChanged: function (old) {
+			if (typeof ilib !== 'undefined') {
+				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
+			}
+
+			this.inherited(arguments);
+		},
+
 
 		/**
 		* @private

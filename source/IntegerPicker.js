@@ -338,7 +338,7 @@
 
 			this.scrollToValue(old);
 			this.updateOverlays();
-			this.fireChangeEvent();
+			this.fireChangeEvent(old);
 		},
 
 		stepChanged: function (old) {
@@ -580,10 +580,11 @@
 		* @fires moon.IntegerPicker#onChange
 		* @private
 		*/
-		fireChangeEvent: function () {
+		fireChangeEvent: function (old) {
 			this.doChange({
 				name: this.name,
 				value: this.value,
+				old: old,
 				content: this.labelForValue(this.value)
 			});
 		},
