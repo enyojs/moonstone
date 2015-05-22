@@ -67,13 +67,20 @@
 		* Return index of meridiems array for given hour
 		*
 		* @param  {Number} hour - hour between 0 to 23
+		* @param  {Number} minute - minute between 0 to 59
 		* @return  {Number} index - index of this.meridiems
 		* @private
 		*/
-		getMeridiemIndex: function (hour) {
+		getMeridiemIndex: function (hour, minute) {
 			var meridiems = this.meridiems;
 			for (var i = 0; i < meridiems.length; i++) {
-				if (parseInt(meridiems[i]['start']) <= hour && hour <= parseInt(meridiems[i]['end'])) { 
+				var startArr = meridiems[i]['start'].substring(0,2) + meridiems[i]['start'].substring(3,5),
+					start = parseInt(startArr),
+					endArr = meridiems[i]['end'].substring(0,2) + meridiems[i]['end'].substring(3,5)
+					end = parseInt(endArr);
+					time = hour * 100 + minute;
+					
+				if ( start <= time && time <= end) { 
 					return i; 
 				}
 			}
@@ -492,7 +499,7 @@
 								{name: 'meridiemLabel', content: this.meridiemText, classes: 'moon-date-picker-label moon-divider-text'}
 							]}
 						);
-						this.$.meridiem.value = this.$.meridiem.getMeridiemIndex(values.hour);
+						this.$.meridiem.value = this.$.meridiem.getMeridiemIndex(values.hour, values.minute);
 					}
 					break;
 				default:
@@ -651,7 +658,7 @@
 				this.$.hour.setValue(values.hour);
 				this.$.minute.setValue(values.minute);
 				if (this.meridiemEnable === true) {					
-					this.$.meridiem.setValue(this.$.meridiem.getMeridiemIndex(values.hour));
+					this.$.meridiem.setValue(this.$.meridiem.getMeridiemIndex(values.hour, values.minute));
 				}
 			}
 			this.$.currentValue.setContent(this.formatValue());
