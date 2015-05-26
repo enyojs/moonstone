@@ -1,7 +1,7 @@
 /* Slider Bar */
 .moon-slider-wrapper {
 	&.moon-progress-bar {
-		background-color: #000000;
+		background-color: transparent;
 	}
 
 	.moon-slider {
@@ -11,12 +11,13 @@
 		background-color: @moon-progress-bg-color;
 	}
 
-	.moon-simple-picker-button.left {
-		top: -24px;
-	}
+	.moon-slider-button {
+		position: absolute;
+		top: -24px;	/* offset for margin of .moon-progress-bar */
+		margin: 0;
 
-	.moon-simple-picker-button.right {
-		top: -24px;
+		&.right { right: 0; }
+		&.left { left: 0; }
 	}
 }
 
