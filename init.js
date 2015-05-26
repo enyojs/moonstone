@@ -18,11 +18,8 @@
 	// events in Moonstone with certain input devices.
 	if (enyo && enyo.gesture && enyo.gesture.drag) {
 		enyo.gesture.drag.configureHoldPulse({
-			frequency: 200,
 			events: [{name: 'hold', time: 400}],
-			resume: false,
-			moveTolerance: 16,
-			endHold: 'onMove'
+			endHold: 'onLeave'
 		});
 	}
 

@@ -1,7 +1,7 @@
 (function (enyo, scope) {
 	/**
 	* Fires when the currently selected item changes.
-	* 
+	*
 	* @event moon.SimplePicker#onChange
 	* @type {Object}
 	* @property {enyo.Control} selected - A reference to the currently selected item.
@@ -23,10 +23,10 @@
 	*	{content: 'Tokyo'}
 	* ]}
 	* ```
-	* 
+	*
 	* The picker may be changed programmatically by calling
-	* [previous()]{@link moon.SimplePicker#previous} or [next()]{@link moon.SimplePicker#next}, 
-	* or by modifying the [selectedIndex]{@link moon.SimplePicker#selectedIndex} published 
+	* [previous()]{@link moon.SimplePicker#previous} or [next()]{@link moon.SimplePicker#next},
+	* or by modifying the [selectedIndex]{@link moon.SimplePicker#selectedIndex} published
 	* property by calling `set('selectedIndex', <value>)`.
 	*
 	* The picker options may be modified programmatically in the standard manner, by calling
@@ -155,11 +155,11 @@
 		* @private
 		*/
 		components: [
-			{name: 'buttonLeft',  kind: 'moon.IconButton', noBackground:true, classes: 'moon-simple-picker-button left', icon:'arrowlargeleft', onSpotlightKeyDown:'configureSpotlightHoldPulse', onSpotlightSelect: 'left', ondown: 'downLeft', onholdpulse:'left', defaultSpotlightDisappear: 'buttonRight'},
+			{name: 'buttonLeft',  kind: 'moon.IconButton', noBackground:true, classes: 'moon-simple-picker-button left', icon:'arrowlargeleft', onSpotlightSelect: 'left', ondown: 'downLeft', onholdpulse:'left', defaultSpotlightDisappear: 'buttonRight'},
 			{kind: 'enyo.Control', name: 'clientWrapper', classes:'moon-simple-picker-client-wrapper', components: [
 				{kind: 'enyo.Control', name: 'client', classes: 'moon-simple-picker-client'}
 			]},
-			{name: 'buttonRight', kind: 'moon.IconButton', noBackground:true, classes: 'moon-simple-picker-button right', icon:'arrowlargeright', onSpotlightKeyDown:'configureSpotlightHoldPulse', onSpotlightSelect: 'right', ondown: 'downRight', onholdpulse:'right', defaultSpotlightDisappear: 'buttonLeft'}
+			{name: 'buttonRight', kind: 'moon.IconButton', noBackground:true, classes: 'moon-simple-picker-button right', icon:'arrowlargeright', onSpotlightSelect: 'right', ondown: 'downRight', onholdpulse:'right', defaultSpotlightDisappear: 'buttonLeft'}
 		],
 
 		/**
@@ -413,7 +413,6 @@
 		* @private
 		*/
 		downLeft: function(sender, e) {
-			e.configureHoldPulse({endHold: 'onLeave', delay: 300});
 			this.left(sender, e);
 		},
 
@@ -421,20 +420,10 @@
 		* @private
 		*/
 		downRight: function(sender, e) {
-			e.configureHoldPulse({endHold: 'onLeave', delay: 300});
 			this.right(sender, e);
 		},
 
 		/**
-		* @private
-		*/
-		configureSpotlightHoldPulse: function(sender, e) {
-			if (e.keyCode === 13) {
-				e.configureHoldPulse({endHold: 'onLeave', delay: 300});
-			}
-		},
-
-		/** 
 		* Cycles the selected item to the one before the currently selected item. If chained from
 		* an event, {@link Spotlight} hold pulse events will be canceled once the first item is
 		* reached, unless [wrap]{@link moon.SimplePicker#wrap} is `true`. When calling this method
@@ -457,7 +446,7 @@
 			}
 		},
 
-		/** 
+		/**
 		* Cycles the selected item to the one after the currently selected item. If chained from
 		* an event, {@link Spotlight} hold pulse events will be canceled once the last item is
 		* reached, unless [wrap]{@link moon.SimplePicker#wrap} is `true`. When calling this method
