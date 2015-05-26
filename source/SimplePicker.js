@@ -155,11 +155,11 @@
 		* @private
 		*/
 		components: [
-			{name: 'buttonLeft',  kind: 'moon.IconButton', noBackground:true, classes: 'moon-simple-picker-button left', icon:'arrowlargeleft', onSpotlightKeyDown:'configureSpotlightHoldPulse', onSpotlightSelect: 'left', ondown: 'downLeft', onholdpulse:'left', defaultSpotlightDisappear: 'buttonRight'},
+			{name: 'buttonLeft',  kind: 'moon.IconButton', noBackground:true, classes: 'moon-simple-picker-button left', icon:'arrowlargeleft', onSpotlightSelect: 'left', ondown: 'downLeft', onholdpulse:'left', defaultSpotlightDisappear: 'buttonRight'},
 			{kind: 'enyo.Control', name: 'clientWrapper', classes:'moon-simple-picker-client-wrapper', components: [
 				{kind: 'enyo.Control', name: 'client', classes: 'moon-simple-picker-client'}
 			]},
-			{name: 'buttonRight', kind: 'moon.IconButton', noBackground:true, classes: 'moon-simple-picker-button right', icon:'arrowlargeright', onSpotlightKeyDown:'configureSpotlightHoldPulse', onSpotlightSelect: 'right', ondown: 'downRight', onholdpulse:'right', defaultSpotlightDisappear: 'buttonLeft'}
+			{name: 'buttonRight', kind: 'moon.IconButton', noBackground:true, classes: 'moon-simple-picker-button right', icon:'arrowlargeright', onSpotlightSelect: 'right', ondown: 'downRight', onholdpulse:'right', defaultSpotlightDisappear: 'buttonLeft'}
 		],
 
 		/**
@@ -413,7 +413,6 @@
 		* @private
 		*/
 		downLeft: function(sender, e) {
-			e.configureHoldPulse({delay: 300});
 			this.left(sender, e);
 		},
 
@@ -421,17 +420,7 @@
 		* @private
 		*/
 		downRight: function(sender, e) {
-			e.configureHoldPulse({delay: 300});
 			this.right(sender, e);
-		},
-
-		/**
-		* @private
-		*/
-		configureSpotlightHoldPulse: function(sender, e) {
-			if (e.keyCode === 13) {
-				e.configureHoldPulse({delay: 300});
-			}
 		},
 
 		/**
