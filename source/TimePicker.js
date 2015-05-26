@@ -621,7 +621,9 @@
 				offset = hour - parseInt(meridiems[oldIndex]['start'], 10);
 				start = parseInt(meridiems[newIndex]['start'], 10),
 				end = parseInt(meridiems[newIndex]['end'], 10);
+				/*jshint -W030 */
 				hour = offset + start;
+				/*jshint +W030 */
 
 				if (hour > end) {
 					hour = end;
@@ -694,7 +696,7 @@
 		*/
 		valueChanged: function (old) {
 			if (typeof ilib !== 'undefined') {
-				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
+				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: 'local'});
 			}
 
 			this.inherited(arguments);
