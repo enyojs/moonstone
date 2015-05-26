@@ -75,9 +75,9 @@
 			var meridiems = this.meridiems;
 			for (var i = 0; i < meridiems.length; i++) {
 				var startArr = meridiems[i]['start'].substring(0,2) + meridiems[i]['start'].substring(3,5),
-					start = parseInt(startArr),
-					endArr = meridiems[i]['end'].substring(0,2) + meridiems[i]['end'].substring(3,5)
-					end = parseInt(endArr);
+					start = parseInt(startArr, 10),
+					endArr = meridiems[i]['end'].substring(0,2) + meridiems[i]['end'].substring(3,5),
+					end = parseInt(endArr, 10),
 					time = hour * 100 + minute;
 					
 				if ( start <= time && time <= end) { 
@@ -456,7 +456,7 @@
 		setupPickers: function (ordering) {
 			var orderingArr = ordering.toLowerCase().split('');
 			var doneArr = [];
-			var o,f,l;
+			var o, f, l, values;
 			for(f = 0, l = orderingArr.length; f < l; f++) {
 				o = orderingArr[f];
 				if (doneArr.indexOf(o) < 0) {
@@ -618,9 +618,9 @@
 				offset, start, end;
 
 			if (oldIndex != newIndex) {
-				offset = hour - parseInt(meridiems[oldIndex]['start']);
-				start = parseInt(meridiems[newIndex]['start']),
-				end = parseInt(meridiems[newIndex]['end']);
+				offset = hour - parseInt(meridiems[oldIndex]['start'], 10);
+				start = parseInt(meridiems[newIndex]['start'], 10),
+				end = parseInt(meridiems[newIndex]['end'], 10);
 				hour = offset + start;
 
 				if (hour > end) {
@@ -662,7 +662,7 @@
 		*/
 		setChildPickers: function (inOld) {
 			if (this.value) {
-				var values = this.calcPickerValues()
+				var values = this.calcPickerValues();
 				this.$.hour.setValue(values.hour);
 				this.$.minute.setValue(values.minute);
 				if (this.meridiemEnable === true) {					
@@ -676,7 +676,7 @@
 		* @private
 		*/
 		calcPickerValues: function () {
-			var values = {};
+			var values = {},
 				value = this.localeValue || this.value;
 
 			if (value) {
