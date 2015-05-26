@@ -440,7 +440,7 @@
 		* @private
 		*/
 		downPrevious: function (inSender, inEvent) {
-			inEvent.configureHoldPulse({endHold: 'onLeave', delay: 300});
+			inEvent.configureHoldPulse({delay: 300});
 			this.previous(inSender, inEvent);
 		},
 
@@ -448,7 +448,7 @@
 		* @private
 		*/
 		downNext: function (inSender, inEvent) {
-			inEvent.configureHoldPulse({endHold: 'onLeave', delay: 300});
+			inEvent.configureHoldPulse({delay: 300});
 			this.next(inSender, inEvent);
 		},
 
