@@ -11,11 +11,8 @@ exports.version = '2.6.0-pre';
 // Override the default holdpulse config to account for greater delays between keydown and keyup
 // events in Moonstone with certain input devices.
 gesture.drag.configureHoldPulse({
-	frequency: 200,
 	events: [{name: 'hold', time: 400}],
-	resume: false,
-	moveTolerance: 16,
-	endHold: 'onMove'
+	endHold: 'onLeave'
 });
 
 /**
