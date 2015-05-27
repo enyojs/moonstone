@@ -691,8 +691,11 @@
 				// result in the appropriate text-align rule not being applied. For example, this
 				// can occur with a moon.Header that is located inside a moon.Scroller which has
 				// vertical scrollbars visible.
-				this._marquee_calcDistance();
 				this._marquee_detectAlignment();
+				
+				setTimeout(enyo.bindSafely(this, function(){
+					this._marquee_calcDistance();
+				}), enyo.platform.firefox ? 100 : 16);
 			};
 		}),
 
@@ -788,6 +791,10 @@
 			if (this.generated) {
 				this._marquee_invalidateMetrics();
 				this._marquee_detectAlignment();
+				
+				setTimeout(enyo.bindSafely(this, function(){
+					this._marquee_calcDistance();
+				}), enyo.platform.firefox ? 100 : 16);
 			}
 			this._marquee_reset();
 		},
