@@ -4414,7 +4414,12 @@ html {
   width: auto;
   height: auto;
   position: relative;
-  overflow: visible;
+  overflow: auto;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+}
+.matrix-scroll-client::-webkit-scrollbar {
+  width: 0 !important;
 }
 .matrix3dsurface {
   -webkit-transform-origin: center center;
