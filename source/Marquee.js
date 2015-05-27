@@ -788,7 +788,7 @@
 			if (this.generated) {
 				this._marquee_invalidateMetrics();
 				this._marquee_detectAlignment();
-				setTimeout(enyo.bindSafely(this, this._marquee_calcDistance), enyo.platform.firefox ? 100 : 16);
+				this._marquee_calcDistance();
 			}
 			this._marquee_reset();
 		},
