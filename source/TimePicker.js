@@ -442,10 +442,7 @@
 					fmtParams.locale = this.locale;
 				}
 				var merFormatter = new ilib.DateFmt(fmtParams);
-				if (merFormatter.meridiems == 'chinese') {
-					merFormatter.meridiems = 'default';
-				}
-
+				
 				this.meridiems = merFormatter.getMeridiemsRange(fmtParams);
 			}
 		},
