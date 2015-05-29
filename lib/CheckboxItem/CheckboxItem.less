@@ -1,7 +1,18 @@
 .moon-checkbox-item {
 	position: relative;
 	overflow: hidden;
+	// Item
 	padding: @moon-spotlight-outset;
+
+	&.spotlight {
+		background-color: @moon-accent;
+		color: @moon-white;
+	}
+
+	&.disabled {
+		cursor: default;
+		opacity: @moon-disabled-opacity;
+	}
 
 	// Checkbox
 	.moon-checkbox {
@@ -66,4 +77,9 @@
 			margin-left: 0px;
 		}
 	}
+}
+
+/* For non latin locale */
+.enyo-locale-non-latin .moon-checkbox-item {
+	.enyo-locale-non-latin .moon-sub-header-text;
 }
