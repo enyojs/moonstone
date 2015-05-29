@@ -1,0 +1,6 @@
+{
+	"main": "ImageMultiRes.js",
+	"styles": [
+		"ImageMultiRes.less"
+	]
+}
