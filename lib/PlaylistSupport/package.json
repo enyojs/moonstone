@@ -1,0 +1,6 @@
+{
+	"main": "PlaylistSupport.js",
+	"styles": [
+		"PlaylistSupport.less"
+	]
+}

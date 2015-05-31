@@ -6,15 +6,23 @@
 		padding: 36px 0 18px;
 	}
 }
+.moon-audio-playback-controls {
+	height: 192px;
+}
 .moon-audio-playback-top {
 	direction: ltr;
-	position: relative;
+	position: absolute;
 	height: 84px;
-	margin-top: 24px;
+	top: 60px;
+	left: 0;
+	right: 0;
 }
 .moon-audio-playback-bottom {
-	position: relative;
-	margin-top: 24px;
+	position: absolute;
+	bottom: 0px;
+	left: 0;
+	right: 0;
+	height: 84px;
 }
 
 .moon-audio-track-icon,
@@ -22,6 +30,7 @@
 .moon-audio-control-buttons,
 .moon-audio-more-buttons {
 	position: absolute;
+	white-space: nowrap;
 }
 .moon-audio-track-info {
 	left: 128px;
@@ -43,7 +52,7 @@
 	text-align: right;
 }
 .moon-audio-track-icon {
-	left: 0px;
+	left: 12px;
 	width: 84px;
 	height: 84px;
 	margin: 0;
