@@ -1,13 +1,30 @@
 /* Button */
 
-@-webkit-keyframes moonButtonBulge {
-	0%, 100% { transform: translateZ(0); }
-	60%      { transform: translateZ(0) scale(1.05); }
-}
+// Local scope for some math variables
+& {
+	@moon-button-pressed-scaled-up: (1 + @moon-button-pressed-scale);
+	@moon-button-pressed-scaled-down: (1 - (((1 - @moon-button-pressed-scale) / (1 + @moon-button-pressed-scale)) * @moon-button-pressed-scale));
 
-@-webkit-keyframes moonButtonContract {
-	0%, 100% { transform: translateZ(0); }
-	60%      { transform: translateZ(0) scale(0.9523); }
+	@-webkit-keyframes moonButtonExpand {
+		// Blink/Webkit doesn't yet support "@keyframes" so we must use both prefixed and non-prefixed in this section
+		60% {
+			-webkit-transform: translateZ(0) scale(@moon-button-pressed-scaled-up);
+			transform: translateZ(0) scale(@moon-button-pressed-scaled-up);
+		}
+	}
+	@-webkit-keyframes moonButtonContract {
+		60% {
+			-webkit-transform: translateZ(0) scale(0.9523);
+			transform: translateZ(0) scale(@moon-button-pressed-scaled-down);
+		}
+	}
+
+	@keyframes moonButtonExpand {
+		60% { transform: translateZ(0) scale(@moon-button-pressed-scaled-up); }
+	}
+	@keyframes moonButtonContract {
+		60% { transform: translateZ(0) scale(@moon-button-pressed-scaled-down); }
+	}
 }
 
 .moon-button {
@@ -27,13 +44,14 @@
 	padding: 0 @moon-button-h-padding;
 	margin: 0 @moon-spotlight-outset;
 	color: @moon-button-text-color;
-	-webkit-transform: translateZ(0);
 	-webkit-transition: transform 0.2s ease-out;
-	transform: translateZ(0);
-	transition: transform 0.2s ease-out;
 	-webkit-animation-duration: 0.2s;
 	-webkit-animation-iteration-count: 1;
 	-webkit-animation-timing-function: ease-out;
+	transition: transform 0.2s ease-out;
+	animation-duration: 0.2s;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-out;
 
 	> * {
 		text-align: center;
@@ -47,6 +65,9 @@
 		-webkit-animation-duration: 0.2s;
 		-webkit-animation-iteration-count: 1;
 		-webkit-animation-timing-function: ease-out;
+		animation-duration: 0.2s;
+		animation-iteration-count: 1;
+		animation-timing-function: ease-out;
 	}
 
 	&.min-width {
@@ -57,10 +78,12 @@
 	&.pressed,
 	&.spotlight.pressed,
 	&.spotlight:active {
-		-webkit-animation-name: moonButtonBulge;
+		-webkit-animation-name: moonButtonExpand;
+		animation-name: moonButtonExpand;
 
 		.moon-marquee {
 			-webkit-animation-name: moonButtonContract;
+			animation-name: moonButtonContract;
 		}
 	}
 
