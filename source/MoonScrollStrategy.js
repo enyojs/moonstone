@@ -118,7 +118,7 @@
 		components: [
 			{name: 'clientContainer', classes: 'moon-scroller-client-wrapper', components: [
 				{name: 'viewport', classes:'moon-scroller-viewport', components: [
-					{name: 'client', classes: 'enyo-touch-scroller matrix-scroll-client matrix3dsurface'}
+					{name: 'client', classes: 'enyo-touch-scroller enyo-touch-scroller-client matrix-scroll-client matrix3dsurface'}
 				]}
 			]},
 			{name: 'vColumn', classes: 'moon-scroller-v-column', components: [
