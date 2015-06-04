@@ -1,3 +1,10 @@
+// Import the correct set of variables - dark by default but applications can decide by overwriting
+// the variable to be 'light'
+@import 'moonstone-variables-@{moon-theme}.less';
+
+// default value
+@moon-theme: 'dark';
+
 // App
 // ---------------------------------------
 @moon-app-keepout: 18px;
@@ -194,7 +201,7 @@
 @moon-button-small-text-size: 24px;
 @moon-button-large-min-width: 180px;
 @moon-button-small-min-width: 132px;
-@moon-button-h-padding: 18px;
+@moon-button-h-padding: 27px;
 @moon-button-small-h-padding: 18px;
 
 // Header
