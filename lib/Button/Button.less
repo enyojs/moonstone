@@ -31,24 +31,20 @@
 		min-width: @moon-button-large-min-width;
 	}
 
-	//to handle transparent
-	.translucent(@translucent) {
-		color: @moon-translucent-font-color;
-		background-color: fade(@moon-button-background-color, @translucent);
+	// //to handle transparent
+	// .translucent(@translucent) {
+	// 	color: @moon-translucent-font-color;
+	// 	background-color: fade(@moon-button-background-color, @translucent);
+	// }
+
+	&.translucent:not(.disabled) {
+		background-color: fade(@moon-button-background-color, @moon-button-translucent-opacity);
 	}
 
-	&.translucent-opaque:not(.disabled) {
-		.translucent(100%);
+	&.transparent:not(.disabled) {
+		background-color: transparent;
 	}
 
-	&.translucent-translucent:not(.disabled) {
-		.translucent(30%);
-	}
-
-	&.translucent-transparent:not(.disabled) {
-		.translucent(0%);
-	}
-	
 	&.active,
 	&.pressed,
 	&.spotlight.pressed,
@@ -56,9 +52,18 @@
 		border: @moon-button-border-width solid @moon-spotlight-border-color;
 		background-color: @moon-button-background-color;
 		color: @moon-button-text-color;
+
+		&.translucent:not(.disabled) {
+			background-color: fade(@moon-button-background-color, @moon-button-translucent-opacity);
+		}
+		&.transparent:not(.disabled) {
+			background-color: transparent;
+		}
 	}
 
-	&.spotlight {
+	&.spotlight,
+	&.spotlight.translucent:not(.disabled),
+	&.spotlight.transparent:not(.disabled) {
 		background-color: @moon-spotlight-border-color;
 		color: @moon-spotlight-text-color;
 	}
@@ -73,12 +78,26 @@
 		&.pressed {
 			border-color: @moon-spotlight-border-color;
 		}
+
+		&.translucent:not(.disabled) {
+			background-color: fade(@moon-button-background-color, @moon-button-translucent-opacity);
+		}
+		&.transparent:not(.disabled) {
+			background-color: transparent;
+		}
 	}
 
 	&[disabled] {
 		cursor: default;
 		color: @moon-button-disabled-text-color;
 		background-color: @moon-button-disabled-bg-color;
+
+		&.translucent {
+			background-color: fade(@moon-button-background-color, @moon-button-translucent-opacity);
+		}
+		&.transparent {
+			background-color: transparent;
+		}
 	}
 
 	> .button-tap-area {
