@@ -37,15 +37,15 @@
 		background-color: fade(@moon-button-background-color, @translucent);
 	}
 
-	&.translucent-opaque {
+	&.translucent-opaque:not(.disabled) {
 		.translucent(100%);
 	}
 
-	&.translucent-translucent {
+	&.translucent-translucent:not(.disabled) {
 		.translucent(30%);
 	}
 
-	&.translucent-transparent {
+	&.translucent-transparent:not(.disabled) {
 		.translucent(0%);
 	}
 	
