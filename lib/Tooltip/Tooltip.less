@@ -79,3 +79,24 @@
 		border-radius: @moon-button-border-radius;
 	}
 }
+ 
+ /* classes suports multiline tooltip */
+
+.moon-tooltip-multiline {
+	height: @multi-tooltip-multiline-height;
+} 
+.moon-tooltip-multi-support {
+	padding-top: @moon-tooltip-multiline-padding;
+	padding-bottom: @moon-tooltip-multiline-padding;
+	line-height: @moon-tooltip-multiline-line-height;
+}
+.moon-tooltip.above.left-arrow .moon-tooltip-multi-support {
+	&:before {
+		top: 47px;
+	}
+}
+.moon-tooltip.above.right-arrow .moon-tooltip-multi-support {
+	&:before {
+		top: 47px;
+	}
+}
