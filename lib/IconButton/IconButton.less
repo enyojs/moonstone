@@ -24,6 +24,24 @@
 		}
 	}
 
+	//to handle transparent
+	.translucent(@translucent) {
+		color: @moon-translucent-font-color;
+		background-color: fade(@moon-icon-button-bg-color, @translucent);
+	}
+
+	&.translucent-opaque:not(.disabled) {
+		.translucent(100%);
+	}
+
+	&.translucent-translucent:not(.disabled) {
+		.translucent(30%);
+	}
+
+	&.translucent-transparent:not(.disabled) {
+		.translucent(0%);
+	}
+
 	&.hover:hover:not(.disabled),
 	&.spotlight {
 		color: @moon-spotlight-text-color;
