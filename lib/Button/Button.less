@@ -31,6 +31,24 @@
 		min-width: @moon-button-large-min-width;
 	}
 
+	//to handle transparent
+	.translucent(@translucent) {
+		color: @moon-translucent-font-color;
+		background-color: fade(@moon-button-background-color, @translucent);
+	}
+
+	&.translucent-opaque {
+		.translucent(100%);
+	}
+
+	&.translucent-translucent {
+		.translucent(30%);
+	}
+
+	&.translucent-transparent {
+		.translucent(0%);
+	}
+	
 	&.active,
 	&.pressed,
 	&.spotlight.pressed,
