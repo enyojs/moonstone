@@ -1,120 +1,147 @@
 /* AudioPlayback.css */
 .moon-audio-playback {
-	background-color: @moon-audio-playback-bg-color;
 	font-size: 30px;
+	.moon-drawer-partial-client {
+		padding: 26px 0 0 0;
+	}
 }
-.moon-audio-playback-track-icon {
+.moon-audio-playback-controls {
 	position: relative;
-	top: 6px;
-	left: 4px;
-	width: 128px;
-	height: 128px;
-	background: transparent url() no-repeat 0px 0px;
-	display: inline-block;
+	height: 230px;
+	background-color: rgba(51, 51, 51, 0.3);
 }
-.moon-audio-playback-playtime {
-	font-size: 20px;
+.moon-audio-playback-top {
+	direction: ltr;
+	position: absolute;
+	height: 84px;
+	top: 36px;
+	left: 0;
+	right: 0;
 }
+.moon-audio-playback-bottom {
+	position: absolute;
+	bottom: 0px;
+	left: 0;
+	right: 0;
+	height: 84px;
+}
+
+.moon-audio-track-icon,
 .moon-audio-track-info,
-.moon-audio-control-buttons > * {
-	display: inline-block;
-	top: 6px;
+.moon-audio-control-buttons,
+.moon-audio-more-buttons {
+	position: absolute;
+	white-space: nowrap;
 }
+.moon-audio-track-info {
+	left: 128px;
+	width: 360px;
+}
+.moon-audio-track-info > * {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.moon-audio-control-buttons {
+	left: 0;
+	right: 0;
+	text-align: center;
+}
+.moon-audio-more-buttons {
+	right: 0px;
+	width: 510px;
+	text-align: right;
+}
+.moon-audio-track-icon {
+	left: 12px;
+	width: 84px;
+	height: 84px;
+	margin: 0;
+}
+
 .moon-audio-play-time {
+	position: absolute;
+	bottom: 0px;
 	width: 80px;
+	height: 84px;
+	line-height: 84px;
 	font-size: 20px;
-	padding-top: 72px;
+	pointer-events: none;
+	font-size: 30px;
+	font-family: @moon-header-font-family;
+	font-weight: bold;
+	color: @moon-white;
 }
 .moon-audio-play-time.left {
-	text-align: left;
+	text-align: right;
+	left: 0;
 }
 .moon-audio-play-time.right {
-	text-align: right;
+	text-align: left;
+	right: 0;
 }
 .moon-audio-track-count.right {
 	float: right;
-}
-.moon-audio-track-info {
-	width: 40%;
-	padding: 0 10px;
 }
 .enyo-locale-right-to-left .moon-audio-track-info {
 	text-align: right;
 	direction: rtl;
 }
-.moon-audio-top {
-	height: 65px;
-	padding-top: 15px;
-}
+
+
+
 /* AudioPlayback styles for IconButton */
 .moon-audio-icon-button {
-	background-color: @moon-audio-icon-button-bg-color;
-	margin: 8px 4px;
+	margin: 0 4px;
 }
-.moon-audio-icon-button.left {
-	float: left;
-}
-.moon-audio-icon-button.right {
-	float: right;
-}
+
+
 /* AudioPlayback styles for Slider */
-.moon-audio-slider-container {
-	padding-top: 10px;
+
+@moon-audio-slider-knob-size: 24px;
+@moon-audio-slider-height: 84px;
+@moon-audio-slider-bg-color: #323232;
+
+.moon-audio-slider {
+	margin: 0;
+	height: @moon-audio-slider-height;
+	width: 100%;
+	background-color: @moon-audio-slider-bg-color;
+	&.visible .moon-audio-slider-knob {
+		display: block;
+	}
 }
-.moon-audio-slider.spotlight > .moon-slider-knob {
-	background-color: @moon-audio-slider-knob-spotlight-bg-color;
+
+/* ----- Knob ---- */
+
+.moon-audio-slider-knob {
+	position: absolute;
+	width: @moon-audio-slider-knob-size;
+	top: 0;
+	height: @moon-audio-slider-knob-size/2;
+	border-radius: @moon-audio-slider-knob-size;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	background-color: #fff;
+	pointer-events: none;
+	display: none;
 }
-.moon-audio-slider > .moon-slider-knob,
-.moon-audio-slider > .moon-slider-knob.disabled:active:hover {
-	height: 30px;
-	width: 30px;
-	border-radius: 15px;
-	margin: -13px -16px;
-	background-color: @moon-audio-slider-knob-bg-color;
+
+/* ---- Bar ---- */
+.moon-audio-slider-bar-bar {
+	height: 100%;
+	background-color: @moon-accent;
+	position: absolute;
+	top: 0;
 }
-.moon-audio-slider > .moon-slider-knob.active,
-.moon-audio-slider > .moon-slider-knob.spotselect,
-.moon-audio-slider > .moon-slider-knob:active:hover {
-	height: 34px;
-	width: 34px;
-	border-radius: 17px;
-	margin: -15px -18px;
-	background-color: @moon-audio-slider-knob-bg-color;
+.moon-audio-slider-bg-bar {
+	height: 100%;
+	background-color: @moon-dark-gray;
+	position: absolute;
+	top: 0;
 }
-.moon-audio-slider.moon-progress-bar {
-	background-color: @moon-audio-progress-bar-bg-color;
-	margin: 0px;
-	top: 10px;
-}
-.moon-audio-slider > .moon-progress-bar-bar {
-	background-color: @moon-audio-progress-bar-bar-bg-color;
-}
-/* AudioPlayback styles for queue */
-.moon-audio-playback-queue {
-	margin: 0px 40px;
-}
-/* AudioPlayback styles for queue list items */
-.moon-audio-queue-list {
-	height: 100px;
-	padding: 12px 16px;
-	border-top: 1px solid transparent;
-	border-bottom: 1px solid transparent;
-}
-.moon-audio-queue-list-selected {
-	background-color: @moon-audio-queue-selected-bg-color;
-	border-color: @moon-audio-queue-selected-border-color;
-}
-.moon-audio-queue-list > * {
-	display: inline-block;
-	vertical-align: middle;
-}
-.moon-audio-queue-album-art {
-	width: 80px;
-	height: 80px;
-	background: transparent none no-repeat 0px 0px;
-	padding-right: 10px;
-}
-.enyo-locale-right-to-left .moon-audio-queue-album-art {
-	padding-right: 0;
-	padding-left: 10px;
+.moon-audio-slider-taparea {
+	position: absolute;
+	height: 100%;
+	width: 100%;
 }
