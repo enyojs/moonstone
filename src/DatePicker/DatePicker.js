@@ -246,11 +246,12 @@ module.exports = kind(
 		var day = this.$.day.getValue(),
 			month = this.$.month.getValue(),
 			year = this.$.year.getValue(),
-			maxDays;
-		var valueHours = this.value ? this.value.getHours() : 0;
-		var valueMinutes = this.value ? this.value.getMinutes() : 0;
-		var valueSeconds = this.value ? this.value.getSeconds() : 0;
-		var valueMilliseconds = this.value ? this.value.getMilliseconds() : 0;
+			maxDays,
+			value = this.localeValue || this.value;
+		var valueHours = value ? value.getHours() : 0;
+		var valueMinutes = value ? value.getMinutes() : 0;
+		var valueSeconds = value ? value.getSeconds() : 0;
+		var valueMilliseconds = value ? value.getMilliseconds() : 0;
 
 		maxDays = this.monthLength(year, month);
 		this.localeValue = dateFactory({
@@ -260,7 +261,8 @@ module.exports = kind(
 			hour: valueHours,
 			minute: valueMinutes,
 			second: valueSeconds,
-			millisecond: valueMilliseconds
+			millisecond: valueMilliseconds,
+			timezone: 'local'
 		});
 		this.setValue(this.localeValue.getJSDate());
 
