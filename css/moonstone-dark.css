@@ -1465,9 +1465,9 @@ html {
 }
 .moon-expandable-list-item-client .moon-item {
   font-family: "MuseoSans 300";
-  font-size: 1.375rem;
+  font-size: 1.125rem;
   color: #a6a6a6;
-  line-height: 1.625rem;
+  line-height: 1.375rem;
 }
 .moon-expandable-list-item-client .moon-item a:link {
   color: #cf0652;
