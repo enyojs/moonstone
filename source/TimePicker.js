@@ -611,21 +611,21 @@
 			var meridiems = this.meridiems,
 				hour = this.$.hour.getValue(),
 				oldIndex = event.old,
-				newIndex = this.$.meridiem.getMeridiemIndex(hour, this.$.minute.getValue()),
-				offset, start, end;
+				newIndex = this.$.meridiem.getValue(),
+				offset, start, end, newHour;
 
-			if (oldIndex != newIndex) {
-				/*jshint -W030 */
-				offset = hour - parseInt(meridiems[oldIndex]['start'], 10);
-				start = parseInt(meridiems[newIndex]['start'], 10),
-				end = parseInt(meridiems[newIndex]['end'], 10);				
-				hour = offset + start;
-				/*jshint +W030 */
+			/*jshint -W030 */
+			offset = hour - parseInt(meridiems[oldIndex]['start'], 10);
+			start = parseInt(meridiems[newIndex]['start'], 10);
+			end = parseInt(meridiems[newIndex]['end'], 10);
+			newHour = offset + start;				
+			/*jshint +W030 */
 
-				if (hour > end) {
-					hour = end;
+			if (newHour != hour) {
+				if (newHour > end) {
+					newHour = end;
 				}
-				this.updateHours(hour);
+				this.updateHours(this.value.getHours() + (newHour - hour));
 			}
 
 			return true;
