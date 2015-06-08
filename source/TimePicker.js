@@ -580,7 +580,7 @@
 			var hour = this.value.getHours() + (event.value - event.old);
 
 			if (this.value) {
-				this.updateHours(hour);
+				this.updateValue('hour', hour);
 			}
 
 			return true;
@@ -625,7 +625,12 @@
 				if (newHour > end) {
 					newHour = end;
 				}
-				this.updateHours(this.value.getHours() + (newHour - hour));
+				this.updateValue('hour', this.value.getHours() + (newHour - hour));
+			} else {
+				// there is only single case. 
+				// Ethiopia calendar has different meridiem status between 06:00 and 06:01
+				start = parseInt(meridiems[newIndex]['start'].split(':')[1], 10);
+				this.updateValue('minute', this.value.getMinutes() + start);
 			}
 
 			return true;
@@ -642,10 +647,14 @@
 		/**
 		* @private
 		*/
-		updateHours: function (hour) {
+		updateValue: function (pickerName, newValue) {
 			var valueTime = this.value.getTime();
 
-			this.value.setHours(hour);
+			if (pickerName == 'hour') {
+				this.value.setHours(newValue);	
+			} else {
+				this.value.setMinutes(newValue);
+			}
 
 			// in the rare case that the value didn't change because it was snapped back to the
 			// same value due to DST rules, push it back another hour.
