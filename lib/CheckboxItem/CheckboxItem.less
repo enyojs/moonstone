@@ -5,12 +5,12 @@
 	// Checkbox
 	.moon-checkbox {
 		position: absolute;
-		top: @moon-spotlight-outset - 3;
+		top: 0;
 		right: @moon-spotlight-outset - 3;
 	}
 	// Label
 	.moon-checkbox-item-label-wrapper {
-		height: @moon-item-line-height;
+		line-height: inherit;
 		margin-right: @moon-item-indent;
 	}
 
@@ -35,11 +35,6 @@
 
 .moon-neutral .moon-checkbox[checked]:after {
 	color: @moon-white;
-}
-
-/* Special treatment inside of ExpandablePicker (checkbox nudged up) */
-.moon-expandable-picker .moon-checkbox-item .moon-checkbox {
-	top: @moon-spotlight-outset;
 }
 
 /* Right to left */

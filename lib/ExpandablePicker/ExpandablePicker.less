@@ -4,6 +4,7 @@
 	display: inline-block;
 	padding-right: @moon-spotlight-outset + 30px;
 	position: relative;
+	vertical-align: top;
 
 	&:after {
 		position: absolute;
@@ -12,7 +13,6 @@
 		font-family: @moon-icon-font-family;
 		content: @moon-icon-arrowlargedown;
 		font-size: @moon-expandable-caret-icon-font-size;
-		line-height: @moon-icon-small-size;
 	}
 	&.spotlight {
 		color: @moon-white;
@@ -38,9 +38,9 @@
 
 /* Current Value */
 .moon-expandable-picker-current-value {
-	.moon-body-text;
+	font-family: @moon-expandable-value-font-family;
 	color: @moon-expandable-picker-text-color;
-	margin: 0px;
+	margin-top: -6px;	// Negative value to compensate for the taller line-height needed for tall-glyph charecters
 }
 .enyo-locale-right-to-left .moon-expandable-picker-current-value {
 	padding-left: 0;
