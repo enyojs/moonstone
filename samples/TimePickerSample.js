@@ -65,7 +65,13 @@ enyo.kind({
 	},
 	timeChanged: function(inSender, inEvent) {
 		if (this.$.result && inEvent.value){
-			var timeArray = inEvent.value.toTimeString().split(":");
+			var timeArray;
+			if (inSender.localeValue) {
+				timeArray = inSender._tf.format(ilib.Date.newInstance({unixtime: inSender.localeValue.getTime(), timezone:'Etc/UTC'})).toString().split(':')
+			} else {
+				timeArray = inEvent.value.toTimeString().split(":");
+			}
+			
 			this.$.result.setContent(inEvent.name + " changed to " + timeArray[0] + ":" + timeArray[1]);
 		}
 	},
