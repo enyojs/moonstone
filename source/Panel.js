@@ -245,7 +245,7 @@
 					]}
 				]}
 			]},
-			{name: 'viewport', classes: 'moon-panel-viewport', onwebkitAnimationEnd: 'animationComplete', components: [
+			{name: 'viewport', classes: 'moon-panel-viewport', onwebkitAnimationEnd: 'animationComplete', onanimationend: 'animationComplete', components: [
 				{name: 'contentWrapper', kind:'FittableRows', classes: 'moon-panel-content-wrapper', components: [
 					/* header will be created here programmatically in createTools after mixing-in headerOptions */
 					{name: 'panelBody', kind: 'FittableRows', fit: true, classes: 'moon-panel-body'}
