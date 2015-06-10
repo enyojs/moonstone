@@ -614,12 +614,10 @@
 				newIndex = this.$.meridiem.getValue(),
 				offset, start, end, newHour;
 
-			/*jshint -W030 */
 			offset = hour - parseInt(meridiems[oldIndex]['start'], 10);
 			start = parseInt(meridiems[newIndex]['start'], 10);
 			end = parseInt(meridiems[newIndex]['end'], 10);
 			newHour = offset + start;
-			/*jshint +W030 */
 
 			if (newHour != hour) {
 				if (newHour > end) {
