@@ -12,20 +12,25 @@
 .moon-expandable-list-item.open .moon-expandable-list-item-client {
   margin-bottom: 12px;
 }
-.moon-expandable-list-item-client .moon-item {
-	.moon-body-text;
+.moon-expandable-list-item-client {
+	.moon-item {
+		.moon-body-text;
+		line-height: @moon-item-line-height;
+
+		&.spotlight {
+			color: @moon-white;
+		}
+		&:last-child {
+			margin-bottom: 0px;
+		}
+	}
+	&.indented {
+		padding-left: @moon-item-indent + @moon-spotlight-outset;
+	}
 }
+
 .enyo-locale-non-latin .moon-expandable-list-item-client .moon-item {
 	.enyo-locale-non-latin .moon-body-text;
-}
-.moon-expandable-list-item-client .moon-item.spotlight {
-	color: @moon-white;
-}
-.moon-expandable-list-item-client .moon-item:last-child {
-	margin-bottom: 0px;
-}
-.moon-expandable-list-item-client.indented {
-	padding-left: @moon-item-indent + @moon-spotlight-outset;
 }
 .enyo-locale-right-to-left .moon-expandable-list-item-client.indented {
 	padding-left: 0;
