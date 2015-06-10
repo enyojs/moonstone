@@ -832,6 +832,7 @@
 			// Lazy creation of _this.$.marqueeText_
 			if (!this.$.marqueeText) {
 				this._marquee_createMarquee();
+				distance = this._marquee_calcDistance();
 			}
 
 			this._marquee_addAnimationStyles(distance);
