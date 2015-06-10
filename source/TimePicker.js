@@ -492,7 +492,7 @@
 					if (this.meridiemEnable === true) {
 						this.createComponent(
 							{classes: 'moon-date-picker-wrap', components:[
-								{kind:'moon.MeridiemPicker', name:'meridiem', classes:'moon-date-picker-field', meridiems: this.meridiems || [{name: 'AM', start: '00:00', end: '11:59'}, {name: 'PM', start: '12:00', end: '23:59'}], max: this.meridiems.length - 1 || 1, onChange: 'meridiemPickerChanged'},
+								{kind:'moon.MeridiemPicker', name:'meridiem', classes:'moon-date-picker-field', meridiems: this.meridiems || [{name: 'AM', start: '00:00', end: '11:59'}, {name: 'PM', start: '12:00', end: '23:59'}], max: this.meridiems? this.meridiems.length - 1 : 1, onChange: 'meridiemPickerChanged'},
 								{name: 'meridiemLabel', content: this.meridiemText, classes: 'moon-date-picker-label moon-divider-text'}
 							]}
 						);
