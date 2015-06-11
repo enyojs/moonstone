@@ -1135,13 +1135,15 @@ html {
 }
 /* SelectableItem.css */
 .moon-selectable-item.selected {
-  padding: 0.5rem 0.5rem 0.5rem 2rem;
+  padding-left: 2rem;
 }
 .moon-selectable-item.selected:before {
   content: '';
   position: absolute;
   left: 0.5rem;
-  top: 0.75rem;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
   width: 0.75rem;
   height: 0.75rem;
   border-radius: 0.375rem;
@@ -1151,7 +1153,8 @@ html {
   background-color: #ffffff;
 }
 .enyo-locale-right-to-left .moon-selectable-item.selected {
-  padding: 0.5rem 2rem 0.5rem 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 2rem;
 }
 .enyo-locale-right-to-left .moon-selectable-item.selected:before {
   left: auto;
@@ -1353,7 +1356,9 @@ html {
   content: '';
   position: absolute;
   left: 0.5rem;
-  top: 0.75rem;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
   width: 0.5rem;
   height: 0.5rem;
   border: solid 0.125rem #ffffff;
@@ -3188,9 +3193,6 @@ html {
   padding-right: 0;
   padding-left: 1.75rem;
 }
-.moon-accordion .moon-accordion-header-wrapper {
-  height: 1.2em;
-}
 /* Calendar.css */
 .moon-calendar-picker {
   display: inline-block;
@@ -4595,7 +4597,9 @@ html {
 }
 .moon-item.moon-formcheckbox-item .moon-checkbox {
   position: absolute;
-  top: 0.25rem;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
   left: 0.5rem;
   width: 2rem;
   height: 2rem;
@@ -4608,7 +4612,7 @@ html {
   padding-bottom: 0.125rem;
 }
 .moon-item.moon-formcheckbox-item .moon-checkbox-item-label-wrapper {
-  padding: 0.5rem 0.5rem;
+  padding: 0.125rem 0.5rem;
   margin-left: 2rem;
 }
 .enyo-locale-right-to-left .moon-item.moon-formcheckbox-item {
