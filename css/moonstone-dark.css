@@ -1897,7 +1897,6 @@ html {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1.875rem;
 }
 .moon-input::selection {
   color: #ffffff;
@@ -1967,7 +1966,7 @@ html {
   opacity: 0.6;
 }
 .moon-input-decorator:not(.moon-input-header-input-decorator) {
-  padding: 0.25rem 1.25rem;
+  padding: 0.5rem 1.25rem;
   border-radius: 4rem;
 }
 .moon-textarea-decorator {
