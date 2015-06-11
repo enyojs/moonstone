@@ -74,10 +74,8 @@
 		getMeridiemIndex: function (hour, minute) {
 			var meridiems = this.meridiems;
 			for (var i = 0; i < meridiems.length; i++) {
-				var start = parseInt(meridiems[i]['start'].substring(0,2), 10) * 100
-						+ parseInt(meridiems[i]['start'].substring(3,5), 10);
-				var end = parseInt(meridiems[i]['end'].substring(0,2), 10) * 100
-						+ parseInt(meridiems[i]['end'].substring(3,5), 10);
+				var start = parseInt(meridiems[i]['start'].substring(0,2) + meridiems[i]['start'].substring(3,5), 10);
+				var end = parseInt(meridiems[i]['end'].substring(0,2) + meridiems[i]['end'].substring(3,5), 10);
 				var time = hour * 100 + minute;
 					
 				if ( start <= time && time <= end) { 
@@ -699,7 +697,7 @@
 		* @private
 		*/
 		valueChanged: function (old) {
-			if (typeof ilib !== 'undefined') {
+			if (typeof ilib !== 'undefined' && this.value) {
 				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: 'local'});
 			}
 
