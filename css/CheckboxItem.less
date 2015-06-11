@@ -5,12 +5,12 @@
 	// Checkbox
 	.moon-checkbox {
 		position: absolute;
-		top: @moon-spotlight-outset - 3;
+		top: 0;
 		right: @moon-spotlight-outset - 3;
 	}
 	// Label
 	.moon-checkbox-item-label-wrapper {
-		height: @moon-item-line-height;
+		line-height: inherit;
 		margin-right: @moon-item-indent;
 	}
 
@@ -37,16 +37,11 @@
 	color: @moon-white;
 }
 
-/* Special treatment inside of ExpandablePicker (checkbox nudged up) */
-.moon-expandable-picker .moon-checkbox-item .moon-checkbox {
-	top: @moon-spotlight-outset;
-}
-
 /* Right to left */
 .enyo-locale-right-to-left .moon-checkbox-item {
 	// Checkbox
 	.moon-checkbox {
-		left: @moon-spotlight-outset + 3;
+		left: @moon-spotlight-outset - 3;
 		right: auto;
 	}
 	.moon-checkbox-item-label-wrapper {

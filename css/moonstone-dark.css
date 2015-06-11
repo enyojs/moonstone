@@ -893,7 +893,6 @@ html {
 /* Checkbox.css */
 .moon-checkbox {
   cursor: pointer;
-  height: 1.5rem;
 }
 .moon-checkbox .moon-icon {
   visibility: hidden;
@@ -920,11 +919,11 @@ html {
 }
 .moon-checkbox-item .moon-checkbox {
   position: absolute;
-  top: 0.375rem;
+  top: 0;
   right: 0.375rem;
 }
 .moon-checkbox-item .moon-checkbox-item-label-wrapper {
-  height: 1.2em;
+  line-height: inherit;
   margin-right: 1.5rem;
 }
 .moon-checkbox-item.left-handed .moon-checkbox {
@@ -941,13 +940,9 @@ html {
 .moon-neutral .moon-checkbox[checked]:after {
   color: #ffffff;
 }
-/* Special treatment inside of ExpandablePicker (checkbox nudged up) */
-.moon-expandable-picker .moon-checkbox-item .moon-checkbox {
-  top: 0.5rem;
-}
 /* Right to left */
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox {
-  left: 0.625rem;
+  left: 0.375rem;
   right: auto;
 }
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label-wrapper {
@@ -1119,8 +1114,8 @@ html {
   font-family: "MuseoSans 700";
   font-size: 1.25rem;
   color: #a6a6a6;
-  line-height: 1.2em;
-  padding: 0.5rem;
+  line-height: 1.7em;
+  padding: 0.125rem 0.5rem;
   position: relative;
 }
 .moon-item.spotlight {
@@ -1351,8 +1346,8 @@ html {
 .moon-radio-item {
   display: inline-block;
   max-width: 10rem;
-  margin: 0 0.5rem 0 0;
-  padding: 0.5rem 0.5rem 0.5rem 2rem;
+  margin-right: 0.5rem;
+  padding-left: 2rem;
 }
 .moon-radio-item:before {
   content: '';
@@ -1369,8 +1364,10 @@ html {
   background-color: #cf0652;
 }
 .enyo-locale-right-to-left .moon-radio-item {
-  margin: 0 0 0 0.5rem;
-  padding: 0.5rem 2rem 0.5rem 0.5rem;
+  margin-left: 0.5rem;
+  margin-right: 0;
+  padding-left: 0.5rem;
+  padding-right: 2rem;
 }
 .enyo-locale-right-to-left .moon-radio-item:before {
   left: auto;
@@ -1388,7 +1385,7 @@ html {
   max-width: 100%;
 }
 .moon-expandable-list-header.moon-expandable-picker-header:after {
-  top: 0.625rem;
+  top: 0.125rem;
 }
 /* Client Items */
 .moon-expandable-list-item.open .moon-expandable-list-item-client {
@@ -1399,6 +1396,7 @@ html {
   font-size: 1.125rem;
   color: #a6a6a6;
   line-height: 1.375rem;
+  line-height: 1.7em;
 }
 .moon-expandable-list-item-client .moon-item a:link {
   color: #cf0652;
@@ -1416,11 +1414,6 @@ html {
   color: #cf0652;
   text-decoration: none;
 }
-.enyo-locale-non-latin .moon-expandable-list-item-client .moon-item {
-  font-family: "Moonstone LG Display Light";
-  font-size: 1.125rem;
-  line-height: 1.375rem;
-}
 .moon-expandable-list-item-client .moon-item.spotlight {
   color: #ffffff;
 }
@@ -1429,6 +1422,11 @@ html {
 }
 .moon-expandable-list-item-client.indented {
   padding-left: 2rem;
+}
+.enyo-locale-non-latin .moon-expandable-list-item-client .moon-item {
+  font-family: "Moonstone LG Display Light";
+  font-size: 1.125rem;
+  line-height: 1.375rem;
 }
 .enyo-locale-right-to-left .moon-expandable-list-item-client.indented {
   padding-left: 0;
@@ -1440,6 +1438,7 @@ html {
   display: inline-block;
   padding-right: 1.75rem;
   position: relative;
+  vertical-align: top;
 }
 .moon-expandable-picker-header:after {
   position: absolute;
@@ -1448,7 +1447,6 @@ html {
   font-family: "Moonstone Icons";
   content: "\0F0001";
   font-size: 2rem;
-  line-height: 1.5rem;
 }
 .moon-expandable-picker-header.spotlight {
   color: #ffffff;
@@ -1471,7 +1469,7 @@ html {
   font-size: 1.125rem;
   line-height: 1.375rem;
   color: #a6a6a6;
-  margin: 0rem;
+  margin: 0rem 0rem 0.25rem 0rem;
 }
 .moon-expandable-picker-current-value a:link {
   color: #cf0652;
@@ -1538,7 +1536,8 @@ html {
 }
 .moon-header .moon-header-title-below,
 .moon-header .moon-header-sub-title-below {
-  height: 2rem;
+  height: 1.875rem;
+  line-height: 1.875rem;
 }
 .moon-header.full-bleed {
   padding: 0 0.75rem 0.5rem 0.75rem;
@@ -1562,7 +1561,8 @@ html {
 }
 .moon-header.moon-medium-header .moon-header-title-below,
 .moon-header.moon-medium-header .moon-header-sub-title-below {
-  height: 1.75rem;
+  height: 1.625rem;
+  line-height: 1.625rem;
 }
 .moon-header.moon-small-header {
   height: 5rem;
@@ -1629,6 +1629,22 @@ html {
 }
 .enyo-locale-right-to-left .moon-header:not(.moon-small-header):not(.moon-medium-header) .moon-header-left {
   float: right;
+}
+.enyo-locale-non-latin.enyo-locale-th .moon-header .moon-header-title,
+.enyo-locale-non-latin.enyo-locale-ar .moon-header .moon-header-title,
+.enyo-locale-non-latin.enyo-locale-fa .moon-header .moon-header-title,
+.enyo-locale-non-latin.enyo-locale-ur .moon-header .moon-header-title,
+.enyo-locale-non-latin.enyo-locale-ku .moon-header .moon-header-title,
+.enyo-locale-non-latin.enyo-locale-he .moon-header .moon-header-title,
+.enyo-locale-non-latin.enyo-locale-hi .moon-header .moon-header-title,
+.enyo-locale-non-latin.enyo-locale-ta .moon-header .moon-header-title,
+.enyo-locale-non-latin.enyo-locale-te .moon-header .moon-header-title,
+.enyo-locale-non-latin.enyo-locale-kn .moon-header .moon-header-title,
+.enyo-locale-non-latin.enyo-locale-ml .moon-header .moon-header-title,
+.enyo-locale-non-latin.enyo-locale-mr .moon-header .moon-header-title,
+.enyo-locale-non-latin.enyo-locale-bn .moon-header .moon-header-title,
+.enyo-locale-non-latin.enyo-locale-pa .moon-header .moon-header-title {
+  height: 6.625rem;
 }
 /*
 	Put anything you reference with "url()" in ../assets/
