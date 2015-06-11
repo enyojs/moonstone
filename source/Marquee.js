@@ -734,7 +734,7 @@
 		_marquee_detectAlignment: function (forceAnimate, forceRtl) {
 			var alignment = null,
 				rtl = forceRtl || this.rtl;
-			
+
 			// We only attempt to set the alignment of this control if the locale's directionality
 			// differs from the directionality of our current marqueeable control (as determined by
 			// the control's content or is explicitly specified).
@@ -789,8 +789,8 @@
 			if (this.generated) {
 				this._marquee_invalidateMetrics();
 				this._marquee_detectAlignment();
-				
-				if(this.getAbsoluteShowing()){
+
+				if (this.getAbsoluteShowing()) {
 					this._marquee_calcDistance();
 				}
 			}
@@ -825,7 +825,7 @@
 			if (!this.generated) return;
 
 			var distance = this._marquee_calcDistance();
-			
+
 			// If there is no need to animate, return early
 			if (!this._marquee_shouldAnimate(distance)) {
 				this._marquee_fits = true;
@@ -890,7 +890,7 @@
 		* @private
 		*/
 		_marquee_shouldAnimate: function (distance) {
-			distance = (distance && distance >= 0) ? distance : this._marquee_calcDistance();            
+			distance = (distance && distance >= 0) ? distance : this._marquee_calcDistance();
 			return (distance > 0);
 		},
 
@@ -906,14 +906,14 @@
 				node = this.$.marqueeText ? this.$.marqueeText.hasNode() : this.hasNode();
 				rect = node.getBoundingClientRect();
 				this._marquee_distance = Math.floor(Math.abs(node.scrollWidth - rect.width));
-				
-				//if the distance is exactly 0, then the ellipsis 
+
+				//if the distance is exactly 0, then the ellipsis
 				//most likely are hiding the content, and marquee does not
 				//need to animate
 				if(this._marquee_distance === 0) {
-					this.applyStyle('text-overflow', 'clip');    
+					this.applyStyle('text-overflow', 'clip');
 				} else {
-					this.applyStyle('text-overflow', 'ellipsis');   
+					this.applyStyle('text-overflow', 'ellipsis');
 				}
 			}
 
@@ -962,7 +962,7 @@
 				this.$.marqueeText.applyStyle('-webkit-transition', '-webkit-transform ' + duration + 's linear');
 			} else {
 				this.$.marqueeText.applyStyle('transition', 'left ' + duration + 's linear');
-				this.$.marqueeText.applyStyle('-webkit-transition', 'left ' + duration + 's linear');	
+				this.$.marqueeText.applyStyle('-webkit-transition', 'left ' + duration + 's linear');
 			}
 
 			// Need this timeout for FF!
