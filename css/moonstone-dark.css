@@ -1366,8 +1366,8 @@ html {
 .enyo-locale-right-to-left .moon-radio-item {
   margin-left: 0.5rem;
   margin-right: 0;
-  padding-left: 2rem;
-  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 2rem;
 }
 .enyo-locale-right-to-left .moon-radio-item:before {
   left: auto;
