@@ -1385,7 +1385,7 @@ html {
   max-width: 100%;
 }
 .moon-expandable-list-header.moon-expandable-picker-header:after {
-  top: 0.625rem;
+  top: 0.125rem;
 }
 /* Client Items */
 .moon-expandable-list-item.open .moon-expandable-list-item-client {
@@ -1438,6 +1438,7 @@ html {
   display: inline-block;
   padding-right: 1.75rem;
   position: relative;
+  vertical-align: top;
 }
 .moon-expandable-picker-header:after {
   position: absolute;
@@ -1468,7 +1469,7 @@ html {
   font-size: 1.125rem;
   line-height: 1.375rem;
   color: #4b4b4b;
-  margin: 0rem;
+  margin: 0rem 0rem 0.25rem 0rem;
 }
 .moon-expandable-picker-current-value a:link {
   color: #cf0652;
