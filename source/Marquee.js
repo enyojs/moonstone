@@ -704,6 +704,7 @@
 			return function () {
 				sup.apply(this, arguments);
 				this._marquee_invalidateMetrics();
+				this._marquee_calcDistance();
 			};
 		}),
 
@@ -788,7 +789,10 @@
 			if (this.generated) {
 				this._marquee_invalidateMetrics();
 				this._marquee_detectAlignment();
-				this._marquee_calcDistance();
+				
+				if(this.getAbsoluteShowing()){
+					this._marquee_calcDistance();
+				}
 			}
 			this._marquee_reset();
 		},
