@@ -5,30 +5,36 @@ enyo.kind({
 	components: [
 		{kind: "moon.Divider", content: "Inputs"},
 		{kind: 'moon.Scroller', horizontal: "hidden", fit: true, components: [
-			{kind: "moon.InputDecorator", components: [
-				{kind: "moon.Input", placeholder: "JUST TYPE", oninput:"handleInput", onchange:"handleChange"}
+			{components: [
+				{kind: "moon.InputDecorator", components: [
+					{kind: "moon.Input", placeholder: "JUST TYPE", oninput:"handleInput", onchange:"handleChange"}
+				]},
+				{kind: "moon.InputDecorator", components: [
+					{kind: "moon.Input", placeholder: "Search term", oninput:"handleInput", onchange:"handleChange"},
+					{kind: "moon.Icon", icon: "search"}
+				]}
 			]},
-			{kind: "moon.InputDecorator", components: [
-				{kind: "moon.Input", placeholder: "Search term", oninput:"handleInput", onchange:"handleChange"},
-				{kind: "moon.Icon", icon: "search"}
+			{components: [
+				{kind: "moon.InputDecorator", components: [
+					{kind: "moon.Input", type:"password", placeholder: "Enter password", oninput:"handleInput", onchange:"handleChange"}
+				]},
+				{kind: "moon.InputDecorator", components: [
+					{kind: "moon.Input", type:"number", placeholder: "Enter number", oninput:"handleInput", onchange:"handleChange"}
+				]},
+				{kind: "moon.InputDecorator", components: [
+					{kind: "moon.Input", placeholder: "Placeholder for initial value", value: "This is the initial value", oninput:"handleInput", onchange:"handleChange"}
+				]}
 			]},
-			{kind: "moon.InputDecorator", components: [
-				{kind: "moon.Input", type:"password", placeholder: "Enter password", oninput:"handleInput", onchange:"handleChange"}
-			]},
-			{kind: "moon.InputDecorator", components: [
-				{kind: "moon.Input", type:"number", placeholder: "Enter number", oninput:"handleInput", onchange:"handleChange"}
-			]},
-			{kind: "moon.InputDecorator", components: [
-				{kind: "moon.Input", placeholder: "Placeholder for initial value", value: "This is the initial value", oninput:"handleInput", onchange:"handleChange"}
-			]},
-			{kind: "moon.InputDecorator", components: [
-				{kind: "moon.Input", placeholder: "Placeholder for value with ellipsis", value: "This is the initial value that is of a certain length to display an ellipsis.", oninput:"handleInput", onchange:"handleChange"}
-			]},
-			{kind: "moon.InputDecorator", components: [
-				{kind: "moon.Input", placeholder: "Dismiss on Enter", dismissOnEnter:true, oninput:"handleInput", onchange:"handleChange"}
-			]},
-			{kind: "moon.InputDecorator", disabled: true, components: [
-				{kind: "moon.Input", disabled: true, placeholder: "Disabled input"}
+			{components: [
+				{kind: "moon.InputDecorator", components: [
+					{kind: "moon.Input", placeholder: "Placeholder for value with ellipsis", value: "This is the initial value that is of a certain length to display an ellipsis.", oninput:"handleInput", onchange:"handleChange"}
+				]},
+				{kind: "moon.InputDecorator", components: [
+					{kind: "moon.Input", placeholder: "Dismiss on Enter", dismissOnEnter:true, oninput:"handleInput", onchange:"handleChange"}
+				]},
+				{kind: "moon.InputDecorator", disabled: true, components: [
+					{kind: "moon.Input", disabled: true, placeholder: "Disabled input"}
+				]}
 			]},
 
 			{kind: "moon.Divider", content: "TextAreas"},
