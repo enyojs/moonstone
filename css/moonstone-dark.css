@@ -1114,7 +1114,7 @@ html {
   font-family: "MuseoSans 700";
   font-size: 1.25rem;
   color: #a6a6a6;
-  line-height: 1.7em;
+  line-height: 1.8em;
   padding: 0.125rem 0.5rem;
   position: relative;
 }
@@ -1135,13 +1135,15 @@ html {
 }
 /* SelectableItem.css */
 .moon-selectable-item.selected {
-  padding: 0.5rem 0.5rem 0.5rem 2rem;
+  padding-left: 2rem;
 }
 .moon-selectable-item.selected:before {
   content: '';
   position: absolute;
   left: 0.5rem;
-  top: 0.75rem;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
   width: 0.75rem;
   height: 0.75rem;
   border-radius: 0.375rem;
@@ -1151,7 +1153,8 @@ html {
   background-color: #ffffff;
 }
 .enyo-locale-right-to-left .moon-selectable-item.selected {
-  padding: 0.5rem 2rem 0.5rem 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 2rem;
 }
 .enyo-locale-right-to-left .moon-selectable-item.selected:before {
   left: auto;
@@ -1353,7 +1356,9 @@ html {
   content: '';
   position: absolute;
   left: 0.5rem;
-  top: 0.75rem;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
   width: 0.5rem;
   height: 0.5rem;
   border: solid 0.125rem #ffffff;
@@ -1396,7 +1401,7 @@ html {
   font-size: 1.125rem;
   color: #a6a6a6;
   line-height: 1.375rem;
-  line-height: 1.7em;
+  line-height: 1.8em;
 }
 .moon-expandable-list-item-client .moon-item a:link {
   color: #cf0652;
@@ -1469,7 +1474,7 @@ html {
   font-size: 1.125rem;
   line-height: 1.375rem;
   color: #a6a6a6;
-  margin: 0rem 0rem 0.25rem 0rem;
+  margin: 0rem 0rem 0.375rem 0rem;
 }
 .moon-expandable-picker-current-value a:link {
   color: #cf0652;
@@ -1962,7 +1967,7 @@ html {
 }
 .moon-input-decorator:not(.moon-input-header-input-decorator) {
   padding: 0.5rem 1.25rem;
-  border-radius: 1.25rem;
+  border-radius: 4rem;
 }
 .moon-textarea-decorator {
   padding: 0.5rem 0.75rem;
@@ -2566,6 +2571,7 @@ html {
   height: 8rem;
   overflow: hidden;
   margin: 0rem;
+  padding: 0.5rem;
 }
 /* Label */
 .moon-labeledtextitem .label {
@@ -2629,6 +2635,7 @@ html {
   min-width: 22.5rem;
   margin-top: 0rem;
   padding-top: 0rem;
+  padding-bottom: 0.5rem;
   height: 8.5rem;
   overflow: hidden;
 }
@@ -3188,9 +3195,6 @@ html {
   padding-right: 0;
   padding-left: 1.75rem;
 }
-.moon-accordion .moon-accordion-header-wrapper {
-  height: 1.2em;
-}
 /* Calendar.css */
 .moon-calendar-picker {
   display: inline-block;
@@ -3499,7 +3503,8 @@ html {
   padding: 1rem 1.75rem 1.75rem;
 }
 .moon-dialog-title {
-  margin-bottom: 0.5rem;
+  line-height: 1.3em;
+  margin-bottom: 0.25rem;
 }
 .moon-dialog-sub-title {
   font-size: 1rem;
@@ -4595,7 +4600,9 @@ html {
 }
 .moon-item.moon-formcheckbox-item .moon-checkbox {
   position: absolute;
-  top: 0.25rem;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
   left: 0.5rem;
   width: 2rem;
   height: 2rem;
@@ -4608,7 +4615,7 @@ html {
   padding-bottom: 0.125rem;
 }
 .moon-item.moon-formcheckbox-item .moon-checkbox-item-label-wrapper {
-  padding: 0.5rem 0.5rem;
+  padding: 0.125rem 0.5rem;
   margin-left: 2rem;
 }
 .enyo-locale-right-to-left .moon-item.moon-formcheckbox-item {

@@ -9,7 +9,9 @@
 		content: '';
 		position: absolute;
 		left: @moon-spotlight-outset;
-		top: 18px;
+		top: 50%;
+		-webkit-transform: translateY(-50%);
+		transform: translateY(-50%);
 		width: (@moon-selectable-item-indicator-width - 2 * @moon-radio-item-indicator-border);
 		height: (@moon-selectable-item-indicator-height - 2 * @moon-radio-item-indicator-border);
 		border: solid @moon-radio-item-indicator-border @moon-spotlight-text-color;
