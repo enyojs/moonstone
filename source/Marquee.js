@@ -704,6 +704,7 @@
 			return function () {
 				sup.apply(this, arguments);
 				this._marquee_invalidateMetrics();
+				this._marquee_calcDistance();
 			};
 		}),
 
@@ -788,7 +789,9 @@
 			if (this.generated) {
 				this._marquee_invalidateMetrics();
 				this._marquee_detectAlignment();
-				this._marquee_calcDistance();
+				if(this.getAbsoluteShowing()){
+					this._marquee_calcDistance();
+				}
 			}
 			this._marquee_reset();
 		},
@@ -896,10 +899,11 @@
 		* @private
 		*/
 		_marquee_calcDistance: function () {
-			var node, rect;
+			var node = this.$.marqueeText ? this.$.marqueeText.hasNode() : this.hasNode(), 
+				rect;
 
-			if (this._marquee_distance == null) {
-				node = this.$.marqueeText ? this.$.marqueeText.hasNode() : this.hasNode();
+			if (node && this._marquee_distance == null) {
+
 				rect = node.getBoundingClientRect();
 				this._marquee_distance = Math.floor(Math.abs(node.scrollWidth - rect.width));
 				
