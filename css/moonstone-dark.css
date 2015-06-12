@@ -2571,10 +2571,7 @@ html {
   height: 8rem;
   overflow: hidden;
   margin: 0rem;
-}
-.moon-item .moon-labeledtextitem {
-  padding-top: 0.5rem;
-  padding-bottom: 0;
+  padding: 0.5rem;
 }
 /* Label */
 .moon-labeledtextitem .label {
