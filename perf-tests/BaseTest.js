@@ -1,25 +1,32 @@
-enyo.kind({
-	name: "BaseTest",
-	classes: "enyo-fit moon",
+var
+	kind = require('enyo/kind'),
+	Button = require('enyo/Button'),
+	Control = require('enyo/Control');
+
+var
+	FittableColumns = require('layout/FittableColumns');
+
+var
+	FPSMeter = require('./FPSMeter');
+
+module.exports = kind({
+	name: 'BaseTest',
+	classes: 'enyo-fit moon',
 	components: [
-		{
-			kind: "enyo.FittableColumns",
-			noStretch: true,
-			components: [
-				{name: "client", fit: true},
-				{kind: "Button", content: "Stop", ontap: "toggle", style: "width: 4em;"}
-			]
-		},
-		{name: "meter", kind: "enyo.FPSMeter"}
+		{kind: FittableColumns, noStretch: true, components: [
+			{name: 'client', fit: true},
+			{kind: Button, content: 'Stop', ontap: 'toggle', style: 'width: 4em;'}
+		]},
+		{name: 'meter', kind: FPSMeter}
 	],
 	running: true,
 	toggle: function() {
 		if (this.running) {
 			this.running = false;
-			this.$.button.set("content", "Start");
+			this.$.button.set('content', 'Start');
 		} else {
 			this.running = true;
-			this.$.button.set("content", "Stop");
+			this.$.button.set('content', 'Stop');
 			this.nextTest();
 		}
 	},
@@ -27,7 +34,7 @@ enyo.kind({
 		// Override this in subkinds
 	},
 	rendered: function() {
-		this.inherited(arguments);
+		Control.prototype.rendered.apply(this, arguments);
 		this.$.meter.run();
 		this.nextTest();
 	}

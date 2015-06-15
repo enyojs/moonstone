@@ -1,0 +1,165 @@
+/* Button */
+.moon-button {
+	position: relative;
+	overflow: visible;
+	height: @moon-button-height;
+	line-height: (@moon-button-height - (2 * @moon-button-border-width));
+	border-radius: @moon-button-border-radius;
+	background-color: @moon-button-background-color;
+	border: @moon-button-border-width solid transparent;
+	cursor: pointer;
+	white-space: nowrap;
+	display: inline-block;
+	width: auto;
+	min-width: @moon-button-height;
+	max-width: 300px;
+	padding: 0 @moon-button-h-padding;
+	margin: 0 @moon-spotlight-outset;
+	color: @moon-button-text-color;
+	> * {
+		text-align: center;
+	}
+
+	// Need 100% width for marquee in button
+	.moon-marquee {
+		width: 100%;
+		vertical-align: top;
+		text-align: center;
+	}
+
+	&.min-width {
+		min-width: @moon-button-large-min-width;
+	}
+
+	&.translucent:not(.disabled) {
+		background-color: fade(@moon-button-background-color, @moon-button-translucent-opacity);
+	}
+
+	&.transparent:not(.disabled) {
+		background-color: transparent;
+	}
+
+	&.active,
+	&.pressed,
+	&.spotlight.pressed,
+	&.spotlight:active {
+		border: @moon-button-border-width solid @moon-spotlight-border-color;
+		background-color: @moon-button-background-color;
+		color: @moon-button-text-color;
+
+		&.translucent:not(.disabled) {
+			background-color: fade(@moon-button-background-color, @moon-button-translucent-opacity);
+		}
+		&.transparent:not(.disabled) {
+			background-color: transparent;
+		}
+	}
+
+	&.spotlight,
+	&.spotlight.translucent:not(.disabled),
+	&.spotlight.transparent:not(.disabled) {
+		background-color: @moon-spotlight-border-color;
+		color: @moon-spotlight-text-color;
+	}
+
+	// 'Selected+Focus' state
+	&.active.spotlight:not(.contextual-popup-button) {
+		border-color: @moon-active-spotlight-border-color;
+		background-color: @moon-spotlight-border-color;
+		color: @moon-spotlight-text-color;
+
+		&:active,
+		&.pressed {
+			border-color: @moon-spotlight-border-color;
+		}
+
+		&.translucent:not(.disabled) {
+			background-color: fade(@moon-button-background-color, @moon-button-translucent-opacity);
+		}
+		&.transparent:not(.disabled) {
+			background-color: transparent;
+		}
+	}
+
+	&[disabled] {
+		cursor: default;
+		color: @moon-button-disabled-text-color;
+		background-color: @moon-button-disabled-bg-color;
+
+		&.translucent {
+			background-color: fade(@moon-button-background-color, @moon-button-translucent-opacity);
+		}
+		&.transparent {
+			background-color: transparent;
+		}
+	}
+
+	> .button-tap-area {
+		position: absolute;
+		border-radius: @moon-button-border-radius;
+		top: -(@moon-button-border-width);
+		bottom: -(@moon-button-border-width);
+		left: -(@moon-button-border-width);
+		right: -(@moon-button-border-width);
+	}
+
+	&.small {
+		height: @moon-button-small-height;
+		min-width: @moon-button-small-height;
+		line-height: (@moon-button-small-height - (2 * @moon-button-border-width));
+		padding: 0 @moon-button-small-h-padding;
+		position: relative;
+		overflow: visible;
+
+		&.min-width {
+			min-width: @moon-button-small-min-width;
+		}
+
+		> .button-tap-area {
+			border-radius: 0;
+			top: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
+			bottom: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
+			left: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
+			right: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
+		}
+	}
+}
+
+.moon-neutral .moon-button {
+	color: @moon-neutral-button-text-color;
+	background-color: @moon-neutral-button-bg-color;
+
+	* {
+		color: inherit;
+	}
+
+	&.spotlight {
+		background-color: @moon-spotlight-color;
+
+		* {
+			color: @moon-spotlight-text-color;
+		}
+	}
+
+	&.active,
+	&.pressed,
+	&.spotlight.pressed,
+	&.spotlight:active {
+		border: @moon-button-border-width solid @moon-spotlight-border-color;
+		background-color: @moon-neutral-button-bg-color;
+
+		* {
+			color: @moon-neutral-button-text-color;
+		}
+	}
+
+	&[disabled] {
+		cursor: default;
+		color: @moon-neutral-button-disabled-text-color;
+		background-color: @moon-neutral-button-disabled-bg-color;
+
+		* {
+			color: inherit;
+		}
+	}
+}
