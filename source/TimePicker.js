@@ -424,16 +424,17 @@
 		*
 		* @param  {Number} hour - hour between 0 to 23
 		* @param  {Number} minute - minute between 0 to 59
-		* @return  {Number} index - index of this.meridiems
+		* @return {Number} 		- index of this.meridiems
 		*
 		* @private
 		*/
 		getMeridiemIndex: function (hour, minute) {
-			var meridiems = this.meridiems;
+			var meridiems = this.meridiems,
+				start, end, time;
 			for (var i = 0; i < meridiems.length; i++) {
-				var start = parseInt(meridiems[i]['start'].substring(0,2) + meridiems[i]['start'].substring(3,5), 10);
-				var end = parseInt(meridiems[i]['end'].substring(0,2) + meridiems[i]['end'].substring(3,5), 10);
-				var time = hour * 100 + minute;
+				start = parseInt(meridiems[i]['start'].substring(0,2) + meridiems[i]['start'].substring(3,5), 10);
+				end = parseInt(meridiems[i]['end'].substring(0,2) + meridiems[i]['end'].substring(3,5), 10);
+				time = hour * 100 + minute;
 					
 				if ( start <= time && time <= end) { 
 					return i; 
@@ -574,7 +575,7 @@
 			var hour = this.value.getHours() + (event.value - event.old);
 
 			if (this.value) {
-				this.updateValue('hour', hour);
+				this.updateValue(hour);
 			}
 
 			return true;
@@ -603,26 +604,31 @@
 			if(this.syncingPickers) return true;
 
 			var meridiems = this.meridiems,
-				hour = this.$.hour.getValue(),
-				oldIndex = event.old,
-				newIndex = this.$.meridiem.getValue(),
-				offset, start, end, newHour;
+				oldMeridiem = meridiems[event.old],
+				newMeridiem = meridiems[this.$.meridiem.get('value')],
+				oldHour = this.$.hour.get('value'),
+				startHour = parseInt(newMeridiem['start'], 10),
+				offset = oldHour - parseInt(oldMeridiem['start'], 10);
 
-			offset = hour - parseInt(meridiems[oldIndex]['start'], 10);
-			start = parseInt(meridiems[newIndex]['start'], 10);
-			end = parseInt(meridiems[newIndex]['end'], 10);
-			newHour = offset + start;
-
-			if (newHour != hour) {
-				if (newHour > end) {
-					newHour = end;
-				}
-				this.updateValue('hour', this.value.getHours() + (newHour - hour));
+			if (meridiems.length == 2) {
+				this.updateValue(startHour + offset);
 			} else {
-				// there is only single case. 
-				// Ethiopia calendar has different meridiem status between 06:00 and 06:01
-				start = parseInt(meridiems[newIndex]['start'].split(':')[1], 10);
-				this.updateValue('minute', this.value.getMinutes() + start);
+				var oldMinute =  this.$.minute.get('value'),
+					endHour = parseInt(newMeridiem['end'], 10),
+					startMinute = parseInt(newMeridiem['start'].split(':')[1], 10),
+					endMinute = parseInt(newMeridiem['end'].split(':')[1], 10),
+					newHour = startHour + offset, 
+					newMinute;
+				
+				if (startHour * 100 + startMinute > newHour * 100 + oldMinute) {
+					newHour = startHour;
+					newMinute = startMinute;
+				} else if (endHour * 100 + endMinute < newHour * 100 + oldMinute) {
+					newHour = endHour;
+					newMinute = endMinute;
+				}
+				offset = newHour - oldHour;
+				this.updateValue(this.value.getHours() + offset, newMinute);
 			}
 
 			return true;
@@ -639,14 +645,11 @@
 		/**
 		* @private
 		*/
-		updateValue: function (pickerName, newValue) {
+		updateValue: function (newHour, newMinute) {
 			var valueTime = this.value.getTime();
 
-			if (pickerName == 'hour') {
-				this.value.setHours(newValue);	
-			} else {
-				this.value.setMinutes(newValue);
-			}
+			if (newHour !== undefined) { this.value.setHours(newHour); } 
+			if (newMinute !== undefined) { this.value.setMinutes(newMinute); }
 
 			// in the rare case that the value didn't change because it was snapped back to the
 			// same value due to DST rules, push it back another hour.
