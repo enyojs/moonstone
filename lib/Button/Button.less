@@ -3,7 +3,7 @@
 // Local scope for some math variables
 & {
 	@moon-button-pressed-scaled-up: (1 + @moon-button-pressed-scale);
-	@moon-button-pressed-scaled-down: (1 - (((1 - @moon-button-pressed-scale) / (1 + @moon-button-pressed-scale)) * @moon-button-pressed-scale));
+	@moon-button-pressed-scaled-down: (1 / @moon-button-pressed-scaled-up);
 
 	@-webkit-keyframes moonButtonExpand {
 		// Blink/Webkit doesn't yet support "@keyframes" so we must use both prefixed and non-prefixed in this section
@@ -14,7 +14,7 @@
 	}
 	@-webkit-keyframes moonButtonContract {
 		60% {
-			-webkit-transform: translateZ(0) scale(0.9523);
+			-webkit-transform: translateZ(0) scale(@moon-button-pressed-scaled-down);
 			transform: translateZ(0) scale(@moon-button-pressed-scaled-down);
 		}
 	}
@@ -62,12 +62,13 @@
 		width: 100%;
 		vertical-align: top;
 		text-align: center;
-		-webkit-animation-duration: 0.2s;
-		-webkit-animation-iteration-count: 1;
-		-webkit-animation-timing-function: ease-out;
-		animation-duration: 0.2s;
-		animation-iteration-count: 1;
-		animation-timing-function: ease-out;
+	}
+
+	.button-client {
+		-webkit-transform: translateZ(0);
+		transform: translateZ(0);
+		-webkit-animation: inherit;
+		animation: inherit;
 	}
 
 	&.min-width {
@@ -89,7 +90,7 @@
 		-webkit-animation-name: moonButtonExpand;
 		animation-name: moonButtonExpand;
 
-		.moon-marquee {
+		.button-client {
 			-webkit-animation-name: moonButtonContract;
 			animation-name: moonButtonContract;
 		}
