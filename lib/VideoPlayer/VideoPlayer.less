@@ -1,0 +1,76 @@
+.moon-video-player {
+	position: relative;
+	display: inline-block;
+	background-color: @moon-video-player-bg-color;
+}
+// Base set of styling for scrim to prevent receiving user input while spinner is showing
+.moon-video-player:after {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+// Adding the content property here, instead of above, means that this element will only appear in
+// the DOM during ".spinner-showing". This was altered to improve performance.
+// Pseudo-elements without a content property cannot receive styling.
+.moon-video-player.spinner-showing:after {
+	content: '';
+}
+
+.moon-video-player:not(.enyo-fullscreen) {
+	margin: 0 @moon-spotlight-outset;
+}
+.moon-video-player-container {
+	display: block;
+	margin: 0;
+	height: 100%;
+	width: 100%;
+}
+
+.moon-video-player-video {
+	position: absolute;
+	display: block;
+	margin: 0px auto;
+	height: 100%;
+	width: 100%;
+}
+.moon-video-player-spinner {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -@moon-spinner-size/2;
+	margin-left: -@moon-spinner-size/2;
+}
+
+/* Fullscreen CSS */
+:-webkit-full-screen.moon-video-player {
+	.full-screen-video-player;
+}
+:-moz-full-screen.moon-video-player {
+	.full-screen-video-player;
+}
+:-ms-full-screen.moon-video-player {
+	.full-screen-video-player;
+}
+:-o-full-screen.moon-video-player {
+	.full-screen-video-player;
+}
+:full-screen.moon-video-player {
+	.full-screen-video-player;
+}
+:-webkit-full-screen-ancestor:not(iframe) {
+	.hide-full-screen-ancestor;
+}
+:-moz-full-screen-ancestor:not(iframe) {
+	.hide-full-screen-ancestor;
+}
+:-ms-full-screen-ancestor:not(iframe) {
+	.hide-full-screen-ancestor;
+}
+:-o-full-screen-ancestor:not(iframe) {
+	.hide-full-screen-ancestor;
+}
+:full-screen-ancestor:not(iframe) {
+	.hide-full-screen-ancestor;
+}

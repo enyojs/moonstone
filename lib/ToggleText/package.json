@@ -1,0 +1,6 @@
+{
+	"main": "ToggleText.js",
+	"styles": [
+		"ToggleText.less"
+	]
+}
