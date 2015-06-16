@@ -1388,6 +1388,7 @@ html {
   margin-bottom: 0rem;
   box-sizing: border-box;
   max-width: 100%;
+  line-height: 1.8em;
 }
 .moon-expandable-list-header.moon-expandable-picker-header:after {
   top: 0.125rem;
