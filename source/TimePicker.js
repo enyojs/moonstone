@@ -59,6 +59,29 @@
 		},
 
 		/**
+		* Return index of meridiems array for given hour
+		*
+		* @param  {Number} hour - hour between 0 to 23
+		* @param  {Number} minute - minute between 0 to 59
+		* @return {Number} 		- index of this.meridiems
+		*
+		* @public
+		*/
+		getMeridiemIndex: function (hour, minute) {
+			var meridiems = this.meridiems,
+				start, end, time;
+			for (var i = 0; i < meridiems.length; i++) {
+				start = parseInt(meridiems[i]['start'].substring(0,2) + meridiems[i]['start'].substring(3,5), 10);
+				end = parseInt(meridiems[i]['end'].substring(0,2) + meridiems[i]['end'].substring(3,5), 10);
+				time = hour * 100 + minute;
+					
+				if ( start <= time && time <= end) { 
+					return i; 
+				}
+			}
+		},
+
+		/**
 		* @private
 		*/
 		valueChanged: function () {
@@ -420,29 +443,6 @@
 		},
 
 		/**
-		* Return index of meridiems array for given hour
-		*
-		* @param  {Number} hour - hour between 0 to 23
-		* @param  {Number} minute - minute between 0 to 59
-		* @return {Number} 		- index of this.meridiems
-		*
-		* @private
-		*/
-		getMeridiemIndex: function (hour, minute) {
-			var meridiems = this.meridiems,
-				start, end, time;
-			for (var i = 0; i < meridiems.length; i++) {
-				start = parseInt(meridiems[i]['start'].substring(0,2) + meridiems[i]['start'].substring(3,5), 10);
-				end = parseInt(meridiems[i]['end'].substring(0,2) + meridiems[i]['end'].substring(3,5), 10);
-				time = hour * 100 + minute;
-					
-				if ( start <= time && time <= end) { 
-					return i; 
-				}
-			}
-		},
-
-		/**
 		* @private
 		*/
 		setupPickers: function (ordering) {
@@ -491,7 +491,7 @@
 								{name: 'meridiemLabel', content: this.meridiemText, classes: 'moon-date-picker-label moon-divider-text'}
 							]}
 						);
-						this.$.meridiem.value = this.getMeridiemIndex(values.hour, values.minute);
+						this.$.meridiem.value = this.$.meridiem.getMeridiemIndex(values.hour, values.minute);
 					}
 					break;
 				default:
@@ -648,8 +648,8 @@
 		updateValue: function (newHour, newMinute) {
 			var valueTime = this.value.getTime();
 
-			if (newHour !== undefined) { this.value.setHours(newHour); } 
-			if (newMinute !== undefined) { this.value.setMinutes(newMinute); }
+			if (newHour != null) this.value.setHours(newHour); 
+			if (newMinute != null) this.value.setMinutes(newMinute);
 
 			// in the rare case that the value didn't change because it was snapped back to the
 			// same value due to DST rules, push it back another hour.
@@ -668,8 +668,8 @@
 				var values = this.calcPickerValues();
 				this.$.hour.set('value', values.hour);
 				this.$.minute.set('value', values.minute);
-				if (this.meridiemEnable === true) {					
-					this.$.meridiem.set('value', this.getMeridiemIndex(values.hour, values.minute));
+				if (this.meridiemEnable) {					
+					this.$.meridiem.set('value', this.$.meridiem.getMeridiemIndex(values.hour, values.minute));
 				}
 			}
 			this.$.currentValue.set('content', this.formatValue());
