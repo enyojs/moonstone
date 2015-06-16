@@ -1,0 +1,6 @@
+{
+	"main": "ImageItem.js",
+	"styles": [
+		"ImageItem.less"
+	]
+}

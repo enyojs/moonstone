@@ -1,7 +1,0 @@
-.absolute-container {
-	width: 80%;
-	height: 200px;
-	/* Please do not use this red border in your app. This is only to demonstrate centering in a container .*/
-	border: 2px red dashed;
-	position: relative;
-}
