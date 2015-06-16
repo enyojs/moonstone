@@ -74,6 +74,14 @@
 		min-width: @moon-button-large-min-width;
 	}
 
+	&.translucent:not(.disabled) {
+		background-color: fade(@moon-button-background-color, @moon-button-translucent-opacity);
+	}
+
+	&.transparent:not(.disabled) {
+		background-color: transparent;
+	}
+
 	&.active,
 	&.pressed,
 	&.spotlight.pressed,
@@ -87,7 +95,9 @@
 		}
 	}
 
-	&.spotlight {
+	&.spotlight,
+	&.spotlight.translucent:not(.disabled),
+	&.spotlight.transparent:not(.disabled) {
 		background-color: @moon-spotlight-border-color;
 		color: @moon-spotlight-text-color;
 	}
@@ -102,12 +112,26 @@
 		&.pressed {
 			border-color: @moon-spotlight-border-color;
 		}
+
+		&.translucent:not(.disabled) {
+			background-color: fade(@moon-button-background-color, @moon-button-translucent-opacity);
+		}
+		&.transparent:not(.disabled) {
+			background-color: transparent;
+		}
 	}
 
 	&[disabled] {
 		cursor: default;
 		color: @moon-button-disabled-text-color;
 		background-color: @moon-button-disabled-bg-color;
+
+		&.translucent {
+			background-color: fade(@moon-button-background-color, @moon-button-translucent-opacity);
+		}
+		&.transparent {
+			background-color: transparent;
+		}
 	}
 
 	> .button-tap-area {
