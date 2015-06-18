@@ -371,7 +371,7 @@
 			this.$.currentValue.setShowing(!this.open);
 			this.setActive(this.getOpen());
 			if(this.open) {
-				this.$.drawer.render();	
+				this.$.drawer.reflow();	
 			}
 		},
 
