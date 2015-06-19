@@ -96,12 +96,34 @@
 	right:  @moon-icon-button-small-size;
 	bottom: 0px;
 	height:  @moon-icon-button-small-size;
+	&:hover {
+		background-color: rgba(255, 0, 0, 0.3);
+		border-radius: 12px;
+		.moon-scroller-hthumb,
+		.enyo-new-thumb,
+		.moon-scroller-hthumb.hidden,
+		.enyo-new-thumb.hidden {
+			pointer-events: none;
+			opacity: 1;
+		}
+	}
 }
 .moon-scroller-vthumb-container {
 	top:  @moon-icon-button-small-size;
 	bottom:  @moon-icon-button-small-size;
 	right: 0px;
 	width:  @moon-icon-button-small-size;
+	&:hover {
+		background-color: rgba(255, 0, 0, 0.3);
+		border-radius: 12px;
+		.moon-scroller-vthumb,
+		.enyo-new-thumb,
+		.moon-scroller-vthumb.hidden,
+		.enyo-new-thumb.hidden {
+			pointer-events: none;
+			opacity: 1;
+		}
+	}
 }
 
 .moon-scroller-hthumb,
