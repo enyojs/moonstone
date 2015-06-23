@@ -902,7 +902,7 @@
 			var node = this.$.marqueeText ? this.$.marqueeText.hasNode() : this.hasNode(),
 				rect;
 
-			if (node && this._marquee_distance == null) {
+			if (node && this._marquee_distance == null && this.getAbsoluteShowing() == true) {
 
 				rect = node.getBoundingClientRect();
 				this._marquee_distance = Math.floor(Math.abs(node.scrollWidth - rect.width));
