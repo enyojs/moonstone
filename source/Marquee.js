@@ -789,9 +789,7 @@
 			if (this.generated) {
 				this._marquee_invalidateMetrics();
 				this._marquee_detectAlignment();
-				if (this.getAbsoluteShowing()) {
-					this._marquee_calcDistance();
-				}
+				this._marquee_calcDistance();
 			}
 			this._marquee_reset();
 		},
@@ -902,7 +900,7 @@
 			var node = this.$.marqueeText ? this.$.marqueeText.hasNode() : this.hasNode(),
 				rect;
 
-			if (node && this._marquee_distance == null && this.getAbsoluteShowing() === true) {
+			if (node && this._marquee_distance == null && this.getAbsoluteShowing()) {
 
 				rect = node.getBoundingClientRect();
 				this._marquee_distance = Math.floor(Math.abs(node.scrollWidth - rect.width));
