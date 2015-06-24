@@ -33,10 +33,8 @@
 		}
 	}
 
-	.moon-header-title-below,
-	.moon-header-sub-title-below {
-		height: 45px;
-		line-height: 45px;
+	.moon-header-title-below, .moon-header-sub-title-below {
+		height: 48px;
 	}
 
 	&.full-bleed {
@@ -66,10 +64,8 @@
 			line-height: @moon-medium-header-line-height;
 		}
 
-		.moon-header-title-below,
-		.moon-header-sub-title-below {
-			height: 39px;
-			line-height: 39px;
+		.moon-header-title-below, .moon-header-sub-title-below {
+			height: 42px;
 		}
 	}
 
@@ -77,9 +73,7 @@
 	&.moon-small-header {
 		height: @moon-header-height-small;
 
-		.moon-header-title-above,
-		.moon-header-title-below,
-		.moon-header-sub-title-below {
+		.moon-header-title-above, .moon-header-title-below, .moon-header-sub-title-below {
 			display: none;
 		}
 
@@ -158,26 +152,4 @@
 }
 .enyo-locale-right-to-left .moon-header:not(.moon-small-header):not(.moon-medium-header) .moon-header-left {
 	float: right;
-}
-
-.enyo-locale-non-latin {
-	// Languages with combining accent characters
-	&.enyo-locale-th, // Thai - Test Chars: ฟิ้ไััุุ
-	&.enyo-locale-ar, // Arabic
-	&.enyo-locale-fa, // Farsi
-	&.enyo-locale-ur, // Urdu
-	&.enyo-locale-ku, // Kurdish
-	&.enyo-locale-he, // Hebrew
-	&.enyo-locale-hi, // Hindi
-	&.enyo-locale-ta, // Tamil
-	&.enyo-locale-te, // Telugu
-	&.enyo-locale-kn, // Kannada
-	&.enyo-locale-ml, // Malayalam
-	&.enyo-locale-mr, // Marathi
-	&.enyo-locale-bn, // Bengali
-	&.enyo-locale-pa {// Panjabi
-		.moon-header .moon-header-title {
-			height: 159px;
-		}
-	}
 }
