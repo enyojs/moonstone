@@ -43,6 +43,11 @@
 
 		/**
 		* @private
+		*/
+		locale: null,
+
+		/**
+		* @private
 		* @lends moon.MeridiemPicker.prototype
 		*/
 		published: {
@@ -56,6 +61,32 @@
 			* @public
 			*/
 			meridiems: [{name: 'AM', start: '00:00', end: '11:59'}, {name: 'PM', start: '12:00', end: '23:59'}]
+		},
+
+		/**
+		* @private
+		*/
+		initILib: function() {
+			// Get localized meridiem values
+			var fmtParams = {
+				template: 'a',
+				useNative: false,
+				timezone: 'local'
+			};
+
+			if (this.locale) fmtParams.locale = this.locale;
+
+			var merFormatter = new ilib.DateFmt(fmtParams);	
+			this.meridiems = merFormatter.getMeridiemsRange(fmtParams);
+		},
+
+		/**
+		* @private
+		*/
+		create: function() {
+			this.initILib();
+			this.max = this.meridiems.length - 1;
+			this.inherited(arguments);	
 		},
 
 		/**
@@ -75,9 +106,7 @@
 				end = parseInt(meridiems[i]['end'].substring(0,2) + meridiems[i]['end'].substring(3,5), 10);
 				time = hour * 100 + minute;
 					
-				if ( start <= time && time <= end) { 
-					return i; 
-				}
+				if ( start <= time && time <= end) return i; 
 			}
 		},
 
@@ -487,7 +516,7 @@
 					if (this.meridiemEnable === true) {
 						this.createComponent(
 							{classes: 'moon-date-picker-wrap', components:[
-								{kind:'moon.MeridiemPicker', name:'meridiem', classes:'moon-date-picker-field', meridiems: this.meridiems || [{name: 'AM', start: '00:00', end: '11:59'}, {name: 'PM', start: '12:00', end: '23:59'}], max: this.meridiems? this.meridiems.length - 1 : 1, onChange: 'meridiemPickerChanged'},
+								{kind:'moon.MeridiemPicker', name:'meridiem', classes:'moon-date-picker-field', locale: this.locale, onChange: 'meridiemPickerChanged'},
 								{name: 'meridiemLabel', content: this.meridiemText, classes: 'moon-date-picker-label moon-divider-text'}
 							]}
 						);
@@ -603,7 +632,7 @@
 		meridiemPickerChanged: function (sender, event) {
 			if(this.syncingPickers) return true;
 
-			var meridiems = this.meridiems,
+			var meridiems = event.originator.get('meridiems'),
 				oldMeridiem = meridiems[event.old],
 				newMeridiem = meridiems[this.$.meridiem.get('value')],
 				oldHour = this.$.hour.get('value'),
