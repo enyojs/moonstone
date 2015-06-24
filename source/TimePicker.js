@@ -111,6 +111,18 @@
 		},
 
 		/**
+		* Set meridiem value based on given hour and minute
+		*
+		* @param  {Number} hour - hour between 0 to 23
+		* @param  {Number} minute - minute between 0 to 59
+		*
+		* @public
+		*/
+		setValueByTime: function (hour, minute) {
+			this.value = this.getMeridiemIndex(hour, minute);
+		},
+
+		/**
 		* @private
 		*/
 		valueChanged: function () {
@@ -520,7 +532,7 @@
 								{name: 'meridiemLabel', content: this.meridiemText, classes: 'moon-date-picker-label moon-divider-text'}
 							]}
 						);
-						this.$.meridiem.value = this.$.meridiem.getMeridiemIndex(values.hour, values.minute);
+						this.$.meridiem.setValueByTime(values.hour, values.minute);
 					}
 					break;
 				default:
