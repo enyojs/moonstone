@@ -46,13 +46,23 @@
 		}
 
 		&.use-caption.use-subcaption {
-			padding-bottom: 84px;
+			padding-bottom: 96px;
 
 			> .caption {
 				position: absolute;
-				bottom: 36px;
+				bottom: 48px;
 			}
 		}
+	}
+
+	/* Adding this to "reset" some of the styling applied to moon.Image. */
+	.moon-image {
+		display: block;
+		margin: 0;
+	}
+
+	&:not(.sized-image) {
+		padding-bottom: 96px;
 	}
 }
 

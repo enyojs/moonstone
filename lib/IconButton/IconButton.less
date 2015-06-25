@@ -24,8 +24,18 @@
 		}
 	}
 
+	&.translucent:not(.disabled) {
+		background-color: fade(@moon-icon-button-bg-color, @moon-button-translucent-opacity);
+	}
+
+	&.transparent:not(.disabled) {
+		background-color: transparent;
+	}
+
 	&.hover:hover:not(.disabled),
-	&.spotlight {
+	&.spotlight,
+	&.spotlight.translucent:not(.disabled),
+	&.spotlight.transparent:not(.disabled) {
 		color: @moon-spotlight-text-color;
 		background-color: @moon-icon-button-spotlight-bg-color;
 		background-position: center -@moon-icon-sprite-size;
@@ -47,18 +57,21 @@
 		&.small {
 			background-position: center 0;
 		}
+		&.translucent:not(.disabled) {
+			background-color: fade(@moon-icon-button-bg-color, @moon-button-translucent-opacity);
+		}
+		&.transparent:not(.disabled) {
+			background-color: transparent;
+		}
 	}
 
 	&.disabled {
 		border-color: transparent;
-	}
 
-	// No-background + no-background and all states
-	&.no-background {
-		&:not(.spotlight),
-		&:active,
-		&.pressed,
-		&.hover:hover:active {
+		&.translucent {
+			background-color: fade(@moon-icon-button-bg-color, @moon-button-translucent-opacity);
+		}
+		&.transparent {
 			background-color: transparent;
 		}
 	}
