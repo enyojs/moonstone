@@ -477,9 +477,7 @@
 				if (this.locale) {
 					fmtParams.locale = this.locale;
 				}
-				var merFormatter = new ilib.DateFmt(fmtParams);
-				
-				this.meridiems = merFormatter.getMeridiemsRange(fmtParams);
+				var merFormatter = new ilib.DateFmt(fmtParams);				
 			}
 		},
 
