@@ -465,20 +465,6 @@
 
 			fmtParams.time = 'm';
 			this.minuteFormatter = new ilib.DateFmt(fmtParams);
-	
-			// Get localized meridiem values
-			if (this.meridiemEnable) {
-				fmtParams = {
-					template: 'a',
-					clock: clockPref !== 'locale' ? clockPref : undefined,
-					useNative: false,
-					timezone: 'local'
-				};
-				if (this.locale) {
-					fmtParams.locale = this.locale;
-				}
-				var merFormatter = new ilib.DateFmt(fmtParams);				
-			}
 		},
 
 		/**
