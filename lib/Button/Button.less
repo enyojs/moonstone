@@ -170,31 +170,8 @@
 		color: inherit;
 	}
 
-	&.spotlight {
-		background-color: @moon-spotlight-color;
-
-		* {
-			color: @moon-spotlight-text-color;
-		}
-	}
-
-	&.pressed,
-	&.spotlight:active {
-		border: @moon-button-border-width solid @moon-spotlight-border-color;
-		background-color: @moon-neutral-button-bg-color;
-
-		* {
-			color: @moon-neutral-button-text-color;
-		}
-	}
-
 	&[disabled] {
-		cursor: default;
 		color: @moon-neutral-button-disabled-text-color;
 		background-color: @moon-neutral-button-disabled-bg-color;
-
-		* {
-			color: inherit;
-		}
 	}
 }
