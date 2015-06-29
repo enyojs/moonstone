@@ -1,4 +1,19 @@
 /* Drawers.css */
+.moon-drawer {
+	&.moon-drawer-rendered {
+		transition: transform 0.35s ease-out;
+		-webkit-transition: -webkit-transform 0.35s ease-out;
+	}
+	z-index: 10;
+}
+.moon-drawer-partial-client {
+	padding: 36px 18px 18px;
+}
+.moon-drawer-client {
+	position: relative;
+	padding: 18px;
+}
+
 .moon-drawers {
 	overflow: hidden;
 }
@@ -77,14 +92,17 @@
 	}
 }
 
-.moon-drawers-container {
-	position: relative;
+.moon-drawers-drawer-container {
+  transition: transform 0.35s ease-out;
+  -webkit-transition: -webkit-transform 0.35s ease-out;
 }
 
 .moon-drawers-client {
 	position: relative;
 	height: 100%;
 	width: 100%;
+	transition: transform 0.35s ease-out;
+	-webkit-transition: -webkit-transform 0.35s ease-out;
 }
 
 /* If a video player or other controls are behind the drawers, let events pass straight through to them. */
