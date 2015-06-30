@@ -84,7 +84,7 @@
 		* @private
 		*/
 		create: function() {
-			this.initILib();
+			if (typeof ilib !== 'undefined') this.initILib();
 			this.max = this.meridiems.length - 1;
 			this.inherited(arguments);	
 		},
