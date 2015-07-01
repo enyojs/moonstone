@@ -117,6 +117,14 @@
 	font-size: @moon-divider-font-size;
 	color: @moon-divider-text-color;
 }
+.moon-item-text {
+	.moon-text-base (@moon-item-font-size);
+}
+.moon-item-body-text {
+	font-size: @moon-item-body-font-size;
+	font-family: @moon-body-font-family;
+	line-height: @moon-body-line-height;
+}
 
 .enyo-locale-non-latin {
 	// Medium weighted classes
@@ -134,12 +142,14 @@
 
 	// Light weighted classes
 	.moon-body-text,
+	.moon-item-body-text,
 	.moon-superscript,
 	.moon-pre-text {
 		font-family: @moon-non-latin-font-family-light;
 	}
 	// Bold weighted classes
 	.moon-sub-header-text,
+	.moon-item-text,
 	.moon-divider-text,
 	.moon-bold-text,
 	.moon-large-button-text,
