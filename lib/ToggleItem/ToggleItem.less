@@ -1,6 +1,9 @@
 .moon-toggle-item {
 	display: block;
 	position:relative;
+	.moon-text-base (@moon-item-font-size);
+	line-height: @moon-item-line-height;
+	padding: 3px @moon-spotlight-outset;
 
 	.moon-checkbox.moon-toggle-switch {
 		top: (@moon-spotlight-outset + 3); /* To override top:10px set by .moon-checkbox-item .moon-checkbox so the indicator vertically middle align */
