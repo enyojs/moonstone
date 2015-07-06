@@ -76,7 +76,7 @@
 
 			if (this.locale) fmtParams.locale = this.locale;
 
-			var merFormatter = new ilib.DateFmt(fmtParams);	
+			var merFormatter = new ilib.DateFmt(fmtParams);
 			this.meridiems = merFormatter.getMeridiemsRange(fmtParams);
 		},
 
@@ -86,7 +86,7 @@
 		create: function() {
 			if (typeof ilib !== 'undefined') this.initILib();
 			this.max = this.meridiems.length - 1;
-			this.inherited(arguments);	
+			this.inherited(arguments);
 		},
 
 		/**
@@ -104,7 +104,7 @@
 				start = parseInt(meridiems[i]['start'].substring(0,2) + meridiems[i]['start'].substring(3,5), 10);
 				end = parseInt(meridiems[i]['end'].substring(0,2) + meridiems[i]['end'].substring(3,5), 10);
 				time = hour * 100 + minute;
-					
+
 				if ( start <= time && time <= end) {
 					if (this.value != null) {
 						this.set('value', i);
@@ -132,9 +132,9 @@
 			this.$.item.setContent(this.meridiems[index]['name']);
 		}
 	});
-	
+
 	/**
-	* {@link moon.HourMinutePickerBase} is a helper kind used by {@link moon.TimePicker}. 
+	* {@link moon.HourMinutePickerBase} is a helper kind used by {@link moon.TimePicker}.
 	*  It is not intended for use in other contexts.
 	*
 	* @class moon.MinutePicker
@@ -190,7 +190,7 @@
 		}
 	});
 	/**
-	* {@link moon.MinutePicker} is a helper kind used by {@link moon.TimePicker}. 
+	* {@link moon.MinutePicker} is a helper kind used by {@link moon.TimePicker}.
 	*  It is not intended for use in other contexts.
 	*
 	* @class moon.MinutePicker
@@ -302,7 +302,7 @@
 		 * will not prevent a big scroll through all intermediate values (e.g. from 3pm to 2am) even
 		 * though it only has to scroll 1 index. This can be seen most easily by selecting a time
 		 * between 2 and 3 pm on day when DST springs forward and then changing the meridiem to AM.
-		 * 
+		 *
 		 * @see moon.IntegerPicker.scrollToValue
 		 * @private
 		 */
@@ -439,12 +439,12 @@
 		*/
 		initILib: function () {
 			this.inherited(arguments);
-	
+
 			// Set picker format 12 vs 24 hour clock
 			var li = new ilib.LocaleInfo(this.locale || undefined);
 			var clockPref = li.getClock();
 			this.meridiemEnable = (clockPref == '12');
-	
+
 			var fmtParams = {
 				type: 'time',
 				time: 'h',
@@ -479,7 +479,7 @@
 
 			for(f = 0, l = doneArr.length; f < l; f++) {
 				o = doneArr[f];
-	
+
 				switch (o){
 				case 'h':
 				case 'k':
@@ -516,9 +516,9 @@
 				default:
 					break;
 				}
-	
+
 			}
-	
+
 			this.inherited(arguments);
 		},
 
@@ -636,9 +636,9 @@
 					endHour = parseInt(newMeridiem['end'], 10),
 					startMinute = parseInt(newMeridiem['start'].split(':')[1], 10),
 					endMinute = parseInt(newMeridiem['end'].split(':')[1], 10),
-					newHour = startHour + offset, 
+					newHour = startHour + offset,
 					newMinute;
-				
+
 				if (startHour * 100 + startMinute > newHour * 100 + oldMinute) {
 					newHour = startHour;
 					newMinute = startMinute;
@@ -655,7 +655,7 @@
 
 		/**
 		* webOS TVs which rounds down when setting the hour to the skipped hour of DST
-		* whereas other implementations round up. 
+		* whereas other implementations round up.
 		*
 		* @private
 		*/
@@ -667,7 +667,7 @@
 		updateValue: function (newHour, newMinute) {
 			var valueTime = this.value.getTime();
 
-			if (newHour != null) this.value.setHours(newHour); 
+			if (newHour != null) this.value.setHours(newHour);
 			if (newMinute != null) this.value.setMinutes(newMinute);
 
 			// in the rare case that the value didn't change because it was snapped back to the
@@ -675,7 +675,7 @@
 			if (valueTime == this.value.getTime()) {
 				this.value = new Date(valueTime + this.dstOffset);
 			}
-			
+
 			this.set('value', this.value, {force: true});
 		},
 
@@ -687,7 +687,7 @@
 				var values = this.calcPickerValues();
 				this.$.hour.set('value', values.hour);
 				this.$.minute.set('value', values.minute);
-				if (this.meridiemEnable) {					
+				if (this.meridiemEnable) {
 					this.$.meridiem.setValueByTime(values.hour, values.minute);
 				}
 			}
