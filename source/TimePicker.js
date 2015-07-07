@@ -105,14 +105,7 @@
 				end = parseInt(meridiems[i]['end'].substring(0,2) + meridiems[i]['end'].substring(3,5), 10);
 				time = hour * 100 + minute;
 
-				if ( start <= time && time <= end) {
-					if (this.value != null) {
-						this.set('value', i);
-					} else {
-						//at initial time, we don't want to trigger meridiemPickerChanged method
-						this.value = i;
-					}
-				}
+				if ( start <= time && time <= end) this.set('value', i);
 			}
 		},
 
@@ -476,6 +469,7 @@
 			}
 
 			values = this.calcPickerValues();
+			this.silence();
 
 			for(f = 0, l = doneArr.length; f < l; f++) {
 				o = doneArr[f];
@@ -519,6 +513,7 @@
 
 			}
 
+			this.unsilence();
 			this.inherited(arguments);
 		},
 
