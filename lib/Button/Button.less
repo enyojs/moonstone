@@ -75,68 +75,6 @@
 		min-width: @moon-button-large-min-width;
 	}
 
-	&.translucent:not(.disabled) {
-		background-color: fade(@moon-button-background-color, @moon-button-translucent-opacity);
-	}
-
-	&.transparent:not(.disabled) {
-		background-color: transparent;
-	}
-
-	&.active,
-	&.pressed,
-	&.spotlight.pressed,
-	&.spotlight:active {
-		-webkit-animation-name: moonButtonExpand;
-		animation-name: moonButtonExpand;
-
-		&:before,
-		&:after,
-		.button-client {
-			-webkit-animation-name: moonButtonContract;
-			animation-name: moonButtonContract;
-		}
-	}
-
-	&.spotlight,
-	&.spotlight.translucent:not(.disabled),
-	&.spotlight.transparent:not(.disabled) {
-		background-color: @moon-spotlight-border-color;
-		color: @moon-spotlight-text-color;
-	}
-
-	// 'Selected+Focus' state
-	&.active.spotlight:not(.contextual-popup-button) {
-		border-color: @moon-active-spotlight-border-color;
-		background-color: @moon-spotlight-border-color;
-		color: @moon-spotlight-text-color;
-
-		&:active,
-		&.pressed {
-			border-color: @moon-spotlight-border-color;
-		}
-
-		&.translucent:not(.disabled) {
-			background-color: fade(@moon-button-background-color, @moon-button-translucent-opacity);
-		}
-		&.transparent:not(.disabled) {
-			background-color: transparent;
-		}
-	}
-
-	&[disabled] {
-		cursor: default;
-		color: @moon-button-disabled-text-color;
-		background-color: @moon-button-disabled-bg-color;
-
-		&.translucent {
-			background-color: fade(@moon-button-background-color, @moon-button-translucent-opacity);
-		}
-		&.transparent {
-			background-color: transparent;
-		}
-	}
-
 	> .button-tap-area {
 		position: absolute;
 		border-radius: @moon-button-border-radius;
@@ -166,6 +104,62 @@
 			right: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
 		}
 	}
+
+	// Button-non-disabled rules
+	&:not(.disabled) {
+		&.pressed,
+		&.spotlight:active {
+			-webkit-animation-name: moonButtonExpand;
+			animation-name: moonButtonExpand;
+
+			&:before,
+			&:after,
+			.button-client {
+				-webkit-animation-name: moonButtonContract;
+				animation-name: moonButtonContract;
+			}
+		}
+
+		&.translucent {
+			background-color: fade(@moon-button-background-color, @moon-button-translucent-opacity);
+		}
+
+		&.transparent {
+			background-color: transparent;
+		}
+
+		// This is below the translucent and transparent so it takes priority
+		&.spotlight {
+			background-color: @moon-spotlight-border-color;
+			color: @moon-spotlight-text-color;
+		}
+
+		// 'Selected' state
+		&.active {
+			border-color: @moon-spotlight-border-color;
+
+			// 'Selected+Focus' state, seen in grouped buttons
+			&.spotlight {
+				border-color: @moon-active-spotlight-border-color;
+				background-color: @moon-spotlight-border-color;
+				color: @moon-spotlight-text-color;
+			}
+		}
+	}
+
+	// Button-disabled rules
+	&[disabled] {
+		cursor: default;
+		color: @moon-button-disabled-text-color;
+		background-color: @moon-button-disabled-bg-color;
+
+		&.translucent {
+			background-color: fade(@moon-button-background-color, @moon-button-translucent-opacity);
+		}
+		&.transparent {
+			background-color: transparent;
+		}
+	}
 }
 
 .moon-neutral .moon-button {
@@ -176,33 +170,8 @@
 		color: inherit;
 	}
 
-	&.spotlight {
-		background-color: @moon-spotlight-color;
-
-		* {
-			color: @moon-spotlight-text-color;
-		}
-	}
-
-	&.active,
-	&.pressed,
-	&.spotlight.pressed,
-	&.spotlight:active {
-		border: @moon-button-border-width solid @moon-spotlight-border-color;
-		background-color: @moon-neutral-button-bg-color;
-
-		* {
-			color: @moon-neutral-button-text-color;
-		}
-	}
-
 	&[disabled] {
-		cursor: default;
 		color: @moon-neutral-button-disabled-text-color;
 		background-color: @moon-neutral-button-disabled-bg-color;
-
-		* {
-			color: inherit;
-		}
 	}
 }
