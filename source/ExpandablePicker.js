@@ -189,7 +189,7 @@
 				]},
 				{name: 'currentValue', kind: 'moon.MarqueeText', classes: 'moon-expandable-picker-current-value'}
 			]},
-			{name: 'drawer', kind: 'enyo.Drawer', resizeContainer:false, classes:'moon-expandable-list-item-client', components: [
+			{name: 'drawer', kind: 'enyo.Drawer', resizeContainer:false, classes:'moon-expandable-list-item-client', onEnd: 'spotHeader', components: [
 				{name: 'client', tag: null, kind: 'Group', onActivate: 'activated', highlander: true},
 				{name: 'helpText', kind:'moon.BodyText', canGenerate: false, classes: 'moon-expandable-picker-help-text'}
 			]}
@@ -516,9 +516,13 @@
 		*/
 		selectAndClose: function () {
 			this.setActive(false);
-			if (!enyo.Spotlight.getPointerMode() && enyo.Spotlight.getCurrent() && enyo.Spotlight.getCurrent().isDescendantOf(this)) {
+		},
+
+		spotHeader: function () {
+			if (!this.getOpen() && !enyo.Spotlight.getPointerMode() && enyo.Spotlight.getCurrent() && enyo.Spotlight.getCurrent().isDescendantOf(this)) {
 				enyo.Spotlight.spot(this.$.headerWrapper);
 			}
+			this.inherited(arguments);
 		},
 
 		/**
