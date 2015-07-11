@@ -1,0 +1,121 @@
+/* Panels */
+.moon-panels.activity,
+.moon-panels.always-viewing {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	padding: 18px 12px;
+	pointer-events: none;
+
+	&.moon-composite {
+		.moon-panels-background-scrim {
+			.moon-composite();
+		}
+	}
+
+	* {
+		pointer-events: auto;
+	}
+
+	.moon-panel {
+		height: auto;
+		margin: 0;
+	}
+}
+
+/* Scrim */
+.moon-panels .moon-panels-background-scrim {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.5s linear;
+	-webkit-transition: opacity 0.5s linear;
+	-moz-transition: opacity 0.5s linear;
+
+	&.visible {
+		opacity: 0.2;
+	}
+}
+
+.moon-panels-panel-scrim {
+	position: absolute;
+	height: 100%;
+}
+
+.moon-panels.activity .moon-panels-panel-scrim {
+	left: 0;
+	width: 100%;
+	background-color: @moon-panels-scrim-activity-bg-color;
+
+	.moon-panels-branding {
+		position: absolute;
+		top: @moon-panel-breadcrumb-height + 12px; // breadcrumb height + padding
+		width: @moon-panel-breadcrumb-inner-width;
+		bottom: 18px;
+		left: 18px;
+		background-position: bottom center;
+	}
+}
+
+.moon-panels.always-viewing .moon-panels-panel-scrim {
+	left: 50%;
+	width: 50%;
+	background-color: @moon-panels-scrim-always-viewing-bg-color;
+}
+
+/* Show/Hide Handle */
+
+.moon-panels-handle {
+	position: absolute;
+	top: 0;
+	left: auto;
+	right: -(@moon-panels-handle-width);
+	height: 100%;
+	width: @moon-panels-handle-width;
+	z-index: 100;
+
+	&:before {
+		position: absolute;
+		display: block;
+		height: 100%;
+		width: 100%;
+		line-height: 100vh;
+		margin-left: -12px;
+		margin-right: 12px;
+		background-color: @moon-panels-handle-bg-color;
+		font-family: @moon-icon-font-family;
+		font-size: @moon-panel-handle-icon-font-size;
+		content: @moon-icon-arrowlargeleft;
+		color: @moon-spotlight-text-color;
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+		-webkit-transition: -webkit-transform 0.2s linear, opacity 0.2s linear;
+		transition: transform 0.2s linear, opacity 0.2s linear;
+		opacity: 1;
+		text-align: center;
+	}
+
+	&.right:before {
+		content: @moon-icon-arrowlargeright;
+	}
+
+	&.spotlight:before {
+		background-color: @moon-panels-spot-fg-color;
+		-webkit-transform: translate3d(-(@moon-panels-handle-width - 12), 0, 0);
+		transform: translate3d(-(@moon-panels-handle-width - 12), 0, 0);
+	}
+
+	&.stashed:before {
+		opacity: 0;
+	}
+
+	&.hidden {
+		display: none;
+	}
+}

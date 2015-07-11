@@ -1,0 +1,92 @@
+
+.moon-overlay {
+	position: relative;
+}
+
+.moon-overlay-component {
+	display: inline-block;
+	pointer-events: auto;
+}
+
+.moon-overlay-container {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding: 12px;
+	background-color: rgba(0, 0, 0, 0.5);
+	pointer-events: none;
+	display: none;
+
+	&.position-top { bottom: auto; }
+	&.position-bottom { top: auto; }
+	&.position-left { right: auto; }
+	&.position-right { left: auto; }
+
+	&.align-right { text-align: right; }
+	&.align-left { text-align: left; }
+
+	&.transparent {
+		background-color: transparent;
+	}
+
+	&.centered .moon-overlay-component {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		-webkit-transform: translateX(-50%) translateY(-50%);
+		transform: translateX(-50%) translateY(-50%);
+	}
+
+	&.moon-overlay-selection .moon-icon {
+		display: block;
+		border: @moon-button-border-width solid black;
+		background-color: white;
+		color: transparent;
+		margin: 0;
+		border-radius: 50%;
+		position: relative;
+		opacity: 0.5;
+
+		// 'large' icons will be made a bit larger
+		&:not(.small) {
+			width: @moon-icon-button-small-size;
+			height: @moon-icon-button-small-size;
+			line-height: @moon-icon-button-small-size;
+		}
+
+		.selected & {
+			color: @moon-accent;
+			border-color: @moon-accent;
+			opacity: 1;
+		}
+	}
+
+	&.moon-overlay-text .moon-overlay-component {
+		text-align: center;
+		width: 100%;
+		box-sizing: border-box;
+		padding: 6px;
+
+		.moon-overlay-text-title {
+			font-family: "MuseoSans 500";
+			font-size: 24px;
+			color: rgba(255, 255, 255, 0.7);
+			margin-bottom: 3px;
+		}
+
+		.moon-overlay-text-subtitle {
+			font-family: "Moonstone Miso Bold";
+			font-size: 48px;
+			color: rgba(255, 255, 255, 0.3);
+		}
+	}
+}
+
+.spotlight .moon-overlay-container.show-on-spotlight,
+*:hover > .moon-overlay-container.show-on-hover,
+.selection-enabled .moon-overlay-container.moon-overlay-selection,
+.moon-overlay-container.show {
+	display: block;
+}
