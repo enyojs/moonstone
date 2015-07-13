@@ -22,3 +22,49 @@
 .moon-progress-bar-bar {
 	background-color: @moon-progress-bar-bar-bg-color;
 }
+
+/* Popup */
+.moon-progress-bar-popup {
+	white-space: nowrap;
+	z-index: 20;
+	left: 50%;
+
+	// move the common properties of popup-left, popup-center, popup-right to the following > * block
+	> * {
+		position: relative;
+		display: inline-block;
+		vertical-align: top;
+	}
+
+	.moon-progress-bar-popup-left {
+		margin: 0 -1apx 0 0;
+	}
+
+	.moon-progress-bar-popup-center {
+		z-index: 21;
+	}
+
+	.moon-progress-bar-popup-right {
+		margin: 0 0 0 -1apx;
+	}
+
+	.moon-progress-bar-popup-label {
+		color: @moon-progress-bar-popup-text-color;
+		text-align: center;
+
+		.enyo-locale-non-latin & {
+			font-size: 30px;
+		}
+	}
+
+	&.moon-progress-bar-popup-flip-h {
+		left: auto;
+		right: 50%;
+	}
+}
+
+.moon-progress-bar-popup-flip-h {
+	-webkit-transform: scaleX(-1);
+	-moz-transform: scaleX(-1);
+	transform: scaleX(-1);
+}

@@ -1,81 +1,88 @@
 .moon-tooltip {
 	z-index: 20;
-	height: @moon-tooltip-height;
 	-webkit-transform: translateZ(0);
 	transform: translateZ(0);
 	pointer-events: none;
 }
+
 .moon-tooltip-label {
 	.moon-small-button-text;
-	height: @moon-tooltip-label-height;
 	line-height: @moon-tooltip-label-height;
 	white-space: nowrap;
 	color: @moon-tooltip-text-color;
-	text-align: center;
-	padding: 0px (@moon-button-h-padding + 2);
+	padding: 12px (@moon-button-h-padding + 2);
 	background-color: @moon-tooltip-bg-color;
-}
-.enyo-locale-non-latin .moon-tooltip-label {
-	.enyo-locale-non-latin .moon-small-button-text;
-}
-.moon-tooltip.below > .moon-tooltip-label {
-	margin: (@moon-tooltip-height - @moon-tooltip-label-height) 0px 0px;
-}
-.moon-tooltip.above > .moon-tooltip-label {
-	margin: 0px 0px (@moon-tooltip-height - @moon-tooltip-label-height);
+
+	.moon-tooltip.right-arrow & { text-align: right; }
+	.moon-tooltip.left-arrow & { text-align: left; }
+
+	.enyo-locale-non-latin & {
+		.enyo-locale-non-latin .moon-small-button-text;
+	}
 }
 
 .moon-tooltip-label:before {
 	position: absolute;
 	content: "";
 	width: 84px;
-	height: (@moon-tooltip-label-height + 1);
-}
+	height: 60px;
+	border-radius: @moon-button-border-radius;
 
-/* .above .left-arrow nub shape */
-.moon-tooltip.above.left-arrow .moon-tooltip-label {
-	border-radius: (@moon-tooltip-height / 2) (@moon-tooltip-height / 2) (@moon-tooltip-height / 2) 0px;
-	&:before {
-		top: 29px;
-		left: -2px;
+	.moon-tooltip.above & {
+		bottom: -59px; // -height + 1px
 		border-top: 29px solid @moon-tooltip-bg-color;
-		clip: rect(30px, 24px, 38px, 2px);
-		border-radius: @moon-button-border-radius;
 	}
-}
 
-/* .above .right-arrow nub shape */
-.moon-tooltip.above.right-arrow .moon-tooltip-label {
-	border-radius: (@moon-tooltip-height / 2) (@moon-tooltip-height / 2) 0px (@moon-tooltip-height / 2);
-	&:before {
-		top: 29px;
+	.moon-tooltip.below & {
+		top: -59px; // -height + 1px
+		border-bottom: 29px solid @moon-tooltip-bg-color;
+	}
+
+	.moon-tooltip.right-arrow & {
 		right: -2px;
-		border-top: 29px solid @moon-tooltip-bg-color;
-		clip: rect(30px, 82px, 38px, 56px);
-		border-radius: @moon-button-border-radius;
 	}
-}
 
-/* .below .left-arrow nub shape */
-.moon-tooltip.below.left-arrow .moon-tooltip-label {
-	border-radius: 0 (@moon-tooltip-height / 2) (@moon-tooltip-height / 2) (@moon-tooltip-height / 2);
-	&:before {
-		top: -50px;
+	.moon-tooltip.left-arrow & {
 		left: -2px;
-		border-bottom: 29px solid @moon-tooltip-bg-color;
-		clip: rect(2px, 24px, 60px, 2px);
-		border-radius: @moon-button-border-radius;
 	}
 }
 
-/* .below .right-arrow nub shape */
-.moon-tooltip.below.right-arrow .moon-tooltip-label {
-	border-radius: (@moon-tooltip-height / 2) 0px (@moon-tooltip-height / 2) (@moon-tooltip-height / 2);
-	&:before{
-		top: -50px;
-		right: -2px;
-		border-bottom: 29px solid @moon-tooltip-bg-color;
-		clip: rect(2px, 82px, 60px, 56px);
-		border-radius: @moon-button-border-radius;
+.moon-tooltip {
+	@radius: @moon-tooltip-height / 2;
+
+	&.above {
+		// .above .left-arrow nub shape
+		&.left-arrow .moon-tooltip-label {
+			border-radius: @radius @radius @radius 0px;
+			&:before {
+				clip: rect(30px, 24px, 38px, 2px);
+			}
+		}
+
+		// .above .right-arrow nub shape
+		&.right-arrow .moon-tooltip-label {
+			border-radius: @radius @radius 0px @radius;
+			&:before {
+				clip: rect(30px, 82px, 38px, 56px);
+			}
+		}
+	}
+
+	&.below {
+		// .below .left-arrow nub shape
+		&.left-arrow .moon-tooltip-label {
+			border-radius: 0 @radius @radius @radius;
+			&:before {
+				clip: rect(2px, 24px, 60px, 2px);
+			}
+		}
+
+		// .below .right-arrow nub shape
+		&.right-arrow .moon-tooltip-label {
+			border-radius: @radius 0px @radius @radius;
+			&:before{
+				clip: rect(2px, 82px, 60px, 56px);
+			}
+		}
 	}
 }

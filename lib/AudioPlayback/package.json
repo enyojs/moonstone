@@ -1,6 +1,0 @@
-{
-	"main": "AudioPlayback.js",
-	"styles": [
-		"AudioPlayback.less"
-	]
-}
