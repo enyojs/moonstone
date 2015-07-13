@@ -1,4 +1,4 @@
-/* ExpandableListItem Header*/
+/* ExpandableListItem Header */
 .moon-expandable-list-item-header {
 	margin-bottom: 0px;
 	box-sizing: border-box;
@@ -10,30 +10,29 @@
 }
 
 /* Client Items */
-.moon-expandable-list-item.open .moon-expandable-list-item-client {
-	margin-bottom: 12px;
-}
 .moon-expandable-list-item-client {
 	.moon-item {
-		.moon-body-text;
+		font-family: @moon-expandable-value-font-family;
+		font-size: @moon-expandable-client-item-font-size;
+		font-weight: @moon-expandable-value-font-weight;
+		font-style: @moon-expandable-value-font-style;
 		line-height: @moon-item-line-height;
 
-		&.spotlight {
-			color: @moon-white;
-		}
-		&:last-child {
-			margin-bottom: 0px;
+		.enyo-locale-non-latin & {
+			.enyo-locale-non-latin .moon-body-text;
+			font-size: @moon-non-latin-expandable-client-item-font-size;
 		}
 	}
 	&.indented {
 		padding-left: @moon-item-indent + @moon-spotlight-outset;
-	}
-}
 
-.enyo-locale-non-latin .moon-expandable-list-item-client .moon-item {
-	.enyo-locale-non-latin .moon-body-text;
-}
-.enyo-locale-right-to-left .moon-expandable-list-item-client.indented {
-	padding-left: 0;
-	padding-right: @moon-item-indent + @moon-spotlight-outset;
+		.enyo-locale-right-to-left & {
+			padding-left: 0;
+			padding-right: @moon-item-indent + @moon-spotlight-outset;
+		}
+	}
+	// Set spacing on the last element (the expand/collapse box) of the client area.
+	:last-child {
+		margin-bottom: 12px;
+	}
 }
