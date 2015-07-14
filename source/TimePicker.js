@@ -479,10 +479,24 @@
 				default:
 					break;
 				}
-	
 			}
 	
 			this.inherited(arguments);
+
+			// in case of timePicker, timeWrapper enclose hour and minute pickers
+			// so, we re-organize this.pickers
+			var pickers = this.pickers;
+			this.pickers = [];
+			for (var i = 0; i < pickers.length; i++) {
+				if (pickers[i].hasClass('moon-time-picker-wrap')) {
+					var controls = pickers[i].getClientControls();
+					for (var j = 0; j < controls.length; j++) {
+						this.pickers.push(controls[j]);
+					}
+				} else {
+					this.pickers.push(pickers[i]);
+				}
+			}
 		},
 
 		/**
