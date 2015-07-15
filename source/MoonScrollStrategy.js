@@ -172,7 +172,7 @@
 			}
 
 			enyo.TouchScrollStrategy.prototype.rendered._inherited.apply(this, arguments);
-			
+
 			if (measure) {
 				this._measureScrollColumns();
 			}
@@ -185,11 +185,11 @@
 		* available space for list controls. These metrics are derived via some LESS
 		* calculations, so to avoid brittleness we choose to measure them from the DOM
 		* rather than mirror the calculations in JavaScript.
-		* 
+		*
 		* Upon request, we do the measurement here (the first time a scroller is rendered)
 		* and cache the values in static properties, to avoid re-measuring each time we need
 		* the metrics.
-		* 
+		*
 		* @private
 		*/
 		_measureScrollColumns: function() {
@@ -690,7 +690,7 @@
 
 		/**
 		* Decorate spotlight events from paging controls so user can 5-way out of container
-		* 
+		*
 		* @private
 		*/
 		spotPaging: function (sender, event) {
@@ -719,10 +719,6 @@
 				bubble = false;
 			if (!enyo.Spotlight.getPointerMode() || event.scrollInPointerMode === true) {
 				originator = event.originator;
-				showVertical = this.showVertical();
-				showHorizontal = this.showHorizontal();
-				this.scrollBounds = this._getScrollBounds();
-				this.setupBounds();
 				showVertical = this.showVertical();
 				showHorizontal = this.showHorizontal();
 				this.scrollBounds = this._getScrollBounds();
@@ -964,7 +960,7 @@
 
 			controlBounds.right = document.body.offsetWidth - controlBounds.right;
 			absoluteBounds.right = document.body.offsetWidth - absoluteBounds.right;
-			
+
 			// Make absolute controlBounds relative to scroll position
 			controlBounds.top += scrollBounds.top;
 			if (this.rtl) {
