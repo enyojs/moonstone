@@ -44,33 +44,11 @@
 }
 
 /* Fullscreen CSS */
-:-webkit-full-screen.moon-video-player {
-	.full-screen-video-player();
-}
-:-moz-full-screen.moon-video-player {
-	.full-screen-video-player();
-}
-:-ms-full-screen.moon-video-player {
-	.full-screen-video-player();
-}
-:-o-full-screen.moon-video-player {
-	.full-screen-video-player();
-}
-:full-screen.moon-video-player {
-	.full-screen-video-player();
-}
-:-webkit-full-screen-ancestor:not(iframe) {
-	.hide-full-screen-ancestor();
-}
-:-moz-full-screen-ancestor:not(iframe) {
-	.hide-full-screen-ancestor();
-}
-:-ms-full-screen-ancestor:not(iframe) {
-	.hide-full-screen-ancestor();
-}
-:-o-full-screen-ancestor:not(iframe) {
-	.hide-full-screen-ancestor();
-}
-:full-screen-ancestor:not(iframe) {
-	.hide-full-screen-ancestor();
-}
+.vendor-fullscreen({
+	&.moon-video-player {
+		.full-screen-video-player;
+	}
+	&:not(iframe) {
+		.hide-full-screen-ancestor;
+	}
+});
