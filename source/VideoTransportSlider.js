@@ -334,7 +334,8 @@
 					// Hash of languages and the additional % widths they'll need to not run off the edge.
 					langWidths = {
 						ja: 0.05,
-						pt: 0.05
+						pt: 0.05,
+						vi: 0.02
 					};
 
 				if (langWidths[language]) {
