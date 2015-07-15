@@ -6,15 +6,20 @@ require('moonstone');
 */
 
 var
-	kind = require('enyo/kind');
+	kind = require('enyo/kind'),
+	Control = require('enyo/Control'),
+	Drawer = require('enyo/Drawer');
 
 var
 	Spotlight = require('spotlight');
 
 var
 	ExpandableListItem = require('../ExpandableListItem'),
+	Item = require('../Item'),
 	Input = require('../Input'),
-	InputDecorator = require('../InputDecorator');
+	InputDecorator = require('../InputDecorator'),
+	Marquee = require('../Marquee'),
+	MarqueeText = Marquee.Text;
 
 /**
 * Fires when the current text changes. This passes through {@link module:enyo/Input~Input#onChange}.
@@ -86,17 +91,6 @@ module.exports = kind(
 		placeholder: '',
 
 		/**
-		* Type of [input]{@link module:enyo/Input~Input}; if not specified, it's treated as `'text'`.
-		* This may be anything specified for the `type` attribute in the HTML
-		* specification, including `'url'`, `'email'`, `'search'`, or `'number'`.
-		*
-		* @type {String}
-		* @default ''
-		* @public
-		*/
-		type: '',
-
-		/**
 		* Initial value of the input.
 		*
 		* @type {String}
@@ -119,9 +113,18 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	drawerComponents: [		
-		{name: 'inputDecorator', kind: InputDecorator, onSpotlightBlur: 'inputSpotBlurred', onSpotlightFocus: 'inputFocus', onSpotlightDown: 'inputSpotDown', onkeyup: 'inputKeyUp', defaultSpotlightUp: 'drawer', components: [
-			{name: 'clientInput', kind: Input, onchange: 'doChange', dismissOnEnter: true}
+	components: [
+		{name: 'headerWrapper', kind: Item, classes: 'moon-expandable-picker-header-wrapper', onSpotlightFocus: 'headerFocus', ondown: 'headerDown', ontap: 'expandContract', components: [
+			// headerContainer required to avoid bad scrollWidth returned in RTL for certain text widths (webkit bug)
+			{name: 'headerContainer', kind: Control, classes: 'moon-expandable-list-item-header moon-expandable-picker-header moon-expandable-input-header', components: [
+				{name: 'header', kind: MarqueeText}
+			]},
+			{name: 'currentValue', kind: MarqueeText, classes: 'moon-expandable-picker-current-value'}
+		]},
+		{name: 'drawer', kind: Drawer, resizeContainer:false, classes:'moon-expandable-list-item-client indented', components: [
+			{name: 'inputDecorator', kind: InputDecorator, onSpotlightBlur: 'inputBlur', onSpotlightFocus: 'inputFocus', onSpotlightDown: 'inputDown', components: [
+				{name: 'clientInput', kind: Input, onchange: 'doChange', onkeyup: 'inputKeyUp'}
+			]}
 		]}
 	],
 
@@ -129,26 +132,19 @@ module.exports = kind(
 	* @private
 	*/
 	bindings: [
-		{from: 'value', to: '$.clientInput.value', oneWay: false},
-		{from: 'placeholder', to: '$.clientInput.placeholder'},
-		{from: 'type', to: '$.clientInput.type'}
+		{from: '.value', to: '.$.clientInput.value', oneWay: false},
+		{from: '.placeholder', to: '.$.clientInput.placeholder'},
+		{from: '.showCurrentValue', to: '.$.currentValue.showing'},
+		{from: '.currentValueText', to: '.$.currentValue.content'},
+		{from: '.disabled', to: '.$.headerWrapper.disabled'}
 	],
 
 	/**
 	* @private
 	*/
 	computed: {
-		'currentValueShowing': ['open', 'currentValueText', 'type'],
+		'showCurrentValue': ['open', 'value', 'noneText'],
 		'currentValueText': ['value', 'noneText']
-	},
-
-	/**
-	* @private
-	*/
-	create: function () {
-		ExpandableListItem.prototype.create.apply(this, arguments);
-		// attach an ondown handler to unfreeze Spotlight
-		this.$.header.ondown = 'headerDown';
 	},
 
 	/**
@@ -156,18 +152,8 @@ module.exports = kind(
 	*
 	* @private
 	*/
-	currentValueShowing: function () {
-		return !this.open && this.currentValueText() !== '' && this.type != 'password';
-	},
-
-	/**
-	* Assigns an attribute to a {@link module:moonstone/Input~Input}
-	* @param {String} name - Attribute name to assign/remove.
-	* @param {(String|Number|null)} value - The value to assign to `name`
-	* @public
-	*/
-	setInputAttribute: function (name, value) {
-		this.$.clientInput.setAttribute(name, value);
+	showCurrentValue: function () {
+		return !this.open && this.currentValueText() !== '';
 	},
 
 	/**
@@ -182,13 +168,25 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	openChanged: function () {
-		ExpandableListItem.prototype.openChanged.apply(this, arguments);
-		if (this.open) {
+	expandContract: function () {
+		if (this.getOpen()) {
+			this.closeDrawerAndHighlightHeader();
+		} else {
+			this.toggleActive();
+		}
+	},
+
+	/**
+	* @private
+	*/
+	toggleActive: function () {
+		if (this.getOpen()) {
+			this.setActive(false);
+			this.$.clientInput.blur();
+		} else {
+			this.setActive(true);
 			Spotlight.unspot();
 			this.focusInput();
-		} else {
-			this.$.clientInput.blur();
 		}
 	},
 
@@ -199,32 +197,34 @@ module.exports = kind(
 	*/
 	inputFocus: function (inSender, inEvent) {
 		var direction = inEvent && inEvent.dir;
-		if (this.open && direction) {
+		if (this.getOpen() && direction) {
 			this.focusInput();
 		}
 	},
 
-	/**
-	* Value should be submitted if user clicks outside control. We check for
-	* `onSpotlightFocus` and `mouseover` to avoid contracting the input on an event
-	* fired from itself.
-	*
-	* @private
-	*/
-	inputSpotBlurred: function (inSender, inEvent) {
-		var eventType = Spotlight.getLastEvent().type;
-		if (Spotlight.getPointerMode() && eventType !== 'onSpotlightFocus' && eventType !== 'mouseover') {
-			this.expandContract();
-		}
-	},
+        /**
+         * Value should be submitted if user clicks outside control. We check for
+         * `onSpotlightFocus` and `mouseover` to avoid contracting the input on an event
+         * fired from itself. Drag was added because of corner case when click started on
+         * input field and dragfinish fired out of input field.
+         *
+         * @private
+         */
+        inputBlur: function (inSender, inEvent) {
+            var eventType = Spotlight.getLastEvent().type;
+            if (eventType === 'drag'){
+                this.focusInput();
+            } else if (Spotlight.getPointerMode() && eventType !== 'onSpotlightFocus' && eventType !== 'mouseover') {
+                this.toggleActive();
+            }
+        },
 
 	/**
 	* @private
 	*/
-	inputKeyUp: function (sender, event) {
-		if (event.keyCode == 13) {
+	inputKeyUp: function (inSender, inEvent) {
+		if (inEvent.keyCode === 13) {
 			this.closeDrawerAndHighlightHeader();
-			return true;
 		}
 	},
 
@@ -233,6 +233,17 @@ module.exports = kind(
 	*/
 	headerDown: function () {
 		Spotlight.unfreeze();
+	},
+
+	/**
+	* Focuses the input field if navigating down from the header while the drawer is open.
+	*
+	* @private
+	*/
+	spotlightDown: function (inSender, inEvent) {
+		if (inEvent.originator === this.$.headerWrapper && this.getOpen()) {
+			this.focusInput();
+		}
 	},
 
 	/**
@@ -256,12 +267,30 @@ module.exports = kind(
 	*
 	* @private
 	*/
-	inputSpotDown: function (inSender, inEvent) {
-		if (this.lockBottom) {
+	inputDown: function (inSender, inEvent) {
+		if (this.getLockBottom()) {
 			this.focusInput();
 		} else {
-			this.expandContract();
+			this.closeDrawerAndHighlightHeader();
 		}
 		return true;
+	},
+
+	/**
+	* We manually set pointer mode to `false` as this seems to be the
+	* least harmful method to re-highlight the header after the drawer
+	* closes. The other options had side effects of resetting the
+	* current spotted control to the root, or requiring a double-press to
+	* subsequently move via 5-way.
+	*
+	* @private
+	*/
+	closeDrawerAndHighlightHeader: function () {
+		var mode = Spotlight.getPointerMode();
+		Spotlight.setPointerMode(false);
+		Spotlight.unfreeze();
+		Spotlight.spot(this.$.headerWrapper);
+		Spotlight.setPointerMode(mode);
+		this.toggleActive();
 	}
 });
