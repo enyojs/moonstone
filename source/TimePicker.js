@@ -429,6 +429,7 @@
 		* @private
 		*/
 		setupPickers: function (ordering) {
+			var pickers = [];
 			var orderingArr = ordering.toLowerCase().split('');
 			var doneArr = [];
 			var o,f,l;
@@ -443,11 +444,12 @@
 				o = doneArr[f];
 				var valueHours = this.value ? this.value.getHours() : 0;
 				var valueMinutes = this.value ? this.value.getMinutes() : 0;
+				var createdComponent;
 	
 				switch (o){
 				case 'h':
 				case 'k':
-					this.wrapComponent(
+					createdComponent = this.wrapComponent(
 						{name: 'timeWrapper', classes: 'moon-time-picker-wrap'},
 						{classes: 'moon-date-picker-wrap', components:[
 							{kind: 'moon.HourPicker', name:'hour', formatter: this.hourFormatter || this, value: valueHours, onChange: 'hourPickerChanged'},
@@ -455,9 +457,10 @@
 						]},
 						this
 					);
+					pickers.push(createdComponent.getClientControls()[0]);
 					break;
 				case 'm':
-					this.wrapComponent(
+					createdComponent = this.wrapComponent(
 						{name: 'timeWrapper', classes: 'moon-time-picker-wrap'},
 						{classes: 'moon-date-picker-wrap', components:[
 							{kind: 'moon.MinutePicker', name:'minute', formatter: this.minuteFormatter || this, value: valueMinutes, onChange: 'minutePickerChanged'},
@@ -465,38 +468,26 @@
 						]},
 						this
 					);
+					pickers.push(createdComponent.getClientControls()[0]);
 					break;
 				case 'a':
 					if (this.meridiemEnable === true) {
-						this.createComponent(
+						createdComponent = this.createComponent(
 							{classes: 'moon-date-picker-wrap', components:[
 								{kind:'moon.MeridiemPicker', name:'meridiem', classes:'moon-date-picker-field', value: valueHours > 12 ? 1 : 0, meridiems: this.meridiems || ['am','pm'], onChange: 'meridiemPickerChanged'},
 								{name: 'meridiemLabel', content: this.meridiemText, classes: 'moon-date-picker-label moon-divider-text'}
 							]}
 						);
+						pickers.push(createdComponent);
 					}
 					break;
 				default:
 					break;
 				}
 			}
-	
-			this.inherited(arguments);
 
-			// in case of timePicker, timeWrapper enclose hour and minute pickers
-			// so, we re-organize this.pickers
-			var pickers = this.pickers;
-			this.pickers = [];
-			for (var i = 0; i < pickers.length; i++) {
-				if (pickers[i].hasClass('moon-time-picker-wrap')) {
-					var controls = pickers[i].getClientControls();
-					for (var j = 0; j < controls.length; j++) {
-						this.pickers.push(controls[j]);
-					}
-				} else {
-					this.pickers.push(pickers[i]);
-				}
-			}
+			this.pickers = pickers;			
+			this.inherited(arguments);
 		},
 
 		/**
@@ -507,7 +498,7 @@
 			if (!wrapper) {
 				wrapper = this.createComponent(wrapperProps);
 			}
-			wrapper.createComponent(compProps, {owner: owner});
+			return wrapper.createComponent(compProps, {owner: owner});
 		},
 
 		/**
