@@ -1,11 +1,30 @@
-.moon-item-icon-tap-area-adjust {
+//
+// Handy Information
+// http://lesscss.org/features/#mixins-feature-not-outputting-the-mixin
+//
+
+.moon-taparea(@element-size) when (@moon-button-small-tap-area-height > @element-size) {
+	// Take the size of the minimum tappable area, and subtract the element's current size.
+	@_tap-offset: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @element-size) / 2);
+
+	&:after {
+		content: '';
+		position: absolute;
+		top: @_tap-offset;
+		right: @_tap-offset;
+		bottom: @_tap-offset;
+		left: @_tap-offset;
+	}
+}
+
+.moon-item-icon-tap-area-adjust() {
 	&.small > .small-icon-tap-area {
 		left: -@moon-spotlight-outset;
 		right: -@moon-spotlight-outset;
 	}
 }
 
-.full-screen-video-player {
+.full-screen-video-player() {
 	position: static !important;
 	display: block !important;
 	margin: 0;
@@ -15,7 +34,7 @@
 	}
 }
 
-.hide-full-screen-ancestor {
+.hide-full-screen-ancestor() {
 	position: absolute !important;
 	overflow: visible !important;
 	padding: 0 !important;
