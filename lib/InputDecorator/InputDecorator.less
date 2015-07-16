@@ -1,0 +1,69 @@
+/* InputDecorator.css */
+.moon-input-decorator:not(.moon-input-header-input-decorator),
+.moon-textarea-decorator {
+	margin: 6px;
+	border: @moon-input-border-width solid transparent;
+	background-color: @moon-input-decorator-bg-color;
+	box-sizing: border-box;
+
+	&.spotlight {
+		border-color: @moon-spotlight-border-color;
+	}
+	&.moon-focused {
+		border-color: @moon-active-border-color;
+	}
+	// for icons used inside of InputDecorator and TextareaDecorator (e.g. search icon)
+	.moon-icon.small,
+	.spotlight .moon-icon.small {
+		width: 18px;
+		margin: 0;
+		color: @moon-input-font-color;
+	}
+}
+
+.moon-input-decorator,
+.moon-textarea-decorator {
+	&.moon-disabled {
+		opacity: @moon-disabled-opacity;
+	}
+}
+
+.moon-input-decorator:not(.moon-input-header-input-decorator) {
+	padding: 12px 30px;
+	border-radius: 1008px;
+}
+
+.moon-textarea-decorator {
+	padding: 12px 18px;
+	border-radius: 12px;
+}
+
+.moon-expandable-input .moon-input-decorator:not(.moon-input-header-input-decorator) {
+	margin: 6px 0;
+}
+
+.enyo-locale-non-latin {
+	.moon-input-decorator:not(.moon-input-header-input-decorator) {
+		padding: 6px 30px 12px;
+	}
+
+	// Languages with combining accent characters
+	&.enyo-locale-th, // Thai
+	&.enyo-locale-ar, // Arabic
+	&.enyo-locale-fa, // Farsi
+	&.enyo-locale-ur, // Urdu
+	&.enyo-locale-ku, // Kurdish
+	&.enyo-locale-he, // Hebrew
+	&.enyo-locale-hi, // Hindi
+	&.enyo-locale-ta, // Tamil
+	&.enyo-locale-te, // Telugu
+	&.enyo-locale-kn, // Kannada
+	&.enyo-locale-ml, // Malayalam
+	&.enyo-locale-mr, // Marathi
+	&.enyo-locale-bn, // Bengali
+	&.enyo-locale-pa {// Panjabi
+		.moon-input-decorator:not(.moon-input-header-input-decorator) {
+			padding: 1px 30px;
+		}
+	}
+}

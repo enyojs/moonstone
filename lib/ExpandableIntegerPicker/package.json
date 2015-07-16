@@ -1,0 +1,6 @@
+{
+	"main": "ExpandableIntegerPicker.js",
+	"styles": [
+		"ExpandableIntegerPicker.less"
+	]
+}

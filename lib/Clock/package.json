@@ -1,0 +1,6 @@
+{
+	"main": "Clock.js",
+	"styles": [
+		"Clock.less"
+	]
+}
