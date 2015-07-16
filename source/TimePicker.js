@@ -444,41 +444,37 @@
 				o = doneArr[f];
 				var valueHours = this.value ? this.value.getHours() : 0;
 				var valueMinutes = this.value ? this.value.getMinutes() : 0;
-				var createdComponent;
 	
 				switch (o){
 				case 'h':
 				case 'k':
-					createdComponent = this.wrapComponent(
+					pickers.push(this.wrapComponent(
 						{name: 'timeWrapper', classes: 'moon-time-picker-wrap'},
 						{classes: 'moon-date-picker-wrap', components:[
 							{kind: 'moon.HourPicker', name:'hour', formatter: this.hourFormatter || this, value: valueHours, onChange: 'hourPickerChanged'},
 							{name: 'hourLabel', content: this.hourText, classes: 'moon-date-picker-label moon-divider-text'}
 						]},
 						this
-					);
-					pickers.push(createdComponent.getClientControls()[0]);
+					));
 					break;
 				case 'm':
-					createdComponent = this.wrapComponent(
+					pickers.push(this.wrapComponent(
 						{name: 'timeWrapper', classes: 'moon-time-picker-wrap'},
 						{classes: 'moon-date-picker-wrap', components:[
 							{kind: 'moon.MinutePicker', name:'minute', formatter: this.minuteFormatter || this, value: valueMinutes, onChange: 'minutePickerChanged'},
 							{name: 'minuteLabel', content: this.minuteText, classes: 'moon-date-picker-label moon-divider-text'}
 						]},
 						this
-					);
-					pickers.push(createdComponent.getClientControls()[0]);
+					));
 					break;
 				case 'a':
 					if (this.meridiemEnable === true) {
-						createdComponent = this.createComponent(
+						pickers.push(this.createComponent(
 							{classes: 'moon-date-picker-wrap', components:[
 								{kind:'moon.MeridiemPicker', name:'meridiem', classes:'moon-date-picker-field', value: valueHours > 12 ? 1 : 0, meridiems: this.meridiems || ['am','pm'], onChange: 'meridiemPickerChanged'},
 								{name: 'meridiemLabel', content: this.meridiemText, classes: 'moon-date-picker-label moon-divider-text'}
 							]}
-						);
-						pickers.push(createdComponent);
+						));
 					}
 					break;
 				default:
@@ -486,8 +482,7 @@
 				}
 			}
 
-			this.pickers = pickers;			
-			this.inherited(arguments);
+			this.pickers = pickers;		
 		},
 
 		/**

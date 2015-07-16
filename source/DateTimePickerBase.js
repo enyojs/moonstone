@@ -198,7 +198,6 @@
 		*/
 		setupPickers: function (ordering) {
 			// implement in subkind, calling this.inherited() at the end
-			this.pickers = this.pickers || this.getClientControls();
 		},
 
 		/**
