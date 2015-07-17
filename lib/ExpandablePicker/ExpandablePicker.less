@@ -2,18 +2,7 @@
 .moon-expandable-picker-header {
 	margin: 0px;
 	display: inline-block;
-	padding-right: @moon-spotlight-outset + 30px;
-	position: relative;
-	vertical-align: top;
 
-	&:after {
-		position: absolute;
-		top: @moon-spotlight-outset - 12px;
-		right: @moon-spotlight-outset + 1px;
-		font-family: @moon-icon-font-family;
-		content: @moon-icon-arrowlargedown;
-		font-size: @moon-expandable-caret-icon-font-size;
-	}
 	&.spotlight {
 		color: @moon-white;
 	}
@@ -27,29 +16,6 @@
 		left: @moon-spotlight-outset + 1px;
 		right: auto;
 	}
-}
-
-/* Header Open */
-.moon-expandable-list-item.open {
-	.moon-expandable-picker-header:after {
-		content: @moon-icon-arrowlargeup;
-	}
-}
-
-/* Current Value */
-.moon-expandable-picker-current-value {
-	font-family: @moon-expandable-value-font-family;
-	color: @moon-expandable-picker-text-color;
-	margin-top: -6px;	// Negative value to compensate for the taller line-height needed for tall-glyph charecters
-}
-.enyo-locale-right-to-left .moon-expandable-picker-current-value {
-	padding-left: 0;
-}
-.moon-expandable-list-item .spotlight .moon-expandable-picker-current-value {
-	color: @moon-white;
-}
-.enyo-locale-non-latin .moon-expandable-picker-current-value {
-	.enyo-locale-non-latin .moon-body-text;
 }
 
 /* Help Text */
