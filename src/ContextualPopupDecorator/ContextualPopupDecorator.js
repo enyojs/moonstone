@@ -89,6 +89,7 @@ module.exports = kind(
 			this.activator = inEvent.originator;
 			// if this ContextualPopup is already activated
 			if (this.popupActivated) {
+				this.requestHidePopup();
 				inEvent.originator.active = false;
 				this.popupActivated = false;
 			} else {
