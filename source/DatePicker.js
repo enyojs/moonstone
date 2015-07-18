@@ -111,7 +111,7 @@
 		initILib: function () {
 			this.inherited(arguments);
 			if (typeof ilib !== 'undefined' && this.value) {
-				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
+				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: 'local'});
 			}
 		},
 
@@ -125,7 +125,7 @@
 		getMinYear: function() {
 			if (typeof ilib !== 'undefined') {
 				var greg = ilib.Date.newInstance({
-					type: "gregorian",
+					type: 'gregorian',
 					year: this.minYear,
 					month: 1,
 					day: 1,
@@ -133,7 +133,7 @@
 				});
 				var localCalendarDate = ilib.Date.newInstance({
 					julianday: greg.getJulianDay(),
-					timezone: "local"
+					timezone: 'local'
 				});
 				return localCalendarDate.getYears();
 			} else {
@@ -151,7 +151,7 @@
 		getMaxYear: function() {
 			if (typeof ilib !== 'undefined') {
 				var greg = ilib.Date.newInstance({
-					type: "gregorian",
+					type: 'gregorian',
 					year: this.maxYear,
 					month: 1,
 					day: 1,
@@ -159,7 +159,7 @@
 				});
 				var localCalendarDate = ilib.Date.newInstance({
 					julianday: greg.getJulianDay(),
-					timezone: "local"
+					timezone: 'local'
 				});
 				return localCalendarDate.getYears();
 			} else {
@@ -284,7 +284,7 @@
 		*/
 		setChildPickers: function (inOld) {
 			if (this.value && typeof ilib !== 'undefined') {
-				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
+				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: 'local'});
 			}
 
 			if (this.localeValue || this.value) {
