@@ -6,15 +6,15 @@
 	&.spotlight {
 		color: @moon-white;
 	}
-}
 
-.enyo-locale-right-to-left .moon-expandable-picker-header {
-	padding-left: @moon-spotlight-outset + 30px;
-	padding-right: 0;
+	.enyo-locale-right-to-left & {
+		padding-left: @moon-spotlight-outset + 30px;
+		padding-right: 0;
 
-	&:after{
-		left: @moon-spotlight-outset + 1px;
-		right: auto;
+		&:after {
+			left: @moon-spotlight-outset + 1px;
+			right: auto;
+		}
 	}
 }
 
