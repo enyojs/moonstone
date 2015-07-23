@@ -1,0 +1,6 @@
+{
+	"main": "InputHeader.js",
+	"styles": [
+		"InputHeader.less"
+	]
+}

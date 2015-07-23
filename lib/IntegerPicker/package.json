@@ -1,0 +1,6 @@
+{
+	"main": "IntegerPicker.js",
+	"styles": [
+		"IntegerPicker.less"
+	]
+}

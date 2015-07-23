@@ -1,0 +1,88 @@
+.moon-tooltip {
+	z-index: 20;
+	-webkit-transform: translateZ(0);
+	transform: translateZ(0);
+	pointer-events: none;
+}
+
+.moon-tooltip-label {
+	.moon-small-button-text;
+	line-height: @moon-tooltip-label-height;
+	white-space: nowrap;
+	color: @moon-tooltip-text-color;
+	padding: 12px (@moon-button-h-padding + 2);
+	background-color: @moon-tooltip-bg-color;
+
+	.moon-tooltip.right-arrow & { text-align: right; }
+	.moon-tooltip.left-arrow & { text-align: left; }
+
+	.enyo-locale-non-latin & {
+		.enyo-locale-non-latin .moon-small-button-text;
+	}
+}
+
+.moon-tooltip-label:before {
+	position: absolute;
+	content: "";
+	width: 84px;
+	height: 60px;
+	border-radius: @moon-button-border-radius;
+
+	.moon-tooltip.above & {
+		bottom: -59px; // -height + 1px
+		border-top: 29px solid @moon-tooltip-bg-color;
+	}
+
+	.moon-tooltip.below & {
+		top: -59px; // -height + 1px
+		border-bottom: 29px solid @moon-tooltip-bg-color;
+	}
+
+	.moon-tooltip.right-arrow & {
+		right: -2px;
+	}
+
+	.moon-tooltip.left-arrow & {
+		left: -2px;
+	}
+}
+
+.moon-tooltip {
+	@radius: @moon-tooltip-height / 2;
+
+	&.above {
+		// .above .left-arrow nub shape
+		&.left-arrow .moon-tooltip-label {
+			border-radius: @radius @radius @radius 0px;
+			&:before {
+				clip: rect(30px, 24px, 38px, 2px);
+			}
+		}
+
+		// .above .right-arrow nub shape
+		&.right-arrow .moon-tooltip-label {
+			border-radius: @radius @radius 0px @radius;
+			&:before {
+				clip: rect(30px, 82px, 38px, 56px);
+			}
+		}
+	}
+
+	&.below {
+		// .below .left-arrow nub shape
+		&.left-arrow .moon-tooltip-label {
+			border-radius: 0 @radius @radius @radius;
+			&:before {
+				clip: rect(2px, 24px, 60px, 2px);
+			}
+		}
+
+		// .below .right-arrow nub shape
+		&.right-arrow .moon-tooltip-label {
+			border-radius: @radius 0px @radius @radius;
+			&:before{
+				clip: rect(2px, 82px, 60px, 56px);
+			}
+		}
+	}
+}

@@ -1,0 +1,36 @@
+/* Labeled Text Item */
+.moon-labeledtextitem {
+	min-width: 336px;
+	overflow: hidden;
+	color: @moon-label-text-color;
+
+	.text {
+		font-family: @moon-expandable-value-font-family;
+		font-size: @moon-expandable-value-font-size;
+		font-weight: @moon-expandable-value-font-weight;
+		font-style: @moon-expandable-value-font-style;
+		color: @moon-labeled-item-text-color;
+		line-height: @moon-body-line-height;
+		text-transform: none;
+		margin-bottom: (@moon-spotlight-outset - 3px);
+	}
+
+	.spotlight&,
+	.spotlight & {
+		color: @moon-spotlight-text-color;
+
+		.text {
+			color: inherit;
+		}
+	}
+
+	.enyo-locale-non-latin & {
+		.label {
+			.enyo-locale-non-latin .moon-sub-header-text;
+		}
+		.text {
+			.enyo-locale-non-latin .moon-body-text;
+			font-family: @moon-non-latin-font-family;
+		}
+	}
+}

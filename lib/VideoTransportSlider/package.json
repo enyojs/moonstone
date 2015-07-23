@@ -1,0 +1,6 @@
+{
+	"main": "VideoTransportSlider.js",
+	"styles": [
+		"VideoTransportSlider.less"
+	]
+}
