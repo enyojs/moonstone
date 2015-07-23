@@ -305,7 +305,8 @@ module.exports = kind(
 		{name: 'titleWrapper', kind: Control, classes: 'moon-header-title-wrapper', components: [
 			{name: 'title', kind: MarqueeText, classes: 'moon-header-text moon-header-title', canGenerate: false},
 			{name: 'inputDecorator', kind: InputDecorator, classes: 'moon-input-header-input-decorator',canGenerate: false, components: [
-				{name: 'titleInput', kind: Input, classes: 'moon-header-text moon-header-title'}
+                {name: 'titleInput', kind: Input, classes: 'moon-header-text moon-header-title',  onblur: 'inputBlur'},
+                {name: 'titleInputMarquee', kind: MarqueeText, classes: 'moon-header-text moon-header-title moon-input header-marquee hidden', marqueeOnRender: true, ontap: "marqueToggle"}
 			]}
 		]},
 		{name: 'titleBelow', kind: MarqueeText, classes: 'moon-sub-header-text moon-header-title-below'},
@@ -797,9 +798,31 @@ module.exports = kind(
 	* @fires module:moonstone/Header~Header#onInputHeaderChange
 	* @private
 	*/
-	handleChange: function (inSender, inEvent) {
-		this.doInputHeaderChange({originalEvent: util.clone(inEvent, true)});
-	},
+    handleChange: function (inSender, inEvent) {
+        this.doInputHeaderChange({originalEvent: util.clone(inEvent, true)});
+        this.$.titleInputMarquee.setContent(event.originator.getValue());
+        this.marqueToggle();
+    },
+
+        /**
+         * Logic for replacing input into marquee
+         *
+         * @private
+         */
+
+        marqueToggle: function (){
+            if (this.$.titleInputMarquee.getContent() === '') return ;
+            if (this.$.titleInput.hasClass('hidden')){
+                this.$.titleInput.removeClass('hidden');
+                this.$.titleInputMarquee.addClass('hidden');
+            }
+        },
+
+        inputBlur: function () {
+            if (this.$.titleInputMarquee.getContent() === '') return ;
+            this.$.titleInput.addClass('hidden');
+            this.$.titleInputMarquee.removeClass('hidden');
+        },
 
 
 	/**
