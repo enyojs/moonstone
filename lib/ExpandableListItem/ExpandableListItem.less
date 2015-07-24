@@ -1,12 +1,7 @@
 /* ExpandableListItem */
 .moon-expandable-list-item {
 	// Header
-	.moon-expandable-list-item-header {
-		display: inline-block;
-		box-sizing: border-box;
-		max-width: 100%;
-		position: relative;
-		vertical-align: top;
+	.moon-labeledtextitem-header {
 		.padding-start-end(0, @moon-spotlight-outset + 30px);
 
 		&:after {
@@ -17,7 +12,7 @@
 			font-size: @moon-expandable-caret-icon-font-size;
 			content: @moon-icon-arrowlargedown;
 
-			.open& {
+			&.open {
 				content: @moon-icon-arrowlargeup;
 			}
 
@@ -25,31 +20,6 @@
 				left: @moon-spotlight-outset + 1px;
 				right: initial;
 			}
-		}
-	}
-
-	// Current Value
-	.moon-expandable-list-item-current-value {
-		font-family: @moon-expandable-value-font-family;
-		font-size: @moon-expandable-value-font-size;
-		font-weight: @moon-expandable-value-font-weight;
-		font-style: @moon-expandable-value-font-style;
-		color: @moon-expandable-picker-text-color;
-		margin-top: -12px;	// Negative value to compensate for the taller line-height needed for tall-glyph charecters
-
-		.enyo-locale-right-to-left & {
-			padding-left: 0;
-		}
-
-		.enyo-locale-non-latin & {
-			.enyo-locale-non-latin .moon-body-text;
-		}
-	}
-
-	.spotlight {
-		> .moon-expandable-list-item-header,
-		> .moon-expandable-list-item-current-value {
-			color: inherit;
 		}
 	}
 
