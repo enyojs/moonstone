@@ -305,8 +305,8 @@ module.exports = kind(
 		{name: 'titleWrapper', kind: Control, classes: 'moon-header-title-wrapper', components: [
 			{name: 'title', kind: MarqueeText, classes: 'moon-header-text moon-header-title', canGenerate: false},
 			{name: 'inputDecorator', kind: InputDecorator, classes: 'moon-input-header-input-decorator',canGenerate: false, components: [
-                {name: 'titleInput', kind: Input, classes: 'moon-header-text moon-header-title',  onblur: 'inputBlur'},
-                {name: 'titleInputMarquee', kind: MarqueeText, classes: 'moon-header-text moon-header-title moon-input header-marquee hidden', marqueeOnRender: true, ontap: "marqueToggle"}
+                {name: 'titleInput', kind: Input, classes: 'moon-header-text moon-header-title',  onblur: 'marqueeToggle'},
+                {name: 'titleInputMarquee', kind: MarqueeText, classes: 'moon-header-text moon-header-title moon-input header-marquee', ontap: 'marqueeToggle', showing: false}
 			]}
 		]},
 		{name: 'titleBelow', kind: MarqueeText, classes: 'moon-sub-header-text moon-header-title-below'},
@@ -800,7 +800,7 @@ module.exports = kind(
 	*/
     handleChange: function (inSender, inEvent) {
         this.doInputHeaderChange({originalEvent: util.clone(inEvent, true)});
-        this.$.titleInputMarquee.setContent(event.originator.getValue());
+        this.$.titleInputMarquee.set('content', inEvent.originator.getValue());
         this.marqueToggle();
     },
 
@@ -810,18 +810,12 @@ module.exports = kind(
          * @private
          */
 
-        marqueToggle: function (){
-            if (this.$.titleInputMarquee.getContent() === '') return ;
-            if (this.$.titleInput.hasClass('hidden')){
-                this.$.titleInput.removeClass('hidden');
-                this.$.titleInputMarquee.addClass('hidden');
-            }
-        },
+        marqueeToggle: function (){
+            if (this.$.titleInputMarquee.get('content') === '') return;
 
-        inputBlur: function () {
-            if (this.$.titleInputMarquee.getContent() === '') return ;
-            this.$.titleInput.addClass('hidden');
-            this.$.titleInputMarquee.removeClass('hidden');
+            var isInputShowing = this.$.titleInput.get('showing');
+            this.$.titleInput.set('showing', !isInputShowing);
+            this.$.titleInputMarquee.set('showing', isInputShowing);
         },
 
 
