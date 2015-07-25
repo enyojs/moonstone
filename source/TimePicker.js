@@ -480,7 +480,7 @@
 					this.wrapComponent(
 						{name: 'timeWrapper', classes: 'moon-time-picker-wrap'},
 						{classes: 'moon-date-picker-wrap', components:[
-							{kind: 'moon.HourPicker', name:'hour', formatter: this.hourFormatter || this, value: values.hour, onChange: 'hourPickerChanged'},
+							{kind: 'moon.HourPicker', name:'hour', formatter: this.hourFormatter || this, value: values.hour, onChange: 'pickerChanged'},
 							{name: 'hourLabel', content: this.hourText, classes: 'moon-date-picker-label moon-divider-text'}
 						]},
 						this
@@ -490,7 +490,7 @@
 					this.wrapComponent(
 						{name: 'timeWrapper', classes: 'moon-time-picker-wrap'},
 						{classes: 'moon-date-picker-wrap', components:[
-							{kind: 'moon.MinutePicker', name:'minute', formatter: this.minuteFormatter || this, value: values.minute, onChange: 'minutePickerChanged'},
+							{kind: 'moon.MinutePicker', name:'minute', formatter: this.minuteFormatter || this, value: values.minute, onChange: 'pickerChanged'},
 							{name: 'minuteLabel', content: this.minuteText, classes: 'moon-date-picker-label moon-divider-text'}
 						]},
 						this
@@ -583,29 +583,14 @@
 		/**
 		* @private
 		*/
-		hourPickerChanged: function (sender, event) {
+		pickerChanged: function (sender, event) {
 			if(this.syncingPickers) return true;
 
-			var hour = this.value.getHours() + (event.value - event.old);
+			var value = event.value;
 
 			if (this.value) {
-				this.updateValue(hour);
-			}
-
-			return true;
-		},
-
-		/**
-		* @private
-		*/
-		minutePickerChanged: function (sender, event) {
-			if(this.syncingPickers) return true;
-
-			var minutes = event.value;
-
-			if (this.value) {
-				this.value.setMinutes(minutes);
-				this.set('value', this.value, {force: true});
+				if (sender == this.$.hour) this.updateValue(value);
+				else this.updateValue(null, value);
 			}
 
 			return true;
@@ -678,12 +663,12 @@
 		* @private
 		*/
 		setChildPickers: function (inOld) {
+			var value = this.value;
 			if (this.value) {
-				var values = this.calcPickerValues();
-				this.$.hour.set('value', values.hour);
-				this.$.minute.set('value', values.minute);
+				this.$.hour.set('value', value.getHours());
+				this.$.minute.set('value', value.getMinutes());
 				if (this.meridiemEnable) {
-					this.$.meridiem.setValueByTime(values.hour, values.minute);
+					this.$.meridiem.setValueByTime(value.getHours(), value.getMinutes());
 				}
 			}
 			this.$.currentValue.set('content', this.formatValue());
@@ -694,7 +679,7 @@
 		*/
 		calcPickerValues: function () {
 			var values = {},
-				value = this.localeValue || this.value;
+				value = this.value;
 
 			if (value) {
 				values.hour = value.getHours();
