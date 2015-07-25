@@ -106,16 +106,6 @@
 		},
 
 		/**
-		* @private
-		*/
-		initILib: function () {
-			this.inherited(arguments);
-			if (typeof ilib !== 'undefined' && this.value) {
-				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
-			}
-		},
-
-		/**
 		 * When [iLib]{@glossary ilib} is supported, calculates the minimum year in the
 		 * current calendar. Otherwise, returns the value of the published property
 		 * [minYear]{@link moon.DatePicker#minYear}.
@@ -246,7 +236,7 @@
 				month = this.$.month.getValue(),
 				year = this.$.year.getValue(),
 				value = this.value ? this.value : null,
-				maxDays;
+				maxDays, localeValue;
 			var valueHours = value ? value.getHours() : 0;
 			var valueMinutes = value ? value.getMinutes() : 0;
 			var valueSeconds = value ? value.getSeconds() : 0;
@@ -254,7 +244,7 @@
 
 			if (typeof ilib !== 'undefined') {
 				maxDays = this.monthLength(year, month);
-				this.localeValue = ilib.Date.newInstance({
+				localeValue = ilib.Date.newInstance({
 					day: (day <= maxDays) ? day : maxDays,
 					month: month,
 					year: year,
@@ -263,7 +253,7 @@
 					second: valueSeconds,
 					millisecond: valueMilliseconds
 				});
-				this.setValue(this.localeValue);
+				this.setValue(localeValue);
 			} else {
 				maxDays = this.monthLength(year, month);
 				this.setValue(new Date(year, month-1, (day <= maxDays) ? day : maxDays,
@@ -280,11 +270,7 @@
 		* @private
 		*/
 		setChildPickers: function (inOld) {
-			if (this.value && typeof ilib !== 'undefined') {
-				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
-			}
-
-			if (this.localeValue || this.value) {
+			if (this.value) {				
 				var values = this.calcPickerValues();
 
 				this.$.year.set('value', values.fullYear);
@@ -305,16 +291,18 @@
 				maxDays: 31
 			};
 			if (typeof ilib !== 'undefined') {
-				if (this.localeValue) {
-					values.fullYear = this.localeValue.getYears();
-					values.month = this.localeValue.getMonths();
-					values.date = this.localeValue.getDays();
+				// if ilib exists, this.value is instance of ilib.Date
+				if (this.value) {
+					values.fullYear = this.value.getYears();
+					values.month = this.value.getMonths();
+					values.date = this.value.getDays();
 				}
 				if (values.fullYear) {
 					values.maxMonths = this._tf.cal.getNumMonths(values.fullYear);
 					values.maxDays = this.monthLength(values.fullYear, values.month);
 				}
 			} else {
+				// if ilib doesn't exist, this.value is instance of JS Date
 				if (this.value) {
 					values.fullYear = this.value.getFullYear();
 					values.month = this.value.getMonth()+1;

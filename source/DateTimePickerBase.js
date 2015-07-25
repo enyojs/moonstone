@@ -173,8 +173,7 @@
 				date: 'dmwy'
 			};
 
-			fmtParams.locale = this.locale;
-			this.iLibLocale = ilib.getLocale();
+			fmtParams.locale = this.iLibLocale = ilib.getLocale();
 			this._tf = new ilib.DateFmt(fmtParams);
 		},
 
@@ -342,7 +341,7 @@
 				delete this._tf;
 			}
 			if (this.value && typeof ilib !== 'undefined'){
-				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
+				this.value = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
 			}
 			this.initDefaults();
 			this.render();
