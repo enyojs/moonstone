@@ -95,9 +95,10 @@
 
 			/**
 			* The value of the picker, expressed as a standard JavaScript {@glossary Date}
-			* object.
+			* object. If ilib is supported, we convert it as a ilib Date {@link ilib.Date}
+			* object
 			*
-			* @type {Date}
+			* @type {Date} or {ilib.Date}
 			* @default null
 			* @public
 			*/
@@ -213,6 +214,10 @@
 		* @private
 		*/
 		valueChanged: function (inOld) {
+			// if we call setValue using JavaScript Date object, we convert it to ilib Date object
+			if (typeof ilib !== 'undefined' && this.value instanceof Date) {
+				this.value = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
+			}
 			this.syncingPickers = true;
 			this.setChildPickers(inOld);
 			this.syncingPickers = false;

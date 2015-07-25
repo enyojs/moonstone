@@ -245,11 +245,12 @@
 			var day = this.$.day.getValue(),
 				month = this.$.month.getValue(),
 				year = this.$.year.getValue(),
+				value = this.value ? this.value : null,
 				maxDays;
-			var valueHours = this.value ? this.value.getHours() : 0;
-			var valueMinutes = this.value ? this.value.getMinutes() : 0;
-			var valueSeconds = this.value ? this.value.getSeconds() : 0;
-			var valueMilliseconds = this.value ? this.value.getMilliseconds() : 0;
+			var valueHours = value ? value.getHours() : 0;
+			var valueMinutes = value ? value.getMinutes() : 0;
+			var valueSeconds = value ? value.getSeconds() : 0;
+			var valueMilliseconds = value ? value.getMilliseconds() : 0;
 
 			if (typeof ilib !== 'undefined') {
 				maxDays = this.monthLength(year, month);
@@ -262,7 +263,7 @@
 					second: valueSeconds,
 					millisecond: valueMilliseconds
 				});
-				this.setValue(this.localeValue.getJSDate());
+				this.setValue(this.localeValue);
 			} else {
 				maxDays = this.monthLength(year, month);
 				this.setValue(new Date(year, month-1, (day <= maxDays) ? day : maxDays,
