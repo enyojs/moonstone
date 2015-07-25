@@ -537,7 +537,7 @@
 			}
 			var dateStr = '';
 			if (this._tf) {
-				dateStr = this._tf.format(ilib.Date.newInstance({unixtime: this.value.getTime(), timezone:'Etc/UTC'}));
+				dateStr = this._tf.format(this.value);
 			}
 			else {
 				dateStr += this.formatHour(this.value.getHours());
@@ -705,18 +705,6 @@
 
 			return values;
 		},
-
-		/**
-		* @private
-		*/
-		valueChanged: function (old) {
-			if (typeof ilib !== 'undefined' && this.value) {
-				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: 'local'});
-			}
-
-			this.inherited(arguments);
-		},
-
 
 		/**
 		* @private
