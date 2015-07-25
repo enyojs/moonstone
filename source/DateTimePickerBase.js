@@ -305,24 +305,13 @@
 		/**
 		* @private
 		*/
-		localeChanged: function () {
-			// Our own locale property has changed, so we need to rebuild our child pickers
-			if (typeof ilib !== 'undefined') {
-				ilib.setLocale(this.locale);
-				this.iLibLocale = ilib.getLocale();
-			}
-			this.refresh();
-		},
-
-		/**
-		* @private
-		*/
 		handleLocaleChangeEvent: function () {
 			// We've received a localechange event from the system, which means either the system
 			// locale or the timezone may have changed.
 			if (typeof ilib !== 'undefined' && ilib.getLocale() !== this.iLibLocale) {
 				// We're using iLib locale, and it has changed, so we'll rebuild the child pickers
 				// entirely
+				this.locale = this.iLibLocale = ilib.getLocale();
 				this.refresh();
 			} else {
 				// We don't care about the iLib locale or it hasn't changed, but timezone might have
