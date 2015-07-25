@@ -65,19 +65,22 @@ enyo.kind({
 	},
 	timeChanged: function(inSender, inEvent) {
 		if (this.$.result && inEvent.value){
-			var timeArray;
+			var timeArray,
+				timeFormat = inSender._tf;
 			if (inSender.localeValue) {
 				timeArray = inSender._tf.format(ilib.Date.newInstance({unixtime: inSender.localeValue.getTime(), timezone:'Etc/UTC'})).toString().split(':');
+				this.$.result.setContent(inEvent.name + " changed to " + timeArray[0] + ":" + timeArray[1]);
 			} else {
-				timeArray = inEvent.value.toTimeString().split(":");
+				timeArray = timeFormat.format(inEvent.value).split(":");
 			}
 			
 			this.$.result.setContent(inEvent.name + " changed to " + timeArray[0] + ":" + timeArray[1]);
 		}
 	},
 	dateChanged: function(inSender, inEvent) {
+		var timeFormat = inSender._tf;
 		if (this.$.result && inEvent.value){
-			this.$.result.setContent(inEvent.name + " changed to " + inEvent.value.toDateString());
+			this.$.result.setContent(inEvent.name + " changed to " + timeFormat.format(inEvent.value));
 		}
 	},
 	resetTapped: function(inSender, inEvent) {
