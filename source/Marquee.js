@@ -716,6 +716,9 @@
 			return function () {
 				sup.apply(this, arguments);
 				this._marquee_reset();
+				if(this.getAbsoluteShowing()){
+					this._marquee_calcDistance();	
+				}
 			};
 		}),
 
