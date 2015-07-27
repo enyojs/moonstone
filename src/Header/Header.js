@@ -801,7 +801,7 @@ module.exports = kind(
     handleChange: function (inSender, inEvent) {
         this.doInputHeaderChange({originalEvent: util.clone(inEvent, true)});
         this.$.titleInputMarquee.set('content', inEvent.originator.getValue());
-        this.marqueToggle();
+        this.marqueeToggle();
     },
 
         /**
