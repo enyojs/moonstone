@@ -4,19 +4,21 @@
 	min-width: 540px;
 	margin-top: 0px;
 	padding-top: 0px;
+	padding-bottom: @moon-spotlight-outset;
 	height: 204px;
 	overflow: hidden;
-}
-.moon-imageitem img {
-	width: 132px;
-	height: 192px;
-	padding: 0px;
-	margin: 12px 60px 12px 0px;
-	display: inline-block;
-	float: left;
-}
-.moon-imageitem.align-right img {
-	float: right;
-	margin-right: 0px;
-	margin-left: 60px;
+
+	img {
+		width: 132px;
+		height: 192px;
+		padding: 0px;
+		margin: @moon-spotlight-outset 60px @moon-spotlight-outset 0px;
+		display: inline-block;
+		float: left;
+	}
+	&.align-right img {
+		float: right;
+		margin-right: 0px;
+		margin-left: 60px;
+	}
 }
