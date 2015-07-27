@@ -715,6 +715,7 @@
 		showingChangedHandler: enyo.inherit(function (sup) {
 			return function () {
 				sup.apply(this, arguments);
+				if(this.showing) this._marquee_calcDistance();
 				this._marquee_reset();
 			};
 		}),
