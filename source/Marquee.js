@@ -713,10 +713,10 @@
 		* @private
 		*/
 		showingChangedHandler: enyo.inherit(function (sup) {
-			return function () {
+			return function (sender, event) {
 				sup.apply(this, arguments);
 				this._marquee_reset();
-				if(this.getAbsoluteShowing()){
+				if(this.showing && event.showing){
 					this._marquee_calcDistance();	
 				}
 			};
