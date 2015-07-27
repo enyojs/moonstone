@@ -5,7 +5,7 @@
 	* @event moon.DateTimePickerBase#onChange
 	* @type {Object}
 	* @property {String} name - The name of this control.
-	* @property {Date} value - A standard JavaScript {@glossary Date} object representing
+	* @property {Date} value - An ilib Date {@link ilib.Date} object representing
 	* the picker's current value.
 	* @public
 	*/

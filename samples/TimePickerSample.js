@@ -5,9 +5,9 @@ enyo.kind({
 	components: [
 		{kind: 'moon.Scroller', fit: true, components: [
 			{classes: "moon-7h moon-vspacing-s", components: [
-				{kind: "moon.DatePicker", name:"pickerDateLinked", noneText: "Pick a Date", content: "Linked Date", onChange: "dateChanged"},
-				{kind: "moon.TimePicker", name:"pickerTimeLinked", noneText: "Pick a Time", content: "Linked Time", meridiemEnable: true, onChange: "timeChanged"},
-				{kind: "moon.TimePicker", name: "pickerTime", noneText: "Pick a Time", content: "Time", meridiemEnable: true, onChange: "timeChanged"},
+				{kind: "moon.DatePicker", name:"pickerDateLinked", noneText: "Pick a Date", content: "Linked Date", onChange: "changed"},
+				{kind: "moon.TimePicker", name:"pickerTimeLinked", noneText: "Pick a Time", content: "Linked Time", meridiemEnable: true, onChange: "changed"},
+				{kind: "moon.TimePicker", name: "pickerTime", noneText: "Pick a Time", content: "Time", meridiemEnable: true, onChange: "changed"},
 				{kind: "moon.Button", name: "buttonReset", content: "Reset Time", small: true, ontap: "resetTapped"},
 				{kind: "moon.TimePicker", name:"pickerDisabled", meridiemEnable: true, disabled: true, noneText: "Disabled Time Picker", content: "Disabled Time"},
 				{kind: "moon.ExpandablePicker", name: "pickerLocale", noneText: "No Locale Selected", content: "Choose Locale", onChange:"setLocale", components: [
@@ -63,21 +63,8 @@ enyo.kind({
 		}
 		return true;
 	},
-	timeChanged: function(inSender, inEvent) {
-		if (this.$.result && inEvent.value){
-			var timeArray,
-				timeFormat = inSender._tf;
-			if (inSender.localeValue) {
-				timeArray = inSender._tf.format(ilib.Date.newInstance({unixtime: inSender.localeValue.getTime(), timezone:'Etc/UTC'})).toString().split(':');
-				this.$.result.setContent(inEvent.name + " changed to " + timeArray[0] + ":" + timeArray[1]);
-			} else {
-				timeArray = timeFormat.format(inEvent.value).split(":");
-			}
-			
-			this.$.result.setContent(inEvent.name + " changed to " + timeArray[0] + ":" + timeArray[1]);
-		}
-	},
-	dateChanged: function(inSender, inEvent) {
+	
+	changed: function(inSender, inEvent) {
 		var timeFormat = inSender._tf;
 		if (this.$.result && inEvent.value){
 			this.$.result.setContent(inEvent.name + " changed to " + timeFormat.format(inEvent.value));
