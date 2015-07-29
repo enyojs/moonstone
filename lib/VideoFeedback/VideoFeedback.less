@@ -2,9 +2,6 @@
 .moon-video-player-feedback {
 	margin-right: @moon-video-player-icon-text-gutter-width;
 }
-.enyo-locale-right-to-left .moon-video-player-feedback {
-	direction: rtl;
-}
 .moon-video-feedback-text {
 	display: inline-block;
 	color: @moon-accent;
@@ -61,6 +58,9 @@
 	margin-bottom: 3px;
 }
 
+.enyo-locale-right-to-left .moon-video-player-feedback{
+	margin: 0 0 0 @moon-video-player-icon-text-gutter-width;
+}
 .enyo-locale-right-to-left {
 	.moon-icon.moon-video-feedback-icon-left {
 		margin: 0 0 0 @moon-video-player-icon-text-gutter-width;
