@@ -232,7 +232,7 @@
 		pickerChanged: function (sender, inEvent) {
 			if(this.syncingPickers) return true;
 
-			if (typeof ilib !== 'undefined') {			
+			if (typeof ilib !== 'undefined') {
 				if (sender == this.$.day) this.value.setDays(inEvent.value);
 				else if (sender == this.$.month) this.value.setMonths(inEvent.value);
 				else this.value.setYears(inEvent.value);
