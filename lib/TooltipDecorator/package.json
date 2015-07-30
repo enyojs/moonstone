@@ -1,3 +1,6 @@
 {
-	"main": "TooltipDecorator.js"
+	"main": "TooltipDecorator.js",
+	"styles": [
+		"TooltipDecorator.less"
+	]
 }
