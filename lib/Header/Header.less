@@ -125,9 +125,12 @@
 			border: 0px;
 			width: 100%;
 			box-sizing: border-box;
-			background-color: transparent;
 
-			> .moon-input {
+			&.moon-focused {
+				color: @moon-input-header-text-color;
+			}
+
+			.moon-input {
 				.moon-header-text;
 				margin: 0px;
 				padding-left: 1px;
@@ -135,42 +138,35 @@
 				display: inline-block;
 				box-sizing: border-box;
 				line-height: 1em;
-				color: @moon-input-header-text-color;
+				color: inherit;
 				width: 100%;
 				text-overflow: ellipsis;
+
+				.input-placeholder({
+					color: @moon-input-header-placeholder-color;
+					margin-top: 12px;
+					line-height: 1.25em;
+				});
 			}
 
 			&.spotlight {
-				.moon-input {
+				&:not(.moon-focused) .moon-input {
 					color: inherit;
+					background-color: @moon-spotlight-background-color;
 
 					.input-placeholder({
 						color: inherit;
 					});
 				}
 
-				> .moon-input {
-					background-color: @moon-spotlight-background-color;
-				}
-
-				&.moon-focused > .moon-input {
+				&.moon-focused .moon-input {
 					background: none;
-
-					.input-placeholder({
-						color: @moon-input-header-placeholder-color;
-					});
 				}
 			}
 		}
 
-		.moon-input.moon-header-title {
-			position: static;
-
-			.input-placeholder({
-				color: @moon-input-header-placeholder-color;
-				margin-top:12px;
-				line-height: 1.25em;
-			});
+		.moon-header-title-below {
+			margin-top: 0;
 		}
 	}
 }
