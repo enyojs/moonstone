@@ -65,9 +65,15 @@ enyo.kind({
 	},
 	
 	changed: function(inSender, inEvent) {
-		var timeFormat = inSender._tf;
-		if (this.$.result && inEvent.value){
-			this.$.result.setContent(inEvent.name + " changed to " + timeFormat.format(inEvent.value));
+		if (window.ilib) {
+			var timeFormat = inSender._tf;
+			if (this.$.result && inEvent.value){
+				this.$.result.setContent(inEvent.name + " changed to " + timeFormat.format(inEvent.value));
+			}
+		} else {
+			if (this.$.result && inEvent.value){
+				this.$.result.setContent(inEvent.name + " changed to " + inEvent.value.toDateString());
+			}
 		}
 	},
 	resetTapped: function(inSender, inEvent) {

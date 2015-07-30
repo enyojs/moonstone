@@ -229,47 +229,27 @@
 		/**
 		* @private
 		*/
-		pickerChanged: function (inSender, inEvent) {
+		pickerChanged: function (sender, inEvent) {
 			if(this.syncingPickers) return true;
 
-			var day = this.$.day.getValue(),
-				month = this.$.month.getValue(),
-				year = this.$.year.getValue(),
-				value = this.value ? this.value : null,
-				maxDays, localeValue;
-			var valueHours = value ? value.getHours() : 0;
-			var valueMinutes = value ? value.getMinutes() : 0;
-			var valueSeconds = value ? value.getSeconds() : 0;
-			var valueMilliseconds = value ? value.getMilliseconds() : 0;
-
-			if (typeof ilib !== 'undefined') {
-				maxDays = this.monthLength(year, month);
-				localeValue = ilib.Date.newInstance({
-					day: (day <= maxDays) ? day : maxDays,
-					month: month,
-					year: year,
-					hour: valueHours,
-					minute: valueMinutes,
-					second: valueSeconds,
-					millisecond: valueMilliseconds
-				});
-				this.setValue(localeValue);
+			if (typeof ilib !== 'undefined') {			
+				if (sender == this.$.day) this.value.setDays(inEvent.value);
+				else if (sender == this.$.month) this.value.setMonths(inEvent.value);
+				else this.value.setYears(inEvent.value);
 			} else {
-				maxDays = this.monthLength(year, month);
-				this.setValue(new Date(year, month-1, (day <= maxDays) ? day : maxDays,
-					valueHours,
-					valueMinutes,
-					valueSeconds,
-					valueMilliseconds));
+				if (sender == this.$.day) this.value.setDate(inEvent.value);
+				else if (sender == this.$.month) this.value.setMonth(inEvent.value - 1);
+				else this.value.setYear(inEvent.value);
 			}
 
+			this.valueChanged();
 			return true;
 		},
 
 		/**
 		* @private
 		*/
-		setChildPickers: function (inOld) {
+		setChildPickers: function () {
 			if (this.value) {				
 				var values = this.calcPickerValues();
 

@@ -212,13 +212,13 @@
 		* @fires moon.DateTimePickerBase#onChange
 		* @private
 		*/
-		valueChanged: function (inOld) {
+		valueChanged: function () {
 			// if we call setValue using JavaScript Date object, we convert it to ilib Date object
 			if (typeof ilib !== 'undefined' && this.value instanceof Date) {
 				this.value = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
 			}
 			this.syncingPickers = true;
-			this.setChildPickers(inOld);
+			this.setChildPickers();
 			this.syncingPickers = false;
 
 			if (this.value) {
@@ -231,7 +231,7 @@
 		/**
 		* @private
 		*/
-		setChildPickers: function (inOld) {
+		setChildPickers: function () {
 			// implement in subkind
 		},
 
