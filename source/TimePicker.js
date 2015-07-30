@@ -542,7 +542,7 @@
 			else {
 				dateStr += this.formatHour(this.value.getHours());
 				dateStr += ':' + ('00' + this.value.getMinutes()).slice(-2) + ' ';
-				dateStr += this.meridiemEnable ? this.$.meridiem.getMeridiems()[this.$.meridiem.getValue()] : '';
+				dateStr += this.meridiemEnable ? this.$.meridiem.getMeridiems()[this.$.meridiem.getValue()].name : '';
 			}
 			return dateStr;
 		},
@@ -662,7 +662,7 @@
 		/**
 		* @private
 		*/
-		setChildPickers: function (inOld) {
+		setChildPickers: function () {
 			var value = this.value;
 			if (this.value) {
 				this.$.hour.set('value', value.getHours());
