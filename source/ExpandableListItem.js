@@ -151,7 +151,7 @@
 		components: [
 			// headerContainer required to avoid bad scrollWidth returned in RTL for certain text
 			// widths (webkit bug)
-			{name: 'headerContainer', classes: 'moon-expandable-list-item-header moon-expandable-picker-header moon-expandable-list-header', onSpotlightFocus: 'headerFocus', ontap: 'expandContract', components: [
+			{name: 'headerContainer', classes: 'moon-expandable-list-item-header moon-expandable-picker-header moon-expandable-list-header', onSpotlightFocus: 'headerFocus', spotlightFocused: enyo.nop, ontap: 'expandContract', components: [
 				{name: 'header', kind: 'moon.MarqueeText'}
 			]},
 			{name: 'drawer', kind: 'enyo.Drawer', resizeContainer:false, classes: 'moon-expandable-list-item-client', components: [
@@ -254,12 +254,12 @@
 		headerFocus: function (inSender, inEvent) {
 			var direction = inEvent && inEvent.dir;
 
-			if (this.getOpen() && this.getAutoCollapse() && direction === 'UP') {
-				this.setActive(false);
+			if (inEvent.originator === this.$.headerContainer) {
+				this.bubble('onRequestScrollIntoView');
 			}
 
-			if (inEvent.originator === this.$.header) {
-				this.bubble('onRequestScrollIntoView');
+			if (this.getOpen() && this.getAutoCollapse() && direction === 'UP') {
+				this.setActive(false);
 			}
 		},
 
