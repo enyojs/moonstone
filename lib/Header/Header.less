@@ -1,7 +1,6 @@
 .moon-header {
 	.border-box;
 	color: @moon-header-text-color;
-	height: @moon-header-height-large;
 	border-top: @moon-header-border-top-width solid @moon-header-border-color;
 	border-bottom: @moon-header-border-bottom-width solid @moon-header-bottom-border-color;
 	position: relative;
@@ -11,35 +10,6 @@
 	background-repeat: no-repeat;
 	background-position: top left;
 	margin: 0 @moon-spotlight-outset;
-
-	.moon-header-title-above {
-		margin-top: 6px;
-		height: 1.2em;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-
-		.no-border {
-			border: none;
-		}
-	}
-
-	.moon-header-title {
-		line-height: @moon-header-line-height;
-
-		.moon-marquee-text {
-			white-space: nowrap;
-		}
-	}
-
-	.moon-header-title-below,
-	.moon-header-sub-title-below {
-		height: 45px;
-		line-height: 45px;
-	}
-	.moon-header-title-below {
-		margin-top: -9px;  // Tuck this element up under the title
-	}
 
 	&.full-bleed {
 		padding: 0 @moon-header-indent-width @moon-spotlight-outset @moon-header-indent-width;
@@ -56,6 +26,48 @@
 		vertical-align: bottom;
 	}
 
+	.moon-header-title-below {
+		margin-top: -9px;  // Tuck this element up under the title
+
+		.enyo-locale-non-latin & {
+			margin-top: -21px;  // Tuck this element up under the title
+		}
+	}
+
+	// Large Header
+	&.moon-large-header {
+		height: @moon-header-height-large;
+
+		.moon-header-title-above {
+			margin-top: 6px;
+			height: 1.2em;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+
+			.no-border {
+				border: none;
+			}
+		}
+
+		.moon-header-title {
+			line-height: @moon-header-line-height;
+
+			.moon-marquee-text {
+				white-space: nowrap;
+			}
+
+			.enyo-locale-non-latin & {
+				line-height: @moon-non-latin-header-text-line-height;
+			}
+		}
+
+		.moon-header-title-below,
+		.moon-header-sub-title-below {
+			line-height: 45px;
+		}
+	}
+
 	// Medium Header
 	&.moon-medium-header {
 		height: @moon-header-height-medium;
@@ -66,11 +78,14 @@
 
 		.moon-header-title {
 			line-height: @moon-medium-header-line-height;
+
+			.enyo-locale-non-latin & {
+				line-height: @moon-non-latin-medium-header-line-height;
+			}
 		}
 
 		.moon-header-title-below,
 		.moon-header-sub-title-below {
-			height: 39px;
 			line-height: 39px;
 		}
 	}
@@ -90,6 +105,10 @@
 			line-height: @moon-small-header-line-height;
 			font-size: @moon-small-header-font-size;
 			height: 84px;
+
+			.enyo-locale-non-latin & {
+				line-height: @moon-non-latin-small-header-line-height;
+			}
 		}
 
 		.moon-header-sub-title {
@@ -179,35 +198,13 @@
 
 // enyo-locale-non-latin
 .enyo-locale-non-latin {
-	// Languages with combining accent characters
-	&.enyo-locale-th, // Thai - Test Chars: ฟิ้ไััุุ
-	&.enyo-locale-ar, // Arabic
-	&.enyo-locale-fa, // Farsi
-	&.enyo-locale-ur, // Urdu
-	&.enyo-locale-ku, // Kurdish
-	&.enyo-locale-he, // Hebrew
-	&.enyo-locale-hi, // Hindi
-	&.enyo-locale-ta, // Tamil
-	&.enyo-locale-te, // Telugu
-	&.enyo-locale-kn, // Kannada
-	&.enyo-locale-ml, // Malayalam
-	&.enyo-locale-mr, // Marathi
-	&.enyo-locale-bn, // Bengali
-	&.enyo-locale-pa {// Panjabi
-		.moon-header .moon-header-title {
-			height: 159px;
+	&.enyo-locale-ja .moon-header {
+		.moon-header-title,
+		&.moon-input-header .moon-input-header-input-decorator > .moon-input {
+			line-height: 1.25em;
 		}
-	}
-
-	.moon-header {
-		.moon-header-title, {
-			line-height: @moon-non-latin-header-text-line-height;
-		}
-		&.moon-medium-header .moon-header-title, {
-			line-height: @moon-non-latin-medium-header-line-height;
-		}
-		&.moon-small-header .moon-header-title, {
-			line-height: @moon-non-latin-small-header-line-height;
+		.moon-header-title-below {
+			margin-top: 0;  // JP is fine, we don't need to tuck (from above)
 		}
 	}
 
@@ -232,9 +229,10 @@
 }
 
 // moon-header-left is used in HeaderSample
-.moon-header:not(.moon-small-header):not(.moon-medium-header) .moon-header-left {
+.moon-header.moon-large-header .moon-header-left {
 	float: left;
-}
-.enyo-locale-right-to-left .moon-header:not(.moon-small-header):not(.moon-medium-header) .moon-header-left {
-	float: right;
+
+	.enyo-locale-right-to-left & {
+		float: right;
+	}
 }
