@@ -28,6 +28,10 @@
 
 	.moon-header-title-below {
 		margin-top: -9px;  // Tuck this element up under the title
+
+		.enyo-locale-non-latin & {
+			margin-top: -21px;  // Tuck this element up under the title
+		}
 	}
 
 	// Large Header
@@ -66,7 +70,7 @@
 
 	// Medium Header
 	&.moon-medium-header {
-		line-height: @moon-header-height-medium;
+		height: @moon-header-height-medium;
 
 		.moon-header-title-above {
 			display: none;
