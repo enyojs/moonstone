@@ -182,7 +182,7 @@
 		* @private
 		*/
 		components: [
-			{name: 'headerWrapper', kind: 'moon.Item', classes: 'moon-expandable-picker-header-wrapper', onSpotlightFocus: 'headerFocus', ontap: 'expandContract', components: [
+			{name: 'headerWrapper', kind: 'moon.Item', classes: 'moon-expandable-picker-header-wrapper', onSpotlightFocus: 'headerFocus', spotlightFocused: enyo.nop, ontap: 'expandContract', components: [
 				// headerContainer required to avoid bad scrollWidth returned in RTL for certain text widths (webkit bug)
 				{name: 'headerContainer', classes: 'moon-expandable-list-item-header moon-expandable-picker-header', components: [
 					{name: 'header', kind: 'moon.MarqueeText'}
@@ -553,6 +553,25 @@
 			}
 			this.$.client.setHighlander(!this.multipleSelection);
 			this.selectedChanged();
+		},
+
+		/**
+		* If drawer is currently open, and event was sent via keypress (i.e., it has a direction),
+		* process header focus.
+		*
+		* @fires moon.Scroller#onRequestScrollIntoView
+		* @private
+		*/
+		headerFocus: function (inSender, inEvent) {
+			var direction = inEvent && inEvent.dir;
+
+			if (inEvent.originator === this.$.headerWrapper) {
+				this.bubble('onRequestScrollIntoView');
+			}
+
+			if (this.getOpen() && this.getAutoCollapse() && direction === 'UP') {
+				this.setActive(false);
+			}
 		}
 	});
 
