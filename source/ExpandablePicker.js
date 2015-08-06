@@ -214,7 +214,7 @@
 					this.selectedIndex = (this.selectedIndex != -1) ? this.selectedIndex : [];
 				}
 				// super initialization
-				sup.apply(this, arguments);	
+				sup.apply(this, arguments);
 
 				this.selectedIndexChanged();
 				this.noneTextChanged();
@@ -368,8 +368,10 @@
 		*/
 		openChanged: function () {
 			this.inherited(arguments);
-			this.$.currentValue.setShowing(!this.open);
 			this.setActive(this.getOpen());
+			enyo.asyncMethod(this, function () {
+				this.$.currentValue.set('showing', !this.open);
+			});
 		},
 
 		/**
@@ -458,7 +460,7 @@
 		generateHelpText: function () {
 			this.$.helpText.canGenerate = true;
 			this.$.helpText.render();
-		},		
+		},
 
 		/**
 		* When an item is chosen, marks it as checked and closes the picker.
@@ -499,10 +501,10 @@
 
 			return true;
 		},
-		
+
 		/**
 		* Returns the picker items. Override point for child kinds altering the source of the items.
-		* 
+		*
 		* @private
 		*/
 		getCheckboxControls: function () {
