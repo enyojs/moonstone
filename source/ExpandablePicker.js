@@ -368,8 +368,10 @@
 		*/
 		openChanged: function () {
 			this.inherited(arguments);
-			this.$.currentValue.setShowing(!this.open);
 			this.setActive(this.getOpen());
+			enyo.asyncMethod(this, function () {
+				this.$.currentValue.set('showing', !this.open);
+			});
 		},
 
 		/**
@@ -515,10 +517,10 @@
 		* @private
 		*/
 		selectAndClose: function () {
+			this.setActive(false);
 			if (!enyo.Spotlight.getPointerMode() && enyo.Spotlight.getCurrent() && enyo.Spotlight.getCurrent().isDescendantOf(this)) {
 				enyo.Spotlight.spot(this.$.headerWrapper);
 			}
-			this.setActive(false);
 		},
 
 		/**
