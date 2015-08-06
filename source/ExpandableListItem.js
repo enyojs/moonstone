@@ -135,6 +135,11 @@
 		/**
 		* @private
 		*/
+		headerName: 'headerContainer',
+
+		/**
+		* @private
+		*/
 		defaultKind: 'moon.Item',
 
 		/**
@@ -254,7 +259,7 @@
 		headerFocus: function (inSender, inEvent) {
 			var direction = inEvent && inEvent.dir;
 
-			if (inEvent.originator === this.$.headerContainer) {
+			if (inEvent.originator === this.$[this.headerName]) {
 				this.bubble('onRequestScrollIntoView');
 			}
 
