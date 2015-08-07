@@ -416,7 +416,22 @@ module.exports = kind(
 		this.applyPosition({'margin-left': this.defaultLeft, 'bottom': 'auto'});
 		this.adjustPosition(true);
 		Popup.prototype.handleResize.apply(this, arguments);
-	}
+	},
+
+	// Accessibility
+
+	accessibilityReadAll: true,
+
+	accessibilityLive: 'off',
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: ['accessibilityReadAll', 'accessibilityRole', 'showing'], method: function () {
+			this.setAriaAttribute('role', this.accessibilityReadAll && this.showing ? 'alert' : this.accessibilityRole);
+		}}
+	]
 });
 
 module.exports.Content = TooltipContent;

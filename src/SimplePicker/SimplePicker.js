@@ -12,11 +12,11 @@ var
 	Control = require('enyo/Control');
 
 var
+	$L = require('../i18n'),
 	IconButton = require('../IconButton'),
 	Marquee = require('../Marquee'),
 	MarqueeSupport = Marquee.Support,
-	MarqueeText	= Marquee.Text,
-	SimplePickerAccessibilitySupport = require('./SimplePickerAccessibilitySupport');
+	MarqueeText	= Marquee.Text;
 
 /**
 * Fires when the currently selected item changes.
@@ -91,7 +91,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	mixins: options.accessibility ? [MarqueeSupport, SimplePickerAccessibilitySupport] : [MarqueeSupport],
+	mixins: [MarqueeSupport],
 
 	/**
 	* @private
@@ -179,7 +179,7 @@ module.exports = kind(
 	*/
 	components: [
 		{name: 'buttonLeft',  kind: IconButton, backgroundOpacity: 'transparent', classes: 'moon-simple-picker-button left', icon:'arrowlargeleft', onSpotlightSelect: 'left', ondown: 'downLeft', onholdpulse:'left', defaultSpotlightDisappear: 'buttonRight'},
-		{name: 'clientWrapper', kind: Control, classes:'moon-simple-picker-client-wrapper', components: [
+		{name: 'clientWrapper', kind: Control, classes:'moon-simple-picker-client-wrapper', accessibilityDisabled: true, components: [
 			{name: 'client', kind: Control, classes: 'moon-simple-picker-client'}
 		]},
 		{name: 'buttonRight', kind: IconButton, backgroundOpacity: 'transparent', classes: 'moon-simple-picker-button right', icon:'arrowlargeright', onSpotlightSelect: 'right', ondown: 'downRight', onholdpulse:'right', defaultSpotlightDisappear: 'buttonLeft'}
@@ -360,12 +360,13 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	selectedChanged: function() {
+	selectedChanged: function (was, is) {
 		var idx = this.getClientControls().indexOf(this.selected);
 		if (idx >= 0) {
 			this.setSelectedIndex(idx);
 		}
 	},
+
 	/*
 	* When the picker is initialized, looks for any items with the `active` flag set to
 	* `true`; if one is found, it is set as the currently selected item. This is done
@@ -379,8 +380,8 @@ module.exports = kind(
 			controls = this.getClientControls();
 		for (i = 0; i < controls.length; i++) {
 			if (controls[i].active) {
-				this.selectedIndex = i;
-				this.selected = controls[i];
+				this.set('selectedIndex', i);
+				// this.selected = controls[i];
 				return;
 			}
 		}
@@ -470,8 +471,8 @@ module.exports = kind(
 	/**
 	* Cycles the selected item to the one after the currently selected item. If chained from
 	* an event, {@link Spotlight} hold pulse events will be canceled once the last item is
-	* reached, unless [wrap]{@link module:moonstone/SimplePicker~SimplePicker#wrap} is `true`. When calling this method
-	* directly, no arguments are required.
+	* reached, unless [wrap]{@link module:moonstone/SimplePicker~SimplePicker#wrap} is `true`. When
+	* calling this method directly, no arguments are required.
 	*
 	* @param {Object} sender - (unused) Sender, if chained from event.
 	* @param {Object} e - Event object, if chained from event.
@@ -489,5 +490,30 @@ module.exports = kind(
 			}
 			this.setSelectedIndex(idx);
 		}
-	}
+	},
+
+	// Accessibility
+
+	/**
+	* @private
+	*/
+	accessibilityRole: 'spinbutton',
+
+	/**
+	* @private
+	*/
+	accessibilityLive: 'polite',
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: 'selected', method: function () {
+			var text = $L('press ok button to change the value');
+			if (this.selected) {
+				text = this.selected.content + ' ' + text;
+			}
+			this.setAriaAttribute('aria-valuetext', text);
+		}}
+	]
 });

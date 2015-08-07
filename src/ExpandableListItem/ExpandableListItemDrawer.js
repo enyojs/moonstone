@@ -78,5 +78,13 @@ module.exports = kind(
 	*/
 	resetRendered: function (was, is) {
 		if (!is) this.hasRendered = false;
-	}
+	},
+
+	// Accessibility
+	
+	ariaObservers: [
+		{from: 'open', method: function () {
+			this.setAriaAttribute('aria-hidden', this.open ? null : 'true');
+		}}
+	]
 });

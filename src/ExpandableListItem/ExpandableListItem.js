@@ -20,8 +20,7 @@ var
 
 var
 	ExpandableListItemHeader = require('./ExpandableListItemHeader'),
-	ExpandableListItemDrawer = require('./ExpandableListItemDrawer'),
-	ExpandableListItemAccessibilitySupport = require('./ExpandableListItemAccessibilitySupport');
+	ExpandableListItemDrawer = require('./ExpandableListItemDrawer');
 
 /**
 * {@link module:moonstone/ExpandableListItem~ExpandableListItem}, which extends {@link module:moonstone/Item~Item}, displays a header
@@ -97,11 +96,6 @@ module.exports = kind(
 	* @private
 	*/
 	kind: Control,
-
-	/**
-	* @private
-	*/
-	mixins: options.accessibility ? [ExpandableListItemAccessibilitySupport] : null,
 
 	/**
 	* @private

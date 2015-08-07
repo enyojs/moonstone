@@ -18,9 +18,6 @@ var
 	ProgressBar = require('../ProgressBar'),
 	IconButton = require('../IconButton');
 
-var
-	SliderAccessibilitySupport = require('./SliderAccessibilitySupport');
-
 /**
 * Fires when bar position is set.
 *
@@ -78,11 +75,6 @@ module.exports = kind(
 	* @private
 	*/
 	kind: ProgressBar,
-
-	/**
-	* @private
-	*/
-	mixins: options.accessibility ? [SliderAccessibilitySupport] : null,
 
 	/**
 	* @private
@@ -294,7 +286,7 @@ module.exports = kind(
 	*/
 	jumpWrapperComponents: [
 		{name: 'buttonLeft', kind: IconButton, backgroundOpacity: 'transparent', classes: 'moon-slider-button left', icon: 'arrowlargeleft', onSpotlightKeyDown: 'configureSpotlightHoldPulse', onSpotlightSelect: 'previous', ondown: 'downLeft', onholdpulse: 'holdLeft', ondragstart: 'preventDrag', defaultSpotlightDisappear: 'buttonRight'},
-		{name: 'slider', classes: 'moon-slider', spotlight: true},
+		{name: 'slider', classes: 'moon-slider', spotlight: true, accessibilityLive: 'polite'},
 		{name: 'buttonRight', kind: IconButton, backgroundOpacity: 'transparent', classes: 'moon-slider-button right', icon: 'arrowlargeright', onSpotlightKeyDown: 'configureSpotlightHoldPulse', onSpotlightSelect: 'next', ondown: 'downRight', onholdpulse: 'holdRight', ondragstart: 'preventDrag', defaultSpotlightDisappear: 'buttonLeft'}
 	],
 
@@ -594,7 +586,7 @@ module.exports = kind(
 		var orient = this.get('orientation');
 		if ((e.horizontal && orient == 'horizontal') || (e.vertical && orient == 'vertical')) { // could be simplified as: if (e[orient]); but left long for clarity and maintainability
 			e.preventDefault();
-			this.dragging = true;
+			this.set('dragging', true);
 			Spotlight.freeze();
 			this.$.knob.addClass('active');
 			this.showKnobStatus();
@@ -651,9 +643,9 @@ module.exports = kind(
 			v = this.clampValue(this.min, this.max, v);
 		}
 
-		this.dragging = false;
+		this.set('dragging', false);
 		Spotlight.unfreeze();
-		this.set('value',v);
+		this.set('value', v);
 
 		this.updateButtonStatus();
 		this.sendChangeEvent({value: this.getValue()});
@@ -918,5 +910,41 @@ module.exports = kind(
 	*/
 	next: function () {
 		this.set('value', this.value + this._jumpIncrementAmount);
+	},
+
+	// Accessibility
+
+	/**
+	* @private
+	*/
+	accessibilityRole: 'slider',
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{to: 'aria-atomic', value: true},
+		{from: 'disabled', method: function () {
+			this.setAriaAttribute('aria-disabled', this.disabled || null);
+		}},
+		{path: 'enableJumpIncrement', method: function () {
+			if (this.enableJumpIncrement) {
+				this.$.slider.setAriaAttribute('aria-labelledby', this.id);
+			}
+		}},
+		{path: ['value', 'popupContent', 'dragging'], method: 'ariaValue'}
+	],
+
+	/**
+	* Overriding {@link module:moonstone/ProgressBar~ProgressBar#ariaValue} to guard updating value
+	* when dragging.
+	*
+	* @private
+	*/
+	ariaValue: function () {
+		var attr = this.popupContent ? 'aria-valuetext' : 'aria-valuenow';
+		if (!this.dragging) {
+			this.setAriaAttribute(attr, this.popupContent || this.value);
+		}
 	}
 });
