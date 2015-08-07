@@ -22,10 +22,10 @@ var
 	Spotlight = require('spotlight');
 
 var
+	$L = require('../i18n'),
 	IconButton = require('../IconButton'),
 	Scrim = require('moonstone/Scrim'),
-	HistorySupport = require('../HistorySupport'),
-	ContextualPopupAccessibilitySupport = require('./ContextualPopupAccessibilitySupport');
+	HistorySupport = require('../HistorySupport');
 
 /**
 * Fires when the contextual popup is to be shown.
@@ -80,7 +80,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	mixins: options.accessibility ? [HistorySupport, ContextualPopupAccessibilitySupport] : [HistorySupport],
+	mixins: [HistorySupport],
 
 	/**
 	* @private
@@ -212,7 +212,7 @@ module.exports = kind(
 	*/
 	tools: [
 		{name: 'client', kind: Control, classes: 'moon-neutral moon-contextual-popup-client'},
-		{name: 'closeButton', kind: IconButton, icon: 'closex', classes: 'moon-popup-close', ontap: 'closePopup', backgroundOpacity: 'transparent', spotlight: false}
+		{name: 'closeButton', kind: IconButton, icon: 'closex', classes: 'moon-popup-close', ontap: 'closePopup', backgroundOpacity: 'transparent', accessibilityLabel: $L('Close'), spotlight: false}
 	],
 
 	/**
@@ -610,5 +610,20 @@ module.exports = kind(
 	*/
 	directionChanged: function () {
 		this.alterDirection();
-	}
+	},
+
+	// Accessibility
+
+	accessibilityReadAll: true,
+
+	accessibilityLive: 'off',
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: ['accessibilityReadAll', 'accessibilityRole', 'showing'], method: function () {
+			this.setAriaAttribute('role', this.accessibilityReadAll && this.showing ? 'alert' : this.accessibilityRole);
+		}}
+	]
 });

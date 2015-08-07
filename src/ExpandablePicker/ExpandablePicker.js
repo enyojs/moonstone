@@ -14,8 +14,7 @@ var
 var
 	BodyText = require('../BodyText'),
 	CheckboxItem = require('../CheckboxItem'),
-	ExpandableListItem = require('../ExpandableListItem'),
-	ExpandablePickerAccessibilitySupport = require('./ExpandablePickerAccessibilitySupport');
+	ExpandableListItem = require('../ExpandableListItem');
 
 /**
 * Fires when the currently selected item changes.
@@ -97,11 +96,6 @@ module.exports = kind(
 	* @private
 	*/
 	kind: ExpandableListItem,
-
-	/**
-	* @private
-	*/
-	mixins: options.accessibility ? [ExpandablePickerAccessibilitySupport] : null,
 
 	/**
 	* @private
@@ -505,7 +499,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	multipleSelectionChanged : function (inOldValue) {
+	multipleSelectionChanged: function (inOldValue) {
 		if (this.multipleSelection) {
 			if (this.selected) {
 				this.selected = [this.selected];
@@ -519,5 +513,11 @@ module.exports = kind(
 		}
 		this.$.client.setHighlander(!this.multipleSelection);
 		this.notifyObservers('selected');
-	}
+	},
+
+	ariaObservers: [
+		{path: 'multipleSelection', method: function () {
+			this.$.header.setAriaAttribute('aria-multiselectable', this.multipleSelection);
+		}}
+	]
 });

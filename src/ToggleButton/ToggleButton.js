@@ -11,8 +11,7 @@ var
 	options = require('enyo/options');
 
 var
-	Button = require('../Button'),
-	ToggleButtonAccessibilitySupport = require('./ToggleButtonAccessibilitySupport');
+	Button = require('../Button');
 
 /**
 * Fires when the value of the toggle button changes.
@@ -52,11 +51,6 @@ module.exports = kind(
 	* @private
 	*/
 	kind: Button,
-
-	/**
-	* @private
-	*/
-	mixins: options.accessibility ? [ToggleButtonAccessibilitySupport] : null,
 
 	/**
 	* @private
@@ -211,5 +205,16 @@ module.exports = kind(
 	*/
 	fireChangeEvent: function () {
 		this.doChange({value: this.value});
-	}
+	},
+
+	// Accessibility
+
+	/**
+	* The active state for a ToggleButton is relevant so we want to use `aria-pressed`
+	*
+	* @type {Boolean}
+	* @default true
+	* @public
+	*/
+	accessibilityPressed: true
 });

@@ -14,8 +14,7 @@ var
 var
 	Marquee = require('../Marquee'),
 	MarqueeSupport = Marquee.Support,
-	MarqueeText = Marquee.Text,
-	ButtonAccessibilitySupport = require('./ButtonAccessibilitySupport');
+	MarqueeText = Marquee.Text;
 
 /**
 * {@link module:moonstone/Button~Button} is an {@link module:enyo/Button~Button} with Moonstone styling applied.
@@ -47,7 +46,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	mixins: options.accessibility ? [ButtonAccessibilitySupport, MarqueeSupport] : [MarqueeSupport],
+	mixins: [MarqueeSupport],
 
 	/**
 	* @private

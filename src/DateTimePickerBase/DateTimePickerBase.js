@@ -17,8 +17,7 @@ var
 	DateFmt = require('enyo-ilib/DateFmt');
 
 var
-	ExpandableListItem = require('../ExpandableListItem'),
-	DateTimePickerBaseAccessibilitySupport = require('./DateTimePickerBaseAccessibilitySupport');
+	ExpandableListItem = require('../ExpandableListItem');
 
 /**
 * Fires when the picker's value changes.
@@ -54,11 +53,6 @@ module.exports = kind(
 	* @private
 	*/
 	kind: ExpandableListItem,
-
-	/**
-	* @private
-	*/
-	mixins: options.accessibility ? [DateTimePickerBaseAccessibilitySupport] : null,
 
 	/**
 	* @private
@@ -169,8 +163,8 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	create: function () {
-		ExpandableListItem.prototype.create.apply(this, arguments);
+	initComponents: function () {
+		ExpandableListItem.prototype.initComponents.apply(this, arguments);
 		this.initDefaults();
 		this.$.drawer.addClass('indented');
 	},
