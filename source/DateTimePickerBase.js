@@ -5,7 +5,7 @@
 	* @event moon.DateTimePickerBase#onChange
 	* @type {Object}
 	* @property {String} name - The name of this control.
-	* @property {Date} value - A standard JavaScript {@glossary Date} object representing
+	* @property {Date} value - An ilib Date {@link ilib.Date} object representing
 	* the picker's current value.
 	* @public
 	*/
@@ -95,9 +95,10 @@
 
 			/**
 			* The value of the picker, expressed as a standard JavaScript {@glossary Date}
-			* object.
+			* object. If ilib is supported, we convert it as a ilib Date {@link ilib.Date}
+			* object
 			*
-			* @type {Date}
+			* @type {Date} or {ilib.Date}
 			* @default null
 			* @public
 			*/
@@ -172,8 +173,7 @@
 				date: 'dmwy'
 			};
 
-			fmtParams.locale = this.locale;
-			this.iLibLocale = ilib.getLocale();
+			fmtParams.locale = this.iLibLocale = ilib.getLocale();
 			this._tf = new ilib.DateFmt(fmtParams);
 		},
 
@@ -212,9 +212,13 @@
 		* @fires moon.DateTimePickerBase#onChange
 		* @private
 		*/
-		valueChanged: function (inOld) {
+		valueChanged: function () {
+			// if we call setValue using JavaScript Date object, we convert it to ilib Date object
+			if (typeof ilib !== 'undefined' && this.value instanceof Date) {
+				this.value = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
+			}
 			this.syncingPickers = true;
-			this.setChildPickers(inOld);
+			this.setChildPickers();
 			this.syncingPickers = false;
 
 			if (this.value) {
@@ -227,7 +231,7 @@
 		/**
 		* @private
 		*/
-		setChildPickers: function (inOld) {
+		setChildPickers: function () {
 			// implement in subkind
 		},
 
@@ -301,24 +305,13 @@
 		/**
 		* @private
 		*/
-		localeChanged: function () {
-			// Our own locale property has changed, so we need to rebuild our child pickers
-			if (typeof ilib !== 'undefined') {
-				ilib.setLocale(this.locale);
-				this.iLibLocale = ilib.getLocale();
-			}
-			this.refresh();
-		},
-
-		/**
-		* @private
-		*/
 		handleLocaleChangeEvent: function () {
 			// We've received a localechange event from the system, which means either the system
 			// locale or the timezone may have changed.
 			if (typeof ilib !== 'undefined' && ilib.getLocale() !== this.iLibLocale) {
 				// We're using iLib locale, and it has changed, so we'll rebuild the child pickers
 				// entirely
+				this.locale = this.iLibLocale = ilib.getLocale();
 				this.refresh();
 			} else {
 				// We don't care about the iLib locale or it hasn't changed, but timezone might have
@@ -337,7 +330,7 @@
 				delete this._tf;
 			}
 			if (this.value && typeof ilib !== 'undefined'){
-				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
+				this.value = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
 			}
 			this.initDefaults();
 			this.render();

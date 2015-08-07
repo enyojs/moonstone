@@ -39,12 +39,12 @@
 		/**
 		* @private
 		*/
-		value: null,
+		wrap: true,
 
 		/**
 		* @private
 		*/
-		wrap: true,
+		locale: null,
 
 		/**
 		* @private
@@ -53,14 +53,60 @@
 		published: {
 			/**
 			* The meridiem text to display if [meridiemEnable]{@link moon.TimePicker#meridiemEnable}
-			* is `true`. The first item is used if the `hour` is less than `11`; otherwise, the
+			* is `true`. The first item is used if the `hour` is less than `12`; otherwise, the
 			* second is used.
 			*
 			* @type {String[]}
-			* @default ['AM','PM']
+			* @default [{name: 'AM', start: '00:00', end: '11:59'}, {name: 'PM', start: '12:00', end: '23:59'}]
 			* @public
 			*/
-			meridiems: ['AM','PM']
+			meridiems: [{name: 'AM', start: '00:00', end: '11:59'}, {name: 'PM', start: '12:00', end: '23:59'}]
+		},
+
+		/**
+		* @private
+		*/
+		initILib: function() {
+			// Get localized meridiem values
+			var fmtParams = {
+				template: 'a',
+				useNative: false,
+				timezone: 'local'
+			};
+
+			if (this.locale) fmtParams.locale = this.locale;
+
+			var merFormatter = new ilib.DateFmt(fmtParams);
+			this.meridiems = merFormatter.getMeridiemsRange(fmtParams);
+		},
+
+		/**
+		* @private
+		*/
+		create: function() {
+			if (typeof ilib !== 'undefined') this.initILib();
+			this.max = this.meridiems.length - 1;
+			this.inherited(arguments);
+		},
+
+		/**
+		* Set meridiem value based on given hour and minute
+		*
+		* @param  {Number} hour - hour between 0 to 23
+		* @param  {Number} minute - minute between 0 to 59
+		*
+		* @public
+		*/
+		setValueByTime: function (hour, minute) {
+			var meridiems = this.meridiems,
+				start, end, time;
+			for (var i = 0; i < meridiems.length; i++) {
+				start = parseInt(meridiems[i].start.substring(0,2) + meridiems[i].start.substring(3,5), 10);
+				end = parseInt(meridiems[i].end.substring(0,2) + meridiems[i].end.substring(3,5), 10);
+				time = hour * 100 + minute;
+
+				if ( start <= time && time <= end) this.set('value', i);
+			}
 		},
 
 		/**
@@ -75,13 +121,13 @@
 		* @private
 		*/
 		setupItem: function (inSender, inEvent) {
-			var index = inEvent.index % this.range;
-			this.$.item.setContent(this.meridiems[index]);
+			var index = inEvent.index % this.range || 0;
+			this.$.item.setContent(this.meridiems[index].name);
 		}
 	});
-	
+
 	/**
-	* {@link moon.HourMinutePickerBase} is a helper kind used by {@link moon.TimePicker}. 
+	* {@link moon.HourMinutePickerBase} is a helper kind used by {@link moon.TimePicker}.
 	*  It is not intended for use in other contexts.
 	*
 	* @class moon.MinutePicker
@@ -132,12 +178,12 @@
 		* @private
 		*/
 		setupItem: function (inSender, inEvent) {
-			var value = this.format(inEvent.index % this.range);
+			var value = this.format(inEvent.index % this.range || 0);
 			this.$.item.setContent(value);
 		}
 	});
 	/**
-	* {@link moon.MinutePicker} is a helper kind used by {@link moon.TimePicker}. 
+	* {@link moon.MinutePicker} is a helper kind used by {@link moon.TimePicker}.
 	*  It is not intended for use in other contexts.
 	*
 	* @class moon.MinutePicker
@@ -249,7 +295,7 @@
 		 * will not prevent a big scroll through all intermediate values (e.g. from 3pm to 2am) even
 		 * though it only has to scroll 1 index. This can be seen most easily by selecting a time
 		 * between 2 and 3 pm on day when DST springs forward and then changing the meridiem to AM.
-		 * 
+		 *
 		 * @see moon.IntegerPicker.scrollToValue
 		 * @private
 		 */
@@ -386,12 +432,12 @@
 		*/
 		initILib: function () {
 			this.inherited(arguments);
-	
+
 			// Set picker format 12 vs 24 hour clock
 			var li = new ilib.LocaleInfo(this.locale || undefined);
 			var clockPref = li.getClock();
 			this.meridiemEnable = (clockPref == '12');
-	
+
 			var fmtParams = {
 				type: 'time',
 				time: 'h',
@@ -406,23 +452,6 @@
 
 			fmtParams.time = 'm';
 			this.minuteFormatter = new ilib.DateFmt(fmtParams);
-	
-			// Get localized meridiem values
-			if (this.meridiemEnable) {
-				fmtParams = {
-					template: 'a',
-					clock: clockPref !== 'locale' ? clockPref : undefined,
-					useNative: false,
-					timezone: 'local'
-				};
-				if (this.locale) {
-					fmtParams.locale = this.locale;
-				}
-				var merFormatter = new ilib.DateFmt(fmtParams);
-				var am = ilib.Date.newInstance({hour:10});
-				var pm = ilib.Date.newInstance({hour:14});
-				this.meridiems = [merFormatter.format(am), merFormatter.format(pm)];
-			}
 		},
 
 		/**
@@ -431,7 +460,7 @@
 		setupPickers: function (ordering) {
 			var orderingArr = ordering.toLowerCase().split('');
 			var doneArr = [];
-			var o,f,l;
+			var o, f, l, values;
 			for(f = 0, l = orderingArr.length; f < l; f++) {
 				o = orderingArr[f];
 				if (doneArr.indexOf(o) < 0) {
@@ -439,18 +468,19 @@
 				}
 			}
 
+			values = this.calcPickerValues();
+			this.silence();
+
 			for(f = 0, l = doneArr.length; f < l; f++) {
 				o = doneArr[f];
-				var valueHours = this.value ? this.value.getHours() : 0;
-				var valueMinutes = this.value ? this.value.getMinutes() : 0;
-	
+
 				switch (o){
 				case 'h':
 				case 'k':
 					this.wrapComponent(
 						{name: 'timeWrapper', classes: 'moon-time-picker-wrap'},
 						{classes: 'moon-date-picker-wrap', components:[
-							{kind: 'moon.HourPicker', name:'hour', formatter: this.hourFormatter || this, value: valueHours, onChange: 'hourPickerChanged'},
+							{kind: 'moon.HourPicker', name:'hour', formatter: this.hourFormatter || this, value: values.hour, onChange: 'pickerChanged'},
 							{name: 'hourLabel', content: this.hourText, classes: 'moon-date-picker-label moon-divider-text'}
 						]},
 						this
@@ -460,7 +490,7 @@
 					this.wrapComponent(
 						{name: 'timeWrapper', classes: 'moon-time-picker-wrap'},
 						{classes: 'moon-date-picker-wrap', components:[
-							{kind: 'moon.MinutePicker', name:'minute', formatter: this.minuteFormatter || this, value: valueMinutes, onChange: 'minutePickerChanged'},
+							{kind: 'moon.MinutePicker', name:'minute', formatter: this.minuteFormatter || this, value: values.minute, onChange: 'pickerChanged'},
 							{name: 'minuteLabel', content: this.minuteText, classes: 'moon-date-picker-label moon-divider-text'}
 						]},
 						this
@@ -470,18 +500,20 @@
 					if (this.meridiemEnable === true) {
 						this.createComponent(
 							{classes: 'moon-date-picker-wrap', components:[
-								{kind:'moon.MeridiemPicker', name:'meridiem', classes:'moon-date-picker-field', value: valueHours > 12 ? 1 : 0, meridiems: this.meridiems || ['am','pm'], onChange: 'meridiemPickerChanged'},
+								{kind:'moon.MeridiemPicker', name:'meridiem', classes:'moon-date-picker-field', locale: this.locale, onChange: 'meridiemPickerChanged'},
 								{name: 'meridiemLabel', content: this.meridiemText, classes: 'moon-date-picker-label moon-divider-text'}
 							]}
 						);
+						this.$.meridiem.setValueByTime(values.hour, values.minute);
 					}
 					break;
 				default:
 					break;
 				}
-	
+
 			}
-	
+
+			this.unsilence();
 			this.inherited(arguments);
 		},
 
@@ -505,12 +537,12 @@
 			}
 			var dateStr = '';
 			if (this._tf) {
-				dateStr = this._tf.format(ilib.Date.newInstance({unixtime: this.value.getTime(), timezone:'Etc/UTC'}));
+				dateStr = this._tf.format(this.value);
 			}
 			else {
 				dateStr += this.formatHour(this.value.getHours());
 				dateStr += ':' + ('00' + this.value.getMinutes()).slice(-2) + ' ';
-				dateStr += this.meridiemEnable ? this.$.meridiem.getMeridiems()[this.$.meridiem.getValue()] : '';
+				dateStr += this.meridiemEnable ? this.$.meridiem.getMeridiems()[this.$.meridiem.getValue()].name : '';
 			}
 			return dateStr;
 		},
@@ -551,29 +583,14 @@
 		/**
 		* @private
 		*/
-		hourPickerChanged: function (sender, event) {
+		pickerChanged: function (sender, event) {
 			if(this.syncingPickers) return true;
 
-			var hour = event.value;
+			var value = event.value;
 
 			if (this.value) {
-				this.updateHours(hour);
-			}
-
-			return true;
-		},
-
-		/**
-		* @private
-		*/
-		minutePickerChanged: function (sender, event) {
-			if(this.syncingPickers) return true;
-
-			var minutes = event.value;
-
-			if (this.value) {
-				this.value.setMinutes(minutes);
-				this.set('value', this.value, {force: true});
+				if (sender == this.$.hour) this.updateValue(value);
+				else this.updateValue(null, value);
 			}
 
 			return true;
@@ -585,14 +602,32 @@
 		meridiemPickerChanged: function (sender, event) {
 			if(this.syncingPickers) return true;
 
-			var hour = this.$.hour.get('value'),
-				value = event.value;
+			var meridiems = event.originator.get('meridiems'),
+				oldMeridiem = meridiems[event.old],
+				newMeridiem = meridiems[this.$.meridiem.get('value')],
+				oldHour = this.$.hour.get('value'),
+				startHour = parseInt(newMeridiem.start, 10),
+				offset = oldHour - parseInt(oldMeridiem.start, 10);
 
-			if (this.value) {
-				// value is 0 for am, 1 for pm
-				// reset the hour to < 12 and then add 12 if it's pm
-				hour = hour%12 + value*12;
-				this.updateHours(hour);
+			if (meridiems.length == 2) {
+				this.updateValue(startHour + offset);
+			} else {
+				var oldMinute =  this.$.minute.get('value'),
+					endHour = parseInt(newMeridiem.end, 10),
+					startMinute = parseInt(newMeridiem.start.split(':')[1], 10),
+					endMinute = parseInt(newMeridiem.end.split(':')[1], 10),
+					newHour = startHour + offset,
+					newMinute;
+
+				if (startHour * 100 + startMinute > newHour * 100 + oldMinute) {
+					newHour = startHour;
+					newMinute = startMinute;
+				} else if (endHour * 100 + endMinute < newHour * 100 + oldMinute) {
+					newHour = endHour;
+					newMinute = endMinute;
+				}
+				offset = newHour - oldHour;
+				this.updateValue(this.value.getHours() + offset, newMinute);
 			}
 
 			return true;
@@ -600,7 +635,7 @@
 
 		/**
 		* webOS TVs which rounds down when setting the hour to the skipped hour of DST
-		* whereas other implementations round up. 
+		* whereas other implementations round up.
 		*
 		* @private
 		*/
@@ -609,10 +644,11 @@
 		/**
 		* @private
 		*/
-		updateHours: function (hour) {
+		updateValue: function (newHour, newMinute) {
 			var valueTime = this.value.getTime();
 
-			this.value.setHours(hour);
+			if (newHour != null) this.value.setHours(newHour);
+			if (newMinute != null) this.value.setMinutes(newMinute);
 
 			// in the rare case that the value didn't change because it was snapped back to the
 			// same value due to DST rules, push it back another hour.
@@ -626,37 +662,54 @@
 		/**
 		* @private
 		*/
-		setChildPickers: function (inOld) {
+		setChildPickers: function () {
+			var value = this.value;
 			if (this.value) {
-				var hour = this.value.getHours();
-				this.$.hour.setValue(hour);
-				this.$.minute.setValue(this.value.getMinutes());
-				if (this.meridiemEnable === true) {
-					this.$.meridiem.setValue(hour > 11 ? 1 : 0);
+				this.$.hour.set('value', value.getHours());
+				this.$.minute.set('value', value.getMinutes());
+				if (this.meridiemEnable) {
+					this.$.meridiem.setValueByTime(value.getHours(), value.getMinutes());
 				}
 			}
-			this.$.currentValue.setContent(this.formatValue());
+			this.$.currentValue.set('content', this.formatValue());
+		},
+
+		/**
+		* @private
+		*/
+		calcPickerValues: function () {
+			var values = {},
+				value = this.value;
+
+			if (value) {
+				values.hour = value.getHours();
+				values.minute = value.getMinutes();
+			} else {
+				values.hour = values.minute = 0;
+			}
+
+			return values;
 		},
 
 		/**
 		* @private
 		*/
 		hourTextChanged: function (inOldvalue, inNewValue) {
-			this.$.hourLabel.setContent(inNewValue);
+			this.$.hourLabel.set('content', inNewValue);
 		},
 
 		/**
 		* @private
 		*/
 		minuteTextChanged: function (inOldvalue, inNewValue) {
-			this.$.minuteLabel.setContent(inNewValue);
+			this.$.minuteLabel.set('content', inNewValue);
 		},
 
 		/**
 		* @private
 		*/
 		meridiemTextChanged: function (inOldvalue, inNewValue) {
-			this.$.meridiemLabel.setContent(inNewValue);
+			this.$.meridiemLabel.set('content', inNewValue);
 		}
 	});
 

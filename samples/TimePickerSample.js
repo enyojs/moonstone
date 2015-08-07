@@ -5,13 +5,14 @@ enyo.kind({
 	components: [
 		{kind: 'moon.Scroller', fit: true, components: [
 			{classes: "moon-7h moon-vspacing-s", components: [
-				{kind: "moon.DatePicker", name:"pickerDateLinked", noneText: "Pick a Date", content: "Linked Date", onChange: "dateChanged"},
-				{kind: "moon.TimePicker", name:"pickerTimeLinked", noneText: "Pick a Time", content: "Linked Time", meridiemEnable: true, onChange: "timeChanged"},
-				{kind: "moon.TimePicker", name: "pickerTime", noneText: "Pick a Time", content: "Time", meridiemEnable: true, onChange: "timeChanged"},
+				{kind: "moon.DatePicker", name:"pickerDateLinked", noneText: "Pick a Date", content: "Linked Date", onChange: "changed"},
+				{kind: "moon.TimePicker", name:"pickerTimeLinked", noneText: "Pick a Time", content: "Linked Time", meridiemEnable: true, onChange: "changed"},
+				{kind: "moon.TimePicker", name: "pickerTime", noneText: "Pick a Time", content: "Time", meridiemEnable: true, onChange: "changed"},
 				{kind: "moon.Button", name: "buttonReset", content: "Reset Time", small: true, ontap: "resetTapped"},
 				{kind: "moon.TimePicker", name:"pickerDisabled", meridiemEnable: true, disabled: true, noneText: "Disabled Time Picker", content: "Disabled Time"},
 				{kind: "moon.ExpandablePicker", name: "pickerLocale", noneText: "No Locale Selected", content: "Choose Locale", onChange:"setLocale", components: [
 					{content: "Use Default Locale", active: true},
+					{content: "am-ET"},
 					{content: "ko-KR"},
 					{content: "zh-TW"},
 					{content: "fa-IR"},
@@ -62,15 +63,17 @@ enyo.kind({
 		}
 		return true;
 	},
-	timeChanged: function(inSender, inEvent) {
-		if (this.$.result && inEvent.value){
-			var timeArray = inEvent.value.toTimeString().split(":");
-			this.$.result.setContent(inEvent.name + " changed to " + timeArray[0] + ":" + timeArray[1]);
-		}
-	},
-	dateChanged: function(inSender, inEvent) {
-		if (this.$.result && inEvent.value){
-			this.$.result.setContent(inEvent.name + " changed to " + inEvent.value.toDateString());
+	
+	changed: function(inSender, inEvent) {
+		if (window.ilib) {
+			var timeFormat = inSender._tf;
+			if (this.$.result && inEvent.value){
+				this.$.result.setContent(inEvent.name + " changed to " + timeFormat.format(inEvent.value));
+			}
+		} else {
+			if (this.$.result && inEvent.value){
+				this.$.result.setContent(inEvent.name + " changed to " + inEvent.value.toDateString());
+			}
 		}
 	},
 	resetTapped: function(inSender, inEvent) {

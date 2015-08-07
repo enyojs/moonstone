@@ -25,6 +25,7 @@ enyo.kind({
 				]},
 				{name: "localePicker", kind: "moon.ExpandablePicker", noneText: "No Locale Selected", content: "Choose Locale", onChange:"setLocale", components: [
 					{content: "Use Default Locale", active: true},
+					{content: "am-ET"},
 					{content: "ko-KR"},
 					{content: "zh-TW"},
 					{content: "fa-IR"},
@@ -64,6 +65,7 @@ enyo.kind({
 			enyo.updateLocale(locale);
 			this.$.picker.setLocale(val);
 			this.$.disabledPicker.setLocale(val);
+			this.$.result.setContent("locale changed to " + locale);
 		}
 		return true;
 	},
@@ -78,8 +80,15 @@ enyo.kind({
 		this.$.picker.setValue(new Date());
 	},
 	changed: function(inSender, inEvent) {
-		if (this.$.result && inEvent.value){
-			this.$.result.setContent(inEvent.name + " changed to " + inEvent.value.toDateString());
+		if (window.ilib) {
+			var timeFormat = inSender._tf;
+			if (this.$.result && inEvent.value){
+				this.$.result.setContent(inEvent.name + " changed to " + timeFormat.format(inEvent.value));
+			}
+		} else {
+			if (this.$.result && inEvent.value){
+				this.$.result.setContent(inEvent.name + " changed to " + inEvent.value.toDateString());
+			}
 		}
 	},
 	resetTapped: function(inSender, inEvent) {

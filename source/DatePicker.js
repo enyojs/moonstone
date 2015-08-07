@@ -106,16 +106,6 @@
 		},
 
 		/**
-		* @private
-		*/
-		initILib: function () {
-			this.inherited(arguments);
-			if (typeof ilib !== 'undefined' && this.value) {
-				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
-			}
-		},
-
-		/**
 		 * When [iLib]{@glossary ilib} is supported, calculates the minimum year in the
 		 * current calendar. Otherwise, returns the value of the published property
 		 * [minYear]{@link moon.DatePicker#minYear}.
@@ -239,51 +229,28 @@
 		/**
 		* @private
 		*/
-		pickerChanged: function (inSender, inEvent) {
+		pickerChanged: function (sender, inEvent) {
 			if(this.syncingPickers) return true;
 
-			var day = this.$.day.getValue(),
-				month = this.$.month.getValue(),
-				year = this.$.year.getValue(),
-				maxDays;
-			var valueHours = this.value ? this.value.getHours() : 0;
-			var valueMinutes = this.value ? this.value.getMinutes() : 0;
-			var valueSeconds = this.value ? this.value.getSeconds() : 0;
-			var valueMilliseconds = this.value ? this.value.getMilliseconds() : 0;
-
 			if (typeof ilib !== 'undefined') {
-				maxDays = this.monthLength(year, month);
-				this.localeValue = ilib.Date.newInstance({
-					day: (day <= maxDays) ? day : maxDays,
-					month: month,
-					year: year,
-					hour: valueHours,
-					minute: valueMinutes,
-					second: valueSeconds,
-					millisecond: valueMilliseconds
-				});
-				this.setValue(this.localeValue.getJSDate());
+				if (sender == this.$.day) this.value.setDays(inEvent.value);
+				else if (sender == this.$.month) this.value.setMonths(inEvent.value);
+				else this.value.setYears(inEvent.value);
 			} else {
-				maxDays = this.monthLength(year, month);
-				this.setValue(new Date(year, month-1, (day <= maxDays) ? day : maxDays,
-					valueHours,
-					valueMinutes,
-					valueSeconds,
-					valueMilliseconds));
+				if (sender == this.$.day) this.value.setDate(inEvent.value);
+				else if (sender == this.$.month) this.value.setMonth(inEvent.value - 1);
+				else this.value.setYear(inEvent.value);
 			}
 
+			this.valueChanged();
 			return true;
 		},
 
 		/**
 		* @private
 		*/
-		setChildPickers: function (inOld) {
-			if (this.value && typeof ilib !== 'undefined') {
-				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
-			}
-
-			if (this.localeValue || this.value) {
+		setChildPickers: function () {
+			if (this.value) {				
 				var values = this.calcPickerValues();
 
 				this.$.year.set('value', values.fullYear);
@@ -304,16 +271,18 @@
 				maxDays: 31
 			};
 			if (typeof ilib !== 'undefined') {
-				if (this.localeValue) {
-					values.fullYear = this.localeValue.getYears();
-					values.month = this.localeValue.getMonths();
-					values.date = this.localeValue.getDays();
+				// if ilib exists, this.value is instance of ilib.Date
+				if (this.value) {
+					values.fullYear = this.value.getYears();
+					values.month = this.value.getMonths();
+					values.date = this.value.getDays();
 				}
 				if (values.fullYear) {
 					values.maxMonths = this._tf.cal.getNumMonths(values.fullYear);
 					values.maxDays = this.monthLength(values.fullYear, values.month);
 				}
 			} else {
+				// if ilib doesn't exist, this.value is instance of JS Date
 				if (this.value) {
 					values.fullYear = this.value.getFullYear();
 					values.month = this.value.getMonth()+1;
