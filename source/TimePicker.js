@@ -429,6 +429,7 @@
 		* @private
 		*/
 		setupPickers: function (ordering) {
+			var pickers = [];
 			var orderingArr = ordering.toLowerCase().split('');
 			var doneArr = [];
 			var o,f,l;
@@ -447,42 +448,41 @@
 				switch (o){
 				case 'h':
 				case 'k':
-					this.wrapComponent(
+					pickers.push(this.wrapComponent(
 						{name: 'timeWrapper', classes: 'moon-time-picker-wrap'},
 						{classes: 'moon-date-picker-wrap', components:[
 							{kind: 'moon.HourPicker', name:'hour', formatter: this.hourFormatter || this, value: valueHours, onChange: 'hourPickerChanged'},
 							{name: 'hourLabel', content: this.hourText, classes: 'moon-date-picker-label moon-divider-text'}
 						]},
 						this
-					);
+					));
 					break;
 				case 'm':
-					this.wrapComponent(
+					pickers.push(this.wrapComponent(
 						{name: 'timeWrapper', classes: 'moon-time-picker-wrap'},
 						{classes: 'moon-date-picker-wrap', components:[
 							{kind: 'moon.MinutePicker', name:'minute', formatter: this.minuteFormatter || this, value: valueMinutes, onChange: 'minutePickerChanged'},
 							{name: 'minuteLabel', content: this.minuteText, classes: 'moon-date-picker-label moon-divider-text'}
 						]},
 						this
-					);
+					));
 					break;
 				case 'a':
 					if (this.meridiemEnable === true) {
-						this.createComponent(
+						pickers.push(this.createComponent(
 							{classes: 'moon-date-picker-wrap', components:[
 								{kind:'moon.MeridiemPicker', name:'meridiem', classes:'moon-date-picker-field', value: valueHours > 12 ? 1 : 0, meridiems: this.meridiems || ['am','pm'], onChange: 'meridiemPickerChanged'},
 								{name: 'meridiemLabel', content: this.meridiemText, classes: 'moon-date-picker-label moon-divider-text'}
 							]}
-						);
+						));
 					}
 					break;
 				default:
 					break;
 				}
-	
 			}
-	
-			this.inherited(arguments);
+
+			this.pickers = pickers;		
 		},
 
 		/**
@@ -493,7 +493,7 @@
 			if (!wrapper) {
 				wrapper = this.createComponent(wrapperProps);
 			}
-			wrapper.createComponent(compProps, {owner: owner});
+			return wrapper.createComponent(compProps, {owner: owner});
 		},
 
 		/**

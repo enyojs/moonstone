@@ -111,7 +111,7 @@
 		initILib: function () {
 			this.inherited(arguments);
 			if (typeof ilib !== 'undefined' && this.value) {
-				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
+				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: 'local'});
 			}
 		},
 
@@ -125,7 +125,7 @@
 		getMinYear: function() {
 			if (typeof ilib !== 'undefined') {
 				var greg = ilib.Date.newInstance({
-					type: "gregorian",
+					type: 'gregorian',
 					year: this.minYear,
 					month: 1,
 					day: 1,
@@ -133,7 +133,7 @@
 				});
 				var localCalendarDate = ilib.Date.newInstance({
 					julianday: greg.getJulianDay(),
-					timezone: "local"
+					timezone: 'local'
 				});
 				return localCalendarDate.getYears();
 			} else {
@@ -151,7 +151,7 @@
 		getMaxYear: function() {
 			if (typeof ilib !== 'undefined') {
 				var greg = ilib.Date.newInstance({
-					type: "gregorian",
+					type: 'gregorian',
 					year: this.maxYear,
 					month: 1,
 					day: 1,
@@ -159,7 +159,7 @@
 				});
 				var localCalendarDate = ilib.Date.newInstance({
 					julianday: greg.getJulianDay(),
-					timezone: "local"
+					timezone: 'local'
 				});
 				return localCalendarDate.getYears();
 			} else {
@@ -172,6 +172,7 @@
 		* @private
 		*/
 		setupPickers: function (ordering) {
+			var pickers = [];
 			var orderingArr = ordering.split('');
 			var doneArr = [];
 			var o, f, l, digits, values;
@@ -191,27 +192,30 @@
 				switch (o) {
 				case 'd':
 					digits = (ordering.indexOf('dd') > -1) ? 2 : null;
-					this.createComponent(
+					pickers.push(this.createComponent(
 						{classes: 'moon-date-picker-wrap', components:[
 							{kind:'moon.IntegerPicker', name:'day', classes:'moon-date-picker-field', wrap:true, digits:digits, min:1,
 							max:values.maxDays, value: values.date, onChange: 'pickerChanged'},
 							{name: 'dayLabel', content: this.dayText, classes: 'moon-date-picker-label moon-divider-text'}
-						]});
+						]}
+					));
 					break;
 				case 'M':
 					digits = (ordering.indexOf('MM') > -1) ? 2 : null;
-					this.createComponent(
+					pickers.push(this.createComponent(
 						{classes: 'moon-date-picker-wrap', components:[
 							{kind:'moon.IntegerPicker', name:'month', classes:'moon-date-picker-field', wrap:true, min:1, max:values.maxMonths, value:values.month, onChange: 'pickerChanged'},
 							{name: 'monthLabel', content: this.monthText, classes: 'moon-date-picker-label moon-divider-text'}
-						]});
+						]}
+					));
 					break;
 				case 'y':
-					this.createComponent(
+					pickers.push(this.createComponent(
 						{classes: 'moon-date-picker-wrap year', components:[
 							{kind:'moon.IntegerPicker', name:'year', classes:'moon-date-picker-field year', value:values.fullYear, min:this.getMinYear(), max:this.getMaxYear(), onChange: 'pickerChanged'},
 							{name: 'yearLabel', content: this.yearText, classes: 'moon-date-picker-label moon-divider-text'}
-						]});
+						]}
+					));
 					break;
 				default:
 					break;
@@ -219,7 +223,7 @@
 			}
 
 			this.unsilence();
-			this.inherited(arguments);
+			this.pickers = pickers;	
 		},
 
 		/**
@@ -280,7 +284,7 @@
 		*/
 		setChildPickers: function (inOld) {
 			if (this.value && typeof ilib !== 'undefined') {
-				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: "local"});
+				this.localeValue = ilib.Date.newInstance({unixtime: this.value.getTime(), timezone: 'local'});
 			}
 
 			if (this.localeValue || this.value) {
