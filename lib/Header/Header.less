@@ -1,7 +1,6 @@
 .moon-header {
 	.border-box;
 	color: @moon-header-text-color;
-	height: @moon-header-height-large;
 	border-top: @moon-header-border-top-width solid @moon-header-border-color;
 	border-bottom: @moon-header-border-bottom-width solid @moon-header-bottom-border-color;
 	position: relative;
@@ -11,32 +10,6 @@
 	background-repeat: no-repeat;
 	background-position: top left;
 	margin: 0 @moon-spotlight-outset;
-
-	.moon-header-title-above {
-		margin-top: 6px;
-		height: 1.2em;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-
-		.no-border {
-			border: none;
-		}
-	}
-
-	.moon-header-title {
-		line-height: @moon-header-line-height;
-		height: 156px;
-
-		.moon-marquee-text {
-			white-space: nowrap;
-		}
-	}
-
-	.moon-header-title-below,
-	.moon-header-sub-title-below {
-		height: 48px;
-	}
 
 	&.full-bleed {
 		padding: 0 @moon-header-indent-width @moon-spotlight-outset @moon-header-indent-width;
@@ -53,6 +26,48 @@
 		vertical-align: bottom;
 	}
 
+	.moon-header-title-below {
+		margin-top: -9px;  // Tuck this element up under the title
+
+		.enyo-locale-non-latin & {
+			margin-top: -21px;  // Tuck this element up under the title
+		}
+	}
+
+	// Large Header
+	&.moon-large-header {
+		height: @moon-header-height-large;
+
+		.moon-header-title-above {
+			margin-top: 6px;
+			height: 1.2em;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+
+			.no-border {
+				border: none;
+			}
+		}
+
+		.moon-header-title {
+			line-height: @moon-header-line-height;
+
+			.moon-marquee-text {
+				white-space: nowrap;
+			}
+
+			.enyo-locale-non-latin & {
+				line-height: @moon-non-latin-header-text-line-height;
+			}
+		}
+
+		.moon-header-title-below,
+		.moon-header-sub-title-below {
+			line-height: 45px;
+		}
+	}
+
 	// Medium Header
 	&.moon-medium-header {
 		height: @moon-header-height-medium;
@@ -63,11 +78,15 @@
 
 		.moon-header-title {
 			line-height: @moon-medium-header-line-height;
+
+			.enyo-locale-non-latin & {
+				line-height: @moon-non-latin-medium-header-line-height;
+			}
 		}
 
 		.moon-header-title-below,
 		.moon-header-sub-title-below {
-			height: 42px;
+			line-height: 39px;
 		}
 	}
 
@@ -86,6 +105,10 @@
 			line-height: @moon-small-header-line-height;
 			font-size: @moon-small-header-font-size;
 			height: 84px;
+
+			.enyo-locale-non-latin & {
+				line-height: @moon-non-latin-small-header-line-height;
+			}
 		}
 
 		.moon-header-sub-title {
@@ -112,6 +135,59 @@
 	.moon-header-client-text {
 		line-height: @moon-button-small-height;
 	}
+
+	//InputHeader classes
+	&.moon-input-header {
+		.moon-input-header-input-decorator {
+			margin: -1px 0px 0px;
+			padding: 0px;
+			border: 0px;
+			width: 100%;
+			box-sizing: border-box;
+
+			&.moon-focused {
+				color: @moon-input-header-text-color;
+			}
+
+			.moon-input {
+				.moon-header-text;
+				margin: 0px;
+				padding-left: 1px;
+				padding-right: 1px;
+				display: inline-block;
+				box-sizing: border-box;
+				line-height: 1em;
+				color: inherit;
+				width: 100%;
+				text-overflow: ellipsis;
+
+				.input-placeholder({
+					color: @moon-input-header-placeholder-color;
+					margin-top: 12px;
+					line-height: 1.25em;
+				});
+			}
+
+			&.spotlight {
+				&:not(.moon-focused) .moon-input {
+					color: inherit;
+					background-color: @moon-spotlight-background-color;
+
+					.input-placeholder({
+						color: inherit;
+					});
+				}
+
+				&.moon-focused .moon-input {
+					background: none;
+				}
+			}
+		}
+
+		.moon-header-title-below {
+			margin-top: 0;
+		}
+	}
 }
 
 // neutral
@@ -121,24 +197,26 @@
 }
 
 // enyo-locale-non-latin
-.enyo-locale-non-latin .moon-header {
-	.moon-header-title, {
-		line-height: @moon-non-latin-header-text-line-height;
+.enyo-locale-non-latin {
+	&.enyo-locale-ja .moon-header {
+		.moon-header-title,
+		&.moon-input-header .moon-input-header-input-decorator > .moon-input {
+			line-height: 1.25em;
+		}
+		.moon-header-title-below {
+			margin-top: 0;  // JP is fine, we don't need to tuck (from above)
+		}
 	}
-	&.moon-medium-header .moon-header-title, {
-		line-height: @moon-non-latin-medium-header-line-height;
-	}
-	&.moon-small-header .moon-header-title, {
-		line-height: @moon-non-latin-small-header-line-height;
-	}
-}
 
-/* Special override for Japanese font (LG Display_JP) which, as of 07-Feb-2014
-   has a taller baseline. This corrects both Header and InputHeader. 2014-02-24
-   Please remove the line-height rule below if this font file is changed. */
-.enyo-locale-non-latin.enyo-locale-ja .moon-header-title,
-.enyo-locale-non-latin.enyo-locale-ja .moon-input-header .moon-input-header-input-decorator > .moon-input {
-	line-height: 1.25em;
+	.moon-input-header .moon-input-header-input-decorator > .moon-input {
+		.enyo-locale-non-latin .moon-header-text;
+	}
+
+	.moon-input-header .moon-input.moon-header-title {
+		.input-placeholder({
+			line-height: 1.5em;
+		});
+	}
 }
 
 // enyo-locale-right-to-left
@@ -151,9 +229,10 @@
 }
 
 // moon-header-left is used in HeaderSample
-.moon-header:not(.moon-small-header):not(.moon-medium-header) .moon-header-left {
+.moon-header.moon-large-header .moon-header-left {
 	float: left;
-}
-.enyo-locale-right-to-left .moon-header:not(.moon-small-header):not(.moon-medium-header) .moon-header-left {
-	float: right;
+
+	.enyo-locale-right-to-left & {
+		float: right;
+	}
 }
