@@ -38,8 +38,9 @@
 	font-weight: @moon-expandable-value-font-weight;
 	font-style: @moon-expandable-value-font-style;
 	color: @moon-expandable-picker-text-color;
-	margin-top: -12px;	// Negative value to compensate for the taller line-height needed for tall-glyph charecters
-
+	&:not(:empty) {
+		margin-top: -12px;	// Negative value to compensate for the taller line-height needed for tall-glyph charecters
+	}
 	.enyo-locale-right-to-left & {
 		padding-left: 0;
 	}
