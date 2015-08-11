@@ -42,3 +42,12 @@
 	width: 100% !important;
 	height: 100% !important;
 }
+
+.input-placeholder(@rule) {
+	&::-webkit-input-placeholder {
+		@rule();
+	}
+	&::-moz-placeholder {
+		@rule();
+	}
+}
