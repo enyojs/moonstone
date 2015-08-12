@@ -1,4 +1,4 @@
-/* ToggleSwitch.css */
+/* ToggleSwitch */
 .moon-checkbox.moon-toggle-switch {
 	border-radius: (@moon-toggleswitch-height / 2);
 	width: @moon-toggleswitch-width;
@@ -6,12 +6,14 @@
 	line-height: @moon-toggleswitch-height;
 	background-color: @moon-checkbox-toggle-switch-bg-color;
 	font-family: @moon-icon-font-family;
-	overflow: hidden;
+	position: relative;
 	text-align: left;
+	cursor: default;
+
+	.moon-taparea(@moon-toggleswitch-height);
 
 	.moon-icon {
 		visibility: visible;
-		cursor: default;
 		background-color: transparent;
 		left: 0;
 		color: @moon-checkbox-toggle-switch-color;
@@ -19,14 +21,7 @@
 		height: inherit;
 		font-size: (@moon-toggleswitch-height * 2);
 		line-height: inherit;
-
-		.small-icon-tap-area {
-			height: inherit;
-			line-height: inherit;
-			font-size: inherit;
-			top: 0;
-			bottom: 0;
-		}
+		vertical-align: top;	// The TV incorrectly positions the icon too low without this
 	}
 	&[checked] {
 		background-color: @moon-checkbox-toggle-switch-checked-bg-color;

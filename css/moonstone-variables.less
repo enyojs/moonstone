@@ -70,7 +70,9 @@
 @moon-item-font-size:               33px;
 @moon-popup-header-font-size:       72px;
 @moon-popup-sub-header-font-size:   27px;
-@moon-popup-content-font-size:   	30px;
+@moon-popup-content-font-size:      30px;
+@moon-expandable-value-font-size:   27px;
+@moon-expandable-client-item-font-size:   27px;
 @moon-divider-font-size:            24px;
 @moon-button-large-font-size:       36px;
 @moon-button-small-font-size:       27px;
@@ -85,13 +87,14 @@
 @moon-non-latin-large-text-size:        48px;
 @moon-non-latin-pre-text-size:          24px;
 @moon-non-latin-popup-header-font-size: 66px;
-@moon-non-latin-sub-header-font-size:   30px;
+@moon-non-latin-sub-header-font-size:   33px;
 @moon-non-latin-super-header-font-size: 33px;
 @moon-non-latin-body-font-size:         27px;
 @moon-non-latin-divider-font-size:      27px;
 @moon-non-latin-button-large-font-size: 36px;
 @moon-non-latin-button-small-font-size: 27px;
 @moon-non-latin-header-font-size:       114px;
+@moon-non-latin-expandable-client-item-font-size: 27px;
 
 
 // Other Font Properties
@@ -140,7 +143,7 @@
 @moon-body-font-style: normal;
 // Body text line heights must be speified in px, since moon.ExpandableText requires precise line measurement
 @moon-body-line-height: @moon-body-font-size + 6;
-@moon-non-latin-body-line-height: @moon-non-latin-body-font-size + 6;
+@moon-non-latin-body-line-height: 1.7em;
 
 @moon-divider-font-family: "MuseoSans 700 Italic";
 @moon-divider-font-weight: normal;
@@ -148,6 +151,8 @@
 @moon-divider-letter-spacing: 0;
 
 @moon-expandable-value-font-family: @moon-font-family-light;
+@moon-expandable-value-font-weight: normal;
+@moon-expandable-value-font-style: normal;
 
 @moon-button-font-family: "Moonstone Miso Bold";
 @moon-button-font-weight: normal;
