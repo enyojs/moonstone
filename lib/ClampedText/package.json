@@ -1,0 +1,6 @@
+{
+	"main": "ClampedText.js",
+	"styles": [
+		"ClampedText.less"
+	]
+}
