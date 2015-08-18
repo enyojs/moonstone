@@ -1,8 +1,11 @@
 /* ContextualPopupButton.css */
 .moon-button.contextual-popup-button {
-	padding-right: @moon-contextual-arrow-padding;
 	position: relative;
 
+	&,
+	&.small {
+		padding-right: @moon-contextual-arrow-padding;
+	}
 	&:after {
 		position: absolute;
 		right: @moon-spotlight-outset;
