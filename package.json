@@ -12,7 +12,8 @@
   ],
   "assets": [
     "fonts/**/*.ttf",
-    "images/**/*.png"
+    "images/**/*.png",
+    "resources/**/*.*"
   ],
   "main": "index.js",
   "repository": {
