@@ -277,7 +277,8 @@ module.exports = kind(
 		oninput: 'handleInput',
 		onchange: 'handleChange',
 		onRequestCreateListActions: 'handleRequestCreateComponents',
-		onListActionOpenChanged: 'handleListActionOpenChanged'
+		onListActionOpenChanged: 'handleListActionOpenChanged',
+        onSpotlightKeyDown: 'handleSpotlightKeyDown'
 	},
 
 	/**
@@ -306,7 +307,7 @@ module.exports = kind(
 			{name: 'title', kind: MarqueeText, classes: 'moon-header-text moon-header-title', canGenerate: false},
 			{name: 'inputDecorator', kind: InputDecorator, classes: 'moon-input-header-input-decorator',canGenerate: false, components: [
                 {name: 'titleInput', kind: Input, classes: 'moon-header-text moon-header-title',  onblur: 'marqueeToggle'},
-                {name: 'titleInputMarquee', kind: MarqueeText, classes: 'moon-header-text moon-header-title moon-input header-marquee', ontap: 'marqueeToggle', showing: false}
+                {name: 'titleInputMarquee', kind: MarqueeText, classes: 'moon-header-text moon-header-title moon-input header-marquee', ontap: 'marqueeToggle', onkeyup: 'marqueeToggle', showing: false}
 			]}
 		]},
 		{name: 'titleBelow', kind: MarqueeText, classes: 'moon-sub-header-text moon-header-title-below'},
@@ -801,17 +802,28 @@ module.exports = kind(
     handleChange: function (inSender, inEvent) {
         this.doInputHeaderChange({originalEvent: util.clone(inEvent, true)});
         this.$.titleInputMarquee.set('content', inEvent.originator.getValue());
-        this.marqueeToggle();
     },
 
-        /**
-         * Logic for replacing input into marquee
-         *
-         * @private
-         */
+    /**
+    * Handling Enter press, to act as tap.
+    *
+    * @private
+    */
 
-        marqueeToggle: function (){
-            if (this.$.titleInputMarquee.get('content') === '') return;
+    handleSpotlightKeyDown: function (inSender, inEvent) {
+        if (inEvent.keyCode == 13) {
+            this.marqueeToggle();
+        }
+    },
+
+    /**
+    * Logic for replacing input into marquee
+    *
+    * @private
+    */
+
+    marqueeToggle: function (){
+        if (this.$.titleInputMarquee.get('content') === '') return;
 
             var isInputShowing = this.$.titleInput.get('showing');
             this.$.titleInput.set('showing', !isInputShowing);
