@@ -307,7 +307,7 @@ module.exports = kind(
 			{name: 'title', kind: MarqueeText, classes: 'moon-header-text moon-header-title', canGenerate: false},
 			{name: 'inputDecorator', kind: InputDecorator, classes: 'moon-input-header-input-decorator',canGenerate: false, components: [
                 {name: 'titleInput', kind: Input, classes: 'moon-header-text moon-header-title',  onblur: 'marqueeToggle'},
-                {name: 'titleInputMarquee', kind: MarqueeText, classes: 'moon-header-text moon-header-title moon-input header-marquee', ontap: 'marqueeToggle', onkeyup: 'marqueeToggle', showing: false}
+                {name: 'titleInputMarquee', kind: MarqueeText, classes: 'moon-header-text moon-header-title moon-input header-marquee', ontap: 'marqueeToggle', showing: false}
 			]}
 		]},
 		{name: 'titleBelow', kind: MarqueeText, classes: 'moon-sub-header-text moon-header-title-below'},
