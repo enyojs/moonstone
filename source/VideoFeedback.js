@@ -259,27 +259,21 @@
 			}
 
 			// Don't show feedback if we are showing custom feedback already, unless this is a new custom message
-			if (!customMessage && this._showingFeedback) {
-				return;
-			}
-
+			if (!customMessage && this._showingFeedback) return;
+	
 			// Set content as _inMessage_
 			this.$.feedText.setContent( this.get('uppercase') ? enyo.toUpperCase(msg) : msg);
 
 			// Show output controls when video player is not preview mode
-			if (!preview) {
-				this.showFeedback();
-			}
+			if (!preview) this.showFeedback();
 
 			// Show icons as appropriate
 			this.updateIcons(leftSrc, rightSrc);
 
 			//* Don't set up hide timer if _inPersistShowing_ is true
-			if (persist) {
-				this.resetAutoTimer();
-			} else {
-				this.setAutoTimer();
-			}
+			if (persist) this.resetAutoTimer();
+			else this.setAutoTimer();
+
 			this.inPersistShowing = persist;
 		},
 
