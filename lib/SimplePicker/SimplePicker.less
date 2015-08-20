@@ -11,21 +11,20 @@
 	&.block {
 		display: block;
 	}
-	
-	.moon-simple-picker-button {
-		position: absolute;
-		top: 0;
-		margin: 0;
+}
 
-		&.left {
-			left: 0;
-		}
+.moon-simple-picker-button {
+	position: absolute;
+	top: 0;
+	margin: 0;
 
-		&.right {
-			right: 0;
-		}
+	&.left {
+		left: 0;
 	}
-	
+
+	&.right {
+		right: 0;
+	}
 }
 
 .moon-simple-picker-client-wrapper {
@@ -46,11 +45,15 @@
 		-moz-transition: -moz-transform ease-out 0.3s;
 		transition: transform ease-out 0.3s;
 	}
+	
+	> *,
+	.moon-marquee {
+		width: 100%;
+	}
 
 	> * {
 		display: inline-block;
 		box-sizing: border-box;
-		width: 100%;
 		line-height: @moon-picker-button-width;
 	}
 
