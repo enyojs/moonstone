@@ -212,12 +212,12 @@
 				break;
 
 			case 'Slowrewind':
-				msg = params.playbackRate + 'x';
+				msg = params.playbackRate.split('-')[1] + 'x';
 				leftSrc = this.retriveImgOrIconPath(this._pauseBackImg);
 				break;
 
 			case 'Fastforward':
-				msg = Math.abs(params.playbackRate) + 'x';
+				msg = params.playbackRate + 'x';
 				rightSrc = this.retriveImgOrIconPath(this._fastForwardImg);
 				break;
 
