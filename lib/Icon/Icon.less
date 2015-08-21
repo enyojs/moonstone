@@ -14,7 +14,7 @@
 	line-height: @moon-icon-size;
 	text-align: center;
 	position: relative;
-	color: @moon-icon-font-color;
+	color: @moon-icon-text-color;
 
 	.moon-taparea(@moon-icon-size);
 
@@ -41,20 +41,19 @@
 	.moon-neutral & {
 		color: inherit;
 	}
-}
 
-.spotlight .moon-icon {
-	color: @moon-spotlight-text-color;
-	background-position: center -(@moon-icon-sprite-size + ((@moon-icon-sprite-size - @moon-icon-size) / 2));
-
-	&.small {
-		background-position: center -(@moon-icon-sprite-small-size + ((@moon-icon-sprite-small-size - @moon-icon-small-size) / 2));
+	&.disabled,
+	.disabled & {
+		.vendor-opacity(@moon-disabled-opacity);
 	}
-}
 
-.disabled .moon-icon,
-.moon-icon.disabled {
-	color: @moon-icon-font-disabled-color;
-	background-color: @moon-icon-bg-disabled-color;
+	.spotlight & {
+		color: @moon-spotlight-text-color;
+		background-position: center -(@moon-icon-sprite-size + ((@moon-icon-sprite-size - @moon-icon-size) / 2));
+
+		&.small {
+			background-position: center -(@moon-icon-sprite-small-size + ((@moon-icon-sprite-small-size - @moon-icon-small-size) / 2));
+		}
+	}
 }
 
