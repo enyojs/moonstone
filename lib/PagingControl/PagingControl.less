@@ -1,0 +1,34 @@
+/* 
+	TODO: Clean up and move rules here to ScrollControls.less
+	when new scroller implementation (based on Scrollable mixin) is complete.
+
+	For now, to avoid copy-paste and redundant bug-fix work, we are directly
+	including this .less file from the ScrollControls package.json.
+*/
+
+/* Scroller Page Controls */
+.moon-icon-button.moon-paging-button {
+	position: absolute;
+	margin: 0;
+	overflow: hidden;
+
+	&.top {
+		top: 0;
+	}
+
+	&.right {
+		right: 0;
+	}
+
+	&.bottom {
+		bottom: 0;
+	}
+
+	&.left {
+		left: 0;
+	}
+}
+
+.moon-neutral .moon-icon-button.moon-paging-button.disabled {
+	color: @moon-neutral-child-text-color;
+}

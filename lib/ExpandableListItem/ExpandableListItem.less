@@ -1,0 +1,54 @@
+/* ExpandableListItem */
+.moon-expandable-list-item {
+	// Header
+	.moon-labeledtextitem-header {
+		.padding-start-end(0, @moon-spotlight-outset + 30px);
+		margin-bottom: 0px;
+
+		&:after {
+			position: absolute;
+			top: @moon-spotlight-outset - 12px;
+			right: @moon-spotlight-outset + 1px;
+			font-family: @moon-icon-font-family;
+			font-size: @moon-expandable-caret-icon-font-size;
+			content: @moon-icon-arrowlargedown;
+
+			.enyo-locale-right-to-left & {
+				left: @moon-spotlight-outset + 1px;
+				right: initial;
+			}
+		}
+	}
+
+	&.open .moon-labeledtextitem-header:after {
+		content: @moon-icon-arrowlargeup;
+	}
+
+	.moon-labeledtextitem-text {
+		line-height: inherit;
+		margin-bottom: 0px;
+	}
+
+	// Client Items
+	.moon-expandable-list-item-client {
+		.moon-item {
+			font-family: @moon-expandable-value-font-family;
+			font-size: @moon-expandable-client-item-font-size;
+			font-weight: @moon-expandable-value-font-weight;
+			font-style: @moon-expandable-value-font-style;
+			line-height: @moon-item-line-height;
+
+			.enyo-locale-non-latin & {
+				.enyo-locale-non-latin .moon-body-text;
+				font-size: @moon-non-latin-expandable-client-item-font-size;
+			}
+		}
+		&.indented {
+			.padding-start-end(@moon-item-indent + @moon-spotlight-outset, 0);
+		}
+		// Set spacing on the last element (the expand/collapse box) of the client area.
+		> :last-child {
+			margin-bottom: 12px;
+		}
+	}
+}

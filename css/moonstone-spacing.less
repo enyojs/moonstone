@@ -2,45 +2,49 @@
 /* Standard horizontal spacing */
 /* -------------------------- */
 .moon-hspacing {
-	white-space: nowrap;
-}
-.moon-hspacing > * {
-	display: inline-block;
-	vertical-align: middle;
-	margin: 0 @moon-grid-gutter-width/2;
-}
-.moon-hspacing.top > * {
-	vertical-align: top;
-}
-.moon-hspacing > :first-child,
-.moon-hspacing > :first-child.moon-contextual-popup-decorator :first-child {
-	margin-left: 0;
-}
-.enyo-locale-right-to-left .moon-hspacing > :first-child {
-	margin-left: @moon-grid-gutter-width/2;
-	margin-right: 0;
-}
-.moon-hspacing > :last-child,
-.moon-hspacing > :last-child.moon-contextual-popup-decorator :first-child  {
-	margin-right: 0;
-}
-.enyo-locale-right-to-left .moon-hspacing > :last-child {
-	margin-right: @moon-grid-gutter-width/2;
-	margin-left: 0;
+	& {
+		white-space: nowrap;
+	}
+	& > * {
+		display: inline-block;
+		vertical-align: middle;
+		margin: 0 @moon-grid-gutter-width/2;
+	}
+	&.top > * {
+		vertical-align: top;
+	}
+	& > :first-child,
+	& > :first-child.moon-contextual-popup-decorator :first-child {
+		margin-left: 0;
+	}
+	.enyo-locale-right-to-left & > :first-child {
+		margin-left: @moon-grid-gutter-width/2;
+		margin-right: 0;
+	}
+	& > :last-child,
+	& > :last-child.moon-contextual-popup-decorator :first-child  {
+		margin-right: 0;
+	}
+	.enyo-locale-right-to-left & > :last-child {
+		margin-right: @moon-grid-gutter-width/2;
+		margin-left: 0;
+	}
 }
 
 /* -------------------------- */
 /* Standard vertical spacing */
 /* -------------------------- */
-.moon-vspacing > * {
-	display: block;
-	margin: @moon-grid-gutter-width/2 0;
-}
-.moon-vspacing > :first-child {
-	margin-top: 0;
-}
-.moon-vspacing > :last-child {
-	margin-bottom: 0;
+.moon-vspacing {
+	& > * {
+		display: block;
+		margin: @moon-grid-gutter-width/2 0;
+	}
+	& > :first-child {
+		margin-top: 0;
+	}
+	& > :last-child {
+		margin-bottom: 0;
+	}
 }
 
 /* -------------------------- */

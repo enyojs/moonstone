@@ -1,0 +1,6 @@
+{
+	"main": "RadioItemGroup.js",
+	"styles": [
+		"RadioItemGroup.less"
+	]
+}
