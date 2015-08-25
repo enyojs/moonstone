@@ -367,5 +367,26 @@ module.exports = kind(
 			this.bubble('onRequestSetupBounds');
 		}
 		return true;
-	}
+	},
+
+	// Accessibility
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: ['content', 'currentValueText', 'accessibilityHint', 'accessibilityLabel'], method: function () {
+			var content = this.get('content') + ' ' + this.get('currentValueText') ,
+				focusable = this.accessibilityLabel || content || this.accessibilityHint || null,
+				prefix = this.accessibilityLabel || content || null,
+				label = this.accessibilityHint && prefix && (prefix + ' ' + this.accessibilityHint) ||
+						this.accessibilityHint ||
+						this.accessibilityLabel ||
+						null;
+
+				// header gets spotlight focus, it also can get dom focus
+				this.$.header.setAriaAttribute('tabindex', focusable ? 0 : null);
+				this.$.header.setAriaAttribute('aria-label', label);
+		}}
+	]
 });

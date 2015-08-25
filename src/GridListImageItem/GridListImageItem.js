@@ -112,5 +112,26 @@ module.exports = kind(
 		if (inEvent.originator === this) {
 			this.bubble('onRequestScrollIntoView');
 		}
-	}
+	},
+
+	// Accessibility
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: ['caption', 'subCaption', 'accessibilityHint', 'accessibilityLabel'], method: function () {
+			var content = this.caption + ' ' + this.subCaption,
+				focusable = this.accessibilityLabel || content || this.accessibilityHint || null,
+				prefix = this.accessibilityLabel || content || null,
+				label = this.accessibilityHint && prefix && (prefix + ' ' + this.accessibilityHint) ||
+						this.accessibilityHint ||
+						this.accessibilityLabel ||
+						null;
+
+				// GridListImageItem gets spotlight focus, it also can get dom focus
+				this.setAriaAttribute('tabindex', focusable ? 0 : null);
+				this.setAriaAttribute('aria-label', label);
+		}}
+	]
 });
