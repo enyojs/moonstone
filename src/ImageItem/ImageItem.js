@@ -131,5 +131,26 @@ module.exports = kind(
 	*/
 	imageAlignRightChanged: function () {
 		this.addRemoveClass('align-right', this.imageAlignRight);
-	}
+	},
+
+	// Accessibility
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: ['label', 'text', 'accessibilityHint', 'accessibilityLabel'], method: function () {
+			var content = this.label + ' ' + this.text ,
+				focusable = this.accessibilityLabel || content || this.accessibilityHint || null,
+				prefix = this.accessibilityLabel || content || null,
+				label = this.accessibilityHint && prefix && (prefix + ' ' + this.accessibilityHint) ||
+						this.accessibilityHint ||
+						this.accessibilityLabel ||
+						null;
+
+				// ImageItem gets spotlight focus, it also can get dom focus
+				this.setAriaAttribute('tabindex', focusable ? 0 : null);
+				this.setAriaAttribute('aria-label', label);
+		}}
+	]
 });
