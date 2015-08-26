@@ -3,20 +3,15 @@
 	padding-left: (@moon-item-indent + @moon-spotlight-outset);
 
 	&:before {
-		content: '';
+		content: '\2022';
 		position: absolute;
 		left: @moon-spotlight-outset;
-		top: 50%;
-		-webkit-transform: translateY(-50%);
-		transform: translateY(-50%);
-		width: @moon-selectable-item-indicator-width;
-		height: @moon-selectable-item-indicator-height;
-		border-radius: (@moon-selectable-item-indicator-width / 2);
-		background-color: @moon-accent;
+		color: @moon-accent;
+		font-size: 56pt;
 	}
 
 	&.spotlight:before {
-		background-color: @moon-spotlight-text-color;
+		color: @moon-spotlight-text-color;
 	}
 }
 
