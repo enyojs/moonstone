@@ -1,7 +1,7 @@
 /* IconButton.css */
 .moon-icon-button {
 	.border-box;
-	color: @moon-icon-button-font-color;
+	color: @moon-icon-button-text-color;
 	width: @moon-icon-button-size;
 	height: @moon-icon-button-size;
 	border-radius: @moon-icon-button-size / 2;
@@ -24,11 +24,11 @@
 		}
 	}
 
-	&.translucent:not(.disabled) {
+	&.translucent {
 		background-color: fade(@moon-icon-button-bg-color, @moon-button-translucent-opacity);
 	}
 
-	&.transparent:not(.disabled) {
+	&.transparent {
 		background-color: transparent;
 	}
 
@@ -49,7 +49,7 @@
 	&:active.spotlight,
 	&.pressed,
 	&.hover:hover:not(.disabled):active {
-		color: @moon-icon-button-font-color;
+		color: @moon-icon-button-active-text-color;
 		background-color: @moon-icon-button-active-bg-color;
 		background-position: center 0;
 		border-color: @moon-icon-button-active-border-color;
@@ -65,14 +65,13 @@
 		}
 	}
 
-	&.disabled {
+	&.disabled,
+	.disabled & {
 		border-color: transparent;
 
-		&.translucent {
-			background-color: fade(@moon-icon-button-bg-color, @moon-button-translucent-opacity);
-		}
+		&.translucent,
 		&.transparent {
-			background-color: transparent;
+			.vendor-opacity(@moon-disabled-translucent-opacity);
 		}
 	}
 

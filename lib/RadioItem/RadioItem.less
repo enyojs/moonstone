@@ -3,7 +3,11 @@
 	display: inline-block;
 	max-width: 240px;
 	margin-right: @moon-radio-item-gap;
-	padding-left: (@moon-item-indent + @moon-spotlight-outset);
+
+	&,
+	&.moon-item {
+		padding-left: (@moon-item-indent + @moon-spotlight-outset);
+	}
 
 	&:before {
 		content: '';
@@ -28,8 +32,11 @@
 	.enyo-locale-right-to-left & {
 		margin-left: @moon-radio-item-gap;
 		margin-right: 0;
-		padding-left: @moon-spotlight-outset;
-		padding-right: (@moon-item-indent + @moon-spotlight-outset);
+		&,
+		&.moon-item {
+			padding-left: @moon-spotlight-outset;
+			padding-right: (@moon-item-indent + @moon-spotlight-outset);
+		}
 
 		&:before {
 			left: auto;
