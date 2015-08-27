@@ -18,6 +18,9 @@ var
 	ScrollStrategy = require('../ScrollStrategy'),
 	TouchScrollStrategy = ScrollStrategy.Touch;
 
+var
+	Spotlight = require('spotlight'),
+	$L = require('../i18n');
 /**
 * Fires when the currently selected value changes.
 *
@@ -694,19 +697,30 @@ module.exports = kind(
 	// Accessibility
 
 	/**
-	* @default spinbutton
+	* @default $L('change a value with up/down button')
 	* @type {String}
-	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityRole
+	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityHint
 	* @public
 	*/
-	accessibilityRole: 'spinbutton',
+	accessibilityHint: $L('change a value with up/down button'),
 
 	/**
 	* @private
 	*/
 	ariaObservers: [
-		{from: 'min', to: 'aria-valuemin'},
-		{from: 'max', to: 'aria-valuemax'},
-		{from: 'value', to: 'aria-valuenow'}
+		{from: 'min', method: function () {
+			this.$.repeater.setAriaAttribute('aria-valuemin', this.min);
+		}},
+		{from: 'max', method: function () {
+			this.$.repeater.setAriaAttribute('aria-valuemax', this.max);
+		}},
+		{from: 'value', method: function () {
+			// It reads changed value only the case spotlight focus is on IntegerPicker
+			if (Spotlight.getCurrent() === this) {
+				this.$.repeater.set('accessibilityRole', 'spinbutton');
+				this.$.repeater.setAriaAttribute('aria-valuenow', this.value);
+			}
+			this.set('accessibilityLabel', this.value);
+		}}
 	]
 });
