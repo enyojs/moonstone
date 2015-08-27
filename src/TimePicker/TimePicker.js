@@ -72,11 +72,10 @@ var MeridiemPicker = kind(
 	*/
 	published: {
 		/**
-		* The meridiem text to display if [meridiemEnable]{@link moon.TimePicker#meridiemEnable}
-		* is `true`. The first item is used if the `hour` is less than `12`; otherwise, the
-		* second is used.
+		* The meridiem names and time ranges to use if [meridiemEnable]{@link moon.TimePicker#meridiemEnable}
+		* is `true`.
 		*
-		* @type {String[]}
+		* @type {Object[]}
 		* @default [{name: 'AM', start: '00:00', end: '11:59'}, {name: 'PM', start: '12:00', end: '23:59'}]
 		* @public
 		*/
@@ -96,7 +95,7 @@ var MeridiemPicker = kind(
 
 		if (this.locale) fmtParams.locale = this.locale;
 
-		var merFormatter = new DateFmt(fmtParams);	
+		var merFormatter = new DateFmt(fmtParams);
 		this.meridiems = merFormatter.getMeridiemsRange(fmtParams);
 	},
 
@@ -124,12 +123,12 @@ var MeridiemPicker = kind(
 			start = parseInt(meridiems[i].start.substring(0,2) + meridiems[i].start.substring(3,5), 10);
 			end = parseInt(meridiems[i].end.substring(0,2) + meridiems[i].end.substring(3,5), 10);
 			time = hour * 100 + minute;
-				
+
 			if ( start <= time && time <= end) this.set('value', i);
 		}
 		this.offset = hour - parseInt(meridiems[this.value].start, 10);
 	},
-	
+
 	/**
 	* Get meridiem based on given value
 	*
@@ -169,7 +168,7 @@ var MeridiemPicker = kind(
 });
 
 /**
-* {@link module:moonstone/TimePicker~HourMinutePickerBase} is a helper kind used by {@link module:moonstone/TimePicker~TimePicker}. 
+* {@link module:moonstone/TimePicker~HourMinutePickerBase} is a helper kind used by {@link module:moonstone/TimePicker~TimePicker}.
 *  It is not intended for use in other contexts.
 *
 * @class HourMinutePickerBase
@@ -235,7 +234,7 @@ var HourMinutePickerBase = kind(
 });
 
 /**
-* {@link module:moonstone/TimePicker~MinutePicker} is a helper kind used by {@link module:moonstone/TimePicker~TimePicker}. 
+* {@link module:moonstone/TimePicker~MinutePicker} is a helper kind used by {@link module:moonstone/TimePicker~TimePicker}.
 *  It is not intended for use in other contexts.
 *
 * @class MinutePicker
@@ -338,7 +337,7 @@ var HourPicker = kind(
 	 * will not prevent a big scroll through all intermediate values (e.g. from 3pm to 2am) even
 	 * though it only has to scroll 1 index. This can be seen most easily by selecting a time
 	 * between 2 and 3 pm on day when DST springs forward and then changing the meridiem to AM.
-	 * 
+	 *
 	 * @see module:moonstone/IntegerPicker~IntegerPicker.scrollToValue
 	 * @private
 	 */
@@ -661,7 +660,7 @@ var TimePicker = module.exports = kind(
 				endMinute = parseInt(end[1], 10),
 				oldMinute = this.$.minute.get('value'),
 				newMinute;
-			
+
 			if (startHour * 100 + startMinute > newHour * 100 + oldMinute) {
 				newHour = startHour;
 				newMinute = startMinute;
@@ -683,7 +682,7 @@ var TimePicker = module.exports = kind(
 		var valueTime = this.value.getTime(),
 			value = new Date(valueTime);
 
-		if (newHour != null) value.setHours(newHour); 
+		if (newHour != null) value.setHours(newHour);
 		if (newMinute != null) value.setMinutes(newMinute);
 
 		// in the rare case that the value didn't change because it was snapped back to the
@@ -730,7 +729,7 @@ var TimePicker = module.exports = kind(
 
 		DateTimePickerBase.prototype.valueChanged.apply(this, arguments);
 	},
-	
+
 	/**
 	* @private
 	*/
