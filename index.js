@@ -5,7 +5,7 @@ var
 	dispatcher = require('enyo/dispatcher'),
 	gesture = require('enyo/gesture');
 
-exports = module.exports = require('./lib/options');
+exports = module.exports = require('./src/options');
 exports.version = '2.6.0-pre.14.1';
 
 // Override the default holdpulse config to account for greater delays between keydown and keyup
@@ -33,5 +33,5 @@ if (platform.webos >= 4) {
 }
 
 // ensure that these are registered
-require('./lib/resolution');
-require('./lib/fonts');
+require('./src/resolution');
+require('./src/fonts');
