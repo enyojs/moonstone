@@ -7,7 +7,6 @@ require('moonstone');
 
 var
 	kind = require('enyo/kind'),
-	options = require('enyo/options'),
 	Component = require('enyo/Component'),
 	Group = require('enyo/Group');
 

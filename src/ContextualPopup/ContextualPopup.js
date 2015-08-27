@@ -8,7 +8,6 @@ require('moonstone');
 var
 	kind = require('enyo/kind'),
 	dom = require('enyo/dom'),
-	options = require('enyo/options'),
 	ri = require('enyo/resolution'),
 	util = require('enyo/utils'),
 	Control = require('enyo/Control'),
