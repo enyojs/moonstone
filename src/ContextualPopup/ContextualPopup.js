@@ -596,9 +596,8 @@ module.exports = kind(
 	* @private
 	*/
 	backKeyHandler: function() {
-		if (this.showing) {
-			this.hide();
-		}
+		if (this.spotlightModal) this.pushBackHistory();
+		else if (this.showing) this.hide();
 
 		if (this.spotlight && !this.spotlightDisabled) {
 			this.doRequestSpot();
