@@ -142,6 +142,7 @@ module.exports = kind(
 		LightPanel.prototype.preTransition.apply(this, arguments);
 
 		var current = Spotlight.getCurrent(),
+			currentSpottable = current && Spotlight.isSpottable(current),
 			isChild = current && current.isDescendantOf(this);
 
 		this.spotlightDisabled = true; // we do not want to allow 5-way spotting during transition
@@ -149,7 +150,7 @@ module.exports = kind(
 		// This is highly related to the order in which "preTransition" is fired for the outgoing
 		// and the incoming panel. The outgoing panel's method is fired before that of the incoming
 		// panel.
-		if (this.state == States.ACTIVE && !current) {
+		if (this.state == States.ACTIVE && !currentSpottable) {
 			// We spot the dummy element of the incoming panel so that the spotlightDisabled
 			// property of the outgoing panel behaves properly (correctly attempts to spot the
 			// Spotlight container element of the outgoing panel); if we do not do this, pressing a
@@ -158,7 +159,7 @@ module.exports = kind(
 				this.$.spotlightPlaceholder.spotlight = true;
 				Spotlight.spot(this.$.spotlightPlaceholder);
 			}
-		} else if (this.state != States.ACTIVE && isChild) {
+		} else if (this.state != States.ACTIVE && (isChild || !currentSpottable)) {
 			Spotlight.unspot();
 		}
 	},

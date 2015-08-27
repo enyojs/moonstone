@@ -35,6 +35,11 @@ module.exports = kind(
 	/**
 	* @private
 	*/
+	classes: 'moon-light-panels',
+
+	/**
+	* @private
+	*/
 	defaultKind: LightPanel
 
 });
