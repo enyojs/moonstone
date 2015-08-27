@@ -1729,6 +1729,9 @@ module.exports = kind(
 		this.aspectRatioChanged();
 	},
 
+	/**
+	* @private
+	*/
 	_isPlayingChanged: function () {
 		this.updatePlayPauseButtons();
 		this.updateSpinner();
@@ -2194,6 +2197,9 @@ module.exports = kind(
 
 	// Accessibility
 
+	/**
+	* @private
+	*/
 	ariaObservers: [
 		{path: '_isPlaying', method: function () {
 			var label = this._isPlaying ? $L('Pause') : $L('Play');

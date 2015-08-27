@@ -725,7 +725,10 @@ module.exports = kind(
 	// Accessibility
 	
 	/**
-	* @private
+	* @default progressbar
+	* @type {String}
+	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityRole
+	* @public
 	*/
 	accessibilityRole: 'progressbar',
 
@@ -736,6 +739,11 @@ module.exports = kind(
 		{path: ['progress', 'popupContent'], method: 'ariaValue'}
 	],
 
+	/**
+	* Determines the text or value to set as the accessible value for the progress bar
+	*
+	* @private
+	*/
 	ariaValue: function () {
 		var attr = this.popupContent ? 'aria-valuetext' : 'aria-valuenow';
 		this.setAriaAttribute(attr, this.popupContent || this.progress);

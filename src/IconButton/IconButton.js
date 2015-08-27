@@ -223,5 +223,11 @@ module.exports = kind(
 
 	// Accessibility
 
+	/**
+	* @default button
+	* @type {String}
+	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityRole
+	* @public
+	*/
 	accessibilityRole: 'button'
 });

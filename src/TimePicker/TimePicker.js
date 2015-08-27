@@ -763,6 +763,9 @@ var TimePicker = module.exports = kind(
 
 	// Accessibility
 
+	/**
+	* @private
+	*/
 	ariaObservers: [
 		{path: ['dayText', 'monthText', 'yearText'], method: function () {
 			this.$.hour.set('accessibilityLabel', this.hourText);

@@ -610,8 +610,18 @@ module.exports = kind(
 		};
 	}),
 
+	/**
+	* When `true`, the contents of the popup will be read when shown.
+	*
+	* @default true
+	* @type {Boolean}
+	* @public
+	*/
 	accessibilityReadAll: true,
 
+	/**
+	* @private
+	*/
 	accessibilityLive: 'off',
 
 	/**
