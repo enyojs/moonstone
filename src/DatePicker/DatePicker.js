@@ -6,8 +6,7 @@ require('moonstone');
 */
 
 var
-	kind = require('enyo/kind'),
-	options = require('enyo/options');
+	kind = require('enyo/kind');
 
 var
 	dateFactory = require('enyo-ilib/DateFactory');

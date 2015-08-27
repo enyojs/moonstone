@@ -9,7 +9,6 @@ var
 	kind = require('enyo/kind'),
 	ri = require('enyo/resolution'),
 	path = require('enyo/pathResolver'),
-	options = require('enyo/options'),
 	Control = require('enyo/Control');
 
 // Static private hash of all of the valid moonstone icons
