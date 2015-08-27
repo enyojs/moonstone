@@ -1,7 +1,11 @@
 {
   "name": "moonstone",
-  "version": "2.6.0-pre",
-  "description": "Moonstone UI library for TV user interfaces.",
+  "assets": [
+    "fonts/**/*.ttf",
+    "images/**/*.png",
+    "resources/**/*.*"
+  ],
+  "devAssets": [],
   "styles": [
     "css/moonstone-variables.less",
     "css/moonstone-fonts.less",
@@ -10,12 +14,10 @@
     "css/moonstone-spacing.less",
     "css/moonstone-rules.less"
   ],
-  "assets": [
-    "fonts/**/*.ttf",
-    "images/**/*.png",
-    "resources/**/*.*"
-  ],
   "main": "index.js",
+  "moduleDir": "src",
+  "version": "2.6.0-pre",
+  "description": "Moonstone UI library for TV user interfaces.",
   "repository": {
     "type": "git",
     "url": "https://github.com/enyojs/moonstone.git"
