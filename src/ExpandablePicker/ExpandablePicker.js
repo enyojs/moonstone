@@ -515,6 +515,11 @@ module.exports = kind(
 		this.notifyObservers('selected');
 	},
 
+	// Accessibility
+
+	/**
+	* @private
+	*/
 	ariaObservers: [
 		{path: 'multipleSelection', method: function () {
 			this.$.header.setAriaAttribute('aria-multiselectable', this.multipleSelection);

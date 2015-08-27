@@ -191,6 +191,12 @@ module.exports = kind(
 
 	// Accessibility
 
+	/**
+	* @default radio
+	* @type {String}
+	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityRole
+	* @public
+	*/
 	accessibilityRole: 'radio',
 
 	/**

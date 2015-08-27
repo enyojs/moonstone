@@ -341,6 +341,9 @@ module.exports = kind(
 
 	// Accessibility
 
+	/**
+	* @private
+	*/
 	ariaObservers: [
 		{path: ['dayText', 'monthText', 'yearText'], method: function () {
 			this.$.day.set('accessibilityLabel', this.dayText);

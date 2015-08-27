@@ -52,7 +52,10 @@ module.exports = kind(
 	},
 
 	// Accessibility
-	
+
+	/**
+	* @private
+	*/	
 	ariaObservers: [
 		{from: 'textShowing', method: function () {
 			this.$.text.set('accessibilityDisabled', !this.textShowing);
