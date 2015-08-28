@@ -7,14 +7,12 @@ require('moonstone');
 
 var
 	kind = require('enyo/kind'),
-	Control = require('enyo/Control'),
-	options = require('enyo/options');
+	Control = require('enyo/Control');
 
 var
 	Marquee = require('../Marquee'),
 	MarqueeSupport = Marquee.Support,
-	MarqueeItem = Marquee.Item,
-	ItemAccessibilitySupport = require('./ItemAccessibilitySupport');
+	MarqueeItem = Marquee.Item;
 
 /**
 * {@link module:moonstone/Item~Item} is a focusable Moonstone-styled control that can display
@@ -48,7 +46,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	mixins: options.accessibility ? [ItemAccessibilitySupport, MarqueeSupport, MarqueeItem] : [MarqueeSupport, MarqueeItem],
+	mixins: [MarqueeSupport, MarqueeItem],
 
 	/**
 	* @private

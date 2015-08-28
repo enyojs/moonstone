@@ -7,12 +7,10 @@ require('moonstone');
 
 var
 	kind = require('enyo/kind'),
-	utils = require('enyo/utils'),
-	options = require('enyo/options');
+	utils = require('enyo/utils');
 
 var
-	Item = require('../Item'),
-	SelectableItemAccessibilitySupport = require('./SelectableItemAccessibilitySupport');
+	Item = require('../Item');
 
 /**
 * Fires when the item is tapped. No event-specific data is sent with this event.
@@ -49,11 +47,6 @@ module.exports = kind(
 	* @private
 	*/
 	kind: Item,
-
-	/**
-	* @private
-	*/
-	mixins: options.accessibility ? [SelectableItemAccessibilitySupport] : null,
 	
 	/**
 	* @private
@@ -193,5 +186,22 @@ module.exports = kind(
 		this.setSelected(this.active);
 		this.resetMarquee();
 		this.bubble('onActivate');
-	}
+	},
+
+	// Accessibility
+
+	/**
+	* @default radio
+	* @type {String}
+	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityRole
+	* @public
+	*/
+	accessibilityRole: 'radio',
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{from: 'selected', to: 'aria-checked'}
+	]
 });

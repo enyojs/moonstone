@@ -7,15 +7,13 @@ require('moonstone');
 
 var
 	kind = require('enyo/kind'),
-	options = require('enyo/options'),
 	Component = require('enyo/Component'),
 	Group = require('enyo/Group');
 
 var
 	BodyText = require('../BodyText'),
 	CheckboxItem = require('../CheckboxItem'),
-	ExpandableListItem = require('../ExpandableListItem'),
-	ExpandablePickerAccessibilitySupport = require('./ExpandablePickerAccessibilitySupport');
+	ExpandableListItem = require('../ExpandableListItem');
 
 /**
 * Fires when the currently selected item changes.
@@ -97,11 +95,6 @@ module.exports = kind(
 	* @private
 	*/
 	kind: ExpandableListItem,
-
-	/**
-	* @private
-	*/
-	mixins: options.accessibility ? [ExpandablePickerAccessibilitySupport] : null,
 
 	/**
 	* @private
@@ -505,7 +498,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	multipleSelectionChanged : function (inOldValue) {
+	multipleSelectionChanged: function (inOldValue) {
 		if (this.multipleSelection) {
 			if (this.selected) {
 				this.selected = [this.selected];
@@ -519,5 +512,16 @@ module.exports = kind(
 		}
 		this.$.client.setHighlander(!this.multipleSelection);
 		this.notifyObservers('selected');
-	}
+	},
+
+	// Accessibility
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: 'multipleSelection', method: function () {
+			this.$.header.setAriaAttribute('aria-multiselectable', this.multipleSelection);
+		}}
+	]
 });

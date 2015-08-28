@@ -6,8 +6,7 @@ require('moonstone');
 */
 
 var
-	kind = require('enyo/kind'),
-	options = require('enyo/options');
+	kind = require('enyo/kind');
 
 var
 	Spotlight = require('spotlight');
@@ -15,8 +14,7 @@ var
 var
 	ExpandableListItem = require('../ExpandableListItem'),
 	Input = require('../Input'),
-	InputDecorator = require('../InputDecorator'),
-	ExpandableInputAccessibilitySupport = require('./ExpandableInputAccessibilitySupport');
+	InputDecorator = require('../InputDecorator');
 
 /**
 * Fires when the current text changes. This passes through {@link module:enyo/Input~Input#onChange}.
@@ -48,11 +46,6 @@ module.exports = kind(
 	* @private
 	*/
 	kind: ExpandableListItem,
-
-	/**
-	* @private
-	*/
-	mixins: options.accessibility ? [ExpandableInputAccessibilitySupport] : null,
 
 	/**
 	* @private

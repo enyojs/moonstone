@@ -976,19 +976,20 @@ var MarqueeItem = {
 	* @private
 	*/
 	_marquee_createMarquee: function () {
-		// Do not create marqueeText when there is components block,
+		// Do not create marqueeText when there are children
 		// because we don't know what should be the controlParent
-		if (this.components && this.components.length > 0) return;
+		if (this.children && this.children.length > 0) return;
 		var marqueeText = {name: 'marqueeText', kind: Control, classes: 'moon-marquee-text', allowHtml: this.allowHtml, content: this.content},
-			highlightText = null;
+			highlightText = null,
+			wrapper;
 
 		if (this instanceof HighlightText) {
 			dom.setInnerHtml(this.hasNode(), '');
 			highlightText = {renderDelegate: this.renderDelegate, highlightClasses: this.highlightClasses, search: this.search};
 			marqueeText = util.mixin(marqueeText, highlightText);
 		}
-		this.createComponent({name: 'marqueeTextWrapper', kind: Control, classes: 'moon-marquee-text-wrapper', components: [marqueeText]});
-		this.render();
+		wrapper = this.createComponent({name: 'marqueeTextWrapper', kind: Control, classes: 'moon-marquee-text-wrapper', components: [marqueeText]});
+		wrapper.renderInto(this.hasNode());
 		return true;
 	},
 

@@ -7,7 +7,6 @@ require('moonstone');
 
 var
 	kind = require('enyo/kind'),
-	options = require('enyo/options'),
 	util = require('enyo/utils'),
 	Control = require('enyo/Control'),
 	EnyoHistory = require('enyo/History'),
@@ -17,11 +16,11 @@ var
 	Spotlight = require('spotlight');
 
 var
+	$L = require('../i18n'),
 	Scrim = require('../Scrim'),
 	Button = require('../Button'),
 	IconButton = require('../IconButton'),
-	HistorySupport = require('../HistorySupport'),
-	PopupAccessibilitySupport = require('./PopupAccessibilitySupport');
+	HistorySupport = require('../HistorySupport');
 
 /**
 * {@link module:moonstone/Popup~Popup} is an {@link module:enyo/Popup~Popup} that appears at the bottom of the
@@ -48,7 +47,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	mixins: options.accessibility ? [HistorySupport, PopupAccessibilitySupport] : [HistorySupport],
+	mixins: [HistorySupport],
 
 	/**
 	* @private
@@ -171,8 +170,8 @@ module.exports = kind(
 	* @private
 	*/
 	tools: [
-		{name: 'client', kind: Control, classes:'enyo-fill'},
-		{name: 'closeButton', kind: IconButton, icon: 'closex', classes: 'moon-popup-close', ontap: 'closePopup', showing:false}
+		{name: 'client', kind: Control, classes: 'enyo-fill'},
+		{name: 'closeButton', kind: IconButton, icon: 'closex', classes: 'moon-popup-close', ontap: 'closePopup', accessibilityLabel: $L('Close'), showing: false}
 	],
 
 	/**
@@ -608,5 +607,28 @@ module.exports = kind(
 			else if (this.showing) this.hide();
 			return true;
 		};
-	})
+	}),
+
+	/**
+	* When `true`, the contents of the popup will be read when shown.
+	*
+	* @default true
+	* @type {Boolean}
+	* @public
+	*/
+	accessibilityReadAll: true,
+
+	/**
+	* @private
+	*/
+	accessibilityLive: 'off',
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: ['accessibilityReadAll', 'accessibilityRole', 'showing'], method: function () {
+			this.setAriaAttribute('role', this.accessibilityReadAll && this.showing ? 'alert' : this.accessibilityRole);
+		}}
+	]
 });

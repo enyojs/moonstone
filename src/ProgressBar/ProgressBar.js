@@ -295,7 +295,7 @@ module.exports = kind(
 	* @private
 	*/
 	popupComponents: [
-		{name: 'popup', kind: Popup, classes: 'moon-progress-bar-popup above', components: [
+		{name: 'popup', kind: Popup, classes: 'moon-progress-bar-popup above', accessibilityDisabled: true, components: [
 			{name: 'drawingLeft', kind: Control, tag: 'canvas', classes: 'moon-progress-bar-popup-left'},
 			{name: 'popupLabel', kind: Control, classes: 'moon-progress-bar-popup-center' },
 			{name: 'drawingRight', kind: Control, tag: 'canvas', classes: 'moon-progress-bar-popup-right'}
@@ -720,5 +720,32 @@ module.exports = kind(
 		ctxRight.moveTo(0, 0);
 		ctxRight.lineTo(0, hb);
 		ctxRight.stroke();
+	},
+
+	// Accessibility
+	
+	/**
+	* @default progressbar
+	* @type {String}
+	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityRole
+	* @public
+	*/
+	accessibilityRole: 'progressbar',
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: ['progress', 'popupContent'], method: 'ariaValue'}
+	],
+
+	/**
+	* Determines the text or value to set as the accessible value for the progress bar
+	*
+	* @private
+	*/
+	ariaValue: function () {
+		var attr = this.popupContent ? 'aria-valuetext' : 'aria-valuenow';
+		this.setAriaAttribute(attr, this.popupContent || this.progress);
 	}
 });

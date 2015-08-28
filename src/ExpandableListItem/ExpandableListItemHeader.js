@@ -49,5 +49,16 @@ module.exports = kind(
 	initComponents: function () {
 		this.kindComponents = Component.overrideComponents(this.kindComponents, {text: {kind: Marquee.Text}});
 		LabeledTextItem.prototype.initComponents.apply(this, arguments);
-	}
+	},
+
+	// Accessibility
+
+	/**
+	* @private
+	*/	
+	ariaObservers: [
+		{from: 'textShowing', method: function () {
+			this.$.text.set('accessibilityDisabled', !this.textShowing);
+		}}
+	]
 });

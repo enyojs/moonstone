@@ -9,7 +9,6 @@ var
 	dispatcher = require('enyo/dispatcher'),
 	dom = require('enyo/dom'),
 	kind = require('enyo/kind'),
-	options = require('enyo/options'),
 	util = require('enyo/utils'),
 	Animator = require('enyo/Animator'),
 	Control = require('enyo/Control'),
@@ -34,8 +33,7 @@ var
 	HistorySupport = require('../HistorySupport'),
 	Spinner = require('../Spinner'),
 	VideoFullscreenToggleButton = require('../VideoFullscreenToggleButton'),
-	VideoTransportSlider = require('../VideoTransportSlider'),
-	VideoPlayerAccessibilitySupport = require('./VideoPlayerAccessibilitySupport');
+	VideoTransportSlider = require('../VideoTransportSlider');
 
 /**
 * Fires when [disablePlaybackControls]{@link module:moonstone/VideoPlayer~VideoPlayer#disablePlaybackControls}
@@ -122,7 +120,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	mixins: options.accessibility ? [HistorySupport, VideoPlayerAccessibilitySupport] : [HistorySupport],
+	mixins: [HistorySupport],
 
 	/**
 	* @private
@@ -668,17 +666,17 @@ module.exports = kind(
 						{name: 'trickPlay', kind: Control, ontap:'playbackControlsTapped', components: [
 							{name: 'playbackControls', kind: Control, classes: 'moon-video-player-control-buttons', components: [
 								{name: 'jumpBack',		kind: IconButton, small: false, onholdpulse: 'onHoldPulseBackHandler', ontap: 'onjumpBackward', onrelease: 'onReleaseHandler'},
-								{name: 'rewind',		kind: IconButton, small: false, ontap: 'rewind'},
+								{name: 'rewind',		kind: IconButton, small: false, ontap: 'rewind', accessibilityLabel: $L('Rewind')},
 								{name: 'fsPlayPause',	kind: IconButton, small: false, ontap: 'playPause'},
-								{name: 'fastForward',	kind: IconButton, small: false, ontap: 'fastForward'},
-								{name: 'jumpForward',	kind: IconButton, small: false, onholdpulse: 'onHoldPulseForwardHandler', ontap: 'onjumpForward', onrelease: 'onReleaseHandler'}
+								{name: 'fastForward',	kind: IconButton, small: false, ontap: 'fastForward', accessibilityLabel: $L('Fast Forward')},
+								{name: 'jumpForward',	kind: IconButton, small: false, onholdpulse: 'onHoldPulseForwardHandler', ontap: 'onjumpForward', onrelease: 'onReleaseHandler', accessibilityLabel: $L('Next')}
 							]}
 						]},
 						{name: 'client', kind: Control, classes: 'moon-video-player-more-controls'}
 					]},
 
 					{name: 'rightPremiumPlaceHolder', kind: Control, classes: 'moon-video-player-premium-placeholder-right', components: [
-						{name: 'moreButton', kind: IconButton, small: false, ontap: 'moreButtonTapped'}
+						{name: 'moreButton', kind: IconButton, small: false, ontap: 'moreButtonTapped', accessibilityLabel: $L('More')}
 					]}
 				]},
 
@@ -833,10 +831,8 @@ module.exports = kind(
 	*/
 	updateSource: function(old, value, source) {
 		this._canPlay = false;
-		this._isPlaying = this.autoplay;
+		this.set('_isPlaying', this.autoplay);
 		this._errorCode = null;
-		this.updatePlayPauseButtons();
-		this.updateSpinner();
 		this.updatePlaybackControlState();
 		this._resetTime();
 
@@ -943,9 +939,7 @@ module.exports = kind(
 	*/
 	autoplayChanged: function() {
 		this.$.video.setAutoplay(this.autoplay);
-		this._isPlaying = this.autoplay;
-		this.updatePlayPauseButtons();
-		this.updateSpinner();
+		this.set('_isPlaying', this.autoplay);
 	},
 
 	/**
@@ -1622,10 +1616,8 @@ module.exports = kind(
 	*/
 	play: function() {
 		this.currTimeSync = true;
-		this._isPlaying = true;
 		this.$.video.play();
-		this.updatePlayPauseButtons();
-		this.updateSpinner();
+		this.set('_isPlaying', true);
 	},
 
 	/**
@@ -1634,10 +1626,8 @@ module.exports = kind(
 	* @public
 	*/
 	pause: function() {
-		this._isPlaying = false;
 		this.$.video.pause();
-		this.updatePlayPauseButtons();
-		this.updateSpinner();
+		this.set('_isPlaying', false);
 	},
 
 	/**
@@ -1647,10 +1637,8 @@ module.exports = kind(
 	* @public
 	*/
 	rewind: function() {
-		this._isPlaying = false;
 		this.$.video.rewind();
-		this.updatePlayPauseButtons();
-		this.updateSpinner();
+		this.set('_isPlaying', false);
 	},
 
 	/**
@@ -1661,8 +1649,7 @@ module.exports = kind(
 	*/
 	jumpToStart: function() {
 		this.$.video.jumpToStart();
-		this.updatePlayPauseButtons();
-		this.updateSpinner();
+		this._isPlayingChanged();
 		if(this._isPlaying){
 			this.$.video.play();
 		}
@@ -1675,8 +1662,7 @@ module.exports = kind(
 	*/
 	jumpBackward: function() {
 		this.$.video.jumpBackward();
-		this.updatePlayPauseButtons();
-		this.updateSpinner();
+		this._isPlayingChanged();
 	},
 
 	/**
@@ -1686,10 +1672,8 @@ module.exports = kind(
 	* @public
 	*/
 	fastForward: function() {
-		this._isPlaying = false;
 		this.$.video.fastForward();
-		this.updatePlayPauseButtons();
-		this.updateSpinner();
+		this.set('_isPlaying', false);
 	},
 
 	/**
@@ -1699,14 +1683,12 @@ module.exports = kind(
 	* @public
 	*/
 	jumpToEnd: function() {
-		this._isPlaying = false;
 		if ( this.$.video.isPaused() ) {
 			//* Make video able to go futher than the buffer
 			this.$.video.play();
 		}
 		this.$.video.jumpToEnd();
-		this.updatePlayPauseButtons();
-		this.updateSpinner();
+		this.set('_isPlaying', false);
 	},
 
 	/**
@@ -1716,8 +1698,7 @@ module.exports = kind(
 	*/
 	jumpForward: function() {
 		this.$.video.jumpForward();
-		this.updatePlayPauseButtons();
-		this.updateSpinner();
+		this._isPlayingChanged();
 	},
 
 	/**
@@ -1746,6 +1727,14 @@ module.exports = kind(
 	*/
 	handleResize: function() {
 		this.aspectRatioChanged();
+	},
+
+	/**
+	* @private
+	*/
+	_isPlayingChanged: function () {
+		this.updatePlayPauseButtons();
+		this.updateSpinner();
 	},
 
 	/**
@@ -2204,5 +2193,23 @@ module.exports = kind(
 			this.hideFSBottomControls();
 		}
 		return true;
-	}
+	},
+
+	// Accessibility
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: '_isPlaying', method: function () {
+			var label = this._isPlaying ? $L('Pause') : $L('Play');
+			this.$.fsPlayPause.set('accessibilityLabel', label);
+			this.$.ilPlayPause.set('accessibilityLabel', label);
+		}},
+		{path: '$.controlsContainer.index', method: function () {
+			var index = this.$.controlsContainer.index,
+				label = index === 0 ? $L('More') : $L('Back');
+			this.$.moreButton.set('accessibilityLabel', label);
+		}}
+	]
 });

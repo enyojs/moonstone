@@ -6,17 +6,13 @@ require('moonstone');
 */
 
 var
-	kind = require('enyo/kind'),
-	options = require('enyo/options');
+	kind = require('enyo/kind');
 
 var
 	Checkbox = require('../Checkbox'),
 	Item = require('../Item'),
 	Marquee = require('../Marquee'),
 	MarqueeItem = Marquee.Item;
-
-var
-	CheckboxItemAccessibilitySupport = require('./CheckboxItemAccessibilitySupport');
 
 /**
 * Fires when the control is either checked or unchecked.
@@ -80,11 +76,6 @@ module.exports = kind(
 	* @private
 	*/
 	kind: Item,
-
-	/**
-	* @private
-	*/
-	mixins: options.accessibility ? [CheckboxItemAccessibilitySupport] : null,
 
 	/**
 	* @private
@@ -296,5 +287,22 @@ module.exports = kind(
 	*/
 	srcChanged: function() {
 		this.$.input.set('src', this.src);
-	}
+	},
+
+	// Accessibility
+
+	/**
+	* @default checkbox
+	* @type {String}
+	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityRole
+	* @public
+	*/
+	accessibilityRole: 'checkbox',
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{from: 'checked', to: 'aria-checked'}
+	]
 });

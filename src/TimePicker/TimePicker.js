@@ -7,7 +7,6 @@ require('moonstone');
 
 var
 	kind = require('enyo/kind'),
-	options = require('enyo/options'),
 	Control = require('enyo/Control');
 
 var
@@ -18,10 +17,7 @@ var
 var
 	DateTimePickerBase = require('../DateTimePickerBase'),
 	$L = require('../i18n'),
-	IntegerPicker = require('../IntegerPicker'),
-	MeridiemPickerAccessibilitySupport = require('./MeridiemPickerAccessibilitySupport'),
-	HourMinutePickerBaseAccessibilitySupport = require('./HourMinutePickerBaseAccessibilitySupport'),
-	TimePickerAccessibilitySupport = require('./TimePickerAccessibilitySupport');
+	IntegerPicker = require('../IntegerPicker');
 
 /**
 * {@link module:moonstone/TimePicker~MeridiemPicker} is a helper kind used by {@link module:moonstone/TimePicker~TimePicker}.
@@ -44,11 +40,6 @@ var MeridiemPicker = kind(
 	* @private
 	*/
 	kind: IntegerPicker,
-
-	/**
-	* @private
-	*/
-	mixins: options.accessibility ? [MeridiemPickerAccessibilitySupport] : null,
 
 	/**
 	* @private
@@ -165,7 +156,15 @@ var MeridiemPicker = kind(
 	setupItem: function (inSender, inEvent) {
 		var index = inEvent.index % this.range || 0;
 		this.$.item.setContent(this.meridiems[index].name);
-	}
+	},
+
+	// Accessibility
+	
+	ariaObservers: [
+		{path: 'value', method: function () {
+			this.setAriaAttribute('aria-valuetext', this.meridiems[this.value]);
+		}}
+	]
 });
 
 /**
@@ -189,11 +188,6 @@ var HourMinutePickerBase = kind(
 	* @private
 	*/
 	kind: IntegerPicker,
-
-	/**
-	* @private
-	*/
-	mixins: options.accessibility ? [HourMinutePickerBaseAccessibilitySupport] : null,
 
 	/**
 	* @private
@@ -225,7 +219,18 @@ var HourMinutePickerBase = kind(
 	setupItem: function (inSender, inEvent) {
 		var value = this.format(inEvent.index % this.range || 0);
 		this.$.item.setContent(value);
-	}
+	},
+
+	// Accessibility
+
+	ariaObservers: [
+		{path: 'value', method: function () {
+			if (this.date && this.range) {
+				var value = this.format(this.value % this.range);
+				this.setAriaAttribute('aria-valuenow', value);
+			}
+		}}
+	]
 });
 
 /**
@@ -381,11 +386,6 @@ var TimePicker = module.exports = kind(
 	* @private
 	*/
 	kind: DateTimePickerBase,
-
-	/**
-	* @private
-	*/
-	mixins: options.accessibility ? [TimePickerAccessibilitySupport] : null,
 
 	/**
 	* @private
@@ -758,7 +758,20 @@ var TimePicker = module.exports = kind(
 		this.$.hourLabel.set('showing', this.showPickerLabels);
 		this.$.minuteLabel.set('showing', this.showPickerLabels);
 		if (this.meridiemEnable) this.$.meridiemLabel.set('showing', this.showPickerLabels);
- 	}
+ 	},
+
+	// Accessibility
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: ['dayText', 'monthText', 'yearText'], method: function () {
+			this.$.hour.set('accessibilityLabel', this.hourText);
+			this.$.minute.set('accessibilityLabel', this.minuteText);
+			if (this.$.meridiem) this.$.meridiem.set('accessibilityLabel', this.meridiemText);
+		}}
+	]
 });
 
 TimePicker.HourPicker = HourPicker;

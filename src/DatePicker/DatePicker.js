@@ -6,8 +6,7 @@ require('moonstone');
 */
 
 var
-	kind = require('enyo/kind'),
-	options = require('enyo/options');
+	kind = require('enyo/kind');
 
 var
 	dateFactory = require('enyo-ilib/DateFactory');
@@ -15,8 +14,7 @@ var
 var
 	DateTimePickerBase = require('../DateTimePickerBase'),
 	$L = require('../i18n'),
-	IntegerPicker = require('../IntegerPicker'),
-	DatePickerAccessibilitySupport = require('./DatePickerAccessibilitySupport');
+	IntegerPicker = require('../IntegerPicker');
 
 /**
 * {@link module:moonstone/DatePicker~DatePicker} is a control used to allow the selection of (or simply
@@ -51,11 +49,6 @@ module.exports = kind(
 	* @private
 	*/
 	kind: DateTimePickerBase,
-
-	/**
-	* @private
-	*/
-	mixins: options.accessibility ? [DatePickerAccessibilitySupport] : null,
 
 	/**
 	* @private
@@ -345,5 +338,18 @@ module.exports = kind(
 	*/
 	dayTextChanged: function (inOldvalue, inNewValue) {
 		this.$.dayLabel.setContent(inNewValue);
-	}
+	},
+
+	// Accessibility
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: ['dayText', 'monthText', 'yearText'], method: function () {
+			this.$.day.set('accessibilityLabel', this.dayText);
+			this.$.month.set('accessibilityLabel', this.monthText);
+			this.$.year.set('accessibilityLabel', this.yearText);
+		}}
+	]
 });
