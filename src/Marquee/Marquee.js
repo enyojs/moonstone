@@ -976,9 +976,9 @@ var MarqueeItem = {
 	* @private
 	*/
 	_marquee_createMarquee: function () {
-		// Do not create marqueeText when there is components block,
+		// Do not create marqueeText when there are children
 		// because we don't know what should be the controlParent
-		if (this.components && this.components.length > 0) return;
+		if (this.children && this.children.length > 0) return;
 		var marqueeText = {name: 'marqueeText', kind: Control, classes: 'moon-marquee-text', allowHtml: this.allowHtml, content: this.content},
 			highlightText = null,
 			wrapper;
