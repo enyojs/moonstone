@@ -55,8 +55,8 @@ var
 *
 * ```javascript
 * var
-* 	kind = require('enyo/kind'),
-* 	Slider = require('moonstone/Slider');
+*	kind = require('enyo/kind'),
+*	Slider = require('moonstone/Slider');
 *
 * {kind: Slider, value: 30}
 * ```
@@ -190,7 +190,7 @@ module.exports = kind(
 		* @type {String}
 		* @default 'moon-slider-taparea'
 		* @deprecated This control no longer uses a DOM element as a tap area and relies on a
-		* 	runtime pseudo-class to capture taps.
+		*	runtime pseudo-class to capture taps.
 		* @public
 		*/
 		tapAreaClasses: 'moon-slider-taparea',
@@ -293,9 +293,39 @@ module.exports = kind(
 	* @private
 	*/
 	jumpWrapperComponents: [
-		{name: 'buttonLeft', kind: IconButton, backgroundOpacity: 'transparent', classes: 'moon-slider-button left', icon: 'arrowlargeleft', onSpotlightKeyDown: 'configureSpotlightHoldPulse', onSpotlightSelect: 'previous', ondown: 'downLeft', onholdpulse: 'holdLeft', ondragstart: 'preventDrag', defaultSpotlightDisappear: 'buttonRight'},
+		{
+			name: 'buttonLeft',
+			kind: IconButton,
+			backgroundOpacity: 'transparent',
+			classes: 'moon-slider-button left',
+			icon: 'arrowlargeleft',
+			onSpotlightSelect: 'preventEvent',
+			onSpotlightKeyDown: 'jumpButtonTriggered',
+			onSpotlightKeyUp: 'hideKnobStatus',
+			ondown: 'jumpButtonTriggered',
+			onup: 'hideKnobStatus',
+			onholdpulse: 'jumpButtonTriggered',
+			onrelease: 'hideKnobStatus',
+			ondragstart: 'preventEvent',
+			defaultSpotlightDisappear: 'buttonRight'
+		},
 		{name: 'slider', classes: 'moon-slider', spotlight: true},
-		{name: 'buttonRight', kind: IconButton, backgroundOpacity: 'transparent', classes: 'moon-slider-button right', icon: 'arrowlargeright', onSpotlightKeyDown: 'configureSpotlightHoldPulse', onSpotlightSelect: 'next', ondown: 'downRight', onholdpulse: 'holdRight', ondragstart: 'preventDrag', defaultSpotlightDisappear: 'buttonLeft'}
+		{
+			name: 'buttonRight',
+			kind: IconButton,
+			backgroundOpacity: 'transparent',
+			classes: 'moon-slider-button right',
+			icon: 'arrowlargeright',
+			onSpotlightSelect: 'preventEvent',
+			onSpotlightKeyDown: 'jumpButtonTriggered',
+			onSpotlightKeyUp: 'hideKnobStatus',
+			ondown: 'jumpButtonTriggered',
+			onup: 'hideKnobStatus',
+			onholdpulse: 'jumpButtonTriggered',
+			onrelease: 'hideKnobStatus',
+			ondragstart: 'preventEvent',
+			defaultSpotlightDisappear: 'buttonLeft'
+		}
 	],
 
 	/**
@@ -847,58 +877,26 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	downLeft: function (sender, e) {
-		// checking button explicitly because it may be disabled due to value only
-		if (!this.$.buttonLeft.disabled) {
-			e.configureHoldPulse(this.holdConfig);
-			this.previous();
+	jumpButtonTriggered: function (sender, ev) {
+		var isValidEvent = true;
+		if (!sender.disabled) {
+			if (ev.type == 'onSpotlightKeyDown' || ev.type == 'ondown') {
+				if (ev.keyCode == 13) ev.configureHoldPulse(this.holdConfig);
+				else isValidEvent = false;
+			}
+			if (isValidEvent) {
+				if (sender === this.$.buttonLeft) this.previous();
+				else this.next();
+			}
 		}
 	},
 
 	/**
-	* @private
-	*/
-	downRight: function (sender, e) {
-		// checking button explicitly because it may be disabled due to value only
-		if (!this.$.buttonRight.disabled) {
-			e.configureHoldPulse(this.holdConfig);
-			this.next();
-		}
-	},
-
-	/**
-	* @private
-	*/
-	holdLeft: function (sender, event) {
-		if (!this.$.buttonLeft.disabled) {
-			this.previous();
-		}
-	},
-
-	/**
-	* @private
-	*/
-	holdRight: function (sender, event) {
-		if (!this.$.buttonRight.disabled) {
-			this.next();
-		}
-	},
-
-	/**
-	* @private
-	*/
-	configureSpotlightHoldPulse: function (sender, e) {
-		if (e.keyCode === 13) {
-			e.configureHoldPulse(this.holdConfig);
-		}
-	},
-
-	/**
-	* Prevent drag events that start on the left and right jump buttons
+	* Prevent events that start on the left and right jump buttons
 	*
 	* @private
 	*/
-	preventDrag: function (sender, event) {
+	preventEvent: function (sender, event) {
 		return true;
 	},
 
@@ -909,6 +907,8 @@ module.exports = kind(
 	*/
 	previous: function () {
 		this.set('value', this.value - this._jumpIncrementAmount);
+		this.showKnobStatus();
+		return true;
 	},
 
 	/**
@@ -918,5 +918,7 @@ module.exports = kind(
 	*/
 	next: function () {
 		this.set('value', this.value + this._jumpIncrementAmount);
+		this.showKnobStatus();
+		return true;
 	}
 });
