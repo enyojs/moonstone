@@ -1,0 +1,36 @@
+/* SelectableItem.css */
+.moon-selectable-item.selected {
+	padding-left: (@moon-item-indent + @moon-spotlight-outset);
+
+	&:before {
+		content: '';
+		position: absolute;
+		left: @moon-spotlight-outset;
+		top: 50%;
+		-webkit-transform: translateY(-50%);
+		transform: translateY(-50%);
+		width: @moon-selectable-item-indicator-width;
+		height: @moon-selectable-item-indicator-height;
+		border-radius: (@moon-selectable-item-indicator-width / 2);
+		background-color: @moon-accent;
+	}
+
+	&.spotlight:before {
+		background-color: @moon-spotlight-text-color;
+	}
+}
+
+.enyo-locale-right-to-left {
+	.moon-selectable-item {
+
+		&.selected {
+			padding-left: @moon-spotlight-outset;
+			padding-right: (@moon-item-indent + @moon-spotlight-outset);
+
+			&:before {
+				left: auto;
+				right: @moon-spotlight-outset;
+			}
+		}
+	}
+}
