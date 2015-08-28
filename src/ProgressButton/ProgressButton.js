@@ -230,7 +230,7 @@ module.exports = kind(
 				this.$.bar.applyStyle('-webkit-transform', 'translateX(-' + (100 + offset - progress) + '%)');
 			}
 		} else if (percent >= 100) {
-			this.updateProgressPercent(percent);
+			this.updateProgressPercent(100);
 			// Make it spottable again, now that it's finished.
 			this.$.bar.applyStyle('transform', null);
 			this.$.bar.applyStyle('-webkit-transform', null);
