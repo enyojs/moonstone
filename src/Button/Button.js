@@ -8,6 +8,7 @@ require('moonstone');
 var
 	kind = require('enyo/kind'),
 	util = require('enyo/utils'),
+	Control = require('enyo/Control'),
 	Button = require('enyo/Button');
 
 var
@@ -163,6 +164,8 @@ module.exports = kind(
 	initComponents: function () {
 		if (!(this.components && this.components.length > 0)) {
 			this.createComponent({name: 'client', kind: MarqueeText, classes: 'button-client', isChrome: true});
+			//overlay to enable button to receive mouse events when disabled
+			this.createComponent({name: 'overlay', kind: Control, classes: 'button-overlay', isChrome: true});
 		}
 		if (this.small) this.smallChanged();
 		if (this.minWidth) this.minWidthChanged();
