@@ -17,6 +17,10 @@ var
 	ProgressBar = require('../ProgressBar'),
 	IconButton = require('../IconButton');
 
+var
+	VoiceReadout = require('enyo-webos/VoiceReadout'),
+	$L = require('../i18n');
+
 /**
 * Fires when bar position is set.
 *
@@ -708,6 +712,16 @@ module.exports = kind(
 	*/
 	spotSelect: function () {
 		this.selected = !this.selected;
+
+		//Accessbility
+		if (this.selected) {
+			if (this.get('orientation') == 'horizontal') {
+				VoiceReadout.readAlert($L('change a value with left right button'));
+			} else if (this.get('orientation') == 'vertical') {
+				VoiceReadout.readAlert($L('change a value with up down button'));
+			}
+		}
+
 		if (this.popup) {
 			this.$.popup.setShowing(this.selected);
 			if (this.selected) {
@@ -931,7 +945,10 @@ module.exports = kind(
 		}},
 		{path: 'enableJumpIncrement', method: function () {
 			if (this.enableJumpIncrement) {
-				this.$.slider.setAriaAttribute('aria-labelledby', this.id);
+				this.set('accessibilityRole', null);
+				this.$.slider.set('accessibilityRole', 'slider');
+				this.$.buttonLeft.set('accessibilityHint', $L('press ok button to decrease the value'));
+				this.$.buttonRight.set('accessibilityHint', $L('press ok button to increase the value'));
 			}
 		}},
 		{path: ['value', 'popupContent', 'dragging'], method: 'ariaValue'}
@@ -944,9 +961,16 @@ module.exports = kind(
 	* @private
 	*/
 	ariaValue: function () {
-		var attr = this.popupContent ? 'aria-valuetext' : 'aria-valuenow';
+		var attr = this.popup ? 'aria-valuetext' : 'aria-valuenow',
+			text = (this.popup && this.$.popupLabel)? this.$.popupLabel.getContent() : this.value;
 		if (!this.dragging) {
-			this.setAriaAttribute(attr, this.popupContent || this.value);
+			this.setAriaAttribute(attr, text);
+			if (this.enableJumpIncrement && this.$.slider) {
+				this.$.slider.setAriaAttribute(attr, text);
+				this.$.buttonLeft.set('accessibilityLabel', String(text));
+				this.$.buttonRight.set('accessibilityLabel', String(text));
+			}
 		}
+
 	}
 });

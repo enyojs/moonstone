@@ -21,6 +21,9 @@ var
 	MarqueeText = Marquee.Text,
 	MarqueeSupport = Marquee.Support;
 
+var
+	$L = require('../i18n');
+
 /**
 * {@link module:moonstone/Dialog~Dialog} is a {@link module:moonstone/Popup~Popup} with a title, a subtitle, a
 * message, and an area for additional controls.
@@ -142,7 +145,7 @@ module.exports = kind(
 	* @private
 	*/
 	tools: [
-		{name: 'closeButton', kind: IconButton, icon: 'closex', classes: 'moon-popup-close', ontap: 'closePopup', backgroundOpacity: 'transparent', showing: false},
+		{name: 'closeButton', kind: IconButton, icon: 'closex', classes: 'moon-popup-close', accessibilityLabel: $L('close'), ontap: 'closePopup', backgroundOpacity: 'transparent', showing: false},
 		{kind: Control, classes: 'moon-dialog-client-wrapper', components: [
 			{name: 'client', kind: Control, classes: 'moon-dialog-client'},
 			{components: [
