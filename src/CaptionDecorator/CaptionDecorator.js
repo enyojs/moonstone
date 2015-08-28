@@ -44,7 +44,9 @@ module.exports = kind(
 	*/
 	handlers: {
 		onSpotlightFocus: 'spotFocus',
-		onSpotlightBlur:  'spotBlur'
+		onSpotlightBlur:  'spotBlur',
+		onSpotlightFocused: 'spotFocused',
+		onActivate: 'activateHandler'
 	},
 
 	/**
@@ -197,9 +199,8 @@ module.exports = kind(
 	*
 	* @private
 	*/
-	spotFocus: function () {
+	spotFocus: function (sender, event) {
 		this.addClass('spotlight');
-
 		if (this.hasNode() && this.getShowOnFocus()) {
 			this.positionCaption();
 		}
@@ -387,5 +388,49 @@ module.exports = kind(
 			marginBottom:   margins.bottom,
 			marginLeft:     margins.left
 		};
+	},
+	
+	// Accessibility
+
+	ariaObservers: [
+		{path: ['content', 'accessibilityLabel', 'accessibilityHint'], method: this._setCaptionLabel}
+	],
+
+	// If CaptionDecorator has ToggleButton as child and ToggleButton content is changed by tapping, 
+	// Child content or label will be changed, then, should update child label applied caption sting.
+	activateHandler: function() {
+		this._setCaptionLabel();
+	},
+
+	// CaptionsDecorator can not check whether or not child's content or label is changed, so
+	// Update child's label whenever child is focused.
+	spotFocused: function() {
+		this._setCaptionLabel();
+	},
+
+	// By checking child's content or label, should append caption content or label to child's aria-label
+	_setCaptionLabel : function () {
+		var i,
+	    	childComp,
+	    	prefix = this.accessibilityLabel || this.content || null,
+	    	childLabel,
+	    	childComp_prefix,
+	    	childComp_label,
+	    	captionText = this.accessibilityHint && prefix && (prefix + ' ' + this.accessibilityHint) ||
+						this.accessibilityHint ||
+						this.accessibilityLabel ||
+						this.content;
+
+		for (i = 0; i < this.$.client.children.length; i++) {
+			childComp = this.$.client.children[i];
+			childComp_prefix = childComp.accessibilityLabel || childComp.content || null,
+			childComp_label = childComp.accessibilityHint && childComp_prefix && (childComp_prefix + ' ' + childComp.accessibilityHint) ||
+							childComp.accessibilityHint ||
+							childComp_prefix;
+
+			if (childComp) {
+				childComp.setAriaAttribute('aria-label', captionText + ' ' + childComp_label);
+			}
+		}
 	}
 });
