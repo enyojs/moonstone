@@ -1,8 +1,6 @@
 .moon-light-panel {
 	.client {
 		opacity: 0;
-		-webkit-transform: translateZ(0);
-		transform: translateZ(0);
 		padding-top: 12px;
 
 		&.populated {
@@ -22,7 +20,7 @@
 	// Adding the content property here, instead of above, means that this element will only appear in
 	// the DOM during ".transitioning". This was altered to improve marquee animation performance.
 	// Pseudo-elements without a content property cannot receive styling.
-	&.transitioning {
+	.moon-light-panels.transitioning & {
 		-webkit-transform: translateZ(0);
 		transform: translateZ(0);
 
