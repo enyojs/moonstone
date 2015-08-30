@@ -31,16 +31,15 @@ module.exports = kind({
 	* @private
 	*/
 	guard5way: function (sender, event) {
-		var e, l, idx, d2x, row, limitRow;
-
-		// Only need to guard if we are accelerating
-		if (!Spotlight.Accelerator.isAccelerating()) return false;
+		var e, l, idx, d2x, row, limitRow, verMovOnHorScrol, horMovOnVerScrol;
 
 		e = event.type;
+		verMovOnHorScrol = (this.direction === 'horizintal' &&  (e === 'onSpotlightUp' || e === 'onSpotlightDown'));
+		horMovOnVerScrol = (this.direction === 'vertical' &&  (e === 'onSpotlightRight' || e === 'onSpotlightLeft'));
 
-		if((e === 'onSpotlightUp' && this.direction == 'horizontal') || (e === 'onSpotlightLeft' && this.direction == 'vertical')) {
-			return false;
-		}
+		// Only need to guard if we are accelerating or
+		// scroll direction and spotlight moving direction matches
+		if (!Spotlight.Accelerator.isAccelerating() || verMovOnHorScrol || horMovOnVerScrol) return false;
 
 		// Figure out the index of the last de-virtualized element
 		// in the direction we're currently scrolling; anything
