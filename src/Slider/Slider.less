@@ -1,0 +1,135 @@
+/* Slider */
+.moon-slider {
+	// Increment-mode's distance from the edge to the the slider (spotlight padding + button size + empty gap)
+	@increment-button-space-h: (@moon-spotlight-outset + @moon-icon-button-small-size + 36px);
+	@increment-button-space-v: (@moon-spotlight-outset + @moon-icon-button-small-size + 24px);
+
+	// Slider Knob
+	.moon-slider-knob {
+		position: absolute;
+		height: @moon-slider-knob-height;
+		width: @moon-slider-knob-width;
+		border-radius: @moon-slider-knob-width;
+		margin: (-@moon-slider-knob-width / 2);
+		background-color: @moon-slider-knob-bg-color;
+		border: solid @moon-button-border-width transparent;
+		box-sizing: border-box;
+
+		&:not(.spotselect) {
+			&.active,
+			&.spotselect,
+			&:active:not(.disabled) {
+				width: @moon-slider-knob-spotlight-width;
+				height: @moon-slider-knob-spotlight-height;
+				border-radius: (@moon-slider-knob-spotlight-width / 2);
+				margin: (-@moon-slider-knob-spotlight-width / 2);
+				border: solid @moon-button-border-width transparent;
+				box-sizing: border-box;
+			}
+		}
+	}
+
+	&.moon-progress-bar-horizontal {
+		margin: 60px 48px;
+
+		&.incrementable {
+			margin-left: @increment-button-space-h;
+			margin-right: @increment-button-space-h;
+
+			.moon-slider-button {
+				position: absolute;
+				top: 50%;
+				margin: 0;
+				transform: translateY(-50%);
+
+				&.left {
+					left: -(@increment-button-space-h - @moon-spotlight-outset);
+
+					// Convince the small icon button tap-area to not spill over the edge and change the width of slider.
+					&:before {
+						left: -(@moon-button-border-width + @moon-spotlight-outset);
+					}
+				}
+				&.right {
+					right: -(@increment-button-space-h - @moon-spotlight-outset);
+
+					// Same as above for .left
+					&:before {
+						right: -(@moon-button-border-width + @moon-spotlight-outset);
+					}
+				}
+			}
+		}
+
+		.moon-slider-knob {
+			top: (@moon-progress-bar-height / 2);
+		}
+	}
+
+	&.moon-progress-bar-vertical {
+		margin: 60px;
+
+		&.incrementable {
+			margin-top: @increment-button-space-v;
+			margin-bottom: @increment-button-space-v;
+
+			.moon-slider-button {
+				position: absolute;
+				left: 50%;
+				margin: 0;
+
+				&.left {
+					bottom: 0;
+					transform: translateX(-50%) translateY(@increment-button-space-v);
+				}
+				&.right {
+					top: 0;
+					transform: translateX(-50%) translateY(-@increment-button-space-v);
+				}
+			}
+
+			.moon-slider {
+				// Special case: incremental sliders' components get rearranged at runtime. Vertical
+				// incremental slider need an additional rule to tell their inner moon-slider class
+				// to have a height (since it's not set inherently). Horizontal sliders don't need
+				// a height because DOM elements with content get 100% width by default and 0 hegiht.
+				height: 100%;
+			}
+		}
+
+		.moon-slider-knob {
+			left: (@moon-progress-bar-height / 2);
+
+			.moon-progress-bar-popup-on-left {
+				transform: translateY(-50%) translateX(-12px);
+				top: 50%;
+			}
+			.moon-progress-bar-popup-on-right {
+				transform: translateY(-50%) translateX(12px);
+				top: 50%;
+			}
+		}
+	}
+
+	&.spotlight {
+		> .moon-progress-bar-bar {
+			background-color: @moon-slider-spotlight-bar-color;
+		}
+
+		> .moon-slider-knob {
+			background-color: @moon-slider-spotlight-knob-color;
+
+			&.spotselect {
+				background-color: @moon-slider-knob-bg-color;
+				border: @moon-button-border-width solid @moon-spotlight-color;
+			}
+		}
+	}
+
+	&.disabled {
+		cursor: default;
+		opacity: @moon-disabled-opacity;
+	}
+
+	.moon-taparea(@moon-progress-bar-height);
+}
