@@ -201,8 +201,11 @@ module.exports = kind(
 	// Accessibility
 
 	/**
-	* @private
-	*/	
+	* @default $L('change a value with left/right button')
+	* @type {String}
+	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityHint
+	* @public
+	*/
 	accessibilityHint: $L('change a value with left/right button'),
 
 	/**
