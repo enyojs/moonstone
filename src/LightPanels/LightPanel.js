@@ -103,7 +103,7 @@ module.exports = kind(
 	* @private
 	*/
 	components: [
-		{kind: Header, name: 'header', type: 'medium', marqueeOnRenderDelay: 1000},
+		{kind: Header, name: 'header', type: 'medium', marqueeOnRender: false, marqueeOnRenderDelay: 1000},
 		{name: 'client', classes: 'client'},
 		{name: 'spotlightPlaceholder', spotlight: false, style: 'width:0;height:0;'}
 	],
@@ -145,6 +145,8 @@ module.exports = kind(
 			currentSpottable = current && Spotlight.isSpottable(current),
 			isChild = current && current.isDescendantOf(this);
 
+		this.$.header.stopMarquee();
+
 		this.spotlightDisabled = true; // we do not want to allow 5-way spotting during transition
 
 		// This is highly related to the order in which "preTransition" is fired for the outgoing
@@ -181,7 +183,10 @@ module.exports = kind(
 			this.didClientRender();
 		}
 
-		if (this.state == States.ACTIVE) this.checkSpottability();
+		if (this.state == States.ACTIVE) {
+			this.checkSpottability();
+			this.$.header.startMarquee();
+		}
 	},
 
 	/**
