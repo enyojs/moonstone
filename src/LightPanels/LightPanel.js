@@ -217,8 +217,28 @@ module.exports = kind(
 	*/
 	didClientRender: function () {
 		this.$.client.addClass('populated');
-	}
+	},
 
+	// Accessibility
+
+	/**
+	* @private
+	*/
+	accessibilityRole: 'alert',
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: ['title', 'accessibilityLabel'], method: function () {
+			this.setAriaAttribute('aria-label', this.accessibilityLabel || this.title);
+		}}
+	],
+
+	/**
+	* @private
+	*/
+	accessibilityLive: 'off'
 });
 
 module.exports.States = States;
