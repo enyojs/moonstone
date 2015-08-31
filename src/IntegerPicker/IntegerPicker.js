@@ -247,7 +247,7 @@ module.exports = kind(
 	*/
 	create: function () {
 		Control.prototype.create.apply(this, arguments);
-		this.verifyValue();
+		this.rangeChanged();
 		this.updateOverlays();
 	},
 
@@ -257,7 +257,6 @@ module.exports = kind(
 	rendered: function () {
 		Control.prototype.rendered.apply(this, arguments);
 		this.width = null;
-		this.rangeChanged();
 		this.minWidthChanged();
 		this.scrollToValue();
 		this.$.scroller.getStrategy().setFixedTime(false);
