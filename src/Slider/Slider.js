@@ -181,11 +181,7 @@ module.exports = kind(
 		* @type {String}
 		* @default 'moon-slider-taparea'
 		* @deprecated This control no longer uses a DOM element as a tap area and relies on a
-<<<<<<< HEAD:lib/Slider/Slider.js
-		*	runtime pseudo-class to capture taps.
-=======
 		* 	runtime pseudo-class to capture taps.
->>>>>>> origin/2.6.0-dev:src/Slider/Slider.js
 		* @public
 		*/
 		tapAreaClasses: 'moon-slider-taparea',
@@ -288,7 +284,6 @@ module.exports = kind(
 	* @private
 	*/
 	jumpWrapperComponents: [
-<<<<<<< HEAD:lib/Slider/Slider.js
 		{
 			name: 'buttonLeft',
 			kind: IconButton,
@@ -322,15 +317,9 @@ module.exports = kind(
 			ondragstart: 'preventEvent',
 			defaultSpotlightDisappear: 'buttonLeft'
 		}
-=======
-		{name: 'buttonLeft', kind: IconButton, backgroundOpacity: 'transparent', classes: 'moon-slider-button left', icon: 'arrowlargeleft', onSpotlightKeyDown: 'configureSpotlightHoldPulse', onSpotlightSelect: 'previous', ondown: 'downLeft', onholdpulse: 'holdLeft', ondragstart: 'preventDrag', defaultSpotlightDisappear: 'buttonRight'},
-		{name: 'slider', classes: 'moon-slider', spotlight: true, accessibilityLive: 'polite'},
-		{name: 'buttonRight', kind: IconButton, backgroundOpacity: 'transparent', classes: 'moon-slider-button right', icon: 'arrowlargeright', onSpotlightKeyDown: 'configureSpotlightHoldPulse', onSpotlightSelect: 'next', ondown: 'downRight', onholdpulse: 'holdRight', ondragstart: 'preventDrag', defaultSpotlightDisappear: 'buttonLeft'}
->>>>>>> origin/2.6.0-dev:src/Slider/Slider.js
 	],
 
 	/**
-	* @private
 	*/
 	animatingTo: null,
 
@@ -912,9 +901,7 @@ module.exports = kind(
 	*/
 	next: function () {
 		this.set('value', this.value + this._jumpIncrementAmount);
-<<<<<<< HEAD:lib/Slider/Slider.js
 		this.showKnobStatus();
-=======
 	},
 
 	// Accessibility
@@ -954,6 +941,5 @@ module.exports = kind(
 		if (!this.dragging) {
 			this.setAriaAttribute(attr, this.popupContent || this.value);
 		}
->>>>>>> origin/2.6.0-dev:src/Slider/Slider.js
 	}
 });
