@@ -96,6 +96,8 @@ module.exports = kind(
 				this.activator.addClass('active');
 				this.requestShowPopup();
 			}
+		} else {
+			this.requestHidePopup();
 		}
 	},
 
