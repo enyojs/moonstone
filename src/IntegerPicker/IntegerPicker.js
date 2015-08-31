@@ -248,6 +248,7 @@ module.exports = kind(
 	create: function () {
 		Control.prototype.create.apply(this, arguments);
 		this.verifyValue();
+		this.calculateRange();
 		this.updateOverlays();
 	},
 
@@ -338,9 +339,16 @@ module.exports = kind(
 	/**
 	* @private
 	*/
+	calculateRange: function () {
+		this.range = this.valueToIndex(this.max) - this.valueToIndex(this.min) + 1;
+	},
+
+	/**
+	* @private
+	*/
 	rangeChanged: function () {
 		this.verifyValue();
-		this.range = this.valueToIndex(this.max) - this.valueToIndex(this.min) + 1;
+		this.calculateRange();
 		this.setupBuffer();
 	},
 
