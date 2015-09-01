@@ -12,6 +12,7 @@ var
 	Control = require('enyo/Control');
 
 var
+	$L = require('../i18n'),
 	Popup = require('../Popup'),
 	IconButton = require('../IconButton'),
 	BodyText = require('../BodyText'),
@@ -142,7 +143,7 @@ module.exports = kind(
 	* @private
 	*/
 	tools: [
-		{name: 'closeButton', kind: IconButton, icon: 'closex', classes: 'moon-popup-close', ontap: 'closePopup', backgroundOpacity: 'transparent', showing: false},
+		{name: 'closeButton', kind: IconButton, icon: 'closex', classes: 'moon-popup-close', ontap: 'closePopup', accessibilityLabel: $L('close'), backgroundOpacity: 'transparent', showing: false},
 		{kind: Control, classes: 'moon-dialog-client-wrapper', components: [
 			{name: 'client', kind: Control, classes: 'moon-dialog-client'},
 			{components: [

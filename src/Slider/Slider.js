@@ -17,6 +17,9 @@ var
 	ProgressBar = require('../ProgressBar'),
 	IconButton = require('../IconButton');
 
+var
+	$L = require('../i18n');
+
 /**
 * Fires when bar position is set.
 *
@@ -731,7 +734,7 @@ module.exports = kind(
 	* @private
 	*/
 	spotSelect: function () {
-		this.selected = !this.selected;
+		this.set('selected', !this.selected);
 		if (this.popup) {
 			this.$.popup.setShowing(this.selected);
 			if (this.selected) {
@@ -754,7 +757,7 @@ module.exports = kind(
 			if (this.$.popup) {
 				this.$.popup.hide();
 			}
-			this.selected = false;
+			this.set('selected', false);
 		}
 	},
 
@@ -923,12 +926,38 @@ module.exports = kind(
 			this.setAriaAttribute('aria-disabled', this.disabled || null);
 		}},
 		{path: 'enableJumpIncrement', method: function () {
+			// if enableJumpIncrement is true we set the spinbutton role to this.$.slider to be able to
+			// read accessibilityHint of buttons.
 			if (this.enableJumpIncrement) {
-				this.$.slider.setAriaAttribute('aria-labelledby', this.id);
+				this.$.slider.set('accessibilityRole', 'slider');
+				this.$.buttonLeft.set('accessibilityHint', $L('press ok button to decrease the value'));
+				this.$.buttonRight.set('accessibilityHint', $L('press ok button to increase the value'));
+			}
+		}},
+		{path: 'selected', method: function () {
+			if (this.selected) {
+				// avoid using readAlert api, temporary set accessibilityRole to alert
+				// this will be reset on resetAccessibilityProperties
+				var hint = (this.get('orientation') == 'horizontal') ? 
+								$L('change a value with left right button') : $L('change a value with up down button');
+				this.set('accessibilityRole', 'alert');
+				this.set('accessibilityLive', 'off');
+				this.set('accessibilityHint', hint);
+			} else {
+				this.resetAccessibilityProperties();
 			}
 		}},
 		{path: ['value', 'popupContent', 'dragging'], method: 'ariaValue'}
 	],
+
+	/** 
+	* @private
+	*/
+	resetAccessibilityProperties : function() {
+		this.set('accessibilityRole', !this.enableJumpIncrement ? 'spinbutton' : null);
+		this.set('accessibilityLive', null);
+		this.set('accessibilityHint', null);
+	},
 
 	/**
 	* Overriding {@link module:moonstone/ProgressBar~ProgressBar#ariaValue} to guard updating value
@@ -937,9 +966,18 @@ module.exports = kind(
 	* @private
 	*/
 	ariaValue: function () {
-		var attr = this.popupContent ? 'aria-valuetext' : 'aria-valuenow';
+		var attr = this.popup ? 'aria-valuetext' : 'aria-valuenow',
+			text = (this.popup && this.$.popupLabel)? this.$.popupLabel.getContent() : this.value;
+			
 		if (!this.dragging) {
-			this.setAriaAttribute(attr, this.popupContent || this.value);
+			this.resetAccessibilityProperties();
+			this.setAriaAttribute(attr, text);
+			if (this.enableJumpIncrement) {
+				this.$.slider.setAriaAttribute(attr, text);
+				this.$.buttonLeft.set('accessibilityLabel', String(text));
+				this.$.buttonRight.set('accessibilityLabel', String(text));
+			}
 		}
+
 	}
 });
