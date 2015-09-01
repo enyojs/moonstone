@@ -665,7 +665,7 @@ module.exports = kind(
 					{name: 'controlsContainer', kind: Panels, arrangerKind: CarouselArranger, fit: true, draggable: false, classes: 'moon-video-player-controls-container', components: [
 						{name: 'trickPlay', kind: Control, ontap:'playbackControlsTapped', components: [
 							{name: 'playbackControls', kind: Control, classes: 'moon-video-player-control-buttons', components: [
-								{name: 'jumpBack',		kind: IconButton, small: false, onholdpulse: 'onHoldPulseBackHandler', ontap: 'onjumpBackward', onrelease: 'onReleaseHandler'},
+								{name: 'jumpBack',		kind: IconButton, small: false, onholdpulse: 'onHoldPulseBackHandler', ontap: 'onjumpBackward', onrelease: 'onReleaseHandler', accessibilityLabel: $L('Previous')},
 								{name: 'rewind',		kind: IconButton, small: false, ontap: 'rewind', accessibilityLabel: $L('Rewind')},
 								{name: 'fsPlayPause',	kind: IconButton, small: false, ontap: 'playPause'},
 								{name: 'fastForward',	kind: IconButton, small: false, ontap: 'fastForward', accessibilityLabel: $L('Fast Forward')},
