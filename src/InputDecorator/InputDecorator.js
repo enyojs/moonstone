@@ -333,7 +333,11 @@ module.exports = kind(
 				oInput = this.getInputControl();
 
 			if (oInput) {
-				text = (oInput.get('value') || oInput.get('placeholder')) + ' ' + $L('edit box');
+				if (oInput instanceof RichText && oInput.hasNode()) {
+					text = (oInput.hasNode().innerText || oInput.getPlaceholder()) + ' ' + $L('edit box');
+				} else {
+					text = (oInput.getValue() || oInput.getPlaceholder()) + ' ' + $L('edit box');
+				}
 			}
 			this.set('accessibilityLabel', this.spotted ? text : null);
 		}}
