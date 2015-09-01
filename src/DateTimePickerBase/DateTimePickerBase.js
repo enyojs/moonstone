@@ -328,6 +328,7 @@ module.exports = kind(
 		if (this.value) {
 			this.localeValue = dateFactory({unixtime: this.value.getTime(), timezone: "local"});
 		}
+		this.set('open', false);
 		this.initDefaults();
 		this.render();
 	}
