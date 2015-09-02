@@ -430,6 +430,7 @@ html {
   font-family: "Moonstone Miso";
   font-size: 1.375rem;
   -webkit-font-kerning: normal;
+  font-kerning: normal;
 }
 .moon-sub-header-text {
   font-family: "MuseoSans 700";
@@ -495,11 +496,13 @@ html {
   font-family: "Moonstone Miso Bold";
   font-size: 1.5rem;
   -webkit-font-kerning: normal;
+  font-kerning: normal;
 }
 .moon-small-button-text {
   font-family: "Moonstone Miso Bold";
   font-size: 1.125rem;
   -webkit-font-kerning: normal;
+  font-kerning: normal;
 }
 .moon-icon-text {
   font-family: "Moonstone Icons";
@@ -511,6 +514,7 @@ html {
   font-family: "Moonstone Miso";
   font-size: 3rem;
   -webkit-font-kerning: normal;
+  font-kerning: normal;
 }
 .moon-dialog-sub-title {
   font-size: 1.125rem;
@@ -3790,6 +3794,7 @@ html {
   font-family: "Moonstone Miso Bold";
   font-size: 1.125rem;
   -webkit-font-kerning: normal;
+  font-kerning: normal;
   height: 2.45833rem;
   line-height: 2.45833rem;
   white-space: nowrap;
@@ -4030,6 +4035,7 @@ html {
   font-family: "Moonstone Miso Bold";
   font-size: 1.5rem;
   -webkit-font-kerning: normal;
+  font-kerning: normal;
   white-space: nowrap;
   color: #4b4b4b;
   vertical-align: top;
