@@ -335,6 +335,9 @@ module.exports = kind(
 			if (oInput) {
 				if (oInput instanceof RichText && oInput.hasNode()) {
 					text = (oInput.hasNode().innerText || oInput.getPlaceholder()) + ' ' + $L('edit box');
+				} else if (oInput.type == 'password' && oInput.getValue()) {
+					var character = (oInput.getValue().length > 1) ? $L('characters') : $L('character');
+					text = oInput.getValue().length + ' ' + character + ' ' + $L('edit box');
 				} else {
 					text = (oInput.getValue() || oInput.getPlaceholder()) + ' ' + $L('edit box');
 				}
