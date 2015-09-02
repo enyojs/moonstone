@@ -205,8 +205,12 @@ module.exports = kind(
 		{name: 'helpText', kind: BodyText, canGenerate: false, classes: 'moon-expandable-picker-help-text'}
 	],
 
+	bindings: [
+		{from: 'selected.content', to: 'selectedText'}
+	],
+
 	computed: {
-		'currentValueText': ['selected', 'noneText']
+		'currentValueText': ['selected', 'noneText', 'selectedText']
 	},
 
 	/**
