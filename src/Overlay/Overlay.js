@@ -435,6 +435,13 @@ module.exports.Selection = {
 	/**
 	* @private
 	*/
+	_selectionOverlay_Handlers: {
+		onSpotlightFocused: '_selectionOverlay_spotlightFocused'
+	},
+
+	/**
+	* @private
+	*/
 	overlayTransparent: true,
 
 	/**
@@ -477,7 +484,42 @@ module.exports.Selection = {
 			];
 			sup.apply(this, arguments);
 		};
-	})
+	}),
+
+	// Accessibility
+
+	/**
+	* @private
+	*/
+	dispatchEvent: kind.inherit(function (sup) {
+		return function (sEventName, oEvent, oSender) {
+			if (oEvent && !oEvent.delegate) {
+				var handler = this._selectionOverlay_Handlers[sEventName];
+				if (handler) {
+					this[handler](oSender, oEvent);
+				}
+			}
+			return sup.apply(this, arguments);
+		};
+	}),
+
+	/**
+	* @private
+	*/
+	_selectionOverlay_spotlightFocused: function() {
+		if (this.$.overlayIcon && this.$.overlayIcon.getAbsoluteShowing()) {
+			this.set('accessibilityRole', 'checkbox');
+		} else {
+			this.set('accessibilityRole', null);
+		}
+	},
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{from: 'selected', to: 'aria-checked'}
+	]
 };
 
 /**
