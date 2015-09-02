@@ -300,7 +300,7 @@ module.exports = kind(
 			ondragstart: 'preventEvent',
 			defaultSpotlightDisappear: 'buttonRight'
 		},
-		{name: 'slider', classes: 'moon-slider', spotlight: true},
+		{name: 'slider', classes: 'moon-slider', spotlight: true, accessibilityLive: 'polite'},
 		{
 			name: 'buttonRight',
 			kind: IconButton,
