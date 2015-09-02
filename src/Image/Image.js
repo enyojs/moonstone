@@ -18,11 +18,16 @@ var
 * {@link module:moonstone/Image~Image} is a simple control that wraps an {@link module:enyo/Image~Image} to provide proper
 * alignment with text-based controls.
 *
-* In addition, `moon.Image` adds {@link module:moonstone/Overay~OverlaySupport} support to show controls over the image. This
+* In addition, `moonstone/Image` adds [overlay]{@link module:moonstone/Overlay} support to show controls over the image. This
 * can be used to add action icons as in the example below.
 *
 * ```
-* {kind: 'moon.Image', src: 'assets/movie.png',
+* var
+* 	kind = require('enyo/kind'),
+* 	Image = require('moonstone/Image'),
+* 	Icon = require('moonstone/Icon');
+*
+* {kind: Image, src: 'assets/movie.png',
 * 	overlayShowing: 'spotlight', overlayPosition: 'bottom', overlayComponents: [
 * 		{kind: Icon, src: 'assets/icon-recommended.png'},
 * 		{kind: Icon, icon: 'star'},
@@ -32,8 +37,8 @@ var
 * ```
 *
 * For backwards compatibility, component configurations specified using the `components` block
-* within an `moon.Image` will be mapped to `overlayComponents` and will default the `kind` to be
-* {@link moon.Icon}. This behavior is considered deprecated and will be removed in a future release.
+* within a `moonstone/Image` will be mapped to `overlayComponents` and will default the `kind` to be
+* {@link module:moonstone/Icon~Icon}. This behavior is considered deprecated and will be removed in a future release.
 *
 * @class Image
 * @extends module:enyo/Control~Control
@@ -118,7 +123,7 @@ module.exports = kind(
 		position: '',
 
 		/**
-		* See {@link enyo.Image#placeholder}
+		* See {@link module:enyo/Image~Image#placeholder}
 		*
 		* @type {String}
 		* @default ''

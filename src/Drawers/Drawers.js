@@ -24,24 +24,30 @@ var
 	MoonDrawer = require('./Drawer');
 
 /**
-* {@link module:moonstone/Drawers~Drawers} is a container kind designed to hold a set of {@link module:moonstone/Drawer~Drawer}
-* objects and client content. The [drawers]{@link module:moonstone/Drawers~Drawers#drawers} property accepts
-* an array of Drawer controls. The associated handles are positioned in their own small
-* drawer, centered at the top of the "dresser" (the region containing the array of Drawer
-* controls and the activator nub).
+* {@link module:moonstone/Drawers~Drawers} is a container kind designed to hold
+* a set of {@link module:moonstone/Drawers~Drawer} objects and client content.
+* The [drawers]{@link module:moonstone/Drawers~Drawers#drawers} property accepts
+* an array of Drawer controls. The associated handles are positioned in their
+* own small drawer, centered at the top of the "dresser" (the region containing
+* the array of Drawer controls and the activator nub).
 *
-* When a handle is selected, it opens the corresponding Drawer object's main drawer or
-* control drawer, depending on how the Drawer object is configured. The control's child
-* components may be of any kind.
+* When a handle is selected, it opens the corresponding Drawer object's main
+* drawer or control drawer, depending on how the Drawer object is configured.
+* The control's child components may be of any kind.
 *
 * ```
+* var
+* 	kind = require('enyo/kind'),
+* 	Drawers = require('moonstone/Drawers'),
+* 	Drawer = Drawers.Drawer;
+*
 * {
-*	kind: 'moon.Drawers',
+*	kind: Drawers,
 *	drawers: [
 *		{
 *			name: 'musicDrawer',
-*			kind: 'moon.Drawer',
-*			handle: {kind: 'moon.DrawerHandle', content: 'Handle'},
+*			kind: Drawer,
+*			handle: {content: 'Handle'},
 *			components: [
 *				{content: 'Drawer Content'}
 *			],
@@ -91,7 +97,7 @@ module.exports = kind(
 	published: {
 
 		/**
-		* Populate with an array of {@link module:moonstone/Drawer~Drawer} components.
+		* Populate with an array of {@link module:moonstone/Drawers~Drawer} components.
 		*
 		* @type {Object[]}
 		* @default null
@@ -430,8 +436,8 @@ module.exports = kind(
 	},
 
 	/**
-	* When `!options.accelerate`, this handles {@link enyo/Animator#event:onStep} to update the
-	* position of the client area
+	* When `!options.accelerate`, this handles {@link module:enyo/Animator~Animator#onStep}
+	* to update the position of the client area.
 	*
 	* @private
 	*/
