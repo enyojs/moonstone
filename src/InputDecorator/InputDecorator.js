@@ -325,13 +325,11 @@ module.exports = kind(
 	* @private
 	*/
 	ariaObservers: [
-		{path: 'focused', method: function () {
-			this.set('accessibilityLive', this.focused ? null : 'polite');
-		}},
-		{path: 'spotted', method: function () {
+		{path: ['spotted', 'focused'], method: function () {
 			var text = '',
 				oInput = this.getInputControl();
 
+			this.set('accessibilityLive', this.focused ? null : 'polite');
 			if (oInput) {
 				if (oInput instanceof RichText && oInput.hasNode()) {
 					text = (oInput.hasNode().innerText || oInput.getPlaceholder()) + ' ' + $L('edit box');
@@ -342,7 +340,7 @@ module.exports = kind(
 					text = (oInput.getValue() || oInput.getPlaceholder()) + ' ' + $L('edit box');
 				}
 			}
-			this.set('accessibilityLabel', this.spotted ? text : null);
+			this.set('accessibilityLabel', this.spotted && !this.focused ? text : null);
 		}}
 	]
 });
