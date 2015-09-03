@@ -151,7 +151,7 @@ module.exports = kind(
 	* @private
 	*/
 	drawerComponents: [
-		{name: 'client', kind: Control, classes: 'enyo-tool-decorator moon-date-picker-client', onSpotlightLeft:'closePicker', onSpotlightSelect: 'closePicker'},
+		{name: 'client', kind: Control, classes: 'moon-date-time-picker-client', onSpotlightLeft:'closePicker', onSpotlightSelect: 'closePicker'},
 		{kind: Signals, onlocalechange: 'handleLocaleChangeEvent'}
 	],
 
