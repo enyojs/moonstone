@@ -884,7 +884,7 @@ var MarqueeItem = {
 		if (this.$.marqueeText) { return true; }
 		//if we should animate marquee (distance > 0) but can`t do this
 		//(this.$.marqueeText == undefined (marquee has children)) we fire doMarqueeEnded
-		//to remove morquee from marquee wait list
+		//to remove marquee from marquee wait list
 		else { this.doMarqueeEnded(); }
 	},
 
