@@ -484,7 +484,9 @@ var ListActions = module.exports = kind(
 		var listAction, i;
 
 		this.listActionComponents = [];
-		this.$.listActions.destroyClientControls();
+		if (this.generated) {
+			this.$.listActions.destroyClientControls();
+		}
 
 		for (i = 0; (listAction = this.listActions[i]); i++) {
 			this.listActionComponents.push(this.createListActionComponent(listAction, owner));
