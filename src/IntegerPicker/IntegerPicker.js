@@ -212,7 +212,7 @@ module.exports = kind(
 		// FIXME: TranslateScrollStrategy doesn't work with the current design of this component so
 		// we're forcing TouchScrollStrategy
 		{kind: Scroller, strategyKind: TouchScrollStrategy, thumb: false, touch: true, useMouseWheel: false, classes: 'moon-scroll-picker', components:[
-			{name: 'repeater', kind: FlyweightRepeater, classes: 'moon-scroll-picker-repeater', ondragstart: 'dragstart', onSetupItem: 'setupItem', noSelect: true, components: [
+			{name: 'repeater', kind: FlyweightRepeater, classes: 'moon-scroll-picker-repeater', ondragstart: 'dragstart', onSetupItem: 'setupItem', noSelect: true, accessibilityRole: 'spinbutton', components: [
 				{name: 'item', kind: Control, classes: 'moon-scroll-picker-item'}
 			]},
 			{name: 'buffer', kind: Control, accessibilityDisabled: true, classes: 'moon-scroll-picker-buffer'}
@@ -717,7 +717,6 @@ module.exports = kind(
 		{from: 'value', method: function () {
 			// It reads changed value only the case spotlight focus is on IntegerPicker
 			if (Spotlight.getCurrent() === this) {
-				this.$.repeater.set('accessibilityRole', 'spinbutton');
 				this.$.repeater.setAriaAttribute('aria-valuenow', this.value);
 			}
 			this.set('accessibilityLabel', this.value);

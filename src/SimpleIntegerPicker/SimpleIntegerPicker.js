@@ -212,12 +212,11 @@ module.exports = kind(
 	* @private
 	*/
 	ariaObservers: [
-		{from: 'value', method: function () {
+		{path: ['value', 'unit'], method: function () {
 			var text = this.value + ' ' + this.unit;
 
 			// It reads changed value only the case spotlight focus is on IntegerPicker
 			if (Spotlight.getCurrent() === this) {
-				this.$.repeater.set('accessibilityRole', 'spinbutton');
 				this.$.repeater.setAriaAttribute('aria-valuetext', text);
 			}
 			this.set('accessibilityLabel', text);
