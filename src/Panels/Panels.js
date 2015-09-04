@@ -1023,7 +1023,8 @@ module.exports = kind(
 	* @private
 	*/
 	indexChanged: function () {
-		var activePanel = this.getActive();
+		var activePanel = this.getActive(),
+			panels = this.getPanels();
 
 		if (activePanel && activePanel.isBreadcrumb) {
 			activePanel.removeSpottableBreadcrumbProps();
@@ -1032,6 +1033,18 @@ module.exports = kind(
 		Panels.prototype.indexChanged.apply(this, arguments);
 
 		this.displayBranding();
+
+		// Accessibility
+
+		// set role to alert for reading current panel title
+		if (activePanel) {
+			activePanel.set('accessibilityRole', 'alert');
+		}
+		
+		// set role to null for preventing not reading title when panel already has alert role. 
+		if (panels[this.fromIndex]) {
+			panels[this.fromIndex].set('accessibilityRole', null);
+		}
 	},
 
 	notifyPanels: function (method) {
