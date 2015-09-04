@@ -40,23 +40,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	defaultKind: LightPanel,
-
-	// Accessibility
-
-	ariaObservers: [
-		{path: 'index', method: function () {
-			var panels = this.getPanels(),
-				active = panels[this.index],
-				l = panels.length,
-				panel;
-
-			while (--l >= 0) {
-				panel = panels[l];
-				panel.set('accessibilityRole', panel === active ? 'alert' : 'region');
-			}
-		}}
-	]
+	defaultKind: LightPanel
 
 });
 
