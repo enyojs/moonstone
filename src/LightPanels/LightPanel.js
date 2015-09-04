@@ -224,14 +224,22 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	accessibilityRole: 'alert',
+	accessibilityRole: 'region',
 
 	/**
 	* @private
 	*/
 	ariaObservers: [
-		{path: ['title', 'accessibilityLabel'], method: function () {
-			this.setAriaAttribute('aria-label', this.accessibilityLabel || this.title);
+		{path: ['title', 'accessibilityLabel', 'accessibilityHint'], method: function () {
+			var content = this.title,
+				prefix = this.accessibilityLabel || content || null,
+				label = this.accessibilityHint && prefix && (prefix + ' ' + this.accessibilityHint) ||
+						this.accessibilityHint ||
+						this.accessibilityLabel ||
+						prefix ||
+						null;
+
+			this.setAriaAttribute('aria-label', label);
 		}}
 	],
 
