@@ -12,6 +12,10 @@ var
 var
 	IntegerPicker = require('../IntegerPicker');
 
+var
+	Spotlight = require('spotlight'),
+	$L = require('../i18n');
+
 /**
 * Fires when the currently selected item changes.
 *
@@ -197,9 +201,25 @@ module.exports = kind(
 	// Accessibility
 
 	/**
+	* @default $L('change a value with left/right button')
+	* @type {String}
+	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityHint
+	* @public
+	*/
+	accessibilityHint: $L('change a value with left/right button'),
+
+	/**
 	* @private
-	*/	
+	*/
 	ariaObservers: [
-		{path: 'unit', to: 'aria-label'}
+		{path: ['value', 'unit'], method: function () {
+			var text = this.value + ' ' + this.unit;
+
+			// It reads changed value only the case spotlight focus is on IntegerPicker
+			if (Spotlight.getCurrent() === this) {
+				this.$.repeater.setAriaAttribute('aria-valuetext', text);
+			}
+			this.set('accessibilityLabel', text);
+		}}
 	]
 });
