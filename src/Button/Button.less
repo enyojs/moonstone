@@ -91,8 +91,16 @@
 		.moon-taparea(@moon-button-small-height);
 	}
 
+	&.translucent {
+		background-color: fade(@moon-button-background-color, @moon-button-translucent-opacity);
+	}
+
+	&.transparent {
+		background-color: transparent;
+	}
+
 	// Button-non-disabled rules
-	&:not(.disabled) {
+	&:not([disabled]) {
 		&.pressed,
 		&.spotlight:active {
 			-webkit-animation-name: moonButtonExpand;
@@ -106,15 +114,6 @@
 			}
 		}
 
-		&.translucent {
-			background-color: fade(@moon-button-background-color, @moon-button-translucent-opacity);
-		}
-
-		&.transparent {
-			background-color: transparent;
-		}
-
-		// This is below the translucent and transparent so it takes priority
 		&.spotlight {
 			background-color: @moon-spotlight-border-color;
 			color: @moon-spotlight-text-color;
@@ -136,15 +135,7 @@
 	// Button-disabled rules
 	&[disabled] {
 		cursor: default;
-		color: @moon-button-disabled-text-color;
-		background-color: @moon-button-disabled-bg-color;
-
-		&.translucent {
-			background-color: fade(@moon-button-background-color, @moon-button-translucent-opacity);
-		}
-		&.transparent {
-			background-color: transparent;
-		}
+		.vendor-opacity(@moon-disabled-translucent-opacity);
 	}
 }
 
