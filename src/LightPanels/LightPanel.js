@@ -222,8 +222,36 @@ module.exports = kind(
 	*/
 	didClientRender: function () {
 		this.$.client.addClass('populated');
-	}
+	},
 
+	// Accessibility
+
+	/**
+	* @private
+	*/
+	accessibilityRole: 'region',
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: ['title', 'accessibilityLabel', 'accessibilityHint'], method: function () {
+			var content = this.title,
+				prefix = this.accessibilityLabel || content || null,
+				label = this.accessibilityHint && prefix && (prefix + ' ' + this.accessibilityHint) ||
+						this.accessibilityHint ||
+						this.accessibilityLabel ||
+						prefix ||
+						null;
+
+			this.setAriaAttribute('aria-label', label);
+		}}
+	],
+
+	/**
+	* @private
+	*/
+	accessibilityLive: 'off'
 });
 
 module.exports.States = States;
