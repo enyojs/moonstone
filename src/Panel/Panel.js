@@ -797,5 +797,21 @@ module.exports = kind(
 				return true;	// We stop header animation event bubble up here.
 			}
 		}
-	}
+	},
+
+	// Accessibility
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: ['title', 'accessibilityLabel'], method: function () {
+			this.setAriaAttribute('aria-label', this.accessibilityLabel || this.title);
+		}}
+	],
+
+	/**
+	* @private
+	*/
+	accessibilityLive: 'off'
 });
