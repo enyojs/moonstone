@@ -383,7 +383,7 @@ var MarqueeSupport = {
 	*/
 	_marquee_spotlightBlur: function (sender, ev) {
 		this._marquee_isFocused = false;
-		if (this.marqueeOnSpotlight) {
+		if (this.marqueeOnSpotlight && !this.marqueeOnRender) {
 			this.stopMarquee();
 		}
 	},
@@ -411,7 +411,9 @@ var MarqueeSupport = {
 			if (this.marqueeOnHover) {
 				observer._setMarqueeOnHoverControl(null);
 			}
-			this.stopMarquee();
+			if (!this.marqueeOnRender) {
+				this.stopMarquee();
+			}
 		}
 	},
 
