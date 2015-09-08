@@ -103,7 +103,7 @@ module.exports = kind(
 	* @private
 	*/
 	components: [
-		{kind: Header, name: 'header', type: 'medium', marqueeOnRender: false, marqueeOnRenderDelay: 1000},
+		{kind: Header, name: 'header', type: 'medium', marqueeOnRenderDelay: 1000},
 		{name: 'client', classes: 'client'},
 		{name: 'spotlightPlaceholder', spotlight: false, style: 'width:0;height:0;'}
 	],
