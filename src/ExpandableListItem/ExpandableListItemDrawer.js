@@ -72,6 +72,14 @@ module.exports = kind(
 	},
 
 	/**
+	* @private
+	*/
+	teardownRender: function (caching) {
+		if (caching) this.$.animator.complete();
+		Drawer.prototype.teardownRender.apply(this, arguments);
+	},
+
+	/**
 	* When generated is set to false, reset hasRendered as well.
 	*
 	* @private
@@ -84,7 +92,7 @@ module.exports = kind(
 
 	/**
 	* @private
-	*/	
+	*/
 	ariaObservers: [
 		{from: 'open', method: function () {
 			this.setAriaAttribute('aria-hidden', this.open ? null : 'true');
