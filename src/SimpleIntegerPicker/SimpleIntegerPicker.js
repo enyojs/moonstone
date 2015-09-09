@@ -213,7 +213,7 @@ module.exports = kind(
 	*/
 	ariaObservers: [
 		{path: ['value', 'unit'], method: function () {
-			var text = this.value + ' ' + this.unit;
+			var text = this.unit ? this.value + ' ' + this.unit : this.value;
 
 			// It reads changed value only the case spotlight focus is on IntegerPicker
 			if (Spotlight.getCurrent() === this) {
