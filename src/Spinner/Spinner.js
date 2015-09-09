@@ -11,6 +11,7 @@ var
 	Control = require('enyo/Control');
 
 var
+	$L = require('../i18n'),
 	Marquee = require('../Marquee'),
 	MarqueeText = Marquee.Text,
 	MarqueeSupport = Marquee.Support;
@@ -225,5 +226,20 @@ module.exports = kind(
 	*/
 	transparentChanged: function() {
 		this.addRemoveClass('moon-spinner-transparent-background', !!this.get('transparent'));
-	}
+	},
+
+	// Accessibility
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: ['showing'], method: function () {
+			if (!this.accessibilityLabel && !this.accessibilityHint && !this.hasContent()) {
+				this.set('accessibilityLabel', this.get('showing') ? $L('loading') : null);
+			}
+			this.set('accessibilityAlert', this.get('showing') ? true : null);
+			this.setAriaAttribute('aria-live', this.get('showing') ? 'off' : null);
+		}}
+	]
 });
