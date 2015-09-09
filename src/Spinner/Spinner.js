@@ -243,5 +243,5 @@ module.exports = kind(
 	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityLive
 	* @public
 	*/
-    accessibilityLive: 'off'
+	accessibilityLive: 'off'
 });
