@@ -229,7 +229,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	accessibilityRole: 'region',
+	accessibilityRole: 'alert',
 
 	/**
 	* @private
