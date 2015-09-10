@@ -56,7 +56,12 @@ module.exports = kind(
 	overlayTarget: 'image',
 
 	/**
-	* @private
+	* Placeholder image used while [source]{@link module:moonstone/GridListImageItem~GridListImageItem#source} is loaded
+	*
+	* @see module:enyo/Image~Image#placeholder
+	* @type {String}
+	* @default module:enyo/Image~Image#placeholder
+	* @public
 	*/
 	placeholder: EnyoImage.placeholder,
 
