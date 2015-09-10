@@ -21,6 +21,7 @@ var
 	HistorySupport = require('../HistorySupport');
 
 var
+	$L = require('../i18n'),
 	MoonDrawer = require('./Drawer');
 
 /**
@@ -166,6 +167,15 @@ module.exports = kind(
 	clientTop: 0,
 
 	/**
+	* Value for Drawer open or close state
+	*
+	* @type {Boolean}
+	* @default false
+	* @private
+	*/
+	_activated: false,
+
+	/**
 	* @private
 	*/
 	handlers: {
@@ -208,7 +218,7 @@ module.exports = kind(
 		this.drawers = this.$.drawers.createComponents(this.drawers, {kind: MoonDrawer, owner: this.owner});
 		if (!options.accelerate) this.createComponent({name: 'animator', kind: Animator, onStep: 'animationStep'});
 		this.setupHandles();
-		this.updateActivator();
+		this._activatedChanged();
 	},
 
 	/**
@@ -268,9 +278,16 @@ module.exports = kind(
 	* @private
 	*/
 	updateActivator: function (open) {
+		this.set('_activated', !!open);
+	},
+
+	/**
+	* @private
+	*/
+	_activatedChanged: function () {
 		var icon, src;
 
-		if (open) {
+		if (this._activated) {
 			src = '';
 			icon = this.iconOpen;
 		} else {
@@ -278,7 +295,7 @@ module.exports = kind(
 			icon = (src && !this.icon) ? '' : (this.icon || this.iconClosed);
 		}
 
-		this.$.activator.addRemoveClass('open', open);
+		this.$.activator.addRemoveClass('open', this._activated);
 		this.$.activatorIcon.set('src', src);
 		this.$.activatorIcon.set('icon', icon);
 	},
@@ -495,7 +512,22 @@ module.exports = kind(
 	backKeyHandler: function () {
 		this.closeHandleContainer();
 		return true;
-	}
+	},
+
+	// Accessibility
+
+	ariaObservers: [
+		{path: ['accessibilityLabel', 'accessibilityHint', '_activated'], method: function() {
+			// According to drawer is open or close or handleContainer state, drawers activator label is defined.
+			// In addition, if user add accessibilityLabel, label is determined with accessibilityLabel instead of default string.
+			// However, if user add only accessibilityHint, hint text is appended to default string.
+			var defaultLabel = (this._activated || this.$.handleContainer.getOpen()) ? $L('Close drawer') : $L('Open drawer'),
+				prefix = this.accessibilityLabel || defaultLabel,
+				label = this.accessibilityHint && (prefix + ' ' + this.accessibilityHint) ||
+						prefix;
+			this.$.activator.set('accessibilityLabel', label);
+		}}
+	]
 });
 
 module.exports.Drawer = MoonDrawer;
