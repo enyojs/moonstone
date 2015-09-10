@@ -863,10 +863,10 @@ module.exports = kind(
 	* @private
 	*/
 	jumpButtonTriggered: function (sender, ev) {
-		var isValidEvent = false;
+		var isValidEvent = true;
 		if (!sender.disabled) {
-			if ((ev.type == 'down' || ev.type == 'holdpulse') || (ev.keyCode == 13 && ev.type == 'onSpotlightKeyDown')) {
-				isValidEvent = true;
+			if (ev.keyCode != 13 && ev.type == 'onSpotlightKeyDown') {
+				isValidEvent = false;
 			}
 			if (isValidEvent) {
 				if (sender === this.$.buttonLeft) this.previous();
