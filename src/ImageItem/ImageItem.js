@@ -131,5 +131,23 @@ module.exports = kind(
 	*/
 	imageAlignRightChanged: function () {
 		this.addRemoveClass('align-right', this.imageAlignRight);
-	}
+	},
+
+	// Accessibility
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: ['label', 'text', 'accessibilityHint', 'accessibilityLabel'], method: function () {
+			var content = this.label + ' ' + this.text ,
+				prefix = this.accessibilityLabel || content || null,
+				label = this.accessibilityHint && prefix && (prefix + ' ' + this.accessibilityHint) ||
+						this.accessibilityHint ||
+						this.accessibilityLabel ||
+						null;
+
+				this.setAriaAttribute('aria-label', label);
+		}}
+	]
 });

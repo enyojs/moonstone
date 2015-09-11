@@ -84,5 +84,23 @@ module.exports = kind(
 	components:[
 		{name: 'header', kind: Marquee.Text, classes: 'moon-labeledtextitem-header'},
 		{name: 'text', classes: 'moon-labeledtextitem-text'}
+	],
+
+	// Accessibility
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: ['label', 'text', 'accessibilityHint', 'accessibilityLabel'], method: function () {
+			var content = this.label + ' ' + this.text ,
+				prefix = this.accessibilityLabel || content || null,
+				label = this.accessibilityHint && prefix && (prefix + ' ' + this.accessibilityHint) ||
+						this.accessibilityHint ||
+						this.accessibilityLabel ||
+						null;
+
+				this.setAriaAttribute('aria-label', label);
+		}}
 	]
 });
