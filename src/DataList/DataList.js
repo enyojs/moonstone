@@ -119,7 +119,7 @@ var DataListSpotlightSupport = {
 			// Otherwise, check if the list was focused and if so, transfer focus to the first
 			// spottable child inside. And we transfer focus when dummy is focused.
 			var current = Spotlight.getCurrent();
-			if (current == this || (current && current.name == 'spotlightPlaceholder') || (current && current.name == 'spotlightDummy')) {
+			if (current && (current === this || current.name == 'spotlightPlaceholder' || current.name == 'spotlightDummy')) {
 				Spotlight.spot(this);
 			}
 		}
