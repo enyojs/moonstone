@@ -152,7 +152,7 @@ module.exports = kind(
 		// This is highly related to the order in which "preTransition" is fired for the outgoing
 		// and the incoming panel. The outgoing panel's method is fired before that of the incoming
 		// panel.
-		if (this.state == States.ACTIVE && !currentSpottable) {
+		if (this.state == States.ACTIVATING && !currentSpottable) {
 			// We spot the dummy element of the incoming panel so that the spotlightDisabled
 			// property of the outgoing panel behaves properly (correctly attempts to spot the
 			// Spotlight container element of the outgoing panel); if we do not do this, pressing a
@@ -161,7 +161,7 @@ module.exports = kind(
 				this.$.spotlightPlaceholder.spotlight = true;
 				Spotlight.spot(this.$.spotlightPlaceholder);
 			}
-		} else if (this.state != States.ACTIVE && (isChild || !currentSpottable)) {
+		} else if (this.state == States.DEACTIVATING && (isChild || !currentSpottable)) {
 			Spotlight.unspot();
 		}
 	},
