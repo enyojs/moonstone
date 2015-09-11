@@ -329,7 +329,7 @@ module.exports = kind(
 			var text = '',
 				oInput = this.getInputControl();
 
-			this.set('accessibilityLive', this.focused ? null : 'polite');
+			this.set('accessibilityLive', this.focused || !this.spotted ? null : 'polite');
 			if (oInput) {
 				if (oInput instanceof RichText && oInput.hasNode()) {
 					text = (oInput.hasNode().innerText || oInput.getPlaceholder()) + ' ' + $L('edit box');
