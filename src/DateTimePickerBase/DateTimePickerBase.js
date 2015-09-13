@@ -156,7 +156,7 @@ module.exports = kind(
 	],
 
 	computed: {
-		'currentValueText': ['value', 'noneText']
+		'currentValueText': ['value', 'noneText', 'locale']
 	},
 
 	/**
