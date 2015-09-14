@@ -11,6 +11,7 @@ var
 	ri = require('enyo/resolution'),
 	dispatcher = require('enyo/dispatcher'),
 	Control = require('enyo/Control'),
+	EnyoHistory = require('enyo/History'),
 	GroupItem = require('enyo/GroupItem');
 
 var
@@ -569,6 +570,12 @@ var ListActions = module.exports = kind(
 		this.$.drawer.set('spotlightDisabled', !this.getOpen());
 		this.setActive(this.getOpen());
 		this.doListActionOpenChanged({open: this.open});
+
+		if (this.allowBackKey) {
+			if (this.open) this.pushBackHistory();
+			else if(!EnyoHistory.isProcessing()) EnyoHistory.drop();
+		}
+
 		// If opened, show drawer and resize it if needed
 		if(this.open){
 			if (this.drawerNeedsResize) {
@@ -578,10 +585,6 @@ var ListActions = module.exports = kind(
 			// Capture onSpotlightFocus happening outside the drawer, so that we can prevent focus
 			// from landing in the header beneath the drawer
 			dispatcher.capture(this.$.drawer, {onSpotlightFocus: 'capturedSpotlightFocus'}, this);
-
-			if (this.allowBackKey) {
-				this.pushBackHistory();
-			}
 		} else {
 			dispatcher.release(this.$.drawer);
 		}
