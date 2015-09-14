@@ -300,6 +300,7 @@ module.exports = kind(
 			// changed, so we'll just update the child pickers
 			this.setChildPickers();
 		}
+		this.notify('currentValueText');
 	},
 
 	/**
