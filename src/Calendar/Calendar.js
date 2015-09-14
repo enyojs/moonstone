@@ -285,6 +285,7 @@ var SimpleMonthPicker = kind(
 });
 
 /**
+* THIS KIND IS DEPRECATED.
 * {@link module:moonstone/Calendar~Calendar} is a control that displays a monthly calendar, with the
 * month name at the top and a grid of days, grouped into rows by week, below.
 *
@@ -298,6 +299,7 @@ var SimpleMonthPicker = kind(
 * {kind: Calendar, content: 'Calendar Title'}
 * ```
 *
+* @deprecated
 * @class Calendar
 * @ui
 * @public

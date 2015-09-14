@@ -42,6 +42,34 @@ module.exports = kind(
 	*/
 	defaultKind: LightPanel,
 
+	/**
+	* @private
+	*/
+	addChild: function (control) {
+		LightPanels.prototype.addChild.apply(this, arguments);
+		if (control.parent === this.$.client) control.spotlightDisabled = true;
+	},
+
+	/**
+	* @private
+	*/
+	setupTransitions: function (was) {
+		this.updateSpottability(was, this.index);
+		LightPanels.prototype.setupTransitions.apply(this, arguments);
+	},
+
+	/**
+	* @private
+	*/
+	updateSpottability: function (from, to) {
+		var panels = this.getPanels(),
+			panelPrev = panels[from],
+			panelNext = panels[to];
+
+		if (panelPrev) panelPrev.spotlightDisabled = true;
+		if (panelNext) panelNext.spotlightDisabled = false;
+	},
+
 	// Accessibility
 
 	ariaObservers: [

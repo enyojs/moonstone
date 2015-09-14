@@ -429,6 +429,10 @@ var MoonScrollStrategy = module.exports = kind(
 			}
 
 			this.scrollTo(x, y);
+			if (!isScrolling && this.thumb) {
+				this.showThumbs();
+				this.delayHideThumbs(100);
+			}
 			event.preventDefault();
 			this.scrollBounds = null;
 			return true;

@@ -112,5 +112,23 @@ module.exports = kind(
 		if (inEvent.originator === this) {
 			this.bubble('onRequestScrollIntoView');
 		}
-	}
+	},
+
+	// Accessibility
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: ['caption', 'subCaption', 'accessibilityHint', 'accessibilityLabel'], method: function () {
+			var content = this.caption + ' ' + this.subCaption,
+				prefix = this.accessibilityLabel || content || null,
+				label = this.accessibilityHint && prefix && (prefix + ' ' + this.accessibilityHint) ||
+						this.accessibilityHint ||
+						this.accessibilityLabel ||
+						null;
+
+				this.setAriaAttribute('aria-label', label);
+		}}
+	]
 });
