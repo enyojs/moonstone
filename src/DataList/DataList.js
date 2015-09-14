@@ -68,10 +68,7 @@ var DataListSpotlightSupport = {
 				child = this.childForIndex(inIndex);
 			}
 			subChild = inSubChild ? Spotlight.getChildren(child)[inSubChild] : child;
-			if (Spotlight.isSpottable(subChild)) 
-				Spotlight.spot(subChild);
-			else
-				Spotlight.spot(this); 
+			Spotlight.spot(subChild) || Spotlight.spot(this); 
 		} else {
 			this._indexToFocus = inIndex;
 			this._subChildToFocus = inSubChild;
