@@ -1018,13 +1018,13 @@ var MarqueeItem = {
 		}
 
 		// Need this timeout for FF!
-		setTimeout(this.bindSafely(function () {
+		this.startJob('addAnimationStyles', function () {
 			if (options.accelerate) {
 				dom.transform(this.$.marqueeText, {translateX: this._marquee_adjustDistanceForRTL(distance) + 'px'});
 			} else {
 				this.$.marqueeText.applyStyle('left', this._marquee_adjustDistanceForRTL(distance) + 'px');
 			}
-		}), platform.firefox ? 100 : 16);
+		},  platform.firefox ? 100 : 16);
 	},
 
 	/**
@@ -1038,18 +1038,20 @@ var MarqueeItem = {
 		this.$.marqueeText.applyStyle('transition-duration', '0s');
 		this.$.marqueeText.applyStyle('-webkit-transition-duration', '0s');
 
+		this.stopJob('addAnimationStyles');
+
 		// Need this timeout for FF!
 		/**
 		* @private
 		*/
-		setTimeout(this.bindSafely(function () {
+		this.startJob('removeAnimationStyles', function () {
 			this.$.marqueeText.removeClass('animate-marquee');
 			if (options.accelerate) {
 				dom.transform(this.$.marqueeText, {translateX: null, translateZ: null});
 			} else {
 				this.$.marqueeText.applyStyle('left', null);
 			}
-		}), platform.firefox ? 100 : 0);
+		},  platform.firefox ? 100 : 0);
 	},
 
 	/**
