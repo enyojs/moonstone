@@ -278,7 +278,7 @@ module.exports = kind(
 	* @private
 	*/
 	updateActivator: function (open) {
-		this.set('_activated', !!open);
+		this.set('_activated', !!open, {force: true});
 	},
 
 	/**
