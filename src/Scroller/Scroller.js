@@ -226,6 +226,11 @@ if (platform.touch) {
 		/**
 		* @private
 		*/
+		spotlightRememberFocus: false,
+
+		/**
+		* @private
+		*/
 		handlePageUpDownKey: false,
 
 		/**
