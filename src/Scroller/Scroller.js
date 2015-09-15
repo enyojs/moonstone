@@ -197,6 +197,16 @@ if (platform.touch) {
 		},
 
 		/**
+		* @private
+		*/
+		decorateEvent: function (nom, event, sender) {
+			this.inherited(arguments);
+			if (this.spotlightPrecedence && nom.indexOf('onSpotlight') > -1) {
+				event.spotlightPrecedence = this.spotlightPrecedence;
+			}
+		},
+
+		/**
 		* If `true`, scroll events are not allowed to propagate.
 		*
 		* @private
