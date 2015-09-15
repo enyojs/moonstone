@@ -278,16 +278,9 @@ module.exports = kind(
 	* @private
 	*/
 	updateActivator: function (open) {
-		this.set('_activated', !!open);
-	},
-
-	/**
-	* @private
-	*/
-	_activatedChanged: function () {
 		var icon, src;
 
-		if (this._activated) {
+		if (open) {
 			src = '';
 			icon = this.iconOpen;
 		} else {
@@ -295,9 +288,16 @@ module.exports = kind(
 			icon = (src && !this.icon) ? '' : (this.icon || this.iconClosed);
 		}
 
-		this.$.activator.addRemoveClass('open', this._activated);
+		this.$.activator.addRemoveClass('open', open);
 		this.$.activatorIcon.set('src', src);
 		this.$.activatorIcon.set('icon', icon);
+	},
+
+	/**
+	* @private
+	*/
+	_activatedChanged: function () {
+		this.updateActivator(this._activated);
 	},
 
 	/**
