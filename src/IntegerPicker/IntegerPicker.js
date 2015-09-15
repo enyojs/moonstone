@@ -19,8 +19,8 @@ var
 	TouchScrollStrategy = ScrollStrategy.Touch;
 
 var
-	Spotlight = require('spotlight'),
 	$L = require('../i18n');
+
 /**
 * Fires when the currently selected value changes.
 *
