@@ -721,7 +721,7 @@ module.exports = kind(
 		{path: 'spotted',  method: function () {
 			// When spotlight is focused, it reads value with hint
 			if (this.spotted) {
-				this.set('accessibilityHint', $L('change a value with up/down button'));
+				this.set('accessibilityHint', $L('change a value with up down button'));
 				this.setAriaAttribute('aria-valuenow', this.value);
 			}
 		}}
