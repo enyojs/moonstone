@@ -47,6 +47,11 @@ var ItemOverlay = module.exports = kind(
 	classes: 'moon-item-overlay',
 
 	/**
+ 	* @private
+ 	*/
+	spotFocused: false,
+
+	/**
 	* @private
 	*/
 	published: /** @lends module:moonstone/ItemOverlay~ItemOverlay.prototype */ {
@@ -84,8 +89,8 @@ var ItemOverlay = module.exports = kind(
 	/**
 	* @private
 	*/
-	autoHideChanged: function() {
-		this.addRemoveClass('auto-hide', this.get('autoHide'));
+	autoHideChanged: function(was, is) {
+			this.set('showing', !is || (is && this.spotFocused));
 	},
 
 
@@ -162,6 +167,50 @@ ItemOverlay.ItemOverlaySupport = {
 		{from: 'autoHideBeginning', to: '$.beginning.autoHide'},
 		{from: 'autoHideEnding', to: '$.ending.autoHide'}
 	],
+
+	handlers: {
+		onSpotlightFocused: 'spotFocused',
+		onSpotlightBlur: 'spotBlur'
+	},
+
+	/**
+	* @private
+	*/
+	overlayShowing: function(showing) {
+		var resize = false;
+
+		if (this.autoHideBeginning) {
+			this.$.beginning.set('showing', showing);
+			resize = true;
+		}
+
+		if (this.autoHideEnding) {
+			this.$.ending.set('showing', showing);
+			resize = true;
+		}
+
+		if (resize) {
+			this.resize();
+		}
+	},
+
+	/**
+	* @private
+	*/
+	spotFocused: function() {
+		this.overlayShowing(true);
+		this.$.beginning.set('spotFocused', true);
+		this.$.ending.set('spotFocused', true);
+	},
+
+	/**
+	* @private
+	*/
+	spotBlur: function() {
+		this.overlayShowing(false);
+		this.$.beginning.set('spotFocused', false);
+		this.$.ending.set('spotFocused', false);
+	},
 
 	/**
 	* @private
