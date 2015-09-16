@@ -322,6 +322,17 @@ module.exports = kind(
 	// Accessibility
 
 	/**
+	* spotted and focused can change in sequence but within the same cycle causing the TV to read
+	* changes when spotting a different control. Enabling this will batch up those changes into
+	* one DOM update thereby avoiding this behavior.
+	*
+	* @type {Boolean}
+	* @default true
+	* @private
+	*/
+	accessibilityDefer: true,
+
+	/**
 	* @private
 	*/
 	ariaObservers: [
