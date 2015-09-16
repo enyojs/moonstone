@@ -85,7 +85,7 @@ var MeridiemPicker = kind(
 	/**
 	* @private
 	*/
-	initILib: function() {
+	initILib: function () {
 		// Get localized meridiem values
 		var fmtParams = {
 			template: 'a',
@@ -102,7 +102,7 @@ var MeridiemPicker = kind(
 	/**
 	* @private
 	*/
-	create: function() {
+	create: function () {
 		this.initILib();
 		this.max = this.meridiems.length - 1;
 		IntegerPicker.prototype.create.apply(this, arguments);
@@ -312,7 +312,7 @@ var HourPicker = kind(
 	/**
 	* @private
 	*/
-	valueChanged: function(old) {
+	valueChanged: function (old) {
 		this.offset = this.value - old;
 		IntegerPicker.prototype.valueChanged.apply(this, arguments);
 	},
@@ -341,7 +341,7 @@ var HourPicker = kind(
 	 * @see module:moonstone/IntegerPicker~IntegerPicker.scrollToValue
 	 * @private
 	 */
-	scrollToValue: function(old) {
+	scrollToValue: function (old) {
 		// try to avoid the format calls if the old and current values
 		// don't mod to the same value
 		var maybeSame = old !== undefined && old%12 === this.value%12;
@@ -565,6 +565,7 @@ var TimePicker = module.exports = kind(
 		}
 		this.showPickerLabelsChanged();
 		this.unsilence();
+		this.pickers = pickers;
 		DateTimePickerBase.prototype.setupPickers.apply(this, arguments);
 	},
 

@@ -12,6 +12,7 @@ var
 
 var
 	LocaleInfo = require('enyo-ilib/LocaleInfo'),
+	Locale = require('enyo-ilib/Locale'),
 	DateFmt = require('enyo-ilib/DateFmt'),
 	dateFactory = require('enyo-ilib/DateFactory');
 
@@ -89,15 +90,19 @@ module.exports = kind(
 		date: undefined,
 
 		/**
-		* Current locale used for formatting. May be set after the control is
-		* created, in which case the control will be updated to reflect the
-		* new value.  Only valid if [iLib]{@glossary ilib} is loaded.
+		* This property will be __private__ in the future and is deprecated as a __public__
+		* property. It is used internally and _should not be used otherwise_.
 		*
-		* @type {String}
-		* @default ''
+		* This is an [iLib]{@glossary ilib} Locale instance. Setting this directly may have
+		* unexpected results. This class will automatically respond to application locale
+		* changes that use the {@link module:enyo/i18n~updateLocale} method.
+		*
+		* @deprecated
+		* @type {Locale}
+		* @default null
 		* @public
 		*/
-		locale: ''
+		locale: null
 	},
 
 	/**
@@ -151,7 +156,8 @@ module.exports = kind(
 	* @private
 	*/
 	initILib: function () {
-		this.ilibLocaleInfo = new LocaleInfo(this.locale || undefined);
+		this.locale = new Locale();
+		this.ilibLocaleInfo = new LocaleInfo(this.locale);
 		var clockPref = this.ilibLocaleInfo.getClock();
 		var clock = clockPref !== 'locale' ? clockPref : undefined;
 
@@ -198,14 +204,6 @@ module.exports = kind(
 		if (this.mode === 'normal') {
 			this.startJob('refresh', this.bindSafely('refreshJob'), this.getRefresh());
 		}
-	},
-
-	/**
-	* @private
-	*/
-	localeChanged: function () {
-		this._refresh();
-		this.updateDate();
 	},
 
 	/**

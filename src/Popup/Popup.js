@@ -594,22 +594,6 @@ module.exports = kind(
 	},
 
 	/**
-	* If [spotlightModel]{@link module:moonstone/Popup~Popup#spotlightModal} property is true
-	* back key could not close popup.
-	* Because every event out-boundary of popup should be ignored when it is true.
-	*
-	* @method
-	* @public
-	*/
-	backKeyHandler: kind.inherit(function (sup) {
-		return function () {
-			if (this.spotlightModal) this.pushBackHistory();
-			else if (this.showing) this.hide();
-			return true;
-		};
-	}),
-
-	/**
 	* When `true`, the contents of the popup will be read when shown.
 	*
 	* @default true
