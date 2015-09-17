@@ -299,7 +299,7 @@ var ListActions = module.exports = kind(
 		* A block of one or more controls to be displayed inside the list actions menu. By
 		* default, each top-level [ListActions]{@link module:moonstone/ListActions~ListActions} will have a
 		* [defaultKind]{@link module:enyo/Control~Control#defaultKind} of
-		* [FittableRows]{@link module:enyo/FittableRows~FittableRows}, and should typically contain a
+		* [FittableRows]{@link module:layout/FittableRows~FittableRows}, and should typically contain a
 		* {@link module:moonstone/Divider~Divider} identifying the category and a {@link module:moonstone/Scroller~Scroller} with
 		* `fit: true` set on it, containing instances of {@link module:moonstone/CheckboxItem~CheckboxItem},
 		* {@link module:moonstone/ToggleItem~ToggleItem}, or {@link module:moonstone/SelectableItem~SelectableItem} for setting options for
@@ -365,9 +365,9 @@ var ListActions = module.exports = kind(
 		proportionalWidth: false,
 
 		/**
-		* The background-color opacity of {@link module:moonstone/ListAction}}'s activator
-		* (which is a {@link module:moonstone/IconButton}). Please see the valid values defined by
-		* {module:enyo/Button~Button#backgroundOpacity}.
+		* The background-color opacity of the {@link module:moonstone/ListActions~ListActions}' activator
+		* (which is a {@link module:moonstone/IconButton~IconButton}). Please see the valid values defined by
+		* {@link module:moonstone/Button~Button#backgroundOpacity}.
 		*
 		* @type {String}
 		* @default 'opaque'

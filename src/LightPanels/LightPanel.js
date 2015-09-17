@@ -1,6 +1,6 @@
 /**
-* Contains the declaration for the {@link module:moonstone/LightPanel~LightPanel} kind.
-* @module moonstone/LightPanel
+* Contains the declaration for the {@link module:moonstone/LightPanels~LightPanel} kind.
+* @module moonstone/LightPanels
 */
 
 var
@@ -15,7 +15,7 @@ var
 	Header = require('../Header');
 
 /**
-* A light-weight panels implementation that has basic support for side-to-side transitions
+* A lightweight panels implementation that has basic support for side-to-side transitions
 * between child components.
 *
 * @class LightPanel
@@ -24,7 +24,7 @@ var
 * @public
 */
 module.exports = kind(
-	/** @lends module:moonstone/LightPanel~LightPanel.prototype */ {
+	/** @lends module:moonstone/LightPanels~LightPanel.prototype */ {
 
 	/**
 	* @private
@@ -216,7 +216,7 @@ module.exports = kind(
 	/**
 	* This overridable (extendable) method is called when the client area has been rendered. This
 	* can be used to perform any actions that should occur once the client components, for example,
-	* of the {@link moon.LightPanel} have been created and rendered, such as custom focusing logic.
+	* of the {@link module:moonstone/LightPanels~LightPanel} have been created and rendered, such as custom focusing logic.
 	*
 	* @public
 	*/
