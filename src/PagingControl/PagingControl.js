@@ -11,7 +11,8 @@ var
 	animation = require('enyo/animation');
 
 var
-	Spotlight = require('spotlight');
+	Spotlight = require('spotlight'),
+	$L = require('../i18n');
 
 var
 	IconButton = require('../IconButton');
@@ -224,6 +225,7 @@ module.exports = kind(
 	*/
 	depress: function (sender, event) {
 		IconButton.prototype.depress.apply(this, arguments);
+		this.set('pressed', true);
 		// keydown events repeat (while mousedown/hold does not); simulate
 		// hold behavior with mouse by catching the second keydown event
 		if (event.keyCode === 13) {
@@ -243,6 +245,7 @@ module.exports = kind(
 	* @private
 	*/
 	undepress: function (sender, event) {
+		this.set('pressed', false);
 		IconButton.prototype.undepress.apply(this, arguments);
 		this.downCount = 0;
 		this.endHold(sender, event);
@@ -309,5 +312,72 @@ module.exports = kind(
 	*
 	* @private
 	*/
-	noop: function () { return true; }
+	noop: function () {
+		this.set('spotted', true);
+		return true;
+	},
+
+	// Accessibility
+
+	/*
+	* @private
+	*/
+	spotted: false,
+
+	/*
+	* @private
+	*/
+	pressed: false,
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: ['side', 'spotted'], method: function () {
+			var side = this.get('side');
+			if (this.spotted) {
+				switch(side) {
+					case 'top':
+						this.set('accessibilityLabel', $L('scroll up'));
+						break;
+					case 'bottom':
+						this.set('accessibilityLabel', $L('scroll down'));
+						break;
+					case 'left':
+						this.set('accessibilityLabel', $L('scroll left'));
+						break;
+					case 'right':
+						this.set('accessibilityLabel', $L('scroll right'));
+						break;
+				}
+				this.focus();
+				this.set('spotted', false);
+			}
+		}},
+		{path: 'pressed', method: function () {
+			var side = this.get('side');
+			if (this.pressed) {
+				switch(side) {
+					case 'top':
+						this.set('accessibilityLabel', $L('up'));
+						break;
+					case 'bottom':
+						this.set('accessibilityLabel', $L('down'));
+						break;
+					case 'left':
+						this.set('accessibilityLabel', $L('left'));
+						break;
+					case 'right':
+						this.set('accessibilityLabel', $L('right'));
+						break;
+				}
+				this.set('accessibilityAlert', true);
+				this.set('accessibilityLive', 'off');
+			} else {
+				this.set('accessibilityAlert', null);
+				this.set('accessibilityLive', null);
+				this.set('accessibilityLabel', null);
+			}
+		}}
+	]
 });
