@@ -429,6 +429,10 @@ var MoonScrollStrategy = module.exports = kind(
 			}
 
 			this.scrollTo(x, y);
+			if (!isScrolling && this.thumb) {
+				this.showThumbs();
+				this.delayHideThumbs(100);
+			}
 			event.preventDefault();
 			this.scrollBounds = null;
 			return true;
@@ -741,10 +745,10 @@ var MoonScrollStrategy = module.exports = kind(
 			bubble = false;
 		if (!Spotlight.getPointerMode() || event.scrollInPointerMode === true) {
 			originator = event.originator;
-			showVertical = this.showVertical();
-			showHorizontal = this.showHorizontal();
 			this.scrollBounds = this._getScrollBounds();
 			this.setupBounds();
+			showVertical = this.showVertical();
+			showHorizontal = this.showHorizontal();
 			this.scrollBounds = null;
 			if ((showVertical || showHorizontal) && (originator.getAbsoluteShowing())) {
 				this.animateToControl(originator, event.scrollFullPage, event.scrollInPointerMode || false);

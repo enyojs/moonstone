@@ -211,7 +211,7 @@ module.exports = kind(
 	*/
 	tools: [
 		{name: 'client', kind: Control, classes: 'moon-neutral moon-contextual-popup-client'},
-		{name: 'closeButton', kind: IconButton, icon: 'closex', classes: 'moon-popup-close', ontap: 'closePopup', backgroundOpacity: 'transparent', accessibilityLabel: $L('Close'), spotlight: false}
+		{name: 'closeButton', kind: IconButton, icon: 'closex', classes: 'moon-popup-close', ontap: 'closePopup', backgroundOpacity: 'transparent', accessibilityLabel: $L('Close'), tabIndex: -1, spotlight: false}
 	],
 
 	/**
@@ -595,8 +595,9 @@ module.exports = kind(
 	* @private
 	*/
 	backKeyHandler: function() {
-		if (this.spotlightModal) this.pushBackHistory();
-		else if (this.showing) this.hide();
+		if (this.showing) {
+			this.hide();
+		}
 
 		if (this.spotlight && !this.spotlightDisabled) {
 			this.doRequestSpot();

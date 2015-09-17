@@ -9,6 +9,7 @@ var
 	kind = require('enyo/kind');
 
 var
+	$L = require('../i18n'),
 	IconButton = require('../IconButton');
 
 /**
@@ -67,5 +68,20 @@ module.exports = kind(
 		* @fires module:moonstone/VideoPlayer~VideoPlayer#onRequestToggleFullscreen
 		*/
 		ontap: 'doRequestToggleFullscreen'
-	}
+	},
+
+	// Accessibility
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: 'icon', method: function () {
+			if (this.icon === 'exitfullscreen') {
+				this.set('accessibilityLabel', $L('original screen'));
+			} else {
+				this.set('accessibilityLabel', $L('full screen'));
+			}
+		}}
+	] 
 });

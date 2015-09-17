@@ -40,7 +40,51 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	defaultKind: LightPanel
+	defaultKind: LightPanel,
+
+	/**
+	* @private
+	*/
+	addChild: function (control) {
+		LightPanels.prototype.addChild.apply(this, arguments);
+		if (control.parent === this.$.client) control.spotlightDisabled = true;
+	},
+
+	/**
+	* @private
+	*/
+	setupTransitions: function (was) {
+		this.updateSpottability(was, this.index);
+		LightPanels.prototype.setupTransitions.apply(this, arguments);
+	},
+
+	/**
+	* @private
+	*/
+	updateSpottability: function (from, to) {
+		var panels = this.getPanels(),
+			panelPrev = panels[from],
+			panelNext = panels[to];
+
+		if (panelPrev) panelPrev.spotlightDisabled = true;
+		if (panelNext) panelNext.spotlightDisabled = false;
+	},
+
+	// Accessibility
+
+	ariaObservers: [
+		{path: 'index', method: function () {
+			var panels = this.getPanels(),
+				active = panels[this.index],
+				l = panels.length,
+				panel;
+
+			while (--l >= 0) {
+				panel = panels[l];
+				panel.set('accessibilityRole', panel === active ? 'alert' : 'region');
+			}
+		}}
+	]
 
 });
 

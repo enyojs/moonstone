@@ -11,6 +11,7 @@ var
 	ri = require('enyo/resolution'),
 	dispatcher = require('enyo/dispatcher'),
 	Control = require('enyo/Control'),
+	EnyoHistory = require('enyo/History'),
 	GroupItem = require('enyo/GroupItem');
 
 var
@@ -21,6 +22,7 @@ var
 	Spotlight = require('spotlight');
 
 var
+	$L = require('../i18n'),
 	Scroller = require('../Scroller'),
 	IconButton = require('../IconButton'),
 	HistorySupport = require('../HistorySupport');
@@ -49,7 +51,7 @@ var ListActionActivationSupport = {
 	/**
 	* @private
 	*/
-	activate: function(sender, e) {
+	activate: function (sender, e) {
 		e.action = this.action;
 	}
 };
@@ -126,7 +128,7 @@ var ListActionsDrawer = kind(
 	* @fires module:moonstone/ListActions~ListActionsDrawer#onComplete
 	* @private
 	*/
-	rendered: function() {
+	rendered: function () {
 		Control.prototype.rendered.apply(this, arguments);
 		// Temporarily disable animation
 		this.applyAnimatedMode(false);
@@ -142,7 +144,7 @@ var ListActionsDrawer = kind(
 	* @fires module:moonstone/ListActions~ListActionsDrawer#onComplete
 	* @private
 	*/
-	handleTransitionEnd: function(sender, e) {
+	handleTransitionEnd: function (sender, e) {
 		if (e.originator === this.$.client) {
 			this.doComplete();
 			return true;
@@ -159,14 +161,14 @@ var ListActionsDrawer = kind(
 	*
 	* @private
 	*/
-	getBubbleTarget: function() {
+	getBubbleTarget: function () {
 		return this.owner;
 	},
 
 	/**
 	* @private
 	*/
-	openChanged: function() {
+	openChanged: function () {
 		// Skip animation before render time
 		if (!this.$.client.hasNode()) { return; }
 		this.$.client.addRemoveClass('open', this.open);
@@ -175,7 +177,7 @@ var ListActionsDrawer = kind(
 	/**
 	* @private
 	*/
-	applyAnimatedMode: function(shouldAnimate) {
+	applyAnimatedMode: function (shouldAnimate) {
 		this.$.client.addRemoveClass('animated', shouldAnimate);
 	}
 });
@@ -398,7 +400,7 @@ var ListActions = module.exports = kind(
 	*/
 	drawerComponents: [
 		{name: 'drawer', spotlightDisabled: true, kind: ListActionsDrawer, classes: 'list-actions-drawer', onComplete: 'drawerAnimationEnd', open: false, spotlight: 'container', spotlightModal:true, components: [
-			{name: 'closeButton', kind: IconButton, icon: 'closex', classes: 'moon-popup-close moon-list-actions-close moon-neutral', ontap: 'expandContract', backgroundOpacity: 'transparent', defaultSpotlightDown:'listActions'},
+			{name: 'closeButton', kind: IconButton, icon: 'closex', classes: 'moon-popup-close moon-list-actions-close moon-neutral', ontap: 'expandContract', accessibilityLabel: $L('Close'), backgroundOpacity: 'transparent', defaultSpotlightDown:'listActions'},
 			{name: 'listActionsClientContainer', kind: Control, classes: 'enyo-fit moon-list-actions-client-container moon-neutral', components: [
 				{name: 'listActions', kind: Scroller, classes: 'enyo-fit moon-list-actions-scroller', horizontal:'hidden', vertical:'hidden', onActivate: 'optionSelected', defaultSpotlightUp:'closeButton'}
 			]}
@@ -420,7 +422,7 @@ var ListActions = module.exports = kind(
 	* @fires module:moonstone/ListActions~ListActions#onRequestCreateListActions
 	* @private
 	*/
-	create: function() {
+	create: function () {
 		GroupItem.prototype.create.apply(this, arguments);
 		this.doRequestCreateListActions({components: this.drawerComponents});
 		if (!this.$.drawer) {
@@ -433,7 +435,7 @@ var ListActions = module.exports = kind(
 	/**
 	* @private
 	*/
-	rendered: function() {
+	rendered: function () {
 		GroupItem.prototype.rendered.apply(this, arguments);
 		if (this.open) {
 			// Perform post-open work
@@ -446,7 +448,7 @@ var ListActions = module.exports = kind(
 	/**
 	* @private
 	*/
-	destroy: function() {
+	destroy: function () {
 		dispatcher.release(this.$.drawer);
 		GroupItem.prototype.destroy.apply(this, arguments);
 	},
@@ -454,14 +456,14 @@ var ListActions = module.exports = kind(
 	/**
 	* @private
 	*/
-	disabledChanged: function() {
+	disabledChanged: function () {
 		this.addRemoveClass('disabled', this.disabled);
 	},
 
 	/**
 	* @private
 	*/
-	listActionsChanged: function() {
+	listActionsChanged: function () {
 		var owner = this.hasOwnProperty('listActions') ? this.getInstanceOwner() : this;
 		this.listActions = this.listActions || [];
 		this.drawerNeedsResize = true;
@@ -471,7 +473,7 @@ var ListActions = module.exports = kind(
 	/**
 	* @private
 	*/
-	renderListActionComponents: function(owner) {
+	renderListActionComponents: function (owner) {
 		this.noAutoCollapse = true;
 		this.createListActionComponents(owner);
 		this.noAutoCollapse = false;
@@ -480,7 +482,7 @@ var ListActions = module.exports = kind(
 	/**
 	* @private
 	*/
-	createListActionComponents: function(owner) {
+	createListActionComponents: function (owner) {
 		var listAction, i;
 
 		this.listActionComponents = [];
@@ -509,7 +511,7 @@ var ListActions = module.exports = kind(
 	*
 	* @private
 	*/
-	createListActionComponent: function(listAction, owner) {
+	createListActionComponent: function (listAction, owner) {
 		var listActionComponent;
 
 		listAction.mixins = this.addListActionMixin(listAction);
@@ -525,7 +527,7 @@ var ListActions = module.exports = kind(
 	*
 	* @private
 	*/
-	addListActionMixin: function(listAction) {
+	addListActionMixin: function (listAction) {
 		var mixins = listAction.mixins || [];
 		if (mixins.indexOf(ListActionActivationSupport) === -1) {
 			mixins.push(ListActionActivationSupport);
@@ -538,7 +540,7 @@ var ListActions = module.exports = kind(
 	*
 	* @private
 	*/
-	expandContract: function(sender, e) {
+	expandContract: function (sender, e) {
 		if (this.disabled) {
 			return true;
 		}
@@ -554,7 +556,7 @@ var ListActions = module.exports = kind(
 	/**
 	* @private
 	*/
-	beforeOpenDrawer: function(standardHeight, type) {
+	beforeOpenDrawer: function (standardHeight, type) {
 		this.standardHeight = standardHeight;
 	},
 
@@ -564,12 +566,18 @@ var ListActions = module.exports = kind(
 	* @fires module:moonstone/ListActions~ListActions#onListActionOpenChanged
 	* @private
 	*/
-	openChanged: function(){
+	openChanged: function () {
 		this.$.drawer.set('spotlightDisabled', !this.getOpen());
 		this.setActive(this.getOpen());
 		this.doListActionOpenChanged({open: this.open});
+
+		if (this.allowBackKey) {
+			if (this.open) this.pushBackHistory();
+			else if (!EnyoHistory.isProcessing()) EnyoHistory.drop();
+		}
+
 		// If opened, show drawer and resize it if needed
-		if(this.open){
+		if (this.open) {
 			if (this.drawerNeedsResize) {
 				this.resizeDrawer();
 				this.drawerNeedsResize = false;
@@ -577,10 +585,6 @@ var ListActions = module.exports = kind(
 			// Capture onSpotlightFocus happening outside the drawer, so that we can prevent focus
 			// from landing in the header beneath the drawer
 			dispatcher.capture(this.$.drawer, {onSpotlightFocus: 'capturedSpotlightFocus'}, this);
-
-			if (this.allowBackKey) {
-				this.pushBackHistory();
-			}
 		} else {
 			dispatcher.release(this.$.drawer);
 		}
@@ -591,7 +595,7 @@ var ListActions = module.exports = kind(
 	* @fires module:moonstone/TooltipDecorator~TooltipDecorator#onRequestUnmuteTooltip
 	* @private
 	*/
-	drawerAnimationEnd: function(sender, event) {
+	drawerAnimationEnd: function (sender, event) {
 		var rendered = event && event.rendered;
 
 		//on closed, hide drawer and spot _this.$.activator_
@@ -636,7 +640,7 @@ var ListActions = module.exports = kind(
 	/**
 	* @private
 	*/
-	updateStacking: function() {
+	updateStacking: function () {
 		if (this.$.drawer.hasNode()) {
 			this.set('stacked', this.shouldStack());
 		}
@@ -645,7 +649,7 @@ var ListActions = module.exports = kind(
 	/**
 	* @private
 	*/
-	shouldStack: function() {
+	shouldStack: function () {
 		var i, optionGroup,
 		    nVisibleActions = 0;
 
@@ -662,7 +666,7 @@ var ListActions = module.exports = kind(
 	/**
 	* @private
 	*/
-	stackedChanged: function() {
+	stackedChanged: function () {
 		if (this.stacked) {
 			this.$.drawer.addClass('stacked');
 			this.stackMeUp();
@@ -682,7 +686,7 @@ var ListActions = module.exports = kind(
 	/**
 	* @private
 	*/
-	stackMeUp: function() {
+	stackMeUp: function () {
 		var optionGroup, i;
 
 		if (this.standardHeight) {
@@ -701,7 +705,7 @@ var ListActions = module.exports = kind(
 	/**
 	* @private
 	*/
-	unStackMeUp: function() {
+	unStackMeUp: function () {
 		var containerHeight, optionGroup, i;
 		if (this.standardHeight) {
 			this.$.drawer.applyStyle('height', dom.unit( ri.scale(this.standardHeight), 'rem'));
@@ -716,7 +720,7 @@ var ListActions = module.exports = kind(
 	/**
 	* @private
 	*/
-	handleResize: function() {
+	handleResize: function () {
 		this.resetCachedValues();
 
 		// If drawer is collapsed, resize it the next time it is opened
@@ -730,18 +734,18 @@ var ListActions = module.exports = kind(
 	/**
 	* @private
 	*/
-	resizeDrawer: function() {
+	resizeDrawer: function () {
 		this.updateStacking();
 	},
 
 	/**
 	* @private
 	*/
-	optionSelected: function(sender, e) {
+	optionSelected: function (sender, e) {
 		this.startJob('expandContractJob', 'expandContractJob', 300);
 	},
 
-	expandContractJob: function(sender, e) {
+	expandContractJob: function (sender, e) {
 		if (this.getOpen() && this.autoCollapse && !this.noAutoCollapse) {
 			this.expandContract();
 		}
@@ -750,7 +754,7 @@ var ListActions = module.exports = kind(
 	/**
 	* @private
 	*/
-	getContainerBounds: function() {
+	getContainerBounds: function () {
 		this.containerBounds = this.containerBounds || this.$.listActions.getBounds();
 		return this.containerBounds;
 	},
@@ -758,7 +762,7 @@ var ListActions = module.exports = kind(
 	/**
 	* @private
 	*/
-	resetCachedValues: function() {
+	resetCachedValues: function () {
 		this.headerBounds = null;
 		this.clientBounds = null;
 		this.containerBounds = null;
@@ -767,7 +771,7 @@ var ListActions = module.exports = kind(
 	/**
 	* @private
 	*/
-	capturedSpotlightFocus: function(sender, e) {
+	capturedSpotlightFocus: function (sender, e) {
 		// We need to prevent header children below the drawer from being focused
 		if (e.originator.isDescendantOf(this.$.drawer.parent) &&
 			!e.originator.isDescendantOf(this.$.drawer)) {

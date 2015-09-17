@@ -79,6 +79,7 @@ module.exports = kind(
 		ondown: 'down',
 		onhold: 'hold',
 		onrelease: 'release',
+		onSpotlightBlur: 'release',
 		onSpotlightFocused: 'noop',
 		onActivate: 'noop'
 	},

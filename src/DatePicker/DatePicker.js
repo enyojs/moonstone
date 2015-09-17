@@ -194,27 +194,27 @@ module.exports = kind(
 			case 'd':
 				digits = (ordering.indexOf('dd') > -1) ? 2 : null;
 				pickers.push(this.createComponent(
-					{classes: 'moon-date-picker-wrap', components:[
+					{classes: 'moon-date-time-picker-wrap', components:[
 						{kind: IntegerPicker, name:'day', classes:'moon-date-picker-field', wrap:true, digits:digits, min:1,
 						max: values.maxDays, value: values.date, onChange: 'pickerChanged'},
-						{name: 'dayLabel', content: this.dayText, classes: 'moon-date-picker-label moon-divider-text'}
+						{name: 'dayLabel', content: this.dayText, classes: 'moon-date-time-picker-label moon-divider-text'}
 					]}
 				));
 				break;
 			case 'M':
 				digits = (ordering.indexOf('MM') > -1) ? 2 : null;
 				pickers.push(this.createComponent(
-					{classes: 'moon-date-picker-wrap', components:[
+					{classes: 'moon-date-time-picker-wrap', components:[
 						{kind: IntegerPicker, name:'month', classes:'moon-date-picker-field', wrap:true, min:1, max:values.maxMonths, value:values.month, onChange: 'pickerChanged'},
-						{name: 'monthLabel', content: this.monthText, classes: 'moon-date-picker-label moon-divider-text'}
+						{name: 'monthLabel', content: this.monthText, classes: 'moon-date-time-picker-label moon-divider-text'}
 					]}
 				));
 				break;
 			case 'y':
 				pickers.push(this.createComponent(
-					{classes: 'moon-date-picker-wrap year', components:[
+					{classes: 'moon-date-time-picker-wrap year', components:[
 						{kind: IntegerPicker, name:'year', classes:'moon-date-picker-field year', value:values.fullYear, min:this.getMinYear(), max:this.getMaxYear(), onChange: 'pickerChanged'},
-						{name: 'yearLabel', content: this.yearText, classes: 'moon-date-picker-label moon-divider-text'}
+						{name: 'yearLabel', content: this.yearText, classes: 'moon-date-time-picker-label moon-divider-text'}
 					]}
 				));
 				break;

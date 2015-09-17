@@ -18,6 +18,9 @@ var
 	ScrollStrategy = require('../ScrollStrategy'),
 	TouchScrollStrategy = ScrollStrategy.Touch;
 
+var
+	Spotlight = require('spotlight'),
+	$L = require('../i18n');
 /**
 * Fires when the currently selected value changes.
 *
@@ -209,7 +212,7 @@ module.exports = kind(
 		// FIXME: TranslateScrollStrategy doesn't work with the current design of this component so
 		// we're forcing TouchScrollStrategy
 		{kind: Scroller, strategyKind: TouchScrollStrategy, thumb: false, touch: true, useMouseWheel: false, classes: 'moon-scroll-picker', components:[
-			{name: 'repeater', kind: FlyweightRepeater, classes: 'moon-scroll-picker-repeater', ondragstart: 'dragstart', onSetupItem: 'setupItem', noSelect: true, components: [
+			{name: 'repeater', kind: FlyweightRepeater, classes: 'moon-scroll-picker-repeater', ondragstart: 'dragstart', onSetupItem: 'setupItem', noSelect: true, accessibilityRole: 'spinbutton', components: [
 				{name: 'item', kind: Control, classes: 'moon-scroll-picker-item'}
 			]},
 			{name: 'buffer', kind: Control, accessibilityDisabled: true, classes: 'moon-scroll-picker-buffer'}
@@ -247,7 +250,7 @@ module.exports = kind(
 	*/
 	create: function () {
 		Control.prototype.create.apply(this, arguments);
-		this.verifyValue();
+		this.rangeChanged();
 		this.updateOverlays();
 	},
 
@@ -257,7 +260,6 @@ module.exports = kind(
 	rendered: function () {
 		Control.prototype.rendered.apply(this, arguments);
 		this.width = null;
-		this.rangeChanged();
 		this.minWidthChanged();
 		this.scrollToValue();
 		this.$.scroller.getStrategy().setFixedTime(false);
@@ -694,19 +696,29 @@ module.exports = kind(
 	// Accessibility
 
 	/**
-	* @default spinbutton
+	* @default $L('change a value with up/down button')
 	* @type {String}
-	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityRole
+	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityHint
 	* @public
 	*/
-	accessibilityRole: 'spinbutton',
+	accessibilityHint: $L('change a value with up/down button'),
 
 	/**
 	* @private
 	*/
 	ariaObservers: [
-		{from: 'min', to: 'aria-valuemin'},
-		{from: 'max', to: 'aria-valuemax'},
-		{from: 'value', to: 'aria-valuenow'}
+		{from: 'min', method: function () {
+			this.$.repeater.setAriaAttribute('aria-valuemin', this.min);
+		}},
+		{from: 'max', method: function () {
+			this.$.repeater.setAriaAttribute('aria-valuemax', this.max);
+		}},
+		{from: 'value', method: function () {
+			// It reads changed value only the case spotlight focus is on IntegerPicker
+			if (Spotlight.getCurrent() === this) {
+				this.$.repeater.setAriaAttribute('aria-valuenow', this.value);
+			}
+			this.set('accessibilityLabel', this.value);
+		}}
 	]
 });

@@ -1,8 +1,8 @@
 require('moonstone');
 
 /**
-* Contains the declaration for the {@link moon.Drawer} and {@link moon.FullScreenDrawer} kinds.
-* @module moonstone/Drawer
+* Contains the declaration for the {@link module:moonstone/Drawers~Drawer} kind.
+* @module moonstone/Drawers
 */
 
 var
@@ -26,7 +26,7 @@ var
 * Fires when either the main drawer or the control drawer is activated. No event-specific
 * data is sent with this event.
 *
-* @event moon.Drawer#onActivate
+* @event moonstone/Drawers~Drawer#onActivate
 * @type {Object}
 * @public
 */
@@ -35,7 +35,7 @@ var
 * Fires when either the main drawer or the control drawer is deactivated. No event-specific
 * data is sent with this event.
 *
-* @event moon.Drawer#onDeactivate
+* @event moonstone/Drawers~Drawer#onDeactivate
 * @type {Object}
 * @public
 */
@@ -44,33 +44,38 @@ var
 * Fires when either the main drawer or the control drawer completes it animation. No event-specific
 * data is sent with this event.
 *
-* @event moon.Drawer#onDrawerAnimationEnd
+* @event moonstone/Drawers~Drawer#onDrawerAnimationEnd
 * @type {Object}
 * @public
 */
 
 /**
-* {@link moon.Drawer}, a control designed for use with {@link moon.Drawers},
-* consists of two drawers and a handle.
+* {@link module:moonstone/Drawers~Drawer}, a control designed for use with
+* {@link module:moonstone/Drawers~Drawers}, consists of two drawers and a handle.
 * The main drawer is populated with any child components that are specified in
 * the constructor; the optional second drawer (control drawer) is populated
 * with components passed into the
-* [controlDrawerComponents]{@link moon.Drawer#controlDrawerComponents} property.
+* [controlDrawerComponents]{@link module:moonstone/Drawers~Drawer#controlDrawerComponents}
+* property.
 *
 * If the second drawer has no components, the main drawer will take up the full
 * height of the containing view; otherwise, its height will be equal to the
 * height of the containing view minus the height of the `controlDrawerComponents`.
 *
-* A call to [toggleDrawer()]{@link moon.Drawer#toggleDrawer} will open or close
-* the control drawer if `controlDrawerComponents` is non-empty; otherwise, it will
-* open or close the main drawer.
+* A call to [toggleDrawer()]{@link module:moonstone/Drawers~Drawer#toggleDrawer}
+* will open or close the control drawer if `controlDrawerComponents` is
+* non-empty; otherwise, it will open or close the main drawer.
 *
 * The control's child components may be of any kind.
 *
 * ```
+* 	var
+* 		kind = require('enyo/kind'),
+* 		Drawer = require('moonstone/Drawers').Drawer;
+*
 *		{
 *			name: 'musicDrawer',
-*			kind: 'moon.Drawer',
+*			kind: Drawer,
 *			handle: {name: 'handleButton', content: 'Handle'},
 *			components: [
 *				{content: 'Drawer Content'}
@@ -81,14 +86,13 @@ var
 *		}
 * ```
 *
-* @class moon.Drawer
-* @extends enyo.Control
+* @class Drawer
+* @extends module:enyo/Control~Control
 * @ui
-* @definedby module:moonstone/Drawers
 * @public
 */
 module.exports = kind(
-	/** @lends moon.Drawer.prototype */ {
+	/** @lends module:moonstone/Drawers~Drawer.prototype */ {
 
 	/**
 	* @private
@@ -161,17 +165,17 @@ module.exports = kind(
 	events: {
 
 		/**
-		* {@link moon.Drawer#onActivate}
+		* {@link module:moonstone/Drawers~Drawer#onActivate}
 		*/
 		onActivate: '',
 
 		/**
-		* {@link moon.Drawer#onDeactivate}
+		* {@link module:moonstone/Drawers~Drawer#onDeactivate}
 		*/
 		onDeactivate: '',
 
 		/**
-		* {@link moon.Drawer#onDrawerAnimationEnd}
+		* {@link module:moonstone/Drawers~Drawer#onDrawerAnimationEnd}
 		*/
 		onDrawerAnimationEnd: ''
 	},
@@ -211,8 +215,8 @@ module.exports = kind(
 	},
 
 	/**
-	* If [controlDrawerComponents]{@link moon.Drawer#controlDrawerComponents} is
-	* non-empty, toggles the visibility state of the control drawer; otherwise,
+	* If [controlDrawerComponents]{@link module:moonstone/Drawers~Drawer#controlDrawerComponents}
+	* is non-empty, toggles the visibility state of the control drawer; otherwise,
 	* toggles the visibility state of the main drawer.
 	*
 	* @public
@@ -227,8 +231,8 @@ module.exports = kind(
 	},
 
 	/**
-	* @fires moon.Drawer#onActivate
-	* @fires moon.Drawer#onDeactivate
+	* @fires module:moonstone/Drawers~Drawer#onActivate
+	* @fires module:moonstone/Drawers~Drawer#onDeactivate
 	* @private
 	*/
 	openChanged: function () {
@@ -247,8 +251,8 @@ module.exports = kind(
 	},
 
 	/**
-	* @fires moon.Drawer#onActivate
-	* @fires moon.Drawer#onDeactivate
+	* @fires module:moonstone/Drawers~Drawer#onActivate
+	* @fires module:moonstone/Drawers~Drawer#onDeactivate
 	* @private
 	*/
 	controlsOpenChanged: function () {
@@ -318,8 +322,9 @@ module.exports = kind(
 	},
 
 	/**
-	* Called after {@link moon.Drawer#open} or {@link moon.Drawer#controlsOpen) changes to animate
-	* the drawers position.
+	* Called after {@link module:moonstone/Drawers~Drawer#open} or
+	* {@link moonstone/Drawers~Drawer#controlsOpen) changes to animate the
+	* drawer's position.
 	*
 	* @private
 	*/

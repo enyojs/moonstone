@@ -145,12 +145,14 @@ module.exports = kind(
 			currentSpottable = current && Spotlight.isSpottable(current),
 			isChild = current && current.isDescendantOf(this);
 
+		this.$.header.stopMarquee();
+
 		this.spotlightDisabled = true; // we do not want to allow 5-way spotting during transition
 
 		// This is highly related to the order in which "preTransition" is fired for the outgoing
 		// and the incoming panel. The outgoing panel's method is fired before that of the incoming
 		// panel.
-		if (this.state == States.ACTIVE && !currentSpottable) {
+		if (this.state == States.ACTIVATING && !currentSpottable) {
 			// We spot the dummy element of the incoming panel so that the spotlightDisabled
 			// property of the outgoing panel behaves properly (correctly attempts to spot the
 			// Spotlight container element of the outgoing panel); if we do not do this, pressing a
@@ -159,7 +161,7 @@ module.exports = kind(
 				this.$.spotlightPlaceholder.spotlight = true;
 				Spotlight.spot(this.$.spotlightPlaceholder);
 			}
-		} else if (this.state != States.ACTIVE && (isChild || !currentSpottable)) {
+		} else if (this.state == States.DEACTIVATING && (isChild || !currentSpottable)) {
 			Spotlight.unspot();
 		}
 	},
@@ -181,7 +183,10 @@ module.exports = kind(
 			this.didClientRender();
 		}
 
-		if (this.state == States.ACTIVE) this.checkSpottability();
+		if (this.state == States.ACTIVE) {
+			this.checkSpottability();
+			this.$.header.startMarquee();
+		}
 	},
 
 	/**
@@ -217,8 +222,36 @@ module.exports = kind(
 	*/
 	didClientRender: function () {
 		this.$.client.addClass('populated');
-	}
+	},
 
+	// Accessibility
+
+	/**
+	* @private
+	*/
+	accessibilityRole: 'region',
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: ['title', 'accessibilityLabel', 'accessibilityHint'], method: function () {
+			var content = this.title,
+				prefix = this.accessibilityLabel || content || null,
+				label = this.accessibilityHint && prefix && (prefix + ' ' + this.accessibilityHint) ||
+						this.accessibilityHint ||
+						this.accessibilityLabel ||
+						prefix ||
+						null;
+
+			this.setAriaAttribute('aria-label', label);
+		}}
+	],
+
+	/**
+	* @private
+	*/
+	accessibilityLive: 'off'
 });
 
 module.exports.States = States;

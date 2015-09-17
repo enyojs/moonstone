@@ -733,10 +733,19 @@ module.exports = kind(
 	accessibilityRole: 'progressbar',
 
 	/**
+	* ProgressBar isn't spottable so we'll make it focusable manually
+	*
+	* @private
+	*/
+	tabIndex: -1,
+
+	/**
 	* @private
 	*/
 	ariaObservers: [
-		{path: ['progress', 'popupContent'], method: 'ariaValue'}
+		// TODO: Observing $.popupLabel.content to minimize the observed members. Some refactoring
+		// of the label determination could help here - rjd
+		{path: ['progress', 'popup', '$.popupLabel.content'], method: 'ariaValue'}
 	],
 
 	/**
@@ -745,7 +754,7 @@ module.exports = kind(
 	* @private
 	*/
 	ariaValue: function () {
-		var attr = this.popupContent ? 'aria-valuetext' : 'aria-valuenow';
-		this.setAriaAttribute(attr, this.popupContent || this.progress);
+		var attr = this.popup ? 'aria-valuetext' : 'aria-valuenow';
+		this.setAriaAttribute(attr, (this.popup && this.$.popupLabel)? this.$.popupLabel.get('content') : this.progress);
 	}
 });

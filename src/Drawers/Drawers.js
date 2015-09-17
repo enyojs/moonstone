@@ -21,27 +21,34 @@ var
 	HistorySupport = require('../HistorySupport');
 
 var
+	$L = require('../i18n'),
 	MoonDrawer = require('./Drawer');
 
 /**
-* {@link module:moonstone/Drawers~Drawers} is a container kind designed to hold a set of {@link module:moonstone/Drawer~Drawer}
-* objects and client content. The [drawers]{@link module:moonstone/Drawers~Drawers#drawers} property accepts
-* an array of Drawer controls. The associated handles are positioned in their own small
-* drawer, centered at the top of the "dresser" (the region containing the array of Drawer
-* controls and the activator nub).
+* {@link module:moonstone/Drawers~Drawers} is a container kind designed to hold
+* a set of {@link module:moonstone/Drawers~Drawer} objects and client content.
+* The [drawers]{@link module:moonstone/Drawers~Drawers#drawers} property accepts
+* an array of Drawer controls. The associated handles are positioned in their
+* own small drawer, centered at the top of the "dresser" (the region containing
+* the array of Drawer controls and the activator nub).
 *
-* When a handle is selected, it opens the corresponding Drawer object's main drawer or
-* control drawer, depending on how the Drawer object is configured. The control's child
-* components may be of any kind.
+* When a handle is selected, it opens the corresponding Drawer object's main
+* drawer or control drawer, depending on how the Drawer object is configured.
+* The control's child components may be of any kind.
 *
 * ```
+* var
+* 	kind = require('enyo/kind'),
+* 	Drawers = require('moonstone/Drawers'),
+* 	Drawer = Drawers.Drawer;
+*
 * {
-*	kind: 'moon.Drawers',
+*	kind: Drawers,
 *	drawers: [
 *		{
 *			name: 'musicDrawer',
-*			kind: 'moon.Drawer',
-*			handle: {kind: 'moon.DrawerHandle', content: 'Handle'},
+*			kind: Drawer,
+*			handle: {content: 'Handle'},
 *			components: [
 *				{content: 'Drawer Content'}
 *			],
@@ -91,7 +98,7 @@ module.exports = kind(
 	published: {
 
 		/**
-		* Populate with an array of {@link module:moonstone/Drawer~Drawer} components.
+		* Populate with an array of {@link module:moonstone/Drawers~Drawer} components.
 		*
 		* @type {Object[]}
 		* @default null
@@ -160,6 +167,15 @@ module.exports = kind(
 	clientTop: 0,
 
 	/**
+	* Value for Drawer open or close state
+	*
+	* @type {Boolean}
+	* @default false
+	* @private
+	*/
+	_activated: false,
+
+	/**
 	* @private
 	*/
 	handlers: {
@@ -202,7 +218,7 @@ module.exports = kind(
 		this.drawers = this.$.drawers.createComponents(this.drawers, {kind: MoonDrawer, owner: this.owner});
 		if (!options.accelerate) this.createComponent({name: 'animator', kind: Animator, onStep: 'animationStep'});
 		this.setupHandles();
-		this.updateActivator();
+		this._activatedChanged();
 	},
 
 	/**
@@ -262,9 +278,16 @@ module.exports = kind(
 	* @private
 	*/
 	updateActivator: function (open) {
+		this.set('_activated', !!open, {force: true});
+	},
+
+	/**
+	* @private
+	*/
+	_activatedChanged: function () {
 		var icon, src;
 
-		if (open) {
+		if (this._activated) {
 			src = '';
 			icon = this.iconOpen;
 		} else {
@@ -272,7 +295,7 @@ module.exports = kind(
 			icon = (src && !this.icon) ? '' : (this.icon || this.iconClosed);
 		}
 
-		this.$.activator.addRemoveClass('open', open);
+		this.$.activator.addRemoveClass('open', this._activated);
 		this.$.activatorIcon.set('src', src);
 		this.$.activatorIcon.set('icon', icon);
 	},
@@ -430,8 +453,8 @@ module.exports = kind(
 	},
 
 	/**
-	* When `!options.accelerate`, this handles {@link enyo/Animator#event:onStep} to update the
-	* position of the client area
+	* When `!options.accelerate`, this handles {@link module:enyo/Animator~Animator#onStep}
+	* to update the position of the client area.
 	*
 	* @private
 	*/
@@ -489,7 +512,22 @@ module.exports = kind(
 	backKeyHandler: function () {
 		this.closeHandleContainer();
 		return true;
-	}
+	},
+
+	// Accessibility
+
+	ariaObservers: [
+		{path: ['accessibilityLabel', 'accessibilityHint', '_activated'], method: function() {
+			// According to drawer is open or close or handleContainer state, drawers activator label is defined.
+			// In addition, if user add accessibilityLabel, label is determined with accessibilityLabel instead of default string.
+			// However, if user add only accessibilityHint, hint text is appended to default string.
+			var defaultLabel = (this._activated || this.$.handleContainer.getOpen()) ? $L('Close drawer') : $L('Open drawer'),
+				prefix = this.accessibilityLabel || defaultLabel,
+				label = this.accessibilityHint && (prefix + ' ' + this.accessibilityHint) ||
+						prefix;
+			this.$.activator.set('accessibilityLabel', label);
+		}}
+	]
 });
 
 module.exports.Drawer = MoonDrawer;

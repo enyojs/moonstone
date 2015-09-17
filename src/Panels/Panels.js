@@ -281,7 +281,7 @@ module.exports = kind(
 			]},
 			{name: 'client', kind: Control, tag: null}
 		]},
-		{name: 'showHideHandle', kind: PanelsHandle, classes: 'hidden', canGenerate: false, ontap: 'handleTap', onSpotlightLeft: 'handleSpotLeft', onSpotlightRight: 'handleSpotRight', onSpotlightFocused: 'handleFocused', onSpotlightBlur: 'handleBlur'},
+		{name: 'showHideHandle', kind: PanelsHandle, classes: 'hidden', canGenerate: false, ontap: 'handleTap', onSpotlightLeft: 'handleSpotLeft', onSpotlightRight: 'handleSpotRight', onSpotlightFocused: 'handleFocused', onSpotlightBlur: 'handleBlur', tabIndex: -1},
 		{name: 'showHideAnimator', kind: StyleAnimator, onComplete: 'showHideAnimationComplete'}
 	],
 
@@ -1336,6 +1336,22 @@ module.exports = kind(
 		} else if(this.panelStack) {
 			this.panelStack = null;
 		}
-	}
+	},
+
+	// Accessibility
+
+	ariaObservers: [
+		{path: 'index', method: function () {
+			var panels = this.getPanels(),
+				active = this.getActive(),
+				l = panels.length,
+				panel;
+
+			while (--l >= 0) {
+				panel = panels[l];
+				panel.set('accessibilityRole', panel === active ? 'alert' : 'region');
+			}
+		}}
+	]
 
 });
