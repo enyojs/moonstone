@@ -45,6 +45,11 @@ module.exports = kind(
 	/**
 	* @private
 	*/
+	tag: 'span',
+
+	/**
+	* @private
+	*/
 	mixins: [MarqueeSupport],
 
 	/**
