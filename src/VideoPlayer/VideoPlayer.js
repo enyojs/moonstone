@@ -69,7 +69,7 @@ var
 * transport [controls]{@link module:enyo/Control~Control}, optional app-specific controls, and an information
 * bar for displaying video information and player feedback.
 *
-* All of the standard HTML5 media [events]{@glossary event} bubbled from `enyo.Video` will
+* All of the standard HTML5 media [events]{@glossary event} bubbled from `enyo/Video` will
 * also bubble from this control.
 *
 * Client [components]{@link module:enyo/Component~Component} added to the `components` block are rendered into
@@ -82,18 +82,24 @@ var
 * block will be created as a header for the video.
 *
 * ```javascript
+* var
+* 	kind = require('enyo/kind'),
+* 	IconButton = require('moonstone/IconButton'),
+* 	VideoHeaderBackground = require('moonstone/VideoHeaderBackground'),
+* 	VideoInfoHeader = require('moonstone/VideoInfoHeader'),
+* 	VideoPlayer = require('moonstone/VideoPlayer');
 * {
-*	kind: 'moon.VideoPlayer',
+*	kind: VideoPlayer,
 *	src: 'http://www.w3schools.com/html/mov_bbb.mp4',
 *	components: [
 *		// Custom icons for app-specific features
-*		{kind: 'moon.IconButton', src: 'assets/feature1.png', ontap: 'feature1'},
-*		{kind: 'moon.IconButton', src: 'assets/feature2.png', ontap: 'feature2'},
-*		{kind: 'moon.IconButton', src: 'assets/feature3.png', ontap: 'feature3'}
+*		{kind: IconButton, src: 'assets/feature1.png', ontap: 'feature1'},
+*		{kind: IconButton, src: 'assets/feature2.png', ontap: 'feature2'},
+*		{kind: IconButton, src: 'assets/feature3.png', ontap: 'feature3'}
 *	],
 *	infoComponents: [
-*		{kind: 'moon.VideoHeaderBackground', components: [
-*			{kind: 'moon.VideoInfoHeader', ... }
+*		{kind: VideoHeaderBackground, components: [
+*			{kind: VideoInfoHeader, ... }
 *		]
 *	],
 * }
@@ -167,8 +173,8 @@ module.exports = kind(
 		/**
 		* A [component]{@link module:enyo/Component~Component} definition block describing components to
 		* be created as an information block above the video. Usually, this contains a
-		* [moon.VideoInfoBackground]{@link module:moonstone/VideoInfoBackground~VideoInfoBackground} with a
-		* [moon.VideoInfoHeader]{@link module:moonstone/VideoInfoHeader~VideoInfoHeader} in it.
+		* [moonstone/VideoInfoBackground]{@link module:moonstone/VideoInfoBackground~VideoInfoBackground} with a
+		* [moonstone/VideoInfoHeader]{@link module:moonstone/VideoInfoHeader~VideoInfoHeader} in it.
 		*
 		* @type {Object}
 		* @default null
@@ -848,7 +854,7 @@ module.exports = kind(
 	/**
 	* Returns the underlying {@link module:enyo/Video~Video} control (wrapping the HTML5 video node).
 	*
-	* @returns {enyo.Video} - An {@link module:enyo/Video~Video} control.
+	* @returns {@link module:enyo/Video~Video} - An {@link module:enyo/Video~Video} control.
 	* @public
 	*/
 	getVideo: function() {

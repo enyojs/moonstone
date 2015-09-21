@@ -13,13 +13,13 @@ var
 	Component = require('enyo/Component');
 
 /**
-* @typedef {Object} enyo.StyleAnimator~AnimationDefinitionObject
+* @typedef {Object} module:moonstone/StyleAnimator~StyleAnimator~AnimationDefinitionObject
 * @property {String} name - An optional name for the animation. If not specified,
 * a name will be generated.
 * @property {Number} duration - An optional duration. If not specified, the
-*	[default duration]{@link module:enyo/StyleAnimator~StyleAnimator#defaultDuration} will be used.
+*	[default duration]{@link module:moonstone/StyleAnimator~StyleAnimator#defaultDuration} will be used.
 * @property {Object} timingFunction - An optional timing function. If not specified, the
-*	[default timing function]{@link module:enyo/StyleAnimator~StyleAnimator#deafultTimingFunction} will be used.
+*	[default timing function]{@link module:moonstone/StyleAnimator~StyleAnimator#defaultTimingFunction} will be used.
 * @property {String} direction - `'forward'` or `'backward'`. Currently unused.
 * @property {Object[]} keyframes - Animation keyframes.
 * @public
@@ -28,7 +28,7 @@ var
 /**
 * Fires when an animation step occurs.
 *
-* @event enyo.StyleAnimator#onStep
+* @event module:moonstone/StyleAnimator~StyleAnimator#onStep
 * @type {Object}
 * @property {Object} animation - A reference to the animation that generated the event.
 * @public
@@ -37,17 +37,17 @@ var
 /**
 * Fires when the animation completes.
 *
-* @event enyo.StyleAnimator#onComplete
+* @event module:moonstone/StyleAnimator~StyleAnimator#onComplete
 * @type {Object}
 * @property {Object} animation - A reference to the animation that completed.
 * @public
 */
 
 /**
-* {@link module:enyo/StyleAnimator~StyleAnimator} is a basic animation component.  Call
-* [play()]{@link module:enyo/StyleAnimator~StyleAnimator#play} to start the animation.  The animation will run for
+* {@link module:moonstone/StyleAnimator~StyleAnimator} is a basic animation component.  Call
+* [play()]{@link module:moonstone/StyleAnimator~StyleAnimator#play} to start the animation.  The animation will run for
 * the period of time (in milliseconds) specified by its `duration`, subject to its
-* `timingFunction` and `direction` (See: {@link module:enyo/StyleAnimator~StyleAnimator~AnimationDefinitionObject}).
+* `timingFunction` and `direction` (See: {@link module:moonstone/StyleAnimator~StyleAnimator~AnimationDefinitionObject}).
 *
 * @class StyleAnimator
 * @extends module:enyo/Component~Component
@@ -129,7 +129,7 @@ module.exports = kind(
 	* Returns animation object reflecting the passed-in properties, while also adding it to the
 	* `animations` array.
 	*
-	* @param {enyo.StyleAnimator~AnimationDefinitionObject} props - An animation definition hash.
+	* @param {module:moonstone/StyleAnimator~StyleAnimator~AnimationDefinitionObject} props - An animation definition hash.
 	* @public
 	*/
 	newAnimation: function (props) {
