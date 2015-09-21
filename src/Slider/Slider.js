@@ -262,7 +262,6 @@ module.exports = kind(
 	* @private
 	*/
 	handlers: {
-		ontap: 'tapAreaTapped',
 		ondragstart: 'dragstart',
 		ondrag: 'drag',
 		ondragfinish: 'dragfinish',
@@ -684,7 +683,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	tapAreaTapped: function (sender, e) {
+	tap: function (sender, e) {
 		if (this.tappable && !this.disabled && (e.originator === this || e.originator === this.$.slider || e.originator === this.$.bar || e.originator === this.$.bgbar)) {
 			var v = this.calcKnobPosition(e);
 			v = (this.increment) ? this.calcIncrement(v) : v;
