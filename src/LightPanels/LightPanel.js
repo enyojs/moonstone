@@ -1,6 +1,6 @@
 /**
-* Contains the declaration for the {@link module:moonstone/LightPanel~LightPanel} kind.
-* @module moonstone/LightPanel
+* Contains the declaration for the {@link module:moonstone/LightPanels~LightPanel} kind.
+* @module moonstone/LightPanels
 */
 
 var
@@ -15,7 +15,7 @@ var
 	Header = require('../Header');
 
 /**
-* A light-weight panels implementation that has basic support for side-to-side transitions
+* A lightweight panels implementation that has basic support for side-to-side transitions
 * between child components.
 *
 * @class LightPanel
@@ -24,7 +24,7 @@ var
 * @public
 */
 module.exports = kind(
-	/** @lends module:moonstone/LightPanel~LightPanel.prototype */ {
+	/** @lends module:moonstone/LightPanels~LightPanel.prototype */ {
 
 	/**
 	* @private
@@ -103,7 +103,7 @@ module.exports = kind(
 	* @private
 	*/
 	components: [
-		{kind: Header, name: 'header', type: 'medium', marqueeOnRender: false, marqueeOnRenderDelay: 1000},
+		{kind: Header, name: 'header', type: 'medium', marqueeOnRenderDelay: 1000},
 		{name: 'client', classes: 'client'},
 		{name: 'spotlightPlaceholder', spotlight: false, style: 'width:0;height:0;'}
 	],
@@ -152,7 +152,7 @@ module.exports = kind(
 		// This is highly related to the order in which "preTransition" is fired for the outgoing
 		// and the incoming panel. The outgoing panel's method is fired before that of the incoming
 		// panel.
-		if (this.state == States.ACTIVE && !currentSpottable) {
+		if (this.state == States.ACTIVATING && !currentSpottable) {
 			// We spot the dummy element of the incoming panel so that the spotlightDisabled
 			// property of the outgoing panel behaves properly (correctly attempts to spot the
 			// Spotlight container element of the outgoing panel); if we do not do this, pressing a
@@ -161,7 +161,7 @@ module.exports = kind(
 				this.$.spotlightPlaceholder.spotlight = true;
 				Spotlight.spot(this.$.spotlightPlaceholder);
 			}
-		} else if (this.state != States.ACTIVE && (isChild || !currentSpottable)) {
+		} else if (this.state == States.DEACTIVATING && (isChild || !currentSpottable)) {
 			Spotlight.unspot();
 		}
 	},
@@ -216,14 +216,42 @@ module.exports = kind(
 	/**
 	* This overridable (extendable) method is called when the client area has been rendered. This
 	* can be used to perform any actions that should occur once the client components, for example,
-	* of the {@link moon.LightPanel} have been created and rendered, such as custom focusing logic.
+	* of the {@link module:moonstone/LightPanels~LightPanel} have been created and rendered, such as custom focusing logic.
 	*
 	* @public
 	*/
 	didClientRender: function () {
 		this.$.client.addClass('populated');
-	}
+	},
 
+	// Accessibility
+
+	/**
+	* @private
+	*/
+	accessibilityRole: 'region',
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: ['title', 'accessibilityLabel', 'accessibilityHint'], method: function () {
+			var content = this.title,
+				prefix = this.accessibilityLabel || content || null,
+				label = this.accessibilityHint && prefix && (prefix + ' ' + this.accessibilityHint) ||
+						this.accessibilityHint ||
+						this.accessibilityLabel ||
+						prefix ||
+						null;
+
+			this.setAriaAttribute('aria-label', label);
+		}}
+	],
+
+	/**
+	* @private
+	*/
+	accessibilityLive: 'off'
 });
 
 module.exports.States = States;

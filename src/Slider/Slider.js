@@ -17,6 +17,9 @@ var
 	ProgressBar = require('../ProgressBar'),
 	IconButton = require('../IconButton');
 
+var
+	$L = require('../i18n');
+
 /**
 * Fires when bar position is set.
 *
@@ -51,8 +54,8 @@ var
 *
 * ```javascript
 * var
-* 	kind = require('enyo/kind'),
-* 	Slider = require('moonstone/Slider');
+*	kind = require('enyo/kind'),
+*	Slider = require('moonstone/Slider');
 *
 * {kind: Slider, value: 30}
 * ```
@@ -284,18 +287,42 @@ module.exports = kind(
 	* @private
 	*/
 	jumpWrapperComponents: [
-		{name: 'buttonLeft', kind: IconButton, backgroundOpacity: 'transparent', classes: 'moon-slider-button left', icon: 'arrowlargeleft', onSpotlightKeyDown: 'configureSpotlightHoldPulse', onSpotlightSelect: 'previous', ondown: 'downLeft', onholdpulse: 'holdLeft', ondragstart: 'preventDrag', defaultSpotlightDisappear: 'buttonRight'},
+		{
+			name: 'buttonLeft',
+			kind: IconButton,
+			backgroundOpacity: 'transparent',
+			classes: 'moon-slider-button left',
+			icon: 'arrowlargeleft',
+			onSpotlightSelect: 'preventEvent',
+			onSpotlightKeyDown: 'jumpButtonTriggered',
+			onSpotlightKeyUp: 'hideKnobStatus',
+			ondown: 'jumpButtonTriggered',
+			onup: 'hideKnobStatus',
+			onholdpulse: 'jumpButtonTriggered',
+			onrelease: 'hideKnobStatus',
+			ondragstart: 'preventEvent',
+			defaultSpotlightDisappear: 'buttonRight'
+		},
 		{name: 'slider', classes: 'moon-slider', spotlight: true, accessibilityLive: 'polite'},
-		{name: 'buttonRight', kind: IconButton, backgroundOpacity: 'transparent', classes: 'moon-slider-button right', icon: 'arrowlargeright', onSpotlightKeyDown: 'configureSpotlightHoldPulse', onSpotlightSelect: 'next', ondown: 'downRight', onholdpulse: 'holdRight', ondragstart: 'preventDrag', defaultSpotlightDisappear: 'buttonLeft'}
+		{
+			name: 'buttonRight',
+			kind: IconButton,
+			backgroundOpacity: 'transparent',
+			classes: 'moon-slider-button right',
+			icon: 'arrowlargeright',
+			onSpotlightSelect: 'preventEvent',
+			onSpotlightKeyDown: 'jumpButtonTriggered',
+			onSpotlightKeyUp: 'hideKnobStatus',
+			ondown: 'jumpButtonTriggered',
+			onup: 'hideKnobStatus',
+			onholdpulse: 'jumpButtonTriggered',
+			onrelease: 'hideKnobStatus',
+			ondragstart: 'preventEvent',
+			defaultSpotlightDisappear: 'buttonLeft'
+		}
 	],
 
 	/**
-	* @private
-	*/
-	holdConfig: {endHold: 'onLeave', delay: 300},
-
-	/**
-	* @private
 	*/
 	animatingTo: null,
 
@@ -707,7 +734,7 @@ module.exports = kind(
 	* @private
 	*/
 	spotSelect: function () {
-		this.selected = !this.selected;
+		this.set('selected', !this.selected);
 		if (this.popup) {
 			this.$.popup.setShowing(this.selected);
 			if (this.selected) {
@@ -730,7 +757,7 @@ module.exports = kind(
 			if (this.$.popup) {
 				this.$.popup.hide();
 			}
-			this.selected = false;
+			this.set('selected', false);
 		}
 	},
 
@@ -838,58 +865,25 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	downLeft: function (sender, e) {
-		// checking button explicitly because it may be disabled due to value only
-		if (!this.$.buttonLeft.disabled) {
-			e.configureHoldPulse(this.holdConfig);
-			this.previous();
+	jumpButtonTriggered: function (sender, ev) {
+		var isValidEvent = true;
+		if (!sender.disabled) {
+			if (ev.keyCode != 13 && ev.type == 'onSpotlightKeyDown') {
+				isValidEvent = false;
+			}
+			if (isValidEvent) {
+				if (sender === this.$.buttonLeft) this.previous();
+				else this.next();
+			}
 		}
 	},
 
 	/**
-	* @private
-	*/
-	downRight: function (sender, e) {
-		// checking button explicitly because it may be disabled due to value only
-		if (!this.$.buttonRight.disabled) {
-			e.configureHoldPulse(this.holdConfig);
-			this.next();
-		}
-	},
-
-	/**
-	* @private
-	*/
-	holdLeft: function (sender, event) {
-		if (!this.$.buttonLeft.disabled) {
-			this.previous();
-		}
-	},
-
-	/**
-	* @private
-	*/
-	holdRight: function (sender, event) {
-		if (!this.$.buttonRight.disabled) {
-			this.next();
-		}
-	},
-
-	/**
-	* @private
-	*/
-	configureSpotlightHoldPulse: function (sender, e) {
-		if (e.keyCode === 13) {
-			e.configureHoldPulse(this.holdConfig);
-		}
-	},
-
-	/**
-	* Prevent drag events that start on the left and right jump buttons
+	* Prevent events that start on the left and right jump buttons
 	*
 	* @private
 	*/
-	preventDrag: function (sender, event) {
+	preventEvent: function (sender, event) {
 		return true;
 	},
 
@@ -900,6 +894,7 @@ module.exports = kind(
 	*/
 	previous: function () {
 		this.set('value', this.value - this._jumpIncrementAmount);
+		this.showKnobStatus();
 	},
 
 	/**
@@ -909,6 +904,7 @@ module.exports = kind(
 	*/
 	next: function () {
 		this.set('value', this.value + this._jumpIncrementAmount);
+		this.showKnobStatus();
 	},
 
 	// Accessibility
@@ -930,12 +926,38 @@ module.exports = kind(
 			this.setAriaAttribute('aria-disabled', this.disabled || null);
 		}},
 		{path: 'enableJumpIncrement', method: function () {
+			// if enableJumpIncrement is true we set the spinbutton role to this.$.slider to be able to
+			// read accessibilityHint of buttons.
 			if (this.enableJumpIncrement) {
-				this.$.slider.setAriaAttribute('aria-labelledby', this.id);
+				this.$.slider.set('accessibilityRole', 'slider');
+				this.$.buttonLeft.set('accessibilityHint', $L('press ok button to decrease the value'));
+				this.$.buttonRight.set('accessibilityHint', $L('press ok button to increase the value'));
+			}
+		}},
+		{path: 'selected', method: function () {
+			if (this.selected) {
+				// avoid using readAlert api, temporary set accessibilityRole to alert
+				// this will be reset on resetAccessibilityProperties
+				var hint = (this.get('orientation') == 'horizontal') ? 
+								$L('change a value with left right button') : $L('change a value with up down button');
+				this.set('accessibilityRole', 'alert');
+				this.set('accessibilityLive', 'off');
+				this.set('accessibilityHint', hint);
+			} else {
+				this.resetAccessibilityProperties();
 			}
 		}},
 		{path: ['value', 'popupContent', 'dragging'], method: 'ariaValue'}
 	],
+
+	/** 
+	* @private
+	*/
+	resetAccessibilityProperties : function() {
+		this.set('accessibilityRole', !this.enableJumpIncrement ? 'spinbutton' : null);
+		this.set('accessibilityLive', null);
+		this.set('accessibilityHint', null);
+	},
 
 	/**
 	* Overriding {@link module:moonstone/ProgressBar~ProgressBar#ariaValue} to guard updating value
@@ -944,9 +966,18 @@ module.exports = kind(
 	* @private
 	*/
 	ariaValue: function () {
-		var attr = this.popupContent ? 'aria-valuetext' : 'aria-valuenow';
+		var attr = this.popup ? 'aria-valuetext' : 'aria-valuenow',
+			text = (this.popup && this.$.popupLabel)? this.$.popupLabel.getContent() : this.value;
+			
 		if (!this.dragging) {
-			this.setAriaAttribute(attr, this.popupContent || this.value);
+			this.resetAccessibilityProperties();
+			this.setAriaAttribute(attr, text);
+			if (this.enableJumpIncrement) {
+				this.$.slider.setAriaAttribute(attr, text);
+				this.$.buttonLeft.set('accessibilityLabel', String(text));
+				this.$.buttonRight.set('accessibilityLabel', String(text));
+			}
 		}
+
 	}
 });

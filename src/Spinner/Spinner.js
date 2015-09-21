@@ -225,5 +225,23 @@ module.exports = kind(
 	*/
 	transparentChanged: function() {
 		this.addRemoveClass('moon-spinner-transparent-background', !!this.get('transparent'));
-	}
+	},
+
+	// Accessibility
+
+	/**
+	* @default true
+	* @type {Boolean}
+	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityAlert
+	* @public
+	*/
+	accessibilityAlert: true,
+
+	/**
+	* @default off
+	* @type {String}
+	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityLive
+	* @public
+	*/
+	accessibilityLive: 'off'
 });

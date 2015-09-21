@@ -322,24 +322,36 @@ module.exports = kind(
 	// Accessibility
 
 	/**
+	* spotted and focused can change in sequence but within the same cycle causing the TV to read
+	* changes when spotting a different control. Enabling this will batch up those changes into
+	* one DOM update thereby avoiding this behavior.
+	*
+	* @type {Boolean}
+	* @default true
+	* @private
+	*/
+	accessibilityDefer: true,
+
+	/**
 	* @private
 	*/
 	ariaObservers: [
-		{path: 'focused', method: function () {
-			this.set('accessibilityLive', this.focused ? null : 'polite');
-		}},
-		{path: 'spotted', method: function () {
+		{path: ['spotted', 'focused'], method: function () {
 			var text = '',
 				oInput = this.getInputControl();
 
+			this.set('accessibilityLive', this.focused || !this.spotted ? null : 'polite');
 			if (oInput) {
 				if (oInput instanceof RichText && oInput.hasNode()) {
 					text = (oInput.hasNode().innerText || oInput.getPlaceholder()) + ' ' + $L('edit box');
+				} else if (oInput.type == 'password' && oInput.getValue()) {
+					var character = (oInput.getValue().length > 1) ? $L('characters') : $L('character');
+					text = oInput.getValue().length + ' ' + character + ' ' + $L('edit box');
 				} else {
 					text = (oInput.getValue() || oInput.getPlaceholder()) + ' ' + $L('edit box');
 				}
 			}
-			this.set('accessibilityLabel', this.spotted ? text : null);
+			this.set('accessibilityLabel', this.spotted && !this.focused ? text : null);
 		}}
 	]
 });

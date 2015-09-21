@@ -13,7 +13,8 @@ var
 var
 	ilib = require('enyo-ilib'),
 	dateFactory = require('enyo-ilib/DateFactory'),
-	DateFmt = require('enyo-ilib/DateFmt');
+	DateFmt = require('enyo-ilib/DateFmt'),
+	Locale = require('enyo-ilib/Locale');
 
 var
 	ExpandableListItem = require('../ExpandableListItem');
@@ -30,9 +31,9 @@ var
 */
 
 /**
-* {@link module:moonstone/DateTimePickerBase~DateTimePickerBase} is a base kind implementing fuctionality shared by
-* {@link module:moonstone/DatePicker~DatePicker} and {@link module:moonstone/TimePicker~TimePicker}. It is not intended to be used
-* directly.
+* {@link module:moonstone/DateTimePickerBase~DateTimePickerBase} is a base kind implementing
+* fuctionality shared by {@link module:moonstone/DatePicker~DatePicker} and
+* {@link module:moonstone/TimePicker~TimePicker}. It is not intended to be used directly.
 *
 * @class DateTimePickerBase
 * @extends module:moonstone/ExpandableListItem~ExpandableListItem
@@ -90,23 +91,15 @@ module.exports = kind(
 		noneText: '',
 
 		/**
-		* The locale (in IETF format) used for picker formatting.
+		* This property will be __private__ in the future and is deprecated as a __public__
+		* property. It is used internally and _should not be used otherwise_.
 		*
-		* This setting only applies when the [iLib]{@glossary ilib} library is loaded.
+		* This is an [iLib]{@glossary ilib} Locale instance. Setting this directly may have
+		* unexpected results. This class will automatically respond to application locale
+		* changes that use the {@link module:enyo/i18n~updateLocale} method.
 		*
-		* When `iLib` is not present, U.S. English `(en-US)` formatting is applied.
-		*
-		* When `iLib` is present and `locale` is set to the default value `(null)`,
-		* the picker uses `iLib`'s current locale (which `iLib` tries to determine
-		* from the system).
-		*
-		* When `iLib` is present and an explicit `locale` is provided, that locale
-		* will be used (regardless of `iLib`'s current locale).
-		*
-		* The `locale` value may be changed after the picker is created; if this happens,
-		* the picker will be reformatted to reflect the new setting.
-		*
-		* @type {Object}
+		* @deprecated
+		* @type {Locale}
 		* @default null
 		* @public
 		*/
@@ -151,7 +144,7 @@ module.exports = kind(
 	* @private
 	*/
 	drawerComponents: [
-		{name: 'client', kind: Control, classes: 'enyo-tool-decorator moon-date-picker-client', onSpotlightLeft:'closePicker', onSpotlightSelect: 'closePicker'},
+		{name: 'client', kind: Control, classes: 'moon-date-time-picker-client', onSpotlightLeft:'closePicker', onSpotlightSelect: 'closePicker'},
 		{kind: Signals, onlocalechange: 'handleLocaleChangeEvent'}
 	],
 
@@ -172,6 +165,7 @@ module.exports = kind(
 	* @private
 	*/
 	initILib: function () {
+		this.locale = new Locale();
 		var fmtParams = {
 			type: this.iLibFormatType,
 			useNative: false,
@@ -294,16 +288,6 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	localeChanged: function () {
-		// Our own locale property has changed, so we need to rebuild our child pickers
-		ilib.setLocale(this.locale);
-		this.iLibLocale = ilib.getLocale();
-		this.refresh();
-	},
-
-	/**
-	* @private
-	*/
 	handleLocaleChangeEvent: function () {
 		// We've received a localechange event from the system, which means either the system
 		// locale or the timezone may have changed.
@@ -316,6 +300,7 @@ module.exports = kind(
 			// changed, so we'll just update the child pickers
 			this.setChildPickers();
 		}
+		this.notify('currentValueText');
 	},
 
 	/**

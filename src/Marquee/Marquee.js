@@ -383,7 +383,7 @@ var MarqueeSupport = {
 	*/
 	_marquee_spotlightBlur: function (sender, ev) {
 		this._marquee_isFocused = false;
-		if (this.marqueeOnSpotlight) {
+		if (this.marqueeOnSpotlight && !this.marqueeOnRender) {
 			this.stopMarquee();
 		}
 	},
@@ -411,7 +411,9 @@ var MarqueeSupport = {
 			if (this.marqueeOnHover) {
 				observer._setMarqueeOnHoverControl(null);
 			}
-			this.stopMarquee();
+			if (!this.marqueeOnRender) {
+				this.stopMarquee();
+			}
 		}
 	},
 
@@ -882,6 +884,10 @@ var MarqueeItem = {
 		this._marquee_addAnimationStyles(distance);
 
 		if (this.$.marqueeText) { return true; }
+		//if we should animate marquee (distance > 0) but can`t do this
+		//(this.$.marqueeText == undefined (marquee has children)) we fire doMarqueeEnded
+		//to remove marquee from marquee wait list
+		else { this.doMarqueeEnded(); }
 	},
 
 	/**

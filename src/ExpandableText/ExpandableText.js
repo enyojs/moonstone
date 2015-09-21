@@ -341,7 +341,18 @@ var ExpandableText = module.exports = kind(
 	*/
 	canCollapseChanged: function (was, is) {
 		this.$.button.setShowing(is);
-	}
+	},
+
+	// Accessibility
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: 'generated', method: function () {
+			this.$.button.setAriaAttribute('aria-labelledby', this.$.client.id);
+		}}
+	]
 });
 
 /**

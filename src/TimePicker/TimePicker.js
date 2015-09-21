@@ -85,7 +85,7 @@ var MeridiemPicker = kind(
 	/**
 	* @private
 	*/
-	initILib: function() {
+	initILib: function () {
 		// Get localized meridiem values
 		var fmtParams = {
 			template: 'a',
@@ -102,7 +102,7 @@ var MeridiemPicker = kind(
 	/**
 	* @private
 	*/
-	create: function() {
+	create: function () {
 		this.initILib();
 		this.max = this.meridiems.length - 1;
 		IntegerPicker.prototype.create.apply(this, arguments);
@@ -312,7 +312,7 @@ var HourPicker = kind(
 	/**
 	* @private
 	*/
-	valueChanged: function(old) {
+	valueChanged: function (old) {
 		this.offset = this.value - old;
 		IntegerPicker.prototype.valueChanged.apply(this, arguments);
 	},
@@ -341,7 +341,7 @@ var HourPicker = kind(
 	 * @see module:moonstone/IntegerPicker~IntegerPicker.scrollToValue
 	 * @private
 	 */
-	scrollToValue: function(old) {
+	scrollToValue: function (old) {
 		// try to avoid the format calls if the old and current values
 		// don't mod to the same value
 		var maybeSame = old !== undefined && old%12 === this.value%12;
@@ -530,9 +530,9 @@ var TimePicker = module.exports = kind(
 			case 'k':
 				pickers.push(this.wrapComponent(
 					{name: 'timeWrapper', kind: Control, classes: 'moon-time-picker-wrap'},
-					{kind: Control, classes: 'moon-date-picker-wrap', components:[
+					{kind: Control, classes: 'moon-date-time-picker-wrap', components:[
 						{name: 'hour', kind: HourPicker, formatter: this.hourFormatter || this, value: values.hour, onChange: 'hourPickerChanged'},
-						{name: 'hourLabel', kind: Control, content: this.hourText, classes: 'moon-date-picker-label moon-divider-text', renderOnShow: true}
+						{name: 'hourLabel', kind: Control, content: this.hourText, classes: 'moon-date-time-picker-label moon-divider-text', renderOnShow: true}
 					]},
 					this
 				));
@@ -540,9 +540,9 @@ var TimePicker = module.exports = kind(
 			case 'm':
 				pickers.push(this.wrapComponent(
 					{name: 'timeWrapper', kind: Control, classes: 'moon-time-picker-wrap'},
-					{kind: Control, classes: 'moon-date-picker-wrap', components:[
+					{kind: Control, classes: 'moon-date-time-picker-wrap', components:[
 						{name: 'minute', kind: MinutePicker, formatter: this.minuteFormatter || this, value: values.minute, onChange: 'minutePickerChanged'},
-						{name: 'minuteLabel', kind: Control, content: this.minuteText, classes: 'moon-date-picker-label moon-divider-text', renderOnShow: true}
+						{name: 'minuteLabel', kind: Control, content: this.minuteText, classes: 'moon-date-time-picker-label moon-divider-text', renderOnShow: true}
 					]},
 					this
 				));
@@ -550,9 +550,9 @@ var TimePicker = module.exports = kind(
 			case 'a':
 				if (this.meridiemEnable === true) {
 					pickers.push(this.createComponent(
-						{kind: Control, classes: 'moon-date-picker-wrap', components:[
+						{kind: Control, classes: 'moon-date-time-picker-wrap', components:[
 							{name: 'meridiem', kind: MeridiemPicker, classes: 'moon-date-picker-field', locale: this.locale, onChange: 'meridiemPickerChanged'},
-							{name: 'meridiemLabel', kind: Control, content: this.meridiemText, classes: 'moon-date-picker-label moon-divider-text', renderOnShow: true}
+							{name: 'meridiemLabel', kind: Control, content: this.meridiemText, classes: 'moon-date-time-picker-label moon-divider-text', renderOnShow: true}
 						]}
 					));
 					this.$.meridiem.setValueByTime(values.hour, values.minute);
@@ -565,6 +565,7 @@ var TimePicker = module.exports = kind(
 		}
 		this.showPickerLabelsChanged();
 		this.unsilence();
+		this.pickers = pickers;
 		DateTimePickerBase.prototype.setupPickers.apply(this, arguments);
 	},
 
