@@ -1,8 +1,3 @@
-.font-kerning(@val: normal) {
-	-webkit-font-kerning: @val;
-	font-kerning: @val;
-}
-
 // mixin classes for create the moontone text classes
 .moon-text-base (@font-size) {
 	font-family: @moon-font-family;
@@ -94,12 +89,14 @@
 	font-size: @moon-button-large-font-size;
 	font-weight: @moon-button-font-weight;
 	font-style: @moon-button-font-style;
+	.font-kerning;
 }
 .moon-small-button-text {
 	font-family: @moon-button-font-family;
 	font-size: @moon-button-small-font-size;
 	font-weight: @moon-button-font-weight;
 	font-style: @moon-button-font-style;
+	.font-kerning;
 }
 .moon-icon-text {
 	font-family: @moon-icon-font-family;
@@ -110,6 +107,7 @@
 .moon-dialog-title {
 	font-family: @moon-popup-header-font-family;
 	font-size: @moon-popup-header-font-size;
+	.font-kerning;
 }
 .moon-dialog-sub-title {
 	font-size: @moon-popup-sub-header-font-size;
@@ -130,7 +128,7 @@
 	.moon,
 	.moon input,
 	.moon textarea,
-	.moon button,
+	.moon .moon-button,
 	.moon-large-text,
 	.moon-header-text,
 	.moon-header-font,

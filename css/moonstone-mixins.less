@@ -51,3 +51,49 @@
 		@rule();
 	}
 }
+
+// Asign font-kerning rules in a non-proprietary way. Default value being "normal", to enable kerning.
+.font-kerning(@val: normal) {
+	-webkit-font-kerning: @val;
+	font-kerning: @val;
+}
+
+// THIS IS AN EXACT COPY OF THE MIXINS IN ENYO - THIS IS TEMPORARY SINCE LIBRARIES CURRENTLY
+// DO NOT SUPPORT DEPENDENCIES WHEN BUILDING STANDALONE AT THE MOMENT
+
+// Applies RTL-compatible start and end margins to a selector
+.margin-start-end (@start, @end) {
+	margin-left: @start;
+	margin-right: @end;
+
+	.enyo-locale-right-to-left & {
+		margin-left: @end;
+		margin-right: @start;
+	}
+}
+
+// Applies RTL-compatible start and end padding to a selector
+.padding-start-end (@start, @end) {
+	padding-left: @start;
+	padding-right: @end;
+
+	.enyo-locale-right-to-left & {
+		padding-left: @end;
+		padding-right: @start;
+	}
+}
+
+// Provide a set of rules to assign to each vendor-prefixed pseudo selector
+.vendor-fullscreen(@rule) {
+	&:-webkit-full-screen { @rule(); }
+	&:-moz-full-screen { @rule(); }
+	&:-ms-fullscreen { @rule(); }
+	&:-o-full-screen { @rule(); }
+	&:fullscreen { @rule(); }
+}
+
+.vendor-opacity(@opacity) {
+	@opacity-ie: (@opacity * 100);	// Less doesn't like math inside `alpha`
+	opacity: @opacity;
+	filter: alpha(opacity=@opacity-ie);
+}

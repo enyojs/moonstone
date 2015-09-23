@@ -1,0 +1,46 @@
+/* Labeled Text Item */
+.moon-labeledtextitem {
+	min-width: 336px;
+
+	// Header
+	.moon-labeledtextitem-header {
+		display: inline-block;
+		box-sizing: border-box;
+		max-width: 100%;
+		position: relative;
+		vertical-align: top;
+		margin-bottom: 12px;
+	}
+
+	// Text
+	.moon-labeledtextitem-text {
+		font-family: @moon-expandable-value-font-family;
+		font-size: @moon-expandable-value-font-size;
+		font-weight: @moon-expandable-value-font-weight;
+		font-style: @moon-expandable-value-font-style;
+		line-height: @moon-body-line-height;
+		text-transform: none;
+		margin-top: -12px;
+		margin-bottom: @moon-spotlight-outset - 3px;
+		color: @moon-expandable-picker-text-color;
+
+		.enyo-locale-right-to-left & {
+			padding-left: 0;
+		}
+
+		.enyo-locale-non-latin & {
+			.enyo-locale-non-latin .moon-body-text;
+		}
+
+		.moon-neutral & {
+			color: inherit;
+		}
+	}
+
+	&.spotlight {
+		> .moon-labeledtextitem-header,
+		> .moon-labeledtextitem-text {
+			color: inherit;
+		}
+	}
+}

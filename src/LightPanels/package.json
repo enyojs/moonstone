@@ -1,0 +1,7 @@
+{
+	"main": "LightPanels.js",
+	"styles": [
+		"LightPanels.less",
+		"LightPanel.less"
+	]
+}
