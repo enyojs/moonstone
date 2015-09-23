@@ -94,9 +94,6 @@ module.exports = kind(
 	* @private
 	*/
 	handlers: {
-		onSpotlightFocused: 'noop',
-		onSpotlightKeyDown: 'depress',
-		onSpotlightKeyUp: 'undepress',
 		ondown: 'down',
 		onup: 'endHold',
 		onleave: 'endHold',
@@ -225,10 +222,10 @@ module.exports = kind(
 	*/
 	depress: function (sender, event) {
 		IconButton.prototype.depress.apply(this, arguments);
-		this.set('pressed', true);
 		// keydown events repeat (while mousedown/hold does not); simulate
 		// hold behavior with mouse by catching the second keydown event
 		if (event.keyCode === 13) {
+			this.set('pressed', true);
 			if (!this.downCount) {
 				this.down();
 				this.downCount = 1;
@@ -312,10 +309,22 @@ module.exports = kind(
 	*
 	* @private
 	*/
-	noop: function () {
+	spotlightFocused: function () {
 		this.set('spotted', true);
-		return true;
 	},
+
+	/**
+	* @private
+	*/
+	spotlightBlurred: function () {
+		IconButton.prototype.spotlightBlurred.apply(this, arguments);
+		this.set('spotted', false);
+	},
+
+	/**
+	* @private
+	*/
+	noop: function () { return true; },
 
 	// Accessibility
 
@@ -328,6 +337,11 @@ module.exports = kind(
 	* @private
 	*/
 	pressed: false,
+
+	/**
+	* @private
+	*/
+	accessibilityLive: 'off',
 
 	/**
 	* @private
@@ -350,8 +364,6 @@ module.exports = kind(
 						this.set('accessibilityLabel', $L('scroll right'));
 						break;
 				}
-				this.focus();
-				this.set('spotted', false);
 			}
 		}},
 		{path: 'pressed', method: function () {
@@ -372,10 +384,8 @@ module.exports = kind(
 						break;
 				}
 				this.set('accessibilityAlert', true);
-				this.set('accessibilityLive', 'off');
 			} else {
 				this.set('accessibilityAlert', null);
-				this.set('accessibilityLive', null);
 				this.set('accessibilityLabel', null);
 			}
 		}}

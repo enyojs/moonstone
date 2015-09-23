@@ -135,7 +135,7 @@ module.exports = kind(
 		*/
 		onSpotlightFocused: 'spotlightFocused',
 
-		onSpotlightBlur: 'undepress'
+		onSpotlightBlur: 'spotlightBlurred'
 	},
 
 	/**
@@ -208,6 +208,13 @@ module.exports = kind(
 		if (inEvent.originator === this) {
 			this.bubble('onRequestScrollIntoView');
 		}
+	},
+
+	/**
+	* @private
+	*/
+	spotlightBlurred: function (sender, event) {
+		this.removeClass('pressed');
 	},
 
 	/**
