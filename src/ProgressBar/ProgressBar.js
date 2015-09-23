@@ -524,6 +524,7 @@ module.exports = kind(
 			flip = percent > 50;
 
 		this.updatePopupPosition(percent);
+
 		if (this.$.popup) {
 			if (this.get('orientation') == 'horizontal') {
 				this.$.popup.addRemoveClass('moon-progress-bar-popup-flip-h', flip);
@@ -540,7 +541,9 @@ module.exports = kind(
 	* @private
 	*/
 	updatePopupPosition: function (percent) {
-		this.$.popup.applyStyle(this.get('orientation') == 'vertical' ? 'bottom' : 'left', percent + '%');
+		if (this.$.popup) {
+			this.$.popup.applyStyle(this.get('orientation') == 'vertical' ? 'bottom' : 'left', percent + '%');
+		}
 	},
 
 	/**
