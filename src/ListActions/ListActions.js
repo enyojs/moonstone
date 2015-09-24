@@ -121,7 +121,8 @@ var ListActionsDrawer = kind(
 	* @private
 	*/
 	events: {
-		onComplete: ''
+		onComplete: '',
+		onCustomizeCloseButton: ''
 	},
 
 	/**
@@ -172,6 +173,7 @@ var ListActionsDrawer = kind(
 		// Skip animation before render time
 		if (!this.$.client.hasNode()) { return; }
 		this.$.client.addRemoveClass('open', this.open);
+		this.doCustomizeCloseButton({showing: (this.open ? false : true)});
 	},
 
 	/**
@@ -400,7 +402,7 @@ var ListActions = module.exports = kind(
 	*/
 	drawerComponents: [
 		{name: 'drawer', spotlightDisabled: true, kind: ListActionsDrawer, classes: 'list-actions-drawer', onComplete: 'drawerAnimationEnd', open: false, spotlight: 'container', spotlightModal:true, components: [
-			{name: 'closeButton', kind: IconButton, icon: 'closex', classes: 'moon-popup-close moon-list-actions-close moon-neutral', ontap: 'expandContract', accessibilityLabel: $L('Close'), backgroundOpacity: 'transparent', defaultSpotlightDown:'listActions'},
+			{name: 'closeButton', kind: IconButton, icon: 'arrowlargeup', classes: 'moon-popup-close moon-list-actions-close moon-neutral', ontap: 'expandContract', accessibilityLabel: $L('Close'), backgroundOpacity: 'transparent', defaultSpotlightDown:'listActions'},
 			{name: 'listActionsClientContainer', kind: Control, classes: 'enyo-fit moon-list-actions-client-container moon-neutral', components: [
 				{name: 'listActions', kind: Scroller, classes: 'enyo-fit moon-list-actions-scroller', horizontal:'hidden', vertical:'hidden', onActivate: 'optionSelected', defaultSpotlightUp:'closeButton'}
 			]}
