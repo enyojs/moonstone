@@ -11,11 +11,14 @@
 	margin: @moon-icon-margin;
 	font-family: "Moonstone", "Moonstone Icons";
 	font-size: (@moon-icon-size * 2);
+	font-weight: normal;
+	font-style: normal;
 	line-height: @moon-icon-size;
 	text-align: center;
 	position: relative;
 	color: @moon-icon-text-color;
 
+	.font-kerning(auto); // Moonstone Icons doesn't support "normal" kerning.
 	.moon-taparea(@moon-icon-size);
 
 	&.small {
