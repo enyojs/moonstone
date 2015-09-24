@@ -428,8 +428,7 @@ module.exports = kind(
 	*/
 	progressChanged: function () {
 		this.progress = this.clampValue(this.min, this.max, this.progress);
-		var p = this.calcPercent(this.progress);
-		this.updateBarPosition(p);
+		this.updateBarPosition(this.calcPercent(this.progress));
 		if (this.popup) {
 			this.updatePopup(this.progress);
 		}
