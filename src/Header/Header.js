@@ -638,13 +638,16 @@ module.exports = kind(
 			// Measure client area's width + 40px of spacing
 			client = this.$.client ? this.$.client.hasNode() : null,
 			clientWidth = client ? client.offsetWidth : null,
+			clientStyle = client ? (client.currentStyle || window.getComputedStyle(client)) : null,		// Originally by YuC @ http://stackoverflow.com/questions/349257/detecting-true-border-padding-and-margin-from-javascript
+			clientMargin = client ? (parseInt(clientStyle.marginLeft, 10) + parseInt(clientStyle.marginRight, 10)) : null,
+			clientSpaceSmall = dom.unit(clientWidth + clientMargin + ri.scale(36), 'rem'),
 			clientSpace = dom.unit(clientWidth + ri.scale(36), 'rem'),
 			rtl = this.rtl;
 
 		if (client) {
 			// Set the margin on the correct side for the correct control, otherwise set it to nothing
-			this.$.title.applyStyle('margin-right', (type == 'small' && !rtl && clientWidth) ? clientSpace : null);
-			this.$.title.applyStyle('margin-left', (type == 'small' && rtl && clientWidth) ? clientSpace : null);
+			this.$.title.applyStyle('margin-right', (type == 'small' && !rtl && clientWidth) ? clientSpaceSmall : null);
+			this.$.title.applyStyle('margin-left', (type == 'small' && rtl && clientWidth) ? clientSpaceSmall : null);
 
 			this.$.titleBelow.applyStyle('margin-right', (type == 'medium' && !rtl && clientWidth) ? clientSpace : null);
 			this.$.titleBelow.applyStyle('margin-left', (type == 'medium' && rtl && clientWidth) ? clientSpace : null);

@@ -116,6 +116,20 @@
 		}
 	}
 
+	&.moon-large-header .moon-header-title-wrapper,
+	&.moon-medium-header .moon-header-title-wrapper,
+	&.moon-small-header .moon-header-client {
+		@button-clearance: (@moon-spotlight-outset + @moon-icon-button-small-size + @moon-spotlight-outset);
+
+		.has-close-button & {
+			margin-right: @button-clearance;
+		}
+		.enyo-locale-non-latin .has-close-button & {
+			margin-left: @button-clearance;
+			margin-right: 0;
+		}
+	}
+
 	.moon-header-client {
 		position: absolute;
 		bottom: 12px;
