@@ -361,7 +361,9 @@ if (platform.touch) {
 		containerLeaveHandler: function () {
 			var strategy = this.getStrategy(),
 				b = strategy.getScrollBounds(),
-				o5WayEvent = Spotlight.getLast5WayEvent();
+				o5WayEvent = Spotlight.getLast5WayEvent(),
+				s5WayEventType = null,
+				s5WayEventDir = null;
 
 			// We scroll to end on focus leave to show disabled controls at the top or bottom of scroller in 5way.
 			if (o5WayEvent) {
