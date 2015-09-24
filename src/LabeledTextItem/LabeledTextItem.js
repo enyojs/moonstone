@@ -69,13 +69,13 @@ module.exports = kind(
 		*/
 		text: ''
 	},
-	
+
 	/**
 	* @private
 	*/
 	bindings: [
 		{from: 'label', to: '$.header.content'},
-		{from: 'text', to: '$.text.content'}
+		{from: 'text', to: '$.text.content', transform: 'setTextWithDirection'}
 	],
 
 	/**
@@ -85,6 +85,14 @@ module.exports = kind(
 		{name: 'header', kind: Marquee.Text, classes: 'moon-labeledtextitem-header'},
 		{name: 'text', classes: 'moon-labeledtextitem-text'}
 	],
+
+	/**
+	/* @private
+	*/
+	setTextWithDirection: function(val) {
+		this.$.text.detectTextDirectionality(val);
+		return val;
+	},
 
 	// Accessibility
 

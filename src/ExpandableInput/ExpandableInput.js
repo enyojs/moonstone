@@ -12,6 +12,7 @@ var
 	Spotlight = require('spotlight');
 
 var
+	$L = require('../i18n'),
 	ExpandableListItem = require('../ExpandableListItem'),
 	Input = require('../Input'),
 	InputDecorator = require('../InputDecorator');
@@ -263,5 +264,15 @@ module.exports = kind(
 			this.expandContract();
 		}
 		return true;
-	}
+	},
+
+	// Accessibility
+
+	/**
+	* @default $L('edit box')
+	* @type {String}
+	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityHint
+	* @public
+	*/
+	accessibilityHint: $L('edit box')
 });
