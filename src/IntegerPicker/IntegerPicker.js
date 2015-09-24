@@ -715,15 +715,22 @@ module.exports = kind(
 			// When value is changed, it reads only value
 			if (this.spotted) {
 				this.set('accessibilityHint', null);
-				this.setAriaAttribute('aria-valuenow', this.value);
+				this.ariaValue();
 			}
 		}},
 		{path: 'spotted',  method: function () {
 			// When spotlight is focused, it reads value with hint
 			if (this.spotted) {
 				this.set('accessibilityHint', $L('change a value with up down button'));
-				this.setAriaAttribute('aria-valuenow', this.value);
+				this.ariaValue();
 			}
 		}}
-	]
+	],
+
+	/**
+	* @private
+	*/
+	ariaValue: function () {
+		this.setAriaAttribute('aria-valuenow', this.value);
+	}
 });

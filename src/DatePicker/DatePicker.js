@@ -346,7 +346,7 @@ module.exports = kind(
 	* @private
 	*/
 	ariaObservers: [
-		{path: ['dayText', 'monthText', 'yearText', 'locale'], method: function () {
+		{path: ['dayText', 'monthText', 'yearText'], method: function () {
 			this.$.day.set('accessibilityLabel', this.dayText);
 			this.$.month.set('accessibilityLabel', this.monthText);
 			this.$.year.set('accessibilityLabel', this.yearText);
