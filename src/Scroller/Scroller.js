@@ -190,7 +190,7 @@ if (platform.touch) {
 			onSpotlightScrollUp:'spotlightWheel',
 			onSpotlightScrollDown:'spotlightWheel',
 			onSpotlightContainerEnter:'enablePageUpDownKey',
-			onSpotlightContainerLeave:'disablePageUpDownKey',
+			onSpotlightContainerLeave:'containerLeaveHandler',
 			onenter:'enablePageUpDownKey',
 			onleave:'disablePageUpDownKey',
 			onmove:'move'
@@ -356,6 +356,34 @@ if (platform.touch) {
 		*/
 		disablePageUpDownKey: function () {
 			this.handlePageUpDownKey = false;
+		},
+
+		containerLeaveHandler: function () {
+			var strategy = this.getStrategy(),
+				b = strategy.getScrollBounds(),
+				o5WayEvent = Spotlight.getLast5WayEvent();
+
+			// We scroll to end on focus leave to show disabled controls at the top or bottom of scroller in 5way.
+			if (o5WayEvent) {
+				s5WayEventType = o5WayEvent.type;
+				s5WayEventDir = s5WayEventType.replace('onSpotlight', '').toUpperCase();
+				switch (s5WayEventDir) {
+					case 'UP': 
+						if (strategy.getScrollTop() > 0) strategy.setScrollTop(0);
+						break;
+					case 'DOWN':
+						if (strategy.getScrollTop() < b.maxTop) strategy.setScrollTop(b.maxTop);
+						break;
+					case 'LEFT':
+						if (strategy.getScrollLeft() > 0) strategy.setScrollLeft(0);
+						break;
+					case 'RIGHT':
+						if (strategy.getScrollLeft() < b.maxLeft) strategy.setScrollLeft(b.maxLeft);
+						break;
+				}
+			}
+
+			this.disablePageUpDownKey();
 		},
 
 		/**
