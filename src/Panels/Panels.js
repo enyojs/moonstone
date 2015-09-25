@@ -1349,7 +1349,7 @@ module.exports = kind(
 
 			while (--l >= 0) {
 				panel = panels[l];
-				if (panel.title) {
+				if (panel instanceof Panel && panel.title) {
 					panel.set('accessibilityRole', panel === active ? 'alert' : 'region');
 				}
 			}
