@@ -1,5 +1,11 @@
 require('moonstone');
 
+/**
+* Mixin that enables support for custom history.
+*
+* @module moonstone/HistorySupport
+*/
+
 var
 	EnyoHistory = require('enyo/History'),
 	kind = require('enyo/kind');
