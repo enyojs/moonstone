@@ -1,0 +1,27 @@
+.moon-date-time-picker-client {
+	display: inline-block;
+	direction: ltr;
+
+	& > * {
+		display: inline-block;
+		vertical-align: middle;
+	}
+}
+
+/* Time/date pickers should always be arranged according to the order of the formatter */
+.enyo-locale-right-to-left .moon-date-time-picker-client {
+	direction: rtl;
+}
+
+.moon-date-time-picker-wrap {
+	min-width: 96px;
+	text-align: center;
+	margin: 12px 0;
+	vertical-align: top;
+}
+
+.moon-date-time-picker-label {
+	text-align: center;
+	padding: 18px @moon-spotlight-outset;
+	white-space: nowrap;
+}

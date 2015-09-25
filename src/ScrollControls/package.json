@@ -1,0 +1,8 @@
+{
+	"main": "ScrollControls.js",
+	"styles": [
+		"ScrollControls.less",
+		"../Scroller/Scroller.less",
+		"../PagingControl/PagingControl.less"
+	]
+}

@@ -1,0 +1,6 @@
+{
+	"main": "DateTimePickerBase.js",
+	"styles": [
+		"DateTimePickerBase.less"
+	]
+}

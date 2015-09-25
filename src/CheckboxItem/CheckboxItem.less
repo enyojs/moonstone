@@ -1,0 +1,63 @@
+.moon-checkbox-item {
+	position: relative;
+	overflow: hidden;
+
+	// Checkbox
+	.moon-checkbox {
+		position: absolute;
+		top: 0;
+		right: @moon-spotlight-outset - 3;
+	}
+	// Label
+	.moon-checkbox-item-label-wrapper {
+		line-height: inherit;
+		margin-right: @moon-item-indent;
+	}
+
+	// Left-handed checkbox
+	&.left-handed  {
+		// Checkbox
+		.moon-checkbox {
+			left: @moon-spotlight-outset - 3;
+		}
+		// Label
+		.moon-checkbox-item-label-wrapper {
+			margin-right: 0px;
+			margin-left: @moon-item-indent;
+		}
+	}
+
+	.moon-icon.small > .small-icon-tap-area {
+		left: 0;
+		right: 0;
+	}
+}
+
+.moon-neutral .moon-checkbox[checked]:after {
+	color: @moon-white;
+}
+
+/* Right to left */
+.enyo-locale-right-to-left .moon-checkbox-item {
+	// Checkbox
+	.moon-checkbox {
+		left: @moon-spotlight-outset - 3;
+		right: auto;
+	}
+	.moon-checkbox-item-label-wrapper {
+		margin-left: @moon-item-indent;
+		margin-right: 0px;
+	}
+
+	// Left-handed checkbox
+	&.left-handed {
+		.moon-checkbox {
+			left: auto;
+			right: @moon-spotlight-outset - 3;
+		}
+		.moon-checkbox-item-label-wrapper {
+			margin-right: @moon-item-indent;
+			margin-left: 0px;
+		}
+	}
+}
