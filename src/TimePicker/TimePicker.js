@@ -161,11 +161,9 @@ var MeridiemPicker = kind(
 
 	// Accessibility
 	
-	ariaObservers: [
-		{path: 'value', method: function () {
-			this.setAriaAttribute('aria-valuetext', this.meridiems[this.value]);
-		}}
-	]
+	ariaValue: function () {
+		this.setAriaAttribute('aria-valuetext', this.meridiems[this.value].name);
+	}
 });
 
 /**
@@ -224,14 +222,12 @@ var HourMinutePickerBase = kind(
 
 	// Accessibility
 
-	ariaObservers: [
-		{path: 'value', method: function () {
-			if (this.date && this.range) {
-				var value = this.format(this.value % this.range);
-				this.setAriaAttribute('aria-valuenow', value);
-			}
-		}}
-	]
+	ariaValue: function () {
+		if (this.date && this.range) {
+			var value = this.format(this.value % this.range);
+			this.setAriaAttribute('aria-valuenow', value);
+		}
+	}
 });
 
 /**
@@ -768,7 +764,7 @@ var TimePicker = module.exports = kind(
 	* @private
 	*/
 	ariaObservers: [
-		{path: ['dayText', 'monthText', 'yearText'], method: function () {
+		{path: ['hourText', 'minuteText', 'meridiemText'], method: function () {
 			this.$.hour.set('accessibilityLabel', this.hourText);
 			this.$.minute.set('accessibilityLabel', this.minuteText);
 			if (this.$.meridiem) this.$.meridiem.set('accessibilityLabel', this.meridiemText);
