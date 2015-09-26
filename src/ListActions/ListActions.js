@@ -402,7 +402,7 @@ var ListActions = module.exports = kind(
 	*/
 	drawerComponents: [
 		{name: 'drawer', spotlightDisabled: true, kind: ListActionsDrawer, classes: 'list-actions-drawer', onComplete: 'drawerAnimationEnd', open: false, spotlight: 'container', spotlightModal:true, components: [
-			{name: 'closeButton', kind: IconButton, icon: 'arrowlargeup', classes: 'moon-popup-close moon-list-actions-close moon-neutral', ontap: 'expandContract', accessibilityLabel: $L('Close'), backgroundOpacity: 'transparent', defaultSpotlightDown:'listActions'},
+			{name: 'closeButton', kind: IconButton, icon: 'arrowsmallup', classes: 'moon-popup-close moon-list-actions-close moon-neutral', ontap: 'expandContract', accessibilityLabel: $L('Close'), backgroundOpacity: 'transparent', defaultSpotlightDown:'listActions'},
 			{name: 'listActionsClientContainer', kind: Control, classes: 'enyo-fit moon-list-actions-client-container moon-neutral', components: [
 				{name: 'listActions', kind: Scroller, classes: 'enyo-fit moon-list-actions-scroller', horizontal:'hidden', vertical:'hidden', onActivate: 'optionSelected', defaultSpotlightUp:'closeButton'}
 			]}
