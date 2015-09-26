@@ -363,7 +363,7 @@ module.exports = kind(
 
 	rendered: function () {
 		Control.prototype.rendered.apply(this, arguments);
-		if(this.$.popup){
+		if (this.$.popup) {
 			this.drawToCanvas(this.popupColor);
 		}
 	},
@@ -504,6 +504,19 @@ module.exports = kind(
 	/**
 	* @private
 	*/
+	popupChanged: function () {
+		if (this.popup && !this.$.popup) {
+			this.createPopup();
+			this.initPopupStyles();
+			this.render();
+		} else if (!this.popup && this.$.popup) {
+			this.$.popup.destroy();
+		}
+	},
+
+	/**
+	* @private
+	*/
 	updatePopup: function (val) {
 		var usePercentage = this.showPercentage && this.popupContent === null,
 			percent = this.calcPercent(val),
@@ -511,12 +524,15 @@ module.exports = kind(
 			flip = percent > 50;
 
 		this.updatePopupPosition(percent);
-		if (this.get('orientation') == 'horizontal') {
-			this.$.popup.addRemoveClass('moon-progress-bar-popup-flip-h', flip);
-			this.$.popupLabel.addRemoveClass('moon-progress-bar-popup-flip-h', flip);
-		}
 
-		this.updatePopupLabel(popupLabel);
+		if (this.$.popup) {
+			if (this.get('orientation') == 'horizontal') {
+				this.$.popup.addRemoveClass('moon-progress-bar-popup-flip-h', flip);
+				this.$.popupLabel.addRemoveClass('moon-progress-bar-popup-flip-h', flip);
+			}
+
+			this.updatePopupLabel(popupLabel);
+		}
 	},
 
 	/**
@@ -525,7 +541,9 @@ module.exports = kind(
 	* @private
 	*/
 	updatePopupPosition: function (percent) {
-		this.$.popup.applyStyle(this.get('orientation') == 'vertical' ? 'bottom' :'left', percent + '%');
+		if (this.$.popup) {
+			this.$.popup.applyStyle(this.get('orientation') == 'vertical' ? 'bottom' : 'left', percent + '%');
+		}
 	},
 
 	/**
@@ -665,7 +683,7 @@ module.exports = kind(
 		return val;
 	},
 
-		/**
+	/**
 	* @private
 	*/
 	drawToCanvas: function (bgColor) {
@@ -723,7 +741,7 @@ module.exports = kind(
 	},
 
 	// Accessibility
-	
+
 	/**
 	* @default progressbar
 	* @type {String}

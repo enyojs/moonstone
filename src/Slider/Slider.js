@@ -947,7 +947,7 @@ module.exports = kind(
 			if (this.selected) {
 				// avoid using readAlert api, temporary set accessibilityRole to alert
 				// this will be reset on resetAccessibilityProperties
-				var hint = (this.get('orientation') == 'horizontal') ? 
+				var hint = (this.get('orientation') == 'horizontal') ?
 								$L('change a value with left right button') : $L('change a value with up down button');
 				this.set('accessibilityRole', 'alert');
 				this.set('accessibilityLive', 'off');
@@ -968,7 +968,7 @@ module.exports = kind(
 		{path: ['value', 'popupContent', 'dragging'], method: 'ariaValue'}
 	],
 
-	/** 
+	/**
 	* @private
 	*/
 	resetAccessibilityProperties : function() {
@@ -986,7 +986,7 @@ module.exports = kind(
 	ariaValue: function () {
 		var attr = this.popup ? 'aria-valuetext' : 'aria-valuenow',
 			text = (this.popup && this.$.popupLabel)? this.$.popupLabel.getContent() : this.value;
-			
+
 		if (!this.dragging && !this.accessibilityValueText) {
 			this.resetAccessibilityProperties();
 			this.setAriaAttribute(attr, text);
