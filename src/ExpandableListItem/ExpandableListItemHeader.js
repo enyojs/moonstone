@@ -1,3 +1,8 @@
+/**
+* Contains the declaration for the {@link module:moonstone/ExpandableListItem~ExpandableListItemHeader} kind.
+* @module moonstone/ExpandableListItem
+*/
+
 var
 	kind = require('enyo/kind'),
 	Component = require('enyo/Component');
@@ -13,7 +18,7 @@ var
 * @private
 */
 module.exports = kind(
-	/** @lends ExpandableListHeader.prototype */ {
+	/** @lends module:moonstone/ExpandableListItem~ExpandableListItemHeader.prototype */ {
 
 	/**
 	* @private

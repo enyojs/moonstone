@@ -96,7 +96,7 @@ module.exports = kind(
 		*
 		* This is an [iLib]{@glossary ilib} Locale instance. Setting this directly may have
 		* unexpected results. This class will automatically respond to application locale
-		* changes that use the {@link module:enyo/i18n~updateLocale} method.
+		* changes that use the {@link module:enyo/i18n#updateLocale} method.
 		*
 		* @deprecated
 		* @type {Locale}

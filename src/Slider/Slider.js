@@ -934,6 +934,15 @@ module.exports = kind(
 	accessibilityRole: 'slider',
 
 	/**
+	* Custom value for accessibility (ignored if `null`).
+	*
+	* @type {String|null}
+	* @default null
+	* @public
+	*/
+	accessibilityValueText: null,
+
+	/**
 	* @private
 	*/
 	ariaObservers: [
@@ -961,6 +970,15 @@ module.exports = kind(
 				this.set('accessibilityHint', hint);
 			} else {
 				this.resetAccessibilityProperties();
+			}
+		}},
+		{path: ['accessibilityValueText'], method: function () {
+			this.resetAccessibilityProperties();
+			this.setAriaAttribute('aria-valuetext', this.accessibilityValueText);
+			if (this.enableJumpIncrement) {
+				this.$.slider.setAriaAttribute('aria-valuetext', this.accessibilityValueText);
+				this.$.buttonLeft.set('accessibilityLabel', this.accessibilityValueText);
+				this.$.buttonRight.set('accessibilityLabel', this.accessibilityValueText);
 			}
 		}},
 		{path: ['value', 'popupContent', 'dragging'], method: 'ariaValue'}
