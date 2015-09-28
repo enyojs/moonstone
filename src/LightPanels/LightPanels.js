@@ -81,7 +81,9 @@ module.exports = kind(
 
 			while (--l >= 0) {
 				panel = panels[l];
-				panel.set('accessibilityRole', panel === active ? 'alert' : 'region');
+				if (panel instanceof LightPanel && panel.title) {
+					panel.set('accessibilityRole', panel === active ? 'alert' : 'region');
+				}
 			}
 		}}
 	]
