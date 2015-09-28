@@ -503,6 +503,19 @@ module.exports = kind(
 	/**
 	* @private
 	*/
+	popupChanged: function () {
+		if (this.popup && !this.$.popup) {
+			this.createPopup();
+			this.initPopupStyles();
+			this.render();
+		} else if (!this.popup && this.$.popup) {
+			this.$.popup.destroy();
+		}
+	},
+
+	/**
+	* @private
+	*/
 	updatePopup: function (val) {
 		var usePercentage = this.showPercentage && this.popupContent === null,
 			percent = this.calcPercent(val),
@@ -729,7 +742,7 @@ module.exports = kind(
 	},
 
 	// Accessibility
-	
+
 	/**
 	* @default progressbar
 	* @type {String}
