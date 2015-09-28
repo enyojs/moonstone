@@ -451,6 +451,7 @@ module.exports = kind(
 			this.$.closeButton.spotlight = false;
 			this.removeClass('reserve-close');
 		}
+		this.reflow();
 	},
 
 	/**
