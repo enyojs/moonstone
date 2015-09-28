@@ -605,7 +605,7 @@ module.exports = kind(
 	* @private
 	*/
 	updatePopupPosition: function () {
-		// Do not allow ProgressBar to update popup position
+		// Override ProgressBar.updatePopupPosition to prevent unwanted changes
 	},
 
 	/**
