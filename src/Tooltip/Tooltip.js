@@ -8,6 +8,7 @@ require('moonstone');
 var
 	kind = require('enyo/kind'),
 	dom = require('enyo/dom'),
+	ri = require('enyo/resolution'),
 	util = require('enyo/utils'),
 	Control = require('enyo/Control'),
 	Popup = require('enyo/Popup'),
@@ -351,7 +352,9 @@ module.exports = kind(
 		if (this.showing && this.hasNode()) {
 			var b = this.node.getBoundingClientRect(),
 				moonDefaultPadding = 20,
+				moonDefaultPaddingRem = ri.scale(moonDefaultPadding),
 				defaultMargin = 15,
+				defaultMarginRem = ri.scale(defaultMargin),
 				pBounds = this.parent.getAbsoluteBounds(),
 				acBounds = null;
 
@@ -363,42 +366,42 @@ module.exports = kind(
 			var paTopDiff = pBounds.top - acBounds.top,
 				paLeftDiff =  acBounds.left - pBounds.left,
 				paRightDiff = pBounds.left + pBounds.width - acBounds.left - acBounds.width,
-				acRight = window.innerWidth - moonDefaultPadding - acBounds.left - acBounds.width;
+				acRight = window.innerWidth - moonDefaultPaddingRem - acBounds.left - acBounds.width;
 
 			//* When there is not enough room in the bottom, move it above the
 			//* decorator; when the tooltip bottom is within window height but
 			//* set programmatically above, move it above
-			if ((window.innerHeight - moonDefaultPadding) - (pBounds.top + pBounds.height) < b.height + defaultMargin || (this.position == 'above')) {
+			if ((window.innerHeight - moonDefaultPaddingRem) - (pBounds.top + pBounds.height) < b.height + defaultMarginRem || (this.position == 'above')) {
 				this.removeClass('below');
 				this.addClass('above');
 				if (this.get('floating')) {
-					this.applyPosition({'top': dom.unit((acBounds.top - b.height - defaultMargin),'rem'), 'left': dom.unit(acBounds.left + acBounds.width / 2, 'rem'), 'right': 'auto'});
+					this.applyPosition({'top': dom.unit((acBounds.top - b.height - defaultMarginRem),'rem'), 'left': dom.unit(acBounds.left + acBounds.width / 2, 'rem'), 'right': 'auto'});
 				} else {
-					this.applyPosition({'top': dom.unit(-(b.height + defaultMargin + paTopDiff), 'rem'), 'left': dom.unit(acBounds.width / 2 + paLeftDiff, 'rem'), 'right': 'auto'});
+					this.applyPosition({'top': dom.unit(-(b.height + defaultMarginRem + paTopDiff), 'rem'), 'left': dom.unit(acBounds.width / 2 + paLeftDiff, 'rem'), 'right': 'auto'});
 				}
 			}
 
 			//* When there is not enough space above the parent container, move
 			//* it below the decorator; when there is enough space above the
 			//* parent container but is set programmatically, leave it below
-			if (pBounds.top < (b.height + defaultMargin) || (this.position == 'below') || this.hasClass('below')) {
+			if (pBounds.top < (b.height + defaultMarginRem) || (this.position == 'below') || this.hasClass('below')) {
 				this.removeClass('above');
 				this.addClass('below');
 				if (this.get('floating')) {
-					this.applyPosition({'top': acBounds.top + acBounds.height + defaultMargin + 'px', 'left': acBounds.left + acBounds.width / 2 + 'px', 'right': 'auto'});
+					this.applyPosition({'top': acBounds.top + acBounds.height + defaultMarginRem + 'px', 'left': acBounds.left + acBounds.width / 2 + 'px', 'right': 'auto'});
 				} else {
-					this.applyPosition({'top': pBounds.height + defaultMargin + paTopDiff + 'px', 'left': acBounds.width / 2 + paLeftDiff + 'px', 'right': 'auto'});
+					this.applyPosition({'top': pBounds.height + defaultMarginRem + paTopDiff + 'px', 'left': acBounds.width / 2 + paLeftDiff + 'px', 'right': 'auto'});
 				}
 			}
 
 			//* When there is not enough room on the left, using right-arrow for the tooltip
-			if (window.innerWidth - moonDefaultPadding - pBounds.left - pBounds.width / 2 < b.width){
+			if (window.innerWidth - moonDefaultPaddingRem - pBounds.left - pBounds.width / 2 < b.width){
 				//* use the right-arrow
 				this.removeClass('left-arrow');
 				this.addClass('right-arrow');
 				this.applyPosition({'margin-left': dom.unit(- b.width, 'rem'), 'left': 'auto'});
 				if (this.floating) {
-					this.applyStyle('right', dom.unit(acBounds.width / 2 + acRight + moonDefaultPadding, 'rem'));
+					this.applyStyle('right', dom.unit(acBounds.width / 2 + acRight + moonDefaultPaddingRem, 'rem'));
 				} else {
 					this.applyStyle('right', dom.unit(acBounds.width / 2 + paRightDiff, 'rem'));
 				}
