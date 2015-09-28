@@ -189,6 +189,7 @@ module.exports = kind(
 	*/
 	create: function () {
 		Control.prototype.create.apply(this, arguments);
+		this._created = true;
 		this.animateChanged();
 		this.initializeActiveItem();
 		this.disabledChanged();
@@ -288,10 +289,7 @@ module.exports = kind(
 				this.selectedIndexChanged();
 			}
 		}
-
-		if (this.$.buttonLeft && this.$.buttonRight) {
-			this.showHideNavButtons();
-		}
+		if (this._created) this.showHideNavButtons();
 	},
 
 	/**
