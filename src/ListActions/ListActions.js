@@ -173,7 +173,7 @@ var ListActionsDrawer = kind(
 		// Skip animation before render time
 		if (!this.$.client.hasNode()) { return; }
 		this.$.client.addRemoveClass('open', this.open);
-		this.doCustomizeCloseButton({showing: (this.open ? false : true)});
+		this.doCustomizeCloseButton({showing: !this.open});
 	},
 
 	/**

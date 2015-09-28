@@ -638,7 +638,7 @@ module.exports = kind(
 			// Measure client area's width + 40px of spacing
 			client = this.$.client ? this.$.client.hasNode() : null,
 			clientWidth = client ? client.offsetWidth : null,
-			clientStyle = client ? (client.currentStyle || window.getComputedStyle(client)) : null,		// Originally by YuC @ http://stackoverflow.com/questions/349257/detecting-true-border-padding-and-margin-from-javascript
+			clientStyle = client ? (client.currentStyle || dom.getComputedStyle(client)) : null,		// Originally by YuC @ http://stackoverflow.com/questions/349257/detecting-true-border-padding-and-margin-from-javascript
 			clientMargin = client ? (parseInt(clientStyle.marginLeft, 10) + parseInt(clientStyle.marginRight, 10)) : null,
 			clientSpaceSmall = dom.unit(clientWidth + clientMargin + ri.scale(36), 'rem'),
 			clientSpace = dom.unit(clientWidth + ri.scale(36), 'rem'),
