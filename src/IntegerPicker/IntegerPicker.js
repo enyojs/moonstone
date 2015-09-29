@@ -6,6 +6,7 @@ require('moonstone');
 */
 
 var
+	animation = require('enyo/animation'),
 	kind = require('enyo/kind'),
 	dom = require('enyo/dom'),
 	Control = require('enyo/Control'),
@@ -576,8 +577,13 @@ module.exports = kind(
 			var count = Math.abs(newIndex - oldIndex) + 1;
 			this.updateRepeater(index, count);
 
-			this.scrollToIndex(oldIndex, false);
-			this.startJob('valueChanged-Scroller', this.bindSafely('scrollToIndex', newIndex, true), 33);
+			if (this._rAF) animation.cancelRequestAnimationFrame(this._rAF);
+			this._rAF = animation.requestAnimationFrame(function () {
+				this.scrollToIndex(oldIndex, false);
+				this._rAF = animation.requestAnimationFrame(function () {
+					this.scrollToIndex(newIndex, true);
+				}.bind(this));
+			}.bind(this));
 		} else {
 			// if old isn't specified, setup the repeater with only this.value and jump to it
 			this.updateRepeater(newIndex);
