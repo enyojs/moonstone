@@ -694,7 +694,7 @@ module.exports = kind(
 			drawingRight = this.$.drawingRight,
 			ctxLeft, ctxRight;
 
-		if (drawingLeft && drawingLeft.tag == 'canvas') {
+		if (drawingLeft) {
 			ctxLeft = drawingLeft.hasNode().getContext('2d'),
 			drawingLeft.setAttribute('width', ri.scale( this.popupLeftCanvasWidth) );
 
@@ -718,7 +718,7 @@ module.exports = kind(
 			ctxLeft.stroke();
 		}
 
-		if (drawingRight && drawingRight.tag == 'canvas') {
+		if (drawingRight) {
 			ctxRight = drawingRight.hasNode().getContext('2d');
 			drawingRight.setAttribute('width', ri.scale( this.popupRightCanvasWidth) );
 
