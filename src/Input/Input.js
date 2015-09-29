@@ -78,7 +78,7 @@ module.exports = kind(
 	* @private
 	*/
 	handlers: {
-		onkeyup : 'onKeyUp',
+		onkeyup    : 'onKeyUp',
 		onblur     : 'onBlur',
 		onfocus    : 'onFocus'
 	},
@@ -99,6 +99,11 @@ module.exports = kind(
 			var oThis = this;
 			util.asyncMethod(this, function () {oThis._bFocused = true;});
 		}
+		// Force cursor to end of text during a generic focus event. Creating the input by compiling
+		// a string of text with value="this.value" produces different initial caret position than
+		// using node.setAttribute('value', this.value), which is what would happen any time after
+		// the initial creation.
+		this.hasNode().selectionStart = this.value.length;
 	},
 
 	/**
