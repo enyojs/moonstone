@@ -95,6 +95,8 @@ module.exports = kind(
 	* @private
 	*/
 	onFocus: function () {
+		var node = this.hasNode();
+
 		if (this.dismissOnEnter) {
 			var oThis = this;
 			util.asyncMethod(this, function () {oThis._bFocused = true;});
@@ -105,8 +107,10 @@ module.exports = kind(
 		// the initial creation. The initial end-position of the caret is required to support
 		// Virtual keyboards because without arrow-keys because normal left/right arrow navigation
 		// in inputs is impossible, so the caret must be positioned at the end to allow for deletion
-		// of the previous input.
-		this.hasNode().selectionStart = this.value.length;
+		// of the previous input. We are intentionally setting the value to force the cursor to the
+		// end of the text. `selectionStart` is the obvious choice, but it is not supported in
+		// certain types of fields (i.e. number, email).
+		if (node) node.value = this.get('value');
 	},
 
 	/**
