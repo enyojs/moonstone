@@ -507,6 +507,7 @@ module.exports = kind(
 		if (this.popup && !this.$.popup) {
 			this.createPopup();
 			this.initPopupStyles();
+			this.orientationChanged();
 			this.render();
 		} else if (!this.popup && this.$.popup) {
 			this.$.popup.destroy();
@@ -517,18 +518,21 @@ module.exports = kind(
 	* @private
 	*/
 	updatePopup: function (val) {
-		var usePercentage = this.showPercentage && this.popupContent === null,
-			percent = this.calcPercent(val),
-			popupLabel = usePercentage ? percent : this.progress,
+		var usePercentage, percent, popupLabel, flip;
+		if (this.popup) {
+			usePercentage = this.showPercentage && this.popupContent === null;
+			percent = this.calcPercent(val);
+			popupLabel = usePercentage ? percent : this.progress;
 			flip = percent > 50;
 
-		this.updatePopupPosition(percent);
-		if (this.get('orientation') == 'horizontal') {
-			this.$.popup.addRemoveClass('moon-progress-bar-popup-flip-h', flip);
-			this.$.popupLabel.addRemoveClass('moon-progress-bar-popup-flip-h', flip);
-		}
+			this.updatePopupPosition(percent);
+			if (this.get('orientation') == 'horizontal') {
+				this.$.popup.addRemoveClass('moon-progress-bar-popup-flip-h', flip);
+				this.$.popupLabel.addRemoveClass('moon-progress-bar-popup-flip-h', flip);
+			}
 
-		this.updatePopupLabel(popupLabel);
+			this.updatePopupLabel(popupLabel);
+		}
 	},
 
 	/**
@@ -537,26 +541,32 @@ module.exports = kind(
 	* @private
 	*/
 	updatePopupPosition: function (percent) {
-		this.$.popup.applyStyle(this.get('orientation') == 'vertical' ? 'bottom' :'left', percent + '%');
+		if (this.popup) {
+			this.$.popup.applyStyle(this.get('orientation') == 'vertical' ? 'bottom' :'left', percent + '%');
+		}
 	},
 
 	/**
 	* @private
 	*/
 	popupLabelClassesChanged: function (was) {
-		this.$.popupLabel.removeClass(was);
-		this.$.popupLabel.addClass(this.popupLabelClasses);
+		if (this.popup) {
+			this.$.popupLabel.removeClass(was);
+			this.$.popupLabel.addClass(this.popupLabelClasses);
+		}
 	},
 
 	/**
 	* @private
 	*/
 	updatePopupOffset: function () {
+		if (this.popup) {
 		// console.log("updatePopupOffset:", this.getPopupHeight(), this.getPopupOffset(), ri.scale(this.getPopupHeight() + this.getPopupOffset() + 5));
-		if (this.get('orientation') == 'horizontal') {
-			this.$.popup.applyStyle('top', dom.unit(-(ri.scale(this.getPopupHeight() + this.getPopupOffset() + 5)), 'rem'));
-		} else {
-			this.$.popup.applyStyle('top', null);
+			if (this.get('orientation') == 'horizontal') {
+				this.$.popup.applyStyle('top', dom.unit(-(ri.scale(this.getPopupHeight() + this.getPopupOffset() + 5)), 'rem'));
+			} else {
+				this.$.popup.applyStyle('top', null);
+			}
 		}
 	},
 
@@ -566,8 +576,10 @@ module.exports = kind(
 	* @private
 	*/
 	popupOffsetChanged: function () {
-		this.updatePopupOffset();
-		this.drawToCanvas(this.popupColor);
+		if (this.popup) {
+			this.updatePopupOffset();
+			this.drawToCanvas(this.popupColor);
+		}
 	},
 
 	/**
@@ -576,7 +588,7 @@ module.exports = kind(
 	* @private
 	*/
 	popupWidthChanged: function () {
-		if (this.popupWidth != 'auto') {
+		if (this.popup && this.popupWidth != 'auto') {
 			this.$.popupLabel.applyStyle('width', dom.unit( this.getPopupWidth() - (this.popupLeftCanvasWidth + this.popupRightCanvasWidth) , 'rem'));
 		}
 	},
@@ -585,7 +597,7 @@ module.exports = kind(
 	* @private
 	*/
 	updatePopupHeight: function () {
-		if (this.get('orientation') == 'horizontal') {
+		if (this.popup && this.get('orientation') == 'horizontal') {
 			var h = this.getPopupHeight(),
 				hRem = ri.scale(h);
 
@@ -603,19 +615,23 @@ module.exports = kind(
 	* @private
 	*/
 	popupHeightChanged: function () {
-		if (this.getPopupHeight() >= 72) {
-			log.warn('This popupHeight API is designed for under 72 pixels.');
-		}
+		if (this.popup) {
+			if (this.getPopupHeight() >= 72) {
+				log.warn('This popupHeight API is designed for under 72 pixels.');
+			}
 
-		this.updatePopupHeight();
-		this.popupOffsetChanged();
+			this.updatePopupHeight();
+			this.popupOffsetChanged();
+		}
 	},
 
 	/**
 	* @private
 	*/
 	updatePopupLabelColor: function () {
-		this.$.popupLabel.applyStyle('background-color', this.popupColor);
+		if (this.popup) {
+			this.$.popupLabel.applyStyle('background-color', this.popupColor);
+		}
 	},
 
 	/**
@@ -624,8 +640,10 @@ module.exports = kind(
 	* @private
 	*/
 	popupColorChanged: function () {
-		this.drawToCanvas(this.popupColor);
-		this.updatePopupLabelColor();
+		if (this.popup) {
+			this.drawToCanvas(this.popupColor);
+			this.updatePopupLabelColor();
+		}
 	},
 
 	/**
@@ -634,10 +652,14 @@ module.exports = kind(
 	* @private
 	*/
 	popupContentChanged: function () {
-		var content = this.getPopupContent();
-		this._popupContent = this.get('uppercase') ? util.toUpperCase(content) : content;
-		if (this._popupContent !== null) {
-			this.$.popupLabel.setContent(this._popupContent);
+		var content;
+		if (this.popup) {
+			content = this.getPopupContent();
+			this._popupContent = this.get('uppercase') ? util.toUpperCase(content) : content;
+			// != null allows 0 but avoids undefined and null
+			if (this._popupContent != null) {
+				this.$.popupLabel.setContent(this._popupContent);
+			}
 		}
 	},
 
@@ -663,8 +685,11 @@ module.exports = kind(
 	* @private
 	*/
 	updatePopupLabel: function (val) {
-		var label = this._popupContent || this.calcPopupLabel(val);
-		this.$.popupLabel.setContent(label);
+		var label;
+		if (this.popup) {
+			label = this._popupContent || this.calcPopupLabel(val);
+			this.$.popupLabel.setContent(label);
+		}
 	},
 
 	/**
