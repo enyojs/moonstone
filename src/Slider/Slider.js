@@ -493,17 +493,37 @@ module.exports = kind(
 			this.value = (this.increment) ? this.calcConstrainedIncrement(this.value) : this.value;
 		}
 
-		this.updatePopup(this.getValue());
+		this.updateValues(this.getValue());
+	},
 
+	/**
+	* @private
+	*/
+	updateValues: function (value) {
 		if (this.lockBar) {
-			this.setProgress(this.getValue());
+			this.setProgress(value);
+		} else {
+			if (this.popup) {
+				this.updatePopup(value);
+			}
+			this.updateKnobPosition(this.calcPercent(value));
 		}
 	},
 
 	/**
 	* @private
 	*/
-	valueChanged : function (was, is) {
+	progressChanged: kind.inherit(function (sup) {
+		return function () {
+			sup.apply(this, arguments);
+			this.updateKnobPosition(this.calcPercent(this.progress));
+		};
+	}),
+
+	/**
+	* @private
+	*/
+	valueChanged: function (was, is) {
 		if (!this.dragging) {
 			var allowAnimation = this.constrainToBgProgress && is <= this.bgProgress || !this.constrainToBgProgress;
 			if (this.constrainToBgProgress) {
@@ -551,14 +571,11 @@ module.exports = kind(
 		var v = this.clampValue(this.min, this.max, val);
 
 		this.value = v;
-		this.updatePopup(v);
 		this.updateButtonStatus();
 
-		if (this.lockBar) {
-			this.setProgress(this.value);
-		}
+		this.updateValues(v);
 
-		this.sendChangeEvent({value: this.getValue()});
+		this.sendChangeEvent({value: v});
 	},
 
 	/**
@@ -581,8 +598,15 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	updatePopupPosition: function (percent) {
+	updateKnobPosition: function (percent) {
 		this.$.knob.applyStyle(this.get('orientation') == 'vertical' ? 'bottom' : 'left', percent + '%');
+	},
+
+	/**
+	* @private
+	*/
+	updatePopupPosition: function () {
+		// Override ProgressBar.updatePopupPosition to prevent unwanted changes
 	},
 
 	/**
@@ -639,12 +663,9 @@ module.exports = kind(
 				this.elasticFrom = this.elasticTo = v;
 			}
 
-			this.updatePopup(this.elasticFrom);
-			this.set('value',this.elasticFrom);
+			this.set('value', v);
 
-			if (this.lockBar) {
-				this.setProgress(v);
-			}
+			this.updateValues(v);
 
 			this.sendChangingEvent({value: v});
 
@@ -700,11 +721,7 @@ module.exports = kind(
 	animatorStep: function (sender) {
 		var	v = sender.value;
 
-		this.updatePopup(v);
-
-		if (this.lockBar) {
-			this.setProgress(v);
-		}
+		this.updateValues(v);
 
 		this.sendChangingEvent({value: v});
 		return true;
@@ -947,7 +964,7 @@ module.exports = kind(
 			if (this.selected) {
 				// avoid using readAlert api, temporary set accessibilityRole to alert
 				// this will be reset on resetAccessibilityProperties
-				var hint = (this.get('orientation') == 'horizontal') ? 
+				var hint = (this.get('orientation') == 'horizontal') ?
 								$L('change a value with left right button') : $L('change a value with up down button');
 				this.set('accessibilityRole', 'alert');
 				this.set('accessibilityLive', 'off');
@@ -968,10 +985,10 @@ module.exports = kind(
 		{path: ['value', 'popupContent', 'dragging'], method: 'ariaValue'}
 	],
 
-	/** 
+	/**
 	* @private
 	*/
-	resetAccessibilityProperties : function() {
+	resetAccessibilityProperties: function () {
 		this.set('accessibilityRole', !this.enableJumpIncrement ? 'spinbutton' : null);
 		this.set('accessibilityLive', null);
 		this.set('accessibilityHint', null);
@@ -986,7 +1003,7 @@ module.exports = kind(
 	ariaValue: function () {
 		var attr = this.popup ? 'aria-valuetext' : 'aria-valuenow',
 			text = (this.popup && this.$.popupLabel)? this.$.popupLabel.getContent() : this.value;
-			
+
 		if (!this.dragging && !this.accessibilityValueText) {
 			this.resetAccessibilityProperties();
 			this.setAriaAttribute(attr, text);

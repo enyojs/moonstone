@@ -428,8 +428,7 @@ module.exports = kind(
 	*/
 	progressChanged: function () {
 		this.progress = this.clampValue(this.min, this.max, this.progress);
-		var p = this.calcPercent(this.progress);
-		this.updateBarPosition(p);
+		this.updateBarPosition(this.calcPercent(this.progress));
 		if (this.popup) {
 			this.updatePopup(this.progress);
 		}
@@ -499,6 +498,19 @@ module.exports = kind(
 	progressAnimatorComplete: function (inSender) {
 		this.doAnimateProgressFinish();
 		return true;
+	},
+
+	/**
+	* @private
+	*/
+	popupChanged: function () {
+		if (this.popup && !this.$.popup) {
+			this.createPopup();
+			this.initPopupStyles();
+			this.render();
+		} else if (!this.popup && this.$.popup) {
+			this.$.popup.destroy();
+		}
 	},
 
 	/**
@@ -723,7 +735,7 @@ module.exports = kind(
 	},
 
 	// Accessibility
-	
+
 	/**
 	* @default progressbar
 	* @type {String}
