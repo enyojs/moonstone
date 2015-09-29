@@ -17,20 +17,25 @@ var
 * indicating the image file's location.
 *
 * ```
-* {kind: 'moon.IconButton', src: 'images/search.png'}
+* var
+* 	kind = require('enyo/kind'),
+* 	IconButton = require('moonstone/IconButton');
+*
+* {kind: IconButton, src: 'images/search.png'}
 * ```
 *
 * If you want to combine an icon with text inside of a button, use a
-* `moon.Icon` inside a {@link module:moonstone/Button~Button}.
+* {@link module:moonstone/Icon~Icon} inside a
+* {@link module:moonstone/Button~Button}.
 *
 * Moonstone supports two methods for displaying icons; in addition to specifying
 * traditional image assets in `src`, you may use icons that are stored as single
 * characters in a special symbol font. To do this, set the value of the
-* [icon]{@link module:moonstone/Icon~Icon#icon} property to a string representing an icon name,
-* e.g.:
+* [icon]{@link module:moonstone/Icon~Icon#icon} property to a string representing
+* an icon name, e.g.:
 *
 * ```
-* {kind: 'moon.IconButton', icon: 'closex'}
+* {kind: IconButton, icon: 'closex'}
 * ```
 *
 * See {@link module:moonstone/Icon~Icon} for more information on the available font-based icons,
@@ -84,7 +89,7 @@ module.exports = kind(
 		small: true,
 
 		/**
-		* @deprecated Replaced by [backgroundOpacity]{@link moon.IconButton#backgroundOpacity}.
+		* @deprecated Replaced by [backgroundOpacity]{@link moon/IconButton~IconButton#backgroundOpacity}.
 		*
 		* If `true`, the button will have no rounded background color/border.
 		*
@@ -95,7 +100,7 @@ module.exports = kind(
 		noBackground: false,
 
 		/**
-		* The background-color opacity of this button; valid alues are `'opaque'`, `'translucent'`,
+		* The background-color opacity of this button; valid values are `'opaque'`, `'translucent'`,
 		* and `'transparent'`.
 		*
 		* @type {String}
@@ -231,9 +236,9 @@ module.exports = kind(
 	// Accessibility
 
 	/**
-	* @default button
+	* @default 'button'
 	* @type {String}
-	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityRole
+	* @see {@link module:enyo/AccessibilitySupport~AccessibilitySupport#accessibilityRole}
 	* @public
 	*/
 	accessibilityRole: 'button'
