@@ -632,15 +632,13 @@ module.exports = kind(
 		if (this.disabled) {
 			return; // return nothing
 		}
-		var orient = this.get('orientation');
-		if ((e.horizontal && orient == 'horizontal') || (e.vertical && orient == 'vertical')) { // could be simplified as: if (e[orient]); but left long for clarity and maintainability
-			e.preventDefault();
-			this.set('dragging', true);
-			Spotlight.freeze();
-			this.$.knob.addClass('active');
-			this.showKnobStatus();
-			return true;
-		}
+		
+		e.preventDefault();
+		this.set('dragging', true);
+		Spotlight.freeze();
+		this.$.knob.addClass('active');
+		this.showKnobStatus();
+		return true;
 	},
 
 	/**
