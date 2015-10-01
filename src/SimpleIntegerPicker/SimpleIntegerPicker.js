@@ -13,7 +13,6 @@ var
 	IntegerPicker = require('../IntegerPicker');
 
 var
-	Spotlight = require('spotlight'),
 	$L = require('../i18n');
 
 /**
