@@ -358,28 +358,25 @@ if (platform.touch) {
 			this.handlePageUpDownKey = false;
 		},
 
-		containerLeaveHandler: function () {
+		containerLeaveHandler: function (sender, event) {
+			if (event.originator != this) return;
 			var strategy = this.getStrategy(),
 				b = strategy.getScrollBounds(),
-				o5WayEvent = Spotlight.getLast5WayEvent(),
-				s5WayEventType = null,
-				s5WayEventDir = null;
+				o5WayEvent = Spotlight.getLast5WayEvent();
 
 			// We scroll to end on focus leave to show disabled controls at the top or bottom of scroller in 5way.
 			if (o5WayEvent) {
-				s5WayEventType = o5WayEvent.type;
-				s5WayEventDir = s5WayEventType.replace('onSpotlight', '').toUpperCase();
-				switch (s5WayEventDir) {
-					case 'UP': 
+				switch (o5WayEvent.type) {
+					case 'onSpotlightUp': 
 						if (strategy.getScrollTop() > 0) strategy.setScrollTop(0);
 						break;
-					case 'DOWN':
+					case 'onSpotlightDown':
 						if (strategy.getScrollTop() < b.maxTop) strategy.setScrollTop(b.maxTop);
 						break;
-					case 'LEFT':
+					case 'onSpotlightLeft':
 						if (strategy.getScrollLeft() > 0) strategy.setScrollLeft(0);
 						break;
-					case 'RIGHT':
+					case 'onSpotlightRight':
 						if (strategy.getScrollLeft() < b.maxLeft) strategy.setScrollLeft(b.maxLeft);
 						break;
 				}
