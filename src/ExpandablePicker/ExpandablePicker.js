@@ -318,7 +318,7 @@ module.exports = kind(
 				controls[i].setChecked(checked);
 			}
 		} else {
-			this.set('selected', controls[index]);
+			this.set('selected', index >= 0 ? controls[index] : null);
 		}
 	},
 
