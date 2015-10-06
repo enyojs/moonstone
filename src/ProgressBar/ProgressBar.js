@@ -777,6 +777,15 @@ module.exports = kind(
 	accessibilityRole: 'progressbar',
 
 	/**
+	* Custom value for accessibility (ignored if `null`).
+	*
+	* @type {String|null}
+	* @default null
+	* @public
+	*/
+	accessibilityValueText: null,
+
+	/**
 	* ProgressBar isn't spottable so we'll make it focusable manually
 	*
 	* @private
@@ -787,18 +796,8 @@ module.exports = kind(
 	* @private
 	*/
 	ariaObservers: [
-		// TODO: Observing $.popupLabel.content to minimize the observed members. Some refactoring
-		// of the label determination could help here - rjd
-		{path: ['progress', 'popup', '$.popupLabel.content'], method: 'ariaValue'}
-	],
-
-	/**
-	* Determines the text or value to set as the accessible value for the progress bar
-	*
-	* @private
-	*/
-	ariaValue: function () {
-		var attr = this.popup ? 'aria-valuetext' : 'aria-valuenow';
-		this.setAriaAttribute(attr, (this.popup && this.$.popupLabel)? this.$.popupLabel.get('content') : this.progress);
-	}
+		{path: ['accessibilityValueText'], method: function () {
+			this.setAriaAttribute('aria-valuetext', this.accessibilityValueText);
+		}}
+	]
 });

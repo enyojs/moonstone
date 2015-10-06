@@ -979,7 +979,7 @@ module.exports = kind(
 				this.$.buttonRight.set('accessibilityLabel', this.accessibilityValueText);
 			}
 		}},
-		{path: ['value', 'popupContent', 'dragging'], method: 'ariaValue'}
+		{path: ['value', 'popup', '$.popupLabel.content', 'dragging'], method: 'ariaValue'}
 	],
 
 	/**
