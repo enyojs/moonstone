@@ -9,7 +9,8 @@ var
 	utils = require('enyo/utils');
 
 var
-	Spotlight = require('spotlight');
+	Spotlight = require('spotlight'),
+	$L = require('../i18n');
 
 var
 	IconButton = require('../IconButton');
@@ -76,11 +77,10 @@ module.exports = kind(
 	*/
 	handlers: {
 		onSpotlightKeyDown: 'down',
+		onSpotlightKeyUp: 'release',
 		ondown: 'down',
 		onhold: 'hold',
 		onrelease: 'release',
-		onSpotlightBlur: 'release',
-		onSpotlightFocused: 'noop',
 		onActivate: 'noop'
 	},
 
@@ -153,6 +153,7 @@ module.exports = kind(
 		}
 
 		if (event.keyCode === undefined || event.keyCode === 13) {
+			this.set('pressed', true);
 			event.configureHoldPulse({
 				endHold: 'onLeave',
 				preventTap: true
@@ -175,6 +176,7 @@ module.exports = kind(
 	* @private
 	*/
 	release: function (sender, event) {
+		this.set('pressed', false);
 		this.endHold(sender, event);
 	},
 
@@ -244,10 +246,90 @@ module.exports = kind(
 	},
 
 	/**
+	* @private
+	*/
+	spotlightFocused: function () {
+		this.set('spotted', true);
+	},
+
+	/**
+	* @private
+	*/
+	spotlightBlurred: function () {
+		IconButton.prototype.spotlightBlurred.apply(this, arguments);
+		this.set('spotted', false);
+	},
+
+	/**
 	* Overrides default focused handling to make sure scroller doesn't scroll to
 	* this button.
 	*
 	* @private
 	*/
-	noop: function () { return true; }
+	noop: function () { return true; },
+
+	// Accessibility
+
+	/*
+	* @private
+	*/
+	spotted: false,
+
+	/*
+	* @private
+	*/
+	pressed: false,
+
+	/**
+	* @private
+	*/
+	accessibilityLive: 'off',
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: ['side', 'spotted'], method: function () {
+			var side = this.get('side');
+			if (this.spotted) {
+				switch(side) {
+					case 'top':
+						this.set('accessibilityLabel', $L('scroll up'));
+						break;
+					case 'bottom':
+						this.set('accessibilityLabel', $L('scroll down'));
+						break;
+					case 'left':
+						this.set('accessibilityLabel', $L('scroll left'));
+						break;
+					case 'right':
+						this.set('accessibilityLabel', $L('scroll right'));
+						break;
+				}
+			}
+		}},
+		{path: 'pressed', method: function () {
+			var side = this.get('side');
+			if (this.pressed) {
+				this.set('accessibilityAlert', true);
+				switch(side) {
+					case 'top':
+						this.set('accessibilityLabel', $L('up'));
+						break;
+					case 'bottom':
+						this.set('accessibilityLabel', $L('down'));
+						break;
+					case 'left':
+						this.set('accessibilityLabel', $L('left'));
+						break;
+					case 'right':
+						this.set('accessibilityLabel', $L('right'));
+						break;
+				}
+			} else {
+				this.set('accessibilityAlert', null);
+				this.set('accessibilityLabel', null);
+			}
+		}}
+	]
 });
