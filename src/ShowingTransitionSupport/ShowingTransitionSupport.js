@@ -1,36 +1,38 @@
 require('moonstone');
 
-/**
-* Contains the declaration for the {@link module:moonstone/Marquee~MarqueeSupport} mixin and the {@link module:moonstone/Marquee~MarqueeText} &
-* {@link module:moonstone/Marquee~MarqueeDecorator} kinds.
-* @module moonstone/Marquee
-*/
-
-var kind = require('enyo/kind'),
-	util = require('enyo/utils');
+var kind = require('enyo/kind');
 
 /**
-* The {@link module:moonstone/Marquee~MarqueeSupport} [mixin]{@glossary mixin} should be used with controls
-* that contain multiple marquees whose animation behavior should be synchronized. Calling
-* [this.startMarquee()]{@link module:moonstone/Marquee~MarqueeSupport#startMarquee} or
-* [this.stopMarquee()]{@link module:moonstone/Marquee~MarqueeSupport#stopMarquee} will start or stop all
-* contained marquees.
+* @module moonstone/ShowingTransitionSupport
 *
-* The following properties, defined on the base kind to which the mixin is applied,
-* control the marquee behavior:
+* The {@link module:moonstone/ShowingTransitionSupport} [mixin]{@glossary mixin} is applicable to
+* and control that should use a transition or animation when it is shown or hidden. This mixin adds
+* optional state-classes to the component at its resting or transitioning states. The states are as
+* follows:
 *
-* [marqueeOnSpotlight]{@link module:moonstone/Marquee~MarqueeSupport#marqueeOnSpotlight}: When `true`, marquee
-* starts when control is spotlight focused and ends when it is spotlight blurred.
+* * 'shown' and 'hidden' - resting, static, not-transitioning, past tense states.
+* * 'showing' and 'hiding' - transitioning-to, progressive tense states.
 *
-* [marqueeOnHover]{@link module:moonstone/Marquee~MarqueeSupport#marqueeOnHover}: When `true`, marquee runs
-* while control is hovered over with the mouse. This property is ignored if
-* `marqueeOnSpotlight` is `true`.
+* A CSS class may be optionally supplied and applied to the component during that state. It will be
+* removed immediately when the component is no longer in that state. The 'hidden', 'hiding', and
+* 'showing' CSS classes are already defined as defaults, to account for the most common use case.
+* The same classes are allowed to be used on multiple states.
+*
+* It may be desirable to only have a transition on only one of the showing or hiding states; this is
+* also possible.
+*
+* Transitions take time, so be sure to include a {hidingDuration} and/or {showingDuration}. You may
+* take advantage of this [mixin]{@glossary mixin}'s state classes without using transitions by
+* leaving the duration properties blank (0, null or undefined) and the resting states will simply be
+* applied immediately, skipping the transition state classes.
+*
+* An optional method may be supplied to fire at the end of either of the transitions, using
+* {hidingMethod} and/or {showingMethod}
 *
 * @mixin
 * @public
 */
-module.exports =
-	/** @lends module:moonstone/Button~Button.prototype */ {
+module.exports = {
 
 	/**
 	* @private
@@ -38,23 +40,93 @@ module.exports =
 	name: 'ShowingTransitionSupport',
 
 	/**
-	* @private
+	* A read-only property for checking whether we are in the middle of a transition.
+	*
+	* @type {Boolean}
+	* @default false
+	* @public
 	*/
 	showingTransitioning: false,
 
+	/**
+	* The amount of time the "showing" transition takes to complete in milliseconds.
+	*
+	* @type {Number}
+	* @default undefined
+	* @public
+	*/
 	showingDuration: undefined,
+
+	/**
+	* The amount of time the "hiding" transition takes to complete in milliseconds.
+	*
+	* @type {Number}
+	* @default undefined
+	* @public
+	*/
 	hidingDuration: undefined,
+
+	/**
+	* The method to fire at the end of the "showing" transition. This may be name of a method on the
+	* component, or a function.
+	*
+	* @type {String|Function}
+	* @default undefined
+	* @public
+	*/
 	shownMethod: undefined,
+
+	/**
+	* The method to fire at the end of the "hiding" transition. This may be name of a method on the
+	* component, or a function.
+	*
+	* @type {String|Function}
+	* @default undefined
+	* @public
+	*/
 	hiddenMethod: undefined,
 
+	/**
+	* The the classname to apply for the "shown" (component is visible) resting state.
+	*
+	* @type {String}
+	* @default undefined
+	* @public
+	*/
 	shownClass: undefined,
+
+	/**
+	* The the classname to apply for the "hidden" (component is not visible) resting state.
+	*
+	* @type {String}
+	* @default 'hidden'
+	* @public
+	*/
 	hiddenClass: undefined,
 
+	/**
+	* The the classname to apply for the "hiding" (component has started the transition to the
+	* hidden state) transition state.
+	*
+	* @type {String}
+	* @default 'hiding'
+	* @public
+	*/
 	hidingClass: undefined,
+
+	/**
+	* The the classname to apply for the "showing" (component has started the transition to the
+	* shown state) transition state.
+	*
+	* @type {String}
+	* @default 'showing'
+	* @public
+	*/
 	showingClass: undefined,
 
 	/**
-	* Initializes marquee timings.
+	* Initializes the defaults, and prepares the component with its classes in case of initially
+	* "showing: false".
 	*
 	* @method
 	* @private
@@ -74,20 +146,24 @@ module.exports =
 		};
 	}),
 
-	// showingChangedHandler: kind.inherit(function (sup) {
+	/**
+	* Overrides the showingChanged handler to add support for transitions at the right times and
+	* places.
+	*
+	* @method
+	* @private
+	*/
 	showingChanged: kind.inherit(function (sup) {
 		return function (sender, ev) {
 			var args = arguments;
-			// console.log(this.showing ? 'Showing:' : 'Hiding:', this);
-			// debugger;
 
 			// Prepare our visual state
 			this.applyStyle('display', null);
 			this.applyStyle('visibility', null);
 			if (this.showing) {
 				// Reset our state classes, in case we switched mid-stream
-				if (this.hidingClass) this.removeClass(this.hidingClass);
-				if (this.hiddenClass) this.removeClass(this.hiddenClass);
+				this.removeClass(this.hidingClass);
+				this.removeClass(this.hiddenClass);
 				sup.apply(this, args);
 				if (this.showingDuration && this.generated) {
 					this.set('showingTransitioning', true);
@@ -95,28 +171,30 @@ module.exports =
 					// When timer finishes, run the exit function,
 					// remove the transitioning class
 					// and add the final-state class
-					if (this.showingClass) this.addClass(this.showingClass);
-					this.startJob('showingTransition', this.bindSafely(function () {
-						if (this.shownMethod) this[this.shownMethod];	// Run the supplied method.
-						if (this.showingClass) this.removeClass(this.showingClass);
-						if (this.shownClass) this.addClass(this.shownClass);
+					this.addClass(this.showingClass);
+					this.startJob('showingTransition', function () {
+						if (this.shownMethod && typeof this.shownMethod == 'string') this[this.shownMethod];	// Run the supplied method.
+						else if (typeof this.shownMethod == 'function') this.shownMethod.call(this);	// Run the supplied method.
+						this.removeClass(this.showingClass);
+						this.addClass(this.shownClass);
 						this.set('showingTransitioning', false);
-					}), this.showingDuration);
+					}, this.showingDuration);
 				} else {
 					// No transition, just a shown class.
-					if (this.shownClass) this.addClass(this.shownClass);
+					this.addClass(this.shownClass);
 				}
 			} else {
 				// Reset our state classes, in case we switched mid-stream
-				if (this.showingClass) this.removeClass(this.showingClass);
-				if (this.shownClass) this.removeClass(this.shownClass);
+				this.removeClass(this.showingClass);
+				this.removeClass(this.shownClass);
 				if (this.hidingDuration && this.generated) {
 					this.set('showingTransitioning', true);
-					if (this.hidingClass) this.addClass(this.hidingClass);
+					this.addClass(this.hidingClass);
 					this.startJob('showingTransition', this.bindSafely(function () {
-						if (this.hiddenMethod) this[this.hiddenMethod];	// Run the supplied method.
-						if (this.hidingClass) this.removeClass(this.hidingClass);
-						if (this.hiddenClass) this.addClass(this.hiddenClass);
+						if (this.hiddenMethod && typeof this.hiddenMethod == 'string') this[this.hiddenMethod];	// Run the supplied method.
+						else if (typeof this.hiddenMethod == 'function') this.hiddenMethod.call(this);	// Run the supplied method.
+						this.removeClass(this.hidingClass);
+						this.addClass(this.hiddenClass);
 						this.set('showingTransitioning', false);
 						sup.apply(this, args);
 						this.applyStyle('visibility', 'hidden');
@@ -124,13 +202,12 @@ module.exports =
 					}), this.hidingDuration);
 				} else {
 					// No transition, just a hidden class.
-					if (this.hidingClass) this.removeClass(this.hidingClass);
-					if (this.hiddenClass) this.addClass(this.hiddenClass);
+					this.removeClass(this.hidingClass);
+					this.addClass(this.hiddenClass);
 					sup.apply(this, args);
 					this.applyStyle('visibility', 'hidden');
 					this.applyStyle('display', null);
 				}
-				// util.asyncFunction( this.bindSafely(function () { this.applyStyle('display', null);}));
 			}
 		};
 	})
