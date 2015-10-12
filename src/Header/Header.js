@@ -677,6 +677,10 @@ module.exports = kind(
 			subtitle = this.get('titleBelow');
 		if ((this.get('type') == 'small') && subtitle) {
 			this.$.title.set('allowHtml', true);
+			if (!this.allowHtml) {
+				title = dom.escape(title);
+				subtitle = dom.escape(subtitle);
+			}
 			this.$.title.set('content', Control.prototype.rtl && !util.isRtl(subtitle + title) ?
 				'<span class="moon-sub-header-text moon-header-sub-title">' + subtitle + '</span>' + '   ' + title :
 				title + '   ' + '<span class="moon-sub-header-text moon-header-sub-title">' + subtitle + '</span>');
