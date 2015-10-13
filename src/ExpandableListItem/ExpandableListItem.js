@@ -197,6 +197,7 @@ module.exports = kind(
 		{from: 'currentValueText', to: '$.header.text'},
 
 		// Accessibility
+		{from: 'selectedAccessibilityLabel', to: '$.header._accessibilityText'},
 		{from: 'accessibilityHint', to: '$.header.accessibilityHint'},
 		{from: 'accessibilityLabel', to: '$.header.accessibilityLabel'},
 		{from: 'accessibilityDisabled', to: '$.header.accessibilityDisabled'}
