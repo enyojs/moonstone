@@ -341,10 +341,17 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	rangeChanged: function () {
-		this.verifyValue();
+	prepareRange: function () {
 		this.range = this.valueToIndex(this.max) - this.valueToIndex(this.min) + 1;
 		this.setupBuffer();
+	},
+
+	/**
+	* @private
+	*/
+	rangeChanged: function () {
+		this.verifyValue();
+		this.prepareRange();
 	},
 
 	/**
@@ -369,6 +376,7 @@ module.exports = kind(
 	stepChanged: function (old) {
 		var step = parseInt(this.step, 10);
 		this.step = isNaN(step)? 1 : step;
+		this.prepareRange();
 		this.valueChanged(this.value);
 	},
 
