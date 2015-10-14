@@ -55,17 +55,17 @@ function funLocaleSpecificFonts () {
 			'ja': {
 				regular: 'LG Display_JP',
 				unicodeRanges:
-					'U+0000-U+00FF,' +
-					'U+2E80-U+2EFF,' +
-					'U+2F00-U+2FDF,' +
-					'U+3000-U+303F,' +
-					'U+3040-U+309F,' +
-					'U+30A0-U+30FF,' +
-					'U+3200-U+33FF,' +
-					'U+3400-U+4DBF,' +
-					'U+4E00-U+9FFF,' +
-					'U+E000-U+FAFF,' +
-					'U+FF00-U+FFEF'
+					'U+0-FF,' +
+					'U+2E80-2EFF,' +
+					'U+2F00-2FDF,' +
+					'U+3000-303F,' +
+					'U+3040-309F,' +
+					'U+30A0-30FF,' +
+					'U+3200-33FF,' +
+					'U+3400-4DBF,' +
+					'U+4E00-9FFF,' +
+					'U+E000-FAFF,' +
+					'U+FF00-FFEF'
 			},
 			'en-JP': {
 				regular: 'LG Display_JP',
@@ -84,22 +84,22 @@ function funLocaleSpecificFonts () {
 			'ur': {
 				regular: 'LG Display_Urdu',
 				unicodeRanges:
-					'U+0600-U+06FF, ' +
-					'U+FE70-U+FEFE, ' +
-					'U+FB50-U+FDFF'
+					'U+600-6FF,' +
+					'U+FE70-FEFE,' +
+					'U+FB50-FDFF'
 			},
 			'zh-HK': {
 				regular: 'LG Display GP4_HK-Light',
 				bold:    'LG Display GP4_HK-Regular',
 				unicodeRanges:
-					'U+0000-U+00FF,' +
-					'U+2E80-U+2EFF,' +
-					'U+3000-U+303F,' +
-					'U+3200-U+33FF,' +
-					'U+3400-U+4DBF,' +
-					'U+4E00-U+9FFF,' +
-					'U+E000-U+FAFF,' +
-					'U+FF00-U+FFEF'
+					'U+0-FF,' +
+					'U+2E80-2EFF,' +
+					'U+3000-303F,' +
+					'U+3200-33FF,' +
+					'U+3400-4DBF,' +
+					'U+4E00-9FFF,' +
+					'U+E000-FAFF,' +
+					'U+FF00-FFEF'
 			}
 		};
 
