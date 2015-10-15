@@ -209,7 +209,7 @@ module.exports = kind(
 		{from: 'selected.content', to: 'selectedText'},
 
 		// Accessibility
-		{from: 'selected.accessibilityLabel', to: 'selectedAccessibilityLabel'}
+		{from: 'selected.accessibilityLabel', to: '$.header._accessibilityText'}
 	],
 
 	computed: {
