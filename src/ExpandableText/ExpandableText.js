@@ -167,8 +167,12 @@ var ExpandableTextButton = kind(
 * expanded and collapsed.
 *
 * ```
-* {kind: 'moon.ExpandableText', collapsed: true, maxLines: 3,
-* content: 'I left my heart in San Francisco.'}
+* var
+* 	kind = require('enyo/kind'),
+* 	ExpandableText = require('moonstone/ExpandableText');
+*
+* {kind: ExpandableText, collapsed: true, maxLines: 3,
+* 	content: 'I left my heart in San Francisco.'}
 * ```
 *
 * The [onExpandCollapse]{@link module:moonstone/ExpandableText~ExpandableText#onExpandCollapse} event is fired
