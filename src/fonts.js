@@ -46,6 +46,16 @@ function funLocaleSpecificFonts () {
 		styleId = 'enyo-localization-font-override',
 		styleElem = document.getElementById(styleId),
 		fontDefinitionCss = '',
+		// JP font range is so bulky that we put it here to be a little more conservative
+		jpFontUnicodeRange = 'U+20-7E,U+A0-FF,U+131,U+141-142,U+152-153,U+160-161,U+178,U+17D-17E,' +
+			'U+391-3A1,U+3A3-3A9,U+3B1-3C1,U+3C3-3C9,U+2010,U+2012-2015,U+2018-201A,U+201C-201E,' +
+			'U+2020-2022,U+2025-2026,U+2030,U+2032-2033,U+2039-203C,U+203E,U+2044,U+2049,U+2103,' +
+			'U+2109-210A,U+2113,U+2116,U+2121-2122,U+212B,U+213B,U+2200,U+2202-2203,U+2207-2208,' +
+			'U+220B,U+2211-2212,U+221A,U+221D-2220,U+2225,U+2227-222E,U+2234-2235,U+223C-223D,' +
+			'U+2252,U+2260-2261,U+2266-2267,U+226A-226B,U+2282-2283,U+2286-2287,U+22A5,U+22BF,' +
+			'U+22EF,U+2312,U+E040-E04B,U+E080-E095,U+E0C9-E0CE,U+E0D0-E0D3,U+E0D8-E0D9,U+E0DC-E0F0,' +
+			'U+E0F5-E0FF,U+E180-E19C,U+E1A7-E1D7,U+E285-E2C6,U+E2CA-E2E2,U+E2E5-E2F7,U+E2F9-E2FB,' +
+			'U+E2FF,U+E380-E3A5,U+E3A7-E3A8,U+FB01-FB02',
 		// Locale Configuration Block
 		fonts = {
 			'NonLatin': {
@@ -54,32 +64,11 @@ function funLocaleSpecificFonts () {
 			},
 			'ja': {
 				regular: 'LG Display_JP',
-				unicodeRanges:
-					'U+0-FF,' +
-					'U+2E80-2EFF,' +
-					'U+2F00-2FDF,' +
-					'U+3000-303F,' +
-					'U+3040-309F,' +
-					'U+30A0-30FF,' +
-					'U+3200-33FF,' +
-					'U+3400-4DBF,' +
-					'U+4E00-9FFF,' +
-					'U+E000-FAFF,' +
-					'U+FF00-FFEF'
+				unicodeRanges: jpFontUnicodeRange
 			},
 			'en-JP': {
 				regular: 'LG Display_JP',
-				unicodeRanges:
-					'U+20-7E,U+A0-FF,U+131,U+141-142,U+152-153,U+160-161,U+178,U+17D-17E,U+391-3A1,' +
-					'U+3A3-3A9,U+3B1-3C1,U+3C3-3C9,U+2010,U+2012-2015,U+2018-201A,U+201C-201E,' +
-					'U+2020-2022,U+2025-2026,U+2030,U+2032-2033,U+2039-203C,U+203E,U+2044,U+2049,' +
-					'U+2103,U+2109-210A,U+2113,U+2116,U+2121-2122,U+212B,U+213B,U+2200,U+2202-2203,' +
-					'U+2207-2208,U+220B,U+2211-2212,U+221A,U+221D-2220,U+2225,U+2227-222E,' +
-					'U+2234-2235,U+223C-223D,U+2252,U+2260-2261,U+2266-2267,U+226A-226B,' +
-					'U+2282-2283,U+2286-2287,U+22A5,U+22BF,U+22EF,U+2312,U+E040-E04B,U+E080-E095,' +
-					'U+E0C9-E0CE,U+E0D0-E0D3,U+E0D8-E0D9,U+E0DC-E0F0,U+E0F5-E0FF,U+E180-E19C,' +
-					'U+E1A7-E1D7,U+E285-E2C6,U+E2CA-E2E2,U+E2E5-E2F7,U+E2F9-E2FB,U+E2FF,' +
-					'U+E380-E3A5,U+E3A7-E3A8,U+FB01-FB02'
+				unicodeRanges: jpFontUnicodeRange
 			},
 			'ur': {
 				regular: 'LG Display_Urdu',
