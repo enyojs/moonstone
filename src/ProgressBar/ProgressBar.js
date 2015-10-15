@@ -786,6 +786,15 @@ module.exports = kind(
 	accessibilityValueText: null,
 
 	/**
+	* When `true`, VoiceReadout will be prevented.
+	*
+	* @default true
+	* @type {Boolean}
+	* @public
+	*/
+	accessibilityDisabled: true,
+
+	/**
 	* ProgressBar isn't spottable so we'll make it focusable manually
 	*
 	* @private
@@ -796,8 +805,23 @@ module.exports = kind(
 	* @private
 	*/
 	ariaObservers: [
+		// TODO: Observing $.popupLabel.content to minimize the observed members. Some refactoring
+		// of the label determination could help here - rjd
+		{path: ['progress', 'popup', '$.popupLabel.content'], method: 'ariaValue'},
 		{path: ['accessibilityValueText'], method: function () {
 			this.setAriaAttribute('aria-valuetext', this.accessibilityValueText);
 		}}
-	]
+	],
+
+	/**
+	* Determines the text or value to set as the accessible value for the progress bar
+	*
+	* @private
+	*/
+	ariaValue: function () {
+		var attr = this.popup ? 'aria-valuetext' : 'aria-valuenow';
+		if (!this.accessibilityValueText) {
+			this.setAriaAttribute(attr, (this.popup && this.$.popupLabel)? this.$.popupLabel.get('content') : this.progress);
+		}
+	}
 });

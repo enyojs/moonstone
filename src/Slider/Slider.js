@@ -941,6 +941,15 @@ module.exports = kind(
 	accessibilityValueText: null,
 
 	/**
+	* When `true`, VoiceReadout will be prevented.
+	*
+	* @default false
+	* @type {Boolean}
+	* @public
+	*/
+	accessibilityDisabled: false,
+
+	/**
 	* @private
 	*/
 	ariaObservers: [
