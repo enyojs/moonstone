@@ -190,7 +190,7 @@ if (platform.touch) {
 			onSpotlightScrollUp:'spotlightWheel',
 			onSpotlightScrollDown:'spotlightWheel',
 			onSpotlightContainerEnter:'enablePageUpDownKey',
-			onSpotlightContainerLeave:'disablePageUpDownKey',
+			onSpotlightContainerLeave:'containerLeaveHandler',
 			onenter:'enablePageUpDownKey',
 			onleave:'disablePageUpDownKey',
 			onmove:'move'
@@ -356,6 +356,33 @@ if (platform.touch) {
 		*/
 		disablePageUpDownKey: function () {
 			this.handlePageUpDownKey = false;
+		},
+
+		containerLeaveHandler: function (sender, event) {
+			if (event.originator != this) return;
+			var strategy = this.getStrategy(),
+				b = strategy.getScrollBounds(),
+				o5WayEvent = Spotlight.getLast5WayEvent();
+
+			// We scroll to end on focus leave to show disabled controls at the top or bottom of scroller in 5way.
+			if (o5WayEvent) {
+				switch (o5WayEvent.type) {
+					case 'onSpotlightUp': 
+						if (strategy.getScrollTop() > 0) strategy.setScrollTop(0);
+						break;
+					case 'onSpotlightDown':
+						if (strategy.getScrollTop() < b.maxTop) strategy.setScrollTop(b.maxTop);
+						break;
+					case 'onSpotlightLeft':
+						if (strategy.getScrollLeft() > 0) strategy.setScrollLeft(0);
+						break;
+					case 'onSpotlightRight':
+						if (strategy.getScrollLeft() < b.maxLeft) strategy.setScrollLeft(b.maxLeft);
+						break;
+				}
+			}
+
+			this.disablePageUpDownKey();
 		},
 
 		/**
