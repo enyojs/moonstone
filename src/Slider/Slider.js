@@ -729,9 +729,11 @@ module.exports = kind(
 	* @private
 	*/
 	animatorComplete: function (sender) {
-		this._setValue(sender.value);
-		this.animatingTo = null;
-		this.doAnimateFinish(sender);
+		if (!sender.isAnimating()) {
+			this._setValue(sender.value);
+			this.animatingTo = null;
+			this.doAnimateFinish(sender);
+		}
 		return true;
 	},
 
