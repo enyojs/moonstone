@@ -60,15 +60,14 @@ var Scrollable = {
 	*/
 	create: kind.inherit(function (sup) {
 		return function () {
+			var opts = {
+				block: 'farthest',
+				behavior: 'smooth'
+			};
+
 			sup.apply(this, arguments);
 
-			if (!this.scrollIntoViewOptions) {
-				this.scrollIntoViewOptions = {
-					block: 'farthest',
-					behavior: 'smooth'
-				};
-			}
-
+			this.scrollIntoViewOptions = this.scrollIntoViewOptions ? utils.mixin(opts, this.scrollIntoViewOptions) : opts;
 			// Save original options so they can be restored after runtime changes
 			this._scrollIntoViewOptions = utils.clone(this.scrollIntoViewOptions);
 		};
