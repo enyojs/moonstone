@@ -25,10 +25,18 @@ var Scrollable = {
 
 	suppressMouseEvents: true,
 
-	scrollIntoViewOptions: {
-		block: 'farthest',
-		behavior: 'smooth'
-	},
+	/**
+	* Specifies scrolling options to be used when scrolling an
+	* item into view. Defaults:
+	*
+	*	{
+	*		block: 'farthest',
+	*		behavior: 'smooth'
+	*	}
+	*
+	* @public
+	*/
+	scrollIntoViewOptions: null,
 
 	// TODO: At least in the case of onSpotlightFocus, we
 	// probably need to do something to ensure that we don't
@@ -53,8 +61,15 @@ var Scrollable = {
 	*/
 	create: kind.inherit(function (sup) {
 		return function () {
+			var opts = {
+				block: 'farthest',
+				behavior: 'smooth'
+			};
+
 			sup.apply(this, arguments);
-			// Save default options so they can be restored after runtime changes
+
+			this.scrollIntoViewOptions = this.scrollIntoViewOptions ? utils.mixin(opts, this.scrollIntoViewOptions) : opts;
+			// Save original options so they can be restored after runtime changes
 			this._scrollIntoViewOptions = utils.clone(this.scrollIntoViewOptions);
 		};
 	}),
