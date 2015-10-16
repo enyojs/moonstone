@@ -59,7 +59,7 @@ module.exports = kind(
 		* @public
 		*/
 		label: '',
-		
+
 		/** 
 		* The text to be displayed in the item.
 		*
@@ -75,7 +75,10 @@ module.exports = kind(
 	*/
 	bindings: [
 		{from: 'label', to: '$.header.content'},
-		{from: 'text', to: '$.text.content', transform: 'setTextWithDirection'}
+		{from: 'text', to: '$.text.content', transform: 'setTextWithDirection'},
+
+		// Accessibility
+		{from: '_accessibilityText', to: '$.text.accessibilityLabel'}
 	],
 
 	/**
@@ -99,9 +102,15 @@ module.exports = kind(
 	/**
 	* @private
 	*/
+	_accessibilityText: '',
+
+	/**
+	* @private
+	*/
 	ariaObservers: [
 		{path: ['label', 'text', 'accessibilityHint', 'accessibilityLabel'], method: function () {
-			var content = this.label + ' ' + this.text ,
+			var text = this._accessibilityText ? this._accessibilityText : this.text,
+				content = this.label + ' ' + text ,
 				prefix = this.accessibilityLabel || content || null,
 				label = this.accessibilityHint && prefix && (prefix + ' ' + this.accessibilityHint) ||
 						this.accessibilityHint ||

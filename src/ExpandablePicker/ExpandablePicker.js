@@ -206,7 +206,10 @@ module.exports = kind(
 	],
 
 	bindings: [
-		{from: 'selected.content', to: 'selectedText'}
+		{from: 'selected.content', to: 'selectedText'},
+
+		// Accessibility
+		{from: 'selected.accessibilityLabel', to: '$.header._accessibilityText'}
 	],
 
 	computed: {
