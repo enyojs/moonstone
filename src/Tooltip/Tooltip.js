@@ -12,7 +12,8 @@ var
 	Control = require('enyo/Control'),
 	Popup = require('enyo/Popup'),
 	Component = require('enyo/Component'),
-	Signals = require('enyo/Signals');
+	Signals = require('enyo/Signals'),
+	ri = require('enyo/resolution');
 
 // To prevent lingering tooltips, we're monitoring spotlight changes and tooltip display
 // to ensure that only 1 tooltip is active.
@@ -350,8 +351,8 @@ module.exports = kind(
 	adjustPosition: function (belowActivator) {
 		if (this.showing && this.hasNode()) {
 			var b = this.node.getBoundingClientRect(),
-				moonDefaultPadding = 20,
-				defaultMargin = 15,
+				moonDefaultPadding = ri.scale(20),
+				defaultMargin = ri.scale(15),
 				pBounds = this.parent.getAbsoluteBounds(),
 				acBounds = null;
 

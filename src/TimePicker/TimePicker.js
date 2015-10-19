@@ -72,7 +72,8 @@ var MeridiemPicker = kind(
 	*/
 	published: {
 		/**
-		* The meridiem names and time ranges to use if [meridiemEnable]{@link moon.TimePicker#meridiemEnable}
+		* The meridiem names and time ranges to use if
+		* [meridiemEnable]{@link module:moonstone/TimePicker~TimePicker#meridiemEnable}
 		* is `true`.
 		*
 		* @type {Object[]}
@@ -160,11 +161,9 @@ var MeridiemPicker = kind(
 
 	// Accessibility
 	
-	ariaObservers: [
-		{path: 'value', method: function () {
-			this.setAriaAttribute('aria-valuetext', this.meridiems[this.value]);
-		}}
-	]
+	ariaValue: function () {
+		this.setAriaAttribute('aria-valuetext', this.meridiems[this.value].name);
+	}
 });
 
 /**
@@ -223,14 +222,12 @@ var HourMinutePickerBase = kind(
 
 	// Accessibility
 
-	ariaObservers: [
-		{path: 'value', method: function () {
-			if (this.date && this.range) {
-				var value = this.format(this.value % this.range);
-				this.setAriaAttribute('aria-valuenow', value);
-			}
-		}}
-	]
+	ariaValue: function () {
+		if (this.date && this.range) {
+			var value = this.format(this.value % this.range);
+			this.setAriaAttribute('aria-valuenow', value);
+		}
+	}
 });
 
 /**
@@ -408,29 +405,29 @@ var TimePicker = module.exports = kind(
 		* Optional label for hour.
 		*
 		* @type {String}
-		* @default 'moon.$L('hour')'
+		* @default 'moonstone/i18n.$L('hour')'
 		* @public
 		*/
-		hourText: $L('hour'),			// i18n 'HOUR' label in moon.TimePicker widget
+		hourText: $L('hour'),			// i18n 'HOUR' label in moonstone/TimePicker widget
 
 		/**
 		* Optional label for minute.
 		*
 		* @type {String}
-		* @default 'moon.$L('minute')'
+		* @default 'moonstone/i18n.$L('minute')'
 		* @public
 		*/
-		minuteText: $L('minute'),		// i18n 'MINUTE' label in moon.TimePicker widget
+		minuteText: $L('minute'),		// i18n 'MINUTE' label in moonstone/TimePicker widget
 
 		/**
 		* Optional label for meridiem.
 		*
 		* @type {String}
-		* @default 'moon.$L('meridiem')'
+		* @default 'moonstone/i18n.$L('meridiem')'
 		* @public
 		*/
 
-		meridiemText: $L('meridiem'),	// i18n 'MERIDIEM' label in moon.TimePicker widget
+		meridiemText: $L('meridiem'),	// i18n 'MERIDIEM' label in moonstone/TimePicker widget
 		/**
 		* When `true`, midnight (and noon, if `meridiemEnable: true`) will be represented as `0`
 		* instead of `24` (and `12`). (When [iLib]{@glossary ilib} is loaded, this value will be
@@ -767,7 +764,7 @@ var TimePicker = module.exports = kind(
 	* @private
 	*/
 	ariaObservers: [
-		{path: ['dayText', 'monthText', 'yearText'], method: function () {
+		{path: ['hourText', 'minuteText', 'meridiemText'], method: function () {
 			this.$.hour.set('accessibilityLabel', this.hourText);
 			this.$.minute.set('accessibilityLabel', this.minuteText);
 			if (this.$.meridiem) this.$.meridiem.set('accessibilityLabel', this.meridiemText);

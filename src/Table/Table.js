@@ -1,7 +1,8 @@
 require('moonstone');
 
 /**
-* Contains the declaration for the {@link module:moonstone/Table~Table} and supporting kinds.
+* Contains the declaration for the {@link module:moonstone/Table~Table},
+* {@link module:moonstone/Table~TableCell}, and {@link module:moonstone/Table~TableRow} kinds.
 * @module moonstone/Table
 */
 
@@ -12,11 +13,11 @@ var
 	TableCell = require('enyo/TableCell');
 
 /**
-* {@link module:moonstone/Table~TableCell} extends {@link module:enyo/Table~TableCell}, adding Moonstone visual
-* styling.
+* {@link module:moonstone/Table~TableCell} extends {@link module:enyo/TableCell~TableCell},
+* adding Moonstone visual styling.
 *
 * @class TableCell
-* @extends module:enyo/Table~TableCell
+* @extends module:enyo/TableCell~TableCell
 * @ui
 * @public
 */
@@ -40,11 +41,11 @@ var TableCell = kind(
 });
 
 /**
-* {@link module:moonstone/Table~TableRow} extends {@link module:enyo/Table~TableRow}, adding Moonstone visual
-* styling.
+* {@link module:moonstone/Table~TableRow} extends {@link module:enyo/TableRow~TableRow},
+* adding Moonstone visual styling.
 *
 * @class TableRow
-* @extends module:enyo/Table~TableRow
+* @extends module:enyo/TableRow~TableRow
 * @ui
 * @public
 */

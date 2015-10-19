@@ -189,6 +189,7 @@ module.exports = kind(
 	*/
 	create: function () {
 		Control.prototype.create.apply(this, arguments);
+		this._created = true;
 		this.animateChanged();
 		this.initializeActiveItem();
 		this.disabledChanged();
@@ -287,8 +288,8 @@ module.exports = kind(
 				// Force change handler, since the currently selected item actually changed
 				this.selectedIndexChanged();
 			}
-			this.showHideNavButtons();
 		}
+		if (this._created) this.showHideNavButtons();
 	},
 
 	/**

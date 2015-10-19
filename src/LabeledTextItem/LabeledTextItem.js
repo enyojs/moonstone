@@ -59,7 +59,7 @@ module.exports = kind(
 		* @public
 		*/
 		label: '',
-		
+
 		/** 
 		* The text to be displayed in the item.
 		*
@@ -69,13 +69,16 @@ module.exports = kind(
 		*/
 		text: ''
 	},
-	
+
 	/**
 	* @private
 	*/
 	bindings: [
 		{from: 'label', to: '$.header.content'},
-		{from: 'text', to: '$.text.content'}
+		{from: 'text', to: '$.text.content', transform: 'setTextWithDirection'},
+
+		// Accessibility
+		{from: '_accessibilityText', to: '$.text.accessibilityLabel'}
 	],
 
 	/**
@@ -86,14 +89,28 @@ module.exports = kind(
 		{name: 'text', classes: 'moon-labeledtextitem-text'}
 	],
 
+	/**
+	/* @private
+	*/
+	setTextWithDirection: function(val) {
+		this.$.text.detectTextDirectionality(val);
+		return val;
+	},
+
 	// Accessibility
+
+	/**
+	* @private
+	*/
+	_accessibilityText: '',
 
 	/**
 	* @private
 	*/
 	ariaObservers: [
 		{path: ['label', 'text', 'accessibilityHint', 'accessibilityLabel'], method: function () {
-			var content = this.label + ' ' + this.text ,
+			var text = this._accessibilityText ? this._accessibilityText : this.text,
+				content = this.label + ' ' + text ,
 				prefix = this.accessibilityLabel || content || null,
 				label = this.accessibilityHint && prefix && (prefix + ' ' + this.accessibilityHint) ||
 						this.accessibilityHint ||

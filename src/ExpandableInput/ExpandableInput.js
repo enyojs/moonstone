@@ -12,6 +12,7 @@ var
 	Spotlight = require('spotlight');
 
 var
+	$L = require('../i18n'),
 	ExpandableListItem = require('../ExpandableListItem'),
 	Input = require('../Input'),
 	InputDecorator = require('../InputDecorator');
@@ -119,7 +120,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	drawerComponents: [		
+	drawerComponents: [
 		{name: 'inputDecorator', kind: InputDecorator, onSpotlightBlur: 'inputSpotBlurred', onSpotlightFocus: 'inputFocus', onSpotlightDown: 'inputSpotDown', onkeyup: 'inputKeyUp', defaultSpotlightUp: 'drawer', components: [
 			{name: 'clientInput', kind: Input, onchange: 'doChange', dismissOnEnter: true}
 		]}
@@ -242,11 +243,6 @@ module.exports = kind(
 	*/
 	focusInput: function () {
 		this.$.clientInput.focus();
-		// Force cursor to end of text. We were sometimes seeing the
-		// cursor positioned at the start of the text, which caused
-		// problems in 5-way mode (where there's no way to move the
-		// cursor).
-		this.$.clientInput.hasNode().selectionStart = this.value.length;
 	},
 
 	/**
@@ -263,5 +259,15 @@ module.exports = kind(
 			this.expandContract();
 		}
 		return true;
-	}
+	},
+
+	// Accessibility
+
+	/**
+	* @default $L('edit box')
+	* @type {String}
+	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityHint
+	* @public
+	*/
+	accessibilityHint: $L('edit box')
 });

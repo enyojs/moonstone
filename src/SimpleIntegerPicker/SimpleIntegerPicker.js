@@ -13,7 +13,6 @@ var
 	IntegerPicker = require('../IntegerPicker');
 
 var
-	Spotlight = require('spotlight'),
 	$L = require('../i18n');
 
 /**
@@ -201,25 +200,44 @@ module.exports = kind(
 	// Accessibility
 
 	/**
-	* @default $L('change a value with left/right button')
+	* @default 'spinbutton'
 	* @type {String}
-	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityHint
+	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityRole
 	* @public
 	*/
-	accessibilityHint: $L('change a value with left/right button'),
+	accessibilityRole: 'spinbutton',
 
 	/**
 	* @private
 	*/
 	ariaObservers: [
-		{path: ['value', 'unit'], method: function () {
-			var text = this.unit ? this.value + ' ' + this.unit : this.value;
-
-			// It reads changed value only the case spotlight focus is on IntegerPicker
-			if (Spotlight.getCurrent() === this) {
-				this.$.repeater.setAriaAttribute('aria-valuetext', text);
+		{path: ['value', 'unit'],  method: function () {
+			// When value is changed, it reads only value
+			if (this.spotted) {
+				this.set('accessibilityHint', null);
+				this.ariaValue();
 			}
-			this.set('accessibilityLabel', text);
+		}},
+		{path: 'spotted',  method: function () {
+			// When spotlight is focused, it reads value with hint
+			if (this.spotted) {
+				if (!this.wrap && this.value == this.min) {
+					this.set('accessibilityHint', $L('change a value with right button'));
+				} else if (!this.wrap && this.value == this.max) {
+					this.set('accessibilityHint', $L('change a value with left button'));
+				} else {
+					this.set('accessibilityHint', $L('change a value with left right button'));
+				}
+				this.ariaValue();
+			}
 		}}
-	]
+	],
+
+	/**
+	* @private
+	*/
+	ariaValue: function () {
+		var text = this.unit ? this.value + ' ' + this.unit : this.value;
+		this.setAriaAttribute('aria-valuetext', text);
+	}
 });

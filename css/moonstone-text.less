@@ -48,6 +48,10 @@
 }
 .moon-sub-header-text {
 	.moon-text-base (@moon-sub-header-font-size);
+
+	.moon-small-header & {
+		font-size: @moon-small-header-sub-header-font-size;
+	}
 }
 .moon-header-sub-title-below {
 	font-family: @moon-sub-header-below-font-family;
@@ -118,7 +122,7 @@
 	.moon,
 	.moon input,
 	.moon textarea,
-	.moon button,
+	.moon .moon-button,
 	.moon-large-text,
 	.moon-header-text,
 	.moon-header-font,
@@ -161,7 +165,8 @@
 	.moon-popup-header-text {
 		font-size: @moon-non-latin-popup-header-font-size;
 	}
-	.moon-sub-header-text {
+	.moon-sub-header-text,
+	.moon-small-header .moon-sub-header-text {
 		font-size: @moon-non-latin-sub-header-font-size;
 	}
 	.moon-super-header-text {

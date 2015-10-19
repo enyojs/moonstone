@@ -1,16 +1,19 @@
 /**
-* moonstone/Overlay contains a set of mixins that support providing a layer of controls contextually
-* displayed over another control.
+* {@link module:moonstone/Overlay} contains a set of mixins that support
+* providing a layer of controls contextually displayed over another control.
+*
+* {@link module:moonstone/Overlay~OverlaySupport} provides generic support for overlays.
+* With it, you can add arbitrary
+* {@link module:moonstone/Overlay~OverlaySupport#overlayComponents} and configure their
+* position and formatting.
 * 
-* {@link moonstone/Overlay.Support} provides the generic support for overlays. With it, you can
-* add arbitrary {@link moonstone/Overlay.Support#overlayComponents} and configured their position
-* and formatting.
-* 
-* There are 3 supplementary mixins for common use cases ({@link moonstone/Overlay.Selection},
-* {@link moonstone/Overlay.Text}, and {@link moonstone/Overlay.Marquee}). These mixins preconfigure
-* the overlay with components and expose additional properties to further configure the mixin.
-* Unlike most mixins, these three do little on their own and must be using in conjunction with
-* {@link moonstone/Overlay.Support}.
+* There are the supplementary mixins for common use cases:
+* ({@link module:moonstone/SelectionOverlaySupport},
+* {@link module:moonstone/TextOverlaySupport}, and
+* {@link module:moonstone/MarqueeOverlaySupport}). These mixins preconfigure the
+* overlay with components and expose additional properties to further configure
+* the mixin. Unlike most mixins, these three do little on their own and must be
+* used in conjunction with {@link module:moonstone/Overlay~OverlaySupport}.
 *
 * ```
 * // A control with a default Selection overlay
@@ -107,7 +110,7 @@ function mapShowing (showing) {
 
 /**
 * Bound to an overlay container, forwards a changed property value to the container's
-* {@link moon.OverlayContainerSupport#overlayTarget}.
+* {@link module:moonstone/Overlay~OverlayContainerSupport#overlayTarget}.
 *
 * @param  {Any}		was		Previous property value
 * @param  {Any}		is		Current property value
@@ -131,7 +134,7 @@ function forwardPropertyChange (was, is, prop) {
 * updated in place and returned.
 *
 * @param  {Object[]}		components	Component configs
-* @param  {enyo.Control}	owner		Owner of components
+* @param  {module:enyo/Control~Control}	owner		Owner of components
 * @return {Object[]}					Updated component configs
 *
 * @private
@@ -148,9 +151,10 @@ function updateOwnership (components, owner) {
 }
 
 /**
-* {@link moon.OverlaySupport} adds an overlay to show additional controls over the control using
-* the mixin. Display of the overlay is controlled by {@link moon.OverlaySupport#overlayShowing}
-* which supports displaying manually, on spotlight, or on hover.
+* {@link module:moonstone/Overlay~OverlaySupport} adds an overlay to show additional
+* controls over the control using the mixin. Display of the overlay is controlled
+* by {@link module:moonstone/Overlay~OverlaySupport#overlayShowing}, which supports
+* displaying the overlay manually, on spotlight, or on hover.
 *
 * ```
 * {kind: Image, src: 'assets/movie.png', mixins: [Overlay.Support],
@@ -162,7 +166,7 @@ function updateOwnership (components, owner) {
 * }
 * ```
 *
-* @mixin moon.OverlaySupport
+* @mixin OverlaySupport
 * @public
 */
 module.exports.Support = {
@@ -311,7 +315,7 @@ module.exports.Support = {
 * Binding that expects an array of component configs which will be updated during transform to be
 * owned by the binding owner's instance owner.
 *
-* @class moon.OverlayComponentsBinding
+* @class OverlayComponentsBinding
 * @module moonstone/Overlay
 * @public
 */
@@ -337,10 +341,10 @@ module.exports.ComponentsBinding = kind({
 
 /**
 * Adds observers for the known overlay properties which forward the property changes to the
-* contained control with @{link moon.OverlaySupport} identified by
-* {@linke moon.OverlayContainerSupport#overlayTarget}
+* contained control with {@link module:moonstone/Overlay~OverlaySupport} identified by
+* {@link module:moonstone/Overlay~OverlayContainerSupport#overlayTarget}
 *
-* @mixin moon.OverlayContainerSupport
+* @mixin OverlayContainerSupport
 * @module moonstone/Overlay
 * @public
 */
@@ -352,7 +356,7 @@ module.exports.Container = {
 	name: 'moon.OverlayContainerSupport',
 
 	/**
-	* Name of the contained control with {@link moon.OverlaySupport}
+	* Name of the contained control with {@link module:moonstone/Overlay~OverlaySupport}
 	*
 	* @name overlayTarget
 	* @type {String}
@@ -362,7 +366,7 @@ module.exports.Container = {
 
 	/**
 	* List of overlay properties to forward to this container's
-	* {@link moon.OverlayContainerSupport#overlayTarget}
+	* {@link module:moonstone/Overlay~OverlayContainerSupport#overlayTarget}
 	*
 	* @private
 	*/
@@ -398,8 +402,8 @@ module.exports.Container = {
 
 /**
 * Sets the default configuration and components for selection overlay. Requires that the control to
-* which it is applied also applies {@link moon.OverlaySupport} or contains a control that does and
-* applies {@link moon.OverlayContainerSupport}.
+* which it is applied also apply {@link module:moonstone/Overlay~OverlaySupport} or contain a control that
+* applies {@link module:moonstone/Overlay~OverlayContainerSupport}.
 *
 * SelectionOverlaySupport adds the styling for a centered icon that can be shown when the `selected`
 * class is applied to the overlaid control.
@@ -412,7 +416,7 @@ module.exports.Container = {
 * }
 * ```
 *
-* @mixin moon.SelectionOverlaySupport
+* @mixin SelectionOverlaySupport
 * @module moonstone/Overlay
 * @public
 */
@@ -439,8 +443,8 @@ module.exports.Selection = {
 	overlayPosition: 'centered',
 
 	/**
-	* Icon to be displayed when selected. May either be a URL to an image or the valid name of an
-	* {@link moon.Icon#icon}.
+	* Icon to be displayed when selected. May either be a URL to an image or the valid name of a
+	* {@link module:moonstone/Icon~Icon#icon}.
 	*
 	* @name overlayIcon
 	* @type {String}
@@ -477,9 +481,9 @@ module.exports.Selection = {
 };
 
 /**
-* Sets the default configuration and components for fixed text overlay. Requires that the control to
-* which it is applied also applies {@link moon.OverlaySupport} or contains a control that does and
-* applies {@link moon.OverlayContainerSupport}.
+* Sets the default configuration and components for fixed text overlay. Requires
+* that the control to which it is applied also apply {@link module:moonstone/Overlay~OverlaySupport}
+* or contain a control that does and applies {@link module:moonstone/Overlay~OverlayContainerSupport}.
 * 
 * TextOverlaySupport styles controls with the `moon-overlay-text-title` and
 * `moon-overlay-text-subtitle` classes
@@ -493,7 +497,7 @@ module.exports.Selection = {
 * }
 * ```
 *
-* @mixin moon.TextOverlaySupport
+* @mixin TextOverlaySupport
 * @module moonstone/Overlay
 * @public
 */
@@ -557,11 +561,12 @@ module.exports.Text = {
 
 
 /**
-* Sets the default configuration and components for marqueed text overlay. Requires that the control
-* to which it is applied also applies {@link moon.OverlaySupport} or contains a control that does
-* and applies {@link moon.OverlayContainerSupport}.
+* Sets the default configuration and components for marqueed text overlay.
+* Requires that the control to which it is applied also apply
+* {@link module:moonstone/Overlay~OverlaySupport} or contain a control that does
+* and applies {@link module:moonstone/Overlay~OverlayContainerSupport}.
 *
-* @mixin moon.MarqueeOverlaySupport
+* @mixin MarqueeOverlaySupport
 * @module moonstone/Overlay
 * @public
 */

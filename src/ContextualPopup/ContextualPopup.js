@@ -262,8 +262,8 @@ module.exports = kind(
 		if (n) {
 			this.activatorOffset = this.getPageOffset(n);
 		}
-		this.show();
 		this.configCloseButton();
+		this.show();
 		if (Spotlight.isSpottable(this)) {
 			Spotlight.spot(this);
 		}

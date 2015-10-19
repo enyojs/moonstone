@@ -13,14 +13,19 @@ var
 	ExpandablePicker = require('../ExpandablePicker');
 
 /**
-* {@link module:moonstone/ExpandableDataPicker~ExpandableDataPicker}, which extends {@link module:moonstone/ExpandablePicker~ExpandablePicker}, is
+* {@link module:moonstone/ExpandableDataPicker~ExpandableDataPicker}, which
+* extends {@link module:moonstone/ExpandablePicker~ExpandablePicker}, is
 * a data-driven drop-down picker menu that solicits a choice from the user. The picker's child
 * components, which are instances of {@link module:moonstone/CheckboxItem~CheckboxItem} by default, provide
-* the options for the picker. They child controls are generated from the picker's
+* the options for the picker. The child controls are generated from the picker's
 * [collection]{@link module:moonstone/ExpandableDataPicker~ExpandableDataPicker#collection}.
 * 
 * ```
-* {name: 'picker', kind: 'moon.ExpandableDataPicker', content: 'Data Picker', components: [
+* var
+* 	kind = require('enyo/kind'),
+* 	ExpandableDataPicker = require('moonstone/ExpandableDataPicker');
+*
+* {name: 'picker', kind: ExpandableDataPicker, content: 'Data Picker', components: [
 * 	{bindings: [
 * 		{from: '.model.label', to: '.content'}
 * 	]}

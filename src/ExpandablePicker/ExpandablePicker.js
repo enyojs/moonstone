@@ -206,7 +206,10 @@ module.exports = kind(
 	],
 
 	bindings: [
-		{from: 'selected.content', to: 'selectedText'}
+		{from: 'selected.content', to: 'selectedText'},
+
+		// Accessibility
+		{from: 'selected.accessibilityLabel', to: '$.header._accessibilityText'}
 	],
 
 	computed: {
@@ -318,7 +321,7 @@ module.exports = kind(
 				controls[i].setChecked(checked);
 			}
 		} else {
-			this.set('selected', controls[index]);
+			this.set('selected', index >= 0 ? controls[index] : null);
 		}
 	},
 

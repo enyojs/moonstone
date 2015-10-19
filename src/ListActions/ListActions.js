@@ -121,7 +121,8 @@ var ListActionsDrawer = kind(
 	* @private
 	*/
 	events: {
-		onComplete: ''
+		onComplete: '',
+		onCustomizeCloseButton: ''
 	},
 
 	/**
@@ -172,6 +173,7 @@ var ListActionsDrawer = kind(
 		// Skip animation before render time
 		if (!this.$.client.hasNode()) { return; }
 		this.$.client.addRemoveClass('open', this.open);
+		this.doCustomizeCloseButton({properties: {showing: !this.open}});
 	},
 
 	/**
@@ -299,7 +301,7 @@ var ListActions = module.exports = kind(
 		* A block of one or more controls to be displayed inside the list actions menu. By
 		* default, each top-level [ListActions]{@link module:moonstone/ListActions~ListActions} will have a
 		* [defaultKind]{@link module:enyo/Control~Control#defaultKind} of
-		* [FittableRows]{@link module:enyo/FittableRows~FittableRows}, and should typically contain a
+		* [FittableRows]{@link module:layout/FittableRows~FittableRows}, and should typically contain a
 		* {@link module:moonstone/Divider~Divider} identifying the category and a {@link module:moonstone/Scroller~Scroller} with
 		* `fit: true` set on it, containing instances of {@link module:moonstone/CheckboxItem~CheckboxItem},
 		* {@link module:moonstone/ToggleItem~ToggleItem}, or {@link module:moonstone/SelectableItem~SelectableItem} for setting options for
@@ -365,9 +367,9 @@ var ListActions = module.exports = kind(
 		proportionalWidth: false,
 
 		/**
-		* The background-color opacity of {@link module:moonstone/ListAction}}'s activator
-		* (which is a {@link module:moonstone/IconButton}). Please see the valid values defined by
-		* {module:enyo/Button~Button#backgroundOpacity}.
+		* The background-color opacity of the {@link module:moonstone/ListActions~ListActions}' activator
+		* (which is a {@link module:moonstone/IconButton~IconButton}). Please see the valid values defined by
+		* {@link module:moonstone/Button~Button#backgroundOpacity}.
 		*
 		* @type {String}
 		* @default 'opaque'
@@ -400,7 +402,7 @@ var ListActions = module.exports = kind(
 	*/
 	drawerComponents: [
 		{name: 'drawer', spotlightDisabled: true, kind: ListActionsDrawer, classes: 'list-actions-drawer', onComplete: 'drawerAnimationEnd', open: false, spotlight: 'container', spotlightModal:true, components: [
-			{name: 'closeButton', kind: IconButton, icon: 'closex', classes: 'moon-popup-close moon-list-actions-close moon-neutral', ontap: 'expandContract', accessibilityLabel: $L('Close'), backgroundOpacity: 'transparent', defaultSpotlightDown:'listActions'},
+			{name: 'closeButton', kind: IconButton, icon: 'arrowsmallup', classes: 'moon-popup-close moon-list-actions-close moon-neutral', ontap: 'expandContract', accessibilityLabel: $L('Close'), backgroundOpacity: 'transparent', defaultSpotlightDown:'listActions'},
 			{name: 'listActionsClientContainer', kind: Control, classes: 'enyo-fit moon-list-actions-client-container moon-neutral', components: [
 				{name: 'listActions', kind: Scroller, classes: 'enyo-fit moon-list-actions-scroller', horizontal:'hidden', vertical:'hidden', onActivate: 'optionSelected', defaultSpotlightUp:'closeButton'}
 			]}

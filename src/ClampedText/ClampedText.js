@@ -1,24 +1,34 @@
 require('moonstone');
 
+/**
+* Contains the declaration for the {@link module:moonstone/ClampedText~ClampedText} kind.
+* @module moonstone/ClampedText
+*/
+
 var
 	dom = require('enyo/dom'),
 	kind = require('enyo/kind'),
 	Control = require('enyo/Control');
 
 /**
-* Limits the display of {@link enyo.Control#content} to {@link moon.ClampedText#maxLines}
+* Limits the display of {@link module:enyo/Control~Control#content} to
+* {@link module:moonstone/ClampedText~ClampedText#maxLines}.
 *
 * ```
+* var
+* 	kind = require('enyo/kind'),
+* 	ClampedText = require('moonstone/ClampedText');
+*
 * {kind: ClampedText, content: 'some rather long content', maxLines: 3}
 * ```
 *
-* @class moon.ClampedText
+* @class ClampedText
+* @extends module:enyo/Control~Control
 * @ui
-* @module moonstone/ClampedText
 * @public
 */
 module.exports = kind(
-	/** @lends moon.ClampedText.prototype */ {
+	/** @lends module:moonstone/ClampedText~ClampedText.prototype */ {
 
 	/**
 	* @private

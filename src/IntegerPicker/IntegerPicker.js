@@ -6,6 +6,7 @@ require('moonstone');
 */
 
 var
+	animation = require('enyo/animation'),
 	kind = require('enyo/kind'),
 	dom = require('enyo/dom'),
 	Control = require('enyo/Control'),
@@ -19,8 +20,8 @@ var
 	TouchScrollStrategy = ScrollStrategy.Touch;
 
 var
-	Spotlight = require('spotlight'),
 	$L = require('../i18n');
+
 /**
 * Fires when the currently selected value changes.
 *
@@ -212,7 +213,7 @@ module.exports = kind(
 		// FIXME: TranslateScrollStrategy doesn't work with the current design of this component so
 		// we're forcing TouchScrollStrategy
 		{kind: Scroller, strategyKind: TouchScrollStrategy, thumb: false, touch: true, useMouseWheel: false, classes: 'moon-scroll-picker', components:[
-			{name: 'repeater', kind: FlyweightRepeater, classes: 'moon-scroll-picker-repeater', ondragstart: 'dragstart', onSetupItem: 'setupItem', noSelect: true, accessibilityRole: 'spinbutton', components: [
+			{name: 'repeater', kind: FlyweightRepeater, classes: 'moon-scroll-picker-repeater', ondragstart: 'dragstart', onSetupItem: 'setupItem', noSelect: true, components: [
 				{name: 'item', kind: Control, classes: 'moon-scroll-picker-item'}
 			]},
 			{name: 'buffer', kind: Control, accessibilityDisabled: true, classes: 'moon-scroll-picker-buffer'}
@@ -340,10 +341,17 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	rangeChanged: function () {
-		this.verifyValue();
+	prepareRange: function () {
 		this.range = this.valueToIndex(this.max) - this.valueToIndex(this.min) + 1;
 		this.setupBuffer();
+	},
+
+	/**
+	* @private
+	*/
+	rangeChanged: function () {
+		this.verifyValue();
+		this.prepareRange();
 	},
 
 	/**
@@ -368,6 +376,7 @@ module.exports = kind(
 	stepChanged: function (old) {
 		var step = parseInt(this.step, 10);
 		this.step = isNaN(step)? 1 : step;
+		this.prepareRange();
 		this.valueChanged(this.value);
 	},
 
@@ -576,8 +585,13 @@ module.exports = kind(
 			var count = Math.abs(newIndex - oldIndex) + 1;
 			this.updateRepeater(index, count);
 
-			this.scrollToIndex(oldIndex, false);
-			this.startJob('valueChanged-Scroller', this.bindSafely('scrollToIndex', newIndex, true), 33);
+			if (this._rAF) animation.cancelRequestAnimationFrame(this._rAF);
+			this._rAF = animation.requestAnimationFrame(function () {
+				this.scrollToIndex(oldIndex, false);
+				this._rAF = animation.requestAnimationFrame(function () {
+					this.scrollToIndex(newIndex, true);
+				}.bind(this));
+			}.bind(this));
 		} else {
 			// if old isn't specified, setup the repeater with only this.value and jump to it
 			this.updateRepeater(newIndex);
@@ -624,6 +638,7 @@ module.exports = kind(
 	* @private
 	*/
 	spotlightFocused: function () {
+		this.set('spotted', true);
 		this.bubble('onRequestScrollIntoView');
 	},
 
@@ -631,6 +646,7 @@ module.exports = kind(
 	* @private
 	*/
 	spotlightBlur: function () {
+		this.set('spotted', false);
 		this.hideTopOverlay();
 		this.hideBottomOverlay();
 	},
@@ -696,29 +712,45 @@ module.exports = kind(
 	// Accessibility
 
 	/**
-	* @default $L('change a value with up/down button')
+	* @default 'spinbutton'
 	* @type {String}
-	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityHint
+	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityRole
 	* @public
 	*/
-	accessibilityHint: $L('change a value with up/down button'),
+	accessibilityRole: 'spinbutton',
 
 	/**
 	* @private
 	*/
 	ariaObservers: [
-		{from: 'min', method: function () {
-			this.$.repeater.setAriaAttribute('aria-valuemin', this.min);
-		}},
-		{from: 'max', method: function () {
-			this.$.repeater.setAriaAttribute('aria-valuemax', this.max);
-		}},
-		{from: 'value', method: function () {
-			// It reads changed value only the case spotlight focus is on IntegerPicker
-			if (Spotlight.getCurrent() === this) {
-				this.$.repeater.setAriaAttribute('aria-valuenow', this.value);
+		{from: 'min', to: 'aria-valuemin'},
+		{from: 'max', to: 'aria-valuemax'},
+		{path: 'value',  method: function () {
+			// When value is changed, it reads only value
+			if (this.spotted) {
+				this.set('accessibilityHint', null);
+				this.ariaValue();
 			}
-			this.set('accessibilityLabel', this.value);
+		}},
+		{path: 'spotted',  method: function () {
+			// When spotlight is focused, it reads value with hint
+			if (this.spotted) {
+				if (!this.wrap && this.value == this.min) {
+					this.set('accessibilityHint', $L('change a value with up button'));
+				} else if (!this.wrap && this.value == this.max) {
+					this.set('accessibilityHint', $L('change a value with down button'));
+				} else {
+					this.set('accessibilityHint', $L('change a value with up down button'));
+				}
+				this.ariaValue();
+			}
 		}}
-	]
+	],
+
+	/**
+	* @private
+	*/
+	ariaValue: function () {
+		this.setAriaAttribute('aria-valuenow', this.value);
+	}
 });
