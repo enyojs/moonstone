@@ -9,6 +9,9 @@ var
 	kind = require('enyo/kind');
 
 var
+	Close = require('../CloseSupport');
+
+var
 	Icon = require('../Icon');
 
 /**
@@ -109,6 +112,9 @@ module.exports = kind(
 		*/
 		backgroundOpacity: 'opaque'
 	},
+
+	mixins: [Close.support],
+	hasSillyCloseButton: true,
 
 	/**
 	* @private

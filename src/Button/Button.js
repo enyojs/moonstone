@@ -11,6 +11,9 @@ var
 	Button = require('enyo/Button');
 
 var
+	Close = require('../CloseSupport');
+
+var
 	Marquee = require('../Marquee'),
 	MarqueeSupport = Marquee.Support,
 	MarqueeText = Marquee.Text;
@@ -50,7 +53,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	mixins: [MarqueeSupport],
+	mixins: [MarqueeSupport, Close.support],
 
 	/**
 	* @private
@@ -167,6 +170,7 @@ module.exports = kind(
 	*/
 	initComponents: function () {
 		if (!(this.components && this.components.length > 0)) {
+			this.createComponent(Close.template);
 			this.createComponent({name: 'client', kind: MarqueeText, classes: 'button-client', isChrome: true});
 		}
 		if (this.small) this.smallChanged();

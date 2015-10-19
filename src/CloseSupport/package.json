@@ -1,0 +1,6 @@
+{
+	"main": "CloseSupport.js",
+	"styles": [
+		"CloseSupport.less"
+	]
+}
