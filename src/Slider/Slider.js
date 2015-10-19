@@ -632,7 +632,7 @@ module.exports = kind(
 		if (this.disabled) {
 			return; // return nothing
 		}
-		
+
 		e.preventDefault();
 		this.set('dragging', true);
 		Spotlight.freeze();
