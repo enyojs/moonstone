@@ -108,6 +108,13 @@ var ListActionsDrawer = kind(
 	/**
 	* @private
 	*/
+	handlers: {
+		onPanelOnscreen: 'openChanged'  // Re-evaluate whether ListActions should be open and if the close X should show or not.
+	},
+
+	/**
+	* @private
+	*/
 	classes: 'moon-list-actions-drawer',
 
 	/**
