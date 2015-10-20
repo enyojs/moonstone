@@ -1,7 +1,9 @@
 require('moonstone');
 
 /**
-* Contains the declaration for the {@link module:moonstone/ListActions~ListActions} and {@link module:moonstone/ListActions~ListActionsDrawer} kinds.
+* Contains the declarations for the {@link module:moonstone/ListActions~ListActions}
+* and {@link module:moonstone/ListActions~ListActionsDrawer} kinds, and the
+* {@link module:moonstone/ListActions~ListActionActivationSupport} mixin.
 * @module moonstone/ListActions
 */
 
@@ -28,10 +30,10 @@ var
 	HistorySupport = require('../HistorySupport');
 
 /**
-* An internally-used support mixin added to a {@link module:moonstone/ListActions~ListActions} menu that decorates
-* `activate` events with the menu's `action` property.
+* An internally-used support mixin added to a {@link module:moonstone/ListActions~ListActions}
+* menu, which decorates `activate` events with the menu's `action` property.
 *
-* @mixin moon.ListActionActivationSupport
+* @mixin ListActionActivationSupport
 * @protected
 */
 var ListActionActivationSupport = {
