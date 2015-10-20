@@ -545,7 +545,6 @@ module.exports = kind(
 	*/
 	updatePopupOffset: function () {
 		if (this.popup) {
-		// console.log("updatePopupOffset:", this.getPopupHeight(), this.getPopupOffset(), ri.scale(this.getPopupHeight() + this.getPopupOffset() + 5));
 			this.$.popup.applyStyle('top', dom.unit(-(ri.scale(this.getPopupHeight() + this.getPopupOffset() + 5)), 'rem'));
 		}
 	},
