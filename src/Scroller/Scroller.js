@@ -190,7 +190,8 @@ if (platform.touch) {
 			onSpotlightScrollUp:'spotlightWheel',
 			onSpotlightScrollDown:'spotlightWheel',
 			onSpotlightContainerEnter:'enablePageUpDownKey',
-			onSpotlightContainerLeave:'disablePageUpDownKey',
+			// Temporary fix for ENYO-2277 -- see note below
+			onSpotlightContainerLeave:'containerLeaveHandler',
 			onenter:'enablePageUpDownKey',
 			onleave:'disablePageUpDownKey',
 			onmove:'move'
@@ -356,6 +357,41 @@ if (platform.touch) {
 		*/
 		disablePageUpDownKey: function () {
 			this.handlePageUpDownKey = false;
+		},
+
+		/**
+		* This is a temporary fix for ENYO-2277. We intend to replace
+		* it with a solution that doesn't wait until focus leaves the container
+		* to scroll to the edge.
+		*
+		* @private
+		*/
+
+		containerLeaveHandler: function (sender, event) {
+			var strategy = this.getStrategy(),
+				b = strategy.getScrollBounds(),
+				o5WayEvent = Spotlight.getLast5WayEvent(),
+				lastControl = Spotlight.getLastControl();
+
+			// We are similarly scrolling horizontally to show disabled controls to the left or right of the scroller.
+			if (event.originator == this && o5WayEvent && lastControl && lastControl.kindName != 'moon.PagingControl') {
+				switch (o5WayEvent.type) {
+					case 'onSpotlightUp': 
+						if (strategy.getScrollTop() > 0) strategy.setScrollTop(0);
+						break;
+					case 'onSpotlightDown':
+						if (strategy.getScrollTop() < b.maxTop) strategy.setScrollTop(b.maxTop);
+						break;
+					case 'onSpotlightLeft':
+						if (strategy.getScrollLeft() > 0) strategy.setScrollLeft(0);
+						break;
+					case 'onSpotlightRight':
+						if (strategy.getScrollLeft() < b.maxLeft) strategy.setScrollLeft(b.maxLeft);
+						break;
+				}
+			}
+
+			this.disablePageUpDownKey();
 		},
 
 		/**
