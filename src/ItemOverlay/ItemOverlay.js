@@ -127,7 +127,7 @@ var ItemOverlay = module.exports = kind(
 * ]}
 * ```
 *
-* @mixin
+* @mixin ItemOverlaySupport
 * @public
 */
 ItemOverlay.ItemOverlaySupport = {
