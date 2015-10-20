@@ -57,7 +57,7 @@ var ItemOverlay = module.exports = kind(
 	/**
  	* @private
  	*/
-	spotFocused: false,
+	spotFocused: undefined,
 
 	/**
 	* @private
@@ -82,7 +82,6 @@ var ItemOverlay = module.exports = kind(
 		* @public
 		*/
 		right: false
-
 	},
 
 	/**
@@ -97,18 +96,24 @@ var ItemOverlay = module.exports = kind(
 	/**
 	* @private
 	*/
-	autoHideChanged: function(was, is) {
-			this.set('showing', !is || (is && this.spotFocused));
+	autoHideChanged: function () {
+		this.spotFocusedChanged();
+	},
+
+	/**
+	* @private
+	*/
+	spotFocusedChanged: function () {
+		if (this.autoHide) this.set('showing', this.spotFocused);
 	},
 
 
 	/**
 	* @private
 	*/
-	rightChanged: function() {
+	rightChanged: function () {
 		this.addRemoveClass('right', this.get('right'));
 	}
-
 });
 
 /**
@@ -180,11 +185,17 @@ ItemOverlay.ItemOverlaySupport = {
 	*/
 	autoHideEnding: undefined,
 
+	/**
+	* @private
+	*/
 	bindings: [
 		{from: 'autoHideBeginning', to: '$.beginning.autoHide'},
 		{from: 'autoHideEnding', to: '$.ending.autoHide'}
 	],
 
+	/**
+	* @private
+	*/
 	handlers: {
 		onSpotlightFocused: 'spotFocused',
 		onSpotlightBlur: 'spotBlur'
@@ -193,29 +204,7 @@ ItemOverlay.ItemOverlaySupport = {
 	/**
 	* @private
 	*/
-	overlayShowing: function(showing) {
-		var resize = false;
-
-		if (this.autoHideBeginning) {
-			this.$.beginning.set('showing', showing);
-			resize = true;
-		}
-
-		if (this.autoHideEnding) {
-			this.$.ending.set('showing', showing);
-			resize = true;
-		}
-
-		if (resize) {
-			this.resize();
-		}
-	},
-
-	/**
-	* @private
-	*/
-	spotFocused: function() {
-		this.overlayShowing(true);
+	spotFocused: function () {
 		this.$.beginning.set('spotFocused', true);
 		this.$.ending.set('spotFocused', true);
 	},
@@ -223,8 +212,7 @@ ItemOverlay.ItemOverlaySupport = {
 	/**
 	* @private
 	*/
-	spotBlur: function() {
-		this.overlayShowing(false);
+	spotBlur: function () {
 		this.$.beginning.set('spotFocused', false);
 		this.$.ending.set('spotFocused', false);
 	},
@@ -234,10 +222,10 @@ ItemOverlay.ItemOverlaySupport = {
 	*/
 	create: kind.inherit(function (sup) {
 		return function () {
-			this.beginningComponents = (this.beginningComponents === undefined) ? null : this.beginningComponents;
-			this.endingComponents = (this.endingComponents === undefined) ? null : this.endingComponents;
-			this.autoHideBeginning = (this.autoHideBeginning === undefined) ? false : this.autoHideBeginning;
-			this.autoHideEnding = (this.autoHideEnding === undefined) ? false : this.autoHideEnding;
+			this.beginningComponents = (this.beginningComponents === undefined) ? null  : this.beginningComponents;
+			this.endingComponents    = (this.endingComponents    === undefined) ? null  : this.endingComponents;
+			this.autoHideBeginning   = (this.autoHideBeginning   === undefined) ? false : this.autoHideBeginning;
+			this.autoHideEnding      = (this.autoHideEnding      === undefined) ? false : this.autoHideEnding;
 			sup.apply(this, arguments);
 		};
 	}),
