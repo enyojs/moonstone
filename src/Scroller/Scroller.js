@@ -190,6 +190,7 @@ if (platform.touch) {
 			onSpotlightScrollUp:'spotlightWheel',
 			onSpotlightScrollDown:'spotlightWheel',
 			onSpotlightContainerEnter:'enablePageUpDownKey',
+			// Temporary fix for ENYO-2277 -- see note below
 			onSpotlightContainerLeave:'containerLeaveHandler',
 			onenter:'enablePageUpDownKey',
 			onleave:'disablePageUpDownKey',
@@ -357,6 +358,14 @@ if (platform.touch) {
 		disablePageUpDownKey: function () {
 			this.handlePageUpDownKey = false;
 		},
+
+		/**
+		* This is a temporary fix for ENYO-2277. We intend to replace
+		* it with a solution that doesn't wait until focus leaves the container
+		* to scroll to the edge.
+		*
+		* @private
+		*/
 
 		containerLeaveHandler: function (sender, event) {
 			var strategy = this.getStrategy(),
