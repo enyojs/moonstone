@@ -1341,7 +1341,7 @@ module.exports = kind(
 	// Accessibility
 
 	ariaObservers: [
-		{path: 'index', method: function () {
+		{path: ['showing', 'index'], method: function () {
 			var panels = this.getPanels(),
 				active = this.getActive(),
 				l = panels.length,
@@ -1350,7 +1350,7 @@ module.exports = kind(
 			while (--l >= 0) {
 				panel = panels[l];
 				if (panel instanceof Panel && panel.title) {
-					panel.set('accessibilityRole', panel === active ? 'alert' : 'region');
+					panel.set('accessibilityRole', (panel === active) && this.get('showing') ? 'alert' : 'region');
 				}
 			}
 		}}
