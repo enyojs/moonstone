@@ -104,7 +104,7 @@ module.exports = kind(
 	*/
 	components: [
 		{kind: Header, name: 'header', type: 'medium', marqueeOnRenderDelay: 1000},
-		{name: 'client', classes: 'client'},
+		{name: 'client', classes: 'client', spotlight: 'container'},
 		{name: 'spotlightPlaceholder', spotlight: false, style: 'width:0;height:0;'}
 	],
 
