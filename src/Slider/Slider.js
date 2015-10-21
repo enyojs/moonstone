@@ -1001,7 +1001,8 @@ module.exports = kind(
 	*/
 	ariaValue: function () {
 		var attr = this.popup ? 'aria-valuetext' : 'aria-valuenow',
-			text = (this.popup && this.$.popupLabel)? this.$.popupLabel.getContent() : this.value;
+			text = (this.popup && this.$.popupLabel && this.$.popupLabel.getContent())?
+					this.$.popupLabel.getContent() : this.value;
 
 		if (!this.dragging && !this.accessibilityValueText) {
 			this.resetAccessibilityProperties();
