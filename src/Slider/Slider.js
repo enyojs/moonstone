@@ -943,6 +943,15 @@ module.exports = kind(
 	accessibilityValueText: null,
 
 	/**
+	* When `true`, VoiceReadout will be prevented.
+	*
+	* @default false
+	* @type {Boolean}
+	* @public
+	*/
+	accessibilityDisabled: false,
+
+	/**
 	* @private
 	*/
 	ariaObservers: [
@@ -981,7 +990,7 @@ module.exports = kind(
 				this.$.buttonRight.set('accessibilityLabel', this.accessibilityValueText);
 			}
 		}},
-		{path: ['value', 'popupContent', 'dragging'], method: 'ariaValue'}
+		{path: ['value', 'popup', '$.popupLabel.content', 'dragging'], method: 'ariaValue'}
 	],
 
 	/**
