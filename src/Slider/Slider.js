@@ -531,6 +531,7 @@ module.exports = kind(
 			}
 			if (this.animate && allowAnimation) {
 				this.animateTo(was, is);
+				this.updateButtonStatus();
 			} else {
 				this._setValue(is);
 			}
@@ -589,8 +590,8 @@ module.exports = kind(
 	*/
 	updateButtonStatus: function () {
 		if (this.enableJumpIncrement) {
-			this.$.buttonLeft.set('disabled', this.disabled || this.value == this.min);
-			this.$.buttonRight.set('disabled', this.disabled || this.value == this.max);
+			this.$.buttonLeft.set('disabled', this.disabled || this.value <= this.min);
+			this.$.buttonRight.set('disabled', this.disabled || this.value >= this.max);
 		}
 	},
 
@@ -852,6 +853,7 @@ module.exports = kind(
 	* @private
 	*/
 	hideKnobStatus: function (sender, e) {
+		this._jumpSender = null;
 		if (this.popup) {
 			this.$.popup.hide();
 		}
@@ -883,14 +885,18 @@ module.exports = kind(
 	*/
 	jumpButtonTriggered: function (sender, ev) {
 		var isValidEvent = true;
-		if (!sender.disabled) {
+		if (!sender.disabled && (!this._jumpSender || this._jumpSender == sender)) {
 			if (ev.keyCode != 13 && ev.type == 'onSpotlightKeyDown') {
 				isValidEvent = false;
 			}
 			if (isValidEvent) {
 				if (sender === this.$.buttonLeft) this.previous();
 				else this.next();
+				this._jumpSender = sender;
 			}
+		}
+		else if (Spotlight.Accelerator.isAccelerating()) {
+			Spotlight.Accelerator.cancel();
 		}
 	},
 
