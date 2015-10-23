@@ -294,16 +294,16 @@ module.exports = kind(
 			if (this.spotted) {
 				switch(side) {
 					case 'top':
-						this.set('accessibilityLabel', $L('scroll up'));
+						this.set('accessibilityLabel', $L('UP'));
 						break;
 					case 'bottom':
-						this.set('accessibilityLabel', $L('scroll down'));
+						this.set('accessibilityLabel', $L('DOWN'));
 						break;
 					case 'left':
-						this.set('accessibilityLabel', $L('scroll left'));
+						this.set('accessibilityLabel', $L('LEFT'));
 						break;
 					case 'right':
-						this.set('accessibilityLabel', $L('scroll right'));
+						this.set('accessibilityLabel', $L('RIGHT'));
 						break;
 				}
 			}
@@ -314,16 +314,16 @@ module.exports = kind(
 				this.set('accessibilityAlert', true);
 				switch(side) {
 					case 'top':
-						this.set('accessibilityLabel', $L('up'));
+						this.set('accessibilityLabel', $L('UP'));
 						break;
 					case 'bottom':
-						this.set('accessibilityLabel', $L('down'));
+						this.set('accessibilityLabel', $L('DOWN'));
 						break;
 					case 'left':
-						this.set('accessibilityLabel', $L('left'));
+						this.set('accessibilityLabel', $L('LEFT'));
 						break;
 					case 'right':
-						this.set('accessibilityLabel', $L('right'));
+						this.set('accessibilityLabel', $L('RIGHT'));
 						break;
 				}
 			} else {

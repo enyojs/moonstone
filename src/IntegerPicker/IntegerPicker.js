@@ -733,15 +733,7 @@ module.exports = kind(
 			}
 		}},
 		{path: 'spotted',  method: function () {
-			// When spotlight is focused, it reads value with hint
 			if (this.spotted) {
-				if (!this.wrap && this.value == this.min) {
-					this.set('accessibilityHint', $L('change a value with up button'));
-				} else if (!this.wrap && this.value == this.max) {
-					this.set('accessibilityHint', $L('change a value with down button'));
-				} else {
-					this.set('accessibilityHint', $L('change a value with up down button'));
-				}
 				this.ariaValue();
 			}
 		}}
