@@ -19,9 +19,6 @@ var
 	ScrollStrategy = require('../ScrollStrategy'),
 	TouchScrollStrategy = ScrollStrategy.Touch;
 
-var
-	$L = require('../i18n');
-
 /**
 * Fires when the currently selected value changes.
 *
@@ -725,23 +722,10 @@ module.exports = kind(
 	ariaObservers: [
 		{from: 'min', to: 'aria-valuemin'},
 		{from: 'max', to: 'aria-valuemax'},
+		{path: 'generated',  method: 'ariaValue'},
 		{path: 'value',  method: function () {
 			// When value is changed, it reads only value
 			if (this.spotted) {
-				this.set('accessibilityHint', null);
-				this.ariaValue();
-			}
-		}},
-		{path: 'spotted',  method: function () {
-			// When spotlight is focused, it reads value with hint
-			if (this.spotted) {
-				if (!this.wrap && this.value == this.min) {
-					this.set('accessibilityHint', $L('change a value with up button'));
-				} else if (!this.wrap && this.value == this.max) {
-					this.set('accessibilityHint', $L('change a value with down button'));
-				} else {
-					this.set('accessibilityHint', $L('change a value with up down button'));
-				}
 				this.ariaValue();
 			}
 		}}
