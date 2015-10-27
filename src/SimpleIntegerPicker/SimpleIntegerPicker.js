@@ -12,9 +12,6 @@ var
 var
 	IntegerPicker = require('../IntegerPicker');
 
-var
-	$L = require('../i18n');
-
 /**
 * Fires when the currently selected item changes.
 *

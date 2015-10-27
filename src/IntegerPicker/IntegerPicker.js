@@ -19,9 +19,6 @@ var
 	ScrollStrategy = require('../ScrollStrategy'),
 	TouchScrollStrategy = ScrollStrategy.Touch;
 
-var
-	$L = require('../i18n');
-
 /**
 * Fires when the currently selected value changes.
 *
