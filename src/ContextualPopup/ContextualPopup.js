@@ -10,9 +10,11 @@ var
 	dom = require('enyo/dom'),
 	ri = require('enyo/resolution'),
 	util = require('enyo/utils'),
+	Component = require('enyo/Component'),
 	Control = require('enyo/Control'),
 	EnyoHistory = require('enyo/History'),
-	Popup = require('enyo/Popup');
+	Popup = require('enyo/Popup'),
+	Signals = require('enyo/Signals');
 
 var
 	ContextualLayout = require('layout/ContextualLayout');
@@ -25,6 +27,27 @@ var
 	IconButton = require('../IconButton'),
 	Scrim = require('moonstone/Scrim'),
 	HistorySupport = require('../HistorySupport');
+
+// Assists in hiding the active contextual popup when another control is spotted in 5-way mode that
+// isn't either the activator or a control within the popup. Implemented as a singleton to limit the
+// number of Signals instances.
+var SpotlightObserver = kind.singleton({
+	kind: Component,
+	active: null,
+	activeChanged: function (was, is) {
+		if (was && was.showing) was.hide();
+	},
+	components: [
+		{kind: Signals, onSpotlightCurrentChanged: 'handleCurrentChanged'}
+	],
+	handleCurrentChanged: function (sender, event) {
+		var a = this.active,
+			c = event.current;
+		if (a && c && !Spotlight.getPointerMode() && !(c == a.activator || c.isDescendantOf(a))) {
+			this.set('active', null);
+		}
+	}
+});
 
 /**
 * Fires when the contextual popup is to be shown.
@@ -581,6 +604,7 @@ module.exports = kind(
 		Popup.prototype.showingChanged.apply(this, arguments);
 		this.alterDirection();
 		this.showHideScrim(this.showing);
+		if (this.showing) SpotlightObserver.set('active', this);
 
 		if (this.allowBackKey) {
 			if (this.showing) {
