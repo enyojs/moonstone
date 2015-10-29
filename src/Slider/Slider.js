@@ -964,21 +964,8 @@ module.exports = kind(
 			// read accessibilityHint of buttons.
 			if (this.enableJumpIncrement) {
 				this.$.slider.set('accessibilityRole', 'slider');
-				this.$.buttonLeft.set('accessibilityHint', $L('press ok button to decrease the value'));
-				this.$.buttonRight.set('accessibilityHint', $L('press ok button to increase the value'));
-			}
-		}},
-		{path: 'selected', method: function () {
-			if (this.selected) {
-				// avoid using readAlert api, temporary set accessibilityRole to alert
-				// this will be reset on resetAccessibilityProperties
-				var hint = (this.get('orientation') == 'horizontal') ?
-								$L('change a value with left right button') : $L('change a value with up down button');
-				this.set('accessibilityRole', 'alert');
-				this.set('accessibilityLive', 'off');
-				this.set('accessibilityHint', hint);
-			} else {
-				this.resetAccessibilityProperties();
+				this.$.buttonLeft.set('accessibilityHint', $L('press ok button to change the value'));
+				this.$.buttonRight.set('accessibilityHint', $L('press ok button to change the value'));
 			}
 		}},
 		{path: ['accessibilityValueText'], method: function () {
