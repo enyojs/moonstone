@@ -722,13 +722,7 @@ module.exports = kind(
 	ariaObservers: [
 		{from: 'min', to: 'aria-valuemin'},
 		{from: 'max', to: 'aria-valuemax'},
-		{path: 'generated',  method: 'ariaValue'},
-		{path: 'value',  method: function () {
-			// When value is changed, it reads only value
-			if (this.spotted) {
-				this.ariaValue();
-			}
-		}}
+		{path: 'value',  method: 'ariaValue'}
 	],
 
 	/**

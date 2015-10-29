@@ -208,13 +208,7 @@ module.exports = kind(
 	* @private
 	*/
 	ariaObservers: [
-		{path: 'generated',  method: 'ariaValue'},
-		{path: ['value', 'unit'],  method: function () {
-			// When value is changed, it reads only value
-			if (this.spotted) {
-				this.ariaValue();
-			}
-		}}
+		{path: ['value', 'unit'],  method: 'ariaValue'}
 	],
 
 	/**
