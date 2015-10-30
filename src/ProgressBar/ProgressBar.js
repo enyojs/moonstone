@@ -423,6 +423,13 @@ module.exports = kind(
 	/**
 	* @private
 	*/
+	showPercentageChanged: function () {
+		this.updatePopup(this.value);
+	},
+
+	/**
+	* @private
+	*/
 	clampValue: function (inMin, inMax, inValue) {
 		return Math.max(inMin, Math.min(inValue, inMax));
 	},
