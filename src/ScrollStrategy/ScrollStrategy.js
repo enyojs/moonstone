@@ -24,6 +24,16 @@ var
 	PagingControl = require('../PagingControl'),
 	ScrollThumb = require('../ScrollThumb');
 
+function calcNodeVisibility (nodePos, nodeSize, scrollPos, scrollSize) {
+	return (nodePos >= scrollPos && nodePos + nodeSize <= scrollPos + scrollSize)
+		? 0
+		: nodePos - scrollPos > 0
+			? 1
+			: nodePos - scrollPos < 0
+				? -1
+				: 0;
+}
+
 /**
 * {@link module:moonstone/ScrollStrategy~ScrollStrategy} inherits from {@link module:enyo/TouchScrollStrategy~TouchScrollStrategy}.
 * Its main purpose is to handle scroller paging for {@link module:moonstone/Scroller~Scroller} and
@@ -118,6 +128,22 @@ var MoonScrollStrategy = module.exports = kind(
 	*/
 	measureScrollColumns: false,
 
+	// The scrollToBoundary configuration parameters below
+	// are considered private for now, but have been factored
+	// this way and are facaded by Scroller so that they can
+	// be changed in one place and could be overridden in case
+	// of emergency.
+
+	/**
+	* @private
+	*/
+	scrollToBoundaryDelay: 100,
+
+	/**
+	* @private
+	*/
+	scrollToBoundaryAnimate: true,
+
 	/**
 	* @private
 	*/
@@ -127,7 +153,8 @@ var MoonScrollStrategy = module.exports = kind(
 		onenter                 : 'enter',
 		onleave                 : 'leave',
 		onSpotlightFocused      : 'manageSpotlightFocus',
-		onSpotlightBlur         : 'manageSpotlightFocus'
+		onSpotlightBlur         : 'manageSpotlightFocus',
+		onSpotlightFocus        : 'store5WayFocusInfo'
 	},
 
 	/**
@@ -736,29 +763,60 @@ var MoonScrollStrategy = module.exports = kind(
 	},
 
 	/**
+	* Store information about the most recent Spotlight focus event on a child of the scroller.
+	* This information is used in `requestScrollIntoView()` to capture the direction of the
+	* 5-way move (if any) that is associated with the request to scroll, since we can use the
+	* direction to help us figure out whether we should scroll all the way to the nearest
+	* boundary.
+	*
+	* Ideally, we'd get information about the direction from the `onRequestScrollIntoView` event
+	* itself, but passing the direction with the event would require changes to Spotlight and to
+	* many individual Moonstone controls, so we're trying this approach for now.
+	*
+	* @private
+	*/
+	store5WayFocusInfo: function (sender, event) {
+		if (event.direction) {
+			this._focusTarget = event.originator;
+			this._focusDirection = event.direction;
+		}
+		else if (event.focusType === '5-way bounce') {
+			this._focusTarget = event.originator;
+			this._focusBounce = true;
+		}
+	},
+
+	/**
 	* Responds to child components' requests to be scrolled into view.
 	*
 	* @private
 	*/
 	requestScrollIntoView: function(sender, event) {
-		var originator, showVertical, showHorizontal,
+		var originator, showVertical, showHorizontal, bounce, direction,
 			bubble = false;
 		if (!Spotlight.getPointerMode() || event.scrollInPointerMode === true) {
 			originator = event.originator;
-			this.scrollBounds = this._getScrollBounds();
-			this.setupBounds();
-			showVertical = this.showVertical();
-			showHorizontal = this.showHorizontal();
-			this.scrollBounds = null;
-			if ((showVertical || showHorizontal) && (originator.getAbsoluteShowing())) {
-				this.animateToControl(originator, event.scrollFullPage, event.scrollInPointerMode || false);
-				if ((showVertical && this.$.scrollMath.bottomBoundary) || (showHorizontal && this.$.scrollMath.rightBoundary)) {
-					this.alertThumbs();
+			if (originator === this._focusTarget) {
+				bounce = this._focusBounce;
+				direction = this._focusDirection;
+				this._focusTarget = this._focusDirection = this._focusBounce = null;
+			}
+			if (!bounce) {
+				this.scrollBounds = this._getScrollBounds();
+				this.setupBounds();
+				showVertical = this.showVertical();
+				showHorizontal = this.showHorizontal();
+				this.scrollBounds = null;
+				if ((showVertical || showHorizontal) && (originator.getAbsoluteShowing())) {
+					this.animateToControl(originator, event.scrollFullPage, event.scrollInPointerMode || false, direction);
+					if ((showVertical && this.$.scrollMath.bottomBoundary) || (showHorizontal && this.$.scrollMath.rightBoundary)) {
+						this.alertThumbs();
+					}
+				} else {
+					// Scrollers that don't need to scroll bubble their onRequestScrollIntoView,
+					// to allow items in nested scrollers to be scrolled
+					bubble = true;
 				}
-			} else {
-				// Scrollers that don't need to scroll bubble their onRequestScrollIntoView,
-				// to allow items in nested scrollers to be scrolled
-				bubble = true;
 			}
 		}
 		return !bubble;
@@ -965,6 +1023,43 @@ var MoonScrollStrategy = module.exports = kind(
 		this.hBounds = null;
 		this.scrollBounds = null;
 	},
+
+	/**
+	* Helper function for `animateToControl()`
+	*
+	* @private
+	*/
+	at5WayLimit: function (control, direction) {
+		return !Spotlight.NearestNeighbor.getNearestNeighbor(direction, control, {root: this.container});
+	},
+
+	/**
+	* Helper function for `animateToControl()`
+	*
+	* @private
+	*/
+	getOffsets: function (control) {
+		var offsets  = control.getAbsoluteBounds(),
+			viewportBounds = this.$.viewport.getAbsoluteBounds(),
+			scrollBounds   = this._getScrollBounds();
+
+		offsets.right = document.body.offsetWidth - offsets.right;
+		viewportBounds.right = document.body.offsetWidth - viewportBounds.right;
+
+		// Make absolute controlBounds relative to scroll position
+		offsets.top += scrollBounds.top;
+		if (this.rtl) {
+			offsets.right += scrollBounds.left;
+		} else {
+			offsets.left += scrollBounds.left;
+		}
+
+		offsets.top = offsets.top - viewportBounds.top;
+		offsets.left = (this.rtl ? offsets.right : offsets.left) - (this.rtl ? viewportBounds.right : viewportBounds.left);
+
+		return offsets;
+	},
+
 	/**
 	* Scrolls until the passed-in [control]{@link module:enyo/Control~Control} is in view.
 	* If `scrollFullPage` is set, scrolls until the edge of `control` is aligned
@@ -975,61 +1070,30 @@ var MoonScrollStrategy = module.exports = kind(
 	*	aligned with the edge of the visible scroll area. If `undefined`, the value in the
 	*	container's `scrollFullPage` property is used.
 	* @param {Boolean} [animate=true] - Set to `false` to prevent animation.
+	* @param {String} direction - If the [control]{@link module:enyo/Control~Control} is being
+	*   animated to as a result of a 5-way move, the direction of the 5-way move should be passed
+	*   via this parameter. This information is used to scroll all the way to the scroller's boundary
+	*   if there are no focusable elements between the control and the boundary, and the control is
+	*   close enough to the boundary that it will be in view. This parameter is used internally; app
+	*   code calling `animateToControl()` should generaly not need to use it.
+	*
 	* @private
 	*/
-	animateToControl: function(control, scrollFullPage, animate) {
-		var controlBounds  = control.getAbsoluteBounds(),
-			absoluteBounds = this.$.viewport.getAbsoluteBounds(),
-			scrollBounds   = this._getScrollBounds(),
-			offsetTop,
-			offsetLeft,
-			offsetHeight,
-			offsetWidth,
+	animateToControl: function(control, scrollFullPage, animate, direction) {
+		var offsets = this.getOffsets(control),
+			scrollBounds = this._getScrollBounds(),
 			xDir,
 			yDir,
 			x,
-			y
-		;
-
-		controlBounds.right = document.body.offsetWidth - controlBounds.right;
-		absoluteBounds.right = document.body.offsetWidth - absoluteBounds.right;
-
-		// Make absolute controlBounds relative to scroll position
-		controlBounds.top += scrollBounds.top;
-		if (this.rtl) {
-			controlBounds.right += scrollBounds.left;
-		} else {
-			controlBounds.left += scrollBounds.left;
-		}
-
-		offsetTop      = controlBounds.top - absoluteBounds.top;
-		offsetLeft     = (this.rtl ? controlBounds.right : controlBounds.left) - (this.rtl ? absoluteBounds.right : absoluteBounds.left);
-		offsetHeight   = controlBounds.height;
-		offsetWidth    = controlBounds.width;
+			y;
 
 		// Allow local scrollFullPage param to override scroller property
 		scrollFullPage = (typeof scrollFullPage === 'undefined') ? this.container.getScrollFullPage() : scrollFullPage;
 
 		// 0: currently visible, 1: right of viewport, -1: left of viewport
-		xDir = (offsetLeft >= scrollBounds.left && offsetLeft + offsetWidth <= scrollBounds.left + scrollBounds.clientWidth)
-			? 0
-			: offsetLeft - scrollBounds.left > 0
-				? 1
-				: offsetLeft - scrollBounds.left < 0
-					? -1
-					: 0;
-
+		xDir = calcNodeVisibility(offsets.left, offsets.width, scrollBounds.left, scrollBounds.clientWidth);
 		// 0: currently visible, 1: below viewport, -1: above viewport
-		yDir = (offsetTop >= scrollBounds.top && offsetTop + offsetHeight <= scrollBounds.top + scrollBounds.clientHeight)
-			? 0
-			: offsetTop - scrollBounds.top > 0
-				? 1
-				: offsetTop - scrollBounds.top < 0
-					? -1
-					: 0;
-
-		scrollBounds.xDir = xDir;
-		scrollBounds.yDir = yDir;
+		yDir = calcNodeVisibility(offsets.top, offsets.height, scrollBounds.top, scrollBounds.clientHeight);
 
 		switch (xDir) {
 			case 0:
@@ -1039,10 +1103,10 @@ var MoonScrollStrategy = module.exports = kind(
 				// If control requested to be scrolled all the way to the viewport's left, or if the control
 				// is larger than the viewport, scroll to the control's left edge. Otherwise, scroll just
 				// far enough to get the control into view.
-				if (scrollFullPage || offsetWidth > scrollBounds.clientWidth) {
-					x = offsetLeft;
+				if (scrollFullPage || offsets.width > scrollBounds.clientWidth) {
+					x = offsets.left;
 				} else {
-					x = offsetLeft - scrollBounds.clientWidth + offsetWidth;
+					x = offsets.left - scrollBounds.clientWidth + offsets.width;
 					// If nodeStyle exists, add the _marginRight_ to the scroll value.
 					x += dom.getComputedBoxValue(control.hasNode(), 'margin', 'right');
 				}
@@ -1051,10 +1115,10 @@ var MoonScrollStrategy = module.exports = kind(
 				// If control requested to be scrolled all the way to the viewport's right, or if the control
 				// is larger than the viewport, scroll to the control's right edge. Otherwise, scroll just
 				// far enough to get the control into view.
-				if (scrollFullPage || offsetWidth > scrollBounds.clientWidth) {
-					x = offsetLeft - scrollBounds.clientWidth + offsetWidth;
+				if (scrollFullPage || offsets.width > scrollBounds.clientWidth) {
+					x = offsets.left - scrollBounds.clientWidth + offsets.width;
 				} else {
-					x = offsetLeft;
+					x = offsets.left;
 					// If nodeStyle exists, subtract the _marginLeft_ to the scroll value.
 					x -= dom.getComputedBoxValue(control.hasNode(), 'margin', 'left');
 				}
@@ -1069,12 +1133,12 @@ var MoonScrollStrategy = module.exports = kind(
 				// If control requested to be scrolled all the way to the viewport's top, or if the control
 				// is larger than the viewport, scroll to the control's top edge. Otherwise, scroll just
 				// far enough to get the control into view.
-				if (scrollFullPage || offsetHeight > scrollBounds.clientHeight) {
-					y = offsetTop;
+				if (scrollFullPage || offsets.height > scrollBounds.clientHeight) {
+					y = offsets.top;
 					// If nodeStyle exists, add the _marginBottom_ to the scroll value.
 					y -= dom.getComputedBoxValue(control.hasNode(), 'margin', 'top');
 				} else {
-					y = offsetTop - scrollBounds.clientHeight + offsetHeight;
+					y = offsets.top - scrollBounds.clientHeight + offsets.height;
 					// If nodeStyle exists, add the _marginBottom_ to the scroll value.
 					y += dom.getComputedBoxValue(control.hasNode(), 'margin', 'bottom');
 				}
@@ -1083,16 +1147,98 @@ var MoonScrollStrategy = module.exports = kind(
 				// If control requested to be scrolled all the way to the viewport's bottom, or if the control
 				// is larger than the viewport, scroll to the control's bottom edge. Otherwise, scroll just
 				// far enough to get the control into view.
-				if (scrollFullPage || offsetHeight > scrollBounds.clientHeight) {
-					y = offsetTop - scrollBounds.clientHeight + offsetHeight;
+				if (scrollFullPage || offsets.height > scrollBounds.clientHeight) {
+					y = offsets.top - scrollBounds.clientHeight + offsets.height;
 				} else {
-					y = offsetTop;
+					y = offsets.top;
 					// If nodeStyle exists, subtract the _marginTop_ to the scroll value.
 					y -= dom.getComputedBoxValue(control.hasNode(), 'margin', 'bottom');
 				}
 				break;
 		}
 
+		// First, scroll as far as needed to bring the element into view, respecting
+		// the requested scroll options
+		this.scrollIfChanged(x, y, animate);
+
+		// Then, if we're in 5-way mode, check to see if we should scroll all the way
+		// to a scroller boundary along either axis. We scroll all the way to boundary
+		// if a) there are no more focusable elements between the control we're scrolling
+		// to and the boundary; and b) the control we're scrolling to is close enough to
+		// the boundary that it will still be in view. The main purpose of this logic is
+		// to ensure that users scrolling via 5-way remotes can still scroll to the edges
+		// of the scroller's contents, even if there are no focusable elements immediately
+		// adjacent to the scroller boundaries. This can happen in app layouts where there
+		// are inherently non-focusable elements (e.g. headers) or in layouts where normally
+		// focusable elements near the scroller boundaries have been disabled and therefore
+		// can't be focused.
+		if (!Spotlight.getPointerMode()) {
+			// Do this in a job, since we don't want to perform the expensive Spotlight check
+			// when the user is holding down a 5-way key to scroll rapidly; this way, we'll
+			// only check when scrolling is finished.
+			this.startJob('scrollToBoundary', this.bindSafely(function () {
+				var hDir, hLimit, vDir, vLimit, pos, size, scrollSize;
+
+				// We check the left boundary if we are explicitly moving
+				// left, but also if the algorithm above has determined that
+				// we need to scroll left. Same thing goes for the other three
+				// boundaries. We consider implicit direction because if the scroller
+				// is scrolling in two dimensions, there may be cases where (for
+				// example) an element reached via a vertical move happens to be
+				// the closest element to a horizontal boundary. 
+				if (direction === 'LEFT' || xDir === -1) {
+					hDir = 'LEFT';
+					hLimit = 0;
+				}
+				else if (direction === 'RIGHT' || xDir === 1) {
+					hDir = 'RIGHT';
+					hLimit = scrollBounds.maxLeft;
+				}
+
+				// If we've determined that we're moving right or left, check
+				// the corresponding boundary and see whether we're at the limit
+				// of 5-way navigation in that direction.
+				if (hDir && this.at5WayLimit(control, hDir)) {
+					// If we are at the limit, we need to make sure that the control
+					// we're scrolling to will still be in view if we scroll all the
+					// way to the boundary
+					pos = offsets.left;
+					size = offsets.width;
+					scrollSize = scrollBounds.clientWidth;
+					if (calcNodeVisibility(pos, size, hLimit, scrollSize) === 0) {
+						x = hLimit;
+					}
+				}
+
+				// Same logic as above, but applied to vertical moves
+				if (direction === 'UP' || yDir === -1) {
+					vDir = 'UP';
+					vLimit = 0;
+				}
+				else if (direction === 'DOWN' || yDir === 1) {
+					vDir = 'DOWN';
+					vLimit = scrollBounds.maxTop;
+				}
+				
+				if (vDir && this.at5WayLimit(control, vDir)) {
+					pos = offsets.top;
+					size = offsets.height;
+					scrollSize = scrollBounds.clientHeight;
+					if (calcNodeVisibility(pos, size, vLimit, scrollSize) === 0) {
+						y = vLimit;
+					}
+				}
+
+				// If we have determined we should scroll to the boundary, do it now
+				this.scrollIfChanged(x, y, this.scrollToBoundaryAnimate);
+			}), this.scrollToBoundaryDelay);
+		}
+	},
+
+	/**
+	* @private
+	*/
+	scrollIfChanged: function (x, y, animate) {
 		// If x or y changed, scroll to new position
 		if (x !== this.getScrollLeft() || y !== this.getScrollTop()) {
 			this.scrollTo(x, y, animate);
