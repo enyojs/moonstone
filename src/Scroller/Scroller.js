@@ -297,14 +297,14 @@ if (platform.touch) {
 		* @private
 		*/
 		bindings: [
-			{from: '.scrollInterval',				to:'.$.strategy.interval'},
-			{from: '.scrollWheelMultiplier',		to:'.$.strategy.scrollWheelMultiplier'},
-			{from: '.scrollWheelPageMultiplier',	to:'.$.strategy.scrollWheelPageMultiplier'},
-			{from: '.paginationPageMultiplier',		to:'.$.strategy.paginationPageMultiplier'},
-			{from: '.paginationScrollMultiplier',	to:'.$.strategy.paginationScrollMultiplier'},
-			{from: '.hideScrollColumnsWhenFit',		to:'.$.strategy.hideScrollColumnsWhenFit'},
-			{from: '.scrollToBoundaryDelay',		to:'.$.strategy.scrollToBoundaryDelay'},
-			{from: '.scrollToBoundaryAnimate',		to:'.$.strategy.scrollToBoundaryAnimate'}
+			{from: 'scrollInterval',				to:'$.strategy.interval'},
+			{from: 'scrollWheelMultiplier',			to:'$.strategy.scrollWheelMultiplier'},
+			{from: 'scrollWheelPageMultiplier',		to:'$.strategy.scrollWheelPageMultiplier'},
+			{from: 'paginationPageMultiplier',		to:'$.strategy.paginationPageMultiplier'},
+			{from: 'paginationScrollMultiplier',	to:'$.strategy.paginationScrollMultiplier'},
+			{from: 'hideScrollColumnsWhenFit',		to:'$.strategy.hideScrollColumnsWhenFit'},
+			{from: 'scrollToBoundaryDelay',			to:'$.strategy.scrollToBoundaryDelay'},
+			{from: 'scrollToBoundaryAnimate',		to:'$.strategy.scrollToBoundaryAnimate'}
 		],
 
 		/**
