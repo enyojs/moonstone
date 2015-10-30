@@ -40,7 +40,16 @@ var DataListSpotlightSupport = {
 		* @default -1
 		* @public
 		*/
-		initialFocusIndex: -1
+		initialFocusIndex: -1,
+
+		/**
+		* Restores focus to the last spotted item when the DataList is re-rendered.
+		*
+		* @type {Boolean}
+		* @default false
+		* @public
+		*/
+		rememberFocusIndex: false
 	},
 
 	/**
@@ -50,7 +59,8 @@ var DataListSpotlightSupport = {
 		onSpotlightUp    : '_spotlightPrev',
 		onSpotlightLeft  : '_spotlightPrev',
 		onSpotlightDown  : '_spotlightNext',
-		onSpotlightRight : '_spotlightNext'
+		onSpotlightRight : '_spotlightNext',
+		onSpotlightBlur  : '_spotlightBlur'
 	},
 
 	/**
@@ -154,6 +164,15 @@ var DataListSpotlightSupport = {
 	*/
 	_spotlightPrev: function (inSender, inEvent) {
 		return this._spotlightSelect(inEvent, -1);
+	},
+
+	/**
+	* @private
+	*/
+	_spotlightBlur: function (sender, event) {
+		if (this.rememberFocusIndex) {
+			this.rememberFocus();
+		}
 	},
 
 	/**
@@ -387,13 +406,22 @@ var DataListSpotlightSupport = {
 	* @private
 	*/
 	unspotAndRememberFocus: function () {
+		if (this.rememberFocus()) {
+			Spotlight.unspot();
+		}
+	},
+
+	/**
+	* @private
+	*/
+	rememberFocus: function () {
 		var current = this.getFocusedChild(),
 			focusedItem;
 		if (current) {
 			focusedItem = this.getItemFromChild(current);
 			this._indexToFocus = focusedItem.index;
 			this._subChildToFocus = focusedItem === current ? null : Spotlight.getChildren(focusedItem).indexOf(current);
-			Spotlight.unspot();
+			return true;
 		}
 	},
 
