@@ -655,7 +655,7 @@ module.exports = kind(
 				onFastforward: '_fastforward', onSlowforward: '_slowforward', onRewind: '_rewind', onSlowrewind: '_slowrewind',
 				onJumpForward: '_jumpForward', onJumpBackward: '_jumpBackward', onratechange: 'playbackRateChange', ontap: 'videoTapped', oncanplay: '_setCanPlay', onwaiting: '_waiting', onerror: '_error'
 			},
-			{name: 'spinner', kind: Spinner, classes: 'moon-video-player-spinner'}
+			{name: 'spinner', kind: Spinner, accessibilityLabel: $L('Loading'), classes: 'moon-video-player-spinner'}
 		]},
 
 		//* Fullscreen controls
