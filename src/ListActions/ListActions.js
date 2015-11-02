@@ -110,6 +110,13 @@ var ListActionsDrawer = kind(
 	/**
 	* @private
 	*/
+	handlers: {
+		onPanelOnscreen: 'hideCloseButton'  // Re-evaluate whether ListActions should be open and if the close X should show or not.
+	},
+
+	/**
+	* @private
+	*/
 	classes: 'moon-list-actions-drawer',
 
 	/**
@@ -176,6 +183,14 @@ var ListActionsDrawer = kind(
 		if (!this.$.client.hasNode()) { return; }
 		this.$.client.addRemoveClass('open', this.open);
 		this.doCustomizeCloseButton({properties: {showing: !this.open}});
+	},
+
+	/**
+	* @private
+	*/
+	hideCloseButton: function () {
+		// Only hide the button if we're open. Ignore everything else
+		if (this.open) this.doCustomizeCloseButton({properties: {showing: false}});
 	},
 
 	/**
