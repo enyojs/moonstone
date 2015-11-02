@@ -147,8 +147,6 @@ module.exports = kind(
 
 		this.$.header.stopMarquee();
 
-		this.spotlightDisabled = true; // we do not want to allow 5-way spotting during transition
-
 		// This is highly related to the order in which "preTransition" is fired for the outgoing
 		// and the incoming panel. The outgoing panel's method is fired before that of the incoming
 		// panel.
@@ -158,12 +156,16 @@ module.exports = kind(
 			// Spotlight container element of the outgoing panel); if we do not do this, pressing a
 			// 5-way key will re-spot an element in the outgoing panel.
 			if (!Spotlight.getPointerMode()) {
-				this.$.spotlightPlaceholder.spotlight = true;
-				Spotlight.spot(this.$.spotlightPlaceholder);
+				if (!Spotlight.spot(this)) {
+					this.$.spotlightPlaceholder.spotlight = true;
+					Spotlight.spot(this.$.spotlightPlaceholder);
+				}
 			}
 		} else if (this.state == States.DEACTIVATING && (isChild || !currentSpottable)) {
 			Spotlight.unspot();
 		}
+
+		this.spotlightDisabled = true; // we do not want to allow 5-way spotting during transition
 	},
 
 	/**
