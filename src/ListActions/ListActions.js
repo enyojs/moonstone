@@ -186,14 +186,6 @@ var ListActionsDrawer = kind(
 	/**
 	* @private
 	*/
-	showCloseButton: function () {
-		// Only show the button if we're closed. Ignore everything else
-		if (!this.open) this.doCustomizeCloseButton({properties: {showing: true}});
-	},
-
-	/**
-	* @private
-	*/
 	hideCloseButton: function () {
 		// Only hide the button if we're open. Ignore everything else
 		if (this.open) this.doCustomizeCloseButton({properties: {showing: false}});
