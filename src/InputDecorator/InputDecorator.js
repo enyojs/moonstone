@@ -343,12 +343,11 @@ module.exports = kind(
 			this.set('accessibilityLive', this.focused || !this.spotted ? null : 'polite');
 			if (oInput) {
 				if (oInput instanceof RichText && oInput.hasNode()) {
-					text = (oInput.hasNode().innerText || oInput.getPlaceholder()) + ' ' + $L('edit box');
+					text = (oInput.hasNode().innerText || oInput.getPlaceholder()) + ' ' + $L('TEXT INPUT');
 				} else if (oInput.type == 'password' && oInput.getValue()) {
-					var character = (oInput.getValue().length > 1) ? $L('characters') : $L('character');
-					text = oInput.getValue().length + ' ' + character + ' ' + $L('edit box');
+					text = $L('Password') + ' ' + $L('TEXT INPUT');
 				} else {
-					text = (oInput.getValue() || oInput.getPlaceholder()) + ' ' + $L('edit box');
+					text = (oInput.getValue() || oInput.getPlaceholder()) + ' ' + $L('TEXT INPUT');
 				}
 			}
 			this.set('accessibilityLabel', this.spotted && !this.focused ? text : null);

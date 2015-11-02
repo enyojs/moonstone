@@ -190,11 +190,39 @@ if (platform.touch) {
 			onSpotlightScrollUp:'spotlightWheel',
 			onSpotlightScrollDown:'spotlightWheel',
 			onSpotlightContainerEnter:'enablePageUpDownKey',
-			onSpotlightContainerLeave:'disablePageUpDownKey',
+			onSpotlightFocus: 'checkBounce',
+			onSpotlightContainerLeave:'containerLeaveHandler',
 			onenter:'enablePageUpDownKey',
 			onleave:'disablePageUpDownKey',
 			onmove:'move'
 		},
+
+		/**
+		* Need this to prevent the web engine from adjusting the native
+		* scrollTop / scrollLeft props behind our backs under certain
+		* circumstances (when an element inside the scroller is
+		* programatically focused).
+		*
+		* @private
+		*/
+		accessibilityPreventScroll: true,
+
+		// The scrollToBoundary configuration parameters below
+		// are considered private for now, but have been factored
+		// this way and are sync'd with moonstone/ScrollStrategy so that
+		// they can be changed in one place and could be overridden in case
+		// of emergency.
+
+		/**
+		* @private
+		*/
+		scrollToBoundaryDelay: 100,
+
+		/**
+		* @private
+		*/
+		scrollToBoundaryAnimate: true,
+
 
 		/**
 		* If `true`, scroll events are not allowed to propagate.
@@ -269,12 +297,14 @@ if (platform.touch) {
 		* @private
 		*/
 		bindings: [
-			{from: '.scrollInterval',				to:'.$.strategy.interval'},
-			{from: '.scrollWheelMultiplier',		to:'.$.strategy.scrollWheelMultiplier'},
-			{from: '.scrollWheelPageMultiplier',	to:'.$.strategy.scrollWheelPageMultiplier'},
-			{from: '.paginationPageMultiplier',		to:'.$.strategy.paginationPageMultiplier'},
-			{from: '.paginationScrollMultiplier',	to:'.$.strategy.paginationScrollMultiplier'},
-			{from: '.hideScrollColumnsWhenFit',		to:'.$.strategy.hideScrollColumnsWhenFit'}
+			{from: 'scrollInterval',				to:'$.strategy.interval'},
+			{from: 'scrollWheelMultiplier',			to:'$.strategy.scrollWheelMultiplier'},
+			{from: 'scrollWheelPageMultiplier',		to:'$.strategy.scrollWheelPageMultiplier'},
+			{from: 'paginationPageMultiplier',		to:'$.strategy.paginationPageMultiplier'},
+			{from: 'paginationScrollMultiplier',	to:'$.strategy.paginationScrollMultiplier'},
+			{from: 'hideScrollColumnsWhenFit',		to:'$.strategy.hideScrollColumnsWhenFit'},
+			{from: 'scrollToBoundaryDelay',			to:'$.strategy.scrollToBoundaryDelay'},
+			{from: 'scrollToBoundaryAnimate',		to:'$.strategy.scrollToBoundaryAnimate'}
 		],
 
 		/**
@@ -356,6 +386,67 @@ if (platform.touch) {
 		*/
 		disablePageUpDownKey: function () {
 			this.handlePageUpDownKey = false;
+		},
+
+		/**
+		* @private
+		*/
+		checkBounce: function (sender, event) {
+			if (event.focusType === '5-way bounce') {
+				this.stopJob('scrollToBoundary');
+			}
+		},
+
+		/**
+		* @private
+		*/
+		containerLeaveHandler: function (sender, event) {
+			// We want to scroll to the boundary when 5-way focus leaves the scroller,
+			// but we do this in a job to prevent scrolling in the case where focus
+			// immediately "bounces" back into the scroller because there's nothing
+			// spottable in the given direction
+			if (event.originator === this) {
+				this.startJob('scrollToBoundary', this.scrollToBoundary, this.scrollToBoundaryDelay);
+			}
+
+			this.disablePageUpDownKey();
+		},
+
+		/**
+		* If 5-way focus is leaving the scroller, we scroll to the scroller's
+		* boundary in the direction of the move. This logic works in
+		* conjunction with related logic in moonstone/ScrollStrategy to allow users
+		* to 5-way scroll all the way to the edge of a scroller, even when
+		* the controls nearest the scroller boundary are disabled or otherwise
+		* unfocusable.
+		*
+		* @private
+		*/
+		scrollToBoundary: function () {
+			var strategy = this.getStrategy(),
+				b = strategy.getScrollBounds(),
+				o5WayEvent = Spotlight.getLast5WayEvent(),
+				lastControl = Spotlight.getLastControl(),
+				top = strategy.getScrollTop(),
+				left = strategy.getScrollLeft(),
+				animate = this.scrollToBoundaryAnimate;
+
+			if (o5WayEvent && lastControl && lastControl.kindName != 'moon.PagingControl') {
+				switch (o5WayEvent.type) {
+					case 'onSpotlightUp': 
+						if (top > 0) strategy.scrollTo(left, 0, animate);
+						break;
+					case 'onSpotlightDown':
+						if (top < b.maxTop) strategy.scrollTo(left, b.maxTop, animate);
+						break;
+					case 'onSpotlightLeft':
+						if (left > 0) strategy.scrollTo(0, top, animate);
+						break;
+					case 'onSpotlightRight':
+						if (left < b.maxLeft) strategy.scrollTo(b.maxLeft, top, animate);
+						break;
+				}
+			}
 		},
 
 		/**

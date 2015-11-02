@@ -1052,6 +1052,7 @@ module.exports = kind(
 		var panels = this.getPanels(),
 			toIndex = this.toIndex,
 			fromIndex = this.fromIndex,
+			active = this.getActive(),
 			i, panel, info, popFrom;
 
 		this.notifyPanels('transitionFinished');
@@ -1082,7 +1083,9 @@ module.exports = kind(
 
 		Spotlight.unmute(this);
 		// Spot the active panel
-		Spotlight.spot(this.getActive());
+		this.startJob('spot', function () {
+			Spotlight.spot(active);
+		}, 50);
 	},
 
 	/**
@@ -1341,7 +1344,7 @@ module.exports = kind(
 	// Accessibility
 
 	ariaObservers: [
-		{path: 'index', method: function () {
+		{path: ['showing', 'index'], method: function () {
 			var panels = this.getPanels(),
 				active = this.getActive(),
 				l = panels.length,
@@ -1350,7 +1353,7 @@ module.exports = kind(
 			while (--l >= 0) {
 				panel = panels[l];
 				if (panel instanceof Panel && panel.title) {
-					panel.set('accessibilityRole', panel === active ? 'alert' : 'region');
+					panel.set('accessibilityRole', (panel === active) && this.get('showing') ? 'alert' : 'region');
 				}
 			}
 		}}

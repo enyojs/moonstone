@@ -140,7 +140,7 @@ module.exports = kind(
 	* @private
 	*/
 	drawerComponents: [
-		{name: 'picker', kind: SimpleIntegerPicker, deferInitialization: true, onSelect: 'toggleActive', onChange: 'pickerValueChanged'}
+		{name: 'picker', kind: SimpleIntegerPicker, deferInitialization: true, onSelect: 'closeDrawerAndHighlightHeader', onChange: 'pickerValueChanged'}
 	],
 
 	/**

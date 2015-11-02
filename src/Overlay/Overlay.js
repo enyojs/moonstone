@@ -1,3 +1,5 @@
+require('moonstone');
+
 /**
 * {@link module:moonstone/Overlay} contains a set of mixins that support
 * providing a layer of controls contextually displayed over another control.
@@ -8,29 +10,33 @@
 * position and formatting.
 * 
 * There are the supplementary mixins for common use cases:
-* ({@link module:moonstone/SelectionOverlaySupport},
-* {@link module:moonstone/TextOverlaySupport}, and
-* {@link module:moonstone/MarqueeOverlaySupport}). These mixins preconfigure the
-* overlay with components and expose additional properties to further configure
-* the mixin. Unlike most mixins, these three do little on their own and must be
-* used in conjunction with {@link module:moonstone/Overlay~OverlaySupport}.
+* ({@link module:moonstone/Overlay~SelectionOverlaySupport},
+* {@link module:moonstone/Overlay~TextOverlaySupport}, and
+* {@link module:moonstone/Overlay~MarqueeOverlaySupport}). These mixins
+* preconfigure the overlay with components and expose additional properties to
+* further configure the mixin. Unlike most mixins, these three do little on
+* their own and must be used in conjunction with
+* {@link module:moonstone/Overlay~OverlaySupport}.
 *
-* ```
+* ```javascript
+* var
+* 	kind = require('enyo/kind'),
+* 	Control = require('enyo/Control'),
+* 	Overlay = require('moonstone/Overlay');
+*
 * // A control with a default Selection overlay
 * {kind: Control, mixins: [Overlay.Support, Overlay.Selection]}
 * 
 * // A control with a Selection overlay and customized position and components
 * {kind: Control, mixins: [Overlay.Support, Overlay.Selection],
-*	overlayPosition: 'left', overlayComponents: [
-*		{kind: Icon, icon: 'check', small: true}
-*	]
+* 	overlayPosition: 'left', overlayComponents: [
+*			{kind: Icon, icon: 'check', small: true}
+*		]
 * }
 * ```
 *
 * @module moonstone/Overlay
 */
-
-require('moonstone');
 
 var
 	kind = require('enyo/kind'),
@@ -156,12 +162,18 @@ function updateOwnership (components, owner) {
 * by {@link module:moonstone/Overlay~OverlaySupport#overlayShowing}, which supports
 * displaying the overlay manually, on spotlight, or on hover.
 *
-* ```
+* ```javascript
+* var
+* 	kind = require('enyo/kind'),
+* 	Icon = require('moonstone/Icon'),
+* 	Image = require('moonstone/Image'),
+* 	Overlay = require('moonstone/Overlay');
+*
 * {kind: Image, src: 'assets/movie.png', mixins: [Overlay.Support],
 * 	overlayShowing: 'hover', overlayPosition: 'bottom', overlayAlign: 'right', overlayComponents: [
-*		{kind: Icon, src: 'assets/icon-recommended.png'},
-*		{kind: Icon, icon: 'star'},
-*		{kind: Icon, src: 'assets/icon-new.png'}
+*			{kind: Icon, src: 'assets/icon-recommended.png'},
+*			{kind: Icon, icon: 'star'},
+*			{kind: Icon, src: 'assets/icon-new.png'}
 * 	]
 * }
 * ```
@@ -345,7 +357,6 @@ module.exports.ComponentsBinding = kind({
 * {@link module:moonstone/Overlay~OverlayContainerSupport#overlayTarget}
 *
 * @mixin OverlayContainerSupport
-* @module moonstone/Overlay
 * @public
 */
 module.exports.Container = {
@@ -408,16 +419,21 @@ module.exports.Container = {
 * SelectionOverlaySupport adds the styling for a centered icon that can be shown when the `selected`
 * class is applied to the overlaid control.
 *
-* ```
+* ```javascript
+* var
+* 	kind = require('enyo/kind'),
+* 	Icon = require('moonstone/Icon'),
+* 	Image = require('moonstone/Image'),
+* 	Overlay = require('moonstone/Overlay');
+*
 * {kind: Image, src: 'assets/movie.png', mixins: [Overlay.Support, Overlay.Selection],
 * 	overlayShowing: 'spotlight', overlayComponents: [
-*		{kind: Icon, icon: 'check'}
+*			{kind: Icon, icon: 'check'}
 * 	]
 * }
 * ```
 *
 * @mixin SelectionOverlaySupport
-* @module moonstone/Overlay
 * @public
 */
 module.exports.Selection = {
@@ -431,6 +447,13 @@ module.exports.Selection = {
 	* @private
 	*/
 	overlayClasses: 'moon-overlay-selection',
+
+	/**
+	* @private
+	*/
+	_selectionOverlay_Handlers: {
+		onSpotlightFocused: '_selectionOverlay_spotlightFocused'
+	},
 
 	/**
 	* @private
@@ -477,7 +500,42 @@ module.exports.Selection = {
 			];
 			sup.apply(this, arguments);
 		};
-	})
+	}),
+
+	// Accessibility
+
+	/**
+	* @private
+	*/
+	dispatchEvent: kind.inherit(function (sup) {
+		return function (sEventName, oEvent, oSender) {
+			if (oEvent && !oEvent.delegate) {
+				var handler = this._selectionOverlay_Handlers[sEventName];
+				if (handler) {
+					this[handler](oSender, oEvent);
+				}
+			}
+			return sup.apply(this, arguments);
+		};
+	}),
+
+	/**
+	* @private
+	*/
+	_selectionOverlay_spotlightFocused: function() {
+		if (this.$.overlayIcon && this.$.overlayIcon.getAbsoluteShowing()) {
+			this.set('accessibilityRole', 'checkbox');
+		} else {
+			this.set('accessibilityRole', null);
+		}
+	},
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{from: 'selected', to: 'aria-checked'}
+	]
 };
 
 /**
@@ -488,17 +546,22 @@ module.exports.Selection = {
 * TextOverlaySupport styles controls with the `moon-overlay-text-title` and
 * `moon-overlay-text-subtitle` classes
 *
-* ```
+* ```javascript
+* var
+* 	kind = require('enyo/kind'),
+* 	Image = require('moonstone/Image'),
+* 	Marquee = require('moonstone/Marquee'),
+* 	Overlay = require('moonstone/Overlay);
+*
 * {kind: Image, src: 'assets/movie.png', mixins: [Overlay.Support, Overlay.Selection],
 * 	overlayShowing: 'spotlight', overlayComponents: [
-*		{kind: Marquee.Text, content: 'Title', classes: 'moon-overlay-text-title'},
-*		{kind: Marquee.Text, content: '12', classes: 'moon-overlay-text-subtitle'}
+*			{kind: Marquee.Text, content: 'Title', classes: 'moon-overlay-text-title'},
+*			{kind: Marquee.Text, content: '12', classes: 'moon-overlay-text-subtitle'}
 * 	]
 * }
 * ```
 *
 * @mixin TextOverlaySupport
-* @module moonstone/Overlay
 * @public
 */
 module.exports.Text = {
@@ -567,7 +630,6 @@ module.exports.Text = {
 * and applies {@link module:moonstone/Overlay~OverlayContainerSupport}.
 *
 * @mixin MarqueeOverlaySupport
-* @module moonstone/Overlay
 * @public
 */
 module.exports.Marquee = {

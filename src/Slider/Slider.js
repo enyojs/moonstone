@@ -531,6 +531,7 @@ module.exports = kind(
 			}
 			if (this.animate && allowAnimation) {
 				this.animateTo(was, is);
+				this.updateButtonStatus();
 			} else {
 				this._setValue(is);
 			}
@@ -589,8 +590,8 @@ module.exports = kind(
 	*/
 	updateButtonStatus: function () {
 		if (this.enableJumpIncrement) {
-			this.$.buttonLeft.set('disabled', this.disabled || this.value == this.min);
-			this.$.buttonRight.set('disabled', this.disabled || this.value == this.max);
+			this.$.buttonLeft.set('disabled', this.disabled || this.value <= this.min);
+			this.$.buttonRight.set('disabled', this.disabled || this.value >= this.max);
 		}
 	},
 
@@ -632,7 +633,7 @@ module.exports = kind(
 		if (this.disabled) {
 			return; // return nothing
 		}
-		
+
 		e.preventDefault();
 		this.set('dragging', true);
 		Spotlight.freeze();
@@ -852,6 +853,7 @@ module.exports = kind(
 	* @private
 	*/
 	hideKnobStatus: function (sender, e) {
+		this._jumpSender = null;
 		if (this.popup) {
 			this.$.popup.hide();
 		}
@@ -883,14 +885,18 @@ module.exports = kind(
 	*/
 	jumpButtonTriggered: function (sender, ev) {
 		var isValidEvent = true;
-		if (!sender.disabled) {
+		if (!sender.disabled && (!this._jumpSender || this._jumpSender == sender)) {
 			if (ev.keyCode != 13 && ev.type == 'onSpotlightKeyDown') {
 				isValidEvent = false;
 			}
 			if (isValidEvent) {
 				if (sender === this.$.buttonLeft) this.previous();
 				else this.next();
+				this._jumpSender = sender;
 			}
+		}
+		else if (Spotlight.Accelerator.isAccelerating()) {
+			Spotlight.Accelerator.cancel();
 		}
 	},
 
@@ -943,6 +949,15 @@ module.exports = kind(
 	accessibilityValueText: null,
 
 	/**
+	* When `true`, VoiceReadout will be prevented.
+	*
+	* @default false
+	* @type {Boolean}
+	* @public
+	*/
+	accessibilityDisabled: false,
+
+	/**
 	* @private
 	*/
 	ariaObservers: [
@@ -955,21 +970,8 @@ module.exports = kind(
 			// read accessibilityHint of buttons.
 			if (this.enableJumpIncrement) {
 				this.$.slider.set('accessibilityRole', 'slider');
-				this.$.buttonLeft.set('accessibilityHint', $L('press ok button to decrease the value'));
-				this.$.buttonRight.set('accessibilityHint', $L('press ok button to increase the value'));
-			}
-		}},
-		{path: 'selected', method: function () {
-			if (this.selected) {
-				// avoid using readAlert api, temporary set accessibilityRole to alert
-				// this will be reset on resetAccessibilityProperties
-				var hint = (this.get('orientation') == 'horizontal') ?
-								$L('change a value with left right button') : $L('change a value with up down button');
-				this.set('accessibilityRole', 'alert');
-				this.set('accessibilityLive', 'off');
-				this.set('accessibilityHint', hint);
-			} else {
-				this.resetAccessibilityProperties();
+				this.$.buttonLeft.set('accessibilityHint', $L('press ok button to change the value'));
+				this.$.buttonRight.set('accessibilityHint', $L('press ok button to change the value'));
 			}
 		}},
 		{path: ['accessibilityValueText'], method: function () {
@@ -981,7 +983,7 @@ module.exports = kind(
 				this.$.buttonRight.set('accessibilityLabel', this.accessibilityValueText);
 			}
 		}},
-		{path: ['value', 'popupContent', 'dragging'], method: 'ariaValue'}
+		{path: ['value', 'popup', '$.popupLabel.content', 'dragging'], method: 'ariaValue'}
 	],
 
 	/**
@@ -1001,7 +1003,8 @@ module.exports = kind(
 	*/
 	ariaValue: function () {
 		var attr = this.popup ? 'aria-valuetext' : 'aria-valuenow',
-			text = (this.popup && this.$.popupLabel)? this.$.popupLabel.getContent() : this.value;
+			text = (this.popup && this.$.popupLabel && this.$.popupLabel.getContent())?
+					this.$.popupLabel.getContent() : this.value;
 
 		if (!this.dragging && !this.accessibilityValueText) {
 			this.resetAccessibilityProperties();

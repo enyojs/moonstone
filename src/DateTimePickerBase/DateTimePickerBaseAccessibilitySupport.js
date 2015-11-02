@@ -1,8 +1,14 @@
+/**
+* Mixin that provides accessibility support for {@link module:moonstone/DateTimePickerBase~DateTimePickerBase}.
+*
+* @module moonstone/DateTimePickerBase
+*/
+
 var
 	kind = require('enyo/kind');
 
 /**
-* @name DateTimePickerBaseAccessibilityMixin
+* @name DateTimePickerBaseAccessibilitySupport
 * @mixin
 */
 module.exports = {

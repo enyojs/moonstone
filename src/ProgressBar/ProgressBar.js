@@ -375,27 +375,13 @@ module.exports = kind(
 		var orient = this.get('orientation');
 		this.addRemoveClass('moon-progress-bar-vertical', orient == 'vertical');
 		this.addRemoveClass('moon-progress-bar-horizontal', orient == 'horizontal');
-
-		if (orient == 'vertical') {
-			this.popupSideChanged();
-		}
 	},
 
 	/**
 	* @private
 	*/
 	popupSideChanged: function () {
-		if (this.$.popup) {
-			var orient = this.get('orientation'),
-				side = this.get('popupSide');
-			// If we have switched orientations, we should be sure to remove all of our orientation classes.
-			this.$.popup.removeClass('moon-progress-bar-popup-on-left');
-			this.$.popup.removeClass('moon-progress-bar-popup-on-right');
-
-			if (orient == 'vertical' && side) {
-				this.$.popup.addClass('moon-progress-bar-popup-on-' + side);
-			}
-		}
+		this.updatePopup();
 	},
 
 	/**
@@ -432,6 +418,13 @@ module.exports = kind(
 		if (this.popup) {
 			this.updatePopup(this.progress);
 		}
+	},
+
+	/**
+	* @private
+	*/
+	showPercentageChanged: function () {
+		this.updatePopup(this.value);
 	},
 
 	/**
@@ -523,13 +516,11 @@ module.exports = kind(
 			usePercentage = this.showPercentage && this.popupContent === null;
 			percent = this.calcPercent(val);
 			popupLabel = usePercentage ? percent : this.progress;
-			flip = percent > 50;
+			flip = (this.get('orientation') == 'vertical') ? (this.get('popupSide') == 'left') : percent > 50;
 
 			this.updatePopupPosition(percent);
-			if (this.get('orientation') == 'horizontal') {
-				this.$.popup.addRemoveClass('moon-progress-bar-popup-flip-h', flip);
-				this.$.popupLabel.addRemoveClass('moon-progress-bar-popup-flip-h', flip);
-			}
+			this.$.popup.addRemoveClass('moon-progress-bar-popup-flip-h', flip);
+			this.$.popupLabel.addRemoveClass('moon-progress-bar-popup-flip-h', flip);
 
 			this.updatePopupLabel(popupLabel);
 		}
@@ -542,7 +533,7 @@ module.exports = kind(
 	*/
 	updatePopupPosition: function (percent) {
 		if (this.popup) {
-			this.$.popup.applyStyle(this.get('orientation') == 'vertical' ? 'bottom' :'left', percent + '%');
+			this.$.popup.applyStyle(this.get('orientation') == 'vertical' ? 'bottom' : 'left', percent + '%');
 		}
 	},
 
@@ -561,12 +552,7 @@ module.exports = kind(
 	*/
 	updatePopupOffset: function () {
 		if (this.popup) {
-		// console.log("updatePopupOffset:", this.getPopupHeight(), this.getPopupOffset(), ri.scale(this.getPopupHeight() + this.getPopupOffset() + 5));
-			if (this.get('orientation') == 'horizontal') {
-				this.$.popup.applyStyle('top', dom.unit(-(ri.scale(this.getPopupHeight() + this.getPopupOffset() + 5)), 'rem'));
-			} else {
-				this.$.popup.applyStyle('top', null);
-			}
+			this.$.popup.applyStyle('top', dom.unit(-(ri.scale(this.getPopupHeight() + this.getPopupOffset() + 5)), 'rem'));
 		}
 	},
 
@@ -597,16 +583,14 @@ module.exports = kind(
 	* @private
 	*/
 	updatePopupHeight: function () {
-		if (this.popup && this.get('orientation') == 'horizontal') {
-			var h = this.getPopupHeight(),
-				hRem = ri.scale(h);
+		var h = this.getPopupHeight(),
+			hRem = ri.scale(h);
 
-			this.$.drawingLeft.setAttribute('height', hRem);
-			this.$.drawingRight.setAttribute('height', hRem);
-			this.$.popupLabel.applyStyle('height', dom.unit(ri.scale(h - 7), 'rem'));
-			this.$.popup.applyStyle('height', dom.unit(ri.scale(h), 'rem'));
-			this.$.popup.applyStyle('line-height', dom.unit(ri.scale(h - 6), 'rem'));
-		}
+		this.$.drawingLeft.setAttribute('height', hRem);
+		this.$.drawingRight.setAttribute('height', hRem);
+		this.$.popupLabel.applyStyle('height', dom.unit(ri.scale(h - 7), 'rem'));
+		this.$.popup.applyStyle('height', dom.unit(hRem, 'rem'));
+		this.$.popup.applyStyle('line-height', dom.unit(ri.scale(h - 6), 'rem'));
 	},
 
 	/**
@@ -777,6 +761,24 @@ module.exports = kind(
 	accessibilityRole: 'progressbar',
 
 	/**
+	* Custom value for accessibility (ignored if `null`).
+	*
+	* @type {String|null}
+	* @default null
+	* @public
+	*/
+	accessibilityValueText: null,
+
+	/**
+	* When `true`, VoiceReadout will be prevented.
+	*
+	* @default true
+	* @type {Boolean}
+	* @public
+	*/
+	accessibilityDisabled: true,
+
+	/**
 	* ProgressBar isn't spottable so we'll make it focusable manually
 	*
 	* @private
@@ -789,7 +791,10 @@ module.exports = kind(
 	ariaObservers: [
 		// TODO: Observing $.popupLabel.content to minimize the observed members. Some refactoring
 		// of the label determination could help here - rjd
-		{path: ['progress', 'popup', '$.popupLabel.content'], method: 'ariaValue'}
+		{path: ['progress', 'popup', '$.popupLabel.content'], method: 'ariaValue'},
+		{path: ['accessibilityValueText'], method: function () {
+			this.setAriaAttribute('aria-valuetext', this.accessibilityValueText);
+		}}
 	],
 
 	/**
@@ -799,6 +804,8 @@ module.exports = kind(
 	*/
 	ariaValue: function () {
 		var attr = this.popup ? 'aria-valuetext' : 'aria-valuenow';
-		this.setAriaAttribute(attr, (this.popup && this.$.popupLabel)? this.$.popupLabel.get('content') : this.progress);
+		if (!this.accessibilityValueText) {
+			this.setAriaAttribute(attr, (this.popup && this.$.popupLabel)? this.$.popupLabel.get('content') : this.progress);
+		}
 	}
 });

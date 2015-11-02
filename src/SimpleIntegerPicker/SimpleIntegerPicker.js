@@ -12,9 +12,6 @@ var
 var
 	IntegerPicker = require('../IntegerPicker');
 
-var
-	$L = require('../i18n');
-
 /**
 * Fires when the currently selected item changes.
 *
@@ -211,26 +208,7 @@ module.exports = kind(
 	* @private
 	*/
 	ariaObservers: [
-		{path: ['value', 'unit'],  method: function () {
-			// When value is changed, it reads only value
-			if (this.spotted) {
-				this.set('accessibilityHint', null);
-				this.ariaValue();
-			}
-		}},
-		{path: 'spotted',  method: function () {
-			// When spotlight is focused, it reads value with hint
-			if (this.spotted) {
-				if (!this.wrap && this.value == this.min) {
-					this.set('accessibilityHint', $L('change a value with right button'));
-				} else if (!this.wrap && this.value == this.max) {
-					this.set('accessibilityHint', $L('change a value with left button'));
-				} else {
-					this.set('accessibilityHint', $L('change a value with left right button'));
-				}
-				this.ariaValue();
-			}
-		}}
+		{path: ['value', 'unit'],  method: 'ariaValue'}
 	],
 
 	/**
