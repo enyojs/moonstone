@@ -869,7 +869,13 @@ module.exports = kind(
 	* @private
 	*/
 	sendChangeEvent: function (data) {
-		this.throttleJob('sliderChange', function () { this.doChange(data); }, this.changeDelayMS);
+		var value = this.value;
+		this.throttleJob('sliderChange', function () {
+			this.doChange(data);
+			this.startJob('sliderChangePost', function () {
+				if (this.value !== value) this.doChange({value: this.value});
+			}, this.changeDelayMS);
+		}, this.changeDelayMS);
 	},
 
 	/**
