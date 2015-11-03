@@ -320,9 +320,8 @@ module.exports = kind(
 
 		// If the spotlight is elsewhere, we don't want to hijack it (e.g. after the delay in
 		// ExpandablePicker)
-		if (!current || current.isDescendantOf(this)) {
-			if (Spotlight.getPointerMode()) Spotlight.unspot();
-			else Spotlight.spot(this.$.header);
+		if ((!current || current.isDescendantOf(this)) && !Spotlight.getPointerMode()) {
+			Spotlight.spot(this.$.header);
 		}
 		this.set('active', false);
 	},
