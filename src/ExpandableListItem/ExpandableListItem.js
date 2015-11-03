@@ -316,13 +316,12 @@ module.exports = kind(
 	* @private
 	*/
 	closeDrawerAndHighlightHeader: function () {
-		var current = Spotlight.getCurrent();
+		var current = Spotlight.getPointerMode() ? Spotlight.getLastControl() : Spotlight.getCurrent();
 
 		// If the spotlight is elsewhere, we don't want to hijack it (e.g. after the delay in
 		// ExpandablePicker)
 		if (!current || current.isDescendantOf(this)) {
-			if (Spotlight.getPointerMode()) Spotlight.unspot();
-			else Spotlight.spot(this.$.header);
+			Spotlight.spot(this.$.header);
 		}
 		this.set('active', false);
 	},
