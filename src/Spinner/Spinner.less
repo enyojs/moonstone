@@ -167,10 +167,8 @@
 	}
 	.moon-spinner-ball-decorator {
 		position: relative;
-		width: @moon-spinner-size;  // Subtracting 1 here forces the Blink compositor to change the way anti-aliasing on the spinner balls render, eliminating artifacts on their round edges
+		width: @moon-spinner-size;
 		height: @moon-spinner-size;
-		margin-left: 1px;
-		margin-right: 1px;
 		float: left;
 	}
 	.moon-spinner-ball {
@@ -183,7 +181,8 @@
 		-webkit-animation-play-state: paused;
 		animation-play-state: paused;
 		height: @moon-spinner-ball-height;
-		width: @moon-spinner-ball-width;
+		width: @moon-spinner-ball-width;		// While we're using a font-icon as our ball, we need extra clearance around it, so it's not clipped by the browser's layer composer.
+		padding: 0 1px;
 		left: (50% - (@moon-spinner-ball-width / 2));
 		bottom: (50% - @moon-spinner-ball-height - @moon-spinner-ball-disatance);
 		-webkit-transform-origin: center ((@moon-spinner-ball-disatance / @moon-spinner-ball-height) * -100);
