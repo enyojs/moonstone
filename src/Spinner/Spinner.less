@@ -167,8 +167,10 @@
 	}
 	.moon-spinner-ball-decorator {
 		position: relative;
-		width: @moon-spinner-size - 1;  // Subtracting 1 here forces the Blink compositor to change the way anti-aliasing on the spinner balls render, eliminating artifacts on their round edges
+		width: @moon-spinner-size;  // Subtracting 1 here forces the Blink compositor to change the way anti-aliasing on the spinner balls render, eliminating artifacts on their round edges
 		height: @moon-spinner-size;
+		margin-left: 1px;
+		margin-right: 1px;
 		float: left;
 	}
 	.moon-spinner-ball {
