@@ -1,7 +1,8 @@
 require('moonstone');
 
 /**
-* Contains the declaration for the {@link module:moonstone/Panels~Panels} kind.
+* Contains the declarations for the {@link module:moonstone/Panels~Panels} and
+* {@link module:moonstone/Panels~PanelsHandle} kinds.
 * @module moonstone/Panels
 */
 
@@ -32,8 +33,9 @@ var
 	HistorySupport = require('../HistorySupport');
 
 /**
-* `moon.PanelsHandle` is a helper kind for {@link module:moonstone/Panels~Panels} which implements a spottable
-*  handle that the user can interact with to hide and show the `moon.Panels` control.
+* {@link module:moonstone/Panels~PanelsHandle} is a helper kind for
+* {@link module:moonstone/Panels~Panels}.  It implements a spottable handle that
+*  the user may interact with to hide and show the `moonstone/Panels` control.
 *
 * @class PanelsHandle
 * @extends module:enyo/Control~Control
@@ -41,7 +43,7 @@ var
 * @public
 */
 var PanelsHandle = kind(
-	/** @lends module:moonstone/PanelsHandle~PanelsHandle.prototype */ {
+	/** @lends module:moonstone/Panels~PanelsHandle.prototype */ {
 
 	/**
 	* @private
