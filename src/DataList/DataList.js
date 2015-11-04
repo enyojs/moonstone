@@ -465,11 +465,17 @@ var DataListSpotlightSupport = {
 			c = this.collection,
 			callback;
 		if (c && c.length && (index > -1 || maxVisibleIndex > -1)) {
-			if (index > -1) {
-				callback = this.bindSafely(function () {
+			callback = (index > -1) ?
+				this.bindSafely(function () {
 					this.focusOnIndex(index, subChild);
+				}) :
+				this.bindSafely(function () {
+					// This ugly hack is required because scrolling to a control
+					// in Moonstone by default sets that control to be the last focused
+					// child (even if we don't actually focus it). In this case, we
+					// don't want that, so we need to clean up after ourselves.
+					Spotlight.Container.setLastFocusedChild(this.$.scroller, null);
 				});
-			}
 			this.scrollToIndex(maxVisibleIndex, callback);
 			this.clearState();
 		}
