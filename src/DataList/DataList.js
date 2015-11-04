@@ -40,7 +40,16 @@ var DataListSpotlightSupport = {
 		* @default -1
 		* @public
 		*/
-		initialFocusIndex: -1
+		initialFocusIndex: -1,
+
+		/**
+		* Restores scroll position and focus when the DataList is re-rendered.
+		*
+		* @type {Boolean}
+		* @default false
+		* @public
+		*/
+		restoreStateOnRender: false
 	},
 
 	/**
@@ -50,7 +59,8 @@ var DataListSpotlightSupport = {
 		onSpotlightUp    : '_spotlightPrev',
 		onSpotlightLeft  : '_spotlightPrev',
 		onSpotlightDown  : '_spotlightNext',
-		onSpotlightRight : '_spotlightNext'
+		onSpotlightRight : '_spotlightNext',
+		onSpotlightBlur  : '_spotlightBlur'
 	},
 
 	/**
@@ -99,12 +109,33 @@ var DataListSpotlightSupport = {
 	/**
 	* @private
 	*/
+	_maxVisibleIndex: -1,
+
+	/**
+	* @private
+	*/
 	_subChildToFocus: null,
 
 	/**
 	* @private
 	*/
+	render: function () {
+		// Need to do this here because enyo/DataList (our superkind) forcibly
+		// tears down our scroller, thereby altering the normal teardown sequence
+		// and preventing our main mechanism for saving scroll state (in 
+		// teardownChildren()) from working in the case where we are explicitly
+		// re-rendered via a call to our own render() method
+		if (this.restoreStateOnRender) {
+			this.rememberScrollState();
+		}
+		DataList.prototype.render.apply(this, arguments);
+	},
+
+	/**
+	* @private
+	*/
 	didRender: function () {
+		var current;
 		// Lists are set to spotlight:true by default, which allows them to receive focus before
 		// children are rendered; once rendred, it becomes spotlight:false, and the code below
 		// ensures spotlight is transferred inside the list once rendering is complete
@@ -112,14 +143,14 @@ var DataListSpotlightSupport = {
 		// If there is a queued index to focus (or an initialFocusIndex), focus that item now that
 		// the list is rendered
 		var index = (this._indexToFocus > -1) ? this._indexToFocus : this.initialFocusIndex;
-		if (index > -1) {
-			this.focusOnIndex(index);
-			this._indexToFocus = -1;
+		if (index > -1 || this._maxVisibleIndex > -1) {
+			this.restoreState();
 		} else {
 			// Otherwise, check if the list was focused and if so, transfer focus to the first
 			// spottable child inside
-			if (Spotlight.getCurrent() == this) {
-				Spotlight.spot(this);
+			current = Spotlight.getCurrent();
+			if (current && current.isDescendantOf(this)) {
+				Spotlight.spot(Spotlight.getFirstChild(this.$.active));
 			}
 		}
 	},
@@ -154,6 +185,15 @@ var DataListSpotlightSupport = {
 	*/
 	_spotlightPrev: function (inSender, inEvent) {
 		return this._spotlightSelect(inEvent, -1);
+	},
+
+	/**
+	* @private
+	*/
+	_spotlightBlur: function (sender, event) {
+		if (this.restoreStateOnRender && !event.next) {
+			this.rememberFocus();
+		}
 	},
 
 	/**
@@ -387,12 +427,7 @@ var DataListSpotlightSupport = {
 	* @private
 	*/
 	unspotAndRememberFocus: function () {
-		var current = this.getFocusedChild(),
-			focusedItem;
-		if (current) {
-			focusedItem = this.getItemFromChild(current);
-			this._indexToFocus = focusedItem.index;
-			this._subChildToFocus = focusedItem === current ? null : Spotlight.getChildren(focusedItem).indexOf(current);
+		if (this.rememberFocus()) {
 			Spotlight.unspot();
 		}
 	},
@@ -400,15 +435,77 @@ var DataListSpotlightSupport = {
 	/**
 	* @private
 	*/
-	restoreFocus: function () {
-		var index = this._indexToFocus,
-			subChild = this._subChildToFocus,
-			c = this.collection;
-		if (c && c.length && (index > -1)) {
-			this.focusOnIndex(index, subChild);
-			this._indexToFocus = -1;
-			this._subChildToFocus = null;
+	rememberFocus: function () {
+		var current = this.getFocusedChild(),
+			focusedItem;
+		if (current) {
+			focusedItem = this.getItemFromChild(current);
+			this._indexToFocus = focusedItem.index;
+			this._subChildToFocus = focusedItem === current ? null : Spotlight.getChildren(focusedItem).indexOf(current);
+			return true;
 		}
+	},
+
+	/**
+	* @private
+	*/
+	clearState: function () {
+		this._indexToFocus = -1;
+		this._maxVisibleIndex = -1;
+		this._subChildToFocus = null;
+	},
+
+	/**
+	* @private
+	*/
+	restoreState: function () {
+		var index = this._indexToFocus,
+			maxVisibleIndex = this._maxVisibleIndex,
+			subChild = this._subChildToFocus,
+			c = this.collection,
+			callback;
+		if (c && c.length && (index > -1 || maxVisibleIndex > -1)) {
+			callback = (index > -1) ?
+				this.bindSafely(function () {
+					this.focusOnIndex(index, subChild);
+				}) :
+				this.bindSafely(function () {
+					// This ugly hack is required because scrolling to a control
+					// in Moonstone by default sets that control to be the last focused
+					// child (even if we don't actually focus it). In this case, we
+					// don't want that, so we need to clean up after ourselves.
+					Spotlight.Container.setLastFocusedChild(this.$.scroller, null);
+				});
+			this.scrollToIndex(maxVisibleIndex, callback);
+			this.clearState();
+		}
+	},
+
+	/**
+	* @private
+	*/
+	rememberScrollState: function () {
+		var maxVisibleIndex = this.getVisibleControlRange().end;
+
+		if (!isNaN(maxVisibleIndex)) {
+			this._maxVisibleIndex = maxVisibleIndex;
+		}
+	},
+
+	/**
+	* Override `teardownChildren()` so that we can remember which
+	* controls were on screen and restore them upon re-rendering
+	*
+	* @private
+	*/
+	teardownChildren: function () {
+		if (this.restoreStateOnRender) {
+			this.rememberScrollState();
+		}
+		else {
+			this.clearState();
+		}
+		DataList.prototype.teardownChildren.apply(this, arguments);
 	},
 
 	/**
@@ -419,7 +516,7 @@ var DataListSpotlightSupport = {
 		return function (sender, event) {
 			this.unspotAndRememberFocus();
 			sup.apply(this, arguments);
-			this.restoreFocus();
+			this.restoreState();
 		};
 	}),
 
@@ -431,7 +528,7 @@ var DataListSpotlightSupport = {
 		return function (c, e, props) {
 			this.unspotAndRememberFocus();
 			sup.apply(this, arguments);
-			this.restoreFocus();
+			this.restoreState();
 			// For specific case, page adjusting is required after models added
 			this.needToAdjustPages = true;
 		};
@@ -445,7 +542,7 @@ var DataListSpotlightSupport = {
 		return function (c, e, props) {
 			this.unspotAndRememberFocus();
 			sup.apply(this, arguments);
-			this.restoreFocus();
+			this.restoreState();
 		};
 	})
 };
