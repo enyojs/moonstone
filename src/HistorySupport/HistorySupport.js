@@ -11,10 +11,10 @@ var
 	kind = require('enyo/kind');
 
 /**
-* {@link module:moonstone/HistorySupport~HistorySupport} is a {@glossary mixin} that enables support
-* for custom history. In its current implementation, "back" actions are implemented, which allows
-* for controls to override and customize the behavior that occurs when the back key is pressed or
-* the `window.history` is utilized.
+* {@link module:moonstone/HistorySupport} is a {@glossary mixin} that enables
+* support for custom history. In its current iteration, "back" actions are
+* implemented, allowing controls to override and customize the behavior that
+* occurs when the back key is pressed or the `window.history` is utilized.
 *
 * @mixin
 * @public
