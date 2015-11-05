@@ -1356,7 +1356,7 @@ module.exports = kind(
 				panel;
 
 			if (this.$.showHideHandle) {
-				if (active.title) {
+				if (active && active.title) {
 					this.$.showHideHandle.set('accessibilityLabel', (this.showing ? $L('Close') : $L('Open')) + ' ' + active.title);
 				} else {
 					this.$.showHideHandle.set('accessibilityLabel', this.showing ? $L('Close') : $L('Open'));
