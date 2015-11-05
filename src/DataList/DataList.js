@@ -142,8 +142,8 @@ var DataListSpotlightSupport = {
 		this.spotlight = false;
 		// If there is a queued index to focus (or an initialFocusIndex), focus that item now that
 		// the list is rendered
-		var index = (this._indexToFocus > -1) ? this._indexToFocus : this.initialFocusIndex;
-		if (index > -1 || this._maxVisibleIndex > -1) {
+		this._indexToFocus = (this._indexToFocus > -1) ? this._indexToFocus : this.initialFocusIndex;
+		if (this._indexToFocus > -1 || this._maxVisibleIndex > -1) {
 			this.restoreState();
 		} else {
 			// Otherwise, check if the list was focused and if so, transfer focus to the first
@@ -466,17 +466,22 @@ var DataListSpotlightSupport = {
 			callback;
 		if (c && c.length && (index > -1 || maxVisibleIndex > -1)) {
 			callback = (index > -1) ?
-				this.bindSafely(function () {
-					this.focusOnIndex(index, subChild);
-				}) :
-				this.bindSafely(function () {
-					// This ugly hack is required because scrolling to a control
-					// in Moonstone by default sets that control to be the last focused
-					// child (even if we don't actually focus it). In this case, we
-					// don't want that, so we need to clean up after ourselves.
-					Spotlight.Container.setLastFocusedChild(this.$.scroller, null);
-				});
-			this.scrollToIndex(maxVisibleIndex, callback);
+				this.bindSafely(this.focusOnIndex, index, subChild) :
+				// This ugly hack is required because scrolling to a control
+				// in Moonstone by default sets that control to be the last focused
+				// child (even if we don't actually focus it). In this case, we
+				// don't want that, so we need to clean up after ourselves.
+				util.bind(Spotlight.Container, 'setLastFocusedChild', this.$.scroller, null);
+
+			// If there's a valid maxVisibleIndex, we've saved a scroll position so we need to
+			// restore it and then update spotlight.
+			if (maxVisibleIndex > -1) {
+				this.scrollToIndex(maxVisibleIndex, callback);
+			}
+			// If not, this is likely a first render so update spotlight now
+			else {
+				callback();
+			}
 			this.clearState();
 		}
 	},
