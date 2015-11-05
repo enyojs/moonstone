@@ -465,22 +465,22 @@ var DataListSpotlightSupport = {
 			c = this.collection,
 			callback;
 		if (c && c.length && (index > -1 || maxVisibleIndex > -1)) {
-			callback = (index > -1) ?
-				this.bindSafely(this.focusOnIndex, index, subChild) :
-				// This ugly hack is required because scrolling to a control
-				// in Moonstone by default sets that control to be the last focused
-				// child (even if we don't actually focus it). In this case, we
-				// don't want that, so we need to clean up after ourselves.
-				util.bind(Spotlight.Container, 'setLastFocusedChild', this.$.scroller, null);
-
 			// If there's a valid maxVisibleIndex, we've saved a scroll position so we need to
 			// restore it and then update spotlight.
 			if (maxVisibleIndex > -1) {
+				callback = (index > -1) ?
+					this.bindSafely(this.focusOnIndex, index, subChild) :
+					// This ugly hack is required because scrolling to a control
+					// in Moonstone by default sets that control to be the last focused
+					// child (even if we don't actually focus it). In this case, we
+					// don't want that, so we need to clean up after ourselves.
+					util.bind(Spotlight.Container, 'setLastFocusedChild', this.$.scroller, null);
+
 				this.scrollToIndex(maxVisibleIndex, callback);
 			}
-			// If not, this is likely a first render so update spotlight now
+			// If we aren't restoring scroll position, we just need to update spotlight
 			else {
-				callback();
+				this.focusOnIndex(index, subChild);
 			}
 			this.clearState();
 		}
