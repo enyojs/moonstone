@@ -493,19 +493,19 @@ var DataListSpotlightSupport = {
 	},
 
 	/**
-	* Override `teardownChildren()` so that we can remember which
-	* controls were on screen and restore them upon re-rendering
+	* Implement the `beforeTeardown()` lifecycle method so that we
+	* can remember which controls were on screen and restore them
+	* upon re-rendering
 	*
 	* @private
 	*/
-	teardownChildren: function () {
+	beforeTeardown: function () {
 		if (this.restoreStateOnRender) {
 			this.rememberScrollState();
 		}
 		else {
 			this.clearState();
 		}
-		DataList.prototype.teardownChildren.apply(this, arguments);
 	},
 
 	/**
