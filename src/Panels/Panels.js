@@ -1052,7 +1052,6 @@ module.exports = kind(
 		var panels = this.getPanels(),
 			toIndex = this.toIndex,
 			fromIndex = this.fromIndex,
-			active = this.getActive(),
 			i, panel, info, popFrom;
 
 		this.notifyPanels('transitionFinished');
@@ -1083,9 +1082,7 @@ module.exports = kind(
 
 		Spotlight.unmute(this);
 		// Spot the active panel
-		this.startJob('spot', function () {
-			Spotlight.spot(active);
-		}, 50);
+		Spotlight.spot(this.getActive());
 	},
 
 	/**
