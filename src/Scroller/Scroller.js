@@ -406,7 +406,7 @@ if (platform.touch) {
 			// immediately "bounces" back into the scroller because there's nothing
 			// spottable in the given direction
 			if (event.originator === this) {
-				this.startJob('scrollToBoundary', this.scrollToBoundary, this.scrollToBoundaryDelay);
+				this.scrollToBoundary();
 			}
 
 			this.disablePageUpDownKey();
@@ -431,21 +431,23 @@ if (platform.touch) {
 				left = strategy.getScrollLeft(),
 				animate = this.scrollToBoundaryAnimate;
 
-			if (o5WayEvent && lastControl && lastControl.kindName != 'moon.PagingControl') {
-				switch (o5WayEvent.type) {
-					case 'onSpotlightUp': 
-						if (top > 0) strategy.scrollTo(left, 0, animate);
-						break;
-					case 'onSpotlightDown':
-						if (top < b.maxTop) strategy.scrollTo(left, b.maxTop, animate);
-						break;
-					case 'onSpotlightLeft':
-						if (left > 0) strategy.scrollTo(0, top, animate);
-						break;
-					case 'onSpotlightRight':
-						if (left < b.maxLeft) strategy.scrollTo(b.maxLeft, top, animate);
-						break;
-				}
+			if (o5WayEvent && (!strategy.isPageControl || !strategy.isPageControl(lastControl))) {
+				this.startJob('scrollToBoundary', function () {
+					switch (o5WayEvent.type) {
+						case 'onSpotlightUp': 
+							if (top > 0) strategy.scrollTo(left, 0, animate);
+							break;
+						case 'onSpotlightDown':
+							if (top < b.maxTop) strategy.scrollTo(left, b.maxTop, animate);
+							break;
+						case 'onSpotlightLeft':
+							if (left > 0) strategy.scrollTo(0, top, animate);
+							break;
+						case 'onSpotlightRight':
+								if (left < b.maxLeft) strategy.scrollTo(b.maxLeft, top, animate);
+								break;
+					}
+				}, this.scrollToBoundaryDelay);
 			}
 		},
 
