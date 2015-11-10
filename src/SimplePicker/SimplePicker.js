@@ -281,7 +281,7 @@ module.exports = kind(
 		Control.prototype.addControl.apply(this, arguments);
 		var addedIdx = this.getClientControls().indexOf(ctl),
 			selectedIdx = this.selectedIndex;
-		if (this.generated) {
+		if (this._created) {
 			if ((selectedIdx < 0) || (addedIdx < selectedIdx)) {
 				this.setSelectedIndex(selectedIdx + 1);
 			} else if (selectedIdx == addedIdx) {
