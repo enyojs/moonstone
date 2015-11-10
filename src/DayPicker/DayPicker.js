@@ -208,17 +208,16 @@ module.exports = kind(
 	*/
 	multiSelectCurrentValue: function () {
 		var str = this.getRepresentativeString();
+		var selectedDays = [];
 		if (str) {
 			return str;
 		}
 
+		this.selectedIndex.sort();
 		for (var i=0; i < this.selectedIndex.length; i++) {
-			if (!str) {
-				str = this.days[this.selectedIndex[i]];
-			} else {
-				str = str + ', ' + this.days[this.selectedIndex[i]];
-			}
+			selectedDays.push(this.days[this.selectedIndex[i]]);
 		}
+		str = selectedDays.toLocaleString();
 		return str || this.getNoneText();
 	},
 
