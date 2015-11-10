@@ -767,7 +767,9 @@ var TimePicker = module.exports = kind(
 		{path: ['hourText', 'minuteText', 'meridiemText'], method: function () {
 			this.$.hour.set('accessibilityLabel', this.hourText);
 			this.$.minute.set('accessibilityLabel', this.minuteText);
-			if (this.$.meridiem) this.$.meridiem.set('accessibilityLabel', this.meridiemText);
+			if (this.$.meridiem && this.meridiemText != $L('meridiem')) {
+				this.$.meridiem.set('accessibilityLabel', this.meridiemText);
+			}
 		}}
 	]
 });
