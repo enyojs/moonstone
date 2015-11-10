@@ -718,6 +718,7 @@ module.exports = kind(
 			if (!Spotlight.getPointerMode()) {
 				if (!this.showing) {
 					this.panelsHiddenAsync();
+					this.set('spotted', false);
 				}
 			}
 		}
@@ -771,6 +772,7 @@ module.exports = kind(
 		this.startJob('autoHide', 'handleSpotLeft', this.getAutoHideTimeout());
 		this.isHandleFocused = true;
 		Signals.send('onPanelsHandleFocused');
+		this.set('spotted', true);
 	},
 
 	/**
@@ -1365,6 +1367,11 @@ module.exports = kind(
 				if (panel instanceof Panel && panel.title) {
 					panel.set('accessibilityRole', (panel === active) && this.get('showing') ? 'alert' : 'region');
 				}
+			}
+		}},
+		{path: 'spotted', method: function () {
+			if (this.$.showHideHandle && this.$.showHideHandle.hasNode() && !this.spotted) {
+				this.$.showHideHandle.hasNode().blur();
 			}
 		}}
 	]
