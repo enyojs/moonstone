@@ -1,7 +1,3 @@
-/*
-	Put anything you reference with url in ../assets/
-	This way, you can minify your application, and just remove the "source" folder for production
-*/
 .moon-gridlist-imageitem {
 	display: inline-block;
 	overflow: hidden;
@@ -9,10 +5,12 @@
 
 	.caption {
 		.moon-sub-header-text;
+		color: @moon-gridlist-caption-color;
 	}
 
 	.sub-caption {
 		.moon-body-text;
+		color: @moon-gridlist-sub-caption-color;
 	}
 
 	&.selected {
