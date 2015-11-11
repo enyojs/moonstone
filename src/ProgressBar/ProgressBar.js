@@ -793,6 +793,8 @@ module.exports = kind(
 		// of the label determination could help here - rjd
 		{path: ['progress', 'popup', '$.popupLabel.content'], method: 'ariaValue'},
 		{path: ['accessibilityValueText'], method: function () {
+			this.setAriaAttribute('aria-valuetext', null);
+			this.setAriaAttribute('aria-valuenow', null);
 			this.setAriaAttribute('aria-valuetext', this.accessibilityValueText);
 		}}
 	],
@@ -805,6 +807,8 @@ module.exports = kind(
 	ariaValue: function () {
 		var attr = this.popup ? 'aria-valuetext' : 'aria-valuenow';
 		if (!this.accessibilityValueText) {
+			this.setAriaAttribute('aria-valuetext', null);
+			this.setAriaAttribute('aria-valuenow', null);
 			this.setAriaAttribute(attr, (this.popup && this.$.popupLabel)? this.$.popupLabel.get('content') : this.progress);
 		}
 	}
