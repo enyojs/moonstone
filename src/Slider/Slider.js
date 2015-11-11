@@ -999,6 +999,12 @@ module.exports = kind(
 		this.set('accessibilityRole', !this.enableJumpIncrement ? 'spinbutton' : null);
 		this.set('accessibilityLive', null);
 		this.set('accessibilityHint', null);
+		this.setAriaAttribute('aria-valuetext', null);
+		this.setAriaAttribute('aria-valuenow', null);
+		if (this.$.slider) {
+			this.$.slider.setAriaAttribute('aria-valuetext', null);
+			this.$.slider.setAriaAttribute('aria-valuenow', null);
+		}
 	},
 
 	/**
