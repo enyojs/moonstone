@@ -901,10 +901,8 @@ module.exports = kind(
 				else this.next();
 				this._jumpSender = sender;
 			}
-		}
-		else if (Spotlight.Accelerator.isAccelerating()) {
-			Spotlight.Accelerator.cancel();
 		} else {
+			Spotlight.Accelerator.cancel();
 			gesture.drag.endHold();
 		}
 	},
