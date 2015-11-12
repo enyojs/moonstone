@@ -967,7 +967,7 @@ module.exports = kind(
 
 
 	/**
-	* Distinguish ProgressBar animation is ongogin or not
+	* Distinguish Slider animation is ongoing or not
 	*
 	* @private
 	*/
