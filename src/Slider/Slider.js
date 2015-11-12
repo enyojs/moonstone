@@ -7,6 +7,7 @@ require('moonstone');
 
 var
 	kind = require('enyo/kind'),
+	gesture = require('enyo/gesture'),
 	Control = require('enyo/Control'),
 	Animator = require('enyo/Animator');
 
@@ -900,9 +901,9 @@ module.exports = kind(
 				else this.next();
 				this._jumpSender = sender;
 			}
-		}
-		else if (Spotlight.Accelerator.isAccelerating()) {
+		} else {
 			Spotlight.Accelerator.cancel();
+			gesture.drag.endHold();
 		}
 	},
 
