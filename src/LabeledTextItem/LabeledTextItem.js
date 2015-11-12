@@ -94,11 +94,11 @@ module.exports = kind(
 	*/
 	prepareText: function (val) {
 		if (!val && val !== 0) {
-			this.$.header.applyStyle('margin-bottom', 0);
+			this.$.header.removeClass('with-text');
 			this.$.text.hide();
 			return val;
 		}
-		this.$.header.applyStyle('margin-bottom', null);  // Reset back to default CSS assigned value
+		this.$.header.addClass('with-text');
 		this.$.text.show();
 		this.$.text.detectTextDirectionality(val);
 		return val;
