@@ -152,7 +152,7 @@ module.exports = kind(
 			]}
 		]},
 		{kind: Divider, classes: 'moon-dialog-divider'},
-		{name: 'message', tag: null},
+		{name: 'message'},
 		{name: 'spotlightDummy', kind: Control, spotlight: false}
 	],
 
@@ -235,5 +235,18 @@ module.exports = kind(
 			}
 		}
 		this.set('_messageBody', body);
-	}
+	},
+
+	ariaObservers: [
+		{from: 'generated', method: function () {
+			if (!this.generated) return;
+
+			this.setAriaAttribute('aria-labelledBy',
+				this.$.title.id + ' ' +
+				this.$.subTitle.id + ' ' +
+				this.$.message.id + ' ' +
+				this.$.client.id
+			);
+		}}
+	]
 });
