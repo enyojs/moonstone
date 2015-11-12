@@ -335,22 +335,39 @@ module.exports = kind(
 	/**
 	* @private
 	*/
+	accessibilityHint: $L('TEXT INPUT'),
+
+	/**
+	* @private
+	*/
 	ariaObservers: [
 		{path: ['spotted', 'focused'], method: function () {
-			var text = '',
-				oInput = this.getInputControl();
-
+			var text = this.ariaLabel();
 			this.set('accessibilityLive', this.focused || !this.spotted ? null : 'polite');
-			if (oInput) {
-				if (oInput instanceof RichText && oInput.hasNode()) {
-					text = (oInput.hasNode().innerText || oInput.getPlaceholder()) + ' ' + $L('TEXT INPUT');
-				} else if (oInput.type == 'password' && oInput.getValue()) {
-					text = $L('Password') + ' ' + $L('TEXT INPUT');
-				} else {
-					text = (oInput.getValue() || oInput.getPlaceholder()) + ' ' + $L('TEXT INPUT');
-				}
-			}
 			this.set('accessibilityLabel', this.spotted && !this.focused ? text : null);
 		}}
-	]
+	],
+
+	/**
+	* Though private, used by ExpandableInput to retrieve the internal label to be used as the text
+	* value.
+	*
+	* @private
+	*/
+	ariaLabel: function () {
+		var text = '',
+			oInput = this.getInputControl();
+
+		if (oInput) {
+			if (oInput instanceof RichText && oInput.hasNode()) {
+				text = oInput.hasNode().innerText || oInput.getPlaceholder();
+			} else if (oInput.type == 'password' && oInput.getValue()) {
+				text = $L('Password');
+			} else {
+				text = oInput.getValue() || oInput.getPlaceholder();
+			}
+		}
+
+		return text;
+	}
 });

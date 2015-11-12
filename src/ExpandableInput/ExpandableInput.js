@@ -272,5 +272,15 @@ module.exports = kind(
 	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityHint
 	* @public
 	*/
-	accessibilityHint: $L('TEXT INPUT')
+	accessibilityHint: $L('TEXT INPUT'),
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: ['type', 'value'], method: function () {
+			var text = this.type == 'password' ? this.$.inputDecorator.ariaLabel() : '';
+			this.$.header.set('_accessibilityText', text);
+		}}
+	]
 });

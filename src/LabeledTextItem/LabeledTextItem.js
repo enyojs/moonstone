@@ -108,13 +108,14 @@ module.exports = kind(
 	* @private
 	*/
 	ariaObservers: [
-		{path: ['label', 'text', 'accessibilityHint', 'accessibilityLabel'], method: function () {
+		{path: ['label', 'text', 'accessibilityHint', 'accessibilityLabel', '_accessibilityText'], method: function () {
 			var text = this._accessibilityText ? this._accessibilityText : this.text,
 				content = this.label + ' ' + text ,
 				prefix = this.accessibilityLabel || content || null,
 				label = this.accessibilityHint && prefix && (prefix + ' ' + this.accessibilityHint) ||
 						this.accessibilityHint ||
 						this.accessibilityLabel ||
+						(this.label || text) && content ||
 						null;
 
 				this.setAriaAttribute('aria-label', label);
