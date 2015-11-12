@@ -225,7 +225,9 @@ var HourMinutePickerBase = kind(
 	ariaValue: function () {
 		if (this.date && this.range) {
 			var value = this.format(this.value % this.range);
-			this.setAriaAttribute('aria-valuenow', value);
+			if (this.getAttribute('aria-valuenow') != value) {
+				this.setAriaAttribute('aria-valuenow', value);
+			}
 		}
 	}
 });
