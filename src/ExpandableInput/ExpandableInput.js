@@ -272,5 +272,18 @@ module.exports = kind(
 	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityHint
 	* @public
 	*/
-	accessibilityHint: $L('TEXT INPUT')
+	accessibilityHint: $L('TEXT INPUT'),
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: ['type', 'value'], method: function () {
+			if ( this.$.header && this.type == 'password' && this.value) {
+				this.$.header._accessibilityText = $L('Password');
+			} else {
+				this.$.header._accessibilityText = '';
+			}
+		}}
+	]
 });

@@ -372,5 +372,19 @@ module.exports = kind(
 			this.bubble('onRequestSetupBounds');
 		}
 		return true;
-	}
+	},
+
+	// Accessibility
+
+	/**
+	* ExpandableListItem has not spotlight, its child (this.$.header) is spottable item,
+	* so we remove unneccessary aria-related attributes.
+	*
+	* @private
+	*/
+	ariaObservers: [
+		{path: ['accessibilityLabel', 'accessibilityHint'], method: function () {
+			this.setAriaAttribute('aria-label', null);
+		}}
+	]
 });
