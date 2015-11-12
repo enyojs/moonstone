@@ -278,9 +278,11 @@ module.exports = kind(
 	* @private
 	*/
 	ariaObservers: [
-		{path: 'type', method: function () {
-			if ( this.$.header && this.type == 'password') {
+		{path: ['type', 'value'], method: function () {
+			if ( this.$.header && this.type == 'password' && this.value) {
 				this.$.header._accessibilityText = $L('Password');
+			} else {
+				this.$.header._accessibilityText = '';
 			}
 		}}
 	]
