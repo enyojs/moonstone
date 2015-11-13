@@ -78,7 +78,7 @@ var DataListSpotlightSupport = {
 				child = this.childForIndex(inIndex);
 			}
 			subChild = inSubChild ? Spotlight.getChildren(child)[inSubChild] : child;
-			Spotlight.spot(subChild) || Spotlight.spot(this); 
+			Spotlight.spot(subChild) || Spotlight.spot(this);
 		} else {
 			this._indexToFocus = inIndex;
 			this._subChildToFocus = inSubChild;
@@ -120,12 +120,12 @@ var DataListSpotlightSupport = {
 	* @private
 	*/
 	render: function () {
-		// Need to do this here because enyo/DataList (our superkind) forcibly
-		// tears down our scroller, thereby altering the normal teardown sequence
-		// and preventing our main mechanism for saving scroll state (in 
-		// teardownChildren()) from working in the case where we are explicitly
-		// re-rendered via a call to our own render() method
-		if (this.restoreStateOnRender) {
+		// Need to do this here because enyo/DataList (our superkind) forcibly tears down our
+		// scroller, thereby altering the normal teardown sequence and preventing our main mechanism
+		// for saving scroll state (in teardownChildren()) from working in the case where we are
+		// explicitly re-rendered via a call to our own render() method. We also guard against
+		// attempting to remember scroll state if our metrics have not yet been initialized.
+		if (this.restoreStateOnRender && this.hasReset) {
 			this.rememberScrollState();
 		}
 		DataList.prototype.render.apply(this, arguments);
@@ -226,7 +226,7 @@ var DataListSpotlightSupport = {
 			var pagesForIndex = this.delegate.pageForIndex(this, inEvent.index),
 				pageCount = this.delegate.pageCount(this),
 				lastPageIndex = pages.lastPage.index;
-		
+
 			// If current selected index is lastPage and there is no page
 			// then lower bound of scrollThreshold is undefined because it is useless
 			// However after models are added then more pages could be generated
@@ -625,6 +625,29 @@ var exts = {
 		return function (list) {
 			sup.apply(this, arguments);
 			list.$.scroller.stop();
+		};
+	}),
+
+	/**
+	* Overriding reset() to prevent unnecessary generation of initial set of pages.
+	*
+	* @method
+	* @private
+	*/
+	reset: kind.inherit(function (sup) {
+		return function (list) {
+			var index = list._indexToFocus = (list._indexToFocus > -1) ? list._indexToFocus : list.initialFocusIndex,
+				maxVisibleIndex = list._maxVisibleIndex,
+				p;
+
+			// generate specific page that corresponds to desired index
+			if (maxVisibleIndex > -1 || index > -1) {
+				list.metrics.pages = {};
+				p = this.pageForIndex(list, maxVisibleIndex == -1 ? index : maxVisibleIndex);
+				this.resetToPosition(list, this.pagePosition(list, p));
+			} else {
+				sup.apply(this, arguments);
+			}
 		};
 	}),
 
