@@ -406,8 +406,8 @@ var MoonScrollStrategy = module.exports = kind(
 	mousewheel: function(sender, event) {
 		if (this.useMouseWheel) {
 			var isScrolling = this.isScrolling();
-			this.scrollBounds = this._getScrollBounds();
 			this.setupBounds();
+			this.scrollBounds = this._getScrollBounds();
 
 			var x = null,
 				y = null,
