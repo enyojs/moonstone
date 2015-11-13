@@ -39,19 +39,19 @@ module.exports = kind(
 	* @private
 	*/
 	mixins: [Marquee.Support],
-	
+
 	/**
 	* @private
 	*/
 	classes: 'moon-labeledtextitem',
-	
+
 	/**
 	* @private
 	* @lends module:moonstone/LabeledTextItem~LabeledTextItem.prototype
 	*/
 	published: {
 
-		/** 
+		/**
 		* The label to be displayed along with the text.
 		*
 		* @type {String}
@@ -60,7 +60,7 @@ module.exports = kind(
 		*/
 		label: '',
 
-		/** 
+		/**
 		* The text to be displayed in the item.
 		*
 		* @type {String}
@@ -75,7 +75,7 @@ module.exports = kind(
 	*/
 	bindings: [
 		{from: 'label', to: '$.header.content'},
-		{from: 'text', to: '$.text.content', transform: 'setTextWithDirection'},
+		{from: 'text', to: '$.text.content', transform: 'prepareText'},
 
 		// Accessibility
 		{from: '_accessibilityText', to: '$.text.accessibilityLabel'}
@@ -92,8 +92,11 @@ module.exports = kind(
 	/**
 	/* @private
 	*/
-	setTextWithDirection: function(val) {
-		this.$.text.detectTextDirectionality(val);
+	prepareText: function (val) {
+		var validValue = val || val === 0;
+		this.$.header.addRemoveClass('with-text', validValue);
+		this.$.text.set('showing', validValue);
+		if (validValue) this.$.text.detectTextDirectionality(val);
 		return val;
 	},
 
