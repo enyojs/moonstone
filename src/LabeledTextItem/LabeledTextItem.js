@@ -75,7 +75,6 @@ module.exports = kind(
 	*/
 	bindings: [
 		{from: 'label', to: '$.header.content'},
-		{from: 'text', to: '$.text.content', transform: 'prepareText'},
 
 		// Accessibility
 		{from: '_accessibilityText', to: '$.text.accessibilityLabel'}
@@ -90,14 +89,21 @@ module.exports = kind(
 	],
 
 	/**
+	* @private
+	*/
+	create: function () {
+		Item.prototype.create.apply(this, arguments);
+		this.textChanged();
+	},
+
+	/**
 	/* @private
 	*/
-	prepareText: function (val) {
-		var validValue = val || val === 0;
+	textChanged: function () {
+		var validValue = this.text || this.text === 0;
 		this.$.header.addRemoveClass('with-text', validValue);
-		this.$.text.set('showing', validValue);
-		if (validValue) this.$.text.detectTextDirectionality(val);
-		return val;
+		this.$.text.set('content', this.text);
+		if (validValue) this.$.text.detectTextDirectionality(this.text);
 	},
 
 	// Accessibility
