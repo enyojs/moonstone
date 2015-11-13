@@ -93,14 +93,10 @@ module.exports = kind(
 	/* @private
 	*/
 	prepareText: function (val) {
-		if (!val && val !== 0) {
-			this.$.header.removeClass('with-text');
-			this.$.text.hide();
-			return val;
-		}
-		this.$.header.addClass('with-text');
-		this.$.text.show();
-		this.$.text.detectTextDirectionality(val);
+		var validValue = val || val === 0;
+		this.$.header.addRemoveClass('with-text', validValue);
+		this.$.text.set('showing', validValue);
+		if (validValue) this.$.text.detectTextDirectionality(val);
 		return val;
 	},
 
