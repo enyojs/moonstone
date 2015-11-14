@@ -288,8 +288,8 @@ module.exports = kind(
 				// Force change handler, since the currently selected item actually changed
 				this.selectedIndexChanged();
 			}
+			this.showHideNavButtons();
 		}
-		if (this._created) this.showHideNavButtons();
 	},
 
 	/**
