@@ -96,7 +96,7 @@ var Scrollable = {
 					),
 					behavior: def.behavior
 				};
-				this.scrollToControl(event.originator, opts);
+				this.scrollToChild(event.originator, opts);
 			} else {
 				// If we don't need to scroll, bubble onRequestScrollIntoView so that
 				// any scrollers above us in the control hierarchy can scroll as needed
