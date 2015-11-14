@@ -101,7 +101,7 @@ module.exports = kind(
 	*/
 	textChanged: function () {
 		var validValue = this.text || this.text === 0;
-		this.$.header.addRemoveClass('with-text', validValue);
+		this.addRemoveClass('with-text', validValue);
 		this.$.text.set('content', this.text);
 		if (validValue) this.$.text.detectTextDirectionality(this.text);
 	},

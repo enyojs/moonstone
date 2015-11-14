@@ -237,6 +237,7 @@
 // Expandable Pickers
 // ---------------------------------------
 @moon-expandable-caret-icon-font-size: 48px;
+@moon-expandable-client-item-line-height: 45px;
 
 // Expandable Text
 // ---------------------------------------
@@ -255,7 +256,9 @@
 
 // Items
 // ---------------------------------------
-@moon-item-line-height: 1.7em;
+@moon-item-height: 60px;
+@moon-item-vertical-padding: 3px;
+@moon-item-line-height: @moon-item-height - (@moon-item-vertical-padding * 2);
 @moon-item-indent: 36px;
 
 // Divider
