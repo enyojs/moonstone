@@ -31,20 +31,21 @@ module.exports = kind({
 	* @private
 	*/
 	guard5way: function (sender, event) {
-		var e, l, idx, d2x, row, limitRow, verMovOnHorScrol, horMovOnVerScrol;
+		var e, limit, idx, d2x, row, limitRow, movingInScrollDimension;
 
 		e = event.type;
-		verMovOnHorScrol = (this.direction === 'horizintal' &&  (e === 'onSpotlightUp' || e === 'onSpotlightDown'));
-		horMovOnVerScrol = (this.direction === 'vertical' &&  (e === 'onSpotlightRight' || e === 'onSpotlightLeft'));
+		movingInScrollDimension =
+			(this.direction === 'vertical' && (e === 'onSpotlightUp' || e === 'onSpotlightDown')) ||
+			(this.direction === 'horizontal' && (e === 'onSpotlightRight' || e === 'onSpotlightLeft'));
 
-		// Only need to guard if we are accelerating or
-		// scroll direction and spotlight moving direction matches
-		if (!Spotlight.Accelerator.isAccelerating() || verMovOnHorScrol || horMovOnVerScrol) return false;
+		// If we're not accelerating, or not moving along
+		// our scrollable dimension, then we don't need to guard
+		if (!Spotlight.Accelerator.isAccelerating() || !movingInScrollDimension) return false;
 
 		// Figure out the index of the last de-virtualized element
 		// in the direction we're currently scrolling; anything
 		// further out doesn't yet have a DOM node
-		l = (e === 'onSpotlightUp' || e === 'onSpotlightLeft') ? 
+		limit = (e === 'onSpotlightUp' || e === (this.rtl ? 'onSpotlightRight' : 'onSpotlightLeft')) ?
 			this.first :
 			this._last;
 
@@ -55,7 +56,7 @@ module.exports = kind({
 		// these indices into the corresponding row / column
 		d2x = this.dim2extent;
 		row = Math.floor(idx / d2x);
-		limitRow = Math.floor(l / d2x);
+		limitRow = Math.floor(limit / d2x);
 
 		// If we're in the last de-virtualized row, the element we
 		// would focus from here doesn't yet have a DOM node, so
