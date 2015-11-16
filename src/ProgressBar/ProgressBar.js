@@ -480,7 +480,6 @@ module.exports = kind(
 	* @private
 	*/
 	progressAnimatorStep: function (inSender) {
-		this.set('_isAnimating', true);
 		this.setProgress(inSender.value);
 		return true;
 	},
@@ -491,7 +490,6 @@ module.exports = kind(
 	*/
 	progressAnimatorComplete: function (inSender) {
 		this.doAnimateProgressFinish();
-		this.set('_isAnimating', false);
 		return true;
 	},
 
@@ -788,19 +786,12 @@ module.exports = kind(
 	tabIndex: -1,
 
 	/**
-	* Distinguish ProgressBar animation is ongoing or not
-	*
-	* @private
-	*/
-	_isAnimating: false,
-
-	/**
 	* @private
 	*/
 	ariaObservers: [
 		// TODO: Observing $.popupLabel.content to minimize the observed members. Some refactoring
 		// of the label determination could help here - rjd
-		{path: ['_isAnimating', 'progress', 'popup', '$.popupLabel.content'], method: 'ariaValue'},
+		{path: ['progress', 'popup', '$.popupLabel.content'], method: 'ariaValue'},
 		{path: ['accessibilityValueText'], method: function () {
 			this.setAriaAttribute('aria-valuetext', this.accessibilityValueText);
 		}}
@@ -813,9 +804,7 @@ module.exports = kind(
 	*/
 	ariaValue: function () {
 		var attr = this.popup ? 'aria-valuetext' : 'aria-valuenow';
-		if (!this.accessibilityValueText && !this._isAnimating) {
-			this.setAriaAttribute('aria-valuetext', null);
-			this.setAriaAttribute('aria-valuenow', null);
+		if (!this.accessibilityValueText) {
 			this.setAriaAttribute(attr, (this.popup && this.$.popupLabel)? this.$.popupLabel.get('content') : this.progress);
 		}
 	}

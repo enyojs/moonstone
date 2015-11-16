@@ -720,7 +720,6 @@ module.exports = kind(
 	animatorStep: function (sender) {
 		var	v = sender.value;
 
-		this.set('_isSliderAnimating', true);
 		this.updateValues(v);
 
 		this.sendChangingEvent({value: v});
@@ -736,7 +735,6 @@ module.exports = kind(
 			this._setValue(sender.value);
 			this.animatingTo = null;
 			this.doAnimateFinish(sender);
-			this.set('_isSliderAnimating', false);
 		}
 		return true;
 	},
@@ -966,14 +964,6 @@ module.exports = kind(
 	*/
 	accessibilityDisabled: false,
 
-
-	/**
-	* Distinguish Slider animation is ongoing or not
-	*
-	* @private
-	*/
-	_isSliderAnimating: false,
-
 	/**
 	* @private
 	*/
@@ -1000,22 +990,16 @@ module.exports = kind(
 				this.$.buttonRight.set('accessibilityLabel', this.accessibilityValueText);
 			}
 		}},
-		{path: ['_isSliderAnimating', 'value', 'popup', '$.popupLabel.content', 'dragging'], method: 'ariaValue'}
+		{path: ['value', 'popup', '$.popupLabel.content', 'dragging'], method: 'ariaValue'}
 	],
 
 	/**
 	* @private
 	*/
 	resetAccessibilityProperties: function () {
-		this.set('accessibilityRole', !this.enableJumpIncrement ? 'slider' : null);
+		this.set('accessibilityRole', !this.enableJumpIncrement ? 'spinbutton' : null);
 		this.set('accessibilityLive', null);
 		this.set('accessibilityHint', null);
-		this.setAriaAttribute('aria-valuetext', null);
-		this.setAriaAttribute('aria-valuenow', null);
-		if (this.enableJumpIncrement) {
-			this.$.slider.setAriaAttribute('aria-valuetext', null);
-			this.$.slider.setAriaAttribute('aria-valuenow', null);
-		}
 	},
 
 	/**
@@ -1029,7 +1013,7 @@ module.exports = kind(
 			text = (this.popup && this.$.popupLabel && this.$.popupLabel.getContent())?
 					this.$.popupLabel.getContent() : this.value;
 
-		if (!this.dragging && !this.accessibilityValueText && !this._isSliderAnimating) {
+		if (!this.dragging && !this.accessibilityValueText) {
 			this.resetAccessibilityProperties();
 			this.setAriaAttribute(attr, text);
 			if (this.enableJumpIncrement) {
