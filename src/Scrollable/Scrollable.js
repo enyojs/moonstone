@@ -5,7 +5,6 @@
 var
 	kind = require('enyo/kind'),
 	utils = require('enyo/utils'),
-	resolution = require('enyo/resolution'),
 	ScrollMath = require('enyo/ScrollMath');
 
 var
@@ -54,7 +53,7 @@ var Scrollable = {
 	},
 
 	// Override ScrollMath params
-	scrollMath: {kind: ScrollMath, kFrictionDamping: 0.93, boundarySnapThreshold: resolution.scale(100)},
+	scrollMath: {kind: ScrollMath, kFrictionDamping: 0.93},
 
 	/**
 	* @private
@@ -97,7 +96,7 @@ var Scrollable = {
 					),
 					behavior: def.behavior
 				};
-				this.scrollToControl(event.originator, opts);
+				this.scrollToChild(event.originator, opts);
 			} else {
 				// If we don't need to scroll, bubble onRequestScrollIntoView so that
 				// any scrollers above us in the control hierarchy can scroll as needed
