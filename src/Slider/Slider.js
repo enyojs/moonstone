@@ -981,16 +981,9 @@ module.exports = kind(
 				this.$.buttonRight.set('accessibilityHint', $L('press ok button to change the value'));
 			}
 		}},
-		{path: ['accessibilityValueText'], method: function () {
-			this.resetAccessibilityProperties();
-			this.setAriaAttribute('aria-valuetext', this.accessibilityValueText);
-			if (this.enableJumpIncrement) {
-				this.$.slider.setAriaAttribute('aria-valuetext', this.accessibilityValueText);
-				this.$.buttonLeft.set('accessibilityLabel', this.accessibilityValueText);
-				this.$.buttonRight.set('accessibilityLabel', this.accessibilityValueText);
-			}
-		}},
-		{path: ['value', 'popup', '$.popupLabel.content', 'dragging'], method: 'ariaValue'}
+		// moonstone/ProgressBar observes accessibilityValueText and the popup label so this kind
+		// need only observe its unique properties for updating aria-valuetext
+		{path: ['value', 'dragging'], method: 'ariaValue'}
 	],
 
 	/**
@@ -1009,19 +1002,22 @@ module.exports = kind(
 	* @private
 	*/
 	ariaValue: function () {
-		var attr = this.popup ? 'aria-valuetext' : 'aria-valuenow',
-			text = (this.popup && this.$.popupLabel && this.$.popupLabel.getContent())?
-					this.$.popupLabel.getContent() : this.value;
+		var text = this.accessibilityValueText ||
+					this.popup && this.$.popupLabel && this.$.popupLabel.getContent() ||
+					// To avoid updating aria-valuetext during animation, we'll use the endValue
+					// when animating
+					this.$.animator.isAnimating() && this.$.animator.endValue ||
+					// and this.value otherwise
+					this.value;
 
-		if (!this.dragging && !this.accessibilityValueText) {
+		if (!this.dragging) {
 			this.resetAccessibilityProperties();
-			this.setAriaAttribute(attr, text);
+			this.setAriaAttribute('aria-valuetext', text);
 			if (this.enableJumpIncrement) {
-				this.$.slider.setAriaAttribute(attr, text);
+				this.$.slider.setAriaAttribute('aria-valuetext', text);
 				this.$.buttonLeft.set('accessibilityLabel', String(text));
 				this.$.buttonRight.set('accessibilityLabel', String(text));
 			}
 		}
-
 	}
 });
