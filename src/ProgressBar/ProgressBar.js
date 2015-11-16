@@ -791,10 +791,7 @@ module.exports = kind(
 	ariaObservers: [
 		// TODO: Observing $.popupLabel.content to minimize the observed members. Some refactoring
 		// of the label determination could help here - rjd
-		{path: ['progress', 'popup', '$.popupLabel.content'], method: 'ariaValue'},
-		{path: ['accessibilityValueText'], method: function () {
-			this.setAriaAttribute('aria-valuetext', this.accessibilityValueText);
-		}}
+		{path: ['accessibilityValueText', 'progress', 'popup', '$.popupLabel.content'], method: 'ariaValue'}
 	],
 
 	/**
@@ -803,9 +800,10 @@ module.exports = kind(
 	* @private
 	*/
 	ariaValue: function () {
-		var attr = this.popup ? 'aria-valuetext' : 'aria-valuenow';
-		if (!this.accessibilityValueText) {
-			this.setAriaAttribute(attr, (this.popup && this.$.popupLabel)? this.$.popupLabel.get('content') : this.progress);
-		}
+		var text = this.accessibilityValueText ||
+					this.popup && this.$.popupLabel && this.$.popupLabel.get('content') ||
+					this.$.animator.isAnimating() && this.$.animator.endValue ||
+					this.progress;		
+		this.setAriaAttribute('aria-valuetext', text);
 	}
 });
