@@ -343,7 +343,7 @@ module.exports = kind(
 		if (this.lockBottom && event.originator == this.$.drawer && event._originator) {
 			// Spotlight containers redispatch 5-way events with the original event originator
 			// saved as _originator which we'll use to respot if lockBottom === true
-			Spotlight.spot(event._originator);
+			Spotlight.spot(event._originator, {direction: 'DOWN'});
 			return true;
 		}
 	},
