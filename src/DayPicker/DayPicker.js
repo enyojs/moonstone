@@ -211,7 +211,7 @@ module.exports = kind(
 		if (str) {
 			return str;
 		}
-
+		this.selectedIndex.sort();
 		for (var i=0; i < this.selectedIndex.length; i++) {
 			if (!str) {
 				str = this.days[this.selectedIndex[i]];
