@@ -364,7 +364,8 @@ module.exports = kind(
 			var paTopDiff = pBounds.top - acBounds.top,
 				paLeftDiff =  acBounds.left - pBounds.left,
 				paRightDiff = pBounds.left + pBounds.width - acBounds.left - acBounds.width,
-				acRight = window.innerWidth - moonDefaultPadding - acBounds.left - acBounds.width;
+				acRight = window.innerWidth - moonDefaultPadding - acBounds.left - acBounds.width,
+				anchorLeft, offset;
 
 			//* When there is not enough room in the bottom, move it above the
 			//* decorator; when the tooltip bottom is within window height but
@@ -392,20 +393,23 @@ module.exports = kind(
 				}
 			}
 
-			//* When there is not enough room on the left, using right-arrow for the tooltip
-			if (window.innerWidth - moonDefaultPadding - pBounds.left - pBounds.width / 2 < b.width){
-				//* use the right-arrow
+			if (this.rtl) {
+				anchorLeft = moonDefaultPadding + pBounds.left + pBounds.width / 2 < b.width;
+			} else {
+				//* When there is not enough room on the left, using right-arrow for the tooltip
+				anchorLeft = window.innerWidth - moonDefaultPadding - pBounds.left - pBounds.width / 2 >= b.width;
+			}
+
+			offset = this.floating ? acRight + moonDefaultPadding : paRightDiff;
+
+			if (anchorLeft) {
+				this.removeClass('right-arrow');
+				this.addClass('left-arrow');
+			} else {
 				this.removeClass('left-arrow');
 				this.addClass('right-arrow');
 				this.applyPosition({'margin-left': dom.unit(- b.width, 'rem'), 'left': 'auto'});
-				if (this.floating) {
-					this.applyStyle('right', dom.unit(acBounds.width / 2 + acRight + moonDefaultPadding, 'rem'));
-				} else {
-					this.applyStyle('right', dom.unit(acBounds.width / 2 + paRightDiff, 'rem'));
-				}
-			} else {
-				this.removeClass('right-arrow');
-				this.addClass('left-arrow');
+				this.applyStyle('right', dom.unit(acBounds.width / 2 + offset, 'rem'));
 			}
 		}
 	},
