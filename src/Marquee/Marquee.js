@@ -959,8 +959,10 @@ var MarqueeItem = {
 			//need to animate
 			if(this._marquee_distance === 0) {
 				this.applyStyle('text-overflow', 'clip');
+				this.$.marqueeText && this.$.marqueeText.applyStyle('text-overflow', 'clip');
 			} else {
 				this.applyStyle('text-overflow', 'ellipsis');
+				this.$.marqueeText && this.$.marqueeText.applyStyle('text-overflow', 'ellipsis');
 			}
 		}
 
