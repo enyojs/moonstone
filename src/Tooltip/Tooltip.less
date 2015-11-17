@@ -14,7 +14,10 @@
 	background-color: @moon-tooltip-bg-color;
 
 	.moon-tooltip.right-arrow & { text-align: right; }
-	.moon-tooltip.left-arrow & { text-align: left; }
+	.moon-tooltip.left-arrow & {
+		text-align: left;
+		.enyo-locale-right-to-left & { text-align: right; }
+	}
 
 	.enyo-locale-non-latin & {
 		.enyo-locale-non-latin .moon-small-button-text;
