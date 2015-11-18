@@ -68,6 +68,16 @@ module.exports = kind(
 	/**
 	* @private
 	*/
+	spotlight: 'container',
+
+	/**
+	* @private
+	*/
+	spotlightRememberFocus: false,
+
+	/**
+	* @private
+	*/
 	handlers: {
 		onActivate: 'activated',
 		onShow: 'popupShown',
