@@ -1030,7 +1030,7 @@ var MoonScrollStrategy = module.exports = kind(
 	* @private
 	*/
 	at5WayLimit: function (control, direction) {
-		return !Spotlight.NearestNeighbor.getNearestNeighbor(direction, control, {root: this.container});
+		return !Spotlight.NearestNeighbor.getNearestNeighbor(direction, control, {root: Spotlight.getParent(control)});
 	},
 
 	/**
