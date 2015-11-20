@@ -162,6 +162,7 @@ module.exports = kind(
 				}
 			}
 		} else if (this.state == States.DEACTIVATING && (isChild || !currentSpottable)) {
+			Spotlight.unfreeze();
 			Spotlight.unspot();
 		}
 
