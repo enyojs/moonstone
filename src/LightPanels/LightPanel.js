@@ -202,7 +202,7 @@ module.exports = kind(
 
 			spotlightPlaceholder.spotlight = false;
 			if (!Spotlight.isSpottable(this)) spotlightPlaceholder.spotlight = true;
-			if (!current || current === spotlightPlaceholder) Spotlight.spot(this);
+			if (!current || (!current.isDescendantOf(this) && current.isDescendantOf(this.owner)) || current === spotlightPlaceholder) Spotlight.spot(this);
 		}
 	},
 
