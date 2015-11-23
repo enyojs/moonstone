@@ -153,16 +153,8 @@ module.exports = kind(
 		// and the incoming panel. The outgoing panel's method is fired before that of the incoming
 		// panel.
 		if (this.state == States.ACTIVATING && !currentSpottable) {
-			// We spot the dummy element of the incoming panel so that the spotlightDisabled
-			// property of the outgoing panel behaves properly (correctly attempts to spot the
-			// Spotlight container element of the outgoing panel); if we do not do this, pressing a
-			// 5-way key will re-spot an element in the outgoing panel.
-			if (!Spotlight.getPointerMode()) {
-				if (!Spotlight.spot(this)) {
-					this.$.spotlightPlaceholder.spotlight = true;
-					Spotlight.spot(this.$.spotlightPlaceholder);
-				}
-			}
+			// We pause Spotlight to prevent re-spotting of the last control in the outgoing panel.
+			if (!Spotlight.getPointerMode()) Spotlight.pause();
 		} else if (this.state == States.DEACTIVATING && (isChild || !currentSpottable)) {
 			Spotlight.unfreeze();
 			Spotlight.unspot();
@@ -203,6 +195,7 @@ module.exports = kind(
 			var spotlightPlaceholder = this.$.spotlightPlaceholder,
 				current = Spotlight.getCurrent();
 
+			Spotlight.resume();
 			spotlightPlaceholder.spotlight = false;
 			if (!Spotlight.isSpottable(this)) spotlightPlaceholder.spotlight = true;
 			if (!current || current === spotlightPlaceholder) Spotlight.spot(this);
