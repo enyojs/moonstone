@@ -306,6 +306,7 @@ module.exports = kind(
 	* @private
 	*/
 	create: function () {
+		this._nf = new NumFmt({type: 'percentage', useNative: false});
 		Control.prototype.create.apply(this, arguments);
 		this.initPopup();
 		this.orientationChanged();
@@ -320,7 +321,6 @@ module.exports = kind(
 	*/
 	initPopup: function () {
 		if (this.popup) {
-			this._nf = new NumFmt({type: 'percentage', useNative: false});
 			// FIXME: Backwards-compatibility for deprecated property - can be removed when
 			// the popupContentUpperCase property is fully deprecated and removed. The legacy
 			// property takes precedence if it exists.
@@ -791,7 +791,7 @@ module.exports = kind(
 	ariaObservers: [
 		// TODO: Observing $.popupLabel.content to minimize the observed members. Some refactoring
 		// of the label determination could help here - rjd
-		{path: ['accessibilityValueText', 'progress', 'popup', '$.popupLabel.content'], method: 'ariaValue'}
+		{path: ['accessibilityValueText', 'progress', 'popup', 'popupContent', 'showPercentage'], method: 'ariaValue'}
 	],
 
 	/**
@@ -800,10 +800,12 @@ module.exports = kind(
 	* @private
 	*/
 	ariaValue: function () {
-		var text = this.accessibilityValueText ||
-					this.popup && this.$.popupLabel && this.$.popupLabel.get('content') ||
-					this.$.animator.isAnimating() && this.$.animator.endValue ||
-					this.progress;		
+		var value = this.$.progressAnimator.isAnimating() ? this.$.progressAnimator.endValue : this.progress,
+			usePercent = this.popup && this.showPercentage && !this.popupContent,
+			text = this.accessibilityValueText ||
+					this.popup && this.popupContent ||
+					usePercent && this.calcPopupLabel(this.calcPercent(value)) ||
+					value;
 		this.setAriaAttribute('aria-valuetext', text);
 	}
 });
