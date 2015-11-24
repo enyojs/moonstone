@@ -1002,13 +1002,12 @@ module.exports = kind(
 	* @private
 	*/
 	ariaValue: function () {
-		var text = this.accessibilityValueText ||
-					this.popup && this.$.popupLabel && this.$.popupLabel.getContent() ||
-					// To avoid updating aria-valuetext during animation, we'll use the endValue
-					// when animating
-					this.$.animator.isAnimating() && this.$.animator.endValue ||
-					// and this.value otherwise
-					this.value;
+		var value = this.$.animator.isAnimating() ? this.$.animator.endValue : this.value,
+			usePercent = this.popup && this.showPercentage && !this.popupContent,
+			text = this.accessibilityValueText ||
+					this.popup && this.popupContent ||
+					usePercent && this.calcPopupLabel(this.calcPercent(value)) ||
+					value;
 
 		if (!this.dragging) {
 			this.resetAccessibilityProperties();
