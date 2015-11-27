@@ -198,7 +198,11 @@ module.exports = kind(
 			Spotlight.resume();
 			spotlightPlaceholder.spotlight = false;
 			if (!Spotlight.isSpottable(this)) spotlightPlaceholder.spotlight = true;
-			if (!current || current === spotlightPlaceholder) Spotlight.spot(this);
+			if (!current || current === spotlightPlaceholder) {
+				setTimeout(this.bindSafely(function () {
+					Spotlight.spot(this);
+				}), 0);
+			}
 		}
 	},
 
