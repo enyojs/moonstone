@@ -161,7 +161,8 @@ module.exports = kind(
 	published: {
 		/**
 		* This value overrides the default value of
-		* [autoDismiss]{@link module:enyo/Popup~Popup#autoDismiss} inherited from {@link module:enyo/Popup~Popup}.
+		* [autoDismiss]{@link module:enyo/Popup~Popup#autoDismiss} inherited from
+		* {@link module:enyo/Popup~Popup}.
 		* If `true`, the tooltip will hide when the user taps outside of it or presses
 		* ESC. Note that this property only affects behavior when the tooltip is used
 		* independently, not when it is used with
@@ -174,9 +175,12 @@ module.exports = kind(
 		autoDismiss: false,
 
 		/**
-		* If 'false', the tooltip won't be rendered in a
-		* [floating layer]{@link module:enyo/Control/floatingLayer~FloatingLayer}
-		* This may be used to guarantee whether the tooltip will be shown on top of other controls or not.
+		* This value overrides the default value of
+		* [floating]{@link module:enyo/Popup~Popup#floating} inherited from
+		* {@link module:enyo/Popup~Popup}.
+		* If 'false', the tooltip will not be rendered in a
+		* [floating layer]{@link module:enyo/Control/floatingLayer~FloatingLayer} and can be ocluded
+		* by other controls. Otherwise if `true`, the tooltip will be shown on top of other controls.
 		*
 		* @type {Boolean}
 		* @default true
