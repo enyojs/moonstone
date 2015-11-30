@@ -161,7 +161,8 @@ module.exports = kind(
 	published: {
 		/**
 		* This value overrides the default value of
-		* [autoDismiss]{@link module:enyo/Popup~Popup#autoDismiss} inherited from {@link module:enyo/Popup~Popup}.
+		* [autoDismiss]{@link module:enyo/Popup~Popup#autoDismiss} inherited from
+		* {@link module:enyo/Popup~Popup}.
 		* If `true`, the tooltip will hide when the user taps outside of it or presses
 		* ESC. Note that this property only affects behavior when the tooltip is used
 		* independently, not when it is used with
@@ -172,6 +173,20 @@ module.exports = kind(
 		* @public
 		*/
 		autoDismiss: false,
+
+		/**
+		* This value overrides the default value of
+		* [floating]{@link module:enyo/Popup~Popup#floating} inherited from
+		* {@link module:enyo/Popup~Popup}.
+		* If 'false', the tooltip will not be rendered in a
+		* [floating layer]{@link module:enyo/Control/floatingLayer~FloatingLayer} and can be ocluded
+		* by other controls. Otherwise if `true`, the tooltip will be shown on top of other controls.
+		*
+		* @type {Boolean}
+		* @default true
+		* @public
+		*/
+		floating: true,
 
 		/**
 		* Hovering over the decorator for this length of time (in milliseconds) causes the
@@ -351,7 +366,7 @@ module.exports = kind(
 	adjustPosition: function (belowActivator) {
 		if (this.showing && this.hasNode()) {
 			var b = this.node.getBoundingClientRect(),
-				moonDefaultPadding = ri.scale(20),
+				moonDefaultPadding = ri.scale(18),
 				defaultMargin = ri.scale(15),
 				pBounds = this.parent.getAbsoluteBounds(),
 				acBounds = null;
@@ -394,7 +409,7 @@ module.exports = kind(
 			}
 
 			if (this.rtl) {
-				anchorLeft = moonDefaultPadding + pBounds.left + pBounds.width / 2 < b.width;
+				anchorLeft = pBounds.left + pBounds.width / 2 - moonDefaultPadding < b.width;
 			} else {
 				//* When there is not enough room on the left, using right-arrow for the tooltip
 				anchorLeft = window.innerWidth - moonDefaultPadding - pBounds.left - pBounds.width / 2 >= b.width;
