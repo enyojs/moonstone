@@ -366,7 +366,7 @@ module.exports = kind(
 	adjustPosition: function (belowActivator) {
 		if (this.showing && this.hasNode()) {
 			var b = this.node.getBoundingClientRect(),
-				moonDefaultPadding = ri.scale(20),
+				moonDefaultPadding = ri.scale(18),
 				defaultMargin = ri.scale(15),
 				pBounds = this.parent.getAbsoluteBounds(),
 				acBounds = null;
