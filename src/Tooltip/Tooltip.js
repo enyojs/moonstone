@@ -174,6 +174,17 @@ module.exports = kind(
 		autoDismiss: false,
 
 		/**
+		* If 'false', the tooltip won't be rendered in a
+		* [floating layer]{@link module:enyo/Control/floatingLayer~FloatingLayer}
+		* This may be used to guarantee whether the tooltip will be shown on top of other controls or not.
+		*
+		* @type {Boolean}
+		* @default true
+		* @public
+		*/
+		floating: true,
+
+		/**
 		* Hovering over the decorator for this length of time (in milliseconds) causes the
 		* tooltip to appear.
 		*
@@ -394,7 +405,7 @@ module.exports = kind(
 			}
 
 			if (this.rtl) {
-				anchorLeft = moonDefaultPadding + pBounds.left + pBounds.width / 2 < b.width;
+				anchorLeft = pBounds.left + pBounds.width / 2 - moonDefaultPadding < b.width;
 			} else {
 				//* When there is not enough room on the left, using right-arrow for the tooltip
 				anchorLeft = window.innerWidth - moonDefaultPadding - pBounds.left - pBounds.width / 2 >= b.width;
