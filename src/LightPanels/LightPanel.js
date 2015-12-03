@@ -156,10 +156,8 @@ module.exports = kind(
 			// Spotlight container element of the outgoing panel); if we do not do this, pressing a
 			// 5-way key will re-spot an element in the outgoing panel.
 			if (!Spotlight.getPointerMode()) {
-				if (!Spotlight.spot(this)) {
-					this.$.spotlightPlaceholder.spotlight = true;
-					Spotlight.spot(this.$.spotlightPlaceholder);
-				}
+				this.$.spotlightPlaceholder.spotlight = true;
+				Spotlight.spot(this.$.spotlightPlaceholder);
 			}
 		} else if (this.state == States.DEACTIVATING && (isChild || !currentSpottable)) {
 			Spotlight.unfreeze();
