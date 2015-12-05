@@ -504,14 +504,17 @@ var DataListSpotlightSupport = {
 	*
 	* @private
 	*/
-	beforeTeardown: function () {
-		if (this.restoreStateOnRender) {
-			this.rememberScrollState();
-		}
-		else {
-			this.clearState();
-		}
-	},
+	beforeTeardown: kind.inherit(function (sup) {
+		return function () {
+			sup.apply(this, arguments);
+			if (this.restoreStateOnRender) {
+				this.rememberScrollState();
+			}
+			else {
+				this.clearState();
+			}
+		};
+	}),
 
 	/**
 	* @method
