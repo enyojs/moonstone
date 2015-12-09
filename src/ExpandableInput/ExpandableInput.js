@@ -267,12 +267,12 @@ module.exports = kind(
 	// Accessibility
 
 	/**
-	* @default $L('TEXT INPUT')
+	* @default $L('edit box')
 	* @type {String}
 	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityHint
 	* @public
 	*/
-	accessibilityHint: $L('TEXT INPUT'),
+	accessibilityHint: $L('edit box'),
 
 	/**
 	* @private
@@ -280,9 +280,10 @@ module.exports = kind(
 	ariaObservers: [
 		{path: ['type', 'value'], method: function () {
 			if ( this.$.header && this.type == 'password' && this.value) {
-				this.$.header._accessibilityText = $L('Password');
+				var character = (this.value.length > 1) ? $L('characters') : $L('character');
+				this.$.header._accessibilityText = this.value.length + ' ' + character;
 			} else {
-				this.$.header._accessibilityText = '';
+				this.$.header._accessibilityText = this.placeholder;
 			}
 		}}
 	]
