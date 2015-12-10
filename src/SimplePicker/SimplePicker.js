@@ -35,32 +35,33 @@ var
 * [objects]{@glossary Object} by default, become the options for the picker.
 *
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-* 	SimplePicker = require('moonstone/SimplePicker');
+* 	var
+* 		kind = require('enyo/kind'),
+* 		SimplePicker = require('moonstone/SimplePicker');
 *
-* {kind: SimplePicker, onChange: 'changed', selectedIndex: 1, components: [
-*	{content: 'San Francisco'},
-*	{content: 'Boston'},
-*	{content: 'Tokyo'}
-* ]}
+* 	{kind: SimplePicker, onChange: 'changed', selectedIndex: 1, components: [
+* 		{content: 'San Francisco'},
+* 		{content: 'Boston'},
+* 		{content: 'Tokyo'}
+* 	]}
 * ```
 *
 * The picker may be changed programmatically by calling
-* [previous()]{@link module:moonstone/SimplePicker~SimplePicker#previous} or [next()]{@link module:moonstone/SimplePicker~SimplePicker#next},
-* or by modifying the [selectedIndex]{@link module:moonstone/SimplePicker~SimplePicker#selectedIndex} published
+* [previous()]{@link module:moonstone/SimplePicker~SimplePicker#previous} or
+* [next()]{@link module:moonstone/SimplePicker~SimplePicker#next}, or by
+* modifying the [selectedIndex]{@link module:moonstone/SimplePicker~SimplePicker#selectedIndex}
 * property by calling `set('selectedIndex', <value>)`.
 *
 * The picker options may be modified programmatically in the standard manner, by calling
 * `createComponent().render()` or `destroy()`.
 *
 * ```javascript
-* // Add new items to picker
-* this.$.simplePicker.createComponent({'New York'}).render();
-* this.$.simplePicker.createComponent({'London'}).render();
+* 	// Add new items to picker
+* 	this.$.simplePicker.createComponent({'New York'}).render();
+* 	this.$.simplePicker.createComponent({'London'}).render();
 *
-* // Remove currently selected item from picker
-* this.$.simplePicker.getSelected().destroy();
+* 	// Remove currently selected item from picker
+* 	this.$.simplePicker.getSelected().destroy();
 * ```
 *
 * @class SimplePicker

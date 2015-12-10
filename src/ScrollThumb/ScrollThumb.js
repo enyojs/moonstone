@@ -11,10 +11,11 @@ var
 	ScrollThumb = require('enyo/ScrollThumb');
 
 /**
-* {@link module:moonstone/ScrollThumb~ScrollThumb}, which extends {@link module:enyo/ScrollThumb~ScrollThumb}, is
-* used to display a small visual scroll indicator.
+* {@link module:moonstone/ScrollThumb~ScrollThumb}, which extends
+* {@link module:enyo/ScrollThumb~ScrollThumb}, is used to display a small visual
+* scroll indicator.
 *
-* `moon.ScrollThumb` is not typically created in application code.
+* `moonstone/ScrollThumb` is not typically created in application code.
 *
 * @class ScrollThumb
 * @extends module:enyo/ScrollThumb~ScrollThumb

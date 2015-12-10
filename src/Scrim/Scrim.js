@@ -10,7 +10,8 @@ var
 	Scrim = require('enyo/Scrim');
 
 /**
-* `moon.Scrim` is a Moonstone-styled {@link module:enyo/Scrim~Scrim}
+* {@link module:moonstone/Scrim~Scrim} is a Moonstone-styled
+* {@link module:enyo/Scrim~Scrim}.
 *
 * @class Scrim
 * @extends module:enyo/Scrim~Scrim

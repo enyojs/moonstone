@@ -13,16 +13,21 @@ var
 	RadioItem = require('../RadioItem');
 
 /**
-* {@link module:moonstone/RadioItemGroup~RadioItemGroup} is a container in which a group of {@link module:moonstone/RadioItem~RadioItem}
-* objects are laid out horizontally. Within a group, only one item may be active at a
-* time; tapping on an item will deactivate any previously-tapped item.
+* {@link module:moonstone/RadioItemGroup~RadioItemGroup} is a container in which
+* a group of {@link module:moonstone/RadioItem~RadioItem} objects are laid out
+* horizontally. Within a group, only one item may be active at a time; tapping
+* on an item will deactivate any previously-tapped item.
 *
-* ```
-* {kind: 'moon.RadioItemGroup', onActivate: 'buttonActivated', components: [
-*	{content: 'Lions', selected: true},
-*	{content: 'Tigers'},
-*	{content: 'Bears'}
-* ]}
+* ```javascript
+* 	var
+* 		kind = require('enyo/kind'),
+* 		RadioItemGroup = require('moonstone/RadioItemGroup');
+*
+* 	{kind: RadioItemGroup, onActivate: 'buttonActivated', components: [
+* 		{content: 'Lions', selected: true},
+* 		{content: 'Tigers'},
+* 		{content: 'Bears'}
+* 	]}
 * ```
 *
 * @class RadioItemGroup

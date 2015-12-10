@@ -16,24 +16,25 @@ var
 	MarqueeSupport = Marquee.Support;
 
 /**
-* {@link module:moonstone/Spinner~Spinner} is a [control]{@link module:enyo/Control~Control} that shows a spinning animation
-* to indicate that activity is taking place. By default, the spinner is light-colored and
-* suitable for displaying against a dark background. If you need a dark spinner (to be
-* shown on a lighter background), apply the `moon-light` CSS class:
+* {@link module:moonstone/Spinner~Spinner} is a [control]{@link module:enyo/Control~Control}
+* that shows a spinning animation to indicate that activity is taking place. By
+* default, the spinner is light-colored and suitable for displaying against a
+* dark background. To get a dark spinner (to be shown on a lighter background),
+* apply the `moon-light` CSS class:
 *
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-* 	Spinner = require('moonstone/Spinner');
+* 	var
+* 		kind = require('enyo/kind'),
+* 		Spinner = require('moonstone/Spinner');
 *
-* // Normal
-* {kind: Spinner}
-* // Light
-* {kind: Spinner, classes: 'moon-light'}
-* // Normal with a message
-* {kind: Spinner, content: 'Loading...'}
-* // Transparent background
-* {kind: Spinner, transparent: true}
+* 	// Normal
+* 	{kind: Spinner}
+* 	// Light
+* 	{kind: Spinner, classes: 'moon-light'}
+* 	// Normal with a message
+* 	{kind: Spinner, content: 'Loading...'}
+* 	// Transparent background
+* 	{kind: Spinner, transparent: true}
 * ```
 *
 * Typically, a spinner is shown to indicate activity and hidden to indicate that the activity
@@ -41,7 +42,7 @@ var
 * may control the animation directly by calling the [start()]{@link module:moonstone/Spinner~Spinner#start},
 * [stop()]{@link module:moonstone/Spinner~Spinner#stop}, and [toggle()]{@link module:moonstone/Spinner~Spinner#toggle} methods.
 *
-* `moon.Spinner` supports both `content` text and a `components` block. Note that you
+* `moonstone/Spinner` supports both `content` text and a `components` block. Note that you
 * may only use one of these at a time. Using a `components` block may be desirable if,
 * for example, the text in the content section needs [marquee]{@link module:moonstone/Marquee~MarqueeSupport}
 * functionality or you'd like to include an [icon]{@link module:moonstone/Icon~Icon} in the message.

@@ -49,16 +49,16 @@ var
 */
 
 /**
-* {@link module:moonstone/Slider~Slider} is a [control]{@link module:enyo/Control~Control} that presents a range of selection
-* options in the form of a horizontal slider with a control knob. The knob may be tapped and
-* dragged to the desired location.
+* {@link module:moonstone/Slider~Slider} is a [control]{@link module:enyo/Control~Control}
+* that presents a range of selection options in the form of a horizontal slider
+* with a control knob. The knob may be tapped and dragged to the desired location.
 *
 * ```javascript
-* var
-*	kind = require('enyo/kind'),
-*	Slider = require('moonstone/Slider');
+* 	var
+* 		kind = require('enyo/kind'),
+* 		Slider = require('moonstone/Slider');
 *
-* {kind: Slider, value: 30}
+* 	{kind: Slider, value: 30}
 * ```
 *
 * @class Slider

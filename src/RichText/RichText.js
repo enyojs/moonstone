@@ -10,18 +10,22 @@ var
 	RichText = require('enyo/RichText');
 
 /**
-* {@link module:moonstone/RichText~RichText} is a Moonstone-styled text input field with support for
-* rich text formatting such as bold, italics, and underlining, derived from
-* {@link module:enyo/RichText~RichText}. Typically, a `moon.RichText` is placed inside a
-* {@link module:moonstone/InputDecorator~InputDecorator}, which provides styling, e.g.:
+* {@link module:moonstone/RichText~RichText} is a Moonstone-styled text input
+* field with support for rich text formatting such as bold, italics, and
+* underlining, derived from {@link module:enyo/RichText~RichText}. Typically, a
+* `moonstone/RichText` is placed inside a
+* {@link module:moonstone/InputDecorator~InputDecorator}, which provides
+* styling, e.g.:
 *
-* ```
-* var InputDecorator = require('moonstone/InputDecorator'),
-*     RichText = require('moonstone/RichText');
-* ...
-* {kind: InputDecorator, components: [
-*	{kind: RichText, style: 'width: 240px;', onchange: 'inputChange'}
-* ]}
+* ```javascript
+* 	var
+* 		kind = require('enyo/kind'),
+* 		InputDecorator = require('moonstone/InputDecorator'),
+* 		RichText = require('moonstone/RichText');
+*
+* 	{kind: InputDecorator, components: [
+* 		{kind: RichText, style: 'width: 240px;', onchange: 'inputChange'}
+* 	]}
 * ```
 *
 * For more information, see the documentation on
