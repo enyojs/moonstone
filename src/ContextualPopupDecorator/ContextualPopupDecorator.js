@@ -24,15 +24,20 @@ var
 * When the control is activated, the popup shows itself in the correct position
 * relative to the activator.
 *
-* ```
-*		{kind: 'moon.ContextualPopupDecorator', components: [
-*			{content: 'Show Popup'},
-*			{kind: 'moon.ContextualPopup',
-*				components: [
-*					{content:'Sample component in popup'}
-*				]
-*			}
-*		]}
+* ```javascript
+* 	var
+* 		kind = require('enyo/kind'),
+* 		ContextualPopup = require('moonstone/ContextualPopup'),
+* 		ContextualPopupDecorator = require('moonstone/ContextualPopupDecorator');
+*
+* 	{kind: ContextualPopupDecorator, components: [
+* 		{content: 'Show Popup'},
+* 		{kind: ContextualPopup,
+* 			components: [
+* 				{content:'Sample component in popup'}
+* 			]
+* 		}
+* 	]}
 * ```
 *
 * @class ContextualPopupDecorator

@@ -36,26 +36,35 @@ var
 * retrieved by querying the [checked]{@link module:moonstone/CheckboxItem~CheckboxItem#checked}
 * property.
 *
-* ```
-*		{kind: 'moon.CheckboxItem', content: 'San Francisco',
-*			onchange: 'checkedChanged'},
-*		...
-*		checkedChanged: function (sender, ev) {
-*			var checked = sender.get('checked');
-*		}
+* ```javascript
+* 	var
+* 		kind = require('enyo/kind'),
+* 		CheckboxItem = require('moonstone/CheckboxItem');
+*
+* 	{kind: CheckboxItem, content: 'San Francisco',
+* 		onchange: 'checkedChanged'},
+*
+* 	checkedChanged: function (sender, ev) {
+* 		var checked = sender.get('checked');
+* 	}
 * ```
 *
 * You may place CheckboxItem objects inside an {@link module:enyo/Group~Group} to create a group
 * of checkboxes in which only one may be checked at any given time (similar to how a
 * [RadioItemGroup]{@link module:moonstone/RadioItemGroup~RadioItemGroup} behaves):
 *
-* ```
-*		{kind: 'Group', components: [
-*			{kind: 'moon.CheckboxItem', content: 'New York'},
-*			{kind: 'moon.CheckboxItem', content: 'London'},
-*			{kind: 'moon.CheckboxItem', content: 'San Francisco'},
-*			{kind: 'moon.CheckboxItem', content: 'Beijing'}
-*		]}
+* ```javascript
+* 	var
+* 		kind = require('enyo/kind'),
+* 		Group = require('enyo/Group'),
+* 		CheckboxItem = require('moonstone/CheckboxItem');
+*
+* 	{kind: Group, components: [
+* 		{kind: CheckboxItem, content: 'New York'},
+* 		{kind: CheckboxItem, content: 'London'},
+* 		{kind: CheckboxItem, content: 'San Francisco'},
+* 		{kind: CheckboxItem, content: 'Beijing'}
+* 	]}
 * ```
 *
 * @class CheckboxItem

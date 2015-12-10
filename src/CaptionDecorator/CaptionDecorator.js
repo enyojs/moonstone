@@ -15,9 +15,14 @@ var
 * {@link module:moonstone/CaptionDecorator~CaptionDecorator} wraps a control with a caption. The position of the
 * caption is defined via the [side]{@link module:moonstone/CaptionDecorator~CaptionDecorator#side} property.
 *
-* ```
-* 	{kind: 'moon.CaptionDecorator', side: 'top', content: 'Top Label', components: [
-* 		{kind: 'moon.Button', content: 'My Button', ontap: 'buttonTapped'},
+* ```javascript
+* 	var
+* 		kind = require('enyo/kind'),
+* 		Button = require('moonstone/Button'),
+* 		CaptionDecorator = require('moonstone/CaptionDecorator');
+*
+* 	{kind: CaptionDecorator, side: 'top', content: 'Top Label', components: [
+* 		{kind: Button, content: 'My Button', ontap: 'buttonTapped'},
 * 	]}
 * ```
 *

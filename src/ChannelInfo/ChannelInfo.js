@@ -51,9 +51,13 @@ var ChannelInfoBadge = kind(
 * block of a {@link module:moonstone/VideoPlayer~VideoPlayer}.
 *
 * Example:
-* ```
+* ```javascript
+* 	var
+* 		kind = require('enyo/kind'),
+* 		ChannelInfo = require('moonstone/ChannelInfo');
+*
 * 	{
-* 		kind: 'moon.ChannelInfo',
+* 		kind: ChannelInfo,
 * 		no: 36,
 * 		name: 'AMC',
 * 		components: [

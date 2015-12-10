@@ -68,22 +68,22 @@ var
 *
 * The control's child components may be of any kind.
 *
-* ```
+* ```javascript
 * 	var
 * 		kind = require('enyo/kind'),
 * 		Drawer = require('moonstone/Drawers').Drawer;
 *
-*		{
-*			name: 'musicDrawer',
-*			kind: Drawer,
-*			handle: {name: 'handleButton', content: 'Handle'},
-*			components: [
-*				{content: 'Drawer Content'}
-*			],
-*			controlDrawerComponents: [
-*				{content: 'Controls'}
-*			]
-*		}
+* 	{
+* 		name: 'musicDrawer',
+* 		kind: Drawer,
+* 		handle: {name: 'handleButton', content: 'Handle'},
+* 		components: [
+* 			{content: 'Drawer Content'}
+* 		],
+* 		controlDrawerComponents: [
+* 			{content: 'Controls'}
+* 		]
+* 	}
 * ```
 *
 * @class Drawer
