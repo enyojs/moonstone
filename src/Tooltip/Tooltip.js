@@ -106,25 +106,27 @@ var TooltipContent = kind({
 });
 
 /**
-* {@link module:moonstone/Tooltip~Tooltip} is a popup that works in conjunction with
-* {@link module:moonstone/TooltipDecorator~TooltipDecorator}. The tooltip is automatically displayed
-* when the user hovers over the decorator for a given period of time. The tooltip is positioned
-* around the decorator where there is available window space.
+* {@link module:moonstone/Tooltip~Tooltip} is a popup that works in conjunction
+* with {@link module:moonstone/TooltipDecorator~TooltipDecorator}. The tooltip
+* is automatically displayed when the user hovers over the decorator for a given
+* period of time. The tooltip is positioned around the decorator where there is
+* available window space.
 *
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-* 	Button = require('moonstone/Button'),
-* 	Tooltip = require('moonstone/Tooltip'),
-* 	TooltipDecorator = require('moonstone/TooltipDecorator');
+* 	var
+* 		kind = require('enyo/kind'),
+* 		Button = require('moonstone/Button'),
+* 		Tooltip = require('moonstone/Tooltip'),
+* 		TooltipDecorator = require('moonstone/TooltipDecorator');
 *
-* {kind: TooltipDecorator, components: [
-*	{kind: Button, content: 'Tooltip'},
-*	{kind: Tooltip, content: 'I am a tooltip for a button.'}
-* ]}
+* 	{kind: TooltipDecorator, components: [
+* 		{kind: Button, content: 'Tooltip'},
+* 		{kind: Tooltip, content: 'I am a tooltip for a button.'}
+* 	]}
 * ```
 *
-* You may force the tooltip to appear by calling its [show()]{@link module:enyo/Control~Control#show} method.
+* You may force the tooltip to appear by calling its
+* [show()]{@link module:enyo/Control~Control#show} method.
 *
 * @class Tooltip
 * @extends module:enyo/Popup~Popup

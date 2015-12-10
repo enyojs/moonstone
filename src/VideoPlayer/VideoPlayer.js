@@ -82,27 +82,27 @@ var
 * block will be created as a header for the video.
 *
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-* 	IconButton = require('moonstone/IconButton'),
-* 	VideoHeaderBackground = require('moonstone/VideoHeaderBackground'),
-* 	VideoInfoHeader = require('moonstone/VideoInfoHeader'),
-* 	VideoPlayer = require('moonstone/VideoPlayer');
-* {
-*	kind: VideoPlayer,
-*	src: 'http://www.w3schools.com/html/mov_bbb.mp4',
-*	components: [
-*		// Custom icons for app-specific features
-*		{kind: IconButton, src: 'assets/feature1.png', ontap: 'feature1'},
-*		{kind: IconButton, src: 'assets/feature2.png', ontap: 'feature2'},
-*		{kind: IconButton, src: 'assets/feature3.png', ontap: 'feature3'}
-*	],
-*	infoComponents: [
-*		{kind: VideoHeaderBackground, components: [
-*			{kind: VideoInfoHeader, ... }
-*		]
-*	],
-* }
+* 	var
+* 		kind = require('enyo/kind'),
+* 		IconButton = require('moonstone/IconButton'),
+* 		VideoHeaderBackground = require('moonstone/VideoHeaderBackground'),
+* 		VideoInfoHeader = require('moonstone/VideoInfoHeader'),
+* 		VideoPlayer = require('moonstone/VideoPlayer');
+* 	{
+*			kind: VideoPlayer,
+*			src: 'http://www.w3schools.com/html/mov_bbb.mp4',
+*			components: [
+*				// Custom icons for app-specific features
+*				{kind: IconButton, src: 'assets/feature1.png', ontap: 'feature1'},
+*				{kind: IconButton, src: 'assets/feature2.png', ontap: 'feature2'},
+*				{kind: IconButton, src: 'assets/feature3.png', ontap: 'feature3'}
+*			],
+*			infoComponents: [
+*				{kind: VideoHeaderBackground, components: [
+*					{kind: VideoInfoHeader, ... }
+*				]
+*			],
+* 	}
 * ```
 *
 * @class VideoPlayer

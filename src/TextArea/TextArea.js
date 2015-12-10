@@ -10,14 +10,21 @@ var
 	TextArea = require('enyo/TextArea');
 
 /**
-* {@link module:moonstone/TextArea~TextArea} is a Moonstone-styled text input field, derived from
-* {@link module:enyo/TextArea~TextArea}. Typically, a `moon.TextArea` is placed inside
-* a {@link module:moonstone/InputDecorator~InputDecorator}, which provides styling, e.g.:
+* {@link module:moonstone/TextArea~TextArea} is a Moonstone-styled text input
+* field, derived from {@link module:enyo/TextArea~TextArea}. Typically, a
+* `moonstone/TextArea` is placed inside a
+* {@link module:moonstone/InputDecorator~InputDecorator}, which provides
+* styling, e.g.:
 *
 * ```
-* {kind: 'moon.InputDecorator', components: [
-*	{kind: 'moon.TextArea', onchange: 'inputChange'}
-* ]}
+* 	var
+* 		kind = require('enyo/kind'),
+* 		InputDecorator = require('moonstone/InputDecorator'),
+* 		TextArea = require('moonstone/TextArea');
+*
+* 	{kind: InputDecorator, components: [
+* 		{kind: TextArea, onchange: 'inputChange'}
+* 	]}
 * ```
 *
 * For more information, see the documentation on

@@ -16,24 +16,31 @@ var
 	MarqueeText = Marquee.Text;
 
 /**
-* {@link module:moonstone/VideoInfoHeader~VideoInfoHeader} is a [control]{@link module:enyo/Control~Control} that displays
-* various information about a video. It is designed to be used within the
-* [infoComponents]{@link module:moonstone/VideoPlayer~VideoPlayer#infoComponents} block of a {@link module:moonstone/VideoPlayer~VideoPlayer}.
+* {@link module:moonstone/VideoInfoHeader~VideoInfoHeader} is a
+* [control]{@link module:enyo/Control~Control} that displays various information
+* about a video. It is designed to be used within the
+* [infoComponents]{@link module:moonstone/VideoPlayer~VideoPlayer#infoComponents}
+* block of a {@link module:moonstone/VideoPlayer~VideoPlayer}.
 *
 * Example:
 * ```javascript
-* {
-*	kind: 'moon.VideoInfoHeader',
-*	title: 'Breaking Bad - Live Free Or Die',
-*	subTitle: 'AMC (301) 7:00 PM - 8:00 PM',
-*	description: 'As Walt deals with the aftermath of the Casa Tranquila explosion, '
-*		+ 'Hank works to wrap up his investigation of Gus\' empire.',
-*	components: [
-*		{content: '3D'},
-*		{content: 'Live'},
-*		{content: 'REC 08:22', classes: 'moon-video-player-info-redicon'}
-*	]
-* }
+* 	var
+* 		kind = require('enyo/kind'),
+* 		VideoInfoHeader = require('moonstone/VideoInfoHeader');
+*
+* 	{
+* 		kind: VideoInfoHeader,
+* 		title: 'Breaking Bad - Live Free Or Die',
+* 		subTitle: 'AMC (301) 7:00 PM - 8:00 PM',
+* 		description: 'As Walt deals with the aftermath of the "
+* 			+ 'Casa Tranquila explosion, Hank works to wrap up his "
+* 			+ 'investigation of Gus\' empire.',
+* 		components: [
+* 			{content: '3D'},
+* 			{content: 'Live'},
+* 			{content: 'REC 08:22', classes: 'moon-video-player-info-redicon'}
+* 		]
+* 	}
 * ```
 *
 * @class VideoInfoHeader

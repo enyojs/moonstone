@@ -34,39 +34,40 @@ var
 */
 
 /**
-* {@link module:moonstone/TooltipDecorator~TooltipDecorator} is a control that activates a {@link module:moonstone/Tooltip~Tooltip}. It
-* surrounds a control such as a button and displays the tooltip when the control generates
-* an `onenter` event:
+* {@link module:moonstone/TooltipDecorator~TooltipDecorator} is a control that
+* activates a {@link module:moonstone/Tooltip~Tooltip}. It surrounds a control
+* such as a button and displays the tooltip when the control generates an
+* `onenter` event:
 *
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-* 	Button = require('moonstone/Button'),
-* 	Tooltip = require('moonstone/Tooltip'),
-* 	TooltipDecorator = require('moonstone/TooltipDecorator');
+* 	var
+* 		kind = require('enyo/kind'),
+* 		Button = require('moonstone/Button'),
+* 		Tooltip = require('moonstone/Tooltip'),
+* 		TooltipDecorator = require('moonstone/TooltipDecorator');
 *
-* {kind: TooltipDecorator, components: [
-*	{kind: Button, content: 'Tooltip'},
-*	{kind: Tooltip, content: 'I am a tooltip for a button.'}
-* ]}
+* 	{kind: TooltipDecorator, components: [
+* 		{kind: Button, content: 'Tooltip'},
+* 		{kind: Tooltip, content: 'I am a tooltip for a button.'}
+* 	]}
 * ```
 *
 * Here is an example with a {@link module:moonstone/Input~Input} control and a decorator around the input:
 *
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-* 	Input = require('moonstone/Input'),
-* 	InputDecorator = require('moonstone/InputDecorator'),
-* 	Tooltip = require('moonstone/Tooltip'),
-* 	TooltipDecorator = require('moonstone/TooltipDecorator');
+* 	var
+* 		kind = require('enyo/kind'),
+* 		Input = require('moonstone/Input'),
+* 		InputDecorator = require('moonstone/InputDecorator'),
+* 		Tooltip = require('moonstone/Tooltip'),
+* 		TooltipDecorator = require('moonstone/TooltipDecorator');
 *
-* {kind: TooltipDecorator, components: [
-*	{kind: InputDecorator, components: [
-*		{kind: Input, placeholder: 'Just an input...'}
-*	]},
-*	{kind: Tooltip, content: 'I am just a tooltip for an input.'}
-* ]}
+* 	{kind: TooltipDecorator, components: [
+* 		{kind: InputDecorator, components: [
+* 			{kind: Input, placeholder: 'Just an input...'}
+* 		]},
+* 		{kind: Tooltip, content: 'I am just a tooltip for an input.'}
+* 	]}
 * ```
 *
 * Automatic hiding and showing of tooltips may be disabled by calling

@@ -78,9 +78,11 @@ var
 * behavior related to video playback.
 *
 * ```javascript
-* var VideoTransportSlider = require('moonstone/VideoTransportSlider');
-* ...
-* {kind: VideoTransportSlider, value: 30}
+* 	var
+* 		kind = require('enyo/kind'),
+* 		VideoTransportSlider = require('moonstone/VideoTransportSlider');
+*
+* 	{kind: VideoTransportSlider, value: 30}
 * ```
 *
 * The [onSeekStart]{@link module:moonstone/VideoTransportSlider~VideoTransportSlider#onSeekStart} event is fired while

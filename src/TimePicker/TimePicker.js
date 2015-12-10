@@ -352,16 +352,18 @@ var HourPicker = kind(
 	}
 });
 /**
-* {@link module:moonstone/TimePicker~TimePicker} is a [control]{@link module:enyo/Control~Control} used to allow the
-* selection of (or to simply display) a time expressed in hours and minutes, with an
-* optional meridiem indicator ('am' or 'pm').
+* {@link module:moonstone/TimePicker~TimePicker} is a
+* [control]{@link module:enyo/Control~Control} used to allow the selection of
+* (or to simply display) a time expressed in hours and minutes, with an optional
+* meridiem indicator ('am' or 'pm').
 *
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-* 	TimePicker = require('moonstone/TimePicker');
+* 	var
+* 		kind = require('enyo/kind'),
+* 		TimePicker = require('moonstone/TimePicker');
 *
-* {kind: TimePicker, content: 'Time', meridiemEnable: true, onChange: 'changed'}
+* 	{kind: TimePicker, content: 'Time', meridiemEnable: true,
+* 		onChange: 'changed'}
 * ```
 *
 * Set the [value]{@link module:moonstone/TimePicker~TimePicker#value} property to a standard JavaScript
