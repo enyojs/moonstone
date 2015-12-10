@@ -15,7 +15,7 @@ var
 	DockRightArranger = require('layout/DockRightArranger');
 
 /**
-* @typedef {Object} moon.BreadcrumbArranger~PanelInfoObject
+* @typedef {Object} module:moonstone/BreadcrumbArranger~BreadcrumbArranger~PanelInfoObject
 * @property {Boolean} breadcrumb - Whether panel is in breadcrumb (collapsed) form.
 * @property {Boolean} offscreen - Whether panel is offscreen.
 * @public
@@ -38,27 +38,27 @@ var
 * {@link module:moonstone/Panel~Panel}.
 *
 * ```
-* var
-* 	kind = require('enyo/kind'),
-* 	Item = require('moonstone/Item'),
-* 	Panels = require('moonstone/Panels');
+* 	var
+* 		kind = require('enyo/kind'),
+* 		Item = require('moonstone/Item'),
+* 		Panels = require('moonstone/Panels');
 *
-* {name: 'panels', kind: Panels, pattern: 'alwaysviewing', classes: 'enyo-fit', components: [
-* 	{title: 'First', components: [
-* 		{kind: Item, style: 'margin-top:20px;', content: 'Item One'},
-* 		{kind: Item, content: 'Item Two'},
-* 		{kind: Item, content: 'Item Three'},
-* 		{kind: Item, content: 'Item Four'},
-* 		{kind: Item, content: 'Item Five'}
-* 	]},
-* 	{title: 'Second', joinToPrev: true, components: [
-* 		{kind: Item, style: 'margin-top:20px;', content: 'Item One'},
-* 		{kind: Item, content: 'Item Two'},
-* 		{kind: Item, content: 'Item Three'},
-* 		{kind: Item, content: 'Item Four'},
-* 		{kind: Item, content: 'Item Five'}
+* 	{name: 'panels', kind: Panels, pattern: 'alwaysviewing', classes: 'enyo-fit', components: [
+* 		{title: 'First', components: [
+* 			{kind: Item, style: 'margin-top:20px;', content: 'Item One'},
+* 			{kind: Item, content: 'Item Two'},
+* 			{kind: Item, content: 'Item Three'},
+* 			{kind: Item, content: 'Item Four'},
+* 			{kind: Item, content: 'Item Five'}
+* 		]},
+* 		{title: 'Second', joinToPrev: true, components: [
+* 			{kind: Item, style: 'margin-top:20px;', content: 'Item One'},
+* 			{kind: Item, content: 'Item Two'},
+* 			{kind: Item, content: 'Item Three'},
+* 			{kind: Item, content: 'Item Four'},
+* 			{kind: Item, content: 'Item Five'}
+* 		]}
 * 	]}
-* ]}
 * ```
 *
 * @class BreadcrumbArranger
@@ -87,7 +87,7 @@ module.exports = kind(
 	*
 	* @param {Number} panelIndex - Index of the panel for which to get info.
 	* @param {Number} activeIndex - Index of the arranger the panel is in.
-	* @returns {moon.BreadcrumbArranger~PanelInfoObject}
+	* @returns {module:moonstone/BreadcrumbArranger~BreadcrumbArranger~PanelInfoObject}
 	* @public
 	*/
 	getPanelInfo: function (panelIndex, activeIndex) {
