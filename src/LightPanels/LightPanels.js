@@ -11,7 +11,7 @@ var
 	LightPanel = require('./LightPanel');
 
 /**
-* A light-weight panels implementation that has basic support for side-to-side transitions
+* A lightweight panels implementation that has basic support for side-to-side transitions
 * between child components.
 *
 * @class LightPanels

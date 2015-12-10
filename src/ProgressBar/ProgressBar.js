@@ -35,29 +35,29 @@ var
 * progress of a process in a horizontal bar.
 *
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-* 	ProgressBar = require('moonstone/ProgressBar');
+* 	var
+* 		kind = require('enyo/kind'),
+* 		ProgressBar = require('moonstone/ProgressBar');
 *
-* {kind: ProgressBar, progress: 10}
+* 	{kind: ProgressBar, progress: 10}
 * ```
 *
 * To animate a progress change, call the
 * [animateProgressTo()]{@link module:moonstone/ProgressBar~ProgressBar#animateProgressTo} method:
 *
 * ```javascript
-* this.$.progressBar.animateProgressTo(50);
+* 	this.$.progressBar.animateProgressTo(50);
 * ```
 *
 * You may customize the color of the bar by applying a style via the
 * [barClasses]{@link module:moonstone/ProgressBar~ProgressBar#barClasses} property, e.g.:
 *
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-* 	ProgressBar = require('moonstone/ProgressBar');
+* 	var
+* 		kind = require('enyo/kind'),
+* 		ProgressBar = require('moonstone/ProgressBar');
 *
-* {kind: ProgressBar, barClasses: 'class-name'}
+* 	{kind: ProgressBar, barClasses: 'class-name'}
 * ```
 *
 * For more information, see the documentation on [Progress

@@ -23,23 +23,28 @@ var
 */
 
 /**
-* `moon.ProgressButton` is an animated button to show progress from one state to another.
+* {@link module:moonstone/ProgressButton~ProgressButton} is an animated button
+* that shows progress from one state to another.
 *
 * ```
-* {kind: 'moon.ProgressButton', progress: 10, content: 'Download', postContent: 'Launch'}
+* 	var
+* 		kind = require('enyo/kind'),
+* 		ProgressButton = require('moonstone/ProgressButton');
+*
+* 	{kind: ProgressButton, progress: 10, content: 'Download', postContent: 'Launch'}
 * ```
 *
 * To animate progress changes, call the {@link module:moonstone/ProgressButton~ProgressButton#animateProgressTo} method:
 *
 * ```
-* this.$.progressButton.animateProgressTo(50);
+* 	this.$.progressButton.animateProgressTo(50);
 * ```
 *
 * You may customize the color of the bar by applying a style via the
 * {@link module:moonstone/ProgressButton~ProgressButton#barClasses} property, e.g.:
 *
 * ```
-* {kind: 'moon.ProgressButton', barClasses: 'class-name'}
+* 	{kind: ProgressButton, barClasses: 'class-name'}
 * ```
 *
 * For more information, see the documentation on [Progress Button

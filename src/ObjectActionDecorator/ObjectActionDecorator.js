@@ -10,32 +10,38 @@ var
 	Control = require('enyo/Control');
 
 /**
-* {@link module:moonstone/ObjectActionDecorator~ObjectActionDecorator} is a decorator that wraps a spotlightable object.
-* When the object is focused, additional controls are displayed, allowing the user to
-* act on the object.
+* {@link module:moonstone/ObjectActionDecorator~ObjectActionDecorator} is a
+* decorator that wraps a spotlightable object. When the object is focused,
+* additional controls are displayed, allowing the user to act on the object.
 *
 * The decorator supports two orientations: `'vertical'`, with object actions placed
 * below the wrapped components, and `'horizontal'`, with object actions placed next to
 * the components.
 *
 * The following is a vertical example:
+*
 * ```javascript
-* var ObjectActionDecorator = require('moonstone/ObjectActionDecorator');
-* ...
-* {
-* 	kind: ObjectActionDecorator,
-* 	orientation: 'vertical',
-* 	components: [
-* 		{kind: Item, components: [
-* 			{name: 'image', kind: Image, src: 'assets/default-music.png'}
-* 		]}
-* 	],
-* 	actionComponents: [
-* 		{kind: Button, name: 'Play', small: true, content: 'PLAY'},
-* 		{kind: Button, name: 'Favorite', small: true, content: 'FAVORITE'},
-* 		{kind: Button, name: 'Share', small: true, content: 'SHARE'}
-* 	]
-* }
+* 	var
+* 		kind = require('enyo/kind'),
+* 		Button = require('moonstone/Button'),
+* 		Image = require('moonstone/Image'),
+* 		Item = require('moonstone/Item'),
+* 		ObjectActionDecorator = require('moonstone/ObjectActionDecorator');
+*
+* 	{
+* 		kind: ObjectActionDecorator,
+* 		orientation: 'vertical',
+* 		components: [
+* 			{kind: Item, components: [
+* 				{name: 'image', kind: Image, src: 'assets/default-music.png'}
+* 			]}
+* 		],
+* 		actionComponents: [
+* 			{kind: Button, name: 'Play', small: true, content: 'PLAY'},
+* 			{kind: Button, name: 'Favorite', small: true, content: 'FAVORITE'},
+* 			{kind: Button, name: 'Share', small: true, content: 'SHARE'}
+* 		]
+* 	}
 * ```
 *
 * @class ObjectActionDecorator

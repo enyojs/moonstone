@@ -1105,53 +1105,53 @@ exports.Item = MarqueeItem;
 
 /**
 * {@link module:moonstone/Marquee~MarqueeText} is a basic text control that supports marquee animation.
-* When `MarqueeText` objects are used inside a
+* When MarqueeText objects are used inside a
 * [MarqueeDecorator]{@link module:moonstone/Marquee~MarqueeDecorator}, the decorator synchronizes
 * their start times; the user may start a marquee programmatically by calling
 * [startMarquee()]{@link module:moonstone/Marquee~MarqueeSupport#startMarquee}.
 *
 * ```
-* var
-* 	kind = require('enyo/kind'),
-* 	Header = require('moonstone/Header'),
-* 	MarqueeSupport = require('moonstone/Marquee').Support,
-* 	MarqueeText = require('moonstone/Marquee').Text;
+* 	var
+* 		kind = require('enyo/kind'),
+* 		Header = require('moonstone/Header'),
+* 		MarqueeSupport = require('moonstone/Marquee').Support,
+* 		MarqueeText = require('moonstone/Marquee').Text;
 *
-* module.exports = kind({
-* 	name: Header,
-* 	mixins: [MarqueeSupport],
-* 	marqueeSpeed: 100,
-* 	components: [
-* 		{kind: MarqueeText, content: 'longText+longText'},
-* 		{kind: MarqueeText, content: 'longText'}
-* 	],
-* 	rendered: function () {
-* 		this.startMarquee();
-* 	}
-* });
+* 	module.exports = kind({
+* 		name: Header,
+* 		mixins: [MarqueeSupport],
+* 		marqueeSpeed: 100,
+* 		components: [
+* 			{kind: MarqueeText, content: 'longText+longText'},
+* 			{kind: MarqueeText, content: 'longText'}
+* 		],
+* 		rendered: function () {
+* 			this.startMarquee();
+* 		}
+* 	});
 * ```
 *
 * To add the marquee feature to a kind, simply use the
 * [MarqueeSupport]{@link module:moonstone/Marquee~MarqueeSupport} mixin:
 *
 * ```
-* var
-* 	kind = require('enyo/kind'),
-* 	Button = require('enyo/Button'),
-* 	MarqueeSupport = require('moonstone/Marquee').Support,
-* 	MarqueeText = require('moonstone/Marquee').Text;
+* 	var
+* 		kind = require('enyo/kind'),
+* 		Button = require('enyo/Button'),
+* 		MarqueeSupport = require('moonstone/Marquee').Support,
+* 		MarqueeText = require('moonstone/Marquee').Text;
 *
-* module.exports = kind({
-* 	name: 'MarqueeButton',
-* 	kind: Button,
-* 	mixins: [MarqueeSupport],
-* 	components: [
-* 		{kind: MarqueeText}
-* 	],
-* 	contentChanged: function () {
-* 		this.$.marqueeText.setContent(this.content);
-* 	}
-* });
+* 	module.exports = kind({
+* 		name: 'MarqueeButton',
+* 		kind: Button,
+* 		mixins: [MarqueeSupport],
+* 		components: [
+* 			{kind: MarqueeText}
+* 		],
+* 		contentChanged: function () {
+* 			this.$.marqueeText.setContent(this.content);
+* 		}
+* 	});
 * ```
 *
 * @class MarqueeText
