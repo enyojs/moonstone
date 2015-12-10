@@ -22,10 +22,12 @@ var
 * {@link module:moonstone/DayPicker~DayPicker}, which extends {@link module:moonstone/ExpandablePicker~ExpandablePicker}, is
 * a drop-down picker menu that solicits day of the week from the user.
 *
-* ```
-* var DayPicker = require('moonstone/DayPicker');
-* ...
-* {kind: DayPicker}
+* ```javascript
+* 	var
+* 		kind = require('enyo/kind'),
+* 		DayPicker = require('moonstone/DayPicker');
+*
+* 	{kind: DayPicker}
 * ```
 *
 * When the picker is minimized, the currently selected day are
@@ -33,8 +35,9 @@ var
 * subtext will be changed 'Every Weekday' automatically.
 *
 * The content of representative value can be changed.
-* ```
-* {kind: DayPicker, everyWeekdayText:'Weekdays', everyWeekendText:'Weekends', everyDayText:'Daily'}
+* ```javascript
+* 	{kind: DayPicker, everyWeekdayText: 'Weekdays', everyWeekendText: 'Weekends',
+* 		everyDayText:'Daily'}
 * ```
 *
 * @class DayPicker

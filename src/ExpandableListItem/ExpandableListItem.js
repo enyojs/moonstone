@@ -28,39 +28,39 @@ var
 * header text or navigate (via 5-way) back to the top of the drawer.
 *
 * The control's child components may be of any kind; by default, they are
-* instances of `moon.Item`.
+* instances of `moonstone/Item`.
 *
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-* 	ExpandableListItem = require('moonstone/ExpandableListItem');
+* 	var
+* 		kind = require('enyo/kind'),
+* 		ExpandableListItem = require('moonstone/ExpandableListItem');
 *
-* {kind: ExpandableListItem, content: 'A Countries', components: [
-* 	{content: 'Algeria'},
-* 	{content: 'Argentina'},
-* 	{content: 'Australia'}
-* ]},
-* {kind: ExpandableListItem, content: 'B Countries', components: [
-* 	{content: 'Belgium'},
-* 	{content: 'Bolivia'},
-* 	{content: 'Brazil'}
-* ]}
+* 	{kind: ExpandableListItem, content: 'A Countries', components: [
+* 		{content: 'Algeria'},
+* 		{content: 'Argentina'},
+* 		{content: 'Australia'}
+* 	]},
+* 	{kind: ExpandableListItem, content: 'B Countries', components: [
+* 		{content: 'Belgium'},
+* 		{content: 'Bolivia'},
+* 		{content: 'Brazil'}
+* 	]}
 * ```
 *
 * When multiple ExpandableListItems are used in a group, only one may be open at
 * a given time.
 *
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-*	Group = require('enyo/Group'),
-* 	ExpandableListItem = require('moonstone/ExpandableListItem');
+* 	var
+* 		kind = require('enyo/kind'),
+* 		Group = require('enyo/Group'),
+* 		ExpandableListItem = require('moonstone/ExpandableListItem');
 *
-* {kind: Group, highlander: true, components: [
-* 	{kind: ExpandableListItem,  open: true,
-* 		content: 'This is a grouped ExpandableListItem', components: [
-* 			{content: 'Item One'},
-* 			{content: 'Item Two'}
+* 	{kind: Group, highlander: true, components: [
+* 		{kind: ExpandableListItem,  open: true,
+* 			content: 'This is a grouped ExpandableListItem', components: [
+* 				{content: 'Item One'},
+* 				{content: 'Item Two'}
 * 		]
 * 	},
 * 	{kind: ExpandableListItem,
@@ -75,7 +75,6 @@ var
 * 			{content: 'Item Six'}
 * 		]
 * 	}
-* ]}
 * ```
 *
 * @class ExpandableListItem

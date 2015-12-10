@@ -20,16 +20,16 @@ var
 * the options for the picker. The child controls are generated from the picker's
 * [collection]{@link module:moonstone/ExpandableDataPicker~ExpandableDataPicker#collection}.
 * 
-* ```
-* var
-* 	kind = require('enyo/kind'),
-* 	ExpandableDataPicker = require('moonstone/ExpandableDataPicker');
+* ```javascript
+* 	var
+* 		kind = require('enyo/kind'),
+* 		ExpandableDataPicker = require('moonstone/ExpandableDataPicker');
 *
-* {name: 'picker', kind: ExpandableDataPicker, content: 'Data Picker', components: [
-* 	{bindings: [
-* 		{from: '.model.label', to: '.content'}
+*	 {name: 'picker', kind: ExpandableDataPicker, content: 'Data Picker', components: [
+* 		{bindings: [
+* 			{from: '.model.label', to: '.content'}
+* 		]}
 * 	]}
-* ]}
 * ```
 *
 * @class ExpandableDataPicker

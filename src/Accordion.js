@@ -12,6 +12,9 @@ var
 	ExpandableListItem = require('./ExpandableListItem');
 
 /**
+* [Please note that `moonstone/Accordion` has been deprecated because of its
+* similarity to `moonstone/ExpandableListItem`.]
+*
 * {@link module:moonstone/Accordion~Accordion} is a {@link module:moonstone/ExpandableListItem~ExpandableListItem} with an arrow button
 * to the right of the header and additional margin space to the left of the item list.
 *
@@ -22,42 +25,42 @@ var
 * instances of {@link module:moonstone/Item~Item}.
 *
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-* 	Accordion = require('moonstone/Accordion');
+* 	var
+* 		kind = require('enyo/kind'),
+* 		Accordion = require('moonstone/Accordion');
 *
-* {kind: Accordion, content: 'This is an accordion', components: [
-* 	{content: 'Item One'},
-* 	{content: 'Item Two'}
-* ]},
-* {kind: Accordion, content: 'This is another accordion', components: [
-* 	{content: 'Item Three'},
-* 	{content: 'Item Four'}
-* ]}
+* 	{kind: Accordion, content: 'This is an accordion', components: [
+* 		{content: 'Item One'},
+* 		{content: 'Item Two'}
+* 	]},
+* 	{kind: Accordion, content: 'This is another accordion', components: [
+* 		{content: 'Item Three'},
+* 		{content: 'Item Four'}
+* 	]}
 * ```
 *
 * When multiple Accordions are used in a group, only one may be open at a given time.
 *
-* ```
-* var
-* 	kind = require('enyo/kind'),
-* 	Group = require('enyo/Group'),
-* 	Accordion = require('moonstone/Accordion');
+* ```javascript
+* 	var
+* 		kind = require('enyo/kind'),
+* 		Group = require('enyo/Group'),
+* 		Accordion = require('moonstone/Accordion');
 *
-* {kind: Group, highlander: true, components: [
-* 	{kind: Accordion, open: true, content: 'This is a grouped accordion', components: [
-* 		{content: 'Item One'},
-* 		{content: 'Item Two'}
-* 	]},
-* 	{kind: Accordion, content: 'This is another grouped accordion', components: [
-* 		{content: 'Item Three'},
-* 		{content: 'Item Four'}
-* 	]},
-* 	{kind: Accordion, content: 'This is yet another grouped accordion', components: [
-* 		{content: 'Item Five'},
-* 		{content: 'Item Six'}
+* 	{kind: Group, highlander: true, components: [
+* 		{kind: Accordion, open: true, content: 'This is a grouped accordion', components: [
+* 			{content: 'Item One'},
+* 			{content: 'Item Two'}
+* 		]},
+* 		{kind: Accordion, content: 'This is another grouped accordion', components: [
+* 			{content: 'Item Three'},
+* 			{content: 'Item Four'}
+* 		]},
+* 		{kind: Accordion, content: 'This is yet another grouped accordion', components: [
+* 			{content: 'Item Five'},
+* 			{content: 'Item Six'}
+* 		]}
 * 	]}
-* ]}
 * ```
 *
 * @class Accordion

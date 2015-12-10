@@ -166,13 +166,13 @@ var ExpandableTextButton = kind(
 * {@link module:moonstone/ExpandableText~ExpandableText} is a control that allows long bodies of text to be
 * expanded and collapsed.
 *
-* ```
-* var
-* 	kind = require('enyo/kind'),
-* 	ExpandableText = require('moonstone/ExpandableText');
+* ```javascript
+* 	var
+* 		kind = require('enyo/kind'),
+* 		ExpandableText = require('moonstone/ExpandableText');
 *
-* {kind: ExpandableText, collapsed: true, maxLines: 3,
-* 	content: 'I left my heart in San Francisco.'}
+* 	{kind: ExpandableText, collapsed: true, maxLines: 3,
+* 		content: 'I left my heart in San Francisco.'}
 * ```
 *
 * The [onExpandCollapse]{@link module:moonstone/ExpandableText~ExpandableText#onExpandCollapse} event is fired

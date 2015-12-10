@@ -39,15 +39,15 @@ var
 * the options for the picker.
 *
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-* 	ExpandablePicker = require('moonstone/ExpandablePicker');
+* 	var
+* 		kind = require('enyo/kind'),
+* 		ExpandablePicker = require('moonstone/ExpandablePicker');
 *
-* {kind: ExpandablePicker, noneText: 'None Selected', content: 'Choose City', components: [
-*	{content: 'San Francisco'},
-*	{content: 'Boston'},
-*	{content: 'Tokyo'}
-* ]}
+* 	{kind: ExpandablePicker, noneText: 'None Selected', content: 'Choose City', components: [
+* 		{content: 'San Francisco'},
+* 		{content: 'Boston'},
+* 		{content: 'Tokyo'}
+* 	]}
 * ```
 *
 * The currently selected item is available in the picker's
@@ -66,12 +66,12 @@ var
 * calling `createComponent().render()` or `destroy()`.
 *
 * ```javascript
-* // Add new items to picker
-* this.$.expandablePicker.createComponent({'New York'}).render();
-* this.$.expandablePicker.createComponent({'London'}).render();
+* 	// Add new items to picker
+* 	this.$.expandablePicker.createComponent({'New York'}).render();
+* 	this.$.expandablePicker.createComponent({'London'}).render();
 *
-* // Remove currently selected item from picker
-* this.$.expandablePicker.getSelected().destroy();
+* 	// Remove currently selected item from picker
+* 	this.$.expandablePicker.getSelected().destroy();
 * ```
 *
 * When the picker is minimized, the content of the currently selected item is

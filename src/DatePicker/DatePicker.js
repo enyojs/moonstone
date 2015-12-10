@@ -21,11 +21,12 @@ var
 * display) a day, month, and year.
 *
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-* 	DatePicker = require('moonstone/DatePicker');
+* 	var
+* 		kind = require('enyo/kind'),
+* 		DatePicker = require('moonstone/DatePicker');
 *
-* {kind: DatePicker, noneText: 'Pick a Date', content: 'Date', onChange: 'changed'}
+* 	{kind: DatePicker, noneText: 'Pick a Date', content: 'Date',
+* 		onChange: 'changed'}
 * ```
 *
 * Set the [value]{@link module:moonstone/DatePicker~DatePicker#value} property to a standard JavaScript
