@@ -15,13 +15,18 @@ var
 
 /**
 * {@link module:moonstone/Input~Input} is a Moonstone-styled input control, derived from
-* {@link module:enyo/Input~Input}. Typically, a `moon.Input` is placed inside a
+* {@link module:enyo/Input~Input}. Typically, a `moonstone/Input` is placed inside a
 * {@link module:moonstone/InputDecorator~InputDecorator}, which provides styling, e.g.:
 *
-* ```
-* {kind: 'moon.InputDecorator', components: [
-*	{kind: 'moon.Input', placeholder: 'Enter some text...', onchange: 'inputChange'}
-* ]}
+* ```javascript
+* 	var
+* 		kind = require('enyo/kind'),
+* 		Input = require('moonstone/Input'),
+* 		InputDecorator = require('moonstone/InputDecorator');
+*
+* 	{kind: InputDecorator, components: [
+* 		{kind: Input, placeholder: 'Enter some text...', onchange: 'inputChange'}
+* 	]}
 * ```
 *
 * For more information, see the documentation on

@@ -66,31 +66,35 @@ HighlightTextDelegate.generateInnerHtml = function (control) {
 * For example, let's say we have the following control:
 *
 * ```
-* {kind: 'moon.HighlightText', name: 'myHT', content: 'Hello World!'}
+* 	var
+* 		kind = require('enyo/kind'),
+* 		HighlightText = require('moonstone/HighlightText');
+*
+* 	{kind: HighlightText, name: 'myHT', content: 'Hello World!'}
 * ```
 * In response to the event
 *
 * ```
-* this.waterfall('onHighlight', {highlight: 'Hello'});
+* 	this.waterfall('onHighlight', {highlight: 'Hello'});
 * ```
 * or the direct API call
 *
 * ```
-* this.$.myHT.set('highlight', 'Hello');
+* 	this.$.myHT.set('highlight', 'Hello');
 * ```
 *
-* the word 'Hello' will be highlighted.
+* the word "Hello" will be highlighted.
 *
 * The highlighting will be turned off when an
-* [onUnHighlight]{@link module:moonstone/HighlightText~HighlightText#onUnHighlight} event is received.
+* [onUnHighlight]{@link module:moonstone/HighlightText~HighlightText#onUnHighlight} event is received
 *
 * ```
-* this.waterfall('onUnHighlight');
+* 	this.waterfall('onUnHighlight');
 * ```
 * or when [highlight]{@link module:moonstone/HighlightText~HighlightText#highlight} is set to a **falsy** value.
 *
 * ```
-* this.$.myHT.set('highlight', '');
+* 	this.$.myHT.set('highlight', '');
 * ```
 *
 * @class HighlightText

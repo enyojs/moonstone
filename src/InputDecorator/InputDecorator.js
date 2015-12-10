@@ -21,32 +21,40 @@ var
 /**
 * {@link module:moonstone/InputDecorator~InputDecorator} is a control that provides input styling. Any controls
 * in the InputDecorator will appear to be inside an area styled as an input. Usually,
-* an InputDecorator surrounds a [moon.Input]{@link module:moonstone/Input~Input}:
+* an InputDecorator surrounds a {@link module:moonstone/Input~Input}:
 *
 * ```
-* {kind: 'moon.InputDecorator', components: [
-* 	{kind: 'moon.Input'}
-* ]}
+* 	var
+* 		kind = require('enyo/kind'),
+* 		Input = require('moonstone/Input'),
+* 		InputDecorator = require('moonstone/InputDecorator');
+*
+* 	{kind: InputDecorator, components: [
+* 		{kind: Input}
+* 	]}
 * ```
 *
 * Other controls, such as buttons, may be placed to the right or left of the
 * input control, e.g.:
 *
 * ```
-* {kind: 'moon.InputDecorator', components: [
-* 	{kind: 'moon.IconButton', src: 'search.png'},
-* 	{kind: 'moon.Input'},
-* 	{kind: 'moon.IconButton', src: 'cancel.png'}
-* ]}
+* 	var
+* 		IconButton = require('moonstone/IconButton');
+*
+* 	{kind: InputDecorator, components: [
+* 		{kind: IconButton, src: 'search.png'},
+* 		{kind: Input},
+* 		{kind: IconButton, src: 'cancel.png'}
+* 	]}
 * ```
 *
 * Note that the InputDecorator fits around the content inside it. If the
 * decorator is sized, then its contents will likely need to be sized as well.
 *
 * ```
-* {kind: 'moon.InputDecorator', style: 'width: 500px;', components: [
-* 	{kind: 'moon.Input', style: 'width: 100%;'}
-* ]}
+* 	{kind: InputDecorator, style: 'width: 500px;', components: [
+* 		{kind: Input, style: 'width: 100%;'}
+* 	]}
 * ```
 *
 * @class InputDecorator

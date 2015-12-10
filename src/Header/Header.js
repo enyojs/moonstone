@@ -141,12 +141,13 @@ module.exports = kind(
 		/**
 		* URL(s) of background image(s).
 		* This may be a string referring a single background image, or an array of strings
-		* referring to multiple background images. To support multiple background-images at
-		* multiple resolutions, this property can accept several formats:
-		* 1) A string src,
-		* 2) An array of string srcs,
-		* 3) A [MultiRes Hash]{@link module:enyo/resolution#selectSrc~src}
-		* 4) An array of [MultiRes Hashs]{@link module:enyo/resolution#selectSrc~src}
+		* referring to multiple background images. To support multiple background images at
+		* multiple resolutions, this property accepts data in several formats:
+		*
+		* 1. A string `src` value
+		* 2. An array of string `src` values
+		* 3. A [multi-resolution hash]{@link module:enyo/resolution#selectSrc~src}
+		* 4. An array of [multi-resolution hashes]{@link module:enyo/resolution#selectSrc~src}
 		*
 		* @type {(String|String[]|module:enyo/resolution#selectSrc~src|module:enyo/resolution#selectSrc~src[])}
 		* @default null

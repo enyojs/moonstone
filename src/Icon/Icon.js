@@ -67,7 +67,11 @@ var icons = {
 * image file's location.
 *
 * ```
-* {kind: 'moon.Icon', src: 'images/search.png'}
+* 	var
+* 		kind = require('enyo/kind'),
+* 		Icon = require('moonstone/Icon');
+*
+* 	{kind: Icon, src: 'images/search.png'}
 * ```
 *
 * Moonstone also supports a second method for displaying icons; in addition to
@@ -77,7 +81,7 @@ var icons = {
 * icon name, e.g.:
 *
 * ```
-* {kind: 'moon.Icon', icon: 'closex'}
+* 	{kind: Icon, icon: 'closex'}
 * ```
 *
 * For image-based icons, two sizes are supported: large (45x45 pixels) and small
@@ -85,9 +89,9 @@ var icons = {
 * [small]{@link module:moonstone/Icon~Icon#small} property to `false`:
 *
 * ```
-* {kind: 'moon.Icon', src: 'images/search.png', small: false}
+* 	{kind: Icon, src: 'images/search.png', small: false}
 *
-* {kind: 'moon.Icon', icon: 'closex', small: false}
+* 	{kind: Icon, icon: 'closex', small: false}
 * ```
 *
 * In addition, both icon sizes support two states: a default (resting) state,
