@@ -14,21 +14,21 @@ var
 * {@link module:moonstone/ItemOverlay~ItemOverlay} is a supplementary control that helps to manage
 * layout within a {@link module:moonstone/Item~Item}.
 *
-* ```
-* var
-* 	kind = require('enyo/kind'),
-* 	Icon = require('moonstone/Icon'),
-* 	Item = require('moonstone/Item'),
-* 	ItemOverlay = require('moonstone/ItemOverlay'),
-* 	MarqueeText = require('moonstone/Marquee').Text;
+* ```javascript
+* 	var
+* 		kind = require('enyo/kind'),
+* 		Icon = require('moonstone/Icon'),
+* 		Item = require('moonstone/Item'),
+* 		ItemOverlay = require('moonstone/ItemOverlay'),
+* 		MarqueeText = require('moonstone/Marquee').Text;
 *
-* {kind: Item, components: [
-* 	{kind: ItemOverlay, autoHide: false, right: true, components:[
-* 		{kind: Icon, icon: 'arrowlargeup', small: true},
-* 		{kind: Icon, icon: 'arrowlargedown', small: true}
-* 	]},
-* 	{kind: MarqueeText, content: 'Item   with   icons   auto   hides'}
-* ]}
+* 	{kind: Item, components: [
+* 		{kind: ItemOverlay, autoHide: false, right: true, components: [
+* 			{kind: Icon, icon: 'arrowlargeup', small: true},
+* 			{kind: Icon, icon: 'arrowlargedown', small: true}
+* 		]},
+* 		{kind: MarqueeText, content: 'Item   with   icons   auto   hides'}
+* 	]}
 * ```
 *
 * @class ItemOverlay
@@ -110,21 +110,21 @@ var ItemOverlay = module.exports = kind(
 * The {@link module:moonstone/ItemOverlay~ItemOverlaySupport} {@glossary mixin}
 * provides overlay layout support to {@link module:moonstone/Item~Item}.
 *
-* ```
-* var
-* 	kind = require('enyo/kind'),
-* 	Icon = require('moonstone/Icon'),
-* 	Item = require('moonstone/Item'),
-* 	ItemOverlaySupport = require('moonstone/ItemOverlay').ItemOverlaySupport,
-* 	MarqueeText = require('moonstone/Marquee').Text;
+* ```javascript
+* 	var
+* 		kind = require('enyo/kind'),
+* 		Icon = require('moonstone/Icon'),
+* 		Item = require('moonstone/Item'),
+* 		ItemOverlaySupport = require('moonstone/ItemOverlay').ItemOverlaySupport,
+* 		MarqueeText = require('moonstone/Marquee').Text;
 *
-* {kind: Item, mixins: [ItemOverlaySupport], beginningComponents: [
-* 	{kind: Icon, icon: 'arrowlargeup', small: true},
-* 	{kind: Icon, icon: 'arrowlargedown', small: true}
-* ],
-* components: [
-* 	{kind: MarqueeText, content: "Item   with   icons   auto   hides"}
-* ]}
+* 	{kind: Item, mixins: [ItemOverlaySupport], beginningComponents: [
+* 		{kind: Icon, icon: 'arrowlargeup', small: true},
+* 		{kind: Icon, icon: 'arrowlargedown', small: true}
+* 	],
+* 	components: [
+* 		{kind: MarqueeText, content: "Item   with   icons   auto   hides"}
+* 	]}
 * ```
 *
 * @mixin ItemOverlaySupport

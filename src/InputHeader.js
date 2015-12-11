@@ -28,20 +28,22 @@ var
 * embedded input to respond to changes.
 *
 * ```
-* var InputHeader = require('moonstone/InputHeader'),
-*     IconButton = require('moonstone/IconButton');
-* ...
-* {
-* 	kind: InputHeader,
-* 	title: 'Input Header',
-* 	titleAbove: '02',
-* 	titleBelow: 'Sub Header',
-* 	subTitleBelow: 'Sub-sub Header',
-* 	components: [
-* 		{kind: IconButton, src: 'assets/icon-like.png'},
-* 		{kind: IconButton, src: 'assets/icon-next.png'}
-* 	]
-* }
+* 	var
+* 		kind = require('enyo/kind'),
+* 		InputHeader = require('moonstone/InputHeader'),
+* 		IconButton = require('moonstone/IconButton');
+*
+* 	{
+* 		kind: InputHeader,
+* 		title: 'Input Header',
+* 		titleAbove: '02',
+* 		titleBelow: 'Sub Header',
+* 		subTitleBelow: 'Sub-sub Header',
+* 		components: [
+* 			{kind: IconButton, src: 'assets/icon-like.png'},
+* 			{kind: IconButton, src: 'assets/icon-next.png'}
+* 		]
+* 	}
 * ```
 *
 * @class InputHeader

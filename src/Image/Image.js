@@ -21,19 +21,19 @@ var
 * In addition, `moonstone/Image` adds [overlay]{@link module:moonstone/Overlay} support to show controls over the image. This
 * can be used to add action icons as in the example below.
 *
-* ```
-* var
-* 	kind = require('enyo/kind'),
-* 	Image = require('moonstone/Image'),
-* 	Icon = require('moonstone/Icon');
+* ```javascript
+* 	var
+* 		kind = require('enyo/kind'),
+* 		Image = require('moonstone/Image'),
+* 		Icon = require('moonstone/Icon');
 *
-* {kind: Image, src: 'assets/movie.png',
-* 	overlayShowing: 'spotlight', overlayPosition: 'bottom', overlayComponents: [
-* 		{kind: Icon, src: 'assets/icon-recommended.png'},
-* 		{kind: Icon, icon: 'star'},
-* 		{kind: Icon, src: 'assets/icon-new.png'}
-* 	]
-* }
+* 	{kind: Image, src: 'assets/movie.png',
+* 		overlayShowing: 'spotlight', overlayPosition: 'bottom', overlayComponents: [
+* 			{kind: Icon, src: 'assets/icon-recommended.png'},
+* 			{kind: Icon, icon: 'star'},
+* 			{kind: Icon, src: 'assets/icon-new.png'}
+* 		]
+* 	}
 * ```
 *
 * For backwards compatibility, component configurations specified using the `components` block

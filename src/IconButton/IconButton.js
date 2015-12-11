@@ -16,12 +16,12 @@ var
 * the icon image by setting the [src]{@link module:moonstone/Icon~Icon#src} property to a URL
 * indicating the image file's location.
 *
-* ```
-* var
-* 	kind = require('enyo/kind'),
-* 	IconButton = require('moonstone/IconButton');
+* ```javascript
+* 	var
+* 		kind = require('enyo/kind'),
+* 		IconButton = require('moonstone/IconButton');
 *
-* {kind: IconButton, src: 'images/search.png'}
+* 	{kind: IconButton, src: 'images/search.png'}
 * ```
 *
 * If you want to combine an icon with text inside of a button, use a
@@ -34,8 +34,8 @@ var
 * [icon]{@link module:moonstone/Icon~Icon#icon} property to a string representing
 * an icon name, e.g.:
 *
-* ```
-* {kind: IconButton, icon: 'closex'}
+* ```javascript
+* 	{kind: IconButton, icon: 'closex'}
 * ```
 *
 * See {@link module:moonstone/Icon~Icon} for more information on the available font-based icons,

@@ -35,13 +35,13 @@ var
 * soliciting a choice from the user. To initialize the picker to a particular integer,
 * set the [value]{@link module:moonstone/IntegerPicker~IntegerPicker#value} property to that integer:
 *
-* ```
-* var
-* 	kind = require('enyo/kind'),
-* 	IntegerPicker = require('moonstone/IntegerPicker');
+* ```javascript
+* 	var
+* 		kind = require('enyo/kind'),
+* 		IntegerPicker = require('moonstone/IntegerPicker');
 *
-* {kind: IntegerPicker, noneText: 'None Selected',
-*	content: 'Choose a Number', min: 0, max: 25, value: 5}
+* 	{kind: IntegerPicker, noneText: 'None Selected',
+* 		content: 'Choose a Number', min: 0, max: 25, value: 5}
 * ```
 *
 * The picker may be changed programmatically by modifying the `value`, `min`,
