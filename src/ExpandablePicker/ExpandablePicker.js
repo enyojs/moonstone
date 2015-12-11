@@ -33,21 +33,24 @@ var
 */
 
 /**
-* {@link module:moonstone/ExpandablePicker~ExpandablePicker}, which extends {@link module:moonstone/ExpandableListItem~ExpandableListItem}, is
-* a drop-down picker menu that solicits a choice from the user. The picker's child
-* components, which are instances of {@link module:moonstone/CheckboxItem~CheckboxItem} by default, provide
-* the options for the picker.
+* {@link module:moonstone/ExpandablePicker~ExpandablePicker}, which extends
+* {@link module:moonstone/ExpandableListItem~ExpandableListItem}, is a drop-down
+* picker menu that solicits a choice from the user. The picker's child
+* components, which are instances of {@link module:moonstone/CheckboxItem~CheckboxItem}
+* by default, provide the options for the picker.
 *
 * ```javascript
 * 	var
 * 		kind = require('enyo/kind'),
 * 		ExpandablePicker = require('moonstone/ExpandablePicker');
 *
-* 	{kind: ExpandablePicker, noneText: 'None Selected', content: 'Choose City', components: [
-* 		{content: 'San Francisco'},
-* 		{content: 'Boston'},
-* 		{content: 'Tokyo'}
-* 	]}
+* 	{kind: ExpandablePicker, noneText: 'None Selected', content: 'Choose City',
+* 		components: [
+* 			{content: 'San Francisco'},
+* 			{content: 'Boston'},
+* 			{content: 'Tokyo'}
+* 		]
+* 	}
 * ```
 *
 * The currently selected item is available in the picker's

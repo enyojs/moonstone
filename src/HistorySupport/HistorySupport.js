@@ -43,27 +43,28 @@ module.exports = {
 	},
 
 	/**
-	* Pushes a default state to the back history, consisting of a reference to our handler for
-	* any "back" actions.
+	* Pushes a default state to the back history, consisting of a reference to our
+	* handler for any "back" actions.
 	*
-	* If the default `pushBackHistory` behavior is to be overridden, ensure that the control's
-	* implementation of `pushBackHistory` signifies it has handled the necessary behavior by
-	* returning `true`.
+	* If the default `pushBackHistory()` behavior is to be overridden, make sure
+	* that the control's implementation of `pushBackHistory()` signifies that it
+	* has handled the necessary behavior by returning `true`, e.g.:
 	*
-	* @example
-	* pushBackHistory: function() {
-	*	// perform custom operations here
-	*	return true;
-	* }
+	* ```javascript
+	* 	pushBackHistory: function() {
+	* 		// perform custom operations here
+	* 		return true;
+	* 	}
+	* ```
 	*
 	* @method
 	* @public
 	*/
 	pushBackHistory: kind.inherit(function (sup) {
-		// When you use a mixin, it will override existing properties and methods. If a control,
-		// which uses `moon.HistorySupport`, has implemented the `pushBackHistory` method, the
+		// When you use a mixin, it will override existing properties and methods. If a control
+		// that uses `moonstone/HistorySupport` has implemented the `pushBackHistory()` method, the
 		// method will be replaced with the following method. To ensure that the control's
-		// implementation of `pushBackHistory` is executed, we allow it to run and subsequently
+		// implementation of `pushBackHistory()` is executed, we allow it to run and subsequently
 		// examine its return value.
 		return function () {
 			// check whether this control's `pushBackHistroy` method has effectively handled
@@ -80,8 +81,8 @@ module.exports = {
 	* control if it is showing.
 	*
 	* Most controls will want to override this behavior. If the default behavior should not be
-	* executed, ensure that the `backKeyHandler` method in the control signifies it has handled
-	* the necessary behavior by returning `true`.
+	* executed, ensure that the `backKeyHandler()` method in the control signifies that it has
+	* handled the necessary behavior by returning `true`.
 	*
 	* @method
 	* @public

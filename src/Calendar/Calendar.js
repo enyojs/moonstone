@@ -292,11 +292,12 @@ var SimpleMonthPicker = kind(
 * The header buttons are used to navigate to the desired month; the desired day
 * is selected by tapping on it.
 *
-* ```
-* var
-* 	Calendar = require('moonstone/Calendar');
+* ```javascript
+* 	var
+* 		kind = require('enyo/kind'),
+* 		Calendar = require('moonstone/Calendar');
 *
-* {kind: Calendar, content: 'Calendar Title'}
+* 	{kind: Calendar, content: 'Calendar Title'}
 * ```
 *
 * @deprecated

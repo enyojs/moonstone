@@ -19,8 +19,9 @@ var
 	$L = require('../i18n');
 
 /**
-* {@link module:moonstone/DayPicker~DayPicker}, which extends {@link module:moonstone/ExpandablePicker~ExpandablePicker}, is
-* a drop-down picker menu that solicits day of the week from the user.
+* {@link module:moonstone/DayPicker~DayPicker}, which extends
+* {@link module:moonstone/ExpandablePicker~ExpandablePicker}, is a drop-down
+* picker menu allowing the user to choose day(s) of the week.
 *
 * ```javascript
 * 	var
@@ -30,11 +31,11 @@ var
 * 	{kind: DayPicker}
 * ```
 *
-* When the picker is minimized, the currently selected day are
-* displayed as subtext below the picker label. And if the picker select every weekday,
-* subtext will be changed 'Every Weekday' automatically.
+* When the picker is minimized, the currently selected day is displayed as
+* subtext below the picker label. The subtext will be updated automatically if
+* a new value is selected.  The content of the subtext strings may be customized
+* by the user.
 *
-* The content of representative value can be changed.
 * ```javascript
 * 	{kind: DayPicker, everyWeekdayText: 'Weekdays', everyWeekendText: 'Weekends',
 * 		everyDayText:'Daily'}
@@ -80,7 +81,7 @@ module.exports = kind(
 	published: {
 
 		/**
-		* Text to be displayed when all of the day are selected.
+		* Text to be displayed when all of the days are selected.
 		*
 		* @type {String}
 		* @default 'Every Day'
@@ -89,7 +90,7 @@ module.exports = kind(
 		everyDayText: $L('Every Day'),
 
 		/**
-		* Text to be displayed when all of the weekday are selected.
+		* Text to be displayed when all of the weekdays are selected.
 		*
 		* @type {String}
 		* @default 'Every Weekday'
@@ -98,7 +99,7 @@ module.exports = kind(
 		everyWeekdayText: $L('Every Weekday'),
 
 		/**
-		* Text to be displayed when all of the weekend are selected.
+		* Text to be displayed when all of the weekend days are selected.
 		*
 		* @type {String}
 		* @default 'Every Weekend'
@@ -107,7 +108,7 @@ module.exports = kind(
 		everyWeekendText: $L('Every Weekend'),
 
 		/**
-		* Text to be displayed as the current value if no item is currently selected.
+		* Text to be displayed if no item is currently selected.
 		*
 		* @type {String}
 		* @default 'Nothing selected'

@@ -34,10 +34,12 @@ var
 *
 * Example:
 *
-* ```
-*	var Clock = require('moonstone/Clock');
-*	...
-*		{kind: Clock}
+* ```javascript
+* 	var
+* 		kind = require('enyo/kind'),
+* 		Clock = require('moonstone/Clock');
+*
+* 	{kind: Clock}
 * ```
 *
 * @class Clock
