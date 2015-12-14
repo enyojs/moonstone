@@ -19,20 +19,20 @@ require('moonstone');
 * {@link module:moonstone/Overlay~OverlaySupport}.
 *
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-* 	Control = require('enyo/Control'),
-* 	Overlay = require('moonstone/Overlay');
+* 	var
+* 		kind = require('enyo/kind'),
+* 		Control = require('enyo/Control'),
+* 		Overlay = require('moonstone/Overlay');
 *
-* // A control with a default Selection overlay
-* {kind: Control, mixins: [Overlay.Support, Overlay.Selection]}
+* 	// A control with a default Selection overlay
+* 	{kind: Control, mixins: [Overlay.Support, Overlay.Selection]}
 * 
-* // A control with a Selection overlay and customized position and components
-* {kind: Control, mixins: [Overlay.Support, Overlay.Selection],
-* 	overlayPosition: 'left', overlayComponents: [
-*			{kind: Icon, icon: 'check', small: true}
-*		]
-* }
+* 	// A control with a Selection overlay and customized position and components
+* 	{kind: Control, mixins: [Overlay.Support, Overlay.Selection],
+* 		overlayPosition: 'left', overlayComponents: [
+*				{kind: Icon, icon: 'check', small: true}
+*			]
+* 	}
 * ```
 *
 * @module moonstone/Overlay
@@ -163,19 +163,19 @@ function updateOwnership (components, owner) {
 * displaying the overlay manually, on spotlight, or on hover.
 *
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-* 	Icon = require('moonstone/Icon'),
-* 	Image = require('moonstone/Image'),
-* 	Overlay = require('moonstone/Overlay');
+* 	var
+* 		kind = require('enyo/kind'),
+* 		Icon = require('moonstone/Icon'),
+* 		Image = require('moonstone/Image'),
+* 		Overlay = require('moonstone/Overlay');
 *
-* {kind: Image, src: 'assets/movie.png', mixins: [Overlay.Support],
-* 	overlayShowing: 'hover', overlayPosition: 'bottom', overlayAlign: 'right', overlayComponents: [
-*			{kind: Icon, src: 'assets/icon-recommended.png'},
-*			{kind: Icon, icon: 'star'},
-*			{kind: Icon, src: 'assets/icon-new.png'}
-* 	]
-* }
+* 	{kind: Image, src: 'assets/movie.png', mixins: [Overlay.Support],
+* 		overlayShowing: 'hover', overlayPosition: 'bottom', overlayAlign: 'right', overlayComponents: [
+*				{kind: Icon, src: 'assets/icon-recommended.png'},
+*				{kind: Icon, icon: 'star'},
+*				{kind: Icon, src: 'assets/icon-new.png'}
+* 		]
+* 	}
 * ```
 *
 * @mixin OverlaySupport
@@ -420,17 +420,17 @@ module.exports.Container = {
 * class is applied to the overlaid control.
 *
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-* 	Icon = require('moonstone/Icon'),
-* 	Image = require('moonstone/Image'),
-* 	Overlay = require('moonstone/Overlay');
+* 	var
+* 		kind = require('enyo/kind'),
+* 		Icon = require('moonstone/Icon'),
+* 		Image = require('moonstone/Image'),
+* 		Overlay = require('moonstone/Overlay');
 *
-* {kind: Image, src: 'assets/movie.png', mixins: [Overlay.Support, Overlay.Selection],
-* 	overlayShowing: 'spotlight', overlayComponents: [
-*			{kind: Icon, icon: 'check'}
-* 	]
-* }
+* 	{kind: Image, src: 'assets/movie.png', mixins: [Overlay.Support, Overlay.Selection],
+* 		overlayShowing: 'spotlight', overlayComponents: [
+*				{kind: Icon, icon: 'check'}
+* 		]
+* 	}
 * ```
 *
 * @mixin SelectionOverlaySupport
@@ -547,18 +547,18 @@ module.exports.Selection = {
 * `moon-overlay-text-subtitle` classes
 *
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-* 	Image = require('moonstone/Image'),
-* 	Marquee = require('moonstone/Marquee'),
-* 	Overlay = require('moonstone/Overlay);
+* 	var
+* 		kind = require('enyo/kind'),
+* 		Image = require('moonstone/Image'),
+* 		Marquee = require('moonstone/Marquee'),
+* 		Overlay = require('moonstone/Overlay);
 *
-* {kind: Image, src: 'assets/movie.png', mixins: [Overlay.Support, Overlay.Selection],
-* 	overlayShowing: 'spotlight', overlayComponents: [
-*			{kind: Marquee.Text, content: 'Title', classes: 'moon-overlay-text-title'},
-*			{kind: Marquee.Text, content: '12', classes: 'moon-overlay-text-subtitle'}
-* 	]
-* }
+* 	{kind: Image, src: 'assets/movie.png', mixins: [Overlay.Support, Overlay.Selection],
+* 		overlayShowing: 'spotlight', overlayComponents: [
+*				{kind: Marquee.Text, content: 'Title', classes: 'moon-overlay-text-title'},
+*				{kind: Marquee.Text, content: '12', classes: 'moon-overlay-text-subtitle'}
+* 		]
+* 	}
 * ```
 *
 * @mixin TextOverlaySupport

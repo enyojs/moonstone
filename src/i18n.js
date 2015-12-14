@@ -23,7 +23,7 @@ $L.rb = new ResBundle({
 });
 
 /**
-* Exports the $L i18n function from [iLib]{@link ilib}.
+* Exports the `$L()` i18n function from [iLib]{@link ilib}.
 * @module moonstone/i18n
 */
 module.exports = $L;

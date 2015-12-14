@@ -40,7 +40,7 @@ var
 * is `true` and the user taps one of the [controls]{@link module:enyo/Control~Control}; may be handled to
 * re-enable the controls, if desired. No event-specific information is sent with this event.
 *
-* @event moon.VideoPlayer#onPlaybackControlsTapped
+* @event module:moonstone/VideoPlayer~VideoPlayer#onPlaybackControlsTapped
 * @type {Object}
 * @public
 */
@@ -49,7 +49,7 @@ var
 * Child controls may bubble this event to toggle the fullscreen state of the video player.
 * No additional data needs to be sent with this event.
 *
-* @event moon.VideoPlayer#onRequestToggleFullscreen
+* @event module:moonstone/VideoPlayer~VideoPlayer#onRequestToggleFullscreen
 * @type {Object}
 * @public
 */
@@ -57,7 +57,7 @@ var
 /**
 * Child controls may bubble this event to request an update to the current video position.
 *
-* @event moon.VideoPlayer#onRequestTimeChange
+* @event module:moonstone/VideoPlayer~VideoPlayer#onRequestTimeChange
 * @type {Object}
 * @property {Number} value - Requested time index.
 * @public
@@ -88,20 +88,21 @@ var
 * 		VideoHeaderBackground = require('moonstone/VideoHeaderBackground'),
 * 		VideoInfoHeader = require('moonstone/VideoInfoHeader'),
 * 		VideoPlayer = require('moonstone/VideoPlayer');
+*
 * 	{
-*			kind: VideoPlayer,
-*			src: 'http://www.w3schools.com/html/mov_bbb.mp4',
-*			components: [
-*				// Custom icons for app-specific features
-*				{kind: IconButton, src: 'assets/feature1.png', ontap: 'feature1'},
-*				{kind: IconButton, src: 'assets/feature2.png', ontap: 'feature2'},
-*				{kind: IconButton, src: 'assets/feature3.png', ontap: 'feature3'}
-*			],
-*			infoComponents: [
-*				{kind: VideoHeaderBackground, components: [
-*					{kind: VideoInfoHeader, ... }
-*				]
-*			],
+* 		kind: VideoPlayer,
+* 		src: 'http://www.w3schools.com/html/mov_bbb.mp4',
+* 		components: [
+* 			// Custom icons for app-specific features
+* 			{kind: IconButton, src: 'assets/feature1.png', ontap: 'feature1'},
+* 			{kind: IconButton, src: 'assets/feature2.png', ontap: 'feature2'},
+* 			{kind: IconButton, src: 'assets/feature3.png', ontap: 'feature3'}
+* 		],
+* 		infoComponents: [
+* 			{kind: VideoHeaderBackground, components: [
+* 				{kind: VideoInfoHeader, ... }
+* 			]
+* 		],
 * 	}
 * ```
 *
@@ -973,10 +974,10 @@ module.exports = kind(
 			!this._loaded ||
 			(this.disablePlaybackControlsOnUnload && (this._errorCode || (!this.getSrc() && !this.getSources()) ));
 		this.$.slider.setDisabled(disabled);
-		// We need an explicit call to showKnobStatus as moon.Slider's disabledChanged method
+		// We need an explicit call to showKnobStatus as moonstone/Slider's disabledChanged method
 		// only handles hiding of the knob status. This behavior should not be changed in
-		// disabledChanged, as the normal behavior of moon.Slider is to display the knob status
-		// upon dragging, whereas moon.VideoPlayer is forcing the knob status to be shown when
+		// disabledChanged, as the normal behavior of moonstone/Slider is to display the knob status
+		// upon dragging, whereas moonstone/VideoPlayer is forcing the knob status to be shown when
 		// the slider is visible.
 		if (!disabled) {
 			this.$.slider.showKnobStatus();
@@ -1319,9 +1320,9 @@ module.exports = kind(
 			Spotlight.spot(this);
 		}
 		if (this.autoHidePopups) {
-			// Hide enyo.Popup-based popups (including moon.Popup)
+			// Hide enyo/Popup-based popups (including moonstone/Popup)
 			this.$.playerControl.waterfall('onRequestHide');
-			// Hide moon.ContextualPopups
+			// Hide moonstone/ContextualPopups
 			this.$.playerControl.waterfall('onRequestHidePopup');
 		}
 		this.showScrim(false);
