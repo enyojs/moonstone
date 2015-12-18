@@ -1,3 +1,9 @@
+/**
+* Contains the declaration for the {@link module:moonstone/NewDataList~NewDataList} kind.
+* @wip
+* @module moonstone/NewDataList
+*/
+
 require('moonstone');
 
 var
@@ -12,6 +18,15 @@ var
 	Scrollable = require('../Scrollable'),
 	ScrollControls = require('../ScrollControls');
 
+/**
+* A Moonstone NewDataList implementation. Currently under development.
+*
+* @class NewDataList
+* @extends module:enyo/NewDataList~NewDataList
+* @ui
+* @wip
+* @public
+*/
 module.exports = kind({
 	name: 'moon.NewDataList',
 	kind: NewDataList,

@@ -3,6 +3,8 @@ require('moonstone');
 /**
 * Contains the declaration for the {@link module:moonstone/StyleAnimator~StyleAnimator} kind.
 * @module moonstone/StyleAnimator
+* @deprecated
+* @private
 */
 
 var
@@ -51,7 +53,8 @@ var
 *
 * @class StyleAnimator
 * @extends module:enyo/Component~Component
-* @public
+* @private
+* @deprecated
 */
 module.exports = kind(
 	/** @lends module:enyo/StyleAnimator~StyleAnimator.prototype */ {
