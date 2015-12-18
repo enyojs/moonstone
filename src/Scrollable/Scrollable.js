@@ -1,5 +1,6 @@
 /**
 * Exports the {@link module:moonstone/Scrollable~Scrollable} mixin
+* @wip
 * @module moonstone/Scrollable
 */
 var
@@ -12,6 +13,7 @@ var
 
 /**
 * The Scrollable mixin
+* @wip
 * @mixin
 */
 var Scrollable = {

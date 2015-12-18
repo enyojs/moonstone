@@ -1,5 +1,6 @@
 /**
 * Contains the declaration for the {@link module:moonstone/NewPagingControl~PagingControl} kind.
+* @wip
 * @module moonstone/NewPagingControl
 */
 
@@ -24,6 +25,7 @@ var
 *
 * @class PagingControl
 * @extends module:moonstone/IconButton~IconButton
+* @wip
 * @ui
 * @public
 */

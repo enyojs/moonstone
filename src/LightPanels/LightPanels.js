@@ -1,5 +1,6 @@
 /**
 * Contains the declaration for the {@link module:moonstone/LightPanels~LightPanels} kind.
+* @wip
 * @module moonstone/LightPanels
 */
 
@@ -16,6 +17,7 @@ var
 *
 * @class LightPanels
 * @extends module:enyo/LightPanels~LightPanels
+* @wip
 * @ui
 * @public
 */

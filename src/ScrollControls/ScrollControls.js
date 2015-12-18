@@ -1,5 +1,6 @@
 /**
 * Contains the declaration for the {@link module:moonstone/ScrollControls~ScrollControls} kind.
+* @wip
 * @module moonstone/ScrollControls
 */
 var
@@ -19,6 +20,7 @@ var
 * TODO: {@link module:moonstone/ScrollControls~ScrollControls} needs to be documented.
 *
 * @class ScrollControls
+* @wip
 * @ui
 * @public
 */
