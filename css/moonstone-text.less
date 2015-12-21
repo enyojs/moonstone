@@ -39,15 +39,22 @@
 .moon-header-text {
 	font-family: @moon-header-font-family;
 	font-size: @moon-header-font-size;
+	font-weight: @moon-header-font-weight;
+	font-style: @moon-header-font-style;
 	.font-kerning;
 }
 .moon-super-header-text {
 	font-family: @moon-super-header-font-family;
 	font-size: @moon-super-header-font-size;
+	font-weight: @moon-super-header-font-weight;
+	font-style: @moon-super-header-font-style;
 	.font-kerning;
 }
 .moon-sub-header-text {
-	.moon-text-base (@moon-sub-header-font-size);
+	font-family: @moon-sub-header-font-family;
+	font-weight: @moon-sub-header-font-weight;
+	font-style: @moon-sub-header-font-style;
+	font-size: @moon-sub-header-font-size;
 
 	.moon-small-header & {
 		font-size: @moon-small-header-sub-header-font-size;
@@ -55,10 +62,14 @@
 }
 .moon-header-sub-title-below {
 	font-family: @moon-sub-header-below-font-family;
+	font-weight: @moon-sub-header-below-font-weight;
+	font-style: @moon-sub-header-below-font-style;
 	font-size: @moon-sub-header-below-font-size;
 }
 .moon-body-text {
 	font-family: @moon-body-font-family;
+	font-weight: @moon-body-font-weight;
+	font-style: @moon-body-font-style;
 	font-size: @moon-body-font-size;
 	color: @moon-body-text-color;
 	line-height: @moon-body-line-height;
@@ -72,14 +83,7 @@
 	line-height: @moon-body-line-height + 9;
 }
 .moon-bold-text {
-	font-family: @moon-font-family-bold;
-	font-size: @moon-body-font-size;
-	color: @moon-body-text-color;
-	line-height: @moon-body-line-height;
-	a:link {color: @moon-spotlight-color; text-decoration:none;}
-	a:visited {color: @moon-spotlight-color; text-decoration:none;}
-	a:hover {color: @moon-spotlight-color; text-decoration:none;}
-	a:active {color: @moon-spotlight-color; text-decoration:none;}
+	font-weight: bold;
 }
 .moon-body-text-spacing {
 	margin: 0 @moon-spotlight-outset @moon-grid-row-height @moon-spotlight-outset;
@@ -87,11 +91,15 @@
 .moon-large-button-text {
 	font-family: @moon-button-font-family;
 	font-size: @moon-button-large-font-size;
+	font-weight: @moon-button-font-weight;
+	font-style: @moon-button-font-style;
 	.font-kerning;
 }
 .moon-small-button-text {
 	font-family: @moon-button-font-family;
 	font-size: @moon-button-small-font-size;
+	font-weight: @moon-button-font-weight;
+	font-style: @moon-button-font-style;
 	.font-kerning;
 }
 .moon-icon-text {
@@ -114,6 +122,8 @@
 .moon-divider-text {
 	font-family: @moon-divider-font-family;
 	font-size: @moon-divider-font-size;
+	font-weight: @moon-divider-font-weight;
+	font-style: @moon-divider-font-style;
 	color: @moon-divider-text-color;
 }
 

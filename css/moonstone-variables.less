@@ -99,18 +99,18 @@
 
 // Other Font Properties
 // ---------------------------------------
-@moon-font-family: "MuseoSans 700";
-@moon-font-family-light: "MuseoSans 300";
-@moon-font-family-bold: "MuseoSans 900";
+@moon-font-family: "MuseoSans";         // 500
+@moon-font-family-light: "MuseoSans";   // 300
+@moon-font-family-bold: "MuseoSans";    // 700
 @moon-alt-font-family: "Moonstone Miso";
 @moon-non-latin-font-family: "Moonstone LG Display";
-@moon-non-latin-font-family-light: "Moonstone LG Display Light";
-@moon-non-latin-font-family-bold: "Moonstone LG Display Bold";
+@moon-non-latin-font-family-light: "Moonstone LG Display";
+@moon-non-latin-font-family-bold: "Moonstone LG Display";
 
 @moon-header-font-family: @moon-alt-font-family;
 @moon-header-font-weight: normal;
-@moon-header-letter-spacing: normal;
 @moon-header-font-style: normal;
+@moon-header-letter-spacing: normal;
 @moon-header-line-height: 1.3em;
 @moon-medium-header-line-height: 1.3em;
 @moon-small-header-line-height: 1.3em;
@@ -125,11 +125,13 @@
 @moon-popup-header-line-height: normal;
 
 @moon-sub-header-font-family: @moon-font-family;
-@moon-sub-header-font-weight: normal;
-@moon-sub-header-letter-spacing: 0;
+@moon-sub-header-font-weight: bold;
 @moon-sub-header-font-style: normal;
+@moon-sub-header-letter-spacing: 0;
 @moon-sub-header-line-height: 2em;
 @moon-sub-header-below-font-family: @moon-font-family-light;
+@moon-sub-header-below-font-weight: 300;
+@moon-sub-header-below-font-style: normal;
 
 @moon-super-header-font-family: @moon-alt-font-family;
 @moon-super-header-font-weight: normal;
@@ -138,24 +140,24 @@
 @moon-super-header-line-height: normal;
 
 @moon-body-font-family: @moon-font-family-light;
-@moon-body-font-weight: normal;
-@moon-body-letter-spacing: 0;
+@moon-body-font-weight: 300;
 @moon-body-font-style: normal;
+@moon-body-letter-spacing: 0;
 // Body text line heights must be speified in px, since moon.ExpandableText requires precise line measurement
 @moon-body-line-height: @moon-body-font-size + 6;
 @moon-non-latin-body-line-height: 1.7em;
 
-@moon-divider-font-family: "MuseoSans 700 Italic";
-@moon-divider-font-weight: normal;
-@moon-divider-font-style: normal;
+@moon-divider-font-family: @moon-font-family;
+@moon-divider-font-weight: bold;
+@moon-divider-font-style: italic;
 @moon-divider-letter-spacing: 0;
 
 @moon-expandable-value-font-family: @moon-font-family-light;
-@moon-expandable-value-font-weight: normal;
+@moon-expandable-value-font-weight: 300;
 @moon-expandable-value-font-style: normal;
 
-@moon-button-font-family: "Moonstone Miso Bold";
-@moon-button-font-weight: normal;
+@moon-button-font-family: @moon-alt-font-family;
+@moon-button-font-weight: bold;
 @moon-button-font-style: normal;
 @moon-button-letter-spacing: normal;
 
@@ -255,6 +257,8 @@
 
 // Items
 // ---------------------------------------
+@moon-item-font-weight: bold;
+@moon-item-font-style: normal;
 @moon-item-line-height: 1.7em;
 @moon-item-indent: 36px;
 

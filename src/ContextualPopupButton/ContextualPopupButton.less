@@ -14,7 +14,7 @@
 		font-size: @moon-contextual-arrow-font-size;
 		line-height: @moon-button-height - 2 * @moon-button-border-width;
 		color: @moon-accent;
-		.font-kerning(none);
+		.font-kerning(none); // Moonstone Icons doesn't support "normal" kerning.
 	}
 	&.small:after {
 		line-height: @moon-button-small-height - 2 * @moon-button-border-width;
