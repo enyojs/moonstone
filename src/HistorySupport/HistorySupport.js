@@ -19,7 +19,7 @@ var
 * @mixin
 * @public
 */
-module.exports = {
+var HistorySupport = {
 
 	/**
 	* @private
@@ -96,3 +96,5 @@ module.exports = {
 		};
 	})
 };
+
+module.exports = HistorySupport;
