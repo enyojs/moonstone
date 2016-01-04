@@ -227,9 +227,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	detectTextDirectionality: function () {
-		this.applyStyle('direction', null);
-	},
+	detectTextDirectionality: function () {},
 
 	/**
 	* @private
