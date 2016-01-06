@@ -71,7 +71,7 @@ var icons = {
 * 		kind = require('enyo/kind'),
 * 		Icon = require('moonstone/Icon');
 *
-* 	{kind: Icon, src: '@./images/search.png'}
+* 	{kind: Icon, src: '@../assets/search.png'}
 * ```
 *
 * Moonstone also supports a second method for displaying icons; in addition to
@@ -89,7 +89,7 @@ var icons = {
 * [small]{@link module:moonstone/Icon~Icon#small} property to `false`:
 *
 * ```
-* 	{kind: Icon, src: '@./images/search.png', small: false}
+* 	{kind: Icon, src: '@../assets/search.png', small: false}
 *
 * 	{kind: Icon, icon: 'closex', small: false}
 * ```
