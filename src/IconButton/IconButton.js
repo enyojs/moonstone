@@ -21,7 +21,7 @@ var
 * 		kind = require('enyo/kind'),
 * 		IconButton = require('moonstone/IconButton');
 *
-* 	{kind: IconButton, src: 'images/search.png'}
+* 	{kind: IconButton, src: '@../assets/search.png'}
 * ```
 *
 * If you want to combine an icon with text inside of a button, use a

@@ -8,7 +8,7 @@ require('moonstone');
 * With it, you can add arbitrary
 * {@link module:moonstone/Overlay~OverlaySupport#overlayComponents} and configure their
 * position and formatting.
-* 
+*
 * There are the supplementary mixins for common use cases:
 * ({@link module:moonstone/Overlay~SelectionOverlaySupport},
 * {@link module:moonstone/Overlay~TextOverlaySupport}, and
@@ -26,7 +26,7 @@ require('moonstone');
 *
 * 	// A control with a default Selection overlay
 * 	{kind: Control, mixins: [Overlay.Support, Overlay.Selection]}
-* 
+*
 * 	// A control with a Selection overlay and customized position and components
 * 	{kind: Control, mixins: [Overlay.Support, Overlay.Selection],
 * 		overlayPosition: 'left', overlayComponents: [
@@ -169,11 +169,11 @@ function updateOwnership (components, owner) {
 * 		Image = require('moonstone/Image'),
 * 		Overlay = require('moonstone/Overlay');
 *
-* 	{kind: Image, src: 'assets/movie.png', mixins: [Overlay.Support],
+* 	{kind: Image, src: '@../assets/movie.png', mixins: [Overlay.Support],
 * 		overlayShowing: 'hover', overlayPosition: 'bottom', overlayAlign: 'right', overlayComponents: [
-*				{kind: Icon, src: 'assets/icon-recommended.png'},
+*				{kind: Icon, src: '@../assets/icon-recommended.png'},
 *				{kind: Icon, icon: 'star'},
-*				{kind: Icon, src: 'assets/icon-new.png'}
+*				{kind: Icon, src: '@../assets/icon-new.png'}
 * 		]
 * 	}
 * ```
@@ -426,7 +426,7 @@ module.exports.Container = {
 * 		Image = require('moonstone/Image'),
 * 		Overlay = require('moonstone/Overlay');
 *
-* 	{kind: Image, src: 'assets/movie.png', mixins: [Overlay.Support, Overlay.Selection],
+* 	{kind: Image, src: '@../assets/movie.png', mixins: [Overlay.Support, Overlay.Selection],
 * 		overlayShowing: 'spotlight', overlayComponents: [
 *				{kind: Icon, icon: 'check'}
 * 		]
@@ -542,7 +542,7 @@ module.exports.Selection = {
 * Sets the default configuration and components for fixed text overlay. Requires
 * that the control to which it is applied also apply {@link module:moonstone/Overlay~OverlaySupport}
 * or contain a control that does and applies {@link module:moonstone/Overlay~OverlayContainerSupport}.
-* 
+*
 * TextOverlaySupport styles controls with the `moon-overlay-text-title` and
 * `moon-overlay-text-subtitle` classes
 *
@@ -553,7 +553,7 @@ module.exports.Selection = {
 * 		Marquee = require('moonstone/Marquee'),
 * 		Overlay = require('moonstone/Overlay);
 *
-* 	{kind: Image, src: 'assets/movie.png', mixins: [Overlay.Support, Overlay.Selection],
+* 	{kind: Image, src: '@../assets/movie.png', mixins: [Overlay.Support, Overlay.Selection],
 * 		overlayShowing: 'spotlight', overlayComponents: [
 *				{kind: Marquee.Text, content: 'Title', classes: 'moon-overlay-text-title'},
 *				{kind: Marquee.Text, content: '12', classes: 'moon-overlay-text-subtitle'}

@@ -40,8 +40,8 @@ var
 * 		titleBelow: 'Sub Header',
 * 		subTitleBelow: 'Sub-sub Header',
 * 		components: [
-* 			{kind: IconButton, src: 'assets/icon-like.png'},
-* 			{kind: IconButton, src: 'assets/icon-next.png'}
+* 			{kind: IconButton, src: '@../assets/icon-like.png'},
+* 			{kind: IconButton, src: '@../assets/icon-next.png'}
 * 		]
 * 	}
 * ```

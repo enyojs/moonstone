@@ -94,9 +94,9 @@ var
 * 		src: 'http://www.w3schools.com/html/mov_bbb.mp4',
 * 		components: [
 * 			// Custom icons for app-specific features
-* 			{kind: IconButton, src: 'assets/feature1.png', ontap: 'feature1'},
-* 			{kind: IconButton, src: 'assets/feature2.png', ontap: 'feature2'},
-* 			{kind: IconButton, src: 'assets/feature3.png', ontap: 'feature3'}
+* 			{kind: IconButton, src: '@../assets/feature1.png', ontap: 'feature1'},
+* 			{kind: IconButton, src: '@../assets/feature2.png', ontap: 'feature2'},
+* 			{kind: IconButton, src: '@../assets/feature3.png', ontap: 'feature3'}
 * 		],
 * 		infoComponents: [
 * 			{kind: VideoHeaderBackground, components: [

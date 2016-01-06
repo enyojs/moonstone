@@ -27,11 +27,11 @@ var
 * 		Image = require('moonstone/Image'),
 * 		Icon = require('moonstone/Icon');
 *
-* 	{kind: Image, src: 'assets/movie.png',
+* 	{kind: Image, src: '@../assets/movie.png',
 * 		overlayShowing: 'spotlight', overlayPosition: 'bottom', overlayComponents: [
-* 			{kind: Icon, src: 'assets/icon-recommended.png'},
+* 			{kind: Icon, src: '@../assets/icon-recommended.png'},
 * 			{kind: Icon, icon: 'star'},
-* 			{kind: Icon, src: 'assets/icon-new.png'}
+* 			{kind: Icon, src: '@../assets/icon-new.png'}
 * 		]
 * 	}
 * ```

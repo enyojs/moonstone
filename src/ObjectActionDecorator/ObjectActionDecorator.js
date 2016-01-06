@@ -33,7 +33,7 @@ var
 * 		orientation: 'vertical',
 * 		components: [
 * 			{kind: Item, components: [
-* 				{name: 'image', kind: Image, src: 'assets/default-music.png'}
+* 				{name: 'image', kind: Image, src: '@../assets/default-music.png'}
 * 			]}
 * 		],
 * 		actionComponents: [
