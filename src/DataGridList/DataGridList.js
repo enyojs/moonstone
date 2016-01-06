@@ -91,11 +91,11 @@ var MoonDataGridList = module.exports = kind(
 	/**
 	* @private
 	*/
-	constructor: kind.inherit(function (sup) {
+	create: kind.inherit(function (sup) {
 		return function () {
 			sup.apply(this, arguments);
 			// scale px values for current resolution
-			this.spacing = ri.scale(this.spacing);
+			this.spacing = ri.scale(this.spacing);	// TODO: Spacing should only be even whole numbers!
 			this.minWidth = ri.scale(this.minWidth);
 			this.minHeight = ri.scale(this.minHeight);
 		};
