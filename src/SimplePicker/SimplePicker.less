@@ -1,0 +1,63 @@
+.moon-simple-picker {
+	display: inline-block;
+	max-width: 360px;
+	box-sizing: border-box;
+	padding: 0 @moon-picker-button-width + @moon-spotlight-outset;
+	position: relative;
+	height: @moon-picker-button-width;
+	vertical-align: middle;
+	direction: ltr;
+
+	&.block {
+		display: block;
+	}
+}
+
+.moon-simple-picker-button {
+	position: absolute;
+	top: 0;
+	margin: 0;
+
+	&.left {
+		left: 0;
+	}
+
+	&.right {
+		right: 0;
+	}
+}
+
+.moon-simple-picker-client-wrapper {
+	overflow: hidden;
+	position: relative;
+	z-index: 1;
+}
+
+.moon-simple-picker-client {
+	white-space: nowrap;
+
+	.moon-marquee {
+		text-align: center;
+	}
+
+	&.animated {
+		-webkit-transition: -webkit-transform ease-out 0.3s;
+		-moz-transition: -moz-transform ease-out 0.3s;
+		transition: transform ease-out 0.3s;
+	}
+	
+	> *,
+	.moon-marquee {
+		width: 100%;
+	}
+
+	> * {
+		display: inline-block;
+		box-sizing: border-box;
+		line-height: @moon-picker-button-width;
+	}
+
+	&.disabled {
+		opacity: @moon-disabled-opacity;
+	}
+}

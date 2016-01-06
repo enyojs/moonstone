@@ -1,0 +1,155 @@
+/* Button */
+
+// Local scope for some math variables
+& {
+	@moon-button-pressed-scaled-up: (1 + @moon-button-pressed-scale);
+	@moon-button-pressed-scaled-down: (1 / @moon-button-pressed-scaled-up);
+
+	@-webkit-keyframes moonButtonExpand {
+		// Blink/Webkit doesn't yet support "@keyframes" so we must use both prefixed and non-prefixed in this section
+		60% {
+			-webkit-transform: translateZ(0) scale(@moon-button-pressed-scaled-up);
+			transform: translateZ(0) scale(@moon-button-pressed-scaled-up);
+		}
+	}
+	@-webkit-keyframes moonButtonContract {
+		60% {
+			-webkit-transform: translateZ(0) scale(@moon-button-pressed-scaled-down);
+			transform: translateZ(0) scale(@moon-button-pressed-scaled-down);
+		}
+	}
+
+	@keyframes moonButtonExpand {
+		60% { transform: translateZ(0) scale(@moon-button-pressed-scaled-up); }
+	}
+	@keyframes moonButtonContract {
+		60% { transform: translateZ(0) scale(@moon-button-pressed-scaled-down); }
+	}
+}
+
+.moon-button {
+	position: relative;
+	overflow: visible;
+	height: @moon-button-height;
+	line-height: (@moon-button-height - (2 * @moon-button-border-width));
+	border-radius: @moon-button-border-radius;
+	background-color: @moon-button-background-color;
+	border: @moon-button-border-width solid transparent;
+	cursor: pointer;
+	white-space: nowrap;
+	display: inline-block;
+	width: auto;
+	min-width: @moon-button-height;
+	max-width: 300px;
+	padding: 0 @moon-button-h-padding;
+	margin: 0 @moon-spotlight-outset;
+	color: @moon-button-text-color;
+	box-sizing: border-box;
+	-webkit-transition: transform 0.2s ease-out;
+	-webkit-animation-duration: 0.2s;
+	-webkit-animation-iteration-count: 1;
+	-webkit-animation-timing-function: ease-out;
+	transition: transform 0.2s ease-out;
+	animation-duration: 0.2s;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-out;
+
+	> * {
+		text-align: center;
+	}
+
+	// Need 100% width for marquee in button
+	.moon-marquee {
+		width: 100%;
+		vertical-align: top;
+		text-align: center;
+	}
+	.moon-taparea(@moon-button-height);
+
+	.button-client {
+		-webkit-transform: translateZ(0);
+		transform: translateZ(0);
+		-webkit-animation: inherit;
+		animation: inherit;
+	}
+
+	&.min-width {
+		min-width: @moon-button-large-min-width;
+	}
+
+	&.small {
+		height: @moon-button-small-height;
+		min-width: @moon-button-small-height;
+		line-height: (@moon-button-small-height - (2 * @moon-button-border-width));
+		padding: 0 @moon-button-small-h-padding;
+		position: relative;
+		overflow: visible;
+
+		&.min-width {
+			min-width: @moon-button-small-min-width;
+		}
+
+		.moon-taparea(@moon-button-small-height);
+	}
+
+	&.translucent {
+		background-color: fade(@moon-button-background-color, @moon-button-translucent-opacity);
+	}
+
+	&.transparent {
+		background-color: transparent;
+	}
+
+	// Button-non-disabled rules
+	&:not([disabled]) {
+		&.pressed,
+		&.spotlight:active {
+			-webkit-animation-name: moonButtonExpand;
+			animation-name: moonButtonExpand;
+
+			&:before,
+			&:after,
+			.button-client {
+				-webkit-animation-name: moonButtonContract;
+				animation-name: moonButtonContract;
+			}
+		}
+
+		&.spotlight {
+			background-color: @moon-spotlight-border-color;
+			color: @moon-spotlight-text-color;
+		}
+
+		// 'Selected' state
+		&.active {
+			border-color: @moon-spotlight-border-color;
+
+			// 'Selected+Focus' state, seen in grouped buttons
+			&.spotlight {
+				border-color: @moon-active-spotlight-border-color;
+				background-color: @moon-spotlight-border-color;
+				color: @moon-spotlight-text-color;
+			}
+		}
+	}
+
+	// Button-disabled rules
+	&[disabled] {
+		cursor: default;
+		.vendor-opacity(@moon-disabled-translucent-opacity);
+	}
+}
+
+.moon-neutral .moon-button {
+	color: @moon-neutral-button-text-color;
+	background-color: @moon-neutral-button-bg-color;
+
+	* {
+		color: inherit;
+	}
+
+	&[disabled] {
+		color: @moon-neutral-button-disabled-text-color;
+		background-color: @moon-neutral-button-disabled-bg-color;
+	}
+}

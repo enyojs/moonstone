@@ -52,6 +52,12 @@
 	}
 }
 
+// Asign font-kerning rules in a non-proprietary way. Default value being "normal", to enable kerning.
+.font-kerning(@val: normal) {
+	-webkit-font-kerning: @val;
+	font-kerning: @val;
+}
+
 // THIS IS AN EXACT COPY OF THE MIXINS IN ENYO - THIS IS TEMPORARY SINCE LIBRARIES CURRENTLY
 // DO NOT SUPPORT DEPENDENCIES WHEN BUILDING STANDALONE AT THE MOMENT
 
@@ -84,4 +90,10 @@
 	&:-ms-fullscreen { @rule(); }
 	&:-o-full-screen { @rule(); }
 	&:fullscreen { @rule(); }
+}
+
+.vendor-opacity(@opacity) {
+	@opacity-ie: (@opacity * 100);	// Less doesn't like math inside `alpha`
+	opacity: @opacity;
+	filter: alpha(opacity=@opacity-ie);
 }
