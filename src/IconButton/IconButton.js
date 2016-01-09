@@ -89,7 +89,7 @@ module.exports = kind(
 		small: true,
 
 		/**
-		* @deprecated Replaced by [backgroundOpacity]{@link moon/IconButton~IconButton#backgroundOpacity}.
+		* @deprecated Replaced by [backgroundOpacity]{@link module:moonstone/IconButton~IconButton#backgroundOpacity}.
 		*
 		* If `true`, the button will have no rounded background color/border.
 		*
