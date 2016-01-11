@@ -411,6 +411,7 @@ var MoonScrollStrategy = module.exports = kind(
 
 			var x = null,
 				y = null,
+				wheelDelta = null,
 				showVertical = this.showVertical(),
 				showHorizontal = this.showHorizontal(),
 				dir = null,
@@ -439,20 +440,13 @@ var MoonScrollStrategy = module.exports = kind(
 				if (this.$.pageLeftControl.rtl) {
 					intDirection = -1;
 				}
-				if (event.wheelDeltaX) {
-					dir = (event.wheelDeltaX >= 0 ? 1 : -1) * intDirection;
-					val = Math.abs(event.wheelDeltaX * this.scrollWheelMultiplier);
-					max = this.scrollBounds.clientWidth * this.scrollWheelPageMultiplier;
-					delta = Math.min(val, max);
-					x = (isScrolling ? this.lastScrollToX : this.scrollLeft) + -dir * delta;
-				} else if (!showVertical) {
-					// only use vertical wheel for horizontal scrolling when no vertical bars shown
-					dir = (event.wheelDeltaY >= 0 ? 1 : -1) * intDirection;
-					val = Math.abs(event.wheelDeltaY * this.scrollWheelMultiplier);
-					max = this.scrollBounds.clientWidth * this.scrollWheelPageMultiplier;
-					delta = Math.min(val, max);
-					x = (isScrolling ? this.lastScrollToX : this.scrollLeft) + -dir * delta;
-				}
+				// only use vertical wheel for horizontal scrolling when no vertical bars shown
+				wheelDelta = !showVertical && event.wheelDeltaY || event.wheelDeltaX;
+				dir = (wheelDelta >= 0 ? 1 : -1) * intDirection;
+				val = Math.abs(wheelDelta * this.scrollWheelMultiplier);
+				max = this.scrollBounds.clientWidth * this.scrollWheelPageMultiplier;
+				delta = Math.min(val, max);
+				x = (isScrolling ? this.lastScrollToX : this.scrollLeft) + -dir * delta;
 			}
 
 			this.scrollTo(x, y);
