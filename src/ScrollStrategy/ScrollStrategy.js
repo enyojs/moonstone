@@ -439,13 +439,13 @@ var MoonScrollStrategy = module.exports = kind(
 				if (this.$.pageLeftControl.rtl) {
 					intDirection = -1;
 				}
-				if (event.wheelDeltaX) {
+				if (event.wheelDeltaX || showVertical) {
 					dir = (event.wheelDeltaX >= 0 ? 1 : -1) * intDirection;
 					val = Math.abs(event.wheelDeltaX * this.scrollWheelMultiplier);
 					max = this.scrollBounds.clientWidth * this.scrollWheelPageMultiplier;
 					delta = Math.min(val, max);
 					x = (isScrolling ? this.lastScrollToX : this.scrollLeft) + -dir * delta;
-				} else if (!showVertical) {
+				} else {
 					// only use vertical wheel for horizontal scrolling when no vertical bars shown
 					dir = (event.wheelDeltaY >= 0 ? 1 : -1) * intDirection;
 					val = Math.abs(event.wheelDeltaY * this.scrollWheelMultiplier);
@@ -1185,7 +1185,7 @@ var MoonScrollStrategy = module.exports = kind(
 				// boundaries. We consider implicit direction because if the scroller
 				// is scrolling in two dimensions, there may be cases where (for
 				// example) an element reached via a vertical move happens to be
-				// the closest element to a horizontal boundary. 
+				// the closest element to a horizontal boundary.
 				if (direction === 'LEFT' || xDir === -1) {
 					hDir = 'LEFT';
 					hLimit = 0;
@@ -1219,7 +1219,7 @@ var MoonScrollStrategy = module.exports = kind(
 					vDir = 'DOWN';
 					vLimit = scrollBounds.maxTop;
 				}
-				
+
 				if (vDir && this.at5WayLimit(control, vDir)) {
 					pos = offsets.top;
 					size = offsets.height;
