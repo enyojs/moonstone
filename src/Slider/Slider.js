@@ -280,7 +280,7 @@ module.exports = kind(
 	*/
 	moreComponents: [
 		{name: 'animator', kind: Animator, onStep: 'animatorStep', onEnd: 'animatorComplete'},
-		{name: 'knob', kind: Control, ondown: 'handleKnobDown', onup: 'hideKnobStatus'}
+		{name: 'knob', kind: Control, ondown: 'handleKnobDown', onup: 'handleKnobUp'}
 	],
 
 	/**
@@ -295,11 +295,11 @@ module.exports = kind(
 			icon: 'arrowlargeleft',
 			onSpotlightSelect: 'preventEvent',
 			onSpotlightKeyDown: 'jumpButtonTriggered',
-			onSpotlightKeyUp: 'hideKnobStatus',
+			onSpotlightKeyUp: 'jumpButtonReleased',
 			ondown: 'jumpButtonTriggered',
-			onup: 'hideKnobStatus',
+			onup: 'jumpButtonReleased',
 			onholdpulse: 'jumpButtonTriggered',
-			onrelease: 'hideKnobStatus',
+			onrelease: 'jumpButtonReleased',
 			ondragstart: 'preventEvent',
 			defaultSpotlightDisappear: 'buttonRight'
 		},
@@ -312,11 +312,11 @@ module.exports = kind(
 			icon: 'arrowlargeright',
 			onSpotlightSelect: 'preventEvent',
 			onSpotlightKeyDown: 'jumpButtonTriggered',
-			onSpotlightKeyUp: 'hideKnobStatus',
+			onSpotlightKeyUp: 'jumpButtonReleased',
 			ondown: 'jumpButtonTriggered',
-			onup: 'hideKnobStatus',
+			onup: 'jumpButtonReleased',
 			onholdpulse: 'jumpButtonTriggered',
-			onrelease: 'hideKnobStatus',
+			onrelease: 'jumpButtonReleased',
 			ondragstart: 'preventEvent',
 			defaultSpotlightDisappear: 'buttonLeft'
 		}
@@ -327,9 +327,51 @@ module.exports = kind(
 	animatingTo: null,
 
 	/**
+	* Spotlight state of slider
+	*
+	* @type {Boolean}
 	* @private
 	*/
 	selected: false,
+
+	/**
+	* @private
+	*/
+	selectedChanged: function (was, is) {
+		this.$.knob.addRemoveClass('spotselect', this.selected);
+		this.set('knobSelected', this.selected);
+	},
+
+	/**
+	* Knob selected state set by either via tap, drag, or spot
+	*
+	* @type {Boolean}
+	* @private
+	*/
+	knobSelected: false,
+
+	/**
+	* @private
+	*/
+	knobSelectedChanged: function (was, is) {
+		this.$.bar.addRemoveClass('selected', this.knobSelected);
+	},
+
+	/**
+	* Drag state of slider
+	*
+	* @type {Boolean}
+	* @private
+	*/
+	dragging: false,
+
+	/**
+	* @private
+	*/
+	draggingChanged: function (was, is) {
+		this.$.knob.addRemoveClass('active', this.dragging);
+		this.set('knobSelected', this.dragging);
+	},
 
 	/**
 	* Animates to the given value.
@@ -393,6 +435,7 @@ module.exports = kind(
 	*/
 	createPopup: function () {
 		this.$.knob.createComponents(this.popupComponents, {owner: this});
+		this.$.popup.set('autoDismiss', false);
 	},
 
 	/**
@@ -434,9 +477,6 @@ module.exports = kind(
 		this.addRemoveClass('disabled', this.disabled);
 		this.$.knob.addRemoveClass('disabled', this.disabled);
 		this.setTappable(!this.disabled);
-		if (this.disabled) {
-			this.hideKnobStatus();
-		}
 	},
 
 	/**
@@ -532,7 +572,6 @@ module.exports = kind(
 			}
 			if (this.animate && allowAnimation) {
 				this.animateTo(was, is);
-				this.updateButtonStatus();
 			} else {
 				this._setValue(is);
 			}
@@ -638,8 +677,6 @@ module.exports = kind(
 		e.preventDefault();
 		this.set('dragging', true);
 		Spotlight.freeze();
-		this.$.knob.addClass('active');
-		this.showKnobStatus();
 		return true;
 	},
 
@@ -696,8 +733,6 @@ module.exports = kind(
 		this.updateButtonStatus();
 		this.sendChangeEvent({value: this.getValue()});
 		e.preventTap();
-		this.$.knob.removeClass('active');
-		this.hideKnobStatus();
 		return true;
 	},
 
@@ -746,6 +781,7 @@ module.exports = kind(
 		if ((this.enableJumpIncrement && e.originator.owner === this) || e.originator === this) {
 			this.bubble('onRequestScrollIntoView');
 		}
+		this.showKnobStatus();
 	},
 
 	/**
@@ -754,13 +790,11 @@ module.exports = kind(
 	spotSelect: function () {
 		this.set('selected', !this.selected);
 		if (this.popup) {
-			this.$.popup.setShowing(this.selected);
 			if (this.selected) {
 				this.$.popup.bubble('onRequestScrollIntoView');
 			}
 			this.updatePopup(this.getValue());
 		}
-		this.$.knob.addRemoveClass('spotselect', this.selected);
 		return true;
 	},
 
@@ -769,9 +803,6 @@ module.exports = kind(
 	*/
 	spotBlur: function () {
 		if (!this.dragging) {
-			if (this.$.knob) {
-				this.$.knob.removeClass('spotselect');
-			}
 			if (this.$.popup) {
 				this.$.popup.hide();
 			}
@@ -836,7 +867,7 @@ module.exports = kind(
 	handleKnobDown: function (sender, e) {
 		if (!this.disabled) {
 			e.configureHoldPulse({endHold: 'onMove'});
-			this.showKnobStatus();
+			this.set('knobSelected', true);
 		}
 	},
 
@@ -853,10 +884,9 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	hideKnobStatus: function (sender, e) {
-		this._jumpSender = null;
-		if (this.popup) {
-			this.$.popup.hide();
+	handleKnobUp: function (sender, e) {
+		if (!this.disabled) {
+			this.set('knobSelected', false);
 		}
 	},
 
@@ -908,6 +938,13 @@ module.exports = kind(
 	},
 
 	/**
+	* @private
+	*/
+	jumpButtonReleased: function (sender, e) {
+		this._jumpSender = null;
+	},
+
+	/**
 	* Prevent events that start on the left and right jump buttons
 	*
 	* @private
@@ -923,7 +960,6 @@ module.exports = kind(
 	*/
 	previous: function () {
 		this.set('value', this.value - this._jumpIncrementAmount);
-		this.showKnobStatus();
 	},
 
 	/**
@@ -933,7 +969,6 @@ module.exports = kind(
 	*/
 	next: function () {
 		this.set('value', this.value + this._jumpIncrementAmount);
-		this.showKnobStatus();
 	},
 
 	// Accessibility
@@ -990,7 +1025,7 @@ module.exports = kind(
 				this.set('accessibilityRole', 'alert');
 				this.set('accessibilityLive', 'off');
 				this.set('accessibilityHint', hint);
-			} 
+			}
 		}},
 		// moonstone/ProgressBar observes accessibilityValueText and the popup label so this kind
 		// need only observe its unique properties for updating aria-valuetext
