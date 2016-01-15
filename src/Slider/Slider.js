@@ -280,7 +280,7 @@ module.exports = kind(
 	*/
 	moreComponents: [
 		{name: 'animator', kind: Animator, onStep: 'animatorStep', onEnd: 'animatorComplete'},
-		{name: 'knob', kind: Control, ondown: 'handleKnobDown', onup: 'hideKnobStatus'}
+		{name: 'knob', kind: Control, ondown: 'handleKnobDown'}
 	],
 
 	/**
@@ -393,6 +393,7 @@ module.exports = kind(
 	*/
 	createPopup: function () {
 		this.$.knob.createComponents(this.popupComponents, {owner: this});
+		this.$.popup.set('autoDismiss', false);
 	},
 
 	/**
@@ -746,6 +747,7 @@ module.exports = kind(
 		if ((this.enableJumpIncrement && e.originator.owner === this) || e.originator === this) {
 			this.bubble('onRequestScrollIntoView');
 		}
+		this.showKnobStatus();
 	},
 
 	/**
@@ -754,7 +756,6 @@ module.exports = kind(
 	spotSelect: function () {
 		this.set('selected', !this.selected);
 		if (this.popup) {
-			this.$.popup.setShowing(this.selected);
 			if (this.selected) {
 				this.$.popup.bubble('onRequestScrollIntoView');
 			}
@@ -836,7 +837,6 @@ module.exports = kind(
 	handleKnobDown: function (sender, e) {
 		if (!this.disabled) {
 			e.configureHoldPulse({endHold: 'onMove'});
-			this.showKnobStatus();
 		}
 	},
 
@@ -855,9 +855,6 @@ module.exports = kind(
 	*/
 	hideKnobStatus: function (sender, e) {
 		this._jumpSender = null;
-		if (this.popup) {
-			this.$.popup.hide();
-		}
 	},
 
 	/**
@@ -990,7 +987,7 @@ module.exports = kind(
 				this.set('accessibilityRole', 'alert');
 				this.set('accessibilityLive', 'off');
 				this.set('accessibilityHint', hint);
-			} 
+			}
 		}},
 		// moonstone/ProgressBar observes accessibilityValueText and the popup label so this kind
 		// need only observe its unique properties for updating aria-valuetext
