@@ -1,5 +1,9 @@
 /* Labeled Text Item */
 .moon-labeledtextitem {
+	//// Locally scoped LESS variables ////
+	// Vertically shift the text element to position it closer to the header than the line-height naturally allows
+	@text-vertical-offset: 6px;
+
 	min-width: 336px;
 
 	// Header
@@ -9,10 +13,6 @@
 		max-width: 100%;
 		position: relative;
 		vertical-align: top;
-
-		&.with-text {
-			margin-bottom: @moon-spotlight-outset;
-		}
 	}
 
 	// Text
@@ -23,9 +23,10 @@
 		font-style: @moon-expandable-value-font-style;
 		line-height: @moon-body-line-height;
 		text-transform: none;
-		margin-top: -@moon-spotlight-outset;
-		margin-bottom: @moon-spotlight-outset - 3px;
 		color: @moon-expandable-picker-text-color;
+		// The following two margin values must cancel each other out, so there is zero layout impact when `text` is empty.
+		margin-top: -@text-vertical-offset;
+		margin-bottom: @text-vertical-offset;
 
 		.enyo-locale-right-to-left & {
 			padding-left: 0;
@@ -37,6 +38,12 @@
 
 		.moon-neutral & {
 			color: inherit;
+		}
+	}
+
+	&.with-text {
+		.moon-labeledtextitem-text {
+			padding-bottom: 3px;
 		}
 	}
 
