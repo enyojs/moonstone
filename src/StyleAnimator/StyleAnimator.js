@@ -57,7 +57,7 @@ var
 * @deprecated
 */
 module.exports = kind(
-	/** @lends module:enyo/StyleAnimator~StyleAnimator.prototype */ {
+	/** @lends module:moonstone/StyleAnimator~StyleAnimator.prototype */ {
 
 	/**
 	* @private
@@ -79,7 +79,7 @@ module.exports = kind(
 
 	/**
 	* @private
-	* @lends module:enyo/StyleAnimator~StyleAnimator.prototype
+	* @lends module:moonstone/StyleAnimator~StyleAnimator.prototype
 	*/
 	published: {
 		//* Default value used if the animation has no `duration` specified.

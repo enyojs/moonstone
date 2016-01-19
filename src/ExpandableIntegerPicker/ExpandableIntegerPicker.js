@@ -15,7 +15,7 @@ var
 /**
 * Fires when the currently selected item changes.
 *
-* @event moon.ExpandableIntegerPicker#onChange
+* @event module:moonstone/ExpandableIntegerPicker~ExpandableIntegerPicker#onChange
 * @type {Object}
 * @property {Number} value - The value of the currently selected item.
 * @property {String} content -  The content of the currently selected item.

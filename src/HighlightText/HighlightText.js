@@ -14,7 +14,7 @@ var
 /**
 * Event sent to {@link module:moonstone/HighlightText~HighlightText} to turn on highlighting.
 *
-* @event moon.HighlightText#onHighlight
+* @event module:moonstone/HighlightText~HighlightText#onHighlight
 * @type {Object}
 * @property {String|RegExp} highlight - String or regular expression specifying the text or
 *	pattern to highlight.
@@ -25,7 +25,7 @@ var
 * Event sent to {@link module:moonstone/HighlightText~HighlightText} to turn off highlighting. No additional data
 * is sent with this event.
 *
-* @event moon.HighlightText#onUnHighlight
+* @event module:moonstone/HighlightText~HighlightText#onUnHighlight
 * @type {Object}
 * @public
 */

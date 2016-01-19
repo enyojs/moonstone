@@ -15,7 +15,7 @@ var
 /**
 * Fires when the item is tapped. No event-specific data is sent with this event.
 *
-* @event moon.SelectableItem#onActivate
+* @event module:moonstone/SelectableItem~SelectableItem#onActivate
 * @type {Object}
 * @public
 */

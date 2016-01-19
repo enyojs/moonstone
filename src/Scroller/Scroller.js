@@ -32,7 +32,7 @@ if (platform.touch) {
 	* Fires when a control explicitly requests to be scrolled into view. Handled by the 
 	* [scroll strategy]{@link module:enyo/Scroller~Scroller#strategyKind}.
 	*
-	* @event enyo.Scroller#onRequestScrollIntoView
+	* @event module:moonstone/Scroller~Scroller#onRequestScrollIntoView
 	* @type {Object}
 	* @property {Boolean} scrollInPointerMode - Whether to allow scrolling in pointer mode.
 	* @property {Boolean} scrollFullPage - If defined, overrides the scroller's

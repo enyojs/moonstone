@@ -31,7 +31,7 @@ var
 * Fires when this [panel]{@link module:moonstone/Panel~Panel} has completed its pre-arrangement transition.
 * No additional data is passed with this event.
 *
-* @event moon.Panel#onPreTransitionComplete
+* @event module:moonstone/Panel~Panel#onPreTransitionComplete
 * @type {Object}
 * @public
 */
@@ -40,7 +40,7 @@ var
 * Fires when this [panel]{@link module:moonstone/Panel~Panel} has completed its post-arrangement transition.
 * No additional data is passed with this event.
 *
-* @event moon.Panel#onPostTransitionComplete
+* @event module:moonstone/Panel~Panel#onPostTransitionComplete
 * @type {Object}
 * @public
 */
