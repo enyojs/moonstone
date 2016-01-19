@@ -9,12 +9,14 @@ var
 	kind = require('enyo/kind'),
 	Component = require('enyo/Component'),
 	Control = require('enyo/Control'),
+	EnyoHistory = require('enyo/History'),
 	Group = require('enyo/Group');
 
 var
 	Spotlight = require('spotlight');
 
 var
+	HistorySupport = require('../HistorySupport'),
 	Item = require('../Item');
 
 var
@@ -94,6 +96,11 @@ module.exports = kind(
 	* @private
 	*/
 	kind: Control,
+
+	/**
+	* @private
+	*/
+	mixins: [HistorySupport],
 
 	/**
 	* @private
@@ -181,7 +188,7 @@ module.exports = kind(
 	*/
 	components: [
 		{name: 'header', kind: ExpandableListItemHeader, ontap: 'headerTapped'},
-		{name: 'drawer', kind: ExpandableListItemDrawer, resizeContainer: false, classes: 'moon-expandable-list-item-client', defaultSpotlightUp: 'header', onSpotlightUp: 'drawerSpotUp', onSpotlightDown: 'drawerSpotDown', onDrawerAnimationEnd: 'drawerAnimationEnd'}
+		{name: 'drawer', kind: ExpandableListItemDrawer, resizeContainer: false, classes: 'moon-expandable-list-item-client', defaultSpotlightUp: 'header', onSpotlightUp: 'drawerSpotUp', onSpotlightDown: 'drawerSpotDown', onSpotlightContainerEnter: 'drawerSpotEnter', onSpotlightContainerLeave: 'drawerSpotLeave', onDrawerAnimationEnd: 'drawerAnimationEnd'}
 	],
 
 	/**
@@ -328,8 +335,8 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	drawerSpotUp: function (sender, event) {
-		if (this.autoCollapse && event.originator == this.$.drawer) {
+	drawerSpotUp: function (sender, ev) {
+		if (this.autoCollapse && ev.originator == this.$.drawer) {
 			this.closeDrawerAndHighlightHeader();
 			return true;
 		}
@@ -338,11 +345,17 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	drawerSpotDown: function (sender, event) {
-		if (this.lockBottom && event.originator == this.$.drawer && event._originator) {
+	drawerSpotDown: function (sender, ev) {
+		if (this.lockBottom && ev.originator == this.$.drawer && ev._originator) {
+			// We won't receive an "onSpotlightContainerLeave" event, but we will receive an
+			// "onSpotlightContainerEnter" event by re-spotting, so we proactively drop the History
+			// entry that will be re-added.
+			if (this.allowBackKey) {
+				EnyoHistory.drop();
+			}
 			// Spotlight containers redispatch 5-way events with the original event originator
 			// saved as _originator which we'll use to respot if lockBottom === true
-			Spotlight.spot(event._originator, {direction: 'DOWN'});
+			Spotlight.spot(ev._originator, {direction: 'DOWN'});
 			return true;
 		}
 	},
@@ -350,7 +363,26 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	headerTapped: function (sender, event) {
+	drawerSpotEnter: function (sender, ev) {
+		if (this.allowBackKey) {
+			this.pushBackHistory();
+		}
+	},
+
+	/**
+	* @private
+	*/
+	drawerSpotLeave: function (sender, ev) {
+		// We need to guard against dropping a History entry when triggered by the backKeyHandler.
+		if (this.allowBackKey && !EnyoHistory.isProcessing()) {
+			EnyoHistory.drop();
+		}
+	},
+
+	/**
+	* @private
+	*/
+	headerTapped: function (sender, ev) {
 		this.expandContract();
 	},
 
@@ -370,6 +402,25 @@ module.exports = kind(
 		} else {
 			this.bubble('onRequestSetupBounds');
 		}
+		return true;
+	},
+
+	/**
+	* @private
+	*/
+	backKeyHandler: function () {
+		var current = Spotlight.getCurrent();
+
+		// In the case where Spotlight focus is not on one of the items in the expandable, but there
+		// was still an entry history from this control, we must be in a situation where the pointer
+		// has moved away from the control and we have yet to spot another item. We should then
+		// effectively "pass on" the back action by calling the "pop" method of History.
+		if (current && current.isDescendantOf(this.$.drawer)) {
+			this.closeDrawerAndHighlightHeader();
+		} else {
+			EnyoHistory.pop();
+		}
+
 		return true;
 	},
 
