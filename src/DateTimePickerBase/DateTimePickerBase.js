@@ -263,9 +263,13 @@ module.exports = kind(
 	* @private
 	*/
 	expandContract: function () {
-		// if currently closed and without a value, set it to now before opening
-		if (!this.open && !this.value) {
-			this.set('value', new Date());
+		if (!this.open) {
+			// if currently closed and handling the back key, keep track of the initial value in
+			// case we need to restore this value
+			if (this.allowBackKey) this._initialValue = this.value && new Date(this.value.getTime());
+
+			// if currently closed and without a value, set it to now before opening
+			if (!this.value) this.set('value', new Date());
 		}
 		ExpandableListItem.prototype.expandContract.apply(this, arguments);
 	},
@@ -306,15 +310,23 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	refresh: function (){
+	refresh: function () {
 		this.destroyClientControls();
 		this.pickers = null;
 		delete this._tf;
 		if (this.value) {
-			this.localeValue = dateFactory({unixtime: this.value.getTime(), timezone: "local"});
+			this.localeValue = dateFactory({unixtime: this.value.getTime(), timezone: 'local'});
 		}
 		this.set('open', false);
 		this.initDefaults();
 		this.render();
+	},
+
+	/**
+	* @private
+	*/
+	backKeyHandler: function () {
+		this.set('value', this._initialValue);
+		ExpandableListItem.prototype.backKeyHandler.apply(this, arguments);
 	}
 });
