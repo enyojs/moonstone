@@ -295,11 +295,11 @@ module.exports = kind(
 			icon: 'arrowlargeleft',
 			onSpotlightSelect: 'preventEvent',
 			onSpotlightKeyDown: 'jumpButtonTriggered',
-			onSpotlightKeyUp: 'hideKnobStatus',
+			onSpotlightKeyUp: 'jumpButtonReleased',
 			ondown: 'jumpButtonTriggered',
-			onup: 'hideKnobStatus',
+			onup: 'jumpButtonReleased',
 			onholdpulse: 'jumpButtonTriggered',
-			onrelease: 'hideKnobStatus',
+			onrelease: 'jumpButtonReleased',
 			ondragstart: 'preventEvent',
 			defaultSpotlightDisappear: 'buttonRight'
 		},
@@ -312,11 +312,11 @@ module.exports = kind(
 			icon: 'arrowlargeright',
 			onSpotlightSelect: 'preventEvent',
 			onSpotlightKeyDown: 'jumpButtonTriggered',
-			onSpotlightKeyUp: 'hideKnobStatus',
+			onSpotlightKeyUp: 'jumpButtonReleased',
 			ondown: 'jumpButtonTriggered',
-			onup: 'hideKnobStatus',
+			onup: 'jumpButtonReleased',
 			onholdpulse: 'jumpButtonTriggered',
-			onrelease: 'hideKnobStatus',
+			onrelease: 'jumpButtonReleased',
 			ondragstart: 'preventEvent',
 			defaultSpotlightDisappear: 'buttonLeft'
 		}
@@ -435,9 +435,6 @@ module.exports = kind(
 		this.addRemoveClass('disabled', this.disabled);
 		this.$.knob.addRemoveClass('disabled', this.disabled);
 		this.setTappable(!this.disabled);
-		if (this.disabled) {
-			this.hideKnobStatus();
-		}
 	},
 
 	/**
@@ -698,7 +695,6 @@ module.exports = kind(
 		this.sendChangeEvent({value: this.getValue()});
 		e.preventTap();
 		this.$.knob.removeClass('active');
-		this.hideKnobStatus();
 		return true;
 	},
 
@@ -853,13 +849,6 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	hideKnobStatus: function (sender, e) {
-		this._jumpSender = null;
-	},
-
-	/**
-	* @private
-	*/
 	changeDelayMS: 50,
 
 	/**
@@ -902,6 +891,13 @@ module.exports = kind(
 			Spotlight.Accelerator.cancel();
 			gesture.drag.endHold();
 		}
+	},
+
+	/**
+	* @private
+	*/
+	jumpButtonReleased: function (sender, e) {
+		this._jumpSender = null;
 	},
 
 	/**
