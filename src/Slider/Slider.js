@@ -695,6 +695,7 @@ module.exports = kind(
 		this.sendChangeEvent({value: this.getValue()});
 		e.preventTap();
 		this.$.knob.removeClass('active');
+		this.$.bar.removeClass('selected');
 		return true;
 	},
 
@@ -758,6 +759,7 @@ module.exports = kind(
 			this.updatePopup(this.getValue());
 		}
 		this.$.knob.addRemoveClass('spotselect', this.selected);
+		this.$.bar.addRemoveClass('selected', this.selected);
 		return true;
 	},
 
@@ -768,6 +770,7 @@ module.exports = kind(
 		if (!this.dragging) {
 			if (this.$.knob) {
 				this.$.knob.removeClass('spotselect');
+				this.$.bar.removeClass('selected');
 			}
 			if (this.$.popup) {
 				this.$.popup.hide();
@@ -833,6 +836,7 @@ module.exports = kind(
 	handleKnobDown: function (sender, e) {
 		if (!this.disabled) {
 			e.configureHoldPulse({endHold: 'onMove'});
+			this.$.bar.addClass('selected');
 		}
 	},
 
