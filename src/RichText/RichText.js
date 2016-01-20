@@ -90,7 +90,7 @@ module.exports = kind(
 	},
 
 	/**
-	* Piggyback onto enyo.RichText blurHandler.
+	* Piggyback onto {@link module:enyo/RichText~RichText#blurHandler}.
 	*
 	* @private
 	* @method
