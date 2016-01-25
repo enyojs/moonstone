@@ -324,7 +324,7 @@ var ListActions = module.exports = kind(
 		* {@link module:moonstone/ToggleItem~ToggleItem}, or {@link module:moonstone/SelectableItem~SelectableItem} for setting options for
 		* the underlying [panel]{@link module:moonstone/Panel~Panel}. Alternatively, a {@link module:moonstone/DataList~DataList}
 		* may be used as the `fit: true` control for populating a data-bound list of options
-		* (see below for limitations on using a `moon.DataList`).
+		* (see below for limitations on using a `moon/DataList`).
 		*
 		* More than one option group may be added to the `listActions` block, in which options
 		* are laid out horizontally by default, with the height of each `FittableRows` being
@@ -337,7 +337,7 @@ var ListActions = module.exports = kind(
 		* nested scrolling.
 		*
 		* Note that the vertical stacking capability poses a limitation on using
-		* `moon.DataList`. Since `moon.DataList` must always be allowed to scroll, it is
+		* `moon/DataList`. Since `moon/DataList` must always be allowed to scroll, it is
 		* not suitable for use in a stacked scenario in which only one outer scroller is
 		* used. As such, it cannot be used within a `ListActions` that may need to stack
 		* vertically.

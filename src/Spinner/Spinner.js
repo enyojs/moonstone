@@ -81,7 +81,7 @@ module.exports = kind(
 
 	/**
 	* Sets the spinner to be horizontally centered, relative to its containing control. Use in
-	* combination with [moon.Spinner#center]{@link module:moonstone/Spinner~Spinner#middle} to center this spinner
+	* combination with [moon/Spinner#center]{@link module:moonstone/Spinner~Spinner#middle} to center this spinner
 	* both horizontally and vertically, or just horizontally.
 	*
 	* @type {Boolean}
@@ -92,7 +92,7 @@ module.exports = kind(
 
 	/**
 	* When `true`, sets the spinner to be vertically centered inside its container. This option
-	* has no effect if [moon.Spinner#center]{@link module:moonstone/Spinner~Spinner#center} is `false`. Setting this
+	* has no effect if [moon/Spinner#center]{@link module:moonstone/Spinner~Spinner#center} is `false`. Setting this
 	* to false allows the spinner to only be horizontally centered, and not vertically centered.
 	*
 	* @type {Boolean}

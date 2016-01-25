@@ -162,7 +162,7 @@ module.exports = kind(
 	* Adapting from the prior API. We'll assume that the presence of components but not
 	* overlayComponents means the consumer is expecting the former ImageBadge-style overlay.
 	*
-	* @deprecated Backwards compatibility for moon.ImageBadge's within components block
+	* @deprecated Backwards compatibility for `moon/ImageBadge`s within components block
 	* @private
 	*/
 	adaptComponentsBlock: function () {
