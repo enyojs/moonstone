@@ -186,6 +186,7 @@ module.exports = kind(
 	openChanged: function () {
 		ExpandableListItem.prototype.openChanged.apply(this, arguments);
 		if (this.open) {
+			if (this.allowBackKey) this._initialValue = this.value;
 			Spotlight.unspot();
 			this.focusInput();
 		} else {
@@ -213,10 +214,12 @@ module.exports = kind(
 	* @private
 	*/
 	inputSpotBlurred: function (inSender, inEvent) {
-		var eventType;
+		var eventType, lastEvent;
 		if (this.open && Spotlight.getPointerMode()) {
-			eventType = Spotlight.getLastEvent().type;
-			if (eventType !== 'onSpotlightFocus' && eventType !== 'mouseover') {
+			lastEvent = Spotlight.getLastEvent();
+			eventType = lastEvent.type;
+			if (eventType !== 'onSpotlightFocus' && eventType !== 'mouseover'
+				&& (!lastEvent.dispatchTarget || !lastEvent.dispatchTarget.isDescendantOf(this))) {
 				this.closeDrawerAndHighlightHeader();
 			}
 		}
@@ -262,6 +265,24 @@ module.exports = kind(
 			this.closeDrawerAndHighlightHeader();
 		}
 		return true;
+	},
+
+	/**
+	* @private
+	*/
+	handleContainerEnter: function () {},
+
+	/**
+	* @private
+	*/
+	handleContainerLeave: function () {},
+
+	/**
+	* @private
+	*/
+	backKeyHandler: function () {
+		this.set('value', this._initialValue);
+		ExpandableListItem.prototype.backKeyHandler.apply(this, arguments);
 	},
 
 	// Accessibility

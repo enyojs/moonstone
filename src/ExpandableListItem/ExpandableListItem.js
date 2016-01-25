@@ -371,6 +371,9 @@ module.exports = kind(
 		}
 	},
 
+	/**
+	* @private
+	*/
 	handleContainerEnter: function (sender, ev) {
 		// We only want to add a history entry if the expandable is open.
 		if (this.allowBackKey && this.open) {
@@ -378,6 +381,9 @@ module.exports = kind(
 		}
 	},
 
+	/**
+	* @private
+	*/
 	handleContainerLeave: function (sender, ev) {
 		// We guard against dropping a history entry if the expandable is closed, since this should
 		// have already been handled when the expandable was collapsed.
