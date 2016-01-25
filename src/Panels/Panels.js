@@ -317,7 +317,7 @@ module.exports = kind(
 	showFirstBreadcrumb: false,
 
 	/**
-	* Default to using `moon.BreadcrumbArranger`.
+	* Default to using `moonstone/BreadcrumbArranger`.
 	*
 	* @private
 	*/
@@ -386,9 +386,9 @@ module.exports = kind(
 	},
 
 	/**
-	* Options for the [moon.Panels.pushPanels()]{@link module:moonstone/Panels~Panels.pushPanels} method.
+	* Options for the [pushPanels()]{@link module:moonstone/Panels~Panels.pushPanels} method.
 	*
-	* @typedef {Object} moon.Panels.pushPanels~options
+	* @typedef {Object} module:moonstone/Panels~Panels~PushPanelsOptions
 	* @property {Number} targetIndex - The panel index number to immediately switch to. Leaving
 	*	this blank or not setting it will perform the default action, which transitions to the
 	*	first of the new panels. Setting this to a negative and other "out of bounds" values
@@ -405,7 +405,7 @@ module.exports = kind(
 	*
 	* @param {Object[]} info - The declarative {@glossary kind} definitions.
 	* @param {Object} commonInfo - Additional properties to be applied (defaults).
-	* @param {Object} options - Additional options for pushPanels.
+	* @param {module:moonstone/Panels~Panels~PushPanelsOptions} options - Additional options for pushPanels.
 	* @return {null|Object[]} Array of the panels that were created on top of the stack, or
 	*	`null` if panels could not be created.
 	* @public

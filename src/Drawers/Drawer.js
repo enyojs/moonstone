@@ -26,7 +26,7 @@ var
 * Fires when either the main drawer or the control drawer is activated. No event-specific
 * data is sent with this event.
 *
-* @event moonstone/Drawers~Drawer#onActivate
+* @event module:moonstone/Drawers~Drawer#onActivate
 * @type {Object}
 * @public
 */
@@ -35,7 +35,7 @@ var
 * Fires when either the main drawer or the control drawer is deactivated. No event-specific
 * data is sent with this event.
 *
-* @event moonstone/Drawers~Drawer#onDeactivate
+* @event module:moonstone/Drawers~Drawer#onDeactivate
 * @type {Object}
 * @public
 */
@@ -44,7 +44,7 @@ var
 * Fires when either the main drawer or the control drawer completes it animation. No event-specific
 * data is sent with this event.
 *
-* @event moonstone/Drawers~Drawer#onDrawerAnimationEnd
+* @event module:moonstone/Drawers~Drawer#onDrawerAnimationEnd
 * @type {Object}
 * @public
 */

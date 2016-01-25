@@ -15,7 +15,7 @@ var
 /**
 * Fires when the value of the toggle button changes.
 *
-* @event moon.ToggleButton:onChange
+* @event module:moonstone/ToggleButton~ToggleButton:onChange
 * @type {Object}
 * @property {Boolean} value - Current state of the ToggleButton.
 * @public

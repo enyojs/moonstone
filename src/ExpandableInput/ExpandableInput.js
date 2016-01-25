@@ -20,7 +20,7 @@ var
 /**
 * Fires when the current text changes. This passes through {@link module:enyo/Input~Input#onChange}.
 *
-* @event moon.ExpandableInput#onChange
+* @event module:moonstone/ExpandableInput~ExpandableInput#onChange
 * @type {Object}
 * @property {String} value - The value of the input.
 * @public

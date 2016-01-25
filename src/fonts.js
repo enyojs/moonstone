@@ -1,3 +1,11 @@
+/**
+* This module loads Moonstone specific fonts. It has no exports and is not inteded to be directly
+* included by external developers.
+*
+* @private
+* @module moonstone/fonts
+*/
+
 var
 	i18n = require('enyo/i18n'),
 	platform = require('enyo/platform');

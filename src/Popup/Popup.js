@@ -218,7 +218,7 @@ module.exports = kind(
 	},
 
 	/**
-	* Renders `moon.Popup`, extending enyo.Popup
+	* Renders {@link module:moonstone/Popup~Popup}, extending {@link module:enyo/Popup~Popup}
 	*
 	* @private
 	*/
