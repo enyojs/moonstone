@@ -714,7 +714,7 @@ module.exports = kind(
 	*/
 	handleBlur: function (sender, event) {
 		if (this.isHandleFocused) {
-			this.isHandleFocused = false;
+			this.set('isHandleFocused', false);
 			if (!Spotlight.getPointerMode()) {
 				if (!this.showing) {
 					this.panelsHiddenAsync();
@@ -769,7 +769,7 @@ module.exports = kind(
 	handleFocused: function () {
 		this.unstashHandle();
 		this.startJob('autoHide', 'handleSpotLeft', this.getAutoHideTimeout());
-		this.isHandleFocused = true;
+		this.set('isHandleFocused', true);
 		Signals.send('onPanelsHandleFocused');
 	},
 
@@ -1365,6 +1365,12 @@ module.exports = kind(
 				if (panel instanceof Panel && panel.title) {
 					panel.set('accessibilityRole', (panel === active) && this.get('showing') ? 'alert' : 'region');
 				}
+			}
+		}},
+		// If panels is hidden and panelsHandle is spotlight blured, also make panelsHandle's dom blur.   
+		{path: 'isHandleFocused', method: function () {
+			if (this.$.showHideHandle && this.$.showHideHandle.hasNode() && !this.isHandleFocused) {
+				this.$.showHideHandle.hasNode().blur();
 			}
 		}}
 	]
