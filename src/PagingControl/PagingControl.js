@@ -244,7 +244,6 @@ module.exports = kind(
 	undepress: function (sender, event) {
 		this.set('pressed', false);
 		IconButton.prototype.undepress.apply(this, arguments);
-		this.downCount = 0;
 		this.endHold(sender, event);
 	},
 
@@ -256,6 +255,7 @@ module.exports = kind(
 			return;
 		}
 
+		this.downCount = 0;
 		this.stopHoldJob();
 		this.sendPaginateEvent();
 		this.downTime = null;
@@ -316,9 +316,10 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	spotlightBlurred: function () {
+	spotlightBlurred: function (sender, event) {
 		IconButton.prototype.spotlightBlurred.apply(this, arguments);
 		this.set('spotted', false);
+		this.endHold(sender, event);
 	},
 
 	/**
