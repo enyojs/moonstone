@@ -23,6 +23,9 @@ var
 	ExpandableListItemHeader = require('./ExpandableListItemHeader'),
 	ExpandableListItemDrawer = require('./ExpandableListItemDrawer');
 
+var
+	hasHistoryEntry = false; // used to track whether or not we have pushed a history entry for ourselves
+
 /**
 * {@link module:moonstone/ExpandableListItem~ExpandableListItem}, which extends {@link module:moonstone/Item~Item}, displays a header
 * while also allowing additional content to be stored in an {@link module:enyo/Drawer~Drawer}. When
@@ -181,8 +184,8 @@ module.exports = kind(
 	* @private
 	*/
 	handlers: {
-		onSpotlightContainerEnter: 'handleContainerEnter',
-		onSpotlightContainerLeave: 'handleContainerLeave'
+		onSpotlightContainerEnter: 'addHistoryEntry',
+		onSpotlightContainerLeave: 'removeHistoryEntry'
 	},
 
 	/**
@@ -319,9 +322,7 @@ module.exports = kind(
 			}
 			// As we could have entered the expandable when it was closed, we need to explicitly add
 			// the history entry when it is opened.
-			if (this.allowBackKey) {
-				this.pushBackHistory();
-			}
+			this.addHistoryEntry();
 		}
 	},
 
@@ -338,9 +339,7 @@ module.exports = kind(
 	closeDrawerAndHighlightHeader: function () {
 		var current = Spotlight.getPointerMode() ? Spotlight.getLastControl() : Spotlight.getCurrent();
 
-		if (this.allowBackKey && !EnyoHistory.isProcessing()) {
-			EnyoHistory.drop();
-		}
+		this.removeHistoryEntry();
 
 		// If the spotlight is elsewhere, we don't want to hijack it (e.g. after the delay in
 		// ExpandablePicker)
@@ -373,23 +372,22 @@ module.exports = kind(
 	},
 
 	/**
-	* @private
+	* @protected
 	*/
-	handleContainerEnter: function (sender, ev) {
-		// We only want to add a history entry if the expandable is open.
-		if (this.allowBackKey && this.open) {
+	addHistoryEntry: function () {
+		if (this.allowBackKey && !hasHistoryEntry && this.open) {
 			this.pushBackHistory();
+			hasHistoryEntry = true;
 		}
 	},
 
 	/**
-	* @private
+	* @protected
 	*/
-	handleContainerLeave: function (sender, ev) {
-		// We guard against dropping a history entry if the expandable is closed, since this should
-		// have already been handled when the expandable was collapsed.
-		if (this.allowBackKey && this.open) {
+	removeHistoryEntry: function () {
+		if (this.allowBackKey && hasHistoryEntry) {
 			EnyoHistory.drop();
+			hasHistoryEntry = false;
 		}
 	},
 
@@ -424,6 +422,8 @@ module.exports = kind(
 	*/
 	backKeyHandler: function () {
 		var current = Spotlight.getCurrent();
+
+		hasHistoryEntry = false;
 
 		// In the case where Spotlight focus is not on one of the items in the expandable, but there
 		// was still an entry history from this control, we must be in a situation where the pointer
