@@ -20,16 +20,16 @@ var
 	ScrollStrategy = require('../ScrollStrategy');
 
 /**
-* On touch platforms, revert to using Enyo scroller, which picks an appropriate
+* On non-webOS touch platforms, revert to using Enyo scroller, which picks an appropriate
 * scroll strategy for the given platform.
 *
 * @private
 */
-if (platform.touch) {
+if (platform.touch && !platform.webos) {
 	module.exports = Scroller;
 } else {
 	/**
-	* Fires when a control explicitly requests to be scrolled into view. Handled by the 
+	* Fires when a control explicitly requests to be scrolled into view. Handled by the
 	* [scroll strategy]{@link module:enyo/Scroller~Scroller#strategyKind}.
 	*
 	* @event module:moonstone/Scroller~Scroller#onRequestScrollIntoView
@@ -434,7 +434,7 @@ if (platform.touch) {
 			if (o5WayEvent && (!strategy.isPageControl || !strategy.isPageControl(lastControl))) {
 				this.startJob('scrollToBoundary', function () {
 					switch (o5WayEvent.type) {
-						case 'onSpotlightUp': 
+						case 'onSpotlightUp':
 							if (top > 0) strategy.scrollTo(left, 0, animate);
 							break;
 						case 'onSpotlightDown':
@@ -519,7 +519,7 @@ if (platform.touch) {
 				} else {
 					pageKeyCtr.sendPaginateEvent();
 				}
-			} 
+			}
 		},
 
 		/**
