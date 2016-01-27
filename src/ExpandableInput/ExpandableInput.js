@@ -186,7 +186,9 @@ module.exports = kind(
 	openChanged: function () {
 		ExpandableListItem.prototype.openChanged.apply(this, arguments);
 		if (this.open) {
+			// keep track of initial value in case we need to restore it later
 			if (this.allowBackKey) this._initialValue = this.value;
+
 			Spotlight.unspot();
 			this.focusInput();
 		} else {
@@ -270,18 +272,8 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	handleContainerEnter: function () {},
-
-	/**
-	* @private
-	*/
-	handleContainerLeave: function () {},
-
-	/**
-	* @private
-	*/
 	backKeyHandler: function () {
-		this.set('value', this._initialValue);
+		if (this.open) this.set('value', this._initialValue);
 		ExpandableListItem.prototype.backKeyHandler.apply(this, arguments);
 	},
 
