@@ -326,7 +326,7 @@ module.exports = kind(
 	* @private
 	*/
 	backKeyHandler: function () {
-		this.set('value', this._initialValue);
+		if (this.open) this.set('value', this._initialValue);
 		ExpandableListItem.prototype.backKeyHandler.apply(this, arguments);
 	}
 });

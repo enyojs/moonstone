@@ -463,6 +463,11 @@ module.exports = kind(
 		}
 
 		if (this.getAutoCollapseOnSelect() && this.$.drawer.hasRendered && this.getOpen()) {
+			// this is needed due to the select and close delay, during which other history entries
+			// could have been pushed - we drop the entry immediately to prevent dropping the wrong
+			// entry later
+			this.removeHistoryEntry();
+
 			this.startJob('selectAndClose', 'expandContract', this.selectAndCloseDelayMS);
 		}
 
