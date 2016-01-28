@@ -280,7 +280,7 @@ module.exports = kind(
 	*/
 	moreComponents: [
 		{name: 'animator', kind: Animator, onStep: 'animatorStep', onEnd: 'animatorComplete'},
-		{name: 'knob', kind: Control, ondown: 'handleKnobDown'}
+		{name: 'knob', kind: Control, ondown: 'handleKnobDown', onup: 'handleKnobUp'}
 	],
 
 	/**
@@ -837,6 +837,15 @@ module.exports = kind(
 		if (!this.disabled) {
 			e.configureHoldPulse({endHold: 'onMove'});
 			this.$.bar.addClass('selected');
+		}
+	},
+
+	/**
+	* @private
+	*/
+	handleKnobUp: function (sender, e) {
+		if (!this.disabled) {
+			this.$.bar.removeClass('selected');
 		}
 	},
 
