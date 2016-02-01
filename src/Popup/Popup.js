@@ -146,15 +146,13 @@ module.exports = kind(
 		spotlightModal: false,
 
 		/**
-		* When `false`, the close button is hidden; when `true`, it is shown. When
-		* `showCloseButton` is set to `'auto'` (the default), the close button is shown when
-		* [spotlightModal]{@link module:moonstone/Popup~Popup#spotlightModal} is `true`.
+		* When `true`, the close button is shown; when `false`, it is hidden.
 		*
-		* @type {String}
-		* @default 'auto'
+		* @type {Boolean}
+		* @default true
 		* @public
 		*/
-		showCloseButton: 'auto',
+		showCloseButton: true,
 
 		/**
 		* When `true`, popups will animate on/off screen.
@@ -321,11 +319,9 @@ module.exports = kind(
 	configCloseButton: function() {
 		if (!this.$.closeButton) { return; }
 
-		var shouldShow = (this.showCloseButton === true || (this.spotlightModal === true && this.showCloseButton !== false));
-
-		if (shouldShow != this.$.closeButton.getShowing()) {
-			this.$.closeButton.setShowing(shouldShow);
-			this.addRemoveClass('reserve-close', shouldShow);
+		if (this.showCloseButton != this.$.closeButton.getShowing()) {
+			this.$.closeButton.setShowing(this.showCloseButton);
+			this.addRemoveClass('reserve-close', this.showCloseButton);
 			if (this.generated) {
 				this.resize();
 			}
