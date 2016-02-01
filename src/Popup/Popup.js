@@ -329,15 +329,6 @@ module.exports = kind(
 	},
 
 	/**
-	* Called if [spotlightModal]{@link module:moonstone/Popup~Popup#spotlightModal} changes.
-	*
-	* @private
-	*/
-	spotlightModalChanged: function() {
-		this.configCloseButton();
-	},
-
-	/**
 	* Called if [showCloseButton]{@link module:moonstone/Popup~Popup#showCloseButton} changes.
 	*
 	* @private
