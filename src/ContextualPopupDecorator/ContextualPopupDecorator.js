@@ -13,7 +13,7 @@ var
 	Spotlight = require('spotlight');
 
 var
-	ContextualPopupButton = require('../ContextualPopupButton');
+	Button = require('../Button');
 
 /**
 * {@link module:moonstone/ContextualPopupDecorator~ContextualPopupDecorator} is a control that loosely couples a
@@ -56,7 +56,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	defaultKind: ContextualPopupButton,
+	defaultKind: Button,
 
 	/**
 	* Selection on iOS prevents tap events, so avoid.
