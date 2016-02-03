@@ -10,6 +10,7 @@ var
 	dispatcher = require('enyo/dispatcher'),
 	dom = require('enyo/dom'),
 	util = require('enyo/utils'),
+	platform = require('enyo/platform'),
 	Control = require('enyo/Control'),
 	ScrollStrategy = require('enyo/ScrollStrategy'),
 	TouchScrollStrategy = require('enyo/TouchScrollStrategy'),
@@ -369,11 +370,37 @@ var MoonScrollStrategy = module.exports = kind(
 	// Event handling
 
 	/**
-	* Disables dragging.
+	* Disables dragging on non-touch devices.
 	*
 	* @private
 	*/
-	shouldDrag: function(sender, event) { return true; },
+	shouldDrag: function(sender, event) {
+		if (platform.touch) {
+			event.dragger = this;
+		}
+		return true;
+	},
+
+	/**
+	* @private
+	*/
+	scrollMathStart: function () {
+		if (platform.touch) {
+			Spotlight.mute(this);
+		}
+		return TouchScrollStrategy.prototype.scrollMathStart.apply(this, arguments);
+	},
+
+	/**
+	* @private
+	*/
+	scrollMathStop: function () {
+		var r = TouchScrollStrategy.prototype.scrollMathStop.apply(this, arguments);
+		if (platform.touch) {
+			Spotlight.unmute(this);
+		}
+		return r;
+	},
 
 	/**
 	* On `hold` event, stops scrolling.
@@ -392,6 +419,11 @@ var MoonScrollStrategy = module.exports = kind(
 	* @private
 	*/
 	down: function(sender, event) {
+		if (platform.touch) {
+			event.configureHoldPulse({
+				endHold: 'onMove'
+			});
+		}
 		if (!this.isPageControl(event.originator) && this.isScrolling() && !this.isOverscrolling()) {
 			event.preventTap();
 			this.stop();
