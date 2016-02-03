@@ -23,6 +23,7 @@ var
 * @extends module:moonstone/Button~Button
 * @ui
 * @public
+* @deprecated
 */
 
 module.exports = kind(
