@@ -16,7 +16,6 @@ var
 	Popup = require('../Popup'),
 	IconButton = require('../IconButton'),
 	BodyText = require('../BodyText'),
-	Divider = require('../Divider'),
 	HistorySupport = require('../HistorySupport'),
 	Marquee = require('../Marquee'),
 	MarqueeText = Marquee.Text,
@@ -73,6 +72,15 @@ module.exports = kind(
 		* @public
 		*/
 		subTitle: '',
+
+		/**
+		* Should the dialog use a divider line to separate the titles from the dialog body?
+		*
+		* @type {String}
+		* @default false
+		* @public
+		*/
+		useDivider: false,
 
 		/**
 		* The message for the dialog. May either be a string or component configuration block.
@@ -143,16 +151,13 @@ module.exports = kind(
 	* @private
 	*/
 	tools: [
-		{name: 'closeButton', kind: IconButton, icon: 'closex', classes: 'moon-popup-close', ontap: 'closePopup', accessibilityLabel: $L('Close'), backgroundOpacity: 'transparent', showing: false},
-		{kind: Control, classes: 'moon-dialog-client-wrapper', components: [
-			{name: 'client', kind: Control, classes: 'moon-dialog-client'},
-			{components: [
-				{name: 'title', kind: MarqueeText, classes: 'moon-popup-header-text moon-dialog-title'},
-				{name: 'subTitle', kind: Control, classes: 'moon-dialog-sub-title'}
-			]}
+		{name: 'closeButton', kind: IconButton, icon: 'closex', classes: 'moon-popup-close', ontap: 'closePopup', accessibilityLabel: $L('Close'), backgroundOpacity: 'translucent', showing: false},
+		{name: 'titleWrapper', classes: 'moon-dialog-title-wrapper', components: [
+			{name: 'title', kind: MarqueeText, classes: 'moon-popup-header-text moon-dialog-title'},
+			{name: 'subTitle', kind: Control, classes: 'moon-dialog-sub-title'}
 		]},
-		{kind: Divider, classes: 'moon-dialog-divider'},
 		{name: 'message'},
+		{name: 'client', kind: Control, classes: 'moon-hspacing moon-dialog-client'},
 		{name: 'spotlightDummy', kind: Control, spotlight: false}
 	],
 
@@ -176,6 +181,7 @@ module.exports = kind(
 
 		this.titleChanged();
 		this.subTitleChanged();
+		this.useDividerChanged();
 		this.messageChanged();
 	},
 
@@ -183,8 +189,16 @@ module.exports = kind(
 	* @private
 	*/
 	titleChanged: function () {
-		var title = this.getTitle();
-		this.$.title.setContent( this.get('uppercase') ? util.toUpperCase(title) : title );
+		var title = this.get('title');
+		// Logic so we don't show the divider and an empty title
+		if (!title) {
+			this.$.title.hide();
+			this.$.titleWrapper.removeClass('use-divider');
+		} else {
+			this.$.title.show();
+			this.useDividerChanged();
+			this.$.title.set('content', this.get('uppercase') ? util.toUpperCase(title) : title );
+		}
 	},
 
 	/**
@@ -209,7 +223,17 @@ module.exports = kind(
 	* @private
 	*/
 	subTitleChanged: function () {
-		this.$.subTitle.setContent(this.subTitle);
+		// Technically we shouldn't show the subtitle if there's no title, but this is an edge case for the app developer
+		this.$.subTitle.set('showing', !!this.subTitle);
+		if (!this.subTitle) return;
+		this.$.subTitle.set('content', this.subTitle);
+	},
+
+	/**
+	* @private
+	*/
+	useDividerChanged: function () {
+		this.$.titleWrapper.addRemoveClass('use-divider', this.get('useDivider'));
 	},
 
 	/**
