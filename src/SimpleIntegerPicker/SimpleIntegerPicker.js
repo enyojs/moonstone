@@ -208,12 +208,21 @@ module.exports = kind(
 	accessibilityRole: 'spinbutton',
 
 	/**
+	* Custom value for accessibility (ignored if `null`).
+	*
+	* @type {String|null}
+	* @default null
+	* @public
+	*/
+	accessibilityValueText: null,
+
+	/**
 	* @private
 	*/
 	ariaObservers: [
-		{path: ['value', 'unit'],  method: function () {
-				this.set('accessibilityHint', null);
-				this.ariaValue();
+		{path: ['accessibilityValueText', 'value', 'unit'],  method: function () {
+			this.set('accessibilityHint', null);
+			this.ariaValue();
 		}},
 		{path: 'spotted',  method: function () {
 			// When spotlight is focused, it reads value with hint
@@ -233,7 +242,8 @@ module.exports = kind(
 	* @private
 	*/
 	ariaValue: function () {
-		var text = this.unit ? this.value + ' ' + this.unit : this.value;
+		var text = this.accessibilityValueText || 
+					(this.unit ? this.value + ' ' + this.unit : this.value);
 		this.setAriaAttribute('aria-valuetext', text);
 	}
 });
