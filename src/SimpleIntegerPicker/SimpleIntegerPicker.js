@@ -200,27 +200,10 @@ module.exports = kind(
 	// Accessibility
 
 	/**
-	* @default 'spinbutton'
-	* @type {String}
-	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityRole
-	* @public
-	*/
-	accessibilityRole: 'spinbutton',
-
-	/**
-	* Custom value for accessibility (ignored if `null`).
-	*
-	* @type {String|null}
-	* @default null
-	* @public
-	*/
-	accessibilityValueText: null,
-
-	/**
 	* @private
 	*/
 	ariaObservers: [
-		{path: ['accessibilityValueText', 'value', 'unit'],  method: function () {
+		{path: 'unit',  method: function () {
 			this.set('accessibilityHint', null);
 			this.ariaValue();
 		}},
