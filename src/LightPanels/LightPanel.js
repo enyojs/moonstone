@@ -1,7 +1,7 @@
 /**
-* Contains the declaration for the {@link module:moonstone/LightPanels~LightPanel} kind.
+* Contains the declaration for the {@link module:moonstone/LightPanels/LightPanel~LightPanel} kind.
 * @wip
-* @module moonstone/LightPanels
+* @module moonstone/LightPanels/LightPanel
 */
 
 var
@@ -26,7 +26,7 @@ var
 * @public
 */
 module.exports = kind(
-	/** @lends module:moonstone/LightPanels~LightPanel.prototype */ {
+	/** @lends module:moonstone/LightPanels/LightPanel~LightPanel.prototype */ {
 
 	/**
 	* @private
@@ -221,7 +221,7 @@ module.exports = kind(
 	/**
 	* This overridable (extendable) method is called when the client area has been rendered. This
 	* can be used to perform any actions that should occur once the client components, for example,
-	* of the {@link module:moonstone/LightPanels~LightPanel} have been created and rendered, such as custom focusing logic.
+	* of the {@link module:moonstone/LightPanels/LightPanel~LightPanel} have been created and rendered, such as custom focusing logic.
 	*
 	* @public
 	*/

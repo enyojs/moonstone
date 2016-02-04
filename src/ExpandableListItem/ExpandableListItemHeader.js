@@ -1,6 +1,6 @@
 /**
-* Contains the declaration for the {@link module:moonstone/ExpandableListItem~ExpandableListItemHeader} kind.
-* @module moonstone/ExpandableListItem
+* Contains the declaration for the {@link module:moonstone/ExpandableListItem/ExpandableListItemHeader~ExpandableListItemHeader} kind.
+* @module moonstone/ExpandableListItem/ExpandableListItemHeader
 */
 
 var
@@ -18,7 +18,7 @@ var
 * @private
 */
 module.exports = kind(
-	/** @lends module:moonstone/ExpandableListItem~ExpandableListItemHeader.prototype */ {
+	/** @lends module:moonstone/ExpandableListItem/ExpandableListItemHeader~ExpandableListItemHeader.prototype */ {
 
 	/**
 	* @private
