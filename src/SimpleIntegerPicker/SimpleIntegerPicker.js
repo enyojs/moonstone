@@ -200,20 +200,12 @@ module.exports = kind(
 	// Accessibility
 
 	/**
-	* @default 'spinbutton'
-	* @type {String}
-	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityRole
-	* @public
-	*/
-	accessibilityRole: 'spinbutton',
-
-	/**
 	* @private
 	*/
 	ariaObservers: [
-		{path: ['value', 'unit'],  method: function () {
-				this.set('accessibilityHint', null);
-				this.ariaValue();
+		{path: 'unit',  method: function () {
+			this.set('accessibilityHint', null);
+			this.ariaValue();
 		}},
 		{path: 'spotted',  method: function () {
 			// When spotlight is focused, it reads value with hint
@@ -233,7 +225,8 @@ module.exports = kind(
 	* @private
 	*/
 	ariaValue: function () {
-		var text = this.unit ? this.value + ' ' + this.unit : this.value;
+		var text = this.accessibilityValueText || 
+					(this.unit ? this.value + ' ' + this.unit : this.value);
 		this.setAriaAttribute('aria-valuetext', text);
 	}
 });
