@@ -23,9 +23,6 @@ var
 	ExpandableListItemHeader = require('./ExpandableListItemHeader'),
 	ExpandableListItemDrawer = require('./ExpandableListItemDrawer');
 
-var
-	hasHistoryEntry = false; // used to track whether or not we have pushed a history entry for ourselves
-
 /**
 * {@link module:moonstone/ExpandableListItem~ExpandableListItem}, which extends {@link module:moonstone/Item~Item}, displays a header
 * while also allowing additional content to be stored in an {@link module:enyo/Drawer~Drawer}. When
@@ -178,6 +175,13 @@ module.exports = kind(
 	* @private
 	*/
 	defaultKind: Item,
+
+	/**
+	* This is used to track whether or not we have pushed a history entry for ourselves.
+	*
+	* @private
+	*/
+	hasHistoryEntry: false,
 
 	/**
 	* @private
@@ -374,9 +378,9 @@ module.exports = kind(
 	* @protected
 	*/
 	addHistoryEntry: function () {
-		if (this.allowBackKey && !hasHistoryEntry && this.open) {
+		if (this.allowBackKey && !this.hasHistoryEntry && this.open) {
 			this.pushBackHistory();
-			hasHistoryEntry = true;
+			this.hasHistoryEntry = true;
 		}
 	},
 
@@ -384,9 +388,9 @@ module.exports = kind(
 	* @protected
 	*/
 	removeHistoryEntry: function () {
-		if (this.allowBackKey && hasHistoryEntry) {
+		if (this.allowBackKey && this.hasHistoryEntry) {
 			EnyoHistory.drop();
-			hasHistoryEntry = false;
+			this.hasHistoryEntry = false;
 		}
 	},
 
@@ -422,7 +426,7 @@ module.exports = kind(
 	backKeyHandler: function () {
 		var current = Spotlight.getCurrent();
 
-		hasHistoryEntry = false;
+		this.hasHistoryEntry = false;
 
 		// In the case where Spotlight focus is not on one of the items in the expandable, but there
 		// was still an entry history from this control, we must be in a situation where the pointer

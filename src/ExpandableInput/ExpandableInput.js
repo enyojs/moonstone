@@ -216,12 +216,10 @@ module.exports = kind(
 	* @private
 	*/
 	inputSpotBlurred: function (inSender, inEvent) {
-		var eventType, lastEvent;
+		var eventType;
 		if (this.open && Spotlight.getPointerMode()) {
-			lastEvent = Spotlight.getLastEvent();
-			eventType = lastEvent.type;
-			if (eventType !== 'onSpotlightFocus' && eventType !== 'mouseover'
-				&& (!lastEvent.dispatchTarget || !lastEvent.dispatchTarget.isDescendantOf(this))) {
+			eventType = Spotlight.getLastEvent().type;
+			if (eventType !== 'onSpotlightFocus' && eventType !== 'mouseover') {
 				this.closeDrawerAndHighlightHeader();
 			}
 		}
