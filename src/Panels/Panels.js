@@ -898,6 +898,7 @@ module.exports = kind(
 	_setIndex: function (index) {
 		var prev = this.get('index');
 		this.index = this.clamp(index);
+		this.notifyObservers('aria-index', prev, index);
 		this.notifyObservers('index', prev, index);
 	},
 
@@ -1346,7 +1347,7 @@ module.exports = kind(
 	// Accessibility
 
 	ariaObservers: [
-		{path: ['showing', 'index'], method: function () {
+		{path: ['showing', 'aria-index'], method: function () {
 			var panels = this.getPanels(),
 				active = this.getActive(),
 				l = panels.length,
