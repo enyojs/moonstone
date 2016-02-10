@@ -583,10 +583,10 @@ module.exports = kind(
 			// rowOffset should be the lesser of the indices and count is the difference + 1
 			var index = Math.min(oldIndex, newIndex);
 			var count = Math.abs(newIndex - oldIndex) + 1;
+			this.updateRepeater(index, count);
 
 			if (this._rAF) animation.cancelRequestAnimationFrame(this._rAF);
 			this._rAF = animation.requestAnimationFrame(function () {
-				this.updateRepeater(index, count);
 				this.scrollToIndex(oldIndex, false);
 				this._rAF = animation.requestAnimationFrame(function () {
 					this.scrollToIndex(newIndex, true);
