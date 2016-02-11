@@ -209,10 +209,7 @@ module.exports = kind(
 		this.syncingPickers = true;
 		this.setChildPickers(inOld);
 		this.syncingPickers = false;
-
-		if (this.value) {
-			this.doChange({name:this.name, value:this.value});
-		}
+		this.doChange({name:this.name, value:this.value});
 	},
 
 	/**
