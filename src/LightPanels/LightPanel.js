@@ -1,5 +1,8 @@
 /**
 * Contains the declaration for the {@link module:moonstone/LightPanels/LightPanel~LightPanel} kind.
+*
+* Note: LightPanel is exported from {@link module:moonstone/LightPanels}. This module should not be
+* required directly.
 * @wip
 * @module moonstone/LightPanels/LightPanel
 */
