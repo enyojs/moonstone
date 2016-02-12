@@ -109,5 +109,14 @@ module.exports = kind({
 			Spotlight.spot(fv);
 			return true;
 		}
+	},
+	isVisibleChild : function(control){
+		var controls = this.orderedChildren.slice(this.firstFullyVisibleI, this.lastFullyVisibleI + 1);
+		for(var i=0;i<controls.length;i++){			
+			if( control.isDescendantOf(controls[i]) ){
+				return true;
+			}
+		}
+		return false;
 	}
 });
