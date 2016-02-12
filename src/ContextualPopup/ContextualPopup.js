@@ -209,6 +209,13 @@ module.exports = kind(
 	/**
 	* @private
 	*/
+	observers: [
+		{method: 'updateScrim', path: [ 'modal', 'spotlightModal', 'floating', 'scrim', 'scrimWhenModal' ]}
+	],
+
+	/**
+	* @private
+	*/
 	tools: [
 		{name: 'client', kind: Control, classes: 'moon-neutral moon-contextual-popup-client'},
 		{name: 'closeButton', kind: IconButton, icon: 'closex', classes: 'moon-popup-close', ontap: 'closePopup', backgroundOpacity: 'transparent', accessibilityLabel: $L('Close'), tabIndex: -1, spotlight: false}
@@ -538,18 +545,37 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	showHideScrim: function (inShow) {
+	updateScrim: function (old, value, source) {
+		if (this._updateScrimMutex) return;
+		this._updateScrimMutex = true;
+
+		// We sync modal and spotlightModal here because binding doesn't guarantee sequence
+		// when it is used with observers.
+		if (source == 'modal') this.set('spotlightModal', this.modal);
+		if (source == 'spotlightModal') this.set('modal', this.spotlightModal);
+		this.showHideScrim(this.showing);
+
+		this._updateScrimMutex = false;
+	},
+
+	/**
+	* @private
+	*/
+	showHideScrim: function (show) {
 		if (this.floating && (this.scrim || (this.modal && this.scrimWhenModal))) {
-			var scrim = this.getScrim();
-			if (inShow && this.modal && this.scrimWhenModal) {
+			this._scrim = this.getScrim();
+			if (show) {
 				// move scrim to just under the popup to obscure rest of screen
 				var i = this.getScrimZIndex();
 				this._scrimZ = i;
-				scrim.showAtZIndex(i);
+				this._scrim.showAtZIndex(i);
 			} else {
-				scrim.hideAtZIndex(this._scrimZ);
+				this._scrim.hideAtZIndex(this._scrimZ);
 			}
-			util.call(scrim, 'addRemoveClass', [this.scrimClassName, scrim.showing]);
+			util.call(scrim, 'addRemoveClass', [this.scrimClassName, this._scrim.showing]);
+		} else {
+			// clean up scrim here when showHideScrim is not called from showingChanged
+			this._scrim && this._scrim.hideAtZIndex(this._scrimZ);
 		}
 	},
 
@@ -568,10 +594,10 @@ module.exports = kind(
 		// show a transparent scrim for modal popups if
 		// {@link module:moonstone/ContextualPopup~ContextualPopup#scrimWhenModal} is `true`, else show a
 		// regular scrim.
-		if (this.modal && this.scrimWhenModal) {
+		if (this.modal && this.scrimWhenModal && !this.scrim) {
 			return Scrim.scrimTransparent.make();
 		}
-		return Scrim.make();
+		return Scrim.scrim.make();
 	},
 
 	/**
@@ -580,7 +606,7 @@ module.exports = kind(
 	showingChanged: function () {
 		Popup.prototype.showingChanged.apply(this, arguments);
 		this.alterDirection();
-		this.showHideScrim(this.showing);
+		//this.showHideScrim(this.showing);
 
 		if (this.allowBackKey) {
 			if (this.showing) {
