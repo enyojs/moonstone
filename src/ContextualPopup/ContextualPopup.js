@@ -606,7 +606,6 @@ module.exports = kind(
 	showingChanged: function () {
 		Popup.prototype.showingChanged.apply(this, arguments);
 		this.alterDirection();
-		//this.showHideScrim(this.showing);
 
 		if (this.allowBackKey) {
 			if (this.showing) {
