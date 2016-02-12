@@ -229,6 +229,18 @@ module.exports = kind(
 	initComponents: function () {
 		this.createChrome(this.tools);
 		Popup.prototype.initComponents.apply(this, arguments);
+		this.syncProperties();
+	},
+
+	/**
+	* Sync spotlightModal and modal properties on creation time.
+	*
+	* @private
+	*/
+	syncProperties: function () {
+		if (this.modal == this.spotlightModal) return;
+		if (this.hasOwnProperty('spotlightModal')) this.modal = this.spotlightModal;
+		if (this.hasOwnProperty('modal')) this.spotlightModal = this.modal;
 	},
 
 	/**
