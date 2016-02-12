@@ -572,7 +572,7 @@ module.exports = kind(
 			} else {
 				this._scrim.hideAtZIndex(this._scrimZ);
 			}
-			util.call(scrim, 'addRemoveClass', [this.scrimClassName, this._scrim.showing]);
+			util.call(this._scrim, 'addRemoveClass', [this.scrimClassName, this._scrim.showing]);
 		} else {
 			// clean up scrim here when showHideScrim is not called from showingChanged
 			this._scrim && this._scrim.hideAtZIndex(this._scrimZ);
