@@ -1,10 +1,11 @@
 /**
-* Contains the declaration for the {@link module:moonstone/LightPanels/LightPanel~LightPanel} kind.
+* Contains the declaration for the {@link module:moonstone/LightPanels~LightPanel} kind.
 *
 * Note: LightPanel is exported from {@link module:moonstone/LightPanels}. This module should not be
 * required directly.
 * @wip
-* @module moonstone/LightPanels/LightPanel
+* @ignore
+* @module moonstone/LightPanels
 */
 
 var
@@ -23,13 +24,14 @@ var
 * between child components.
 *
 * @class LightPanel
-* @extends module:enyo/Control~Control
+* @name module:moonstone/LightPanels~LightPanel
+* @extends module:enyo/LightPanels~LightPanel
 * @wip
 * @ui
 * @public
 */
 module.exports = kind(
-	/** @lends module:moonstone/LightPanels/LightPanel~LightPanel.prototype */ {
+	/** @lends module:moonstone/LightPanels~LightPanel.prototype */ {
 
 	/**
 	* @private
@@ -224,7 +226,7 @@ module.exports = kind(
 	/**
 	* This overridable (extendable) method is called when the client area has been rendered. This
 	* can be used to perform any actions that should occur once the client components, for example,
-	* of the {@link module:moonstone/LightPanels/LightPanel~LightPanel} have been created and rendered, such as custom focusing logic.
+	* of the {@link module:moonstone/LightPanels~LightPanel} have been created and rendered, such as custom focusing logic.
 	*
 	* @public
 	*/
