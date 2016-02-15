@@ -92,6 +92,10 @@ module.exports = kind(
 
 });
 
+/**
+* The {@link module:moonstone/LightPanels~LightPanel} kind export.
+* @public
+*/
 module.exports.Panel = LightPanel;
 module.exports.Direction = LightPanels.Direction;
 module.exports.Orientation = LightPanels.Orientation;

@@ -386,7 +386,7 @@ module.exports = kind(
 	},
 
 	/**
-	* Options for the [pushPanels()]{@link module:moonstone/Panels~Panels.pushPanels} method.
+	* Options for the [pushPanels()]{@link module:moonstone/Panels~Panels#pushPanels} method.
 	*
 	* @typedef {Object} module:moonstone/Panels~Panels~PushPanelsOptions
 	* @property {Number} targetIndex - The panel index number to immediately switch to. Leaving

@@ -26,7 +26,7 @@ var
 
 /**
 * {@link module:moonstone/Drawers~Drawers} is a container kind designed to hold
-* a set of {@link module:moonstone/Drawers~Drawer} objects and client content.
+* a set of {@link module:moonstone/Drawers/Drawer~Drawer} objects and client content.
 * The [drawers]{@link module:moonstone/Drawers~Drawers#drawers} property accepts
 * an array of Drawer controls. The associated handles are positioned in their
 * own small drawer, centered at the top of the "dresser" (the region containing
@@ -98,7 +98,7 @@ module.exports = kind(
 	published: {
 
 		/**
-		* Populate with an array of {@link module:moonstone/Drawers~Drawer} components.
+		* Populate with an array of {@link module:moonstone/Drawers/Drawer~Drawer} components.
 		*
 		* @type {Object[]}
 		* @default null

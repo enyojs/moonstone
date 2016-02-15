@@ -1,6 +1,10 @@
 /**
 * Contains the declaration for the {@link module:moonstone/LightPanels~LightPanel} kind.
+*
+* Note: LightPanel is exported from {@link module:moonstone/LightPanels}. This module should not be
+* required directly.
 * @wip
+* @ignore
 * @module moonstone/LightPanels
 */
 
@@ -20,7 +24,8 @@ var
 * between child components.
 *
 * @class LightPanel
-* @extends module:enyo/Control~Control
+* @name module:moonstone/LightPanels~LightPanel
+* @extends module:enyo/LightPanels~LightPanel
 * @wip
 * @ui
 * @public

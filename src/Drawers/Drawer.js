@@ -1,8 +1,8 @@
 require('moonstone');
 
 /**
-* Contains the declaration for the {@link module:moonstone/Drawers~Drawer} kind.
-* @module moonstone/Drawers
+* Contains the declaration for the {@link module:moonstone/Drawers/Drawer~Drawer} kind.
+* @module moonstone/Drawers/Drawer
 */
 
 var
@@ -26,7 +26,7 @@ var
 * Fires when either the main drawer or the control drawer is activated. No event-specific
 * data is sent with this event.
 *
-* @event module:moonstone/Drawers~Drawer#onActivate
+* @event module:moonstone/Drawers/Drawer~Drawer#onActivate
 * @type {Object}
 * @public
 */
@@ -35,7 +35,7 @@ var
 * Fires when either the main drawer or the control drawer is deactivated. No event-specific
 * data is sent with this event.
 *
-* @event module:moonstone/Drawers~Drawer#onDeactivate
+* @event module:moonstone/Drawers/Drawer~Drawer#onDeactivate
 * @type {Object}
 * @public
 */
@@ -44,25 +44,25 @@ var
 * Fires when either the main drawer or the control drawer completes it animation. No event-specific
 * data is sent with this event.
 *
-* @event module:moonstone/Drawers~Drawer#onDrawerAnimationEnd
+* @event module:moonstone/Drawers/Drawer~Drawer#onDrawerAnimationEnd
 * @type {Object}
 * @public
 */
 
 /**
-* {@link module:moonstone/Drawers~Drawer}, a control designed for use with
+* {@link module:moonstone/Drawers/Drawer~Drawer}, a control designed for use with
 * {@link module:moonstone/Drawers~Drawers}, consists of two drawers and a handle.
 * The main drawer is populated with any child components that are specified in
 * the constructor; the optional second drawer (control drawer) is populated
 * with components passed into the
-* [controlDrawerComponents]{@link module:moonstone/Drawers~Drawer#controlDrawerComponents}
+* [controlDrawerComponents]{@link module:moonstone/Drawers/Drawer~Drawer#controlDrawerComponents}
 * property.
 *
 * If the second drawer has no components, the main drawer will take up the full
 * height of the containing view; otherwise, its height will be equal to the
 * height of the containing view minus the height of the `controlDrawerComponents`.
 *
-* A call to [toggleDrawer()]{@link module:moonstone/Drawers~Drawer#toggleDrawer}
+* A call to [toggleDrawer()]{@link module:moonstone/Drawers/Drawer~Drawer#toggleDrawer}
 * will open or close the control drawer if `controlDrawerComponents` is
 * non-empty; otherwise, it will open or close the main drawer.
 *
@@ -92,7 +92,7 @@ var
 * @public
 */
 module.exports = kind(
-	/** @lends module:moonstone/Drawers~Drawer.prototype */ {
+	/** @lends module:moonstone/Drawers/Drawer~Drawer.prototype */ {
 
 	/**
 	* @private
@@ -165,17 +165,17 @@ module.exports = kind(
 	events: {
 
 		/**
-		* {@link module:moonstone/Drawers~Drawer#onActivate}
+		* {@link module:moonstone/Drawers/Drawer~Drawer#onActivate}
 		*/
 		onActivate: '',
 
 		/**
-		* {@link module:moonstone/Drawers~Drawer#onDeactivate}
+		* {@link module:moonstone/Drawers/Drawer~Drawer#onDeactivate}
 		*/
 		onDeactivate: '',
 
 		/**
-		* {@link module:moonstone/Drawers~Drawer#onDrawerAnimationEnd}
+		* {@link module:moonstone/Drawers/Drawer~Drawer#onDrawerAnimationEnd}
 		*/
 		onDrawerAnimationEnd: ''
 	},
@@ -215,7 +215,7 @@ module.exports = kind(
 	},
 
 	/**
-	* If [controlDrawerComponents]{@link module:moonstone/Drawers~Drawer#controlDrawerComponents}
+	* If [controlDrawerComponents]{@link module:moonstone/Drawers/Drawer~Drawer#controlDrawerComponents}
 	* is non-empty, toggles the visibility state of the control drawer; otherwise,
 	* toggles the visibility state of the main drawer.
 	*
@@ -231,8 +231,8 @@ module.exports = kind(
 	},
 
 	/**
-	* @fires module:moonstone/Drawers~Drawer#onActivate
-	* @fires module:moonstone/Drawers~Drawer#onDeactivate
+	* @fires module:moonstone/Drawers/Drawer~Drawer#onActivate
+	* @fires module:moonstone/Drawers/Drawer~Drawer#onDeactivate
 	* @private
 	*/
 	openChanged: function () {
@@ -251,8 +251,8 @@ module.exports = kind(
 	},
 
 	/**
-	* @fires module:moonstone/Drawers~Drawer#onActivate
-	* @fires module:moonstone/Drawers~Drawer#onDeactivate
+	* @fires module:moonstone/Drawers/Drawer~Drawer#onActivate
+	* @fires module:moonstone/Drawers/Drawer~Drawer#onDeactivate
 	* @private
 	*/
 	controlsOpenChanged: function () {
@@ -322,8 +322,8 @@ module.exports = kind(
 	},
 
 	/**
-	* Called after {@link module:moonstone/Drawers~Drawer#open} or
-	* {@link moonstone/Drawers~Drawer#controlsOpen) changes to animate the
+	* Called after {@link module:moonstone/Drawers/Drawer~Drawer#open} or
+	* {@link moonstone/Drawers/Drawer~Drawer#controlsOpen) changes to animate the
 	* drawer's position.
 	*
 	* @private
