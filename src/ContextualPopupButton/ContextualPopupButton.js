@@ -2,6 +2,7 @@ require('moonstone');
 
 /**
 * Contains the declaration for the {@link module:moonstone/ContextualPopupButton~ContextualPopupButton} kind.
+* @deprecated Since 2.6
 * @module moonstone/ContextualPopupButton
 */
 
