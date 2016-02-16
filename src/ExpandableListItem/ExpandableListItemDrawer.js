@@ -1,6 +1,6 @@
 /**
-* Contains the declaration for the {@link module:moonstone/ExpandableListItem~ExpandableListItemDrawer} kind.
-* @module moonstone/ExpandableListItem
+* Contains the declaration for the {@link module:moonstone/ExpandableListItem/ExpandableListItemDrawer~ExpandableListItemDrawer} kind.
+* @module moonstone/ExpandableListItem/ExpandableListItemDrawer
 */
 
 var
@@ -17,7 +17,7 @@ var
 * @private
 */
 module.exports = kind(
-	/** @lends module:moonstone/ExpandableListItem~ExpandableListItemDrawer.prototype */ {
+	/** @lends module:moonstone/ExpandableListItem/ExpandableListItemDrawer~ExpandableListItemDrawer.prototype */ {
 
 	/**
 	* @private

@@ -328,7 +328,6 @@ module.exports.Support = {
 * owned by the binding owner's instance owner.
 *
 * @class OverlayComponentsBinding
-* @module moonstone/Overlay
 * @public
 */
 module.exports.ComponentsBinding = kind({

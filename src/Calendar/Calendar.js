@@ -2,6 +2,7 @@ require('moonstone');
 
 /**
 * Contains the declaration for the {@link module:moonstone/Calendar~Calendar} kind.
+* @deprecated Since 2.6
 * @module moonstone/Calendar
 */
 
@@ -45,6 +46,7 @@ var
 * @class CalendarDate
 * @extends module:enyo/Control~Control
 * @ui
+* @deprecated Since 2.6
 * @public
 */
 var CalendarDate = kind(
@@ -186,9 +188,10 @@ var CalendarDate = kind(
 * control with support for internationalized months. This picker is used by the
 * monthly calendar kind {@link module:moonstone/Calendar~Calendar}.
 *
-* @ui
 * @class SimpleMonthPicker
 * @extends module:moonstone/SimplePicker~SimplePicker
+* @ui
+* @deprecated Since 2.6
 * @public
 */
 var SimpleMonthPicker = kind(
@@ -300,7 +303,7 @@ var SimpleMonthPicker = kind(
 * 	{kind: Calendar, content: 'Calendar Title'}
 * ```
 *
-* @deprecated
+* @deprecated Since 2.6
 * @class Calendar
 * @ui
 * @public

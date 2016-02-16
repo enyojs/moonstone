@@ -1,7 +1,7 @@
 /**
 * Mixin that provides accessibility support for {@link module:moonstone/DateTimePickerBase~DateTimePickerBase}.
 *
-* @module moonstone/DateTimePickerBase
+* @module moonstone/DateTimePickerBase/DateTimePickerBaseAccessibilitySupport
 */
 
 var
