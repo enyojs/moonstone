@@ -151,7 +151,7 @@ module.exports = kind(
 	* @private
 	*/
 	tools: [
-		{name: 'closeButton', kind: IconButton, icon: 'closex', classes: 'moon-popup-close', ontap: 'closePopup', accessibilityLabel: $L('Close'), backgroundOpacity: 'translucent', showing: false},
+		{name: 'closeButton', kind: IconButton, icon: 'closex', classes: 'moon-popup-close', ontap: 'closePopup', accessibilityLabel: $L('Close'), backgroundOpacity: 'transparent', showing: false},
 		{name: 'titleWrapper', classes: 'moon-dialog-title-wrapper', components: [
 			{name: 'title', kind: MarqueeText, classes: 'moon-popup-header-text moon-dialog-title'},
 			{name: 'subTitle', kind: Control, classes: 'moon-dialog-sub-title'}
