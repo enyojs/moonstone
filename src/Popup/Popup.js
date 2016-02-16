@@ -140,26 +140,22 @@ module.exports = kind(
 		/**
 		* If `true`, {@glossary Spotlight} (focus) cannot leave the area of the popup unless the
 		* popup is explicitly closed; if `false`, spotlight may be moved anywhere within the
-		* viewport.  Note that setting the value of `spotlightModal` will have no effect on
-		* spotlight behavior unless the [autoDismiss]{@link module:enyo/Popup~Popup#autoDismiss} property
-		* inherited from {@link module:enyo/Popup~Popup} is set to `false` (default is `true`).
+		* viewport.
+		*
+		* @type {Boolean}
+		* @default true
+		* @public
+		*/
+		spotlightModal: true,
+
+		/**
+		* When `true`, the close button is shown; when `false`, it is hidden.
 		*
 		* @type {Boolean}
 		* @default false
 		* @public
 		*/
-		spotlightModal: false,
-
-		/**
-		* When `false`, the close button is hidden; when `true`, it is shown. When
-		* `showCloseButton` is set to `'auto'` (the default), the close button is shown when
-		* [spotlightModal]{@link module:moonstone/Popup~Popup#spotlightModal} is `true`.
-		*
-		* @type {String}
-		* @default 'auto'
-		* @public
-		*/
-		showCloseButton: 'auto',
+		showCloseButton: false,
 
 		/**
 		* When `true`, popups will animate on/off screen.
@@ -208,8 +204,9 @@ module.exports = kind(
 	* @private
 	*/
 	create: function () {
-		this.inherited(arguments);
+		Popup.prototype.create.apply(this, arguments);
 		this.animateChanged();
+		this.showCloseButtonChanged();
 	},
 
 	/**
@@ -319,40 +316,19 @@ module.exports = kind(
 	},
 
 	/**
-	* Determines whether to display close button.
-	*
-	* @private
-	*/
-	configCloseButton: function() {
-		if (!this.$.closeButton) { return; }
-
-		var shouldShow = (this.showCloseButton === true || (this.spotlightModal === true && this.showCloseButton !== false));
-
-		if (shouldShow != this.$.closeButton.getShowing()) {
-			this.$.closeButton.setShowing(shouldShow);
-			this.addRemoveClass('reserve-close', shouldShow);
-			if (this.generated) {
-				this.resize();
-			}
-		}
-	},
-
-	/**
-	* Called if [spotlightModal]{@link module:moonstone/Popup~Popup#spotlightModal} changes.
-	*
-	* @private
-	*/
-	spotlightModalChanged: function() {
-		this.configCloseButton();
-	},
-
-	/**
-	* Called if [showCloseButton]{@link module:moonstone/Popup~Popup#showCloseButton} changes.
+	* Called if [showCloseButton]{@link module:moonstone/Popup~Popup#showCloseButton} changes and
+	* determines whether to display close button.
 	*
 	* @private
 	*/
 	showCloseButtonChanged: function() {
-		this.configCloseButton();
+		if (this.showCloseButton != this.$.closeButton.get('showing')) {
+			this.$.closeButton.set('showing', this.showCloseButton);
+			this.addRemoveClass('reserve-close', this.showCloseButton);
+			if (this.generated) {
+				this.resize();
+			}
+		}
 	},
 
 	/**
@@ -411,7 +387,6 @@ module.exports = kind(
 		}
 
 		if (this.showing) {
-			this.configCloseButton();
 			// Spot ourselves, unless we're already spotted
 			var current = Spotlight.getCurrent();
 			if (!current || !current.isDescendantOf(this)) {
