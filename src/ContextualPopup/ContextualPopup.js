@@ -119,6 +119,11 @@ module.exports = kind(
 
 	/**
 	* @private
+	*/
+	modal: true,
+
+	/**
+	* @private
 	* @lends module:moonstone/ContextualPopup~ContextualPopup.prototype
 	*/
 	published: {
@@ -134,15 +139,13 @@ module.exports = kind(
 		spotlightModal: false,
 
 		/**
-		* If `false`, the close button is hidden; if `true`, it is shown. When this
-		* property is set to `'auto'` (the default), the close button is shown when
-		* [spotlightModal]{@link module:moonstone/ContextualPopup~ContextualPopup#spotlightModal} is `true`.
+		* When `true`, the close button is shown; when `false`, it is hidden.
 		*
-		* @type {String}
-		* @default 'auto'
+		* @type {Boolean}
+		* @default false
 		* @public
 		*/
-		showCloseButton: 'auto'
+		showCloseButton: false
 	},
 
 	/**
@@ -225,6 +228,14 @@ module.exports = kind(
 	},
 
 	/**
+	* @private
+	*/
+	create: function () {
+		Popup.prototype.create.apply(this, arguments);
+		this.showCloseButtonChanged();
+	},
+
+	/**
 	* Renders the contextual popup.
 	*
 	* @private
@@ -262,7 +273,6 @@ module.exports = kind(
 		if (n) {
 			this.activatorOffset = this.getPageOffset(n);
 		}
-		this.configCloseButton();
 		this.show();
 		if (Spotlight.isSpottable(this)) {
 			Spotlight.spot(this);
@@ -437,43 +447,17 @@ module.exports = kind(
 	},
 
 	/**
-	* Determines whether to display close button.
-	*
-	* @private
-	*/
-	configCloseButton: function () {
-		if (this.showCloseButton === true || (this.spotlightModal && this.showCloseButton !== false)) {
-			this.$.closeButton.show();
-			this.$.closeButton.spotlight = true;
-			this.addClass('reserve-close');
-		} else {
-			this.$.closeButton.hide();
-			this.$.closeButton.spotlight = false;
-			this.removeClass('reserve-close');
-		}
-	},
-
-	/**
 	* @private
 	*/
 	contentChanged: function () {
-		this.$.client.setContent(this.content);
+		this.$.client.set('content', this.content);
 	},
 
 	/**
 	* @private
 	*/
 	allowHtmlChanged: function () {
-		this.$.client.setAllowHtml(this.allowHtml);
-	},
-
-	/**
-	* Called when [spotlightModal]{@link module:moonstone/ContextualPopup~ContextualPopup#spotlightModal} changes.
-	*
-	* @private
-	*/
-	spotlightModalChanged: function () {
-		this.configCloseButton();
+		this.$.client.set('allowHtml', this.allowHtml);
 	},
 
 	/**
@@ -482,7 +466,9 @@ module.exports = kind(
 	* @private
 	*/
 	showCloseButtonChanged: function () {
-		this.configCloseButton();
+		this.$.closeButton.set('showing', this.showCloseButton);
+		this.$.closeButton.spotlight = this.showCloseButton;
+		this.addRemoveClass('reserve-close', this.showCloseButton);
 	},
 
 	/**
