@@ -1,34 +1,46 @@
 /* Dialog.css */
 .moon-dialog {
-	padding: 24px 42px 42px;
-}
-.moon-dialog-title {
-	line-height: 1.3em;
-	margin-bottom: 6px;
-}
-.moon-dialog-client-wrapper {
-	min-height: 108px;
-}
-.moon-dialog-content {
-	margin: 0 0 0;
-}
-.moon-dialog-divider {
-	padding-bottom: 0;
-	border-bottom-width: 3px;
-	margin: 18px 0 18px;
-}
-.moon-dialog-client {
-	padding: 24px 0 0;
-	float: right;
-}
-.moon-dialog-client > * {
-	margin-left: @moon-grid-gutter-width;
-	margin-right: 0;
-}
-.enyo-locale-right-to-left .moon-dialog-client {
-	float: left;
-}
-.enyo-locale-right-to-left .moon-dialog-client > * {
-	margin-left: 0;
-	margin-right: @moon-grid-gutter-width;
+	padding-bottom: 0; // Override popup, so our optional components won't be stuck with too much padding
+
+	.moon-dialog-title-wrapper,
+	.moon-dialog-content,
+	.moon-dialog-client {
+		margin-bottom: @moon-popup-padding;
+	}
+
+	.moon-dialog-title-wrapper {
+		&.use-divider {
+			padding-bottom: 24px;
+			border-bottom-width: 1px;
+			border-bottom-style: solid;
+		}
+	}
+
+	.moon-dialog-title {
+		line-height: @moon-small-header-line-height;
+	}
+
+	// Client is the button area
+	.moon-dialog-client {
+		text-align: end;
+	}
+
+	&.reserve-close {
+		.padding-start-end(@moon-popup-padding, @moon-popup-padding);
+
+		.moon-popup-close {
+			top: @moon-popup-padding;
+			right: @moon-popup-padding;
+
+			.enyo-locale-right-to-left & {
+				right: initial;
+				left: @moon-popup-padding;
+			}
+		}
+
+		.moon-dialog-title-wrapper,
+		.moon-dialog-content {
+			.margin-start-end(0, (@moon-spotlight-outset + @moon-icon-button-small-size));
+		}
+	}
 }

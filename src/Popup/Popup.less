@@ -3,7 +3,7 @@
 	position: absolute;
 	bottom: 0;
 	width: 100%;
-	padding: @moon-spotlight-outset * 4;
+	padding: @moon-popup-padding;
 	box-sizing: border-box;
 	overflow: hidden;
 	-webkit-transform: translateY(100%) translateZ(0);
@@ -22,7 +22,7 @@
 	}
 
 	&.reserve-close {
-		padding-right: @moon-icon-button-small-size + @moon-spotlight-outset;
+		padding-right: @moon-spotlight-outset + @moon-icon-button-small-size + @moon-spotlight-outset;
 	}
 }
 
