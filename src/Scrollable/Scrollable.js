@@ -136,8 +136,8 @@ var Scrollable = {
 				// default, we short-circuit the action because the child is
 				// potentially not in view, and focusing would cause it to
 				// scroll it into view for no reason apparent to the user.
-				// Instead, we should focus a child we know to be visible.				
-				if (this.eventIsFromScrollingChild(event) && !this.isVisibleChild(event.originator) ) {
+				// Instead, we should focus a child we know to be visible.
+				if (this.eventIsFromScrollingChild(event) && !this.eventIsFromVisibleChild(event)) {
 					return this.spotFirstVisibleChild();
 				}
 				break;
@@ -145,7 +145,14 @@ var Scrollable = {
 				return false;
 		}
 	},
-	isVisibleChild: kind.inherit(function (sup) {
+
+	/**
+	* This check is factored out of `filterFocus()` so that the logic can be
+	* overridden by the kind that includes the `Scrollable` mixin.
+	*
+	* @private
+	*/
+	eventIsFromVisibleChild: kind.inherit(function (sup) {
 		return function (event) {
 			if (sup === utils.nop) {
 				return false;
