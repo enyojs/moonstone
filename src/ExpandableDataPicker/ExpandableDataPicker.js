@@ -70,6 +70,7 @@ module.exports = kind(
 	*/
 	collectionChanged: function () {
 		this.$.list.set('collection', this.collection);
+		if (this.collection && !this.$.list.hasNode()) this.$.list.refresh();
 	},
 	
 	/**
