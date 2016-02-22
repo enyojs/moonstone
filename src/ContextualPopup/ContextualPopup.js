@@ -299,12 +299,11 @@ module.exports = kind(
 	getPageOffset: function (inNode) {
 		// getBoundingClientRect returns top/left values which are relative to the viewport and
 		// not absolute
-		var r = inNode.getBoundingClientRect();
-
-		var pageYOffset = (window.pageYOffset === undefined) ? document.documentElement.scrollTop : window.pageYOffset;
-		var pageXOffset = (window.pageXOffset === undefined) ? document.documentElement.scrollLeft : window.pageXOffset;
-		var rHeight = (r.height === undefined) ? (r.bottom - r.top) : r.height;
-		var rWidth = (r.width === undefined) ? (r.right - r.left) : r.width;
+		var r = inNode.getBoundingClientRect(),
+			pageYOffset = window.pageYOffset,
+			pageXOffset = window.pageXOffset,
+			rHeight = r.height,
+			rWidth = r.width;
 
 		return {top: r.top + pageYOffset, left: r.left + pageXOffset, height: rHeight, width: rWidth, bottom: r.top + pageYOffset + rHeight, right: r.left + pageXOffset + rWidth};
 	},

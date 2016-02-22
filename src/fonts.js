@@ -7,8 +7,7 @@
 */
 
 var
-	i18n = require('enyo/i18n'),
-	platform = require('enyo/platform');
+	i18n = require('enyo/i18n');
 
 var
 	Locale = require('enyo-ilib/Locale');
@@ -143,12 +142,7 @@ function funLocaleSpecificFonts () {
 	if (!styleElem) {
 		styleElem = document.createElement('style');
 		styleElem.setAttribute('id', styleId);
-		if (platform.ie === 8) {
-			// ENYO-3944: Using getElementsByTagName('head') for IE8 Sampler support
-			document.getElementsByTagName('head')[0].appendChild(styleElem);
-		} else {
-			document.head.appendChild(styleElem);
-		}
+		document.head.appendChild(styleElem);
 	}
 
 	// Build all the fonts so they could be explicitly called
@@ -173,10 +167,7 @@ function funLocaleSpecificFonts () {
 		fontDefinitionCss+= this.buildFontSet('zh-TW', true);
 	}
 
-	// ENYO-3944: IE8 Sampler support - IE8 does not allow innerHTML modification of <style> elements
-	if (platform.ie !== 8) {
-		styleElem.innerHTML = fontDefinitionCss;
-	}
+	styleElem.innerHTML = fontDefinitionCss;
 }
 
 i18n.updateLocale.extend(function (sup) {

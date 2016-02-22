@@ -88,18 +88,6 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	handlers: {
-
-		/**
-		* prevent double onchange bubble in IE
-		* @private
-		*/
-		onclick: ''
-	},
-
-	/**
-	* @private
-	*/
 	components: [
 		{name: 'checkboxIcon', kind: Icon, accessibilityDisabled: true, icon: 'check'}
 	],
