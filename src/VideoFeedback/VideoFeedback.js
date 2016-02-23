@@ -1,9 +1,9 @@
-require('moonstone');
-
 /**
 * Contains the declaration for the {@link module:moonstone/VideoFeedback~VideoFeedback} kind.
 * @module moonstone/VideoFeedback
 */
+
+require('moonstone');
 
 var
 	kind = require('enyo/kind'),
@@ -12,11 +12,7 @@ var
 	Control = require('enyo/Control');
 
 var
-	DurFmt = require('enyo-ilib/DurationFmt');
-
-var
-	$L = require('../i18n'),
-	Icon = require('../Icon');
+	Icon = require('moonstone/Icon');
 
 /**
 * {@link module:moonstone/VideoFeedback~VideoFeedback} is a control used by {@link module:moonstone/VideoPlayer~VideoPlayer} to display
@@ -148,14 +144,6 @@ module.exports = kind(
 	],
 
 	/**
-	* @private
-	*/
-	create: function() {
-		Control.prototype.create.apply(this, arguments);
-		this.df = new DurFmt({length: 'medium', useNative: false});
-	},
-
-	/**
 	* Updates [IconButton]{@link module:moonstone/IconButton~IconButton} image and [Slider]{@link module:moonstone/Slider~Slider}
 	* message with current state and playback rate when any of the playback controls are
 	* triggered.
@@ -181,7 +169,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	retriveImgOrIconPath:function(icon){
+	retrieveImgOrIconPath:function(icon){
 		return this.checkIconType(icon) == 'image' ? this._imagePath + icon : icon;
 	},
 
@@ -206,61 +194,59 @@ module.exports = kind(
 		msg = msg || '';
 		params = params || {};
 
-		if (msg !== '') { this.$.feedText.show(); }
-
 		switch (msg) {
 		case 'Play':
-			msg = $L('PLAY'); // i18n "PLAY" feedback text in moon.VideoPlayer widget, should be translated to ALL CAPS in all languages
-			rightSrc = this.retriveImgOrIconPath(this._playImg);
+			msg = '';
+			rightSrc = this.retrieveImgOrIconPath(this._playImg);
 			break;
 
 		case 'Pause':
-			msg = $L('PAUSE'); // i18n "PAUSE" feedback text in moon.VideoPlayer widget, should be translated to ALL CAPS in all languages
-			rightSrc = this.retriveImgOrIconPath(this._pauseImg);
+			msg = '';
+			rightSrc = this.retrieveImgOrIconPath(this._pauseImg);
 			break;
 
 		case 'Rewind':
 			msg = Math.abs(params.playbackRate) + 'x';
-			leftSrc = this.retriveImgOrIconPath(this._rewindImg);
+			leftSrc = this.retrieveImgOrIconPath(this._rewindImg);
 			break;
 
 		case 'Slowrewind':
-			msg = params.playbackRate + 'x';
-			leftSrc = this.retriveImgOrIconPath(this._pauseBackImg);
+			msg = params.playbackRate.split('-')[1] + 'x';
+			leftSrc = this.retrieveImgOrIconPath(this._pauseBackImg);
 			break;
 
 		case 'Fastforward':
-			msg = Math.abs(params.playbackRate) + 'x';
-			rightSrc = this.retriveImgOrIconPath(this._fastForwardImg);
+			msg = params.playbackRate + 'x';
+			rightSrc = this.retrieveImgOrIconPath(this._fastForwardImg);
 			break;
 
 		case 'Slowforward':
 			msg = params.playbackRate + 'x';
-			rightSrc = this.retriveImgOrIconPath(this._pauseForwardImg);
+			rightSrc = this.retrieveImgOrIconPath(this._pauseForwardImg);
 			break;
 
 		case 'JumpBackward':
-			msg = this.df.format({second: params.jumpSize});
-			leftSrc = this.retriveImgOrIconPath(this._pauseJumpBackImg);
+			msg = '';
+			leftSrc = this.retrieveImgOrIconPath(this._pauseJumpBackImg);
 			break;
 
 		case 'JumpForward':
-			msg = this.df.format({second: params.jumpSize});
-			rightSrc = this.retriveImgOrIconPath(this._pauseJumpForwardImg);
+			msg = '';
+			rightSrc = this.retrieveImgOrIconPath(this._pauseJumpForwardImg);
 			break;
 
 		case 'JumpToStart':
 			msg = '';
-			leftSrc = this.retriveImgOrIconPath(this._pauseJumpBackImg);
+			leftSrc = this.retrieveImgOrIconPath(this._pauseJumpBackImg);
 			break;
 
 		case 'JumpToEnd':
 			msg = '';
-			rightSrc = this.retriveImgOrIconPath(this._pauseJumpForwardImg);
+			rightSrc = this.retrieveImgOrIconPath(this._pauseJumpForwardImg);
 			break;
 
 		case 'Stop':
-			msg = $L('STOP'); // i18n "STOP" feedback text in moon.VideoPlayer widget, should be translated to ALL CAPS in all languages
+			msg = '';
 			rightSrc = '';
 			break;
 
@@ -272,27 +258,22 @@ module.exports = kind(
 		}
 
 		// Don't show feedback if we are showing custom feedback already, unless this is a new custom message
-		if (!customMessage && this._showingFeedback) {
-			return;
-		}
-
+		if (!customMessage && this._showingFeedback) return;
+		// If msg is '', we do not need to show
+		this.$.feedText.set('showing', !!msg);
 		// Set content as _inMessage_
 		this.$.feedText.setContent( this.get('uppercase') ? util.toUpperCase(msg) : msg);
 
 		// Show output controls when video player is not preview mode
-		if (!preview) {
-			this.showFeedback();
-		}
+		if (!preview) this.showFeedback();
 
 		// Show icons as appropriate
 		this.updateIcons(leftSrc, rightSrc);
 
 		//* Don't set up hide timer if _inPersistShowing_ is true
-		if (persist) {
-			this.resetAutoTimer();
-		} else {
-			this.setAutoTimer();
-		}
+		if (persist) this.resetAutoTimer();
+		else this.setAutoTimer();
+
 		this.inPersistShowing = persist;
 	},
 
@@ -355,6 +336,7 @@ module.exports = kind(
 		if (leftSrc) {
 			this.$.leftIcon.show();
 			this.displayIconSrcOrFont(this.$.leftIcon, leftSrc);
+			this.$.leftIcon.addRemoveClass('moon-video-feedback-icon-only', !this.$.feedText.get('showing'));
 		} else {
 			this.$.leftIcon.hide();
 		}
@@ -362,9 +344,11 @@ module.exports = kind(
 		if (rightSrc) {
 			this.$.rightIcon.show();
 			this.displayIconSrcOrFont(this.$.rightIcon, rightSrc);
+			this.$.rightIcon.addRemoveClass('moon-video-feedback-icon-only', !this.$.feedText.get('showing'));
 		} else {
 			this.$.rightIcon.hide();
 		}
+
 	},
 
 	/**
