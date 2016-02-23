@@ -275,9 +275,7 @@ module.exports = kind(
 	*/
 	handlers: {
 		oninput: 'handleInput',
-		onchange: 'handleChange',
-		onRequestCreateListActions: 'handleRequestCreateComponents',
-		onListActionOpenChanged: 'handleListActionOpenChanged'
+		onchange: 'handleChange'
 	},
 
 	/**
@@ -408,15 +406,6 @@ module.exports = kind(
 	*/
 	fullBleedBackgroundChanged: function () {
 		this.addRemoveClass('full-bleed', this.fullBleedBackground);
-	},
-
-	/**
-	* @private
-	*/
-	handleRequestCreateComponents: function (inSender, inEvent) {
-		this.controlParent = null;
-		this.createComponents(inEvent.components, {owner: inEvent.originator});
-		this.discoverControlParent();
 	},
 
 	/**
@@ -806,18 +795,5 @@ module.exports = kind(
 	*/
 	handleChange: function (inSender, inEvent) {
 		this.doInputHeaderChange({originalEvent: util.clone(inEvent, true)});
-	},
-
-
-	/**
-	* Enlarges listActionDrawer's height to large type's height.
-	*
-	* @private
-	*/
-	handleListActionOpenChanged: function (inSender, inEvent) {
-		if (!inEvent.open) {
-			return;
-		}
-		inEvent.originator.beforeOpenDrawer(this.standardHeight, this.get('type'));
 	}
 });
