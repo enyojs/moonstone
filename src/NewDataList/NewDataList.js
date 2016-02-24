@@ -72,7 +72,7 @@ module.exports = kind({
 	* Spotlight focused. Currently, setting `focus: true` forces the
 	* scroll behavior to be `instant`, meaning that the scroller will
 	* jump to the item (with no animation).
-	* 
+	*
 	* @see module:enyo/NewDataList~NewDataList.scrollToItem
 	* @param {number} index - The (zero-based) index of the item to scroll to
 	* @param {Object} opts - Scrolling options (see module:enyo/Scrollable~Scrollable.scrollTo)
@@ -109,5 +109,22 @@ module.exports = kind({
 			Spotlight.spot(fv);
 			return true;
 		}
+	},
+	/**
+	* Called by moonstone/Scrollable.filterFocus()
+	* @private
+	*/
+	eventIsFromVisibleChild: function (event) {
+		var control = event.originator,
+			controls = this.orderedChildren.slice(this.firstFullyVisibleI, this.lastFullyVisibleI + 1),
+			i;
+
+		for (i = 0; i < controls.length; i++) {
+			if (control.isDescendantOf(controls[i])) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 });
