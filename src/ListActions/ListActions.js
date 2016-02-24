@@ -286,6 +286,24 @@ var ListActions = ContextualPopupDecorator.kind({
 			mixins.push(ListActionActivationSupport);
 		}
 		return mixins;
+	},
+
+	/**
+	* @override
+	* @private
+	*/
+	popupShown: function() {
+		ContextualPopupDecorator.prototype.popupShown.apply(this,arguments);
+		this.bubble('onRequestMuteTooltip');
+	},
+
+	/**
+	* @override
+	* @private
+	*/
+	popupHidden: function() {
+		ContextualPopupDecorator.prototype.popupHidden.apply(this,arguments);
+		this.bubble('onRequestUnmuteTooltip');
 	}
 });
 
