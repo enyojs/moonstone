@@ -720,7 +720,6 @@ module.exports = kind(
 	animatorStep: function (sender) {
 		var	v = sender.value;
 
-		this.set('_isSliderAnimating', true);
 		this.updateValues(v);
 
 		this.sendChangingEvent({value: v});
@@ -736,7 +735,6 @@ module.exports = kind(
 			this._setValue(sender.value);
 			this.animatingTo = null;
 			this.doAnimateFinish(sender);
-			this.set('_isSliderAnimating', false);
 		}
 		return true;
 	},
@@ -966,14 +964,6 @@ module.exports = kind(
 	*/
 	accessibilityDisabled: false,
 
-
-	/**
-	* Distinguish Slider animation is ongoing or not
-	*
-	* @private
-	*/
-	_isSliderAnimating: false,
-
 	/**
 	* @private
 	*/
@@ -991,31 +981,18 @@ module.exports = kind(
 				this.$.buttonRight.set('accessibilityHint', $L('press ok button to change the value'));
 			}
 		}},
-		{path: ['accessibilityValueText'], method: function () {
-			this.resetAccessibilityProperties();
-			this.setAriaAttribute('aria-valuetext', this.accessibilityValueText);
-			if (this.enableJumpIncrement) {
-				this.$.slider.setAriaAttribute('aria-valuetext', this.accessibilityValueText);
-				this.$.buttonLeft.set('accessibilityLabel', this.accessibilityValueText);
-				this.$.buttonRight.set('accessibilityLabel', this.accessibilityValueText);
-			}
-		}},
-		{path: ['_isSliderAnimating', 'value', 'popup', '$.popupLabel.content', 'dragging'], method: 'ariaValue'}
+		// moonstone/ProgressBar observes accessibilityValueText and the popup label so this kind
+		// need only observe its unique properties for updating aria-valuetext
+		{path: ['value', 'dragging'], method: 'ariaValue'}
 	],
 
 	/**
 	* @private
 	*/
 	resetAccessibilityProperties: function () {
-		this.set('accessibilityRole', !this.enableJumpIncrement ? 'slider' : null);
+		this.set('accessibilityRole', !this.enableJumpIncrement ? 'spinbutton' : null);
 		this.set('accessibilityLive', null);
 		this.set('accessibilityHint', null);
-		this.setAriaAttribute('aria-valuetext', null);
-		this.setAriaAttribute('aria-valuenow', null);
-		if (this.enableJumpIncrement) {
-			this.$.slider.setAriaAttribute('aria-valuetext', null);
-			this.$.slider.setAriaAttribute('aria-valuenow', null);
-		}
 	},
 
 	/**
@@ -1025,19 +1002,21 @@ module.exports = kind(
 	* @private
 	*/
 	ariaValue: function () {
-		var attr = this.popup ? 'aria-valuetext' : 'aria-valuenow',
-			text = (this.popup && this.$.popupLabel && this.$.popupLabel.getContent())?
-					this.$.popupLabel.getContent() : this.value;
+		var value = this.$.animator.isAnimating() ? this.$.animator.endValue : this.value,
+			usePercent = this.popup && this.showPercentage && !this.popupContent,
+			text = this.accessibilityValueText ||
+					this.popup && this.popupContent ||
+					usePercent && this.calcPopupLabel(this.calcPercent(value)) ||
+					value;
 
-		if (!this.dragging && !this.accessibilityValueText && !this._isSliderAnimating) {
+		if (!this.dragging) {
 			this.resetAccessibilityProperties();
-			this.setAriaAttribute(attr, text);
+			this.setAriaAttribute('aria-valuetext', text);
 			if (this.enableJumpIncrement) {
-				this.$.slider.setAriaAttribute(attr, text);
+				this.$.slider.setAriaAttribute('aria-valuetext', text);
 				this.$.buttonLeft.set('accessibilityLabel', String(text));
 				this.$.buttonRight.set('accessibilityLabel', String(text));
 			}
 		}
-
 	}
 });
