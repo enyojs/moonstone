@@ -521,7 +521,7 @@ module.exports = kind(
 			// According to drawer is open or close or handleContainer state, drawers activator label is defined.
 			// In addition, if user add accessibilityLabel, label is determined with accessibilityLabel instead of default string.
 			// However, if user add only accessibilityHint, hint text is appended to default string.
-			var defaultLabel = (this._activated || this.$.handleContainer.getOpen()) ? $L('Close') : $L('Open'),
+			var defaultLabel = (this._activated || this.$.handleContainer.getOpen()) ? $L('Close drawer') : $L('Open drawer'),
 				prefix = this.accessibilityLabel || defaultLabel,
 				label = this.accessibilityHint && (prefix + ' ' + this.accessibilityHint) ||
 						prefix;

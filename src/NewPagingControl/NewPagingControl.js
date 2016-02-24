@@ -294,16 +294,16 @@ module.exports = kind(
 			if (this.spotted) {
 				switch(side) {
 					case 'top':
-						this.set('accessibilityLabel', $L('UP'));
+						this.set('accessibilityLabel', $L('scroll up'));
 						break;
 					case 'bottom':
-						this.set('accessibilityLabel', $L('DOWN'));
+						this.set('accessibilityLabel', $L('scroll down'));
 						break;
 					case 'left':
-						this.set('accessibilityLabel', $L('LEFT'));
+						this.set('accessibilityLabel', $L('scroll left'));
 						break;
 					case 'right':
-						this.set('accessibilityLabel', $L('RIGHT'));
+						this.set('accessibilityLabel', $L('scroll right'));
 						break;
 				}
 			}
