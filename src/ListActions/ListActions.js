@@ -632,10 +632,10 @@ var ListActions = module.exports = kind(
 	* @private
 	*/
 	drawerClosed: function (rendered) {
+		this.bubble('onRequestUnmuteTooltip');
 		if (this.generated && !rendered) {
 			Spotlight.spot(this.$.activator);
 		}
-		this.bubble('onRequestUnmuteTooltip');
 
 		if (!rendered) this.doHidden();
 	},
