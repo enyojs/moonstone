@@ -461,7 +461,7 @@ module.exports = kind(
 		if (this.animate) {
 			return this.showing;
 		} else {
-			Popup.prototype.getShowing.apply(this, arguments);
+			return Popup.prototype.getShowing.apply(this, arguments);
 		}
 	},
 
