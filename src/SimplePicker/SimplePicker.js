@@ -177,11 +177,11 @@ module.exports = kind(
 	* @private
 	*/
 	components: [
-		{name: 'buttonLeft',  kind: IconButton, backgroundOpacity: 'transparent', classes: 'moon-simple-picker-button left', icon:'arrowlargeleft', onSpotlightSelect: 'left', ondown: 'downLeft', onholdpulse:'left', defaultSpotlightDisappear: 'buttonRight', accessibilityHint: $L('press ok button to change the value')},
+		{name: 'buttonLeft',  kind: IconButton, backgroundOpacity: 'transparent', classes: 'moon-simple-picker-button left', icon:'arrowlargeleft', onSpotlightSelect: 'left', ondown: 'downLeft', onholdpulse:'left', defaultSpotlightDisappear: 'buttonRight', accessibilityHint: $L('press ok button to change the value'), accessibilityLabel: ' '}, // note: single space accessibilityLabel used to suppress icon in aria-label
 		{name: 'clientWrapper', kind: Control, classes:'moon-simple-picker-client-wrapper', components: [
 			{name: 'client', kind: Control, classes: 'moon-simple-picker-client', accessibilityRole: 'spinbutton'}
 		]},
-		{name: 'buttonRight', kind: IconButton, backgroundOpacity: 'transparent', classes: 'moon-simple-picker-button right', icon:'arrowlargeright', onSpotlightSelect: 'right', ondown: 'downRight', onholdpulse:'right', defaultSpotlightDisappear: 'buttonLeft', accessibilityHint: $L('press ok button to change the value')}
+		{name: 'buttonRight', kind: IconButton, backgroundOpacity: 'transparent', classes: 'moon-simple-picker-button right', icon:'arrowlargeright', onSpotlightSelect: 'right', ondown: 'downRight', onholdpulse:'right', defaultSpotlightDisappear: 'buttonLeft', accessibilityHint: $L('press ok button to change the value'), accessibilityLabel: ' '}
 	],
 
 	/**
