@@ -327,9 +327,51 @@ module.exports = kind(
 	animatingTo: null,
 
 	/**
+	* Spotlight state of slider
+	*
+	* @type {Boolean}
 	* @private
 	*/
 	selected: false,
+
+	/**
+	* @private
+	*/
+	selectedChanged: function (was, is) {
+		this.$.knob.addRemoveClass('spotselect', this.selected);
+		this.set('knobSelected', this.selected);
+	},
+
+	/**
+	* Knob selected state set by either via tap, drag, or spot
+	*
+	* @type {Boolean}
+	* @private
+	*/
+	knobSelected: false,
+
+	/**
+	* @private
+	*/
+	knobSelectedChanged: function (was, is) {
+		this.$.bar.addRemoveClass('selected', this.knobSelected);
+	},
+
+	/**
+	* Drag state of slider
+	*
+	* @type {Boolean}
+	* @private
+	*/
+	dragging: false,
+
+	/**
+	* @private
+	*/
+	draggingChanged: function (was, is) {
+		this.$.knob.addRemoveClass('active', this.dragging);
+		this.set('knobSelected', this.dragging);
+	},
 
 	/**
 	* Animates to the given value.
@@ -694,8 +736,6 @@ module.exports = kind(
 		this.updateButtonStatus();
 		this.sendChangeEvent({value: this.getValue()});
 		e.preventTap();
-		this.$.knob.removeClass('active');
-		this.$.bar.removeClass('selected');
 		return true;
 	},
 
@@ -758,8 +798,6 @@ module.exports = kind(
 			}
 			this.updatePopup(this.getValue());
 		}
-		this.$.knob.addRemoveClass('spotselect', this.selected);
-		this.$.bar.addRemoveClass('selected', this.selected);
 		return true;
 	},
 
@@ -768,10 +806,6 @@ module.exports = kind(
 	*/
 	spotBlur: function () {
 		if (!this.dragging) {
-			if (this.$.knob) {
-				this.$.knob.removeClass('spotselect');
-				this.$.bar.removeClass('selected');
-			}
 			if (this.$.popup) {
 				this.$.popup.hide();
 			}
@@ -836,16 +870,7 @@ module.exports = kind(
 	handleKnobDown: function (sender, e) {
 		if (!this.disabled) {
 			e.configureHoldPulse({endHold: 'onMove'});
-			this.$.bar.addClass('selected');
-		}
-	},
-
-	/**
-	* @private
-	*/
-	handleKnobUp: function (sender, e) {
-		if (!this.disabled) {
-			this.$.bar.removeClass('selected');
+			this.set('knobSelected', true);
 		}
 	},
 
@@ -856,6 +881,15 @@ module.exports = kind(
 		if (this.popup) {
 			this.$.popup.show();
 			this.updatePopup(this.getValue());
+		}
+	},
+
+	/**
+	* @private
+	*/
+	handleKnobUp: function (sender, e) {
+		if (!this.disabled) {
+			this.set('knobSelected', false);
 		}
 	},
 
