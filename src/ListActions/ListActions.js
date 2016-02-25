@@ -12,6 +12,10 @@ var
 	ri = require('enyo/resolution');
 
 var
+	FittableLayout = require('layout/FittableLayout'),
+	FittableRowsLayout = FittableLayout.Rows;
+
+var
 	ContextualPopup = require('moonstone/ContextualPopup'),
 	ContextualPopupDecorator = require('moonstone/ContextualPopupDecorator'),
 	IconButton = require('moonstone/IconButton');
@@ -131,11 +135,6 @@ var ListActionsPopup = ContextualPopup.kind(
 var ListActions = ContextualPopupDecorator.kind({
 
 	/**
-	* @private
-	*/
-	classes: 'moon-list-actions',
-
-	/**
 	* A block of one or more controls to be displayed inside the list actions menu. By
 	* default, each top-level [ListActions]{@link module:moonstone/ListActions~ListActions} will have a
 	* [defaultKind]{@link module:enyo/Control~Control#defaultKind} of
@@ -191,7 +190,6 @@ var ListActions = ContextualPopupDecorator.kind({
 	* @public
 	*/
 	iconSrc: '',
-
 
 	/**
 	* The background-color opacity of the {@link module:moonstone/ListActions~ListActions}' activator
@@ -266,7 +264,12 @@ var ListActions = ContextualPopupDecorator.kind({
 
 		for (i = 0; (listAction = this.listActions[i]); i++) {
 			listAction.mixins = this.addListActionMixin(listAction);
-			this.$.listActionsWrapper.createComponent(listAction, {owner: this.hasOwnProperty('listActions') ? this.getInstanceOwner() : this});
+			this.$.listActionsWrapper.createComponent(
+				listAction, {
+					owner: this.hasOwnProperty('listActions') ? this.getInstanceOwner() : this,
+					layoutKind: FittableRowsLayout,
+					classes: 'actions'
+				});
 		}
 
 		if (this.hasNode()) {
