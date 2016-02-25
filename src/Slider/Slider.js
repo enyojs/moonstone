@@ -572,7 +572,6 @@ module.exports = kind(
 			}
 			if (this.animate && allowAnimation) {
 				this.animateTo(was, is);
-				this.updateButtonStatus();
 			} else {
 				this._setValue(is);
 			}
@@ -678,8 +677,6 @@ module.exports = kind(
 		e.preventDefault();
 		this.set('dragging', true);
 		Spotlight.freeze();
-		this.$.knob.addClass('active');
-		this.showKnobStatus();
 		return true;
 	},
 
@@ -963,7 +960,6 @@ module.exports = kind(
 	*/
 	previous: function () {
 		this.set('value', this.value - this._jumpIncrementAmount);
-		this.showKnobStatus();
 	},
 
 	/**
@@ -973,7 +969,6 @@ module.exports = kind(
 	*/
 	next: function () {
 		this.set('value', this.value + this._jumpIncrementAmount);
-		this.showKnobStatus();
 	},
 
 	// Accessibility
