@@ -9,8 +9,15 @@
 }
 
 .moon-list-actions-popup {
-	& .actions {
-		max-height: 15rem;
+	& .moon-list-actions-width {
+		width: 408px;
+	}
+
+	& .moon-list-actions-scroller {
+		.enyo-scroller,
+		.enyo-data-list {
+			height: 300px;
+		}
 	}
 
 	&.right {

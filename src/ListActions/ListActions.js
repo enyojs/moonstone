@@ -12,10 +12,6 @@ var
 	ri = require('enyo/resolution');
 
 var
-	FittableLayout = require('layout/FittableLayout'),
-	FittableRowsLayout = FittableLayout.Rows;
-
-var
 	ContextualPopup = require('moonstone/ContextualPopup'),
 	ContextualPopupDecorator = require('moonstone/ContextualPopupDecorator'),
 	IconButton = require('moonstone/IconButton');
@@ -66,6 +62,17 @@ var ListActionsPopup = ContextualPopup.kind(
 	* @private
 	*/
 	classes: 'moon-list-actions-popup',
+
+	/**
+	* If `true`, {@glossary Spotlight} (focus) cannot leave the area of the popup unless the
+	* popup is explicitly closed; if `false`, spotlight may be moved anywhere within the
+	* viewport.
+	*
+	* @type {Boolean}
+	* @default true
+	* @public
+	*/
+	spotlightModal: true,
 
 	/**
 	* Adjust popup direction, anchor to the edge of screen if it goes over, and adjust arrow
@@ -135,32 +142,20 @@ var ListActionsPopup = ContextualPopup.kind(
 var ListActions = ContextualPopupDecorator.kind({
 
 	/**
-	* A block of one or more controls to be displayed inside the list actions menu. By
-	* default, each top-level [ListActions]{@link module:moonstone/ListActions~ListActions} will have a
-	* [defaultKind]{@link module:enyo/Control~Control#defaultKind} of
-	* [FittableRows]{@link module:layout/FittableRows~FittableRows}, and should typically contain a
-	* {@link module:moonstone/Divider~Divider} identifying the category and a {@link module:moonstone/Scroller~Scroller} with
-	* `fit: true` set on it, containing instances of {@link module:moonstone/CheckboxItem~CheckboxItem},
+	* @private
+	*/
+	classes: 'moon-list-actions',
+
+	/**
+	* A block of one or more controls to be displayed inside the list actions menu. It should
+	* typically contain a {@link module:moonstone/Divider~Divider} identifying the category and a
+	* {@link module:moonstone/Scroller~Scroller}, containing instances of {@link module:moonstone/CheckboxItem~CheckboxItem},
 	* {@link module:moonstone/ToggleItem~ToggleItem}, or {@link module:moonstone/SelectableItem~SelectableItem} for setting options for
 	* the underlying [panel]{@link module:moonstone/Panel~Panel}. Alternatively, a {@link module:moonstone/DataList~DataList}
-	* may be used as the `fit: true` control for populating a data-bound list of options
-	* (see below for limitations on using a `moon/DataList`).
+	* may be used for populating a data-bound list of options.
 	*
 	* More than one option group may be added to the `listActions` block, in which options
-	* are laid out horizontally by default, with the height of each `FittableRows` being
-	* constrained to the height of the parent [Header]{@link module:moonstone/Header~Header}. However, a
-	* minimum width (300px) is enforced for each group, and if there are more groups than
-	* will fit in the available horizontal space, all controls will instead be stacked
-	* vertically. In this case, an outer scroller is enabled; the outer scroller scrolls
-	* all groups vertically, and the `FittableRows` are reset to natural size based on
-	* their content, effectively disabling any scrollers contained within, to prevent
-	* nested scrolling.
-	*
-	* Note that the vertical stacking capability poses a limitation on using
-	* `moon/DataList`. Since `moon/DataList` must always be allowed to scroll, it is
-	* not suitable for use in a stacked scenario in which only one outer scroller is
-	* used. As such, it cannot be used within a `ListActions` that may need to stack
-	* vertically.
+	* are laid out horizontally.
 	*
 	* Each group should have a string value set for the `action` property, as this will
 	* be passed in all events that bubble from the `ListActions`, to allow the user to
@@ -206,10 +201,10 @@ var ListActions = ContextualPopupDecorator.kind({
 	* CSS classes to apply to adjust width of each actions.
 	*
 	* @type {String}
-	* @default moon-6h
-	* @public
+	* @default
+	* @public moon-list-actions-popup-width
 	*/
-	actionWidthClasses: 'moon-6h',
+	actionWidthClasses: 'moon-list-actions-popup-width',
 
 	/**
 	* @private
@@ -217,7 +212,7 @@ var ListActions = ContextualPopupDecorator.kind({
 	components: [
 		{name: 'activator', kind: IconButton},
 		{name: 'listActionsPopup', kind: ListActionsPopup, components: [
-			{name: 'listActionsWrapper', classes: 'moon-hspacing top'}
+			{name: 'listActionsWrapper', classes: 'moon-hspacing top moon-list-actions-scroller'}
 		]}
 	],
 
@@ -266,9 +261,7 @@ var ListActions = ContextualPopupDecorator.kind({
 			listAction.mixins = this.addListActionMixin(listAction);
 			this.$.listActionsWrapper.createComponent(
 				listAction, {
-					owner: this.hasOwnProperty('listActions') ? this.getInstanceOwner() : this,
-					layoutKind: FittableRowsLayout,
-					classes: 'actions'
+					owner: this.hasOwnProperty('listActions') ? this.getInstanceOwner() : this
 				});
 		}
 
