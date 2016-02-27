@@ -1,6 +1,6 @@
 {
-	"main": "ChannelInfo.js",
-	"styles": [
-		"ChannelInfo.less"
-	]
+  "main": "ChannelInfo.js",
+  "styles": [
+    "ChannelInfo.less"
+  ]
 }
