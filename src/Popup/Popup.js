@@ -77,6 +77,11 @@ module.exports = kind(
 	/**
 	* @private
 	*/
+	spotlightRememberFocus: false,
+
+	/**
+	* @private
+	*/
 	allowDefault: true,
 
 	/**
