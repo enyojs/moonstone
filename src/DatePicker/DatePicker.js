@@ -275,6 +275,8 @@ module.exports = kind(
 	setChildPickers: function (inOld) {
 		if (this.value) {
 			this.localeValue = dateFactory({unixtime: this.value.getTime(), timezone: 'local'});
+		} else {
+			this.localeValue = null;
 		}
 
 		if (this.localeValue || this.value) {
