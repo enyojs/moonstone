@@ -734,7 +734,7 @@ module.exports = kind(
 				this.setAlertRole();
 			}
 			this.notifyObservers('index');
-		}	
+		}
 
 		this.isModifyingPanels = false;
 
@@ -1693,7 +1693,7 @@ module.exports = kind(
 		case 'alwaysviewing':
 		case 'activity':
 			this.addClass(this.pattern);
-			this.useHandle = (this.useHandle === 'auto') ? true : this.useHandle;
+			this.useHandle = (this.useHandle === 'auto') ? (this.pattern == 'activity' ? false : true) : this.useHandle;
 			this.createChrome(this.handleTools);
 			this.tools = this.animatorTools;
 			break;
