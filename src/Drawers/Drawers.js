@@ -175,6 +175,12 @@ module.exports = kind(
 	*/
 	_activated: false,
 
+
+	/**
+	* @private
+	*/
+	accessibilityPreventScroll: true,
+
 	/**
 	* @private
 	*/
