@@ -1,0 +1,6 @@
+{
+	"main": "AnimatedButton.js",
+	"styles": [
+		"AnimatedButton.less"
+	]
+}

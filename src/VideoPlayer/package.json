@@ -1,8 +1,8 @@
 {
-	"main": "VideoPlayer.js",
-	"styles": [
-		"VideoPlayer.less",
-		"VideoControlFullscreen.less",
-		"VideoControlInline.less"
-	]
+  "main": "VideoPlayer.js",
+  "styles": [
+    "VideoPlayer.less",
+    "VideoControlFullscreen.less",
+    "VideoControlInline.less"
+  ]
 }

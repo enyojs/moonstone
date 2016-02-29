@@ -1,118 +1,154 @@
-@moon-video-transport-slider-knob-size: 6px;
-@moon-video-transport-slider-knob-offset: -18px;
-@moon-video-transport-slider-height: 84px;
-
-.moon-video-transport-slider {
-	height: @moon-video-transport-slider-height;
+.moon-progress-bar.moon-video-player-transport-slider {
+	height: @moon-video-player-transport-slider-height;
 	background-color: #323232;
+	margin: 0;
+
+	.moon-slider-popup {
+		pointer-events: none;
+		&.above {
+			padding-left: 0px;
+		}
+	}
+
+	// Knob
+	.knob {
+		@activate-transition-function: cubic-bezier(0.15, 0.85, 0.6, 1.65);
+		@slide-transition-function:    cubic-bezier(0.15, 0.85, 0.53, 1.09);
+
+		position: absolute;
+		width: (@moon-video-player-transport-slider-knob-size * 2);
+		top: 0;
+		height: @moon-video-player-transport-slider-knob-size;
+		border-radius: @moon-video-player-transport-slider-knob-size;
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+		background-color: #fff;
+		pointer-events: none;
+		display: none;
+		-webkit-transform-origin: top;
+		transform-origin: top;
+		-webkit-transform: translateZ(0) translateX(-50%) scale(0.5);
+		transform:         translateZ(0) translateX(-50%) scale(0.5);
+		-webkit-transition: -webkit-transform @activate-transition-function 0.2s;
+		transition:                 transform @activate-transition-function 0.2s;
+
+		.moon-video-player.spotlight-5way-mode & {
+			-webkit-transition: -webkit-transform @activate-transition-function 0.2s, left @slide-transition-function 0.2s;
+			transition:                 transform @activate-transition-function 0.2s, left @slide-transition-function 0.2s;
+		}
+	}
+	&.visible {
+		.knob {
+			display: block;
+		}
+		&.pressed {
+			.knob {
+				-webkit-transform: translateZ(0) translateX(-50%) scale(0.75);
+				transform:         translateZ(0) translateX(-50%) scale(0.75);
+			}
+		}
+	}
+
+	// Status Indicator
+	.status-indicator {
+		&.moon-slider-popup {
+			position: relative;
+			display: table;
+			left: 0;
+			margin: 0 auto;
+		}
+		> * {
+			background-color: @moon-dark-gray; //Todo: check exact color
+		}
+
+		.moon-slider-popup-center {
+			font-family: @moon-popup-header-font-family;
+			font-size: 36px;
+			color: @moon-white;
+			border-radius: 48px;
+			line-height: 48px;
+			padding: 0 24px;
+
+			.moon-icon {
+				color: inherit;
+			}
+		}
+	}
+
+	// Bar
+	.bar-bar {
+		height: 100%;
+		background-color: @moon-accent;
+		position: absolute;
+		top: 0;
+	}
+	.bg-bar {
+		height: 100%;
+		background-color: @moon-dark-gray;
+		position: absolute;
+		top: 0;
+	}
+	.popup-label {
+		.moon-large-button-text;
+		.font-kerning(none);
+		white-space: nowrap;
+		vertical-align: top;
+
+		> * {
+			display: inline-block;
+		}
+	}
+
+	// Indicator
+	.indicator-wrapper {
+		height: @moon-video-player-transport-slider-height;
+		line-height: @moon-video-player-transport-slider-height;
+		top: 0;
+		position: absolute;
+
+		&.start {
+			left: @moon-video-player-side-padding;
+			text-align: left;
+		}
+		&.end {
+			right: @moon-video-player-side-padding;
+			text-align: right;
+		}
+	}
+	// Indicator-bar doesn't appear to be used at all?
+	.indicator-bar {
+		width: 3px;
+		height: 45px;	//need more precious value
+		margin-top: 18px;	//need more precious value
+		background-color: @moon-indicator-bar-bg-color;	//#ffffff, @moon-white
+
+		&.left {
+			float: left;
+		}
+		&.right {
+			float: right;
+		}
+	}
+	.indicator-text {
+		font-size: 45px;	//34pt
+		font-family: @moon-popup-header-font-family;
+		color: @moon-indicator-text-color;	//#ffffff, @moon-white
+	}
+
+	// Disable the slider taparea since video slider is big enough for tapping on its own
+	&:before {
+		content: none;
+	}
 }
 
-.moon-video-transport-slider .moon-slider-popup.above {
-	padding-left: 0px;
+.enyo-locale-non-latin .moon-video-player-transport-slider {
+	.popup-label {
+		.enyo-locale-non-latin .moon-large-button-text;
+	}
+	.indicator-text {
+		font-family: @moon-non-latin-font-family;
+	}
 }
-
-
-/* ----- Knob ---- */
-.moon-video-transport-slider-knob,
-.moon-video-transport-slider-knob.disabled:active:hover,
-.moon-video-transport-slider-knob.active,
-.moon-video-transport-slider-knob.spotselect,
-.moon-video-transport-slider-knob:active:hover {
-	position: absolute;
-	height: @moon-video-transport-slider-knob-size;
-	width: @moon-video-transport-slider-knob-size;
-	border-radius: @moon-video-transport-slider-knob-size/2;
-	margin: -@moon-video-transport-slider-knob-size/2;
-	top: @moon-video-transport-slider-height/2 + @moon-video-transport-slider-knob-offset;
-	pointer-events: none;
-}
-.moon-video-transport-slider-knob {
-	background: transparent;
-	color: transparent;
-}
-.moon-video-transport-slider.visible .moon-video-transport-slider-knob,
-.moon-video-transport-slider.visible .moon-video-transport-slider-knob.disabled:active:hover {
-	background-color: #fff;
-}
-
-/* ---- Bar ---- */
-.moon-video-transport-slider-bar-bar {
-	height: 100%;
-	background-color: @moon-accent;
-	position: absolute;
-	top: 0;
-}
-.moon-video-transport-slider-bg-bar {
-	height: 100%;
-	background-color: @moon-dark-gray;
-	position: absolute;
-	top: 0;
-}
-
-.moon-video-transport-slider-taparea {
-	position: absolute;
-	height: 100%;
-	width: 100%;
-}
-
-.moon-video-transport-slider-popup-label {
-	.moon-large-button-text;
-	white-space: nowrap;
-	color: @moon-dark-gray;
-	vertical-align: top;
-}
-.enyo-locale-non-latin .moon-video-transport-slider-popup-label {
-	.enyo-locale-non-latin .moon-large-button-text;
-}
-.moon-video-transport-slider-popup-label > * {
-	display: inline-block;
-
-}
-.enyo-locale-non-latin .moon-video-transport-slider-popup-label > * {
-}
-
-.moon-video-transport-slider-indicator-wrapper {
-	height: 84px;
-	top: 0;
-	position: absolute;
-}
-.moon-video-transport-slider-indicator-wrapper.start {
-	left: 0px;
-}
-.moon-video-transport-slider-indicator-wrapper.end {
-	right: 0px;
-}
-.moon-video-transport-slider-indicator-bar-left {
-	position: absolute;
-	left: 49.5%;
-	top: 24px;
-	width: 3px;
-	height: 30px;
-	background-color: @moon-indicator-bar-bg-color;
-}
-.moon-video-transport-slider-indicator-bar-right {
-	position: absolute;
-	left: 49.5%;
-	top: 24px;
-	width: 3px;
-	height: 30px;
-	background-color: #ffffff;
-}
-.moon-video-transport-slider-indicator-text {
-	position: absolute;
-	width: 100%;
-	height: 30px;
-	top: 24px;
-	font-size: 30px;
-	font-family: @moon-header-font-family;
-	font-weight:bold;
-	color: @moon-indicator-text-color;
-	text-align: left;
-	left: 55%;
-}
-.enyo-locale-non-latin .moon-video-transport-slider-indicator-text {
-	font-family: @moon-non-latin-font-family;
-}
-.enyo-locale-right-to-left .moon-video-transport-slider-indicator-text {
+.enyo-locale-right-to-left .moon-video-player-transport-slider .indicator-text {
 	direction: rtl;
 }
