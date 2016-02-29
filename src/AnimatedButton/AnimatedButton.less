@@ -1,0 +1,56 @@
+/* Button Animated */
+.moon-button.moon-button-animated {
+	overflow: hidden;
+	border-width: 0;
+	padding: @moon-button-border-width (@moon-button-h-padding + @moon-button-border-width);
+
+	.button-client {
+		vertical-align: top;
+
+		> * {
+			display: inline-block;
+			margin-top: 0;
+			margin-bottom: @moon-button-border-width;
+		}
+		> :first-child {
+			margin-left: 0;
+		}
+		> :last-child {
+			margin-right: 0;
+		}
+		> .moon-marquee-text-wrapper {
+			display: block;
+		}
+	}
+	&.nearly-spotlight,
+	&.nearly-spotlight .moon-icon {
+		color: @moon-spotlight-text-color;
+	}
+	.moon-button-animated-frame {
+		position: absolute;
+		top: -1px;
+		bottom: -1px;
+		left: -1px;
+		right: -1px;
+	}
+	// Evidently SVG root elements do not take orders from non-discrete width rules, like setting
+	// width by using left:-6px; right:-6px; so instead, we need to use true width property.
+	.moon-button-animated-root {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		top: 0;
+		left: 0;
+	}
+	.moon-button-animated-path {
+		fill: @moon-spotlight-color;
+	}
+
+	&.active,
+	&.pressed,
+	&.spotlight.pressed,
+	&.spotlight:active {
+		border-width: 0;
+		color: @moon-spotlight-text-color;
+	}
+}

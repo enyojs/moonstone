@@ -1,0 +1,6 @@
+{
+  "main": "ApplicationCloseButton.js",
+  "styles": [
+    "ApplicationCloseButton.less"
+  ]
+}

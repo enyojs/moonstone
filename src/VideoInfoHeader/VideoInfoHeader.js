@@ -1,46 +1,42 @@
-require('moonstone');
-
 /**
 * Contains the declaration for the {@link module:moonstone/VideoInfoHeader~VideoInfoHeader} kind.
 * @module moonstone/VideoInfoHeader
 */
 
+require('moonstone');
+
 var
 	kind = require('enyo/kind'),
 	util = require('enyo/utils'),
-	Control = require('enyo/Control');
+	ri = require('enyo/resolution'),
+	Control = require('enyo/Control'),
+	Img = require('enyo/Image');
 
 var
-	Marquee = require('../Marquee'),
-	MarqueeSupport = Marquee.Support,
-	MarqueeText = Marquee.Text;
+	Marquee = require('moonstone/Marquee'),
+	MarqueeText = Marquee.Text,
+	MarqueeSupport = Marquee.Support;
 
 /**
-* {@link module:moonstone/VideoInfoHeader~VideoInfoHeader} is a
-* [control]{@link module:enyo/Control~Control} that displays various information
-* about a video. It is designed to be used within the
-* [infoComponents]{@link module:moonstone/VideoPlayer~VideoPlayer#infoComponents}
-* block of a {@link module:moonstone/VideoPlayer~VideoPlayer}.
+* {@link module:moonstone/VideoInfoHeader~VideoInfoHeader} is a [control]{@link module:enyo/Control~Control} that displays
+* various information about a video. It is designed to be used within the
+* [infoComponents]{@link module:moonstone/VideoPlayer~VideoPlayer#infoComponents} block of a {@link module:moonstone/VideoPlayer~VideoPlayer}.
 *
 * Example:
 * ```javascript
-* 	var
-* 		kind = require('enyo/kind'),
-* 		VideoInfoHeader = require('moonstone/VideoInfoHeader');
+* var
+*	VideoInfoHeader = require('moonstone/VideoInfoHeader');
 *
-* 	{
-* 		kind: VideoInfoHeader,
-* 		title: 'Breaking Bad - Live Free Or Die',
-* 		subTitle: 'AMC (301) 7:00 PM - 8:00 PM',
-* 		description: 'As Walt deals with the aftermath of the '
-* 			+ 'Casa Tranquila explosion, Hank works to wrap up his '
-* 			+ 'investigation of Gus\' empire.',
-* 		components: [
-* 			{content: '3D'},
-* 			{content: 'Live'},
-* 			{content: 'REC 08:22', classes: 'moon-video-player-info-redicon'}
-* 		]
-* 	}
+* {
+*		kind: VideoInfoHeader,
+*		title: 'Breaking Bad - Live Free Or Die',
+*	description: 'As Walt deals with the aftermath of the Casa Tranquila explosion, '
+*			+ 'Hank works to wrap up his investigation of Gus\' empire.',
+*	components: [
+*			{content: '3D'},
+*			{content: 'Live'}
+*	]
+* }
 * ```
 *
 * @class VideoInfoHeader
@@ -65,7 +61,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	classes: 'moon-video-info-header',
+	classes: 'moon-video-player-info-header',
 
 	/**
 	* @private
@@ -98,24 +94,6 @@ module.exports = kind(
 		title: '',
 
 		/**
-		* Subtitle of the `VideoInfoHeader`.
-		*
-		* @type {String}
-		* @default ''
-		* @public
-		*/
-		subTitle: '',
-
-		/**
-		* Text below subtitle of the `VideoInfoHeader`.
-		*
-		* @type {String}
-		* @default ''
-		* @public
-		*/
-		subSubTitle: '',
-
-		/**
 		* Main content of the `VideoInfoHeader`.
 		*
 		* @type {String}
@@ -143,19 +121,25 @@ module.exports = kind(
 		* @default null
 		* @public
 		*/
-		titleUpperCase: null
+		titleUpperCase: null,
+
+		/**
+		* URL of image file.
+		*
+		* @type {String}
+		* @default null
+		* @public
+		*/
+		src: null
 	},
 
 	/**
 	* @private
 	*/
 	components: [
-		{name: 'title', kind: MarqueeText, classes: 'moon-header-font moon-video-player-info-title'},
-		{name: 'subTitle', kind: Control, classes: 'moon-video-player-info-subtitle'},
-		{name: 'subSubTitle', kind: Control, classes: 'moon-video-player-info-subsubtitle'},
-		{name: 'client', kind: Control, classes: 'moon-video-player-info-client'},
-		{kind: Control, components: [
-			{name: 'description', kind: Control, classes: 'moon-video-player-info-description'}
+		{name: 'videoInfoText', classes: 'info-header-text', components :[
+			{kind: MarqueeText, name: 'title', classes: 'info-header-title'},
+			{name: 'description', classes: 'info-header-description'}
 		]}
 	],
 
@@ -163,9 +147,7 @@ module.exports = kind(
 	* @private
 	*/
 	bindings: [
-		{from: '.subTitle',		to: '.$.subTitle.content'},
-		{from: '.subSubTitle',	to: '.$.subSubTitle.content'},
-		{from: '.description',	to: '.$.description.content'}
+		{from: 'description', to: '$.description.content'}
 	],
 
 	/**
@@ -177,8 +159,8 @@ module.exports = kind(
 		// FIXME: Backwards-compatibility for deprecated property - can be removed when
 		// the contentUpperCase property is fully deprecated and removed. The legacy
 		// property takes precedence if it exists.
-		if (this.titleUpperCase !== null) this.uppercase = this.titleUpperCase;
-
+		if (this.titleUpperCase !== null) { this.uppercase = this.titleUpperCase; }
+		this.srcChanged();
 		this.titleChanged();
 	},
 
@@ -195,7 +177,7 @@ module.exports = kind(
 	uppercaseChanged: function() {
 		// FIXME: Backwards-compatibility for deprecated property - can be removed when
 		// titleUpperCase is fully deprecated and removed.
-		if (this.titleUpperCase != this.uppercase) this.titleUpperCase = this.uppercase;
+		if (this.titleUpperCase != this.uppercase) { this.titleUpperCase = this.uppercase; }
 		this.titleChanged();
 	},
 
@@ -203,7 +185,35 @@ module.exports = kind(
 	* @private
 	*/
 	titleUpperCaseChanged: function() {
-		if (this.uppercase != this.titleUpperCase) this.uppercase = this.titleUpperCase;
+		if (this.uppercase != this.titleUpperCase) { this.uppercase = this.titleUpperCase; }
 		this.uppercaseChanged();
+	},
+
+	/**
+	* @private
+	*/
+	srcChanged: function() {
+		var img = this.$.videoInfoImage;
+
+		if (this.src) {
+			if (img) {
+				img.set('src', this.src);
+			} else {
+				img = this.createComponent({
+					name: 'videoInfoImage',
+					kind: Img,
+					classes: 'info-header-image',
+					src: this.src,
+					sizing: 'contain',
+					style: util.format('width: %.px; height: %.px', ri.scale(96), ri.scale(96)),
+					addBefore: this.$.videoInfoText
+				});
+				if (this.generated) {
+					img.render();
+				}
+			}
+		} else if (img) {
+			img.destroy();
+		}
 	}
 });

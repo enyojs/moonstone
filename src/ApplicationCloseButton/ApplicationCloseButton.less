@@ -1,0 +1,24 @@
+.moon-application-close-button {
+	position: absolute;
+	top: (@moon-app-keepout + @moon-spotlight-outset);
+	right: (@moon-spotlight-outset * 2);
+	left: auto;
+	z-index: 1; // Below Panels Handle
+	-webkit-transition: -webkit-transform 0.1s ease-out, opacity 0.1s ease-out;
+	transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+
+	.moon-icon-button {
+		margin: 0;
+	}
+
+	.enyo-arranger-fit > & {
+		// This is disappointingly required to overcome an !important rule in enyo-arranger.
+		width: initial !important;
+		height: initial !important;
+	}
+
+	.enyo-locale-right-to-left & {
+		left: (@moon-spotlight-outset * 2);
+		right: auto;
+	}
+}
