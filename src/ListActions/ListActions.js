@@ -64,7 +64,7 @@ var ListActionsPopup = ContextualPopup.kind(
 	classes: 'moon-list-actions-popup',
 
 	/**
-	* @see enyo/ContextualPopup~ContextualPopup#spotlightModal
+	* @see moonstone/ContextualPopup~ContextualPopup#spotlightModal
 	*/
 	spotlightModal: true,
 
