@@ -2,7 +2,7 @@ require('moonstone');
 
 /**
 * Contains the declarations for the {@link module:moonstone/ListActions~ListActions}
-* and {@link module:moonstone/ListActions~ListActionPopup} kinds, and the
+* and {@link module:moonstone/ListActions~ListActionsPopup} kinds, and the
 * {@link module:moonstone/ListActions~ListActionActivationSupport} mixin.
 * @module moonstone/ListActions
 */
@@ -21,7 +21,7 @@ var
 * menu, which decorates `activate` events with the menu's `action` property.
 *
 * @mixin ListActionActivationSupport
-* @protected
+* @private
 */
 var ListActionActivationSupport = {
 
@@ -53,7 +53,7 @@ var ListActionActivationSupport = {
 * @class ListActionsPopup
 * @extends module:moonstone/ContextualPopup~ContextualPopup
 * @ui
-* @public
+* @private
 */
 var ListActionsPopup = ContextualPopup.kind(
 	/** @lends module:moonstone/ListActions~ListActionsPopup */ {
@@ -64,13 +64,7 @@ var ListActionsPopup = ContextualPopup.kind(
 	classes: 'moon-list-actions-popup',
 
 	/**
-	* If `true`, {@glossary Spotlight} (focus) cannot leave the area of the popup unless the
-	* popup is explicitly closed; if `false`, spotlight may be moved anywhere within the
-	* viewport.
-	*
-	* @type {Boolean}
-	* @default true
-	* @public
+	* @see enyo/ContextualPopup~ContextualPopup#spotlightModal
 	*/
 	spotlightModal: true,
 
@@ -302,16 +296,5 @@ var ListActions = ContextualPopupDecorator.kind({
 		this.bubble('onRequestUnmuteTooltip');
 	}
 });
-
-
-/**
-* The ListActionActivationSupport mixin
-*/
-ListActions.ListActionActivationSupport = ListActionActivationSupport;
-
-/**
-* The {@link module:moonstone/ListActions~ListActionsPopup} kind
-*/
-ListActions.ListActionsPopup = ListActionsPopup;
 
 module.exports = ListActions;
