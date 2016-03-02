@@ -239,8 +239,7 @@ module.exports = kind(
 	*/
 	syncProperties: function () {
 		if (this.modal == this.spotlightModal) return;
-		if (this.hasOwnProperty('spotlightModal')) this.modal = this.spotlightModal;
-		if (this.hasOwnProperty('modal')) this.spotlightModal = this.modal;
+		this.modal = this.spotlightModal;
 	},
 
 	/**
@@ -574,21 +573,24 @@ module.exports = kind(
 	* @private
 	*/
 	showHideScrim: function (show) {
-		if (this.floating && (this.scrim || (this.modal && this.scrimWhenModal))) {
-			this._scrim = this.getScrim();
-			if (show) {
-				// move scrim to just under the popup to obscure rest of screen
-				var i = this.getScrimZIndex();
-				this._scrimZ = i;
-				this._scrim.showAtZIndex(i);
-			} else {
-				this._scrim.hideAtZIndex(this._scrimZ);
-			}
+		var scrim = this.getScrim();
+
+		if (this._scrim && scrim != this._scrim) {
+			// hide if there was different kind of scrim
+			this._scrim.hideAtZIndex(this._scrimZ);
 			util.call(this._scrim, 'addRemoveClass', [this.scrimClassName, this._scrim.showing]);
-		} else {
-			// clean up scrim here when showHideScrim is not called from showingChanged
-			this._scrim && this._scrim.hideAtZIndex(this._scrimZ);
 		}
+
+		if (show && this.floating && (this.scrim || (this.modal && this.scrimWhenModal))) {
+			// move scrim to just under the popup to obscure rest of screen
+			var i = this.getScrimZIndex();
+			this._scrimZ = i;
+			scrim.showAtZIndex(i);
+		} else {
+			scrim.hideAtZIndex(this._scrimZ);
+		}
+		util.call(scrim, 'addRemoveClass', [this.scrimClassName, scrim.showing]);
+		this._scrim = scrim;
 	},
 
 	/**
