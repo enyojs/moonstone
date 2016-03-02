@@ -141,6 +141,15 @@ var ListActions = ContextualPopupDecorator.kind({
 	classes: 'moon-list-actions',
 
 	/**
+	* If `true`, the popup will automatically close when the user selects a menu item.
+	*
+	* @type {Boolean}
+	* @default false
+	* @public
+	*/
+	autoCollapse: false,
+
+	/**
 	* A block of one or more controls to be displayed inside the list actions menu. It should
 	* typically contain a {@link module:moonstone/Divider~Divider} identifying the category and a
 	* {@link module:moonstone/Scroller~Scroller}, containing instances of {@link module:moonstone/CheckboxItem~CheckboxItem},
@@ -206,7 +215,7 @@ var ListActions = ContextualPopupDecorator.kind({
 	components: [
 		{name: 'activator', kind: IconButton},
 		{name: 'listActionsPopup', kind: ListActionsPopup, components: [
-			{name: 'listActionsWrapper', classes: 'moon-hspacing top moon-list-actions-scroller'}
+			{name: 'listActionsWrapper', classes: 'moon-hspacing top moon-list-actions-scroller', onActivate: 'optionSelected'}
 		]}
 	],
 
@@ -276,6 +285,17 @@ var ListActions = ContextualPopupDecorator.kind({
 			mixins.push(ListActionActivationSupport);
 		}
 		return mixins;
+	},
+
+	/**
+	* @private
+	*/
+	optionSelected: function() {
+		if (this.autoCollapse) {
+			this.startJob('hidePopupJob', function() {
+				this.$.listActionsPopup.hide();
+			}, 300);
+		}
 	},
 
 	/**
