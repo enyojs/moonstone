@@ -125,14 +125,14 @@ module.exports = kind(
 
 		/**
 		* If `true`, focus cannot leave the constraints of the popup unless the
-		* popup is explicitly closed. This property is copied to
-		* [modal]{@link module:enyo/Popup~Popup#modal} on initiation time.
-		* And, these two proverties are synced whenever one of
+		* popup is explicitly closed. This property's value is copied to
+		* [modal]{@link module:enyo/Popup~Popup#modal} at initialization time.
+		* Additionally, these two properties are synced whenever one of the following properties changes:
 		* [spotlightModal]{@link module:moonstone/ContextualPopup~ContextualPopup#spotlightModal},
 		* [modal]{@link module:enyo/Popup~Popup#modal},
 		* [modal]{@link module:enyo/Popup~Popup#scrim},
 		* [modal]{@link module:enyo/Popup~Popup#scrimWhenModal},
-		* [modal]{@link module:enyo/Popup~Popup#floating} property changes.
+		* [modal]{@link module:enyo/Popup~Popup#floating}.
 		*
 		* @type {Boolean}
 		* @default false
