@@ -1496,25 +1496,26 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	adjustFirstPanelBeforeTransition: function() {
+	adjustPanelsBeforeTransition: function() {
 		var idx = this.index,
 			from = this.fromIndex,
 			trans = this.transitioning;
 		if (this.pattern == 'activity') {
 			// Show breadcrumbs if we're landing on any panel besides the first
 			this.$.breadcrumbs.set('showing', idx > 0);
-			// Adjust viewport to show full-width panel if we're landing on OR transitioning from the first panel
-			this.addRemoveClass('first', idx === 0 || (trans && from === 0));
+			// Adjust viewport to account for breadcrumb if we're not landing on the first panel OR
+			// we are not transitioning from the first panel
+			this.addRemoveClass('breadcrumbs', idx !== 0 && (!trans || trans && from !== 0));
 		}
 	},
 
 	/**
 	* @private
 	*/
-	adjustFirstPanelAfterTransition: function() {
-		// Keep viewport adjusted for full-width panel only if we've landed on the first panel
-		if (this.pattern == 'activity' && this.index !== 0) {
-			this.removeClass('first');
+	adjustPanelsAfterTransition: function() {
+		// Keep viewport adjusted for breadcrumbs only if we're not landing on the first panel
+		if (this.pattern == 'activity') {
+			this.addRemoveClass('breadcrumbs', this.index > 0);
 		}
 	},
 
@@ -1534,7 +1535,7 @@ module.exports = kind(
 			// This direction is only consumed by MoonAnimator.
 			this.$.animator.direction = this.getDirection();
 
-			this.adjustFirstPanelBeforeTransition();
+			this.adjustPanelsBeforeTransition();
 
 			// Push or drop history, based on the direction of the index change
 			if (this.allowBackKey) {
@@ -1626,7 +1627,7 @@ module.exports = kind(
 		var fromIndex = this.fromIndex,
 			toIndex = this.toIndex;
 
-		this.adjustFirstPanelAfterTransition();
+		this.adjustPanelsAfterTransition();
 		this.notifyPanels('transitionFinished');
 		this.notifyBreadcrumbs('updateBreadcrumb');
 		Panels.prototype.finishTransition.apply(this, arguments);
