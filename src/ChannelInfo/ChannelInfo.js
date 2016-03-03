@@ -1,9 +1,10 @@
-require('moonstone');
-
 /**
-* Contains the declaration for the {@link module:moonstone/ChannelInfo~ChannelInfo} kind.
+* Contains the declaration for the {@link module:moonstone/ChannelInfo~ChannelInfo} and
+* {@link module:moonstone/ChannelInfo~ChannelInfoBadge} kinds.
 * @module moonstone/ChannelInfo
 */
+
+require('moonstone');
 
 var
 	kind = require('enyo/kind'),
@@ -11,7 +12,7 @@ var
 	Control = require('enyo/Control');
 
 var
-	Marquee = require('../Marquee'),
+	Marquee = require('moonstone/Marquee'),
 	MarqueeText = Marquee.Text,
 	MarqueeSupport = Marquee.Support;
 
@@ -42,7 +43,7 @@ var ChannelInfoBadge = kind(
 	/**
 	* @private
 	*/
-	classes: 'moon-video-badge-text moon-video-player-info-icon'
+	classes: 'moon-video-badge-text channel-info-text-icon'
 });
 
 /**
@@ -51,21 +52,19 @@ var ChannelInfoBadge = kind(
 * block of a {@link module:moonstone/VideoPlayer~VideoPlayer}.
 *
 * Example:
-* ```javascript
-* 	var
-* 		kind = require('enyo/kind'),
-* 		ChannelInfo = require('moonstone/ChannelInfo');
+* ```
+* var ChannelInfo = require('moonstone/ChannelInfo');
 *
-* 	{
-* 		kind: ChannelInfo,
-* 		no: 36,
-* 		name: 'AMC',
-* 		components: [
-* 			{content: '3D'},
-* 			{content: 'Live'},
-* 			{content: 'REC 08:22', classes: 'moon-video-player-info-redicon'}
-* 		]
-* 	}
+* {
+*	kind: ChannelInfo,
+*	no: 36,
+*	name: 'AMC',
+*	components: [
+*		{content: '3D'},
+*		{content: 'Live'},
+*		{content: 'REC 08:22', classes: 'redicon'}
+*	]
+* }
 * ```
 *
 * @class ChannelInfo
@@ -90,7 +89,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	classes: 'moon-channelinfo',
+	classes: 'moon-video-player-channel-info',
 
 	/**
 	* @private
@@ -132,6 +131,24 @@ module.exports = kind(
 		channelName: '',
 
 		/**
+		* A description of the channel.
+		*
+		* @type {String}
+		* @default ''
+		* @public
+		*/
+		channelDesc: '',
+
+		/**
+		* A more detailed description of the channel.
+		*
+		* @type {String}
+		* @default ''
+		* @public
+		*/
+		channelMoreDesc: '',
+
+		/**
 		* When `true`, [channelNo]{@link module:moonstone/ChannelInfo~ChannelInfo#channelNo} will have locale-safe
 		* uppercasing applied.
 		*
@@ -163,16 +180,20 @@ module.exports = kind(
 	* @private
 	*/
 	components: [
-		{kind: MarqueeText, name: 'channelNo', classes: 'moon-header-font moon-video-player-channel-info-no'},
-		{kind: MarqueeText, name: 'channelName', classes: 'moon-video-player-channel-info-name'},
-		{kind: Control, name: 'client', classes: 'moon-video-player-channel-info-badges'}
+		{kind: MarqueeText, name: 'channelNo', classes: 'channel-info-number moon-header-font'},
+		{kind: MarqueeText, name: 'channelName', classes: 'channel-info-text'},
+		{kind: MarqueeText, name: 'channelDesc', classes: 'channel-info-text'},
+		{kind: MarqueeText, name: 'channelMoreDesc', classes: 'channel-info-text'},
+		{kind: Control, name: 'client', classes: 'channel-info-badges'}
 	],
 
 	/**
 	* @private
 	*/
 	bindings: [
-		{from: 'channelName', to: '$.channelName.content'}
+		{from: 'channelName', to: '$.channelName.content'},
+		{from: 'channelDesc', to: '$.channelDesc.content'},
+		{from: 'channelMoreDesc', to: '$.channelMoreDesc.content'}
 	],
 
 	/**
@@ -217,6 +238,6 @@ module.exports = kind(
 });
 
 /**
-* The kind definition for {@link module:moonstone/ChannelInfo~ChannelInfoBadge}
+* The {@link module:moonstone/ChannelInfo~ChannelInfoBadge} definition
 */
 module.exports.ChannelInfoBadge = ChannelInfoBadge;

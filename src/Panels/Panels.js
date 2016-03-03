@@ -1,10 +1,9 @@
-require('moonstone');
-
 /**
-* Contains the declarations for the {@link module:moonstone/Panels~Panels} and
-* {@link module:moonstone/Panels~PanelsHandle} kinds.
+* Contains the declaration for {@link module:moonstone/Panels~Panels} and supporting kinds.
 * @module moonstone/Panels
 */
+
+require('moonstone');
 
 var
 	kind = require('enyo/kind'),
@@ -13,8 +12,9 @@ var
 	util = require('enyo/utils'),
 	Control = require('enyo/Control'),
 	EnyoHistory = require('enyo/History'),
-	Img = require('enyo/Image'),
-	Signals = require('enyo/Signals');
+	Signals = require('enyo/Signals'),
+	ri = require('enyo/resolution'),
+	ViewPreloadSupport = require('enyo/ViewPreloadSupport');
 
 var
 	Panels = require('layout/Panels');
@@ -26,16 +26,19 @@ var
 	$L = require('../i18n');
 
 var
-	options = require('../options'),
-	BreadcrumbArranger = require('../BreadcrumbArranger'),
+	ApplicationCloseButton = require('../ApplicationCloseButton'),
+	HistorySupport = require('../HistorySupport'),
+	MoonAnimator = require('../MoonAnimator'),
+	MoonArranger = require('../MoonArranger'),
+	MoonOptions = require('../options'),
 	Panel = require('../Panel'),
-	StyleAnimator = require('../StyleAnimator'),
-	HistorySupport = require('../HistorySupport');
+	StyleAnimator = require('../StyleAnimator');
 
 /**
 * {@link module:moonstone/Panels~PanelsHandle} is a helper kind for
-* {@link module:moonstone/Panels~Panels}.  It implements a spottable handle that
-*  the user may interact with to hide and show the `moonstone/Panels` control.
+* {@link module:moonstone/Panels~Panels}. It implements a spottable handle
+* that the user may interact with to hide and show the `moonstone/Panels`
+* control.
 *
 * @class PanelsHandle
 * @extends module:enyo/Control~Control
@@ -50,7 +53,7 @@ var PanelsHandle = kind(
 	*/
 	name: 'moon.PanelsHandle',
 
-	/*
+	/**
 	* @private
 	*/
 	kind: Control,
@@ -89,7 +92,7 @@ var PanelsHandle = kind(
 		return true;
 	},
 
-	/*
+	/**
 	* We override getAbsoluteShowing so that the handle's spottability is not dependent on the
 	* showing state of its parent, the {@link module:moonstone/Panels~Panels} control.
 	*
@@ -108,13 +111,130 @@ var PanelsHandle = kind(
 });
 
 /**
-* {@link module:moonstone/Panels~Panels} extends {@link module:layout/Panels~Panels}, adding support for 5-way focus
-* (Spotlight) and pre-configured Moonstone panels design patterns. By default,
-* controls added to a `moonstone/Panels` are instances of {@link module:moonstone/Panel~Panel}.
+* {@link module:moonstone/Panels~Breadcrumb} is a helper kind for
+* {@link module:moonstone/Panels~Panels}. It implements a breadcrumb that
+* displays the panel index.
 *
-* `moonstone/Panels` introduces the concept of patterns for panel display. Set
-* [pattern]{@link module:moonstone/Panels~Panels#pattern} to `'activity'` or `'alwaysViewing'`
-* to use one of two patterns designed for apps on Smart TV systems.
+* @class Breadcrumb
+* @extends module:enyo/Control~Control
+* @ui
+* @public
+*/
+var Breadcrumb = kind(
+	/** @lends module:moonstone/Panels~Breadcrumb.prototype */ {
+
+	/**
+	* @private
+	*/
+	name: 'moon.Breadcrumb',
+
+	/**
+	* @private
+	*/
+	kind: Control,
+
+	/**
+	* @private
+	* @lends module:moonstone/Panels~Breadcrumb.prototype
+	*/
+	published: {
+		/*
+		* @private
+		*/
+		index: 0
+	},
+
+	/**
+	* @private
+	*/
+	spotlight: true,
+
+	/**
+	* @private
+	*/
+	isOffscreen: false,
+
+	/**
+	* @private
+	*/
+	handlers: {
+		ontap: 'tapHandler',
+		onSpotlightRight: 'rightHandler'
+	},
+
+	/**
+	* @private
+	*/
+	classes: 'moon-panels-breadcrumb',
+
+	/**
+	* @private
+	*/
+	components: [
+		{name: 'number', kind: Control, classes: 'moon-panels-breadcrumb-header'}
+	],
+
+	/**
+	* @private
+	*/
+	bindings: [
+		{from: 'index', to: '$.number.content', transform: 'formatNumber'}
+	],
+
+	/**
+	* @private
+	*/
+	formatNumber: function (n) {
+		var i=n+1;
+		return '< ' + ((i < 10) ? '0' : '') + i;
+	},
+
+	/**
+	* @private
+	*/
+	tapHandler: function (sender, event) {
+		// decorate
+		event.breadcrumbTap = true;
+		event.index = this.index;
+	},
+
+	/**
+	* @private
+	*/
+	rightHandler: function(sender, event) {
+		var panels = this.owner;
+		if (this.index+1 ==	panels.index) {
+			Spotlight.spot(panels.getActive());
+			return true;
+		}
+	},
+
+	/**
+	* @private
+	*/
+	updateSpotability: function () {
+		this.spotlightDisabled = this.isOffscreen;
+	},
+
+	/**
+	* @private
+	*/
+	updateBreadcrumb: function (info) {
+		this.set('isOffscreen', info.isOffscreen);
+		this.updateSpotability();
+	}
+});
+
+
+/**
+* {@link module:moonstone/Panels~Panels} extends {@link module:layout/Panels~Panels},
+* adding support for 5-way focus (Spotlight) and pre-configured Moonstone panels
+* design patterns. By default, controls added to a Panels container are instances
+* of {@link module:moonstone/Panel~Panel}.
+*
+* `moonstone/Panels` introduces the concept of patterns for panel display.
+* Set [pattern]{@link module:moonstone/Panels~Panels#pattern} to `'activity'`
+* or `'alwaysViewing'` to use one of two patterns designed for apps on Smart TV systems.
 *
 * @class Panels
 * @extends module:layout/Panels~Panels
@@ -137,12 +257,12 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	mixins : [HistorySupport],
+	mixins : [HistorySupport, ViewPreloadSupport],
 
 	/**
 	* @private
 	*/
-	classes : 'moon-panels',
+	classes : 'moon-panels enyo-fit',
 
 	/**
 	* @private
@@ -160,12 +280,12 @@ module.exports = kind(
 		* and `'alwaysviewing'`. Note that this property may only be set at creation
 		* time, and should not be changed at runtime.
 		*
-		* The `'alwaysviewing'` pattern uses the {@link module:moonstone/BreadcrumbArranger~BreadcrumbArranger},
-		* with semi-transparent panels (depending on the color theme) over the right
-		* half of the screen, allowing multiple breadcrumbs to accumulate on the left
+		* The `'alwaysviewing'` pattern uses the {@link module:moonstone/BreadcrumbArranger~BreadcrumbArranger} with
+		* semi-transparent panels (depending on the color theme) over the right half
+		* of the screen, allowing multiple breadcrumbs to accumulate on the left
 		* half of the screen.
 		*
-		* The `'activity'` pattern  uses the `moonstone/BreadcrumbArranger` with opaque
+		* The `'activity'` pattern  uses the `BreadcrumbArranger` with opaque
 		* panels over the full screen and only one breadcrumb showing onscreen.
 		*
 		* The `'none'` pattern should be used when selecting other arrangers, such as
@@ -230,14 +350,43 @@ module.exports = kind(
 		popOnBack: false,
 
 		/**
-		* The source of the image used for branding in the lower left region of the Panels
-		* (only applies to Panels using the `'activity'` pattern).
+		* When `true`, an ApplicationCloseButton is added to ActivityPanels arranger's Panel Headers.
 		*
-		* @type {String|module:enyo/resolution#selectSrc~src}
-		* @default ''
+		* @type {Boolean}
+		* @default true
 		* @public
 		*/
-		brandingSrc: ''
+		hasCloseButton: true,
+
+		/**
+		* When `true`, navigating the panel-stack (forward and backward) by 5-way key is disabled.
+		* This feature may be helpful to prevent accidental navigation in "wizard" interface
+		* scenarios where the user must take explicit action to advance or regress.
+		*
+		* @type {Boolean}
+		* @default false
+		* @public
+		*/
+		preventKeyNavigation: false,
+
+		/**
+		* When `true`, focus can move from panel to breadcrumb when press left key.
+		*
+		* @type {Boolean}
+		* @default true
+		* @deprecated This property will be removed in the future.
+		* @public
+		*/
+		leftKeyToBreadcrumb: true,
+
+		/**
+		* When `true`, existing views are cached for reuse; otherwise, they are destroyed.
+		*
+		* @type {Boolean}
+		* @default false
+		* @public
+		*/
+		cacheViews: false
 	},
 
 	/**
@@ -246,48 +395,60 @@ module.exports = kind(
 	narrowFit: false,
 
 	/**
-	* Hierachical stack.
-	* When we call setIndex or pushPanel, new object is pushed to this stack.
-	* When we call popPanel or back key handler, lasted object is removed.
-	* To save memory, it is initiated when this.allowBackKey is true.
-	*
-	* @type {Array}
-	* @default null
 	* @private
 	*/
-	panelStack: null,
+	fractions: {panel: 1, breadcrumb: 1},
 
 	/**
 	* @private
 	*/
 	handlers: {
 		ontap:						'tapped',
-
 		onSpotlightRight:			'spotlightRight',
 		onSpotlightLeft:			'spotlightLeft',
-		onSpotlightUp:				'spotlightUp',
-		onSpotlightDown:			'spotlightDown',
 		onSpotlightFocus:			'spotlightFocus',
 		onSpotlightContainerLeave:	'onSpotlightPanelLeave',
 		onSpotlightContainerEnter:	'onSpotlightPanelEnter',
-
-		onPreTransitionComplete:	'preTransitionComplete',
-		onPostTransitionComplete:	'postTransitionComplete'
+		onCustomizeCloseButton:		'handleCustomizeCloseButton'
 	},
+
+	/**
+	* @private
+	*/
+	applicationTools: [
+		{name: 'appClose', kind: ApplicationCloseButton, onSpotlightUp: 'spotlightFromCloseButton', onSpotlightDown: 'spotlightFromCloseButton', onSpotlightRight: 'spotlightFromCloseButton', onSpotlightLeft: 'spotlightFromCloseButton'}
+	],
 
 	/**
 	* @private
 	*/
 	handleTools: [
 		{name: 'backgroundScrim', kind: Control, classes: 'moon-panels-background-scrim'},
-		{name: 'clientWrapper', kind: Control, classes: 'enyo-fill enyo-arranger moon-panels-client', accessibilityPreventScroll: true, components: [
-			{name: 'scrim', kind: Control, classes: 'moon-panels-panel-scrim', components: [
-				{name: 'branding', kind: Img, sizing: 'contain', classes: 'moon-panels-branding'}
-			]},
-			{name: 'client', kind: Control, tag: null}
+		{name: 'clientWrapper', kind: Control, classes: 'enyo-fill moon-panels-client-wrapper', components: [
+			{name: 'scrim', kind: Control, classes: 'moon-panels-panel-scrim'},
+			{name: 'breadcrumbs', kind: Control, classes: 'moon-panels-breadcrumbs'},
+			{name: 'panelsViewport', kind: Control, classes: 'moon-panels-viewport', components: [
+				{name: 'client', kind: Control, tag: null}
+			]}
 		]},
 		{name: 'showHideHandle', kind: PanelsHandle, classes: 'hidden', canGenerate: false, ontap: 'handleTap', onSpotlightLeft: 'handleSpotLeft', onSpotlightRight: 'handleSpotRight', onSpotlightFocused: 'handleFocused', onSpotlightBlur: 'handleBlur', tabIndex: -1},
 		{name: 'showHideAnimator', kind: StyleAnimator, onComplete: 'showHideAnimationComplete'}
+	],
+
+	/**
+	* @private
+	*/
+	animatorTools: [
+		{name: 'animator', kind: MoonAnimator, onStep: 'step', useBezier: true, onEnd: 'animationEnded', configs: {
+			panel: {
+				forward: { startValue: 0, endValue: 1, delay: 0, duration: 230, bezier: [0.69,0.01,0.97,0.59]},
+				backward: { startValue: 0, endValue: 1, delay: 0, duration: 300, bezier: [0.06,0.53,0.38,0.99] }
+			},
+			breadcrumb: {
+				forward: { startValue: 0, endValue: 1, delay: 230, duration: 70, bezier: [0.46,0.28,0.76,0.57] },
+				backward: { startValue: 0, endValue: 1, delay: 150, duration: 150, bezier: [0.08,0.51,0.24,0.99] }
+			}
+		}}
 	],
 
 	/**
@@ -303,25 +464,11 @@ module.exports = kind(
 	draggable: false,
 
 	/**
-	* Value may be between `0` and `1`, inclusive.
+	* Default to using `BreadcrumbArranger`.
 	*
 	* @private
 	*/
-	panelCoverRatio: 1,
-
-	/**
-	* Will be `true` for 'activity' pattern, and `false` for 'alwaysviewing' pattern.
-	*
-	* @private
-	*/
-	showFirstBreadcrumb: false,
-
-	/**
-	* Default to using `moonstone/BreadcrumbArranger`.
-	*
-	* @private
-	*/
-	arrangerKind: BreadcrumbArranger,
+	arrangerKind: MoonArranger,
 
 	/**
 	* Index of panel set in the middle of transition.
@@ -329,13 +476,6 @@ module.exports = kind(
 	* @private
 	*/
 	queuedIndex: null,
-
-	/**
-	* Flag for initial transition.
-	*
-	* @private
-	*/
-	_initialTransition: true,
 
 	/**
 	* Flag for blocking consecutive push/pop/replace panel actions to protect
@@ -346,11 +486,18 @@ module.exports = kind(
 	isModifyingPanels: false,
 
 	/**
-	* Flag to indicate if the Panels are currently transitioning to a new index
+	* Flag to indicate if the Panels are currently transitioning to a new index.
 	*
 	* @private
 	*/
 	transitioning: false,
+
+	/**
+	* Width of breadcrumb.
+	*
+	* @private
+	*/
+	breadcrumbWidth: 96,
 
 	/**
 	* Checks the state of panel transitions.
@@ -364,6 +511,125 @@ module.exports = kind(
 	},
 
 	/**
+	* Returns list of breadcrumb objects
+	*
+	* @return {Array} List of breadcrumbs.
+	* @public
+	*/
+	getBreadcrumbs: function () {
+		return this.$.breadcrumbs ? this.$.breadcrumbs.children : [];
+	},
+
+	/**
+	* Returns reference to breadcrumb at the specified index.
+	*
+	* @public
+	*/
+	getBreadcrumbForIndex: function (index) {
+		var breadcrumbs = this.getBreadcrumbs();
+		return breadcrumbs[(index + breadcrumbs.length) % breadcrumbs.length];
+	},
+
+	/**
+	* Returns maximum number of breadcrumbs that can be fit in the breadcrumb area.
+	*
+	* @return {Number} Number of breadcrumbs.
+	* @public
+	*/
+	getBreadcrumbMax: function () {
+		if (this.pattern == 'activity') return 1;
+		// Always viewing pattern is using half screen to show breadcrumbs
+		return Math.round(window.innerWidth / 2 / ri.scale(this.breadcrumbWidth));
+	},
+
+	/**
+	* Returns range of breadcrumb index.
+	*
+	* @return {Object} Object contains start and end value as a hash. '{start: start, end: end}'
+	* @public
+	*/
+	getBreadcrumbRange: function () {
+		/** To support fly weight pattern, we use a concept of a window.
+		*	If we are seeing maximum 1 breadcrumb on screen (case of activity pattern),
+		*	we arrange 2 breadcrumbs at a time (current and previous) to show animation.
+		*	If we move forward from index 2 to 3 (active is 3), the window can be [2, 3].
+		*/
+		var end = this.index,
+			start = end - this.getBreadcrumbs().length;
+
+		// If we move backward from index 4 to 3 (active is 3), the window can be [3, 4].
+		if (this.fromIndex > this.toIndex) {
+			start = start+1;
+			end = end+1;
+		}
+		return {start: start, end: end};
+	},
+
+	/**
+	* We just recalculate transition position on pushPanel, because reflow is high cost operation.
+	* @private
+	*/
+	recalcLayout: function () {
+		if (this.layout && this.layout.calcTransitionPositions) {
+			this.arrangements = [];
+			this.layout.calcTransitionPositions();
+		} else {
+			this.reflow();
+		}
+	},
+
+	/**
+	* Determines the id of the given view.
+	*
+	* @param {Object} view - The view whose id we will determine.
+	* @return {String} The id of the given view.
+	* @public
+	*/
+	getViewId: function (view) {
+		return view.id;
+	},
+
+	/**
+	* Retrieves an array of either cached panels, if found, or creates a new array of panels
+	*
+	* @param {Object[]} info - The declarative {@glossary kind} definitions.
+	* @param {Object} moreInfo - Additional properties to be applied (defaults).
+	* @return {Array} List of found or created controls
+	* @private
+	*/
+	createPanels: function (info, moreInfo) {
+		var newPanels = [],
+			newPanel, idx;
+
+		for (idx = 0; idx < info.length; idx++) {
+			newPanel = this.createPanel(info[idx], moreInfo);
+			newPanels.push(newPanel);
+		}
+
+		return newPanels;
+	},
+
+	/**
+	* Retrieves a cached panel or, if not found, creates a new panel
+	*
+	* @param {Object} info - The declarative {@glossary kind} definition.
+	* @param {Object} moreInfo - Additional properties to be applied (defaults).
+	* @return {Object} - Found or created control
+	* @private
+	*/
+	createPanel: function (info, moreInfo) {
+		var panel,
+			panelId = this.getViewId(info);
+
+		if (this.cacheViews && panelId) {
+			panel = this.restoreView(panelId);
+		}
+
+		panel = panel || this.createComponent(info, moreInfo);
+		return panel;
+	},
+
+	/**
 	* Creates a panel on top of the stack and increments index to select that component.
 	*
 	* @param {Object} info - The declarative {@glossary kind} definition.
@@ -372,26 +638,44 @@ module.exports = kind(
 	* @public
 	*/
 	pushPanel: function (info, moreInfo) { // added
-		if (this.transitioning || this.isModifyingPanels) {return null;}
+		var startingPanelCount, lastIndex, panel;
+
+		if (this.transitioning || this.isModifyingPanels) return null;
+
 		this.isModifyingPanels = true;
-		var lastIndex = this.getPanels().length - 1,
-			oPanel = this.createComponent(info, moreInfo);
-		oPanel.render();
-		this.reflow();
-		oPanel.show();
-		oPanel.resize();
+
+		startingPanelCount = this.getPanels().length;
+		lastIndex = startingPanelCount - 1;
+		panel = this.createPanel(info, moreInfo);
+
+		panel.render();
+		this.addBreadcrumb(true);
+		this.recalcLayout();
+		panel.resize();
 		this.setIndex(lastIndex+1);
+
+		// when we push the first panel, we need to explicitly let our observers know about this as
+		// there would not be a change in actual index value
+		if (startingPanelCount === 0) {
+			// Accessibility - when we push the first panel, we need to set alert role for reading title.
+			if (MoonOptions.accessibility) {
+				this.setAlertRole();
+			}
+			this.notifyObservers('index');
+		}
+
 		this.isModifyingPanels = false;
-		return oPanel;
+
+		return panel;
 	},
 
 	/**
-	* Options for the [pushPanels()]{@link module:moonstone/Panels~Panels#pushPanels} method.
+	* Options for the [Panels.pushPanels()]{@link module:moonstone/Panels~Panels.pushPanels} method.
 	*
-	* @typedef {Object} module:moonstone/Panels~Panels~PushPanelsOptions
+	* @typedef {Object} module:moonstone/Panels~Panels.pushPanels~options
 	* @property {Number} targetIndex - The panel index number to immediately switch to. Leaving
 	*	this blank or not setting it will perform the default action, which transitions to the
-	*	first of the new panels. Setting this to a negative and other "out of bounds" values
+	*	first of the new panels. Setting this to a negative and other 'out of bounds' values
 	*	work in conjunction with the `wrap: true` property. Negative values count backward from
 	*	the end, while indices greater than the total Panels' panel length wrap around and start
 	*	counting again from the beginning.
@@ -405,60 +689,112 @@ module.exports = kind(
 	*
 	* @param {Object[]} info - The declarative {@glossary kind} definitions.
 	* @param {Object} commonInfo - Additional properties to be applied (defaults).
-	* @param {module:moonstone/Panels~Panels~PushPanelsOptions} options - Additional options for pushPanels.
+	* @param {Object} options - Additional options for pushPanels.
 	* @return {null|Object[]} Array of the panels that were created on top of the stack, or
 	*	`null` if panels could not be created.
 	* @public
 	*/
-	pushPanels: function(info, commonInfo, options) { // added
-		if (this.transitioning || this.isModifyingPanels) { return null; }
+	pushPanels: function (info, commonInfo, options) { // added
+		var startingPanelCount, lastIndex, panels, panel;
+
+		if (this.transitioning || this.isModifyingPanels) return null;
+
 		this.isModifyingPanels = true;
 
-		if (!options) { options = {}; }
-		var lastIndex = this.getPanels().length,
-			oPanels = this.createComponents(info, commonInfo),
-			nPanel;
+		if (!options) options = {};
 
-		for (nPanel = 0; nPanel < oPanels.length; ++nPanel) {
-			oPanels[nPanel].render();
+		startingPanelCount = this.getPanels().length;
+		lastIndex = startingPanelCount;
+		panels = this.createPanels(info, commonInfo);
+
+		for (panel = 0; panel < panels.length; ++panel) {
+			panels[panel].render();
 		}
-		this.reflow();
+		this.addBreadcrumb(true);
+		this.recalcLayout();
 		if (options.targetIndex || options.targetIndex === 0) {
 			lastIndex = options.targetIndex;
 		}
 		lastIndex = this.clamp(lastIndex);
-		this.getPanels()[lastIndex].show();
-		for (nPanel = 0; nPanel < oPanels.length; ++nPanel) {
-			oPanels[nPanel].resize();
+		for (panel = 0; panel < panels.length; ++panel) {
+			panels[panel].resize();
 		}
-
-		// If transition was explicitly set to false, since null or undefined indicate "never set" or unset
+		// If transition was explicitly set to false, since null or undefined indicate 'never set' or unset
 		if (options.transition === false) {
 			this.setIndexDirect(lastIndex);
 		} else {
 			this.setIndex(lastIndex);
 		}
 
+		// when we push the first panel, we need to explicitly let our observers know about this as
+		// there would not be a change in actual index value
+		if (startingPanelCount === 0) {
+			// Accessibility - when we push the first panel, we need to set alert role for reading title.
+			if (MoonOptions.accessibility) {
+				this.setAlertRole();
+			}
+			this.notifyObservers('index');
+		}
+
 		this.isModifyingPanels = false;
-		return oPanels;
+
+		return panels;
 	},
 
 	/**
 	* Destroys panels whose index is greater than or equal to a specified value.
 	*
-	* @param {Number} index - Index at which to start destroying panels.
+	* @param {Number} index - Index at which to start removing panels.
+	* @param {Number} [direction] - The direction in which we are changing indices. A negative
+	*	value signifies that we are moving backwards, and want to remove panels whose indices are
+	*	greater than the current index. Conversely, a positive value signifies that we are moving
+	*	forwards, and panels whose indices are less than the current index should be removed. To
+	*	maintain backwards-compatibility with the existing API, this parameter is optional and, if
+	*	not specified, will default to the popOnBack behavior.
 	* @public
 	*/
-	popPanels: function (index) {
-		if (this.transitioning || this.isModifyingPanels) {return;}
-		this.isModifyingPanels = true;
-		var panels = this.getPanels();
-		index = index || panels.length - 1;
+	popPanels: function (index, direction) {
+		if (this.transitioning || this.isModifyingPanels) return;
 
-		while (panels.length > index && index >= 0) {
-			panels[panels.length - 1].destroy();
+		var panels = this.getPanels(),
+			i;
+
+		this.isModifyingPanels = true;
+
+		if (direction > 0) {
+			for (i = 0; i <= index; ++i) {
+				this.removePanel(panels[i], true);
+			}
+		} else {
+			index = index || panels.length - 1;
+
+			for (i = panels.length - 1; i >= index; i--) {
+				this.removePanel(panels[i]);
+			}
 		}
+
+		this.removeBreadcrumb();
+		this.recalcLayout();
 		this.isModifyingPanels = false;
+	},
+
+	/**
+	* Removes an individual panel.
+	*
+	* @param {Object} panel - The panel to remove.
+	* @param {Boolean} [preserve] - If {@link module:moonstone/Panels~Panels#cacheViews} is `true`,
+	*	this value is used to determine whether or not to preserve the current panel's position in
+	*	the component hierarchy and on the screen, when caching.
+	* @private
+	*/
+	removePanel: function (panel, preserve) {
+		if (panel) {
+			if (this.cacheViews) {
+				this.cacheView(panel, preserve);
+			} else {
+				panel.destroy();
+			}
+		}
 	},
 
 	/**
@@ -480,7 +816,7 @@ module.exports = kind(
 				moreInfo = util.mixin({addBefore: this.getPanels()[index]}, moreInfo);
 			}
 		}
-		oPanel = this.createComponent(info, moreInfo);
+		oPanel = this.createPanel(info, moreInfo);
 		oPanel.render();
 		this.resize();
 		this.isModifyingPanels = false;
@@ -534,17 +870,82 @@ module.exports = kind(
 	},
 
 	/**
+	* @private
+	*/
+	refresh: function () {
+		if (this.isMoonAnimatorUsed) {
+			for(var k in this.$.animator.configs) {
+				this.fractions[k] = 1;
+			}
+		}
+		Panels.prototype.refresh.apply(this, arguments);
+	},
+
+	/**
+	* @private
+	*/
+	step: function (sender) {
+		if (this.isMoonAnimatorUsed) {
+			for(var k in this.$.animator.configs) {
+				this.fractions[k] = sender.values[k];
+			}
+		}
+		Panels.prototype.step.apply(this, arguments);
+		return true;
+	},
+
+	/**
+	* @private
+	*/
+	stepTransition: function () {
+		if (!this.hasNode()) return;
+
+		if (this.isMoonAnimatorUsed) {
+			this.arrangement = this.arrangement ? this.arrangement : {};
+			for(var k in this.$.animator.configs) {
+				this.arrangement[k] = this.interpolatesArrangement(this.fractions[k]);
+			}
+			if (this.layout && this.arrangement.panel && this.arrangement.breadcrumb) {
+				this.layout.flowArrangement();
+			}
+		} else {
+			Panels.prototype.stepTransition.apply(this, arguments);
+		}
+	},
+
+	/**
+	* Interpolates between arrangements as needed.
+	*
+	* @param {Number} [fraction] - A value between 0 to 1.
+	* @private
+	*/
+	interpolatesArrangement: function (fraction) {
+		// select correct transition points and normalize fraction.
+		var t$ = this.transitionPoints;
+		var r = (fraction || 0) * (t$.length-1);
+		var i = Math.floor(r);
+		r = r - i;
+		var s = t$[i], f = t$[i+1];
+		// get arrangements and lerp between them
+		var s0 = this.fetchArrangement(s);
+		var s1 = this.fetchArrangement(f);
+		return s0 && s1 ? Panels.lerp(s0, s1, r) : (s0 || s1);
+	},
+
+	/**
 	* @method
 	* @private
 	*/
 	create: function () {
 		Panels.prototype.create.apply(this, arguments);
-		this.set('animate', this.animate && options.accelerate, true);
+		this.set('animate', this.animate && MoonOptions.accelerate, true);
 
 		// we need to ensure our handler has the opportunity to modify the flow during
 		// initialization
 		this.showingChanged();
-		this.brandingSrcChanged();
+		// make other panel to spotlightDisabled without the initialPanel;
+		this.notifyPanels('initPanel');
+		this.notifyBreadcrumbs('updateBreadcrumb');
 	},
 
 	/**
@@ -553,9 +954,10 @@ module.exports = kind(
 	initComponents: function () {
 		this.applyPattern();
 		Panels.prototype.initComponents.apply(this, arguments);
+		this.isMoonAnimatorUsed = (this.$.animator instanceof MoonAnimator);
+		this.addBreadcrumb();
 		this.initializeShowHideHandle();
 		this.handleShowingChanged();
-		this.allowBackKeyChanged();
 	},
 
 	/**
@@ -572,7 +974,6 @@ module.exports = kind(
 				this._directHide();
 			}
 		}
-		this.displayBranding();
 	},
 
 	/**
@@ -584,50 +985,91 @@ module.exports = kind(
 			return;
 		}
 
-		if (this.shouldHide(oEvent)) {
+		// If tapped on breadcrambs area (which is located in the left side of panel)
+		if (oEvent.originator === this.$.breadcrumbs) {
 			if (this.showing && (this.useHandle === true) && this.handleShowing) {
 				this.hide();
 			}
 		} else {
-			var n = (oEvent.breadcrumbTap) ? this.getPanelIndex(oEvent.originator) : -1;
-			// If tapped on not current panel (breadcrumb), go to that panel
-			if (n >= 0 && n !== this.getIndex()) {
-				this.setIndex(n);
+			// If tapped on breadcrumb, go to that panel
+			if (oEvent.breadcrumbTap && oEvent.index !== this.getIndex()) {
+				this.setIndex(oEvent.index);
 			}
+		}
+	},
+
+	/**
+	* This takes action when the CustomizeCloseButton event is received. It accepts several event
+	* properties, and in their absence resets each to its original value.
+	*
+	* Values:
+	*   x - (Number|String), positive or negative measurement to offset the X from its natural position.
+	*       This value is automatically inverted in RtL mode.
+	*   y - (Number|String), positive or negative measurement to offset the X from its natural position.
+	*   properties {Object} An object containing key/value pairs to be `set` on the close button.
+	*   For example, this can be used to set the `showing` property of the close button. If present
+	*   and an object, the `styles` member will be iterated through and each style will be applied
+	*   individually and those styles with a `null` value will be removed.
+	*
+	* Ex:
+	*    this.doCustomizeCloseButton({parameters: {showing: false});
+	*
+	* @private
+	*/
+	handleCustomizeCloseButton: function (sender, ev) {
+		if (this.$.appClose) {
+			this.$.appClose.handleCustomizeCloseButton.apply(this.$.appClose, arguments);
 		}
 	},
 
 	/**
 	* @private
 	*/
-	shouldHide: function (oEvent) {
-		return (oEvent.originator === this.$.clientWrapper || (oEvent.originator instanceof Panel && this.isPanel(oEvent.originator)));
+	getSpotlightTarget: function (dir, control) {
+		var target,
+			ref;
+
+		// Look at all of the NearestNeighbors up the lineage chain, until we find a good one.
+		while (!target) {
+			ref = ref ? Spotlight.getParent(ref) : control;
+			if (!ref || ref instanceof Panel) break;
+			target = Spotlight.NearestNeighbor.getNearestNeighbor(dir, ref);
+		}
+
+		return target;
 	},
 
 	/**
 	* @private
 	*/
-	spotlightLeft: function (oSender, oEvent) {
-		if (this.toIndex !== null) {
+	spotlightLeft: function (sender, ev) {
+		if (!this.preventKeyNavigation && !this.leftKeyToBreadcrumb && this.toIndex !== null) {
 			this.queuedIndex = this.toIndex - 1;
 			//queuedIndex could have out boundary value. It will be managed in setIndex()
 		}
-		var orig = oEvent.originator,
-			idx;
-		// Don't allow left-movement from a breadcrumb
-		if (orig.name === 'breadcrumbBackground') {
+		var orig = ev.originator,
+			idx = this.getPanelIndex(orig),
+			target = this.getSpotlightTarget('LEFT', orig);
+
+		if (target && target.parent instanceof ApplicationCloseButton) {
+			Spotlight.spot(target);
 			return true;
-		}
-		if (orig instanceof Panel) {
-			idx = this.getPanelIndex(orig);
+		} else if (orig instanceof Panel) {
 			if (idx === 0) {
-				if (this.showing && (this.useHandle === true) && this.handleShowing) {
+				if (!this.preventKeyNavigation && this.showing && (this.useHandle === true)
+						&& this.handleShowing) {
 					this.hide();
 					return true;
 				}
-			}
-			else {
-				this.previous();
+			} else if (!this.leftKeyToBreadcrumb) {
+				if (!this.preventKeyNavigation) {
+					this.previous();
+				} else {
+					Spotlight.spot(Spotlight.getLastControl());
+				}
+				return true;
+			} else if (sender instanceof ApplicationCloseButton && this.$.breadcrumbs) {
+				Spotlight.spot(this.$.breadcrumbs);
 				return true;
 			}
 		}
@@ -636,36 +1078,54 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	spotlightRight: function (oSender, oEvent) {
-		if (this.toIndex !== null) {
+	spotlightRight: function (sender, ev) {
+		if (!this.preventKeyNavigation && this.toIndex !== null) {
 			this.queuedIndex = this.toIndex + 1;
 			//queuedIndex could have out boundary value. It will be managed in setIndex()
 		}
-		var orig = oEvent.originator,
+		var orig = ev.originator,
 			idx = this.getPanelIndex(orig),
-			next = this.getPanels()[idx + 1];
-		if (orig.name === 'breadcrumbBackground') {
-			// Upon pressing right from a pointer-focused breadcrumb, just jump
-			// to the current panel to keep focus visible
-			Spotlight.spot(next);
+			next = this.getPanels()[idx + 1],
+			target = this.getSpotlightTarget('RIGHT', orig);
+
+		if (target && target.parent instanceof ApplicationCloseButton) {
+			Spotlight.spot(target);
 			return true;
-		}
-		if (next && orig instanceof Panel) {
-			if (this.useHandle === true && this.handleShowing && next.isOffscreen) {
+		} else if (next && orig instanceof Panel) {
+			if (this.useHandle === true && this.handleShowing && idx == this.index) {
 				Spotlight.spot(this.$.showHideHandle);
+				return true;
 			}
 			else {
-				this.next();
+				if (!this.preventKeyNavigation) {
+					this.next();
+					return true;
+				}
 			}
-			return true;
 		}
 	},
 
 	/**
 	* @private
 	*/
-	spotlightDown: function (oSender, oEvent) {
-		if (oEvent.originator.name === 'breadcrumbBackground') { return true; }
+	spotlightFromCloseButton: function (sender, ev) {
+		var p = this.getActive(),
+			idx = this.getPanelIndex(p),
+			direction = ev.type.substring(11).toUpperCase(),		// Derive direction from type
+			target = Spotlight.NearestNeighbor.getNearestNeighbor(direction, ev.originator, {root: p});
+
+		if (target) {
+			Spotlight.spot(target);
+			return true;
+		} else if (direction == 'RIGHT') {
+			if (this.useHandle === true && this.handleShowing && idx == this.index) {
+				Spotlight.spot(this.$.showHideHandle);
+				return true;
+			}
+		} else if (direction == 'LEFT') {
+			this.spotlightLeft(sender, {originator: p});
+			return true;
+		}
 	},
 
 	/**
@@ -674,7 +1134,7 @@ module.exports = kind(
 	spotlightFocus: function (oSender, oEvent) {
 		var orig = oEvent.originator;
 		var idx = this.getPanelIndex(orig);
-		if (this.index !== idx && idx !== -1 && orig.name !== 'breadcrumbBackground') {
+		if (this.index !== idx && idx !== -1) {
 			this.setIndex(idx);
 		}
 	},
@@ -731,7 +1191,7 @@ module.exports = kind(
 	* @private
 	*/
 	panelsHiddenAsync: function () {
-		util.asyncMethod(Signals, 'send', 'onPanelsHidden');
+		util.asyncMethod(Signals, 'send', 'onPanelsHidden', {panels: this});
 	},
 
 	/**
@@ -810,38 +1270,50 @@ module.exports = kind(
 			index = this.clamp(index);
 		}
 
-		if (index === this.index) {
+		if (index === this.index || this.toIndex != null) {
 			return;
 		}
 
-		if (this.toIndex !== null) {
-			return;
-		}
+		var panels, toPanel;
 
-		this.notifyPanels('initPanel');
+		// Clear before start
+		this.queuedIndex = null;
+		this._willMove = null;
+
+		// Set indexes before notify panels
 		this.fromIndex = this.index;
 		this.toIndex = index;
 
-		this.queuedIndex = null;
-		this._willMove = null;
+		// Turn on the close-x so it's ready for the next panel; if hasCloseButton is true
+		// and remove spottability of close button during transitions.
+		if (this.$.appClose) {
+			this.$.appClose.customizeCloseButton({'spotlight': false});
+			this.$.appClose.set('showing', this.hasCloseButton);
+		}
+		this.notifyPanels('initPanel');
+		this.notifyBreadcrumbs('updateBreadcrumb');
 
 		// Ensure any VKB is closed when transitioning panels
 		this.blurActiveElementIfHiding(index);
 
+		if (this.cacheViews) {
+			panels = this.getPanels();
+			toPanel = panels[this.toIndex];
+
+			if (!toPanel.generated) {
+				if (this.toIndex < this.fromIndex) toPanel.addBefore = panels[this.fromIndex];
+				toPanel.render();
+			}
+		}
+
 		// If panels will move for this index change, kickoff animation. Otherwise skip it.
 		if (this.shouldAnimate()) {
 			Spotlight.mute(this);
-			// if back key feature is enabled and setIndex is not called from back key handler
-			if (this.allowBackKey && !EnyoHistory.isProcessing()) {
-				this.panelStack.push(this.index);
-				this.pushBackHistory();
-			}
-
 			this.startTransition();
-			this.triggerPreTransitions();
-		} else {
-			this._setIndex(this.toIndex);
+			this.addClass('transitioning');
 		}
+
+		this._setIndex(this.toIndex);
 	},
 
 	/**
@@ -857,8 +1329,8 @@ module.exports = kind(
 			for (var i = 0; i < panels.length; i++) {
 				panel = panels[i];
 				if (activeComponent.isDescendantOf(panel)) {
-					panelInfo = this.getPanelInfo(i, index);
-					if (panelInfo.offscreen) {
+					panelInfo = this.getTransitionInfo(i, index);
+					if (panelInfo.isOffscreen) {
 						document.activeElement.blur();
 					}
 					break;
@@ -874,8 +1346,10 @@ module.exports = kind(
 	* @private
 	*/
 	shouldAnimate: function () {
-		if (this._willMove == null) {
-			return (this._willMove = this.animate && this.shouldArrange());
+		if (this._willMove === null) {
+			/*jshint -W093 */
+			return (this._willMove = this.animate && this.shouldArrange() && this.getAbsoluteShowing());
+			/*jshint +W093 */
 		}
 		else {
 			return this._willMove;
@@ -898,6 +1372,11 @@ module.exports = kind(
 	_setIndex: function (index) {
 		var prev = this.get('index');
 		this.index = this.clamp(index);
+		// Accessibility - Before reading the focused item, it must have a alert role for reading the title,
+		// so setAlertRole() must be called before notifyObservers('index', prev, index).
+		if (MoonOptions.accessibility) {
+			this.setAlertRole();
+		}
 		this.notifyObservers('index', prev, index);
 	},
 
@@ -908,7 +1387,8 @@ module.exports = kind(
 	*/
 	animationEnded: function () {
 		if (this.animate) {
-			this.triggerPostTransitions();
+			this.removeClass('transitioning');
+			this.completed();
 		} else {
 			Panels.prototype.animationEnded.apply(this, arguments);
 		}
@@ -919,16 +1399,10 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	getPanelInfo: function (inPanelIndex, inActiveIndex) {
-		return this.layout.getPanelInfo && this.layout.getPanelInfo(inPanelIndex, inActiveIndex) || {};
-	},
-
-	/**
-	* @private
-	*/
 	getTransitionInfo: function (inPanelIndex) {
-		var to = (this.toIndex || this.toIndex === 0) ? this.toIndex : this.index;
-		var info = this.getPanelInfo(inPanelIndex, to);
+		var to = (this.toIndex || this.toIndex === 0) ? this.toIndex : this.index,
+			info = {};
+		info.isOffscreen = (inPanelIndex != to);
 		info.from = this.fromIndex;
 		info.to = this.toIndex;
 		info.index = inPanelIndex;
@@ -937,88 +1411,111 @@ module.exports = kind(
 	},
 
 	/**
-	* If any panel has a pre-transition, pushes the panel's index to `preTransitionWaitList`.
+	* @private
+	*/
+	getBreadcrumbPositionInfo: function (bounds, containerBounds) {
+		var right = bounds ? bounds.right : null,
+			left = bounds ? bounds.left : null,
+			panelEdge = containerBounds ? containerBounds.right : null;
+
+		return {isOffscreen: (right == null || left == null || panelEdge == null || right <= 0 || left >= panelEdge)};
+	},
+
+	/**
+	* Set index to breadcrumb to display number
 	*
 	* @private
 	*/
-	triggerPreTransitions: function () {
-		var panels = this.getPanels(),
-			info;
+	assignBreadcrumbIndex: function() {
+		var range = this.getBreadcrumbRange(),
+			control, i;
 
-		this.preTransitionWaitlist = [];
-
-		for(var i = 0, panel; (panel = panels[i]); i++) {
-			info = this.getTransitionInfo(i);
-			if (panel.preTransition && panel.preTransition(info)) {
-				this.preTransitionWaitlist.push(i);
+		if (this.pattern != 'none') {
+			for (i=range.start; i<range.end; i++) {
+				control = this.getBreadcrumbForIndex(i);
+				control.set('index', i);
 			}
-		}
-
-		if (this.preTransitionWaitlist.length === 0) {
-			this._setIndex(this.toIndex);
 		}
 	},
 
 	/**
 	* @private
 	*/
-	preTransitionComplete: function (sender, event) {
-		var index = this.getPanels().indexOf(event.originator);
+	addBreadcrumb: function (forceRender) {
+		if (this.pattern == 'none' || !this.$.breadcrumbs) return;
 
-		for (var i = 0; i < this.preTransitionWaitlist.length; i++) {
-			if (this.preTransitionWaitlist[i] === index) {
-				this.preTransitionWaitlist.splice(i,1);
-				break;
+		// If we have 1 panel then we don't need breadcrumb.
+		// If we have more then 1 panel then we need panel - 1 number of breadcrumbs.
+		// But, if we can only see 1 breadcrumb on screen like activity pattern
+		// then we need 2 breadcrumbs to show animation.
+		var len = Math.max(2, Math.min(this.getPanels().length-1, this.getBreadcrumbMax()+1)),
+			defs = [],
+			prevLen = this.getBreadcrumbs().length,
+			breadcrumbs, i;
+
+		for(i=0; i<len-prevLen; i++) {
+			defs[i] = {kind: Breadcrumb};
+		}
+		this.$.breadcrumbs.createComponents(defs, {owner: this});
+		if (forceRender) {
+			breadcrumbs = this.getBreadcrumbs();
+			for (i=prevLen; i<len; i++) {
+				breadcrumbs[i].render();
 			}
-		}
-
-		if (this.preTransitionWaitlist.length === 0) {
-			this._setIndex(this.toIndex);
-		}
-
-		return true;
-	},
-
-	/**
-	* @private
-	*/
-	triggerPostTransitions: function () {
-		var panels = this.getPanels(),
-			info;
-
-		this.postTransitionWaitlist = [];
-
-		for(var i = 0, panel; (panel = panels[i]); i++) {
-			info = this.getTransitionInfo(i);
-			if (panel.postTransition && panel.postTransition(info)) {
-				this.postTransitionWaitlist.push(i);
-			}
-		}
-
-		if (this.postTransitionWaitlist.length === 0) {
-			this.completed();
-			return true;
 		}
 	},
 
 	/**
 	* @private
 	*/
-	postTransitionComplete: function (sender, event) {
-		var index = this.getPanels().indexOf(event.originator);
+	removeBreadcrumb: function () {
+		if (this.pattern == 'none' || !this.$.breadcrumbs) return;
 
-		for (var i = 0; i < this.postTransitionWaitlist.length; i++) {
-			if (this.postTransitionWaitlist[i] === index) {
-				this.postTransitionWaitlist.splice(i,1);
-				break;
-			}
+		// If we have 1 panel then we don't need breadcrumb.
+		// If we have more then 1 panel then we need panel - 1 number of breadcrumbs.
+		// But, if we can only see 1 breadcrumb on screen like activity pattern
+		// then we need 2 breadcrumbs to show animation.
+		var len = Math.max(2, Math.min(this.getPanels().length-1, this.getBreadcrumbMax()+1));
+
+		// If we have more than the number of necessary breadcrumb then destroy.
+		while (this.getBreadcrumbs().length > len) {
+			this.getBreadcrumbs()[this.getBreadcrumbs().length-1].destroy();
 		}
+	},
 
-		if (this.postTransitionWaitlist.length === 0) {
-			this.completed();
+	/**
+	* Assign direction property on animator to select proper timing function.
+	*
+	* @private
+	*/
+	getDirection: function() {
+		return  (this.fromIndex == this.toIndex) ? 'none' :
+				(this.fromIndex < this.toIndex) ? 'forward' : 'backward';
+	},
+
+	/**
+	* @private
+	*/
+	adjustFirstPanelBeforeTransition: function() {
+		var idx = this.index,
+			from = this.fromIndex,
+			trans = this.transitioning;
+		if (this.pattern == 'activity') {
+			// Show breadcrumbs if we're landing on any panel besides the first
+			this.$.breadcrumbs.set('showing', idx > 0);
+			// Adjust viewport to show full-width panel if we're landing on OR transitioning from the first panel
+			this.addRemoveClass('first', idx === 0 || (trans && from === 0));
 		}
+	},
 
-		return true;
+	/**
+	* @private
+	*/
+	adjustFirstPanelAfterTransition: function() {
+		// Keep viewport adjusted for full-width panel only if we've landed on the first panel
+		if (this.pattern == 'activity' && this.index !== 0) {
+			this.removeClass('first');
+		}
 	},
 
 	/**
@@ -1027,18 +1524,46 @@ module.exports = kind(
 	*
 	* @private
 	*/
-	indexChanged: function () {
-		var activePanel = this.getActive();
+	indexChanged: function (was) {
+		var current, delta, deltaAbs, idx;
 
-		if (activePanel && activePanel.isBreadcrumb) {
-			activePanel.removeSpottableBreadcrumbProps();
+		if (this.getPanels().length > 0) {
+			this.assignBreadcrumbIndex();
+
+			// Set animation direction to use proper timing function before start animation
+			// This direction is only consumed by MoonAnimator.
+			this.$.animator.direction = this.getDirection();
+
+			this.adjustFirstPanelBeforeTransition();
+
+			// Push or drop history, based on the direction of the index change
+			if (this.allowBackKey) {
+				was = was || 0;
+				delta = this.index - was;
+				deltaAbs = Math.abs(delta);
+
+				if (delta > 0) {
+					for (idx = 0; idx < deltaAbs; idx++) {
+						this.pushBackHistory(idx + was);
+					}
+				} else {
+					current = EnyoHistory.peek();
+
+					// ensure we have history to drop - if the first history entry's index corresponds
+					// to the index prior to our current index, we assume the other entries exist
+					if (current && current.index + 1 == was) {
+						EnyoHistory.drop(deltaAbs);
+					}
+				}
+			}
 		}
 
 		Panels.prototype.indexChanged.apply(this, arguments);
-
-		this.displayBranding();
 	},
 
+	/**
+	* @private
+	*/
 	notifyPanels: function (method) {
 		var panels = this.getPanels(),
 			panel, info, i;
@@ -1053,29 +1578,37 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	finishTransition: function () {
-		var panels = this.getPanels(),
-			toIndex = this.toIndex,
-			fromIndex = this.fromIndex,
-			i, panel, info, popFrom;
+	notifyBreadcrumbs: function (method) {
+		if (this.pattern == 'none' || !this.$.breadcrumbs) return;
 
-		this.notifyPanels('transitionFinished');
-		Panels.prototype.finishTransition.apply(this, arguments);
-
-		// Automatically pop off panels that are no longer on screen
-		if (this.popOnBack && (toIndex < fromIndex)) {
-			popFrom = toIndex + 1;
-			for (i = 0; (panel = panels[i]); i++) {
-				info = this.getTransitionInfo(i);
-				// If a panel is onscreen, don't pop it
-				if ((i > toIndex) && !info.offscreen) {
-					popFrom++;
-				}
+		var range = this.getBreadcrumbRange(),
+			containerBounds = this.$.breadcrumbs.getAbsoluteBounds(),
+			control, bounds, info, i;
+		for (i=range.start; i<range.end; i++) {
+			control = this.getBreadcrumbForIndex(i);
+			bounds = control.getAbsoluteBounds();
+			info = this.getBreadcrumbPositionInfo(bounds, containerBounds);
+			if (control[method]) {
+				control[method](info);
 			}
-
-			this.popPanels(popFrom);
 		}
+	},
 
+	/**
+	* @private
+	*/
+	processPanelsToRemove: function(fromIndex, toIndex) {
+		var direction = toIndex < fromIndex ? -1 : 1,
+			removeFrom;
+
+		// Remove panels that are no longer on screen
+		if (this.cacheViews || (direction < 0 && this.popOnBack)) {
+			removeFrom = toIndex - direction;
+			this.popPanels(removeFrom, direction);
+		}
+	},
+
+	processQueuedKey: function() {
 		// queuedIndex becomes -1 when left key input is occurred
 		// during transition from index 1 to 0.
 		// We can hide panels if we use handle.
@@ -1084,10 +1617,24 @@ module.exports = kind(
 		} else if (this.queuedIndex !== null) {
 			this.setIndex(this.queuedIndex);
 		}
+	},
 
+	/**
+	* @private
+	*/
+	finishTransition: function () {
+		var fromIndex = this.fromIndex,
+			toIndex = this.toIndex;
+
+		this.adjustFirstPanelAfterTransition();
+		this.notifyPanels('transitionFinished');
+		this.notifyBreadcrumbs('updateBreadcrumb');
+		Panels.prototype.finishTransition.apply(this, arguments);
+		this.processPanelsToRemove(fromIndex, toIndex);
+		this.processQueuedKey();
 		Spotlight.unmute(this);
-		// Spot the active panel
 		Spotlight.spot(this.getActive());
+		this.$.appClose && this.$.appClose.customizeCloseButton({'spotlight': true});  // Restore spotlightability of close button.
 	},
 
 	/**
@@ -1104,10 +1651,17 @@ module.exports = kind(
 	* @private
 	*/
 	showingChanged: function (inOldValue) {
+		// Accessibility - Before reading the focused item, it must have a alert role for reading the title,
+		// so setAlertRole() must be called before Spotlight.spot
+		if (MoonOptions.accessibility) {
+			this.setAlertRole();
+		}
 		if (this.$.backgroundScrim) {
 			this.$.backgroundScrim.addRemoveClass('visible', this.showing);
 		}
 		if (this.useHandle === true) {
+			if (this.$.appClose) this.$.appClose.set('showing', (this.showing && this.hasCloseButton));
+
 			if (this.showing) {
 				this.unstashHandle();
 				this._show();
@@ -1131,41 +1685,23 @@ module.exports = kind(
 	* @private
 	*/
 	applyPattern: function () {
+		if (this.pattern != 'alwaysviewing') {
+			this.createChrome(this.applicationTools);
+			this.hasCloseButtonChanged();
+		}
 		switch (this.pattern) {
 		case 'alwaysviewing':
-			this.applyAlwaysViewingPattern();
-			break;
 		case 'activity':
-			this.applyActivityPattern();
+			this.addClass(this.pattern);
+			this.useHandle = (this.useHandle === 'auto') ? (this.pattern == 'activity' ? false : true) : this.useHandle;
+			this.createChrome(this.handleTools);
+			this.tools = this.animatorTools;
 			break;
 		default:
 			this.useHandle = false;
+			this.createChrome([{name: 'client', kind: Control, tag: null}]);
 			break;
 		}
-	},
-
-	/**
-	* @private
-	*/
-	applyAlwaysViewingPattern: function () {
-		this.setArrangerKind(BreadcrumbArranger);
-		this.addClass('always-viewing');
-		this.panelCoverRatio = 0.5;
-		this.useHandle = (this.useHandle === 'auto') ? true : this.useHandle;
-		this.createChrome(this.handleTools);
-		this.breadcrumbGap = 20;
-	},
-
-	/**
-	* @private
-	*/
-	applyActivityPattern: function () {
-		this.setArrangerKind(BreadcrumbArranger);
-		this.addClass('activity');
-		this.showFirstBreadcrumb = true;
-		this.useHandle = (this.useHandle === 'auto') ? false : this.useHandle;
-		this.createChrome(this.handleTools);
-		this.breadcrumbGap = 0;
 	},
 
 	/**
@@ -1191,7 +1727,7 @@ module.exports = kind(
 			this.$.showHideHandle.addClass('right');
 			this.applyShowAnimation();
 		}
-		Signals.send('onPanelsShown', {initialization: init});
+		Signals.send('onPanelsShown', {initialization: init, panels: this});
 	},
 
 	/**
@@ -1252,13 +1788,6 @@ module.exports = kind(
 	},
 
 	/**
-	* @private
-	*/
-	getOffscreenXPosition: function () {
-		return this.$.clientWrapper.getBounds().width;
-	},
-
-	/**
 	* Hide/show animation complete.
 	*
 	* @private
@@ -1295,28 +1824,6 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	displayBranding: function () {
-		if (this.$.branding) {
-			if (this.pattern == 'activity' && this.getPanelInfo(0, this.index).breadcrumb) {
-				this.$.branding.show();
-			} else {
-				this.$.branding.hide();
-			}
-		}
-	},
-
-	/**
-	* @private
-	*/
-	brandingSrcChanged: function () {
-		if (this.$.branding) {
-			this.$.branding.set('src', this.brandingSrc);
-		}
-	},
-
-	/**
-	* @private
-	*/
 	animateChanged: function () {
 		this.addRemoveClass('moon-composite', this.animate);
 	},
@@ -1324,55 +1831,74 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	backKeyHandler: function () {
-		if (this.panelStack.length) {
-			this.setIndex(this.panelStack.pop());
-		}
+	backKeyHandler: function (entry) {
+		var index = entry.index;
+
+		if (this.transitioning) this.queuedIndex = index;
+		else this.setIndex(index);
+
 		return true;
 	},
 
 	/**
 	* @private
 	*/
-	allowBackKeyChanged: function () {
-		if (this.allowBackKey) {
-			//initialize stack
-			this.panelStack = [];
-		} else if(this.panelStack) {
-			this.panelStack = null;
-		}
+	hasCloseButtonChanged: function () {
+		if (!this.$.appClose) return;
+		this.$.appClose.set('showing', (this.showing && this.hasCloseButton));
+		this.addRemoveClass('has-close-button', this.hasCloseButton);
+	},
+
+	/**
+	* @private
+	*/
+	pushBackHistory: function (index) {
+		EnyoHistory.push({
+			context: this,
+			handler: this.backKeyHandler,
+			index: index
+		});
+
+		return true;
 	},
 
 	// Accessibility
 
+	/**
+	* @private
+	*/
 	ariaObservers: [
-		{path: ['showing', 'index'], method: function () {
-			var panels = this.getPanels(),
-				active = this.getActive(),
-				l = panels.length,
-				panel;
-
-			if (this.$.showHideHandle) {
-				if (active && active.title) {
-					this.$.showHideHandle.set('accessibilityLabel', (this.showing ? $L('Close') : $L('Open')) + ' ' + active.title);
-				} else {
-					this.$.showHideHandle.set('accessibilityLabel', this.showing ? $L('Close') : $L('Open'));
-				}
-			}
-
-			while (--l >= 0) {
-				panel = panels[l];
-				if (panel instanceof Panel && panel.title) {
-					panel.set('accessibilityRole', (panel === active) && this.get('showing') ? 'alert' : 'region');
-				}
-			}
-		}},
-		// If panels is hidden and panelsHandle is spotlight blured, also make panelsHandle's dom blur.   
+		// If panels is hidden and panelsHandle is spotlight blured, also make panelsHandle's dom blur.
 		{path: 'isHandleFocused', method: function () {
 			if (this.$.showHideHandle && this.$.showHideHandle.hasNode() && !this.isHandleFocused) {
 				this.$.showHideHandle.hasNode().blur();
 			}
 		}}
-	]
+	],
+
+	/**
+	* @private
+	*/
+	setAlertRole: function () {
+		var panels = this.getPanels(),
+			active = this.getActive(),
+			l = panels.length,
+			panel;
+
+		if (this.$.showHideHandle) {
+			if (active && active.title) {
+				this.$.showHideHandle.set('accessibilityLabel', (this.showing ? $L('Close') : $L('Open')) + ' ' + active.title);
+			} else {
+				this.$.showHideHandle.set('accessibilityLabel', this.showing ? $L('Close') : $L('Open'));
+			}
+		}
+
+		while (--l >= 0) {
+			panel = panels[l];
+			if (panel instanceof Panel && panel.title) {
+				panel.set('accessibilityRole', (panel === active) && this.get('showing') ? 'alert' : 'region');
+			}
+		}
+	}
 
 });

@@ -1,16 +1,16 @@
-require('moonstone');
-
 /**
 * Contains the declaration for the {@link module:moonstone/VideoFullscreenToggleButton~VideoFullscreenToggleButton} kind.
 * @module moonstone/VideoFullscreenToggleButton
 */
+
+require('moonstone');
 
 var
 	kind = require('enyo/kind');
 
 var
 	$L = require('../i18n'),
-	IconButton = require('../IconButton');
+	IconButton = require('moonstone/IconButton');
 
 /**
 * {@link module:moonstone/VideoFullscreenToggleButton~VideoFullscreenToggleButton} is a specialized {@link module:moonstone/IconButton~IconButton};
@@ -34,7 +34,7 @@ module.exports = kind(
 	* @private
 	*/
 	kind: IconButton,
-	
+
 	/**
 	* @private
 	*/
@@ -48,8 +48,8 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	classes : 'moon-icon-video-round-controls-style moon-icon-exitfullscreen-font-style',
-	
+	classes : 'moon-icon-exitfullscreen-font-style',
+
 	/**
 	* @private
 	*/
@@ -59,7 +59,7 @@ module.exports = kind(
 		*/
 		onRequestToggleFullscreen:''
 	},
-	
+
 	/**
 	* @private
 	*/
@@ -83,5 +83,5 @@ module.exports = kind(
 				this.set('accessibilityLabel', $L('full screen'));
 			}
 		}}
-	] 
+	]
 });
