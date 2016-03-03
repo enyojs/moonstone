@@ -1,6 +1,3 @@
 {
-	"main": "VideoFullscreenToggleButton.js",
-	"styles": [
-		"VideoFullscreenToggleButton.less"
-	]
+  "main": "VideoFullscreenToggleButton.js"
 }

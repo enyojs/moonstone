@@ -1,24 +1,31 @@
-require('moonstone');
-
 /**
 * Contains the declaration for the {@link module:moonstone/VideoTransportSlider~VideoTransportSlider} kind.
 * @module moonstone/VideoTransportSlider
 */
 
+require('moonstone');
+
 var
 	kind = require('enyo/kind'),
-	Control = require('enyo/Control');
+	dom = require('enyo/dom'),
+	ri = require('enyo/resolution'),
+	Control = require('enyo/Control'),
+	Popup = require('enyo/Popup');
 
 var
 	Spotlight = require('spotlight');
 
 var
-	DurFmt = require('enyo-ilib/DurationFmt'),
+	DurationFmt = require('enyo-ilib/DurationFmt'),
 	Locale = require('enyo-ilib/Locale');
 
 var
-	Slider = require('../Slider'),
+	Slider = require('moonstone/Slider'),
 	VideoFeedback = require('../VideoFeedback');
+
+var
+	$L = require('../i18n'),
+	defaultKnobIncrement = '5%';
 
 /**
 * The parameter [object]{@glossary Object} used when displaying a {@link module:moonstone/VideoFeedback~VideoFeedback}
@@ -59,6 +66,7 @@ var
 
 /**
 * Fires when cursor enters the tap area.
+* Note. this event will be deprecated and replaced with #onSpotlightFocused
 *
 * @event module:moonstone/VideoTransportSlider~VideoTransportSlider#onEnterTapArea
 * @type {Object}
@@ -67,6 +75,7 @@ var
 
 /**
 * Fires when cursor leaves the tap area.
+* Note. this event will be deprecated and replaced with #onSpotlightBlur
 *
 * @event module:moonstone/VideoTransportSlider~VideoTransportSlider#onLeaveTapArea
 * @type {Object}
@@ -78,11 +87,9 @@ var
 * behavior related to video playback.
 *
 * ```javascript
-* 	var
-* 		kind = require('enyo/kind'),
-* 		VideoTransportSlider = require('moonstone/VideoTransportSlider');
+* var VideoTransportSlider = require('moonstone/VideoTransportSlider');
 *
-* 	{kind: VideoTransportSlider, value: 30}
+* {kind: VideoTransportSlider, value: 30}
 * ```
 *
 * The [onSeekStart]{@link module:moonstone/VideoTransportSlider~VideoTransportSlider#onSeekStart} event is fired while
@@ -112,12 +119,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	spotlight: false,
-
-	/**
-	* @private
-	*/
-	classes: 'moon-video-transport-slider',
+	classes: 'moon-video-player-transport-slider',
 
 	/**
 	* @private
@@ -144,24 +146,6 @@ module.exports = kind(
 		rangeEnd: 100,
 
 		/**
-		* The position where the slider begins, expressed as a number between `0` and `1`.
-		*
-		* @type {Number}
-		* @default 0.0625
-		* @public
-		*/
-		beginPosition: 0.0625,
-
-		/**
-		* The position where the slider ends, expressed as a number between `0` and `1`.
-		*
-		* @type {Number}
-		* @default 0.9375
-		* @public
-		*/
-		endPosition: 0.9375,
-
-		/**
 		* Controls the slider draw.
 		*
 		* @type {Boolean}
@@ -171,15 +155,6 @@ module.exports = kind(
 		syncTick: true,
 
 		/**
-		* Determines whether the dummy area is shown.
-		*
-		* @type {Boolean}
-		* @default true
-		* @public
-		*/
-		showDummyArea: true,
-
-		/**
 		* When `true`, label is shown at the start and end positions.
 		*
 		* @type {Boolean}
@@ -187,15 +162,6 @@ module.exports = kind(
 		* @public
 		*/
 		showTickText: true,
-
-		/**
-		* When `true`, tick bar is shown at the start and end positions.
-		*
-		* @type {Boolean}
-		* @default true
-		* @public
-		*/
-		showTickBar: true,
 
 		/**
 		* When `true`, progress may extend past the hour markers.
@@ -210,46 +176,37 @@ module.exports = kind(
 		* CSS classes to apply to background progress bar.
 		*
 		* @type {String}
-		* @default 'moon-video-transport-slider-bg-bar'
+		* @default 'bg-bar'
 		* @public
 		*/
-		bgBarClasses: 'moon-video-transport-slider-bg-bar',
+		bgBarClasses: 'bg-bar',
 
 		/**
 		* CSS classes to apply to progress bar.
 		*
 		* @type {String}
-		* @default 'moon-video-transport-slider-bar-bar'
+		* @default 'bar-bar'
 		* @public
 		*/
-		barClasses: 'moon-video-transport-slider-bar-bar',
+		barClasses: 'bar-bar',
 
 		/**
 		* CSS classes to apply to popup label.
 		*
 		* @type {String}
-		* @default 'moon-video-transport-slider-popup-label'
+		* @default 'popup-label'
 		* @public
 		*/
-		popupLabelClasses: 'moon-video-transport-slider-popup-label',
+		popupLabelClasses: 'popup-label',
 
 		/**
 		* CSS classes to apply to knob.
 		*
 		* @type {String}
-		* @default 'moon-video-transport-slider-knob'
+		* @default 'knob'
 		* @public
 		*/
-		knobClasses: 'moon-video-transport-slider-knob',
-
-		/**
-		* CSS classes to apply to tap area.
-		*
-		* @type {String}
-		* @default 'moon-video-transport-slider-taparea'
-		* @public
-		*/
-		tapAreaClasses: 'moon-video-transport-slider-taparea',
+		knobClasses: 'knob',
 
 		/**
 		* Color of value popup
@@ -258,16 +215,16 @@ module.exports = kind(
 		* @default '#fff'
 		* @public
 		*/
-		popupColor: '#fff',
+		popupColor: '#4B4B4B',
 
 		/**
 		* Popup offset in pixels.
 		*
 		* @type {Number}
-		* @default 25
+		* @default 144 - controls height(132) + margin (12)
 		* @public
 		*/
-		popupOffset: 25,
+		popupOffset: 144,
 
 		/**
 		* Threshold value (percentage) for using animation effect on slider progress change.
@@ -285,15 +242,30 @@ module.exports = kind(
 		* @default 67
 		* @public
 		*/
-		popupHeight: 67
+		popupHeight: 48,
+
+		/**
+		* Sliders will increase or decrease as much as knobIncrement in either direction
+		* when left or right key is pressed in 5-way mode.
+		* If you'd like to use a specific value instead of a percentage,
+		* specify the value in this property when you instantiate the VideoPlayer.
+		*
+		* @type {Number|String}
+		* @default '5%'
+		* @public
+		*/
+		knobIncrement: defaultKnobIncrement
 	},
 
 	/**
 	* @private
 	*/
 	handlers: {
-		onTimeupdate: 'timeUpdate',
-		onresize: 'handleResize'
+		onresize: 'handleResize',
+		onSpotlightKeyDown: 'spotlightKeyDownHandler',
+		onmove: 'preview',
+		onmousedown: 'mouseDownTapArea',
+		onmouseup: 'mouseUpTapArea'
 	},
 
 	/**
@@ -311,16 +283,22 @@ module.exports = kind(
 	* @private
 	*/
 	tickComponents: [
-		{name: 'startWrapper', kind: Control, classes: 'moon-video-transport-slider-indicator-wrapper start', components: [
-			{name: 'beginTickBar', kind: Control, classes: 'moon-video-transport-slider-indicator-bar-left'},
-			{name: 'beginTickText', kind: Control, classes: 'moon-video-transport-slider-indicator-text', content: '00:00'}
+		{name: 'startWrapper', classes: 'indicator-wrapper start', components: [
+			{name: 'beginTickText', classes: 'indicator-text left', content: '00:00'}
 		]},
-		{name: 'endWrapper', kind: Control, classes: 'moon-video-transport-slider-indicator-wrapper end', components: [
-			{name: 'endTickBar', kind: Control, classes: 'moon-video-transport-slider-indicator-bar-right'},
-			{name: 'endTickText', kind: Control, classes: 'moon-video-transport-slider-indicator-text', content: '00:00'}
+		{name: 'endWrapper', classes: 'indicator-wrapper end', components: [
+			{name: 'endTickText', classes: 'indicator-text right', content: '00:00'}
 		]}
 	],
 
+	/**
+	* @private
+	*/
+	popupComponents: [
+		{name: 'popup', kind: Popup, classes: 'moon-slider-popup above status-indicator', accessibilityDisabled: true, components: [
+			{name: 'popupLabel', classes: 'moon-slider-popup-center' }
+		]}
+	],
 	/**
 	* @private
 	*/
@@ -337,20 +315,30 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	create: function() {
+	_enterEnable: false,
+
+	/**
+	* @private
+	*/
+	createPopup: function () {
+		this.createComponents(this.popupComponents);
+	},
+
+	/**
+	* @private
+	*/
+	create: function () {
 		Slider.prototype.create.apply(this, arguments);
 		this.$.popup.setAutoDismiss(false);		//* Always showing popup
 		this.$.popup.captureEvents = false;		//* Hot fix for bad originator on tap, drag ...
-		this.$.tapArea.onmove = 'preview';
-		this.$.tapArea.onenter = 'enterTapArea';
-		this.$.tapArea.onleave = 'leaveTapArea';
+
 		//* Extend components
 		this.createTickComponents();
 		this.createPopupLabelComponents();
 		this.showTickTextChanged();
-		this.showTickBarChanged();
+		this.knobIncrementChanged();
 
-		this.durfmt = new DurFmt({length: 'medium', style: 'clock', useNative: false});
+		this.durfmt = new DurationFmt({length: 'medium', style: 'clock', useNative: false});
 		this.$.beginTickText.setContent(this.formatTime(0));
 
 		var loc = new Locale(),
@@ -358,64 +346,175 @@ module.exports = kind(
 			// Hash of languages and the additional % widths they'll need to not run off the edge.
 			langWidths = {
 				ja: 0.05,
-				pt: 0.05
+				pt: 0.05,
+				vi: 0.02
 			};
 
 		if (langWidths[language]) {
-			this.set('beginPosition', this.get('beginPosition') + langWidths[language] );
-			this.set('endPosition', this.get('endPosition') - langWidths[language] );
+			//Todo. Instead of adjust begin or end postion, find proper way tpo conpensate language matter
+			//move begin position to right as much as langWidths[language]
+			//move end position to left as much as langWidths[language] );
 		}
+	},
 
-		this.beginPositionChanged();
-		this.endPositionChanged();
+	/**
+	* Ugly to need to do this but avoid the overhead of calculations used wastefully by this
+	* method in ProgressBar (not needed since this kind overloads the child components).
+	*
+	* @private
+	*/
+	drawToCanvas: function () {
+		// nop
 	},
 
 	/**
 	* @private
 	*/
-	createTickComponents: function() {
-		this.createComponents(this.tickComponents, {owner: this, addBefore: this.$.tapArea});
+	createTickComponents: function () {
+		this.createComponents(this.tickComponents, {owner: this, addBefore: this.$.knob});
 	},
 
 	/**
 	* @private
 	*/
-	createPopupLabelComponents: function() {
+	createPopupLabelComponents: function () {
 		this.$.popupLabel.createComponents(this.popupLabelComponents, {owner: this});
 		this.currentTime = 0;
 	},
 
 	/**
-	* @fires module:enyo/VideoTransportSlider~VideoTransportSlider#onEnterTapArea
 	* @private
 	*/
-	enterTapArea: function(sender, e) {
-		this.startPreview();
+	mouseDownTapArea: function (sender, e) {
 		if (!this.disabled) {
-			this.addClass('visible');
-			this.doEnterTapArea();
+			this.addClass('pressed');
 		}
 	},
 
 	/**
-	* @fires module:enyo/VideoTransportSlider~VideoTransportSlider#onLeaveTapArea
 	* @private
 	*/
-	leaveTapArea: function(sender, e) {
+	mouseUpTapArea: function (sender, e) {
+		this.removeClass('pressed');
+	},
+
+	/**
+	* If user presses enter on `this.$.tapArea`, seeks to that point.
+	*
+	* @private
+	*/
+	spotlightKeyDownHandler: function (sender, e) {
+		var val;
+		if (this.tappable && !this.disabled && e.keyCode == 13) {
+			this.mouseDownTapArea();
+			this.startJob('simulateTapEnd', this.mouseUpTapArea, 200);
+			val = this.transformToVideo(this.knobPosValue);
+			this.sendSeekEvent(val);
+			this.set('_enterEnable', true);
+			return true;
+		}
+	},
+
+	/**
+	* @private
+	*/
+	spotFocused: function (sender, e) {
+		Slider.prototype.spotFocused.apply(this, arguments);
+		if (!this.disabled) {
+			this.spotSelect();
+			// this.knobPosValue will be used for knob positioning.
+			this.knobPosValue = this.get('value');
+			// Todo: visible does not mean slider is visible. it means knob is visible
+			// we'd better change its name to preview or more intuitive name
+			this.addClass('visible');
+			//fires enyo.VideoTransportSlider#onEnterTapArea
+			this.doEnterTapArea();
+		}
+
+		// if slider is in preview mode, preview() will update knobPosition
+		if (!Spotlight.getPointerMode()) {
+			this._updateKnobPosition(this.knobPosValue);
+		}
+		this.startPreview();
+	},
+
+	/**
+	* @private
+	*/
+	spotSelect: function () {
+		this.selected = true;
+		return true;
+	},
+
+	/**
+	* @private
+	*/
+	spotBlur: function () {
+		this.set('_enterEnable', false);
+		this.selected = false;
 		this.removeClass('visible');
 		this.endPreview();
+		//fires enyo.VideoTransportSlider#onLeaveTapArea
 		this.doLeaveTapArea();
 	},
 
 	/**
 	* @private
 	*/
-	preview: function(sender, e) {
+	spotLeft: function (sender, e) {
+		if (this.selected && this.knobPosValue > this.min) {
+			// If in the process of animating, work from the previously set value
+			var v = this.clampValue(this.min, this.max, this.knobPosValue || this.getValue());
+			v = (v - this._knobIncrement < this.min) ? this.min : v - this._knobIncrement;
+			this._updateKnobPosition(v);
+			this.set('knobPosValue', v);
+			this.set('_enterEnable', false);
+		}
+		return true;
+	},
+
+	/**
+	* @private
+	*/
+	spotRight: function (sender, e) {
+		if (this.selected && this.knobPosValue < this.max - 1) {
+			var value = (typeof this.knobPosValue != 'undefined') ? this.knobPosValue : this.getValue(),
+				v = this.clampValue(this.min, this.max, value);
+			v = (v + this._knobIncrement > this.max) ? this.max - 1 : v + this._knobIncrement;
+			this._updateKnobPosition(v);
+			this.set('knobPosValue', v);
+			this.set('_enterEnable', false);
+		}
+		return true;
+	},
+
+	/**
+	* @private
+	*/
+	knobIncrementChanged: function () {
+		var increment = this.knobIncrement || defaultKnobIncrement;
+
+		if (typeof increment == 'number' && increment > 0) {
+			this._knobIncrement = increment;
+		} else {
+			if (typeof increment != 'string' || increment.charAt(increment.length - 1) != '%') {
+				increment = defaultKnobIncrement;
+			}
+			this._knobIncrement = (this.max - this.min) * increment.substr(0, increment.length - 1) / 100;
+		}
+	},
+
+	/**
+	* onmove event handler. When mouse moves on slider, it will update knob's position
+	*
+	* @private
+	*/
+	preview: function (sender, e) {
 		if (!this.disabled && !this.dragging) {
 			if (!this._previewMode) {
 				this.startPreview();
 			}
-			var v = this.calcKnobPosition(e);
+			var v = this.knobPosValue = this.calcKnobPosition(e);
 			this.currentTime = this.transformToVideo(v);
 			this._updateKnobPosition(this.currentTime);
 		}
@@ -424,7 +523,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	startPreview: function(sender, e) {
+	startPreview: function (sender, e) {
 		this._previewMode = true;
 		this.$.feedback.setShowing(false);
 	},
@@ -432,10 +531,9 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	endPreview: function(sender, e) {
+	endPreview: function (sender, e) {
 		this._previewMode = false;
-		this.currentTime = this._currentTime;
-		this._updateKnobPosition(this.currentTime);
+		this.updatePopupLabel(this.value);
 		if (this.$.feedback.isPersistShowing()) {
 			this.$.feedback.setShowing(true);
 		}
@@ -444,14 +542,14 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	isInPreview: function(sender, e) {
+	isInPreview: function (sender, e) {
 		return this._previewMode;
 	},
 
 	/**
 	* @private
 	*/
-	handleResize: function() {
+	handleResize: function () {
 		Slider.prototype.handleResize.apply(this, arguments);
 		this.updateSliderRange();
 	},
@@ -459,40 +557,37 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	updateSliderRange: function() {
-		this.beginTickPos = (this.max-this.min) * this.get('beginPosition');
-		this.endTickPos = (this.max-this.min) * this.get('endPosition');
+	updateSliderRange: function () {
+		this.setRangeStart(this.min);
+		this.setRangeEnd(this.max);
 
-		if(this.showDummyArea) {
-			this.setRangeStart(this.beginTickPos);
-			this.setRangeEnd(this.endTickPos);
-		} else {
-			this.setRangeStart(this.min);
-			this.setRangeEnd(this.max);
+		if (this.dragging || !this.isInPreview()) {
+			this._updateKnobPosition(this.value);
 		}
-		this.updateKnobPosition(this.value);
 	},
 
 	/**
 	* @private
 	*/
-	setMin: function() {
+	setMin: function () {
 		Slider.prototype.setMin.apply(this, arguments);
+		this.knobIncrementChanged();
 		this.updateSliderRange();
 	},
 
 	/**
 	* @private
 	*/
-	setMax: function() {
+	setMax: function () {
 		Slider.prototype.setMax.apply(this, arguments);
+		this.knobIncrementChanged();
 		this.updateSliderRange();
 	},
 
 	/**
 	* @private
 	*/
-	setRangeStart: function(val) {
+	setRangeStart: function (val) {
 		this.rangeStart = this.clampValue(this.getMin(), this.getMax(), val);
 		this.rangeStartChanged();
 	},
@@ -500,7 +595,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	setRangeEnd: function(val) {
+	setRangeEnd: function (val) {
 		this.rangeEnd = this.clampValue(this.getMin(), this.getMax(), val);
 		this.rangeEndChanged();
 	},
@@ -508,25 +603,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	beginPositionChanged: function() {
-		// Set the width of the wrapper to twice the amount of it's position from the start.
-		this.$.startWrapper.applyStyle('width', (this.get('beginPosition') * 200) + '%');
-		this.updateSliderRange();
-	},
-
-	/**
-	* @private
-	*/
-	endPositionChanged: function() {
-		// Set the width of the wrapper to twice the amount of it's position from the end.
-		this.$.endWrapper.applyStyle('width', ((this.get('endPosition') - 1) * -200) + '%');
-		this.updateSliderRange();
-	},
-
-	/**
-	* @private
-	*/
-	showTickTextChanged: function() {
+	showTickTextChanged: function () {
 		this.$.beginTickText.setShowing(this.getShowTickText());
 		this.$.endTickText.setShowing(this.getShowTickText());
 	},
@@ -534,18 +611,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	showTickBarChanged: function() {
-		if(this.showDummyArea) {
-			this.showTickBar = true;
-		}
-		this.$.beginTickBar.setShowing(this.getShowTickBar());
-		this.$.endTickBar.setShowing(this.getShowTickBar());
-	},
-
-	/**
-	* @private
-	*/
-	rangeStartChanged: function() {
+	rangeStartChanged: function () {
 		this.updateInternalProperty();
 		var p = this._calcPercent(this.rangeStart),
 			property = 'margin-left';
@@ -559,70 +625,90 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	rangeEndChanged: function() {
+	rangeEndChanged: function () {
 		this.updateInternalProperty();
 	},
 
 	/**
 	* @private
 	*/
-	updateInternalProperty: function() {
+	updateInternalProperty: function () {
 		this.updateScale();
 		this.progressChanged();
 		this.bgProgressChanged();
 	},
 	//* Sets value of hidden variable, _scaleFactor_.
-	updateScale: function() {
+	updateScale: function () {
 		this.scaleFactor = (this.rangeEnd-this.rangeStart)/(this.max-this.min);
 	},
 
 	/**
 	* @private
 	*/
-	calcPercent: function(val) {
+	calcPercent: function (val) {
 		return (this.calcRatio(val) * 100) * this.scaleFactor;
 	},
 
 	/**
 	* @private
 	*/
-	_calcPercent: function(val) {
+	_calcPercent: function (val) {
 		return this.calcRatio(val) * 100;
 	},
 
 	/**
 	* @private
 	*/
-	calcVariationRatio: function(val) {
-		return (val - this.value) / (this.max - this.min);
+	calcVariationRatio: function (val, currentVal) {
+		return (val - currentVal) / (this.max - this.min);
 	},
 
 	/**
 	* @private
 	*/
-	calcVariationPercent: function(val) {
-		return this.calcVariationRatio(val) * 100;
+	calcVariationPercent: function (val, currentVal) {
+		return this.calcVariationRatio(val, currentVal) * 100;
 	},
 
 	/**
+	* Override Slider.updateKnobPosition to only update the popupLabelText
+	*
 	* @private
 	*/
-	updateKnobPosition: function(val) {
-		if (!this.dragging && this.isInPreview()) { return; }
-		this._updateKnobPosition(val);
+	updateKnobPosition: function (val) {
+		if (this.dragging) {
+			this.updatePopupLabel(this.currentTime);
+		} else if (!this.isInPreview()) {
+			this.updatePopupLabel(val);
+		}
 	},
 
 	/**
+	* Calculate slider knob's position and apply it.
+	*
 	* @private
 	*/
-	_updateKnobPosition: function(val) {
-		var p = this.clampValue(this.min, this.max, val);
-		p = this._calcPercent(p);
-		var slider = this.inverseToSlider(p);
-		this.$.knob.applyStyle('left', slider + '%');
-		this.$.popup.addRemoveClass('moon-slider-popup-flip-h', slider > 50);
-		this.$.popupLabel.addRemoveClass('moon-slider-popup-flip-h', slider > 50);
-		if(this.currentTime !== undefined) {
+	_updateKnobPosition: function (val) {
+		// If knob is visible, we need update its current position
+		if (this.hasClass('visible')) {
+			var p = this.clampValue(this.min, this.max, val);
+			p = this._calcPercent(p);
+			var slider = this.inverseToSlider(p);
+			this.$.knob.applyStyle('left', slider + '%');
+		}
+
+		this.updatePopupLabel(val);
+	},
+
+	/**
+	* Override default behavior
+	*
+	* @private
+	*/
+	updatePopupLabel: function (timeVal) {
+		if (Spotlight.getCurrent() === this) {
+			this.$.popupLabelText.setContent(this.formatTime(timeVal));
+		} else if (this.currentTime !== undefined) {
 			this.$.popupLabelText.setContent(this.formatTime(this.currentTime));
 		}
 	},
@@ -630,7 +716,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	inverseToSlider: function(percent) {
+	inverseToSlider: function (percent) {
 		var val = this.scaleFactor * percent + this._calcPercent(this.rangeStart);
 		return val;
 	},
@@ -638,32 +724,20 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	transformToVideo: function(val) {
-		if (this.showDummyArea && (val < this.beginTickPos)) {
-			val = this.rangeStart;
-		}
-		if (this.showDummyArea && (val > this.endTickPos)) {
-			val = this.rangeEnd;
-		}
+	transformToVideo: function (val) {
 		return (val - this.rangeStart) / this.scaleFactor;
 	},
 
 	/**
-	* If user presses `this.$.tapArea`, seeks to that point.
+	* If user presses `slider`, seeks to that point.
 	*
 	* @private
 	*/
-	tap: function(sender, e) {
+	tap: function (sender, e) {
+		var val;
 		if (this.tappable && !this.disabled) {
-			var v = this.calcKnobPosition(e);
-
-			v = this.transformToVideo(v);
-			this.sendSeekEvent(v);
-
-			if (this.isInPreview()) {
-				//* This will move popup position to playing time when preview move is end
-				this._currentTime = v;
-			}
+			val = this.transformToVideo(this.calcKnobPosition(e));
+			this.sendSeekEvent(val);
 			return true;
 		}
 	},
@@ -671,13 +745,23 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	setValue: function(val) {
+	setValue: function (val) {
 		this.currentTime = val;
-		if(Math.abs(this.calcVariationPercent(val)) > this.smallVariation) {
+		if (Math.abs(this.calcVariationPercent(val, this.value)) > this.smallVariation ||
+			this.calcVariationPercent(this.max, val) < this.smallVariation) {
 			Slider.prototype.setValue.apply(this, arguments);
 		} else {
 			this._setValue(val);
 		}
+		this._updateBeginText(val);
+	},
+
+	/**
+	* @private
+	*/
+	_updateBeginText: function (val) {
+		var v = this.clampValue(this.min, this.max, val);
+		this.$.beginTickText.setContent(this.formatTime(v));
 	},
 
 	/**
@@ -687,24 +771,15 @@ module.exports = kind(
 	* @fires module:moonstone/VideoTransportSlider~VideoTransportSlider#onSeekStart
 	* @private
 	*/
-	dragstart: function(sender, e) {
+	dragstart: function (sender, e) {
 		if (this.disabled) {
 			return; // return nothing
 		}
-		if (e.horizontal) {
-			var v = this.calcKnobPosition(e);
-			if( this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
-				// TODO : action in dummy area
-				this.dummyAction = true;
-			} else {
-				// the call to the super class freezes spotlight, so it needs to be unfrozen in dragfinish
-				var dragstart = Slider.prototype.dragstart.apply(this, arguments);
-				if (dragstart) {
-					this.doSeekStart();
-				}
-				this.dummyAction = false;
-			}
-			return true;
+
+		// the call to the super class freezes spotlight, so it needs to be unfrozen in dragfinish
+		var dragstart = Slider.prototype.dragstart.apply(this, arguments);
+		if (dragstart) {
+			this.doSeekStart();
 		}
 
 		return true;
@@ -716,7 +791,7 @@ module.exports = kind(
 	*
 	* @private
 	*/
-	drag: function(sender, e) {
+	drag: function (sender, e) {
 		if (this.dragging) {
 			var v = this.calcKnobPosition(e);
 
@@ -734,7 +809,7 @@ module.exports = kind(
 				this.elasticFrom = this.elasticTo = v;
 			}
 			this.currentTime = v;
-			this.updateKnobPosition(this.elasticFrom);
+			this._updateKnobPosition(this.elasticFrom);
 
 			if (this.lockBar) {
 				this.setProgress(this.elasticFrom);
@@ -753,29 +828,27 @@ module.exports = kind(
 	* @fires module:moonstone/VideoTransportSlider~VideoTransportSlider#onSeekFinish
 	* @private
 	*/
-	dragfinish: function(sender, e) {
+	dragfinish: function (sender, e) {
 		if (this.disabled) {
 			return;
 		}
-		if(!this.dummyAction) {
-			var v = this.calcKnobPosition(e);
-			v = this.transformToVideo(v);
-			var z = this.elasticTo;
-			if (this.constrainToBgProgress === true) {
-				z = (this.increment) ? this.calcConstrainedIncrement(z) : z;
-				this.animateTo(this.elasticFrom, z);
-				v = z;
-			} else {
-				v = (this.increment) ? this.calcIncrement(v) : v;
-				this._setValue(v);
-			}
-			e.preventTap();
-			// this.hideKnobStatus();
-			this.doSeekFinish({value: v});
-			Spotlight.unfreeze();
+		var v = this.calcKnobPosition(e);
+		v = this.transformToVideo(v);
+		var z = this.elasticTo;
+		if (this.constrainToBgProgress === true) {
+			z = (this.increment) ? this.calcConstrainedIncrement(z) : z;
+			this.animateTo(this.elasticFrom, z);
+			v = z;
+		} else {
+			v = (this.increment) ? this.calcIncrement(v) : v;
+			this._setValue(v);
 		}
+		e.preventTap();
+		// this.hideKnobStatus();
+		this.doSeekFinish({value: v});
+		Spotlight.unfreeze();
+
 		this.$.knob.removeClass('active');
-		this.dummyAction = false;
 		this.dragging = false;
 		return true;
 	},
@@ -786,21 +859,25 @@ module.exports = kind(
 	* @fires module:moonstone/VideoTransportSlider~VideoTransportSlider#onSeek
 	* @private
 	*/
-	sendSeekEvent: function(val) {
+	sendSeekEvent: function (val) {
 		this.doSeek({value: val});
 	},
 
 	/**
-	* During time update, updates buffered progress, canvas, video currentTime, and duration.
+	* During time update, updates buffered progress, canvas and video currentTime
 	*
 	* @private
 	*/
-	timeUpdate: function(sender, e) {
-		this._currentTime = sender._currentTime;
+	timeUpdate: function (val) {
 		if (!this.dragging && this.isInPreview()) { return; }
-		this._duration = sender.duration;
-		this.currentTime = this._currentTime;
-		this.duration = this._duration;
+		this.currentTime = val;
+	},
+
+	/**
+	* @private
+	*/
+	durationUpdate: function (val) {
+		this.duration = val;
 		this.$.endTickText.setContent(this.formatTime(this.duration));
 	},
 
@@ -809,7 +886,7 @@ module.exports = kind(
 	*
 	* @private
 	*/
-	formatTime: function(val) {
+	formatTime: function (val) {
 		var hour = Math.floor(val / (60*60));
 		var min = Math.floor((val / 60) % 60);
 		var sec = Math.floor(val % 60);
@@ -825,7 +902,7 @@ module.exports = kind(
 	*
 	* @private
 	*/
-	padDigit: function(val) {
+	padDigit: function (val) {
 		return (val) ? (String(val).length < 2) ? '0'+val : val : '00';
 	},
 
@@ -833,7 +910,7 @@ module.exports = kind(
 	* Sends current status to [feedback]{@link module:moonstone/VideoFeedback~VideoFeedback} control in response to
 	* user input.
 	*
-	* @param {String} - msg The string to display.
+	* @param {String} msg - The string to display.
 	* @param {module:moonstone/VideoTransportSlider~VideoTransportSlider~FeedbackParameterObject} params - A
 	*	[hash]{@glossary Object} of parameters that accompany the message.
 	* @param {Boolean} persist - If `true`, the [feedback]{@link module:moonstone/VideoFeedback~VideoFeedback} control will
@@ -844,12 +921,81 @@ module.exports = kind(
 	*	of the feedback control.
 	* @public
 	*/
-	feedback: function(msg, params, persist, leftSrc, rightSrc) {
+	feedback: function (msg, params, persist, leftSrc, rightSrc) {
 		this.showKnobStatus();
 		this.$.feedback.feedback(msg, params, persist, leftSrc, rightSrc, this.isInPreview());
 	},
 
+	/**
+	* Override of [updatePopup]{@link module:moonstone/ProgressBar~ProgressBar#updatePopup}
+	* this method is called when progess updated but from Slider, we use value instead of progress
+	*
+	* @private
+	*/
+	updatePopup: function (val) {
+		return true;
+	},
+
+	/**
+	* @private
+	*/
+	updatePopupHeight: function () {
+		var h = this.getPopupHeight();
+		this.$.popupLabel.applyStyle('height', dom.unit(ri.scale(h), 'rem'));
+	},
+
+	/**
+	* @private
+	*/
+	updatePopupOffset: function () {
+		this.$.popup.applyStyle('top', dom.unit(-(ri.scale(this.getPopupHeight() + this.getPopupOffset())), 'rem'));
+	},
+
 	// Accessibility
 
-	accessibilityDisabled: true
+	/**
+	* When `true`, VoiceReadout will be prevented.
+	*
+	* @default true
+	* @type {Boolean}
+	* @public
+	*/
+	accessibilityDisabled: true,
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: 'selected', method: function() {
+			if (this.selected) {
+				this.set('accessibilityRole', 'slider');
+				this.set('accessibilityLive', null);
+				this.set('accessibilityHint', null);
+			} else {
+				this.setAriaAttribute('aria-valuetext', null);
+			}
+		}},
+		{path: ['$.popupLabelText.content', '_enterEnable'], method: 'ariaValue'}
+	],
+
+	/**
+	* Overriding {@link module:moonstone/ProgressBar~ProgressBar#ariaValue} to guard updating value
+	* when dragging.
+	*
+	* @private
+	*/
+	ariaValue: function () {
+		var valueText;
+		if (this.showing && !Spotlight.getPointerMode() && this.$.popupLabelText && this.$.popupLabelText.content && this.selected) {
+			valueText = this._enterEnable ? this.$.popupLabelText.content : $L('jump to ') + this.$.popupLabelText.content;
+			// Screen reader should read valueText when slider is only spotlight focused, but there is a timing issue between spotlight focus and observed 
+			// popupLabelText's content, so Screen reader reads valueText twice. We added below timer code for preventing this issue.
+			setTimeout(this.bindSafely(function(){
+				this.set('accessibilityDisabled', false);
+				this.setAriaAttribute('aria-valuetext', valueText);
+			}), 0);
+		} else {
+			this.set('accessibilityDisabled', true);
+		}
+	}
 });
