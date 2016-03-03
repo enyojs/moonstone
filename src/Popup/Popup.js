@@ -176,7 +176,7 @@ module.exports = kind(
 	*/
 	tools: [
 		{name: 'client', kind: Control, classes: 'enyo-fill'},
-		{name: 'closeButton', kind: IconButton, icon: 'closex', classes: 'moon-popup-close', ontap: 'closePopup', accessibilityLabel: $L('Close'), showing: false}
+		{name: 'closeButton', kind: IconButton, icon: 'closex', classes: 'moon-popup-close', ontap: 'closePopup', backgroundOpacity: 'transparent', accessibilityLabel: $L('Close'), showing: false}
 	],
 
 	/**
