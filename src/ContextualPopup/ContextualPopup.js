@@ -125,7 +125,14 @@ module.exports = kind(
 
 		/**
 		* If `true`, focus cannot leave the constraints of the popup unless the
-		* popup is explicitly closed.
+		* popup is explicitly closed. This property is copied to
+		* [modal]{@link module:enyo/Popup~Popup#modal} on initiation time.
+		* And, these two proverties are synced whenever one of
+		* [spotlightModal]{@link module:moonstone/ContextualPopup~ContextualPopup#spotlightModal},
+		* [modal]{@link module:enyo/Popup~Popup#modal},
+		* [modal]{@link module:enyo/Popup~Popup#scrim},
+		* [modal]{@link module:enyo/Popup~Popup#scrimWhenModal},
+		* [modal]{@link module:enyo/Popup~Popup#floating} property changes.
 		*
 		* @type {Boolean}
 		* @default false
@@ -229,16 +236,6 @@ module.exports = kind(
 	initComponents: function () {
 		this.createChrome(this.tools);
 		Popup.prototype.initComponents.apply(this, arguments);
-		this.syncProperties();
-	},
-
-	/**
-	* Sync spotlightModal and modal properties on creation time.
-	*
-	* @private
-	*/
-	syncProperties: function () {
-		if (this.modal == this.spotlightModal) return;
 		this.modal = this.spotlightModal;
 	},
 
@@ -560,8 +557,8 @@ module.exports = kind(
 		if (this._updateScrimMutex) return;
 		this._updateScrimMutex = true;
 
-		// We sync modal and spotlightModal here because binding doesn't guarantee sequence
-		// when it is used with observers.
+		// We sync modal and spotlightModal here because binding doesn't
+		// guarantee sequence when it is used with observers.
 		if (source == 'modal') this.set('spotlightModal', this.modal);
 		if (source == 'spotlightModal') this.set('modal', this.spotlightModal);
 		this.showHideScrim(this.showing);
@@ -578,7 +575,7 @@ module.exports = kind(
 		if (this._scrim && scrim != this._scrim) {
 			// hide if there was different kind of scrim
 			this._scrim.hideAtZIndex(this._scrimZ);
-			util.call(this._scrim, 'addRemoveClass', [this.scrimClassName, this._scrim.showing]);
+			if (this.scrimClassName) this._scrim.removeClass(this.scrimClassName);
 		}
 
 		if (show && this.floating && (this.scrim || (this.modal && this.scrimWhenModal))) {
