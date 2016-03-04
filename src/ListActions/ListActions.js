@@ -116,7 +116,15 @@ var ListActionsPopup = ContextualPopup.kind(
 
 			this.setBounds(bounds);
 		}
-	}
+	},
+
+	/**
+	* Prevent waterfalling 'onresize'.
+	*
+	* @method
+	* @private
+	*/
+	resize: function() {}
 });
 
 /**
@@ -291,7 +299,7 @@ var ListActions = ContextualPopupDecorator.kind({
 	* @private
 	*/
 	optionSelected: function() {
-		if (this.autoCollapse) {
+		if (this.autoCollapse && this.$.listActionsPopup.getAbsoluteShowing()) {
 			this.startJob('hidePopupJob', function() {
 				this.$.listActionsPopup.hide();
 			}, 300);
