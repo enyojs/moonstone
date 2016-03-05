@@ -278,7 +278,8 @@ module.exports = kind(
 		oninput: 'handleInput',
 		onchange: 'handleChange',
 		onRequestCreateListActions: 'handleRequestCreateComponents',
-		onListActionOpenChanged: 'handleListActionOpenChanged'
+		onListActionOpenChanged: 'handleListActionOpenChanged',
+		onSpotlightKeyDown: 'handleSpotlightKeyDown'
 	},
 
 	/**
@@ -306,7 +307,8 @@ module.exports = kind(
 		{name: 'titleWrapper', kind: Control, classes: 'moon-header-title-wrapper', components: [
 			{name: 'title', kind: MarqueeText, classes: 'moon-header-text moon-header-title', canGenerate: false},
 			{name: 'inputDecorator', kind: InputDecorator, classes: 'moon-input-header-input-decorator',canGenerate: false, components: [
-				{name: 'titleInput', kind: Input, classes: 'moon-header-text moon-header-title'}
+				{name: 'titleInput', kind: Input, classes: 'moon-header-text moon-header-title',  onblur: 'marqueeToggle', showing: false},
+				{name: 'titleInputMarquee', kind: MarqueeText, classes: 'moon-header-text moon-header-title moon-input header-marquee', ontap: 'marqueeToggle'}
 			]}
 		]},
 		{name: 'titleBelow', kind: MarqueeText, classes: 'moon-sub-header-text moon-header-title-below'},
@@ -628,7 +630,7 @@ module.exports = kind(
 	* @private
 	*/
 	valueChanged: function () {
-		this.$.titleInput.detectTextDirectionality((this.$.titleInput.value || this.$.titleInput.value === 0 || this.$.titleInput.value === '0') ? this.$.titleInput.value : this.$.titleInput.get('placeholder'));
+		this.$.titleInput.detectTextDirectionality((this.$.titleInput.value || this.$.titleInput.value === 0) ? this.$.titleInput.value : this.$.titleInput.get('placeholder'));
 	},
 
 	/**
@@ -710,6 +712,7 @@ module.exports = kind(
 				? util.toUpperCase(this.placeholder || this.title || this.content)
 				: (this.placeholder || this.title || this.content) );
 		this.valueChanged();
+		this.syncTitleInput();
 	},
 
 	/**
@@ -807,8 +810,40 @@ module.exports = kind(
 	*/
 	handleChange: function (inSender, inEvent) {
 		this.doInputHeaderChange({originalEvent: util.clone(inEvent, true)});
+		this.syncTitleInput();
 	},
 
+	/**
+	 * @private
+	 */
+	syncTitleInput: function () {
+		var title = (this.$.titleInput.value || this.$.titleInput.value === 0) ? this.$.titleInput.value : this.$.titleInput.get('placeholder');
+		this.$.titleInputMarquee.set('content', title);
+	},
+
+	/**
+	* Handling Enter press, to act as tap.
+	*
+	* @private
+	*/
+	handleSpotlightKeyDown: function (inSender, inEvent) {
+		if (inEvent.keyCode == 13) {
+			this.marqueeToggle();
+		}
+	},
+
+	/**
+	* Logic for replacing input into marquee
+	*
+	* @private
+	*/
+	marqueeToggle: function () {
+		var isInputShowing = this.$.titleInput.get('showing');
+		this.$.titleInput.set('showing', !isInputShowing);
+		this.$.titleInputMarquee.set('showing', isInputShowing);
+		this.stopMarquee();
+		this.startMarquee();
+	},
 
 	/**
 	* Enlarges listActionDrawer's height to large type's height.
