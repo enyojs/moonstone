@@ -89,7 +89,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	classes: 'moon-body-text moon-contextual-popup',
+	classes: 'moon-body-text moon-contextual-popup moon-neutral',
 
 	/**
 	* @private
@@ -210,7 +210,7 @@ module.exports = kind(
 	* @private
 	*/
 	tools: [
-		{name: 'client', kind: Control, classes: 'moon-neutral moon-contextual-popup-client'},
+		{name: 'client', kind: Control, classes: 'moon-contextual-popup-client'},
 		{name: 'closeButton', kind: IconButton, icon: 'closex', classes: 'moon-popup-close', ontap: 'closePopup', backgroundOpacity: 'transparent', accessibilityLabel: $L('Close'), tabIndex: -1, spotlight: false}
 	],
 
