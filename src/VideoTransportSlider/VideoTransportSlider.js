@@ -9,6 +9,8 @@ var
 	kind = require('enyo/kind'),
 	dom = require('enyo/dom'),
 	ri = require('enyo/resolution'),
+	gesture = require('enyo/gesture'),
+	util = require('enyo/utils'),
 	Control = require('enyo/Control'),
 	Popup = require('enyo/Popup');
 
@@ -454,6 +456,9 @@ module.exports = kind(
 		this.selected = false;
 		this.removeClass('visible');
 		this.endPreview();
+		if (gesture.downEvent) {
+			gesture.up(util.clone(gesture.downEvent));
+		}
 		//fires enyo.VideoTransportSlider#onLeaveTapArea
 		this.doLeaveTapArea();
 	},
