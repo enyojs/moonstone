@@ -531,14 +531,14 @@ module.exports = kind(
 		*
 		* @private
 		*/
-		moreControlsIcon: libPath + '/images/ellipsis.svg',
+		moreControlsIcon: 'ellipsis',
 
 		/**
 		* Name of font-based icon or image file.
 		*
 		* @private
 		*/
-		lessControlsIcon: libPath + '/images/back.svg',
+		lessControlsIcon: 'arrowhookleft',
 
 		/**
 		* Name of font-based icon or image file.
