@@ -69,6 +69,11 @@ var ListActionsPopup = ContextualPopup.kind(
 	spotlightModal: true,
 
 	/**
+	* @see moonstone/ContextualPopup~ContextualPopup#showCloseButton
+	*/
+	showCloseButton: true,
+
+	/**
 	* @private
 	*/
 	resetDirection: function () {
