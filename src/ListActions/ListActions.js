@@ -61,12 +61,20 @@ var ListActionsPopup = ContextualPopup.kind(
 	/**
 	* @private
 	*/
-	classes: 'moon-list-actions-popup',
+	classes: 'moon-list-actions-popup below',
 
 	/**
 	* @see moonstone/ContextualPopup~ContextualPopup#spotlightModal
 	*/
 	spotlightModal: true,
+
+	/**
+	* @private
+	*/
+	resetDirection: function () {
+		this.removeClass('right');
+		this.removeClass('left');
+	},
 
 	/**
 	* Adjust popup direction, anchor to the edge of screen if it goes over, and adjust arrow
@@ -86,7 +94,6 @@ var ListActionsPopup = ContextualPopup.kind(
 				c;
 
 			this.resetDirection();
-			this.addClass('below');
 
 			if(this.activatorOffset.left < offsetWidth) {
 				// flip towards right-side
@@ -119,9 +126,10 @@ var ListActionsPopup = ContextualPopup.kind(
 	},
 
 	/**
-	* Prevent waterfalling 'onresize'.
+	* Prevent waterfalling 'onresize' event to avoid re-rendering {@link module:enyo/DataList~DataList}.
 	*
 	* @method
+	* @override
 	* @private
 	*/
 	resize: function() {}
@@ -142,11 +150,6 @@ var ListActionsPopup = ContextualPopup.kind(
 * @public
 */
 var ListActions = ContextualPopupDecorator.kind({
-
-	/**
-	* @private
-	*/
-	classes: 'moon-list-actions',
 
 	/**
 	* If `true`, the popup will automatically close when the user selects a menu item.
@@ -209,21 +212,12 @@ var ListActions = ContextualPopupDecorator.kind({
 	backgroundOpacity: 'opaque',
 
 	/**
-	* CSS classes to apply to adjust width of each actions.
-	*
-	* @type {String}
-	* @default
-	* @public moon-list-actions-popup-width
-	*/
-	actionWidthClasses: 'moon-list-actions-popup-width',
-
-	/**
 	* @private
 	*/
 	components: [
 		{name: 'activator', kind: IconButton},
 		{name: 'listActionsPopup', kind: ListActionsPopup, components: [
-			{name: 'listActionsWrapper', classes: 'moon-hspacing top moon-list-actions-scroller', onActivate: 'optionSelected'}
+			{name: 'listActionsWrapper', classes: 'moon-hspacing top moon-list-actions-scroller', controlClasses: 'moon-list-actions-popup-width', onActivate: 'optionSelected'}
 		]}
 	],
 
@@ -242,7 +236,6 @@ var ListActions = ContextualPopupDecorator.kind({
 	*/
 	create: function() {
 		ContextualPopupDecorator.prototype.create.apply(this, arguments);
-		this.actionWidthClassesChanged();
 		this.disabledChanged();
 		this.listActionsChanged();
 	},
@@ -252,13 +245,6 @@ var ListActions = ContextualPopupDecorator.kind({
 	*/
 	disabledChanged: function () {
 		this.addRemoveClass('disabled', this.disabled);
-	},
-
-	/**
-	* @private
-	*/
-	actionWidthClassesChanged: function() {
-		this.$.listActionsWrapper.set('controlClasses', this.actionWidthClasses);
 	},
 
 	/**

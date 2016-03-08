@@ -1,41 +1,10 @@
 /* List Actions */
-.moon-list-actions {
-	.moon-hspacing > :first-child& .moon-icon,
-	.moon-hspacing > :first-child & .moon-icon {
+.moon-hspacing.moon-header-client > :last-child .moon-icon {
+	margin-right: 0;
+	.enyo-locale-right-to-left & {
+		margin-right: @moon-spotlight-outset;
 		margin-left: 0;
-
-		.enyo-locale-right-to-left & {
-			margin-left: @moon-spotlight-outset;
-			margin-right: 0;
-		}
 	}
-
-	.moon-hspacing > :last-child& .moon-icon,
-	.moon-hspacing > :last-child & .moon-icon {
-		margin-right: 0;
-
-		.enyo-locale-right-to-left & {
-			margin-left: 0;
-			margin-right: @moon-spotlight-outset;
-		}
-	}
-}
-
-.list-actions-hunits(@property, @n) {
-	&:before,
-	&:after {
-		@{property}: (@moon-icon-button-small-size * (@n - 1)) + (@moon-icon-button-small-size * @n) / 2 - @moon-icon-margin * @n / 2;
-	}
-}
-
-.generate-columns(@n, @i: 1) when (@i =< @n) {
-	&.left.list-actions-@{i}h {
-		.list-actions-hunits(right, @i);
-	}
-	&.right.list-actions-@{i}h {
-		.list-actions-hunits(left, @i);
-	}
-	.generate-columns(@n, (@i + 1));
 }
 
 .moon-list-actions-popup {
@@ -48,6 +17,23 @@
 		.enyo-data-list {
 			height: 300px;
 		}
+	}
+
+	.list-actions-hunits(@property, @n) {
+		&:before,
+		&:after {
+			@{property}: (@moon-icon-button-small-size * (@n - 1)) + (@moon-icon-button-small-size * @n) / 2 - @moon-icon-margin * @n / 2;
+		}
+	}
+
+	.generate-columns(@n, @i: 1) when (@i =< @n) {
+		&.left.list-actions-@{i}h {
+			.list-actions-hunits(right, @i);
+		}
+		&.right.list-actions-@{i}h {
+			.list-actions-hunits(left, @i);
+		}
+		.generate-columns(@n, (@i + 1));
 	}
 
 	.generate-columns(5);
