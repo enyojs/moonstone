@@ -59,14 +59,6 @@ module.exports = kind(
 	events: {
 		onActivate: ''
 	},
-	
-	/**
-	* @private
-	*/
-	handlers: {
-		// Prevents double bubbling of _onchange_ in IE.
-		onclick: ''
-	},
 
 	/**
 	* @private
