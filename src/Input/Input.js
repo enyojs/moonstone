@@ -76,7 +76,34 @@ module.exports = kind(
 		* @default false
 		* @public
 		*/
-		dismissOnEnter: false
+		dismissOnEnter: false,
+
+		/**
+		* The min attribute specifies the minimum value for an [input]{@link module:enyo/Input~Input}.
+		*
+		* @type {Number}
+		* @default null
+		* public
+		*/
+		min: null,
+
+		/**
+		* The max attribute specifies the maximum value for an [input]{@link module:enyo/Input~Input}.
+		*
+		* @type {Number}
+		* @default null
+		* public
+		*/
+		max: null,
+
+		/**
+		* When `true`, check validity for 'number' type.
+		*
+		* @type {Boolean}
+		* @default false
+		* public
+		*/
+		validity: false
 	},
 
 	/**
@@ -95,6 +122,14 @@ module.exports = kind(
 	* @private
 	*/
 	_bFocused: false,
+
+	/**
+	* @private
+	*/
+	create: function () {
+		Input.prototype.create.apply(this, arguments);
+		this.validityChanged();
+	},
 
 	/**
 	* @private
@@ -182,5 +217,63 @@ module.exports = kind(
 	*/
 	down: function () {
 		return false;
+	},
+
+	/**
+	* @private
+	*/
+	input: function (oSender, oEvent) {
+		Input.prototype.input.apply(this, arguments);
+		if (this.validity && this.type == 'number' && this.canValidity(oEvent)) {
+			this.showHideValidityPopup(oEvent.target);
+		}
+	},
+
+	/**
+	* @private
+	*/
+	minChanged: function () {
+		this.setAttribute('min', this.min);
+	},
+
+	/**
+	* @private
+	*/
+	maxChanged: function () {
+		this.setAttribute('max', this.max);
+	},
+
+	/**
+	* @private
+	*/
+	validityChanged: function () {
+		this.setAttribute('min', this.min);
+		this.setAttribute('max', this.max);
+	},
+
+	/**
+	* @private
+	*/
+	canValidity: function (event) {
+		if (this.min && this.max && this.min <= this.max && event && event.target) {
+			return true;
+		}
+
+		return false;
+	},
+
+	/**
+	* @private
+	*/
+	// [Validation Message]
+	// Valid   : ""
+	// Invalid : "Value must be greater than or equal to {min}."
+	// Invalid : "Value must be less than or equal to {max}."
+	showHideValidityPopup: function (target) {
+		if (!target.validationMessage == "") {
+			this.bubble('onShowValidityPopup', {message: target.validationMessage});
+		} else {
+			this.bubble('onHideValidityPopup');
+		}
 	}
 });

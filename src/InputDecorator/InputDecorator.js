@@ -18,6 +18,8 @@ var
 	RichText = require('../RichText'),
 	TextArea = require('../TextArea');
 
+var
+	ContextualPopup = require('../ContextualPopup');
 /**
 * {@link module:moonstone/InputDecorator~InputDecorator} is a control that provides input styling. Any controls
 * in the InputDecorator will appear to be inside an area styled as an input. Usually,
@@ -95,6 +97,8 @@ module.exports = kind(
 	*/
 	handlers: {
 		onDisabledChange    : 'disabledChangeHandler',
+		onShowValidityPopup : 'showValidityPopupHandler',
+		onHideValidityPopup : 'hideValidityPopupHandler',
 		onfocus             : 'focusHandler',
 		onblur              : 'blurHandler',
 		onSpotlightFocused  : 'spotlightFocusedHandler',
@@ -110,6 +114,15 @@ module.exports = kind(
 	* @private
 	*/
 	_oInputControl: null,
+
+	/**
+	* @private
+	*/
+	tools: [
+		{name: 'validityPopup', kind: ContextualPopup, direction: 'right', components: [
+			{name: 'message', content: ''}
+		]}
+	],
 
 	/**
 	* Returns boolean indicating whether passed-in control is an input field.
@@ -226,6 +239,27 @@ module.exports = kind(
 	*/
 	disabledChangeHandler: function (oSender, oEvent) {
 		this.addRemoveClass('moon-disabled', oEvent.originator.disabled);
+	},
+
+	/**
+	* @private
+	*/
+	showValidityPopupHandler: function (oSender, oEvent) {
+		if (!this.$.validityPopup) {
+			this.createChrome(this.tools);
+		}
+		this.$.message.set('content', oEvent.message);
+		this.waterfallDown('onRequestShowPopup', {activator: this});
+	},
+
+	/**
+	* @private
+	*/
+	hideValidityPopupHandler: function () {
+		if (!this.$.validityPopup) {
+			this.createChrome(this.tools);
+		}
+		this.waterfallDown('onRequestHidePopup');
 	},
 
 	// Spotlight Event handlers:
