@@ -35,8 +35,6 @@ var
 	VideoFullscreenToggleButton = require('../VideoFullscreenToggleButton'),
 	VideoTransportSlider = require('../VideoTransportSlider');
 
-var libPath = '@../..';
-
 /**
 * Fires when [disablePlaybackControls]{@link module:moonstone/VideoPlayer~VideoPlayer#disablePlaybackControls}
 * is `true` and the user taps one of the [controls]{@link module:enyo/Control~Control}; may be handled to
@@ -1890,16 +1888,11 @@ module.exports = kind(
 	* @private
 	*/
 	retrieveIconsSrcOrFont:function (src, icon) {
-		var iconPath,
-			iconType = this.checkIconType(icon);
+		var iconType = this.checkIconType(icon);
 
 		if (iconType == 'image') {
-			// To maintain compatibility with iconPath which isn't resolved by the build tools and
-			// therefore is an app-scoped path vs a library-scoped path, we check the path of the
-			// image and only prepend iconPath if the icon isn't in the library's path
-			iconPath = icon.indexOf(libPath) === 0 ? icon : this.iconPath + icon;
 			src.set('icon', null);
-			src.set('src', iconPath);
+			src.set('src', this.iconPath + icon);
 		} else {
 			src.set('src', null);
 			src.set('icon', icon);
