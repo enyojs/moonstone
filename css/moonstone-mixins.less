@@ -17,6 +17,13 @@
 	}
 }
 
+.moon-taparea(@element-size) when (@moon-button-small-tap-area-height <= @element-size) {
+	// Remove the tappable area if the tap area is smaller than the element's current size.
+	&:before {
+		content: none;
+	}
+}
+
 .moon-item-icon-tap-area-adjust() {
 	&.small > .small-icon-tap-area {
 		left: -@moon-spotlight-outset;
