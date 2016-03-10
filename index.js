@@ -1,12 +1,16 @@
 'use strict';
 
+// Many moonstone controls require ilib components but do not directly require the base module which
+// is necessary to include the locale assets.
+require('enyo-ilib');
+
 var
 	platform = require('enyo/platform'),
 	dispatcher = require('enyo/dispatcher'),
 	gesture = require('enyo/gesture');
 
 exports = module.exports = require('./src/options');
-exports.version = '2.6.0-rc.1';
+exports.version = '2.7.0-rc.1';
 
 // Override the default holdpulse config to account for greater delays between keydown and keyup
 // events in Moonstone with certain input devices.

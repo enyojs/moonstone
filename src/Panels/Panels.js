@@ -734,7 +734,7 @@ module.exports = kind(
 				this.setAlertRole();
 			}
 			this.notifyObservers('index');
-		}	
+		}
 
 		this.isModifyingPanels = false;
 
@@ -1527,14 +1527,14 @@ module.exports = kind(
 	indexChanged: function (was) {
 		var current, delta, deltaAbs, idx;
 
+		this.adjustFirstPanelBeforeTransition();
+
 		if (this.getPanels().length > 0) {
 			this.assignBreadcrumbIndex();
 
 			// Set animation direction to use proper timing function before start animation
 			// This direction is only consumed by MoonAnimator.
 			this.$.animator.direction = this.getDirection();
-
-			this.adjustFirstPanelBeforeTransition();
 
 			// Push or drop history, based on the direction of the index change
 			if (this.allowBackKey) {
@@ -1693,7 +1693,7 @@ module.exports = kind(
 		case 'alwaysviewing':
 		case 'activity':
 			this.addClass(this.pattern);
-			this.useHandle = (this.useHandle === 'auto') ? true : this.useHandle;
+			this.useHandle = (this.useHandle === 'auto') ? (this.pattern == 'activity' ? false : true) : this.useHandle;
 			this.createChrome(this.handleTools);
 			this.tools = this.animatorTools;
 			break;
