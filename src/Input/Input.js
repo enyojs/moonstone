@@ -76,7 +76,43 @@ module.exports = kind(
 		* @default false
 		* @public
 		*/
-		dismissOnEnter: false
+		dismissOnEnter: false,
+
+		/**
+		* The min attribute specifies the minimum value for an [input]{@link module:enyo/Input~Input}.
+		*
+		* @type {Number}
+		* @default null
+		* public
+		*/
+		min: null,
+
+		/**
+		* The max attribute specifies the maximum value for an [input]{@link module:enyo/Input~Input}.
+		*
+		* @type {Number}
+		* @default null
+		* public
+		*/
+		max: null,
+
+		/**
+		* When `true`, check validity for 'number' type.
+		*
+		* @type {Boolean}
+		* @default false
+		* public
+		*/
+		validity: false,
+
+		/**
+		* When `true`, invalid message popup is shown for input value.
+		*
+		* @type {Boolean}
+		* @default false
+		* public
+		*/
+		useValidityPopup: false
 	},
 
 	/**
@@ -99,7 +135,22 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	onFocus: function () {
+	components: [
+		{name: 'validityIcon'}
+	],
+
+	/**
+	* @private
+	*/
+	create: function () {
+		Input.prototype.create.apply(this, arguments);
+		this.validityChanged();
+	},
+
+	/**
+	* @private
+	*/
+	onFocus: function (oSender, oEvent) {
 		var node = this.hasNode();
 
 		if (this.dismissOnEnter) {
@@ -116,6 +167,9 @@ module.exports = kind(
 		// end of the text. `selectionStart` is the obvious choice, but it is not supported in
 		// certain types of fields (i.e. number, email).
 		if (node) node.value = this.get('value');
+		if (this.validity && this.useValidityPopup && this.type == 'number' && this.canValidity(oEvent)) {
+			this.showHideValidityPopup(oEvent.target);
+		}
 	},
 
 	/**
@@ -182,5 +236,73 @@ module.exports = kind(
 	*/
 	down: function () {
 		return false;
+	},
+
+	/**
+	* @private
+	*/
+	input: function (oSender, oEvent) {
+		Input.prototype.input.apply(this, arguments);
+		if (this.validity && this.useValidityPopup && this.type == 'number' && this.canValidity(oEvent)) {
+			this.showHideValidityPopup(oEvent.target);
+		}
+	},
+
+	/**
+	* @private
+	*/
+	minChanged: function () {
+		if (this.validity) {
+			this.setAttribute('min', this.min);
+		}
+	},
+
+	/**
+	* @private
+	*/
+	maxChanged: function () {
+		if (this.validity) {
+			this.setAttribute('max', this.max);
+		}
+	},
+
+	/**
+	* @private
+	*/
+	validityChanged: function () {
+		if (this.validity) {
+			this.$.validityIcon.addClass('input-validation');
+			this.setAttribute('required', true);
+			this.setAttribute('min', this.min);
+			this.setAttribute('max', this.max);
+		} else {
+			this.$.validityIcon.removeClass('input-validation');
+		}
+	},
+
+	/**
+	* @private
+	*/
+	canValidity: function (event) {
+		if (this.min && this.max && this.min <= this.max && event && event.target) {
+			return true;
+		}
+
+		return false;
+	},
+
+	/**
+	* @private
+	*/
+	// [Validation Message]
+	// Valid   : ""
+	// Invalid : "Value must be greater than or equal to {min}."
+	// Invalid : "Value must be less than or equal to {max}."
+	showHideValidityPopup: function (target) {
+		if (!target.validationMessage == "") {
+			this.bubble('onShowValidityPopup', {message: target.validationMessage});
+		} else {
+			this.bubble('onHideValidityPopup');
+		}
 	}
 });

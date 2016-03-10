@@ -23,6 +23,30 @@
 	}
 }
 
+.moon-divider-text .input-validation {
+	position: relative;
+	width: 30px;
+	text-align: center;
+	font-family: "Moonstone", "Moonstone Icons";
+	font-size: 54px;
+	line-height: 39px;
+}
+
+.moon-input[type=number]:focus:invalid ~ .input-validation::after {
+	content: "\0EFFF5";
+	color: red;
+}
+
+.moon-input[type=number]:focus:valid ~ .input-validation::after {
+	content: "\02713";
+	color: green;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+}
+
 .moon-input-decorator {
 	&.spotlight {
 		color: @moon-spotlight-text-color;
