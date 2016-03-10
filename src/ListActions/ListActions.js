@@ -157,6 +157,11 @@ var ListActionsPopup = ContextualPopup.kind(
 var ListActions = ContextualPopupDecorator.kind({
 
 	/**
+	* @private
+	*/
+	classes: 'moon-list-actions',
+
+	/**
 	* If `true`, the popup will automatically close when the user selects a menu item.
 	*
 	* @type {Boolean}

@@ -13,11 +13,6 @@
 	&.top > * {
 		vertical-align: top;
 	}
-	& > .moon-contextual-popup-decorator,
-	& > .moon-tooltip-decorator {
-		margin-left: 0;
-		margin-right: 0;
-	}
 	& > :first-child,
 	& > :first-child.moon-contextual-popup-decorator :first-child {
 		margin-left: 0;
@@ -25,11 +20,6 @@
 	.enyo-locale-right-to-left & > :first-child {
 		margin-left: @moon-grid-gutter-width/2;
 		margin-right: 0;
-
-		&.moon-contextual-popup-decorator,
-		&.moon-tooltip-decorator {
-			margin-left: 0;
-		}
 	}
 	& > :last-child,
 	& > :last-child.moon-contextual-popup-decorator :first-child {
@@ -38,11 +28,6 @@
 	.enyo-locale-right-to-left & > :last-child {
 		margin-right: @moon-grid-gutter-width/2;
 		margin-left: 0;
-
-		&.moon-contextual-popup-decorator,
-		&.moon-tooltip-decorator {
-			margin-right: 0;
-		}
 	}
 }
 
