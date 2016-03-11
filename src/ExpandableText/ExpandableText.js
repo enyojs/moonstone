@@ -135,7 +135,7 @@ var ExpandableTextButton = kind(
 	},
 
 	/**
-	* If control is collapsed, sets [content]{@link module:moonstone/ExpandableText~ExpandableTextButton#content} to 
+	* If control is collapsed, sets [content]{@link module:moonstone/ExpandableText~ExpandableTextButton#content} to
 	* [moreContent]{@link module:moonstone/ExpandableText~ExpandableTextButton#moreContent} and adds `collapsed` CSS class;
 	* otherwise, sets content to [lessContent]{@link module:moonstone/ExpandableText~ExpandableTextButton#lessContent} and
 	* removes `collapsed` CSS class.
@@ -163,8 +163,8 @@ var ExpandableTextButton = kind(
 */
 
 /**
-* {@link module:moonstone/ExpandableText~ExpandableText} is a control that allows long bodies of text to be
-* expanded and collapsed.
+* {@link module:moonstone/ExpandableText~ExpandableText} is a control that allows long bodies of
+* text to be expanded and collapsed. Note that this control only works properly in WebKit browsers.
 *
 * ```javascript
 * 	var
@@ -175,8 +175,8 @@ var ExpandableTextButton = kind(
 * 		content: 'I left my heart in San Francisco.'}
 * ```
 *
-* The [onExpandCollapse]{@link module:moonstone/ExpandableText~ExpandableText#onExpandCollapse} event is fired
-* when the control is either expanded or collapsed.
+* The [onExpandCollapse]{@link module:moonstone/ExpandableText~ExpandableText#onExpandCollapse}
+* event is fired when the control is either expanded or collapsed.
 *
 * @class ExpandableText
 * @extends module:enyo/Control~Control
