@@ -862,23 +862,24 @@ var MarqueeItem = {
 	* @private
 	*/
 	_marquee_startAnimation: function (sender, ev) {
+		var distance;
+
 		// if this control hasn't been generated, there's no need to follow through on
 		// marquee requests as we'll be unable to correctly measure the distance delta yet
 		if (!this.generated) return;
 
-		var distance = this._marquee_calcDistance();
+		// Lazy creation of _this.$.marqueeText_
+		if (!this.$.marqueeText) {
+			this._marquee_createMarquee();
+		}
+
+		distance = this._marquee_calcDistance();
 
 		// If there is no need to animate, return early
 		if (!this._marquee_shouldAnimate(distance)) {
 			this._marquee_fits = true;
 			this.doMarqueeEnded();
 			return;
-		}
-
-		// Lazy creation of _this.$.marqueeText_
-		if (!this.$.marqueeText) {
-			this._marquee_createMarquee();
-			distance = this._marquee_calcDistance();
 		}
 
 		this._marquee_addAnimationStyles(distance);
@@ -947,22 +948,24 @@ var MarqueeItem = {
 	* @private
 	*/
 	_marquee_calcDistance: function () {
-		var node = this.$.marqueeText ? this.$.marqueeText.hasNode() : this.hasNode(),
-			rect;
+		var node, rect;
 
-		if (node && this._marquee_distance == null && this.getAbsoluteShowing()) {
-			rect = node.getBoundingClientRect();
-			this._marquee_distance = Math.floor(Math.abs(node.scrollWidth - rect.width));
+		if (this.$.marqueeText) {
+			node = this.$.marqueeText.hasNode();
+			if (node && this._marquee_distance == null && this.getAbsoluteShowing()) {
+				rect = node.getBoundingClientRect();
+				this._marquee_distance = Math.floor(Math.abs(node.scrollWidth - rect.width));
 
-			//if the distance is exactly 0, then the ellipsis
-			//most likely are hiding the content, and marquee does not
-			//need to animate
-			if(this._marquee_distance === 0) {
-				this.applyStyle('text-overflow', 'clip');
-				this.$.marqueeText && this.$.marqueeText.applyStyle('text-overflow', 'clip');
-			} else {
-				this.applyStyle('text-overflow', 'ellipsis');
-				this.$.marqueeText && this.$.marqueeText.applyStyle('text-overflow', 'ellipsis');
+				//if the distance is exactly 0, then the ellipsis
+				//most likely are hiding the content, and marquee does not
+				//need to animate
+				if(this._marquee_distance === 0) {
+					this.applyStyle('text-overflow', 'clip');
+					this.$.marqueeText && this.$.marqueeText.applyStyle('text-overflow', 'clip');
+				} else {
+					this.applyStyle('text-overflow', 'ellipsis');
+					this.$.marqueeText && this.$.marqueeText.applyStyle('text-overflow', 'ellipsis');
+				}
 			}
 		}
 
