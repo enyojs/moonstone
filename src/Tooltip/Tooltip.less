@@ -12,6 +12,7 @@
 	color: @moon-tooltip-text-color;
 	padding: 12px (@moon-button-h-padding + 2);
 	background-color: @moon-tooltip-bg-color;
+	border-radius: (@moon-tooltip-height / 2);
 
 	.moon-tooltip.right-arrow & { text-align: right; }
 	.moon-tooltip.left-arrow & {
@@ -24,67 +25,92 @@
 	}
 }
 
-.moon-tooltip-label:before {
+.moon-tooltip-point {
 	position: absolute;
-	content: "";
-	width: 84px;
-	height: 60px;
-	border-radius: @moon-button-border-radius;
-
-	.moon-tooltip.above & {
-		bottom: -59px; // -height + 1px
-		border-top: 29px solid @moon-tooltip-bg-color;
-	}
-
-	.moon-tooltip.below & {
-		top: -59px; // -height + 1px
-		border-bottom: 29px solid @moon-tooltip-bg-color;
-	}
-
-	.moon-tooltip.right-arrow & {
-		right: -2px;
-	}
-
-	.moon-tooltip.left-arrow & {
-		left: -2px;
-	}
+	height: 30px;
+	width: 18px;
+	transform-origin: top left;
+	fill: @moon-tooltip-bg-color;
 }
 
 .moon-tooltip {
-	@radius: @moon-tooltip-height / 2;
-
 	&.above {
-		// .above .left-arrow nub shape
-		&.left-arrow .moon-tooltip-label {
-			border-radius: @radius @radius @radius 0px;
-			&:before {
-				clip: rect(30px, 24px, 38px, 2px);
+		&.left-arrow {
+			.moon-tooltip-point {
+				transform: translateY(100%) rotate(-90deg) scaleX(-1);
+				bottom: 0;
+			}
+			.moon-tooltip-label {
+				border-bottom-left-radius: 0;
 			}
 		}
-
-		// .above .right-arrow nub shape
-		&.right-arrow .moon-tooltip-label {
-			border-radius: @radius @radius 0px @radius;
-			&:before {
-				clip: rect(30px, 82px, 38px, 56px);
+		&.right-arrow {
+			.moon-tooltip-point {
+				transform: translate(100%,100%) rotate(90deg);
+				bottom: 0;
+				right: 0;
+			}
+			.moon-tooltip-label {
+				border-bottom-right-radius: 0;
 			}
 		}
 	}
-
 	&.below {
-		// .below .left-arrow nub shape
-		&.left-arrow .moon-tooltip-label {
-			border-radius: 0 @radius @radius @radius;
-			&:before {
-				clip: rect(2px, 24px, 60px, 2px);
+		&.left-arrow {
+			.moon-tooltip-point {
+				transform: rotate(-90deg);
+			}
+			.moon-tooltip-label {
+				border-top-left-radius: 0;
 			}
 		}
-
-		// .below .right-arrow nub shape
-		&.right-arrow .moon-tooltip-label {
-			border-radius: @radius 0px @radius @radius;
-			&:before{
-				clip: rect(2px, 82px, 60px, 56px);
+		&.right-arrow {
+			.moon-tooltip-point {
+				transform: translateX(100%) rotate(-90deg) scaleY(-1);
+				right: 0;
+			}
+			.moon-tooltip-label {
+				border-top-right-radius: 0;
+			}
+		}
+	}
+	&.left-arrow {
+		&.top {
+			.moon-tooltip-point {
+				transform: translateY(100%) scale(-1);
+				bottom: 0;
+			}
+			.moon-tooltip-label {
+				border-bottom-left-radius: 0;
+			}
+		}
+		&.bottom {
+			.moon-tooltip-point {
+				transform: scaleX(-1);
+			}
+			.moon-tooltip-label {
+				border-top-left-radius: 0;
+			}
+		}
+	}
+	&.right-arrow {
+		&.top {
+			.moon-tooltip-point {
+				transform: translate(100%,100%) scaleY(-1);
+				bottom: 0;
+				right: 0;
+			}
+			.moon-tooltip-label {
+				border-bottom-right-radius: 0;
+			}
+		}
+		&.bottom {
+			.moon-tooltip-point {
+				transform: translateX(100%);
+				right: 0;
+			}
+			.moon-tooltip-label {
+				border-top-right-radius: 0;
 			}
 		}
 	}
