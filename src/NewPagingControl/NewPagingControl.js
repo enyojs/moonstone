@@ -244,7 +244,7 @@ module.exports = kind(
 	* @private
 	*/
 	stopHoldJob: function () {
-		this.job = animation.cancelRequestAnimationFrame(this.job);
+		this.job = animation.cancelAnimationFrame(this.job);
 	},
 
 	/**
