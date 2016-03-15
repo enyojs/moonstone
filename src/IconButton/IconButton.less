@@ -37,6 +37,28 @@
 		background-color: transparent;
 	}
 
+	.moon-neutral & {
+		color: @moon-neutral-button-text-color;
+		background-color: @moon-neutral-button-bg-color;
+
+		&.translucent {
+			background-color: fade(@moon-neutral-button-bg-color, @moon-button-translucent-opacity);
+		}
+
+		&.transparent {
+			background-color: transparent;
+		}
+
+		* {
+			color: inherit;
+		}
+
+		&[disabled] {
+			color: @moon-neutral-button-disabled-text-color;
+			background-color: @moon-neutral-button-disabled-bg-color;
+		}
+	}
+
 	&.hover:hover:not(.disabled),
 	&.spotlight,
 	&.spotlight.translucent:not(.disabled),
@@ -59,14 +81,27 @@
 		background-position: center 0;
 		border-color: @moon-icon-button-active-border-color;
 
+		.moon-neutral & {
+			color: @moon-neutral-button-text-color;
+			background-color: @moon-neutral-button-bg-color;
+		}
 		&.small {
 			background-position: center 0;
 		}
 		&.translucent:not(.disabled) {
-			background-color: fade(@moon-icon-button-bg-color, @moon-button-translucent-opacity);
+			background-color: fade(@moon-icon-button-active-bg-color, @moon-button-translucent-opacity);
+
+			.moon-neutral & {
+				color: @moon-neutral-button-text-color;
+				background-color: fade(@moon-neutral-button-bg-color, @moon-button-translucent-opacity);
+			}
 		}
 		&.transparent:not(.disabled) {
 			background-color: transparent;
+
+			.moon-neutral & {
+				color: @moon-neutral-button-text-color;
+			}
 		}
 	}
 
@@ -83,7 +118,7 @@
 	// 'Selected+Focus' state
 	&.active.spotlight:not(.contextual-popup-button) {
 		border-color: @moon-active-spotlight-border-color;
-		background-color: @moon-icon-button-spotlight-bg-color;
+		background-color: @moon-icon-button-active-bg-color;
 		color: @moon-spotlight-text-color;
 
 		&:active,
