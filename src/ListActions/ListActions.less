@@ -20,7 +20,7 @@
 	.list-actions-hunits(@property, @n) {
 		&:before,
 		&:after {
-			@{property}: (@moon-icon-button-small-size * (@n - 1)) + (@moon-icon-button-small-size * @n) / 2 - @moon-icon-margin * @n / 2;
+			@{property}: (@moon-icon-button-small-size * (@n - 1 / 2)) + (@moon-grid-gutter-width * (@n - 1)) - (@moon-icon-margin / 2);
 		}
 	}
 
