@@ -458,6 +458,7 @@ module.exports = kind(
 		this.$.closeButton.removeClass('pressed');
 		this.hide();
 		Spotlight.spot(this.activator);
+		return true;
 	},
 
 	/**
