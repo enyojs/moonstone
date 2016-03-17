@@ -1055,7 +1055,9 @@ module.exports = kind(
 		}
 		var orig = ev.originator,
 			idx = this.getPanelIndex(orig),
-			target = this.getSpotlightTarget('LEFT', orig);
+			target = this.getSpotlightTarget('LEFT', orig),
+			active = this.getActive(),
+			h = active ? active.getHeader() : null;
 
 		if (target && target.parent instanceof ApplicationCloseButton) {
 			Spotlight.spot(target);
@@ -1078,6 +1080,11 @@ module.exports = kind(
 				Spotlight.spot(this.$.breadcrumbs);
 				return true;
 			}
+		} else {
+			if (this.hasCloseButton && this.rtl === true && h && orig == h.$.inputDecorator) {
+				Spotlight.spot(this.$.appClose);
+				return true;
+			}
 		}
 	},
 
@@ -1092,7 +1099,9 @@ module.exports = kind(
 		var orig = ev.originator,
 			idx = this.getPanelIndex(orig),
 			next = this.getPanels()[idx + 1],
-			target = this.getSpotlightTarget('RIGHT', orig);
+			target = this.getSpotlightTarget('RIGHT', orig),
+			active = this.getActive(),
+			h = active ? active.getHeader() : null;
 
 		if (target && target.parent instanceof ApplicationCloseButton) {
 			Spotlight.spot(target);
@@ -1107,6 +1116,11 @@ module.exports = kind(
 					this.next();
 					return true;
 				}
+			}
+		} else {
+			if (this.hasCloseButton && this.rtl === false && h && orig == h.$.inputDecorator) {
+				Spotlight.spot(this.$.appClose);
+				return true;
 			}
 		}
 	},
