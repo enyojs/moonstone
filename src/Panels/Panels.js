@@ -1585,7 +1585,7 @@ module.exports = kind(
 		var end = this.toIndex,
 			start = end - this.getBreadcrumbs().length,
 			range = {start: start, end: end},
-			control, info;
+			control, info, i;
 
 		for (i=range.start; i<range.end; i++) {
 			control = this.getBreadcrumbForIndex(i);
