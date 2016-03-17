@@ -1413,12 +1413,13 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	getBreadcrumbPositionInfo: function (bounds, containerBounds) {
-		var right = bounds ? bounds.right : null,
-			left = bounds ? bounds.left : null,
-			panelEdge = containerBounds ? containerBounds.right : null;
-
-		return {isOffscreen: (right == null || left == null || panelEdge == null || right <= 0 || left >= panelEdge)};
+	getBreadcrumbPositionInfo: function (inBreadcrumbIndex) {
+		var to = (this.toIndex || this.toIndex === 0) ? this.toIndex : this.index;
+		return {
+			isOffscreen: this.pattern == 'activity' ? 
+				(to % 2) == Math.abs(inBreadcrumbIndex % 2) :
+				!((inBreadcrumbIndex < to) && (inBreadcrumbIndex >= (to - this.getBreadcrumbMax()) && inBreadcrumbIndex >= 0))
+		};
 	},
 
 	/**
@@ -1581,13 +1582,14 @@ module.exports = kind(
 	notifyBreadcrumbs: function (method) {
 		if (this.pattern == 'none' || !this.$.breadcrumbs) return;
 
-		var range = this.getBreadcrumbRange(),
-			containerBounds = this.$.breadcrumbs.getAbsoluteBounds(),
-			control, bounds, info, i;
+		var end = this.toIndex,
+			start = end - this.getBreadcrumbs().length,
+			range = {start: start, end: end},
+			control, info;
+
 		for (i=range.start; i<range.end; i++) {
 			control = this.getBreadcrumbForIndex(i);
-			bounds = control.getAbsoluteBounds();
-			info = this.getBreadcrumbPositionInfo(bounds, containerBounds);
+			info = this.getBreadcrumbPositionInfo(i);
 			if (control[method]) {
 				control[method](info);
 			}
