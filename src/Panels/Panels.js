@@ -157,6 +157,11 @@ var Breadcrumb = kind(
 	/**
 	* @private
 	*/
+	accessibilityLabel: $L('go to previous'),
+
+	/**
+	* @private
+	*/
 	handlers: {
 		ontap: 'tapHandler',
 		onSpotlightRight: 'rightHandler'
