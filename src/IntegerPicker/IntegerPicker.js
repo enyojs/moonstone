@@ -585,7 +585,7 @@ module.exports = kind(
 			var count = Math.abs(newIndex - oldIndex) + 1;
 			this.updateRepeater(index, count);
 
-			if (this._rAF) animation.cancelRequestAnimationFrame(this._rAF);
+			if (this._rAF) animation.cancelAnimationFrame(this._rAF);
 			this._rAF = animation.requestAnimationFrame(function () {
 				this.scrollToIndex(oldIndex, false);
 				this._rAF = animation.requestAnimationFrame(function () {

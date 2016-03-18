@@ -89,7 +89,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	classes: 'moon-body-text moon-contextual-popup',
+	classes: 'moon-body-text moon-contextual-popup moon-neutral',
 
 	/**
 	* @private
@@ -119,13 +119,25 @@ module.exports = kind(
 
 	/**
 	* @private
+	*/
+	modal: true,
+
+	/**
+	* @private
 	* @lends module:moonstone/ContextualPopup~ContextualPopup.prototype
 	*/
 	published: {
 
 		/**
 		* If `true`, focus cannot leave the constraints of the popup unless the
-		* popup is explicitly closed.
+		* popup is explicitly closed. This property's value is copied to
+		* [modal]{@link module:enyo/Popup~Popup#modal} at initialization time.
+		* Additionally, these two properties are synced whenever one of the following properties changes:
+		* [spotlightModal]{@link module:moonstone/ContextualPopup~ContextualPopup#spotlightModal},
+		* [modal]{@link module:enyo/Popup~Popup#modal},
+		* [modal]{@link module:enyo/Popup~Popup#scrim},
+		* [modal]{@link module:enyo/Popup~Popup#scrimWhenModal},
+		* [modal]{@link module:enyo/Popup~Popup#floating}.
 		*
 		* @type {Boolean}
 		* @default false
@@ -134,15 +146,13 @@ module.exports = kind(
 		spotlightModal: false,
 
 		/**
-		* If `false`, the close button is hidden; if `true`, it is shown. When this
-		* property is set to `'auto'` (the default), the close button is shown when
-		* [spotlightModal]{@link module:moonstone/ContextualPopup~ContextualPopup#spotlightModal} is `true`.
+		* When `true`, the close button is shown; when `false`, it is hidden.
 		*
-		* @type {String}
-		* @default 'auto'
+		* @type {Boolean}
+		* @default false
 		* @public
 		*/
-		showCloseButton: 'auto'
+		showCloseButton: false
 	},
 
 	/**
@@ -209,8 +219,15 @@ module.exports = kind(
 	/**
 	* @private
 	*/
+	observers: [
+		{method: 'updateScrim', path: [ 'modal', 'spotlightModal', 'floating', 'scrim', 'scrimWhenModal' ]}
+	],
+
+	/**
+	* @private
+	*/
 	tools: [
-		{name: 'client', kind: Control, classes: 'moon-neutral moon-contextual-popup-client'},
+		{name: 'client', kind: Control, classes: 'moon-contextual-popup-client'},
 		{name: 'closeButton', kind: IconButton, icon: 'closex', classes: 'moon-popup-close', ontap: 'closePopup', backgroundOpacity: 'transparent', accessibilityLabel: $L('Close'), tabIndex: -1, spotlight: false}
 	],
 
@@ -222,6 +239,15 @@ module.exports = kind(
 	initComponents: function () {
 		this.createChrome(this.tools);
 		Popup.prototype.initComponents.apply(this, arguments);
+		this.modal = this.spotlightModal;
+	},
+
+	/**
+	* @private
+	*/
+	create: function () {
+		Popup.prototype.create.apply(this, arguments);
+		this.showCloseButtonChanged();
 	},
 
 	/**
@@ -262,7 +288,6 @@ module.exports = kind(
 		if (n) {
 			this.activatorOffset = this.getPageOffset(n);
 		}
-		this.configCloseButton();
 		this.show();
 		if (Spotlight.isSpottable(this)) {
 			Spotlight.spot(this);
@@ -284,12 +309,11 @@ module.exports = kind(
 	getPageOffset: function (inNode) {
 		// getBoundingClientRect returns top/left values which are relative to the viewport and
 		// not absolute
-		var r = inNode.getBoundingClientRect();
-
-		var pageYOffset = (window.pageYOffset === undefined) ? document.documentElement.scrollTop : window.pageYOffset;
-		var pageXOffset = (window.pageXOffset === undefined) ? document.documentElement.scrollLeft : window.pageXOffset;
-		var rHeight = (r.height === undefined) ? (r.bottom - r.top) : r.height;
-		var rWidth = (r.width === undefined) ? (r.right - r.left) : r.width;
+		var r = inNode.getBoundingClientRect(),
+			pageYOffset = window.pageYOffset,
+			pageXOffset = window.pageXOffset,
+			rHeight = r.height,
+			rWidth = r.width;
 
 		return {top: r.top + pageYOffset, left: r.left + pageXOffset, height: rHeight, width: rWidth, bottom: r.top + pageYOffset + rHeight, right: r.left + pageXOffset + rWidth};
 	},
@@ -434,46 +458,21 @@ module.exports = kind(
 		this.$.closeButton.removeClass('pressed');
 		this.hide();
 		Spotlight.spot(this.activator);
-	},
-
-	/**
-	* Determines whether to display close button.
-	*
-	* @private
-	*/
-	configCloseButton: function () {
-		if (this.showCloseButton === true || (this.spotlightModal && this.showCloseButton !== false)) {
-			this.$.closeButton.show();
-			this.$.closeButton.spotlight = true;
-			this.addClass('reserve-close');
-		} else {
-			this.$.closeButton.hide();
-			this.$.closeButton.spotlight = false;
-			this.removeClass('reserve-close');
-		}
+		return true;
 	},
 
 	/**
 	* @private
 	*/
 	contentChanged: function () {
-		this.$.client.setContent(this.content);
+		this.$.client.set('content', this.content);
 	},
 
 	/**
 	* @private
 	*/
 	allowHtmlChanged: function () {
-		this.$.client.setAllowHtml(this.allowHtml);
-	},
-
-	/**
-	* Called when [spotlightModal]{@link module:moonstone/ContextualPopup~ContextualPopup#spotlightModal} changes.
-	*
-	* @private
-	*/
-	spotlightModalChanged: function () {
-		this.configCloseButton();
+		this.$.client.set('allowHtml', this.allowHtml);
 	},
 
 	/**
@@ -482,7 +481,9 @@ module.exports = kind(
 	* @private
 	*/
 	showCloseButtonChanged: function () {
-		this.configCloseButton();
+		this.$.closeButton.set('showing', this.showCloseButton);
+		this.$.closeButton.spotlight = this.showCloseButton;
+		this.addRemoveClass('reserve-close', this.showCloseButton);
 	},
 
 	/**
@@ -538,19 +539,41 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	showHideScrim: function (inShow) {
-		if (this.floating && (this.scrim || (this.modal && this.scrimWhenModal))) {
-			var scrim = this.getScrim();
-			if (inShow && this.modal && this.scrimWhenModal) {
-				// move scrim to just under the popup to obscure rest of screen
-				var i = this.getScrimZIndex();
-				this._scrimZ = i;
-				scrim.showAtZIndex(i);
-			} else {
-				scrim.hideAtZIndex(this._scrimZ);
-			}
-			util.call(scrim, 'addRemoveClass', [this.scrimClassName, scrim.showing]);
+	updateScrim: function (old, value, source) {
+		if (this._updateScrimMutex) return;
+		this._updateScrimMutex = true;
+
+		// We sync modal and spotlightModal here because binding doesn't
+		// guarantee sequence when it is used with observers.
+		if (source == 'modal') this.set('spotlightModal', this.modal);
+		if (source == 'spotlightModal') this.set('modal', this.spotlightModal);
+		this.showHideScrim(this.showing);
+
+		this._updateScrimMutex = false;
+	},
+
+	/**
+	* @private
+	*/
+	showHideScrim: function (show) {
+		var scrim = this.getScrim();
+
+		if (this._scrim && scrim != this._scrim) {
+			// hide if there was different kind of scrim
+			this._scrim.hideAtZIndex(this._scrimZ);
+			if (this.scrimClassName) this._scrim.removeClass(this.scrimClassName);
 		}
+
+		if (show && this.floating && (this.scrim || (this.modal && this.scrimWhenModal))) {
+			// move scrim to just under the popup to obscure rest of screen
+			var i = this.getScrimZIndex();
+			this._scrimZ = i;
+			scrim.showAtZIndex(i);
+		} else {
+			scrim.hideAtZIndex(this._scrimZ);
+		}
+		util.call(scrim, 'addRemoveClass', [this.scrimClassName, scrim.showing]);
+		this._scrim = scrim;
 	},
 
 	/**
@@ -568,10 +591,10 @@ module.exports = kind(
 		// show a transparent scrim for modal popups if
 		// {@link module:moonstone/ContextualPopup~ContextualPopup#scrimWhenModal} is `true`, else show a
 		// regular scrim.
-		if (this.modal && this.scrimWhenModal) {
+		if (this.modal && this.scrimWhenModal && !this.scrim) {
 			return Scrim.scrimTransparent.make();
 		}
-		return Scrim.make();
+		return Scrim.scrim.make();
 	},
 
 	/**
@@ -580,7 +603,6 @@ module.exports = kind(
 	showingChanged: function () {
 		Popup.prototype.showingChanged.apply(this, arguments);
 		this.alterDirection();
-		this.showHideScrim(this.showing);
 
 		if (this.allowBackKey) {
 			if (this.showing) {

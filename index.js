@@ -1,5 +1,9 @@
 'use strict';
 
+// Many moonstone controls require ilib components but do not directly require the base module which
+// is necessary to include the locale assets.
+require('enyo-ilib');
+
 var
 	platform = require('enyo/platform'),
 	dispatcher = require('enyo/dispatcher'),

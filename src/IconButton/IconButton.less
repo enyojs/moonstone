@@ -12,6 +12,8 @@
 	margin: 0 @moon-spotlight-outset;
 	line-height: @moon-icon-sprite-size;
 
+	.moon-taparea(@moon-icon-button-size);
+
 	&.small {
 		width: @moon-icon-button-small-size;
 		height: @moon-icon-button-small-size;
@@ -19,6 +21,9 @@
 		background-size: @moon-icon-sprite-small-size @moon-icon-sprite-small-size * 2;
 		background-position: center 0;
 		line-height: @moon-icon-sprite-small-size;
+
+		.moon-taparea(@moon-icon-button-small-size);
+
 		> .small-icon-tap-area {
 			line-height: @moon-button-small-tap-area-height;
 		}

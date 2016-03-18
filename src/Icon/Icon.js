@@ -13,52 +13,55 @@ var
 
 // Static private hash of all of the valid moonstone icons
 var icons = {
-	drawer            : '&#983040;',  // \0F0000
-	arrowlargedown    : '&#983041;',  // \0F0001
-	arrowlargeup      : '&#983042;',  // \0F0002
-	arrowlargeleft    : '&#983043;',  // \0F0003
-	arrowlargeright   : '&#983044;',  // \0F0004
-	arrowsmallup      : '&#983045;',  // \0F0005
-	arrowsmalldown    : '&#983046;',  // \0F0006
-	arrowsmallleft    : '&#983047;',  // \0F0007
-	arrowsmallright   : '&#983048;',  // \0F0008
-	closex            : '&#983049;',  // \0F0009
-	check             : '&#10003;',   // \02713
-	search            : '&#983051;',  // \0F000B
-	list              : '&#983052;',  // \0F000C
-	bulletlist        : '&#983053;',  // \0F000D
-	denselist         : '&#983054;',  // \0F000E
-	rollforward       : '&#983055;',  // \0F000F
-	rollbackward      : '&#983056;',  // \0F0010
-	exitfullscreen    : '&#983057;',  // \0F0011
-	fullscreen        : '&#983058;',  // \0F0012
-	circle            : '&#983059;',  // \0F0013
-	stop              : '&#983060;',  // \0F0014
-	play              : '&#983061;',  // \0F0015
-	pause             : '&#983062;',  // \0F0016
-	forward           : '&#983063;',  // \0F0017
-	backward          : '&#983064;',  // \0F0018
-	skipforward       : '&#983065;',  // \0F0019
-	skipbackward      : '&#983066;',  // \0F001A
-	pauseforward      : '&#983067;',  // \0F001B
-	pausebackward     : '&#983068;',  // \0F001C
-	pausejumpforward  : '&#983069;',  // \0F001D
-	pausejumpbackward : '&#983070;',  // \0F001E
-	jumpforward       : '&#983071;',  // \0F001F
-	jumpbackward      : '&#983072;',  // \0F0020
-	arrowextend       : '&#983073;',  // \0F0021
-	arrowshrink       : '&#983074;',  // \0F0022
-	flag              : '&#983075;',  // \0F0023
-	funnel            : '&#983076;',  // \0F0024
-	trash             : '&#983077;',  // \0F0025
-	plus              : '&#43;',      // \02B
-	minus             : '&#8722;',    // \02212
-	star              : '&#983080;',  // \0F0028
-	hollowstar        : '&#983081;',  // \0F0029
-	halfstar          : '&#983082;',  // \0F002A
-	gear              : '&#983083;',  // \0F002B
-	plug              : '&#983084;',  // \0F002C
-	lock              : '&#983085;'   // \0F002D
+	plus              : '&#43;',      // \0002B plus
+	minus             : '&#45;',      // \0002D hyphen
+	arrowhookleft     : '&#8617;',    // \021A9 LeftArrowHook
+	arrowhookright    : '&#8618;',    // \021AA RightArrowHook
+	ellipsis          : '&#8943;',    // \022EF ellipsis
+	check             : '&#10003;',   // \02713 checkmark
+	circle            : '&#983003;',  // \0EFFDB record
+	stop              : '&#983004;',  // \0EFFDC stop
+	play              : '&#983005;',  // \0EFFDD play
+	pause             : '&#983006;',  // \0EFFDE pause
+	forward           : '&#983007;',  // \0EFFDF forward
+	backward          : '&#983008;',  // \0EFFE0 rewind
+	skipforward       : '&#983009;',  // \0EFFE1 skip_forward
+	skipbackward      : '&#983010;',  // \0EFFE2 skip_backwards
+	pauseforward      : '&#983011;',  // \0EFFE3 indicator_forward
+	pausebackward     : '&#983012;',  // \0EFFE4 indicator_backward
+	pausejumpforward  : '&#983013;',  // \0EFFE5 indicator_skip_forward
+	pausejumpbackward : '&#983014;',  // \0EFFE6 indicator_skip_backward
+	jumpforward       : '&#983015;',  // \0EFFE7 indicator_end
+	jumpbackward      : '&#983016;',  // \0EFFE8 indicator_begin
+	denselist         : '&#983017;',  // \0EFFE9 list_big
+	bulletlist        : '&#983018;',  // \0EFFEA list_bullets
+	list              : '&#983019;',  // \0EFFEB list_simple
+	drawer            : '&#983020;',  // \0EFFEC list_actions
+	arrowlargedown    : '&#983021;',  // \0EFFED caret_down_large
+	arrowlargeup      : '&#983022;',  // \0EFFEE caret_up_large
+	arrowlargeleft    : '&#983023;',  // \0EFFEF caret_left_large
+	arrowlargeright   : '&#983024;',  // \0EFFF0 caret_right_large
+	arrowsmallup      : '&#983025;',  // \0EFFF1 caret_up_small
+	arrowsmalldown    : '&#983026;',  // \0EFFF2 caret_down_small
+	arrowsmallleft    : '&#983027;',  // \0EFFF3 caret_left_small
+	arrowsmallright   : '&#983028;',  // \0EFFF4 caret_right_small
+	closex            : '&#983029;',  // \0EFFF5 close_x
+	search            : '&#983030;',  // \0EFFF6 magnify
+	rollforward       : '&#983031;',  // \0EFFF7 redo
+	rollbackward      : '&#983032;',  // \0EFFF8 undo
+	exitfullscreen    : '&#983033;',  // \0EFFF9 minimize
+	fullscreen        : '&#983034;',  // \0EFFFA maximize
+	arrowextend       : '&#983073;',  // \0F0021 arrow_left
+	arrowshrink       : '&#983074;',  // \0F0022 arrow_right
+	flag              : '&#983075;',  // \0F0023 flag
+	funnel            : '&#983076;',  // \0F0024 filter
+	trash             : '&#983077;',  // \0F0025 trash
+	star              : '&#983080;',  // \0F0028 star_full
+	hollowstar        : '&#983081;',  // \0F0029 star_empty
+	halfstar          : '&#983082;',  // \0F002A star_half
+	gear              : '&#983083;',  // \0F002B gear
+	plug              : '&#983084;',  // \0F002C input
+	lock              : '&#983085;'   // \0F002D lock
 };
 
 /**

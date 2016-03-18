@@ -35,8 +35,6 @@ var
 	VideoFullscreenToggleButton = require('../VideoFullscreenToggleButton'),
 	VideoTransportSlider = require('../VideoTransportSlider');
 
-var libPath = '@../..';
-
 /**
 * Fires when [disablePlaybackControls]{@link module:moonstone/VideoPlayer~VideoPlayer#disablePlaybackControls}
 * is `true` and the user taps one of the [controls]{@link module:enyo/Control~Control}; may be handled to
@@ -531,14 +529,14 @@ module.exports = kind(
 		*
 		* @private
 		*/
-		moreControlsIcon: libPath + '/images/ellipsis.svg',
+		moreControlsIcon: 'ellipsis',
 
 		/**
 		* Name of font-based icon or image file.
 		*
 		* @private
 		*/
-		lessControlsIcon: libPath + '/images/back.svg',
+		lessControlsIcon: 'arrowhookleft',
 
 		/**
 		* Name of font-based icon or image file.
@@ -1890,16 +1888,11 @@ module.exports = kind(
 	* @private
 	*/
 	retrieveIconsSrcOrFont:function (src, icon) {
-		var iconPath,
-			iconType = this.checkIconType(icon);
+		var iconType = this.checkIconType(icon);
 
 		if (iconType == 'image') {
-			// To maintain compatibility with iconPath which isn't resolved by the build tools and
-			// therefore is an app-scoped path vs a library-scoped path, we check the path of the
-			// image and only prepend iconPath if the icon isn't in the library's path
-			iconPath = icon.indexOf(libPath) === 0 ? icon : this.iconPath + icon;
 			src.set('icon', null);
-			src.set('src', iconPath);
+			src.set('src', this.iconPath + icon);
 		} else {
 			src.set('src', null);
 			src.set('icon', icon);
@@ -1979,7 +1972,7 @@ module.exports = kind(
 	*/
 	timeUpdate: function (sender, e) {
 		//* Update _this.duration_ and _this.currentTime_
-		if (!e && e.srcElement || e.currentTime === null) {
+		if (!e && e.target || e.currentTime === null) {
 			return;
 		}
 
@@ -2063,7 +2056,7 @@ module.exports = kind(
 	* @private
 	*/
 	_progress: function (sender, e) {
-		var buffered = this._getBufferedProgress(e.srcElement);
+		var buffered = this._getBufferedProgress(e.target);
 		if (this.isFullscreen() || !this.getInline()) {
 			this.$.slider.setBgProgress(buffered.value);
 		} else {
@@ -2096,10 +2089,10 @@ module.exports = kind(
 	*/
 	_pause: function (sender, e) {
 		// Don't send pause feedback if we are rewinding
-		if (e.srcElement.playbackRate < 0) {
+		if (e.target.playbackRate < 0) {
 			return;
 		}
-		if (e.srcElement.currentTime === 0) {
+		if (e.target.currentTime === 0) {
 			this.sendFeedback('Stop', {}, true);
 			return;
 		}
