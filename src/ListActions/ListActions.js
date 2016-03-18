@@ -128,24 +128,15 @@ var ListActionsPopup = ContextualPopup.kind(
 
 			this.setBounds(bounds);
 		}
-	},
-
-	/**
-	* Prevent waterfalling 'onresize' event to avoid re-rendering {@link module:enyo/DataList~DataList}.
-	*
-	* @method
-	* @override
-	* @private
-	*/
-	resize: function() {}
+	}
 });
 
 /**
-* {@link module:moonstone/ListActions~ListActions} is a [control]{@link module:enyo/Control~Control} designed to live within a
-* {@link module:moonstone/Header~Header}. It is used to perform actions on an associated list of items. A
-* ListActions [object]{@glossary Object} combines an activating control with a drawer
-* containing a user-defined menu of selectable options for acting on items in the list.
-* When a menu item is selected, an action--such as filtering, sorting, moving, or
+* {@link module:moonstone/ListActions~ListActions} is a [control]{@link module:enyo/Control~Control}
+* designed to live within a {@link module:moonstone/Header~Header}. It is used to perform actions on
+* an associated list of items. A ListActions [object]{@glossary Object} combines an activating
+* control with a drawer containing a user-defined menu of selectable options for acting on items in
+* the list. When a menu item is selected, an action--such as filtering, sorting, moving, or
 * deleting--may be invoked in the application by handling change events from the selected
 * items.
 *
@@ -164,6 +155,11 @@ var ListActions = ContextualPopupDecorator.kind({
 	/**
 	* If `true`, the popup will automatically close when the user selects a menu item.
 	*
+	* Note: There is a known issue where {@link module:enyo/DataList~DataList} is used in
+	* `listActions` block and want to set `autoCollapse` to `true`, it will close the popup as it
+	* resizes. In case you need to use the data-bound list in `listActions` block, please use
+	* {@link module:enyo/DataRepeater~DataRepeater} instead.
+	*
 	* @type {Boolean}
 	* @default false
 	* @public
@@ -173,10 +169,16 @@ var ListActions = ContextualPopupDecorator.kind({
 	/**
 	* A block of one or more controls to be displayed inside the list actions menu. It should
 	* typically contain a {@link module:moonstone/Divider~Divider} identifying the category and a
-	* {@link module:moonstone/Scroller~Scroller}, containing instances of {@link module:moonstone/CheckboxItem~CheckboxItem},
-	* {@link module:moonstone/ToggleItem~ToggleItem}, or {@link module:moonstone/SelectableItem~SelectableItem} for setting options for
-	* the underlying [panel]{@link module:moonstone/Panel~Panel}. Alternatively, a {@link module:moonstone/DataList~DataList}
+	* {@link module:moonstone/Scroller~Scroller}, containing instances of
+	* {@link module:moonstone/CheckboxItem~CheckboxItem}, 
+	* {@link module:moonstone/ToggleItem~ToggleItem}, or
+	* {@link module:moonstone/SelectableItem~SelectableItem} for setting options for the underlying
+	* [panel]{@link module:moonstone/Panel~Panel}. Alternatively, a
+	* {@link module:enyo/DataRepeater~DataRepeater} or a {@link module:moonstone/DataList~DataList}
 	* may be used for populating a data-bound list of options.
+	* {@link module:enyo/DataRepeater~DataRepeater} is preferrable as performance gain from
+	* pagination starts when you have more than two pages worth of items, 11 or more in ListActions
+	* case, in the list.
 	*
 	* More than one option group may be added to the `listActions` block, in which options
 	* are laid out horizontally.
