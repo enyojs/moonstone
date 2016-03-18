@@ -945,7 +945,6 @@ module.exports = kind(
 		this.showingChanged();
 		// make other panel to spotlightDisabled without the initialPanel;
 		this.notifyPanels('initPanel');
-		this.notifyBreadcrumbs('updateBreadcrumb');
 	},
 
 	/**
@@ -965,6 +964,8 @@ module.exports = kind(
 	*/
 	rendered: function () {
 		Panels.prototype.rendered.apply(this, arguments);
+
+		this.notifyBreadcrumbs('updateBreadcrumb');
 
 		// Direct hide if not showing and using handle
 		if (this.useHandle === true) {
@@ -1263,6 +1264,8 @@ module.exports = kind(
 	* @public
 	*/
 	setIndex: function (index) {
+		var willAnimate = this.shouldAnimate();
+
 		// Normally this.index cannot be smaller than 0 and larger than panels.length
 		// However, if panels uses handle and there is sequential key input during transition
 		// then index could have -1. It means that panels will be hidden.
@@ -1287,7 +1290,7 @@ module.exports = kind(
 		// Turn on the close-x so it's ready for the next panel; if hasCloseButton is true
 		// and remove spottability of close button during transitions.
 		if (this.$.appClose) {
-			this.$.appClose.customizeCloseButton({'spotlight': false});
+			if (willAnimate) this.$.appClose.customizeCloseButton({'spotlight': false});
 			this.$.appClose.set('showing', this.hasCloseButton);
 		}
 		this.notifyPanels('initPanel');
@@ -1307,7 +1310,7 @@ module.exports = kind(
 		}
 
 		// If panels will move for this index change, kickoff animation. Otherwise skip it.
-		if (this.shouldAnimate()) {
+		if (willAnimate) {
 			Spotlight.mute(this);
 			this.startTransition();
 			this.addClass('transitioning');
