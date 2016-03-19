@@ -16,7 +16,8 @@ var
 	$L = require('../i18n'),
 	Input = require('../Input'),
 	RichText = require('../RichText'),
-	TextArea = require('../TextArea');
+	TextArea = require('../TextArea'),
+	Tooltip = require('../Tooltip');
 
 /**
 * {@link module:moonstone/InputDecorator~InputDecorator} is a control that provides input styling. Any controls
@@ -68,6 +69,25 @@ module.exports = kind(
 	kind: ToolDecorator,
 
 	/**
+	* When `true`, the message tooltip is shown if it exists.
+	*
+	* @type {Boolean}
+	* @default false
+	* @public
+	*/
+	invalid: false,
+
+	/**
+	* The tooltip text to be displayed when the contents of the input are invalid. If this value is
+	* falsy, the tooltip will not be shown.
+	*
+	* @type {String}
+	* @default ''
+	* @public
+	*/
+	invalidMessage: '',
+
+	/**
 	* @private
 	*/
 	tag: 'label',
@@ -97,6 +117,20 @@ module.exports = kind(
 		onSpotlightUp       : 'spotlightUpHandler',
 		onSpotlightDown     : 'spotlightDownHandler'
 	},
+
+	/**
+	* @private
+	*/
+	tools: [
+		{name: 'tooltip', kind: Tooltip, floating: false, position: 'right top'}
+	],
+
+	/**
+	* @private
+	*/
+	observers: [
+		{path: ['invalid', 'invalidMessage'], method: 'updateValidity'}
+	],
 
 	/**
 	* @private
@@ -149,22 +183,26 @@ module.exports = kind(
 		if (this._oInputControl instanceof TextArea || this._oInputControl instanceof RichText) {
 			this.addClass('moon-divider-text moon-textarea-decorator');
 		}
+
+		this.updateValidity();
 	},
 
 	/**
 	* @private
 	*/
 	createComponent: function () {
-		ToolDecorator.prototype.createComponent.apply(this, arguments);
+		var ret = ToolDecorator.prototype.createComponent.apply(this, arguments);
 		this._oInputControl = this._findInputControl();
+		return ret;
 	},
 
 	/**
 	* @private
 	*/
 	createComponents: function () {
-		ToolDecorator.prototype.createComponents.apply(this, arguments);
+		var ret = ToolDecorator.prototype.createComponents.apply(this, arguments);
 		this._oInputControl = this._findInputControl();
+		return ret;
 	},
 
 	/**
@@ -316,6 +354,33 @@ module.exports = kind(
 				this.blur();
 				oInput.blur();
 			}
+		}
+	},
+
+	// Change handlers
+
+	/**
+	* @private
+	*/
+	updateValidity: function () {
+		var comps, length, i;
+		// we want the ability to add the 'moon-invalid' class even if there is no invalid message
+		this.addRemoveClass('moon-invalid', this.invalid);
+		if (this.invalid && this.invalidMessage) {
+			if (!this.$.tooltip) { // lazy creation of tooltip
+				comps = this.createComponents(this.tools);
+				if (this.hasNode()) {
+					// rendering only the created tools, to prevent loss of focus on the input
+					for (i = 0, length = comps.length; i < length; i++) {
+						comps[i].render();
+					}
+				}
+				this.$.tooltip.activator = this;
+			}
+			this.$.tooltip.set('content', this.invalidMessage);
+			this.$.tooltip.set('showing', true);
+		} else if (this.$.tooltip) {
+			this.$.tooltip.set('showing', false);
 		}
 	},
 
