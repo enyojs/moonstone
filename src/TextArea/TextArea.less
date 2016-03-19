@@ -41,6 +41,12 @@
 	.moon-disabled .moon-richtext {
 		cursor: default;
 	}
+
+	&.moon-invalid {
+		.moon-textarea, .moon-richtext {
+			color: @moon-invalid-text-color;
+		}
+	}
 }
 
 .enyo-locale-right-to-left .moon-textarea {
