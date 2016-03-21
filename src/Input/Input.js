@@ -11,6 +11,10 @@ var
 	Input = require('enyo/Input');
 
 var
+	TooltipDecorator = require('../TooltipDecorator'),
+	Tooltip = require('../Tooltip');
+
+var
 	Spotlight = require('spotlight');
 
 /**
@@ -76,7 +80,43 @@ module.exports = kind(
 		* @default false
 		* @public
 		*/
-		dismissOnEnter: false
+		dismissOnEnter: false,
+
+		/**
+		* The min attribute specifies the minimum value for an [input]{@link module:enyo/Input~Input}.
+		*
+		* @type {Number}
+		* @default null
+		* @public
+		*/
+		min: null,
+
+		/**
+		* The max attribute specifies the maximum value for an [input]{@link module:enyo/Input~Input}.
+		*
+		* @type {Number}
+		* @default null
+		* @public
+		*/
+		max: null,
+
+		/**
+		* When `true`, 'input-invalid' class is added and message tooltip is shown if it exists.
+		*
+		* @type {Boolean}
+		* @default false
+		* @public
+		*/
+		invalid: false,
+
+		/**
+		* Text to be displayed as the tooltip content if invalidMessage is set not ''.
+		*
+		* @type {String}
+		* @default null
+		* @public
+		*/
+		invalidMessage: ''
 	},
 
 	/**
@@ -89,12 +129,37 @@ module.exports = kind(
 	},
 
 	/**
+	* @private
+	*/
+	components: [
+		{kind: TooltipDecorator, autoShow: false, components: [
+			{name: 'tooltip', kind: Tooltip, floating: false, position: 'below'}	// To Do : It's position has dependency with ENYO-2709.
+		]}
+	],
+
+	/**
+	* @private
+	*/
+	bindings: [
+		{from: 'invalidMessage', to: '$.tooltip.content'}
+	],
+
+	/**
 	* Used only for [dismissOnEnter]{@link module:moonstone/Input~Input#dismissOnEnter} feature;
 	* we cannot rely on `hasFocus()` in this case due to race condition.
 	*
 	* @private
 	*/
 	_bFocused: false,
+
+	/**
+	* @private
+	*/
+	create: function () {
+		Input.prototype.create.apply(this, arguments);
+		this.minChanged();
+		this.maxChanged();
+	},
 
 	/**
 	* @private
@@ -182,5 +247,28 @@ module.exports = kind(
 	*/
 	down: function () {
 		return false;
+	},
+
+	/**
+	* @private
+	*/
+	minChanged: function () {
+		this.setAttribute('min', this.min);
+	},
+
+	/**
+	* @private
+	*/
+	maxChanged: function () {
+		this.setAttribute('max', this.max);
+	},
+
+	/**
+	* @private
+	*/
+	invalidChanged: function () {
+		this.addRemoveClass('input-invalid', this.invalid);
+		this.$.tooltip.activator = this;
+		this.$.tooltip.set('showing', this.invalid && this.invalidMessage);
 	}
 });
