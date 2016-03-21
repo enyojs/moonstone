@@ -1,0 +1,6 @@
+{
+	"main": "Notification.js",
+	"styles": [
+		"Notification.less"
+	]
+}
