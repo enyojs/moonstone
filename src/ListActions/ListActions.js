@@ -226,7 +226,7 @@ var ListActions = ContextualPopupDecorator.kind({
 	*/
 	components: [
 		{name: 'activator', kind: IconButton},
-		{name: 'listActionsPopup', kind: ListActionsPopup, components: [
+		{name: 'listActionsPopup', kind: ListActionsPopup, accessibilityReadAll: false, components: [
 			{name: 'listActionsWrapper', classes: 'moon-hspacing top moon-list-actions-scroller', controlClasses: 'moon-list-actions-popup-width', onActivate: 'optionSelected'}
 		]}
 	],
