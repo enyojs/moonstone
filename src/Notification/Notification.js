@@ -8,7 +8,6 @@ require('moonstone');
 var
 	kind = require('enyo/kind'),
 	Control = require('enyo/Control'),
-	Popup = require('enyo/Popup'),
 	dispatcher = require('enyo/dispatcher'),
 	EnyoHistory = require('enyo/History'),
 	ShowingTransitionSupport = require('enyo/ShowingTransitionSupport');
