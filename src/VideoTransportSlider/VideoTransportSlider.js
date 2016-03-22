@@ -832,20 +832,22 @@ module.exports = kind(
 		if (this.disabled) {
 			return;
 		}
-		var v = this.calcKnobPosition(e);
-		v = this.transformToVideo(v);
-		var z = this.elasticTo;
-		if (this.constrainToBgProgress === true) {
-			z = (this.increment) ? this.calcConstrainedIncrement(z) : z;
-			this.animateTo(this.elasticFrom, z);
-			v = z;
-		} else {
-			v = (this.increment) ? this.calcIncrement(v) : v;
-			this._setValue(v);
-		}
 		e.preventTap();
-		// this.hideKnobStatus();
-		this.doSeekFinish({value: v});
+		if (this.getAbsoluteShowing()) {
+			var v = this.calcKnobPosition(e);
+			v = this.transformToVideo(v);
+			var z = this.elasticTo;
+			if (this.constrainToBgProgress === true) {
+				z = (this.increment) ? this.calcConstrainedIncrement(z) : z;
+				this.animateTo(this.elasticFrom, z);
+				v = z;
+			} else {
+				v = (this.increment) ? this.calcIncrement(v) : v;
+				this._setValue(v);
+			}
+			// this.hideKnobStatus();
+			this.doSeekFinish({value: v});
+		}
 		Spotlight.unfreeze();
 
 		this.$.knob.removeClass('active');
