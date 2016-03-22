@@ -641,8 +641,8 @@ module.exports = kind(
 			content = this.getPopupContent();
 			this._popupContent = this.get('uppercase') ? util.toUpperCase(content) : content;
 			// != null allows 0 but avoids undefined and null
-			if (this._popupContent != null) {
-				this.$.popupLabel.setContent(this._popupContent);
+			if (this._popupContent != null && this._popupContent !== '') {
+				this.$.popupLabel.set('content', this._popupContent);
 			}
 		}
 	},
@@ -672,7 +672,9 @@ module.exports = kind(
 		var label;
 		if (this.popup) {
 			label = this._popupContent || this.calcPopupLabel(val);
-			this.$.popupLabel.setContent(label);
+			if (label != null && label !== '') {
+				this.$.popupLabel.set('content', label);
+			}
 		}
 	},
 
