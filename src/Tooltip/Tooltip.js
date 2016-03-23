@@ -379,11 +379,12 @@ module.exports = kind(
 		if (this.showing && this.hasNode()) {
 			var b = this.node.getBoundingClientRect(),
 				moonDefaultPadding = ri.scale(18),
-				defaultMargin = ri.scale(15),
+				defaultMargin = ri.scale(21),
+				floating = this.get('floating'),
+				acNode = this.activator.hasNode(),
 				pBounds = this.parent.getAbsoluteBounds(),
-				acBounds = null;
-
-			acBounds = this.activator.getAbsoluteBounds();
+				acBounds = this.activator.getAbsoluteBounds(),
+				acBorders;
 
 			//* Calculate the difference between decorator and activating
 			//* control's top, left, right differences, position tooltip against
@@ -412,7 +413,13 @@ module.exports = kind(
 				anchorLeft = window.innerWidth - moonDefaultPadding - pBounds.left - pBounds.width / 2 >= b.width;
 			}
 
-			offset = this.floating ? (acRight + moonDefaultPadding) : paRightDiff;
+			if (floating) {
+				offset = acRight + moonDefaultPadding;
+			} else {
+				offset = paRightDiff;
+				// we need to account for activator border widths if we are not floating
+				acBorders = dom.calcBoxExtents(acNode, 'border');
+			}
 
 			//* Check if have a compound position, 2 words:
 			if (this.position && this.position.indexOf(' ') >= 0) {
@@ -428,20 +435,20 @@ module.exports = kind(
 				// Calculate the absolute top coordinate
 				relTop = (acBounds.height / 2);
 				if (tb == 'top') {
-					// We'le below, alter the absTop value as necessary
+					// We're below, alter the absTop value as necessary
 					relTop -= b.height;
 				}
 
 				// detrmine the side, and if RTL, just do the opposite.
 				if ((lr == 'left' && !rtl) || (lr == 'right' && rtl)) {
 					this.addClass('right-arrow');
-					relLeft = -(b.width + defaultMargin);
+					relLeft = -(b.width + defaultMargin + (floating ? 0 : acBorders.left));
 				} else if ((lr == 'right' && !rtl) || (lr == 'left' && rtl)) {
 					this.addClass('left-arrow');
-					relLeft = acBounds.width + defaultMargin;
+					relLeft = acNode.clientWidth + defaultMargin + (floating ? 0 : acBorders.right);
 				}
 
-				if (this.get('floating')) {
+				if (floating) {
 					// Absolute (floating) measurements are based on the relative positions
 					// Adjusting as needed.
 					relTop = acBounds.top + relTop;
@@ -456,10 +463,10 @@ module.exports = kind(
 				//* set programmatically above, move it above
 				if ((window.innerHeight - moonDefaultPadding) - (pBounds.top + pBounds.height) < b.height + defaultMargin || (this.position == 'above')) {
 					this.addClass('above');
-					if (this.get('floating')) {
+					if (floating) {
 						this.applyPosition({'top': dom.unit((acBounds.top - b.height - defaultMargin),'rem'), 'left': dom.unit(acBounds.left + acBounds.width / 2, 'rem'), 'right': 'auto'});
 					} else {
-						this.applyPosition({'top': dom.unit(-(b.height + defaultMargin + paTopDiff), 'rem'), 'left': dom.unit(acBounds.width / 2 + paLeftDiff, 'rem'), 'right': 'auto'});
+						this.applyPosition({'top': dom.unit(-(b.height + defaultMargin + paTopDiff + acBorders.top), 'rem'), 'left': dom.unit(acBounds.width / 2 + paLeftDiff, 'rem'), 'right': 'auto'});
 					}
 				}
 
@@ -469,10 +476,10 @@ module.exports = kind(
 				if (pBounds.top < (b.height + defaultMargin) || (this.position == 'below') || this.hasClass('below')) {
 					this.removeClass('above');	// Above class may have been added in the `if` check above, then need to be removed because the tooltip didn't fit on the screen.
 					this.addClass('below');
-					if (this.get('floating')) {
-						this.applyPosition({'top': acBounds.top + acBounds.height + defaultMargin + 'px', 'left': acBounds.left + acBounds.width / 2 + 'px', 'right': 'auto'});
+					if (floating) {
+						this.applyPosition({'top': dom.unit(acBounds.top + acBounds.height + defaultMargin, 'rem'), 'left': dom.unit(acBounds.left + acBounds.width / 2, 'rem'), 'right': 'auto'});
 					} else {
-						this.applyPosition({'top': pBounds.height + defaultMargin + paTopDiff + 'px', 'left': acBounds.width / 2 + paLeftDiff + 'px', 'right': 'auto'});
+						this.applyPosition({'top': dom.unit(this.parent.node.clientHeight + defaultMargin + paTopDiff + acBorders.bottom, 'rem'), 'left': dom.unit(acBounds.width / 2 + paLeftDiff, 'rem'), 'right': 'auto'});
 					}
 				}
 
