@@ -15,6 +15,8 @@ var
 	Signals = require('enyo/Signals'),
 	ri = require('enyo/resolution');
 
+var pointerTemplate = '<path d="M0,5C0,3,1,0,3,0H0V5Z"/>';
+
 // To prevent lingering tooltips, we're monitoring spotlight changes and tooltip display
 // to ensure that only 1 tooltip is active.
 // see BHV-14524, ENYO-247
@@ -200,7 +202,15 @@ module.exports = kind(
 
 		/**
 		* Position of the tooltip with respect to the activating control. Valid values are
-		* `'above'`, `'below'`, and `'auto'`.
+		* `'above'`, `'below'`, `'left top'`, `'left bottom'`, `'right top'`, `'right bottom'`, and
+		* `'auto'`. The values starting with `'left`' and `'right'` place the tooltip on the side
+		* (sideways tooltip) with two additional positions available, `'top'` and `'bottom'`, which
+		* places the tooltip content toward the top or bottom, with the tooltip pointer
+		* middle-aligned to the activator.
+		*
+		* Note: The sideways tooltip does not automatically switch sides if it gets too close or
+		* overlaps with the window bounds, as this may cause undesirable layout implications,
+		* covering your other controls.
 		*
 		* @type {String}
 		* @default 'auto'
@@ -256,6 +266,7 @@ module.exports = kind(
 	* @private
 	*/
 	tools: [
+		{name: 'point', kind: Control, classes: 'moon-tooltip-point', tag: 'svg', attributes: {viewBox: '0 0 3 5'}, allowHtml: true, content: pointerTemplate},
 		{name: 'client', kind: Control, classes: 'moon-tooltip-label moon-header-font'}
 	],
 
@@ -312,7 +323,6 @@ module.exports = kind(
 	* @private
 	*/
 	positionChanged:function () {
-		Popup.prototype.positionChanged.apply(this, arguments);
 		this.adjustPosition(true);
 	},
 
@@ -367,11 +377,12 @@ module.exports = kind(
 		if (this.showing && this.hasNode()) {
 			var b = this.node.getBoundingClientRect(),
 				moonDefaultPadding = ri.scale(18),
-				defaultMargin = ri.scale(15),
+				defaultMargin = ri.scale(21),
+				floating = this.get('floating'),
+				acNode = this.activator.hasNode(),
 				pBounds = this.parent.getAbsoluteBounds(),
-				acBounds = null;
-
-			acBounds = this.activator.getAbsoluteBounds();
+				acBounds = this.activator.getAbsoluteBounds(),
+				acBorders;
 
 			//* Calculate the difference between decorator and activating
 			//* control's top, left, right differences, position tooltip against
@@ -380,51 +391,103 @@ module.exports = kind(
 				paLeftDiff =  acBounds.left - pBounds.left,
 				paRightDiff = pBounds.left + pBounds.width - acBounds.left - acBounds.width,
 				acRight = window.innerWidth - moonDefaultPadding - acBounds.left - acBounds.width,
-				anchorLeft, offset;
+				rtl = this.parent.rtl,	// Must check the parent because the text may have been auto-flipped due to content's direction
+				anchorLeft, anchorSide, offset;
 
-			//* When there is not enough room in the bottom, move it above the
-			//* decorator; when the tooltip bottom is within window height but
-			//* set programmatically above, move it above
-			if ((window.innerHeight - moonDefaultPadding) - (pBounds.top + pBounds.height) < b.height + defaultMargin || (this.position == 'above')) {
-				this.removeClass('below');
-				this.addClass('above');
-				if (this.get('floating')) {
-					this.applyPosition({'top': dom.unit((acBounds.top - b.height - defaultMargin),'rem'), 'left': dom.unit(acBounds.left + acBounds.width / 2, 'rem'), 'right': 'auto'});
-				} else {
-					this.applyPosition({'top': dom.unit(-(b.height + defaultMargin + paTopDiff), 'rem'), 'left': dom.unit(acBounds.width / 2 + paLeftDiff, 'rem'), 'right': 'auto'});
-				}
-			}
+			if (this.position == 'auto') this.position = 'above';	// Choose a rational default
 
-			//* When there is not enough space above the parent container, move
-			//* it below the decorator; when there is enough space above the
-			//* parent container but is set programmatically, leave it below
-			if (pBounds.top < (b.height + defaultMargin) || (this.position == 'below') || this.hasClass('below')) {
-				this.removeClass('above');
-				this.addClass('below');
-				if (this.get('floating')) {
-					this.applyPosition({'top': acBounds.top + acBounds.height + defaultMargin + 'px', 'left': acBounds.left + acBounds.width / 2 + 'px', 'right': 'auto'});
-				} else {
-					this.applyPosition({'top': pBounds.height + defaultMargin + paTopDiff + 'px', 'left': acBounds.width / 2 + paLeftDiff + 'px', 'right': 'auto'});
-				}
-			}
+			// Restore to generic state
+			this.removeClass('above');
+			this.removeClass('below');
+			this.removeClass('top');
+			this.removeClass('bottom');
+			this.removeClass('left-arrow');
+			this.removeClass('right-arrow');
 
-			if (this.rtl) {
+			if (rtl) {
 				anchorLeft = pBounds.left + pBounds.width / 2 - moonDefaultPadding < b.width;
 			} else {
 				//* When there is not enough room on the left, using right-arrow for the tooltip
 				anchorLeft = window.innerWidth - moonDefaultPadding - pBounds.left - pBounds.width / 2 >= b.width;
 			}
 
-			offset = this.floating ? acRight + moonDefaultPadding : paRightDiff;
-
-			if (anchorLeft) {
-				this.removeClass('right-arrow');
-				this.addClass('left-arrow');
+			if (floating) {
+				offset = acRight + moonDefaultPadding;
 			} else {
-				this.removeClass('left-arrow');
-				this.addClass('right-arrow');
-				this.applyPosition({'margin-left': dom.unit(- b.width, 'rem'), 'left': 'auto'});
-				this.applyStyle('right', dom.unit(acBounds.width / 2 + offset, 'rem'));
+				offset = paRightDiff;
+				// we need to account for activator border widths if we are not floating
+				acBorders = dom.calcBoxExtents(acNode, 'border');
+			}
+
+			//* Check if have a compound position, 2 words:
+			if (this.position && this.position.indexOf(' ') >= 0) {
+				anchorSide = true;
+				var positions = this.position.split(' '),
+					lr = positions[0],	// This should be either 'left' or 'right'
+					tb = positions[1],	// This should be either 'top' or 'bottom'
+					relTop = 0,
+					relLeft = 0;
+
+				this.addClass(tb);
+
+				// Calculate the absolute top coordinate
+				relTop = (acBounds.height / 2);
+				if (tb == 'top') {
+					// We're below, alter the absTop value as necessary
+					relTop -= b.height;
+				}
+
+				// detrmine the side, and if RTL, just do the opposite.
+				if ((lr == 'left' && !rtl) || (lr == 'right' && rtl)) {
+					this.addClass('right-arrow');
+					relLeft = -(b.width + defaultMargin + (floating ? 0 : acBorders.left));
+				} else if ((lr == 'right' && !rtl) || (lr == 'left' && rtl)) {
+					this.addClass('left-arrow');
+					relLeft = acNode.clientWidth + defaultMargin + (floating ? 0 : acBorders.right);
+				}
+
+				if (floating) {
+					// Absolute (floating) measurements are based on the relative positions
+					// Adjusting as needed.
+					relTop = acBounds.top + relTop;
+					relLeft = acBounds.left + relLeft;
+				}
+
+				this.applyPosition({'top': dom.unit(relTop, 'rem'), 'left': dom.unit(relLeft, 'rem'), 'right': 'auto'});
+
+			} else {
+				//* When there is not enough room in the bottom, move it above the
+				//* decorator; when the tooltip bottom is within window height but
+				//* set programmatically above, move it above
+				if ((window.innerHeight - moonDefaultPadding) - (pBounds.top + pBounds.height) < b.height + defaultMargin || (this.position == 'above')) {
+					this.addClass('above');
+					if (floating) {
+						this.applyPosition({'top': dom.unit((acBounds.top - b.height - defaultMargin),'rem'), 'left': dom.unit(acBounds.left + acBounds.width / 2, 'rem'), 'right': 'auto'});
+					} else {
+						this.applyPosition({'top': dom.unit(-(b.height + defaultMargin + paTopDiff + acBorders.top), 'rem'), 'left': dom.unit(acBounds.width / 2 + paLeftDiff, 'rem'), 'right': 'auto'});
+					}
+				}
+
+				//* When there is not enough space above the parent container, move
+				//* it below the decorator; when there is enough space above the
+				//* parent container but is set programmatically, leave it below
+				if (pBounds.top < (b.height + defaultMargin) || (this.position == 'below') || this.hasClass('below')) {
+					this.removeClass('above');	// Above class may have been added in the `if` check above, then need to be removed because the tooltip didn't fit on the screen.
+					this.addClass('below');
+					if (floating) {
+						this.applyPosition({'top': dom.unit(acBounds.top + acBounds.height + defaultMargin, 'rem'), 'left': dom.unit(acBounds.left + acBounds.width / 2, 'rem'), 'right': 'auto'});
+					} else {
+						this.applyPosition({'top': dom.unit(this.parent.node.clientHeight + defaultMargin + paTopDiff + acBorders.bottom, 'rem'), 'left': dom.unit(acBounds.width / 2 + paLeftDiff, 'rem'), 'right': 'auto'});
+					}
+				}
+
+				if (anchorLeft) {
+					this.addClass('left-arrow');
+				} else {
+					this.addClass('right-arrow');
+					this.applyPosition({'margin-left': dom.unit(- b.width, 'rem'), 'left': 'auto'});
+					this.applyStyle('right', dom.unit(acBounds.width / 2 + offset, 'rem'));
+				}
 			}
 		}
 	},
