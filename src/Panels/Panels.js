@@ -1295,7 +1295,7 @@ module.exports = kind(
 		// Turn on the close-x so it's ready for the next panel; if hasCloseButton is true
 		// and remove spottability of close button during transitions.
 		if (this.$.appClose) {
-			if (willAnimate) this.$.appClose.customizeCloseButton({'spotlight': false});
+			if (this.hasNode()) this.$.appClose.customizeCloseButton({'spotlight': false});
 			this.$.appClose.set('showing', this.hasCloseButton);
 		}
 		this.notifyPanels('initPanel');
