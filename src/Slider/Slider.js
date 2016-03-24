@@ -990,7 +990,9 @@ module.exports = kind(
 				this.set('accessibilityRole', 'alert');
 				this.set('accessibilityLive', 'off');
 				this.set('accessibilityHint', hint);
-			} 
+			} else {
+				this.resetAccessibilityProperties();
+			}
 		}},
 		// moonstone/ProgressBar observes accessibilityValueText and the popup label so this kind
 		// need only observe its unique properties for updating aria-valuetext
