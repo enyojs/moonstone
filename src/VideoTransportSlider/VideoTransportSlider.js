@@ -450,12 +450,19 @@ module.exports = kind(
 	* @private
 	*/
 	spotBlur: function () {
+		this.cleanUpFocus();
+		//fires enyo.VideoTransportSlider#onLeaveTapArea
+		this.doLeaveTapArea();
+	},
+
+	/**
+	* @private
+	*/
+	cleanUpFocus: function () {
 		this.set('_enterEnable', false);
 		this.selected = false;
 		this.removeClass('visible');
 		this.endPreview();
-		//fires enyo.VideoTransportSlider#onLeaveTapArea
-		this.doLeaveTapArea();
 	},
 
 	/**
@@ -847,6 +854,8 @@ module.exports = kind(
 			}
 			// this.hideKnobStatus();
 			this.doSeekFinish({value: v});
+		} else {
+			this.cleanUpFocus();
 		}
 		Spotlight.unfreeze();
 
