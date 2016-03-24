@@ -8,6 +8,7 @@ require('moonstone');
 var
 	kind = require('enyo/kind'),
 	dom = require('enyo/dom'),
+	gesture = require('enyo/gesture'),
 	ri = require('enyo/resolution'),
 	Control = require('enyo/Control'),
 	Popup = require('enyo/Popup');
@@ -450,7 +451,7 @@ module.exports = kind(
 	* @private
 	*/
 	spotBlur: function () {
-		this.cleanUpFocus();
+		this.cleanUpHold();
 		//fires enyo.VideoTransportSlider#onLeaveTapArea
 		this.doLeaveTapArea();
 	},
@@ -458,7 +459,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	cleanUpFocus: function () {
+	cleanUpHold: function () {
 		this.set('_enterEnable', false);
 		this.selected = false;
 		this.removeClass('visible');
@@ -855,7 +856,8 @@ module.exports = kind(
 			// this.hideKnobStatus();
 			this.doSeekFinish({value: v});
 		} else {
-			this.cleanUpFocus();
+			this.cleanUpHold();
+			this.removeClass('pressed');
 		}
 		Spotlight.unfreeze();
 
