@@ -561,6 +561,22 @@ module.exports = kind(
 	}),
 
 	/**
+	* @override
+	* @private
+	*/
+	showPercentageChanged: function () {
+		this.updatePopup(this.value);
+	},
+
+	/**
+	* @override
+	* @private
+	*/
+	popupSideChanged: function () {
+		this.updatePopup(this.value);
+	},
+
+	/**
 	* @private
 	*/
 	valueChanged: function (was, is) {

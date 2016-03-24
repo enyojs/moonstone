@@ -381,7 +381,7 @@ module.exports = kind(
 	* @private
 	*/
 	popupSideChanged: function () {
-		this.updatePopup();
+		this.updatePopup(this.progress);
 	},
 
 	/**
@@ -424,7 +424,7 @@ module.exports = kind(
 	* @private
 	*/
 	showPercentageChanged: function () {
-		this.updatePopup(this.value);
+		this.updatePopup(this.progress);
 	},
 
 	/**
@@ -515,7 +515,7 @@ module.exports = kind(
 		if (this.popup) {
 			usePercentage = this.showPercentage && this.popupContent === null;
 			percent = this.calcPercent(val);
-			popupLabel = usePercentage ? percent : this.progress;
+			popupLabel = usePercentage ? percent : val;
 			flip = (this.get('orientation') == 'vertical') ? (this.get('popupSide') == 'left') : percent > 50;
 
 			this.updatePopupPosition(percent);
