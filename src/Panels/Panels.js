@@ -1031,11 +1031,17 @@ module.exports = kind(
 	},
 
 	/**
+	* Given a direction and starting control, walks up the lineage chain until a suitable control to
+	* spot has been found.
+	*
+	* @param {String} dir - The direction of movement.
+	* @param {Object} control - The starting control.
+	* @returns {Object} The target that should be spotted.
 	* @private
 	*/
 	getSpotlightTarget: function (dir, control) {
-		var target,
-			ref = control,
+		var ref = control,
+			target,
 			parent,
 			ext;
 
@@ -1044,24 +1050,37 @@ module.exports = kind(
 			if (!ref || ref instanceof Panel) break;
 			parent = Spotlight.getParent(ref);
 			// Add app close button as a child of Panel
-			ext = parent instanceof Panel ? {extraCandidates: this.$.appClose} : {};
+			if (this.hasCloseButton && parent instanceof Panel) {
+				ext = {extraCandidates: this.$.appClose};
+			}
 			target = Spotlight.NearestNeighbor.getNearestNeighbor(dir, ref, ext);
 			ref = parent;
+			ext = null;
 		}
 
 		return target;
 	},
 
 	/**
+	* Considers whether or not the application close button should be spotted, and spots
+	* accordingly, based on the given movement direction and originating control.
+	*
+	* @param {String} dir - The direction of movement.
+	* @param {Object} orig - The originating control.
+	* @returns {Boolean} If `true`, the application close button has been spotted; otherwise,
+	*	`false` is returned.
 	* @private
 	*/
-	handle5wayForAppCloseButton: function (dir, orig) {
-		var target = this.getSpotlightTarget(dir, orig);
+	considerSpottingCloseButton: function (dir, orig) {
+		var target;
+
+		target = this.getSpotlightTarget(dir, orig);
 
 		if (target && target.parent instanceof ApplicationCloseButton) {
 			Spotlight.spot(target);
 			return true;
 		}
+
 		return false;
 	},
 
@@ -1069,14 +1088,14 @@ module.exports = kind(
 	* @private
 	*/
 	spotlightUp: function (sender, ev) {
-		this.handle5wayForAppCloseButton('UP', ev.originator);
+		return this.considerSpottingCloseButton('UP', ev.originator);
 	},
 
 	/**
 	* @private
 	*/
 	spotlightDown: function (sender, ev) {
-		this.handle5wayForAppCloseButton('DOWN', ev.originator);
+		return this.considerSpottingCloseButton('DOWN', ev.originator);
 	},
 
 	/**
@@ -1090,7 +1109,7 @@ module.exports = kind(
 		var orig = ev.originator,
 			idx = this.getPanelIndex(orig);
 
-		if (this.handle5wayForAppCloseButton('LEFT', orig)) {
+		if (this.considerSpottingCloseButton('LEFT', orig)) {
 			return true;
 		} else if (orig instanceof Panel) {
 			if (idx === 0) {
@@ -1125,7 +1144,7 @@ module.exports = kind(
 			idx = this.getPanelIndex(orig),
 			next = this.getPanels()[idx + 1];
 
-		if (this.handle5wayForAppCloseButton('RIGHT', orig)) {
+		if (this.considerSpottingCloseButton('RIGHT', orig)) {
 			return true;
 		} else if (next && orig instanceof Panel) {
 			if (this.useHandle === true && this.handleShowing && idx == this.index) {
