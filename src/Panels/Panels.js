@@ -1064,6 +1064,9 @@ module.exports = kind(
 			if (idx === 0) {
 				if (!this.preventKeyNavigation && this.showing && (this.useHandle === true)
 						&& this.handleShowing) {
+					// When panels is hidden, showHideHandle could be spotlight focused, because panels could not find next spottable control.
+					// For preventing reading panel handle, _disableHandle should be set to true.
+					this.set('_disableHandle', true);
 					this.hide();
 					return true;
 				}
@@ -1750,6 +1753,10 @@ module.exports = kind(
 		this.$.showHideHandle.removeClass('right');
 		this.applyHideAnimation();
 		this.panelsHiddenAsync();
+		// screen reader should read handle's label when handle is focused for going back to panels.
+		setTimeout(this.bindSafely(function () {
+			this.set('_disableHandle', false);
+		}), 0);
 	},
 
 	/**
@@ -1873,6 +1880,13 @@ module.exports = kind(
 	// Accessibility
 
 	/**
+	* When panels is hidden, handle is spotlight focused, then screen reader reads handle's label.
+	* Using _disableHanle observer property, it can set accessibilityDisabled value for preventing a reading
+	* @private
+	*/
+	_disableHandle: false,
+
+	/**
 	* @private
 	*/
 	ariaObservers: [
@@ -1880,6 +1894,11 @@ module.exports = kind(
 		{path: 'isHandleFocused', method: function () {
 			if (this.$.showHideHandle && this.$.showHideHandle.hasNode() && !this.isHandleFocused) {
 				this.$.showHideHandle.hasNode().blur();
+			}
+		}},
+		{path: '_disableHandle', method: function () {
+			if (this.$.showHideHandle && this.$.showHideHandle.hasNode()) {
+				this.$.showHideHandle.set('accessibilityDisabled', this._disableHandle);
 			}
 		}}
 	],
