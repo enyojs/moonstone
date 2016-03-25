@@ -8,7 +8,6 @@ require('moonstone');
 var
 	kind = require('enyo/kind'),
 	dom = require('enyo/dom'),
-	gesture = require('enyo/gesture'),
 	ri = require('enyo/resolution'),
 	Control = require('enyo/Control'),
 	Popup = require('enyo/Popup');
