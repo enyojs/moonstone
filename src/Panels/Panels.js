@@ -1183,7 +1183,7 @@ module.exports = kind(
 			this.set('isHandleFocused', false);
 			if (!Spotlight.getPointerMode()) {
 				if (!this.showing) {
-					this.panelsHiddenAsync();
+					this.sendPanelsHiddenSignal();
 				}
 			}
 		}
@@ -1196,8 +1196,8 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	panelsHiddenAsync: function () {
-		util.asyncMethod(Signals, 'send', 'onPanelsHidden', {panels: this});
+	sendPanelsHiddenSignal: function () {
+		Signals.send('onPanelsHidden', {panels: this});
 	},
 
 	/**
@@ -1749,7 +1749,7 @@ module.exports = kind(
 		}
 		this.$.showHideHandle.removeClass('right');
 		this.applyHideAnimation();
-		this.panelsHiddenAsync();
+		this.sendPanelsHiddenSignal();
 	},
 
 	/**
