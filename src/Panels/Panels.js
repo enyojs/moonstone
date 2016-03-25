@@ -409,6 +409,8 @@ module.exports = kind(
 	*/
 	handlers: {
 		ontap:						'tapped',
+		onSpotlightUp:				'spotlightUp',
+		onSpotlightDown:			'spotlightDown',
 		onSpotlightRight:			'spotlightRight',
 		onSpotlightLeft:			'spotlightLeft',
 		onSpotlightFocus:			'spotlightFocus',
@@ -1033,16 +1035,48 @@ module.exports = kind(
 	*/
 	getSpotlightTarget: function (dir, control) {
 		var target,
-			ref;
+			ref = control,
+			parent,
+			ext;
 
 		// Look at all of the NearestNeighbors up the lineage chain, until we find a good one.
 		while (!target) {
-			ref = ref ? Spotlight.getParent(ref) : control;
 			if (!ref || ref instanceof Panel) break;
-			target = Spotlight.NearestNeighbor.getNearestNeighbor(dir, ref, {extraCandidates: this.$.appClose});
+			parent = Spotlight.getParent(ref);
+			// Add app close button as a child of Panel
+			ext = parent instanceof Panel ? {extraCandidates: this.$.appClose} : {};
+			target = Spotlight.NearestNeighbor.getNearestNeighbor(dir, ref, ext);
+			ref = parent;
 		}
 
 		return target;
+	},
+
+	/**
+	* @private
+	*/
+	handle5wayForAppCloseButton: function (dir, orig) {
+		var target = this.getSpotlightTarget(dir, orig);
+
+		if (target && target.parent instanceof ApplicationCloseButton) {
+			Spotlight.spot(target);
+			return true;
+		}
+		return false;
+	},
+
+	/**
+	* @private
+	*/
+	spotlightUp: function (sender, ev) {
+		this.handle5wayForAppCloseButton('UP', ev.originator);
+	},
+
+	/**
+	* @private
+	*/
+	spotlightDown: function (sender, ev) {
+		this.handle5wayForAppCloseButton('DOWN', ev.originator);
 	},
 
 	/**
@@ -1054,11 +1088,9 @@ module.exports = kind(
 			//queuedIndex could have out boundary value. It will be managed in setIndex()
 		}
 		var orig = ev.originator,
-			idx = this.getPanelIndex(orig),
-			target = this.getSpotlightTarget('LEFT', orig);
+			idx = this.getPanelIndex(orig);
 
-		if (target && target.parent instanceof ApplicationCloseButton) {
-			Spotlight.spot(target);
+		if (this.handle5wayForAppCloseButton('LEFT', orig)) {
 			return true;
 		} else if (orig instanceof Panel) {
 			if (idx === 0) {
@@ -1091,11 +1123,9 @@ module.exports = kind(
 		}
 		var orig = ev.originator,
 			idx = this.getPanelIndex(orig),
-			next = this.getPanels()[idx + 1],
-			target = this.getSpotlightTarget('RIGHT', orig);
+			next = this.getPanels()[idx + 1];
 
-		if (target && target.parent instanceof ApplicationCloseButton) {
-			Spotlight.spot(target);
+		if (this.handle5wayForAppCloseButton('RIGHT', orig)) {
 			return true;
 		} else if (next && orig instanceof Panel) {
 			if (this.useHandle === true && this.handleShowing && idx == this.index) {
