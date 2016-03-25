@@ -1039,7 +1039,7 @@ module.exports = kind(
 		while (!target) {
 			ref = ref ? Spotlight.getParent(ref) : control;
 			if (!ref || ref instanceof Panel) break;
-			target = Spotlight.NearestNeighbor.getNearestNeighbor(dir, ref);
+			target = Spotlight.NearestNeighbor.getNearestNeighbor(dir, ref, {extraCandidates: this.$.appClose});
 		}
 
 		return target;
@@ -1055,9 +1055,7 @@ module.exports = kind(
 		}
 		var orig = ev.originator,
 			idx = this.getPanelIndex(orig),
-			target = this.getSpotlightTarget('LEFT', orig),
-			active = this.getActive(),
-			h = active ? active.getHeader() : null;
+			target = this.getSpotlightTarget('LEFT', orig);
 
 		if (target && target.parent instanceof ApplicationCloseButton) {
 			Spotlight.spot(target);
@@ -1080,11 +1078,6 @@ module.exports = kind(
 				Spotlight.spot(this.$.breadcrumbs);
 				return true;
 			}
-		} else {
-			if (this.hasCloseButton && this.rtl === true && h && orig == h.$.inputDecorator) {
-				Spotlight.spot(this.$.appClose);
-				return true;
-			}
 		}
 	},
 
@@ -1099,9 +1092,7 @@ module.exports = kind(
 		var orig = ev.originator,
 			idx = this.getPanelIndex(orig),
 			next = this.getPanels()[idx + 1],
-			target = this.getSpotlightTarget('RIGHT', orig),
-			active = this.getActive(),
-			h = active ? active.getHeader() : null;
+			target = this.getSpotlightTarget('RIGHT', orig);
 
 		if (target && target.parent instanceof ApplicationCloseButton) {
 			Spotlight.spot(target);
@@ -1116,11 +1107,6 @@ module.exports = kind(
 					this.next();
 					return true;
 				}
-			}
-		} else {
-			if (this.hasCloseButton && this.rtl === false && h && orig == h.$.inputDecorator) {
-				Spotlight.spot(this.$.appClose);
-				return true;
 			}
 		}
 	},
@@ -1154,8 +1140,8 @@ module.exports = kind(
 	spotlightFocus: function (oSender, oEvent) {
 		var orig = oEvent.originator;
 		var idx = this.getPanelIndex(orig);
-		if (oEvent.originator.owner === this.$.appClose) {
-			Spotlight.Container.setLastFocusedChild(this.getActive(), oEvent.originator);
+		if (orig.owner === this.$.appClose) {
+			Spotlight.Container.setLastFocusedChild(this.getActive(), orig);
 		}
 		if (this.index !== idx && idx !== -1) {
 			this.setIndex(idx);
