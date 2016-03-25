@@ -450,12 +450,19 @@ module.exports = kind(
 	* @private
 	*/
 	spotBlur: function () {
+		this.cleanUpHold();
+		//fires enyo.VideoTransportSlider#onLeaveTapArea
+		this.doLeaveTapArea();
+	},
+
+	/**
+	* @private
+	*/
+	cleanUpHold: function () {
 		this.set('_enterEnable', false);
 		this.selected = false;
 		this.removeClass('visible');
 		this.endPreview();
-		//fires enyo.VideoTransportSlider#onLeaveTapArea
-		this.doLeaveTapArea();
 	},
 
 	/**
@@ -832,20 +839,25 @@ module.exports = kind(
 		if (this.disabled) {
 			return;
 		}
-		var v = this.calcKnobPosition(e);
-		v = this.transformToVideo(v);
-		var z = this.elasticTo;
-		if (this.constrainToBgProgress === true) {
-			z = (this.increment) ? this.calcConstrainedIncrement(z) : z;
-			this.animateTo(this.elasticFrom, z);
-			v = z;
-		} else {
-			v = (this.increment) ? this.calcIncrement(v) : v;
-			this._setValue(v);
-		}
 		e.preventTap();
-		// this.hideKnobStatus();
-		this.doSeekFinish({value: v});
+		if (this.getAbsoluteShowing()) {
+			var v = this.calcKnobPosition(e);
+			v = this.transformToVideo(v);
+			var z = this.elasticTo;
+			if (this.constrainToBgProgress === true) {
+				z = (this.increment) ? this.calcConstrainedIncrement(z) : z;
+				this.animateTo(this.elasticFrom, z);
+				v = z;
+			} else {
+				v = (this.increment) ? this.calcIncrement(v) : v;
+				this._setValue(v);
+			}
+			// this.hideKnobStatus();
+			this.doSeekFinish({value: v});
+		} else {
+			this.cleanUpHold();
+			this.removeClass('pressed');
+		}
 		Spotlight.unfreeze();
 
 		this.$.knob.removeClass('active');
