@@ -814,36 +814,57 @@ module.exports = kind(
 	},
 
 	/**
-	* If `dragfinish`, bubbles
-	* [onSeekFinish]{@link module:moonstone/VideoTransportSlider~VideoTransportSlider#onSeekFinish} event and overrides
-	* parent `dragfinish` handler.
-	*
-	* @fires module:moonstone/VideoTransportSlider~VideoTransportSlider#onSeekFinish
 	* @private
 	*/
 	dragfinish: function (sender, e) {
 		if (this.disabled) {
 			return;
 		}
-		var v = this.calcKnobPosition(e);
-		v = this.transformToVideo(v);
-		var z = this.elasticTo;
-		if (this.constrainToBgProgress === true) {
-			z = (this.increment) ? this.calcConstrainedIncrement(z) : z;
-			this.animateTo(this.elasticFrom, z);
-			v = z;
-		} else {
-			v = (this.increment) ? this.calcIncrement(v) : v;
-			this._setValue(v);
-		}
+		this.cleanUpDrag(e);
 		e.preventTap();
-		// this.hideKnobStatus();
-		this.doSeekFinish({value: v});
-		Spotlight.unfreeze();
-
-		this.$.knob.removeClass('active');
-		this.set('dragging', false);
 		return true;
+	},
+
+	/**
+	* @fires module:moonstone/VideoTransportSlider~VideoTransportSlider#onSeekFinish
+	* @private
+	*/
+	cleanUpDrag: function (ev) {
+		var v, z;
+		if (this.get('dragging')) {
+			if (ev) {
+				v = this.calcKnobPosition(ev);
+				v = this.transformToVideo(v);
+			} else { // use the last known-good time value (i.e. from the last drag event)
+				v = this.currentTime;
+			}
+			z = this.elasticTo;
+			if (this.constrainToBgProgress === true) {
+				z = (this.increment) ? this.calcConstrainedIncrement(z) : z;
+				this.animateTo(this.elasticFrom, z);
+				v = z;
+			} else {
+				v = (this.increment) ? this.calcIncrement(v) : v;
+				this._setValue(v);
+			}
+			this.doSeekFinish({value: v});
+			Spotlight.unfreeze();
+
+			this.endPreview();
+
+			this.$.knob.removeClass('active');
+			this.set('dragging', false);
+		}
+	},
+
+	/**
+	* @private
+	*/
+	showingChangedHandler: function (sender, ev) {
+		Slider.prototype.showingChangedHandler.apply(this, arguments);
+		if (!ev.showing) {
+			this.cleanUpDrag(); // clean-up any in-progress drags, if we (or an ancestor) is hidden
+		}
 	},
 
 	/**
