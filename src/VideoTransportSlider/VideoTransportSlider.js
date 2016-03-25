@@ -263,9 +263,7 @@ module.exports = kind(
 	handlers: {
 		onresize: 'handleResize',
 		onSpotlightKeyDown: 'spotlightKeyDownHandler',
-		onmove: 'preview',
-		onmousedown: 'mouseDownTapArea',
-		onmouseup: 'mouseUpTapArea'
+		onmove: 'preview'
 	},
 
 	/**
@@ -383,22 +381,6 @@ module.exports = kind(
 	},
 
 	/**
-	* @private
-	*/
-	mouseDownTapArea: function (sender, e) {
-		if (!this.disabled) {
-			this.addClass('pressed');
-		}
-	},
-
-	/**
-	* @private
-	*/
-	mouseUpTapArea: function (sender, e) {
-		this.removeClass('pressed');
-	},
-
-	/**
 	* If user presses enter on `this.$.tapArea`, seeks to that point.
 	*
 	* @private
@@ -406,8 +388,10 @@ module.exports = kind(
 	spotlightKeyDownHandler: function (sender, e) {
 		var val;
 		if (this.tappable && !this.disabled && e.keyCode == 13) {
-			this.mouseDownTapArea();
-			this.startJob('simulateTapEnd', this.mouseUpTapArea, 200);
+			this.set('knobSelected', true);
+			this.startJob('simulateTapEnd', function () {
+				this.set('knobSelected', false);
+			}, 200);
 			val = this.transformToVideo(this.knobPosValue);
 			this.sendSeekEvent(val);
 			this.set('_enterEnable', true);
@@ -603,6 +587,14 @@ module.exports = kind(
 	/**
 	* @private
 	*/
+	knobSelectedChanged: function () {
+		Slider.prototype.knobSelectedChanged.apply(this, arguments);
+		this.addRemoveClass('pressed', this.knobSelected);
+	},
+
+	/**
+	* @private
+	*/
 	showTickTextChanged: function () {
 		this.$.beginTickText.setShowing(this.getShowTickText());
 		this.$.endTickText.setShowing(this.getShowTickText());
@@ -725,6 +717,7 @@ module.exports = kind(
 	* @private
 	*/
 	transformToVideo: function (val) {
+		val = this.clampValue(this.getMin(), this.getMax(), val);
 		return (val - this.rangeStart) / this.scaleFactor;
 	},
 
@@ -849,7 +842,7 @@ module.exports = kind(
 		Spotlight.unfreeze();
 
 		this.$.knob.removeClass('active');
-		this.dragging = false;
+		this.set('dragging', false);
 		return true;
 	},
 
@@ -988,7 +981,7 @@ module.exports = kind(
 		var valueText;
 		if (this.showing && !Spotlight.getPointerMode() && this.$.popupLabelText && this.$.popupLabelText.content && this.selected) {
 			valueText = this._enterEnable ? this.$.popupLabelText.content : $L('jump to ') + this.$.popupLabelText.content;
-			// Screen reader should read valueText when slider is only spotlight focused, but there is a timing issue between spotlight focus and observed 
+			// Screen reader should read valueText when slider is only spotlight focused, but there is a timing issue between spotlight focus and observed
 			// popupLabelText's content, so Screen reader reads valueText twice. We added below timer code for preventing this issue.
 			setTimeout(this.bindSafely(function(){
 				this.set('accessibilityDisabled', false);
