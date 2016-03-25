@@ -409,6 +409,8 @@ module.exports = kind(
 	*/
 	handlers: {
 		ontap:						'tapped',
+		onSpotlightUp:				'spotlightUp',
+		onSpotlightDown:			'spotlightDown',
 		onSpotlightRight:			'spotlightRight',
 		onSpotlightLeft:			'spotlightLeft',
 		onSpotlightFocus:			'spotlightFocus',
@@ -1029,20 +1031,71 @@ module.exports = kind(
 	},
 
 	/**
+	* Given a direction and starting control, walks up the lineage chain until a suitable control to
+	* spot has been found.
+	*
+	* @param {String} dir - The direction of movement.
+	* @param {Object} control - The starting control.
+	* @returns {Object} The target that should be spotted.
 	* @private
 	*/
 	getSpotlightTarget: function (dir, control) {
-		var target,
-			ref;
+		var ref = control,
+			target,
+			parent,
+			ext;
 
 		// Look at all of the NearestNeighbors up the lineage chain, until we find a good one.
 		while (!target) {
-			ref = ref ? Spotlight.getParent(ref) : control;
 			if (!ref || ref instanceof Panel) break;
-			target = Spotlight.NearestNeighbor.getNearestNeighbor(dir, ref);
+			parent = Spotlight.getParent(ref);
+			// Add app close button as a child of Panel
+			if (this.hasCloseButton && parent instanceof Panel) {
+				ext = {extraCandidates: this.$.appClose};
+			}
+			target = Spotlight.NearestNeighbor.getNearestNeighbor(dir, ref, ext);
+			ref = parent;
+			ext = null;
 		}
 
 		return target;
+	},
+
+	/**
+	* Considers whether or not the application close button should be spotted, and spots
+	* accordingly, based on the given movement direction and originating control.
+	*
+	* @param {String} dir - The direction of movement.
+	* @param {Object} orig - The originating control.
+	* @returns {Boolean} If `true`, the application close button has been spotted; otherwise,
+	*	`false` is returned.
+	* @private
+	*/
+	considerSpottingCloseButton: function (dir, orig) {
+		var target;
+
+		target = this.getSpotlightTarget(dir, orig);
+
+		if (target && target.parent instanceof ApplicationCloseButton) {
+			Spotlight.spot(target);
+			return true;
+		}
+
+		return false;
+	},
+
+	/**
+	* @private
+	*/
+	spotlightUp: function (sender, ev) {
+		return this.considerSpottingCloseButton('UP', ev.originator);
+	},
+
+	/**
+	* @private
+	*/
+	spotlightDown: function (sender, ev) {
+		return this.considerSpottingCloseButton('DOWN', ev.originator);
 	},
 
 	/**
@@ -1054,11 +1107,9 @@ module.exports = kind(
 			//queuedIndex could have out boundary value. It will be managed in setIndex()
 		}
 		var orig = ev.originator,
-			idx = this.getPanelIndex(orig),
-			target = this.getSpotlightTarget('LEFT', orig);
+			idx = this.getPanelIndex(orig);
 
-		if (target && target.parent instanceof ApplicationCloseButton) {
-			Spotlight.spot(target);
+		if (this.considerSpottingCloseButton('LEFT', orig)) {
 			return true;
 		} else if (orig instanceof Panel) {
 			if (idx === 0) {
@@ -1091,11 +1142,9 @@ module.exports = kind(
 		}
 		var orig = ev.originator,
 			idx = this.getPanelIndex(orig),
-			next = this.getPanels()[idx + 1],
-			target = this.getSpotlightTarget('RIGHT', orig);
+			next = this.getPanels()[idx + 1];
 
-		if (target && target.parent instanceof ApplicationCloseButton) {
-			Spotlight.spot(target);
+		if (this.considerSpottingCloseButton('RIGHT', orig)) {
 			return true;
 		} else if (next && orig instanceof Panel) {
 			if (this.useHandle === true && this.handleShowing && idx == this.index) {
@@ -1140,6 +1189,9 @@ module.exports = kind(
 	spotlightFocus: function (oSender, oEvent) {
 		var orig = oEvent.originator;
 		var idx = this.getPanelIndex(orig);
+		if (orig.owner === this.$.appClose) {
+			Spotlight.Container.setLastFocusedChild(this.getActive(), orig);
+		}
 		if (this.index !== idx && idx !== -1) {
 			this.setIndex(idx);
 		}
