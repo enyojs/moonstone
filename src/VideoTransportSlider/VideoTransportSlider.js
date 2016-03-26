@@ -263,9 +263,7 @@ module.exports = kind(
 	handlers: {
 		onresize: 'handleResize',
 		onSpotlightKeyDown: 'spotlightKeyDownHandler',
-		onmove: 'preview',
-		onmousedown: 'mouseDownTapArea',
-		onmouseup: 'mouseUpTapArea'
+		onmove: 'preview'
 	},
 
 	/**
@@ -383,22 +381,6 @@ module.exports = kind(
 	},
 
 	/**
-	* @private
-	*/
-	mouseDownTapArea: function (sender, e) {
-		if (!this.disabled) {
-			this.addClass('pressed');
-		}
-	},
-
-	/**
-	* @private
-	*/
-	mouseUpTapArea: function (sender, e) {
-		this.removeClass('pressed');
-	},
-
-	/**
 	* If user presses enter on `this.$.tapArea`, seeks to that point.
 	*
 	* @private
@@ -406,8 +388,10 @@ module.exports = kind(
 	spotlightKeyDownHandler: function (sender, e) {
 		var val;
 		if (this.tappable && !this.disabled && e.keyCode == 13) {
-			this.mouseDownTapArea();
-			this.startJob('simulateTapEnd', this.mouseUpTapArea, 200);
+			this.set('knobSelected', true);
+			this.startJob('simulateTapEnd', function () {
+				this.set('knobSelected', false);
+			}, 200);
 			val = this.transformToVideo(this.knobPosValue);
 			this.sendSeekEvent(val);
 			this.set('_enterEnable', true);
@@ -603,6 +587,14 @@ module.exports = kind(
 	/**
 	* @private
 	*/
+	knobSelectedChanged: function () {
+		Slider.prototype.knobSelectedChanged.apply(this, arguments);
+		this.addRemoveClass('pressed', this.knobSelected);
+	},
+
+	/**
+	* @private
+	*/
 	showTickTextChanged: function () {
 		this.$.beginTickText.setShowing(this.getShowTickText());
 		this.$.endTickText.setShowing(this.getShowTickText());
@@ -725,6 +717,7 @@ module.exports = kind(
 	* @private
 	*/
 	transformToVideo: function (val) {
+		val = this.clampValue(this.getMin(), this.getMax(), val);
 		return (val - this.rangeStart) / this.scaleFactor;
 	},
 
@@ -821,36 +814,57 @@ module.exports = kind(
 	},
 
 	/**
-	* If `dragfinish`, bubbles
-	* [onSeekFinish]{@link module:moonstone/VideoTransportSlider~VideoTransportSlider#onSeekFinish} event and overrides
-	* parent `dragfinish` handler.
-	*
-	* @fires module:moonstone/VideoTransportSlider~VideoTransportSlider#onSeekFinish
 	* @private
 	*/
 	dragfinish: function (sender, e) {
 		if (this.disabled) {
 			return;
 		}
-		var v = this.calcKnobPosition(e);
-		v = this.transformToVideo(v);
-		var z = this.elasticTo;
-		if (this.constrainToBgProgress === true) {
-			z = (this.increment) ? this.calcConstrainedIncrement(z) : z;
-			this.animateTo(this.elasticFrom, z);
-			v = z;
-		} else {
-			v = (this.increment) ? this.calcIncrement(v) : v;
-			this._setValue(v);
-		}
+		this.cleanUpDrag(e);
 		e.preventTap();
-		// this.hideKnobStatus();
-		this.doSeekFinish({value: v});
-		Spotlight.unfreeze();
-
-		this.$.knob.removeClass('active');
-		this.dragging = false;
 		return true;
+	},
+
+	/**
+	* @fires module:moonstone/VideoTransportSlider~VideoTransportSlider#onSeekFinish
+	* @private
+	*/
+	cleanUpDrag: function (ev) {
+		var v, z;
+		if (this.get('dragging')) {
+			if (ev) {
+				v = this.calcKnobPosition(ev);
+				v = this.transformToVideo(v);
+			} else { // use the last known-good time value (i.e. from the last drag event)
+				v = this.currentTime;
+			}
+			z = this.elasticTo;
+			if (this.constrainToBgProgress === true) {
+				z = (this.increment) ? this.calcConstrainedIncrement(z) : z;
+				this.animateTo(this.elasticFrom, z);
+				v = z;
+			} else {
+				v = (this.increment) ? this.calcIncrement(v) : v;
+				this._setValue(v);
+			}
+			this.doSeekFinish({value: v});
+			Spotlight.unfreeze();
+
+			this.endPreview();
+
+			this.$.knob.removeClass('active');
+			this.set('dragging', false);
+		}
+	},
+
+	/**
+	* @private
+	*/
+	showingChangedHandler: function (sender, ev) {
+		Slider.prototype.showingChangedHandler.apply(this, arguments);
+		if (!ev.showing) {
+			this.cleanUpDrag(); // clean-up any in-progress drags, if we (or an ancestor) is hidden
+		}
 	},
 
 	/**
@@ -988,7 +1002,7 @@ module.exports = kind(
 		var valueText;
 		if (this.showing && !Spotlight.getPointerMode() && this.$.popupLabelText && this.$.popupLabelText.content && this.selected) {
 			valueText = this._enterEnable ? this.$.popupLabelText.content : $L('jump to ') + this.$.popupLabelText.content;
-			// Screen reader should read valueText when slider is only spotlight focused, but there is a timing issue between spotlight focus and observed 
+			// Screen reader should read valueText when slider is only spotlight focused, but there is a timing issue between spotlight focus and observed
 			// popupLabelText's content, so Screen reader reads valueText twice. We added below timer code for preventing this issue.
 			setTimeout(this.bindSafely(function(){
 				this.set('accessibilityDisabled', false);
