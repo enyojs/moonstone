@@ -77,6 +77,7 @@ var ListActionsPopup = ContextualPopup.kind(
 	* @private
 	*/
 	resetDirection: function () {
+		this.removeClass(this.arrowClasses);
 		this.removeClass('right');
 		this.removeClass('left');
 	},
@@ -106,7 +107,8 @@ var ListActionsPopup = ContextualPopup.kind(
 
 				// adjust arrow position
 				c = Math.round((this.activatorOffset.left - popupMargin) / iconButtonWidth);
-				this.addClass('list-actions-' + (c + 1) + 'h');
+				this.arrowClasses = 'list-actions-' + (c + 1) + 'h';
+				this.addClass(this.arrowClasses);
 
 				// anchor to the far left
 				bounds.left = popupMargin;
@@ -116,7 +118,8 @@ var ListActionsPopup = ContextualPopup.kind(
 
 				// adjust arrow position
 				c = Math.round((viewPortWidth - this.activatorOffset.right - popupMargin) / iconButtonWidth);
-				this.addClass('list-actions-' + (c + 1) + 'h');
+				this.arrowClasses = 'list-actions-' + (c + 1) + 'h';
+				this.addClass(this.arrowClasses);
 
 				// anchor to the far right
 				bounds.left = viewPortWidth - clientRect.width - popupMargin;
