@@ -1720,8 +1720,6 @@ module.exports = kind(
 			this.$.backgroundScrim.addRemoveClass('visible', this.showing);
 		}
 		if (this.useHandle === true) {
-			if (this.$.appClose) this.$.appClose.set('showing', (this.showing && this.hasCloseButton));
-
 			if (this.showing) {
 				this.unstashHandle();
 				this._show();
@@ -1735,6 +1733,8 @@ module.exports = kind(
 				this._hide();
 			}
 			this.sendShowingChangedEvent(inOldValue);
+
+			if (this.$.appClose) this.$.appClose.set('showing', (this.showing && this.hasCloseButton));
 		}
 		else {
 			Panels.prototype.showingChanged.apply(this, arguments);
