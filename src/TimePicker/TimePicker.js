@@ -160,7 +160,7 @@ var MeridiemPicker = kind(
 	},
 
 	// Accessibility
-	
+
 	ariaValue: function () {
 		this.setAriaAttribute('aria-valuetext', this.meridiems[this.value].name);
 	}
@@ -726,6 +726,7 @@ var TimePicker = module.exports = kind(
 	*/
 	valueChanged: function (old) {
 		if (this.value) this.localeValue = dateFactory({unixtime: this.value.getTime(), timezone: 'local'});
+		else this.localeValue = null;
 
 		DateTimePickerBase.prototype.valueChanged.apply(this, arguments);
 	},
