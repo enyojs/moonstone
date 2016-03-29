@@ -445,7 +445,7 @@ module.exports = kind(
 					relLeft = -(b.width + defaultMargin + (floating ? 0 : acBorders.left));
 				} else if ((lr == 'right' && !rtl) || (lr == 'left' && rtl)) {
 					this.addClass('left-arrow');
-					relLeft = acNode.clientWidth + defaultMargin + (floating ? 0 : acBorders.right);
+					relLeft = acNode.clientWidth + defaultMargin + (floating ? acBounds.width - acNode.clientWidth : acBorders.right);
 				}
 
 				if (floating) {
