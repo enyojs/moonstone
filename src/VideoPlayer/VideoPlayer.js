@@ -172,7 +172,7 @@ module.exports = kind(
 		* [moon/VideoInfoBackground]{@link module:moonstone/VideoInfoBackground~VideoInfoBackground} with a
 		* [moon/VideoInfoHeader]{@link module:moonstone/VideoInfoHeader~VideoInfoHeader} in it.
 		*
-		* @type {Object}
+		* @type {Object[]}
 		* @default null
 		* @public
 		*/
