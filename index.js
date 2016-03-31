@@ -10,7 +10,7 @@ var
 	gesture = require('enyo/gesture');
 
 exports = module.exports = require('./src/options');
-exports.version = '2.7.0-rc.2';
+exports.version = '2.7.0';
 
 // Override the default holdpulse config to account for greater delays between keydown and keyup
 // events in Moonstone with certain input devices.
