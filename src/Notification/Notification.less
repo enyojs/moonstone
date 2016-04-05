@@ -62,4 +62,35 @@
 		-ms-transform:     translate3d(-50%, 0, 0) translateY(-240px);
 		transform:         translate3d(-50%, 0, 0) translateY(-240px);
 	}
+
+	.text-area {
+		font-size: 30px;
+		color: #4d4d4d;
+		vertical-align: middle;
+	}
+
+	.button-wrapper {
+		float: right;
+
+		.moon-button {
+			margin-right: 0px;
+		}
+	}
+
+	.less-buttons {
+		&.container {
+			display: table-row;
+		}
+
+		.text-area {
+			display: table-cell;
+			padding-right: 9px;
+		}
+
+		.button-wrapper {
+			float: inherit;
+			display: table-cell;
+			vertical-align: bottom;
+		}
+	}
 }
