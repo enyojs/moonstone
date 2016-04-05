@@ -1,4 +1,11 @@
 /* Popup.css */
+.moon {
+	.moon-notification {
+		padding: 27px 39px 27px 39px;
+		display: table;
+	}
+}
+
 .moon-notification {
 	font-family: @moon-notification-font-family;
 	font-weight: @moon-notification-font-weight;
@@ -6,11 +13,9 @@
 	position: absolute;
 	left: 50%;
 	bottom: 0;
-	max-width: 70%;
-	padding: @moon-popup-padding;
+	max-width: 1083px;
 	box-sizing: border-box;
 	overflow: hidden;
-	padding: 27px;
 	-webkit-transform: translate3d(-50%, 100%, 0);
 	-moz-transform:    translate3d(-50%, 100%, 0);
 	-ms-transform:     translate3d(-50%, 100%, 0);
@@ -22,10 +27,10 @@
 		&::before {
 			content: '';
 			display: block;
-			background-color: @moon-neutral-bg-color;
-			border: 6px solid @moon-black;
-			border-radius: 30px;
-			opacity: 0.85;
+			background-color: rgba(222, 237, 237, 0.85);
+			background-clip: padding-box;
+			border: 6px solid rgba(0, 0, 0, 0.85);
+			border-radius: 24px;
 			position: absolute;
 			top: 0;
 			right: 0;
@@ -52,9 +57,9 @@
 	&.showing,
 	&.shown {
 		// Vertically move the full height of the notification box, plus an additional 168px
-		-webkit-transform: translate3d(-50%, 0, 0) translateY(-168px);
-		-moz-transform:    translate3d(-50%, 0, 0) translateY(-168px);
-		-ms-transform:     translate3d(-50%, 0, 0) translateY(-168px);
-		transform:         translate3d(-50%, 0, 0) translateY(-168px);
+		-webkit-transform: translate3d(-50%, 0, 0) translateY(-240px);
+		-moz-transform:    translate3d(-50%, 0, 0) translateY(-240px);
+		-ms-transform:     translate3d(-50%, 0, 0) translateY(-240px);
+		transform:         translate3d(-50%, 0, 0) translateY(-240px);
 	}
 }
