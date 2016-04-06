@@ -120,14 +120,16 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	// components: [
-	// 	{name: 'client', kind: Control, classes: 'enyo-fill'}
-	// ],
+	components: [
+		{name: 'container', kind: Control, classes: 'container', components: [
+			{name: 'textArea', kind: Control, classes: 'text-area'}
+		]}
+	],
 
-	// bindings: [
-	// 	{from: 'content', to: '$.client.content'},
-	// 	{from: 'allowHtml', to: '$.client.allowHtml'}
-	// ],
+	bindings: [
+		{from: 'content', to: '$.textArea.content'},
+		{from: 'allowHtml', to: '$.textArea.allowHtml'}
+	],
 
 	/**
 	* @private
@@ -143,6 +145,49 @@ module.exports = kind(
 	* @private
 	*/
 	hiddenMethod: 'hidden',
+
+	/**
+	* @private
+	*/
+	initComponents: function () {
+		Control.prototype.initComponents.apply(this, arguments);
+
+		// UX & GUI requirement
+		// If number of buttons is less than 3, placing buttons to right side with bottom aligned.
+		// else placing buttons to bottom row with right side aligned. (to minimize size of popup)
+		//
+		// In my opinion, there are four options..
+		//
+		// A. Support this as framework feature
+		// B. Leave it blank and app developers use it as free format
+		// C. Support this as framework feature but provides only two types. (e.g. buttonLocation: 'right', 'bottom')
+		// D. Implement another UX that placing buttons to bottom right and be mixed with text. (not sure it's feasible)
+		// - example
+		// +------------------------------------------------------------------------+
+		// | Very long text........................................................ |
+		// | ................................................ [BUTTON A] [BUTTON B] |
+		// +------------------------------------------------------------------------+
+		var bcs = this.buttonComponents;
+
+		if (bcs) {
+			// make array of wrapped buttons..
+			var wbs = [],
+				c = this.$.container,
+				o = this.owner;
+
+			if (bcs.length < 3) {
+				c.addClass('less-buttons');
+
+				for (var i=0; i<bcs.length; i++) {
+					wbs.push({classes: 'button-wrapper', components: [bcs[i]], owner: o});
+				}
+			} else {
+				wbs.push({classes: 'button-wrapper', components: bcs, owner: o});
+			}
+
+			c.createComponents(wbs);
+		}
+	},
 
 	/**
 	* @private
@@ -260,6 +305,10 @@ module.exports = kind(
 			// the events captured when popup was initially shown
 			if (this.captureEvents) {
 				this.release();
+			}
+
+			if (!this.showing) {
+				Spotlight.unspot();
 			}
 		}
 	},

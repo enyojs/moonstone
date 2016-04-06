@@ -1,4 +1,11 @@
-/* Popup.css */
+/* Notification.css */
+.moon {
+	.moon-notification {
+		padding: 27px 39px 27px 39px;
+		display: table;
+	}
+}
+
 .moon-notification {
 	font-family: @moon-notification-font-family;
 	font-weight: @moon-notification-font-weight;
@@ -6,11 +13,9 @@
 	position: absolute;
 	left: 50%;
 	bottom: 0;
-	max-width: 70%;
-	padding: @moon-popup-padding;
+	max-width: 1080px;
 	box-sizing: border-box;
 	overflow: hidden;
-	padding: 27px;
 	-webkit-transform: translate3d(-50%, 100%, 0);
 	-moz-transform:    translate3d(-50%, 100%, 0);
 	-ms-transform:     translate3d(-50%, 100%, 0);
@@ -23,10 +28,11 @@
 			content: '';
 			display: block;
 			background-color: @moon-neutral-bg-color;
-			border: 6px solid @moon-black;
-			border-radius: 30px;
-			opacity: 0.85;
+			background-clip: padding-box;
+			border: 6px solid rgba(0, 0, 0, 0.85);
+			border-radius: 24px;
 			position: absolute;
+			opacity: 0.85;
 			top: 0;
 			right: 0;
 			bottom: 0;
@@ -52,9 +58,40 @@
 	&.showing,
 	&.shown {
 		// Vertically move the full height of the notification box, plus an additional 168px
-		-webkit-transform: translate3d(-50%, 0, 0) translateY(-168px);
-		-moz-transform:    translate3d(-50%, 0, 0) translateY(-168px);
-		-ms-transform:     translate3d(-50%, 0, 0) translateY(-168px);
-		transform:         translate3d(-50%, 0, 0) translateY(-168px);
+		-webkit-transform: translate3d(-50%, 0, 0) translateY(-240px);
+		-moz-transform:    translate3d(-50%, 0, 0) translateY(-240px);
+		-ms-transform:     translate3d(-50%, 0, 0) translateY(-240px);
+		transform:         translate3d(-50%, 0, 0) translateY(-240px);
+	}
+
+	.text-area {
+		font-size: 30px;
+		color: #4d4d4d;
+		vertical-align: middle;
+	}
+
+	.button-wrapper {
+		float: right;
+
+		.moon-button {
+			margin-right: 0px;
+		}
+	}
+
+	.less-buttons {
+		&.container {
+			display: table-row;
+		}
+
+		.text-area {
+			display: table-cell;
+			padding-right: 9px;
+		}
+
+		.button-wrapper {
+			float: inherit;
+			display: table-cell;
+			vertical-align: bottom;
+		}
 	}
 }
