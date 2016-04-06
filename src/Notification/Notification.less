@@ -1,4 +1,4 @@
-/* Popup.css */
+/* Notification.css */
 .moon {
 	.moon-notification {
 		padding: 27px 39px 27px 39px;
@@ -13,7 +13,7 @@
 	position: absolute;
 	left: 50%;
 	bottom: 0;
-	max-width: 1083px;
+	max-width: 1080px;
 	box-sizing: border-box;
 	overflow: hidden;
 	-webkit-transform: translate3d(-50%, 100%, 0);
@@ -27,11 +27,12 @@
 		&::before {
 			content: '';
 			display: block;
-			background-color: rgba(222, 237, 237, 0.85);
+			background-color: @moon-neutral-bg-color;
 			background-clip: padding-box;
 			border: 6px solid rgba(0, 0, 0, 0.85);
 			border-radius: 24px;
 			position: absolute;
+			opacity: 0.85;
 			top: 0;
 			right: 0;
 			bottom: 0;
