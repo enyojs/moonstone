@@ -24,7 +24,8 @@ var
 	$L = require('../i18n'),
 	IconButton = require('../IconButton'),
 	Scrim = require('moonstone/Scrim'),
-	HistorySupport = require('../HistorySupport');
+	HistorySupport = require('../HistorySupport'),
+	options = require('enyo/options');
 
 /**
 * Fires when the contextual popup is to be shown.
@@ -289,8 +290,14 @@ module.exports = kind(
 			this.activatorOffset = this.getPageOffset(n);
 		}
 		this.show();
-		if (Spotlight.isSpottable(this)) {
-			Spotlight.spot(this);
+		if (Spotlight.isSpottable(this)){
+			if (options.accessibility){
+				this.startJob('delayedSpot', function () {
+					Spotlight.spot(this);
+				},100);
+			} else {
+				Spotlight.spot(this);
+			}
 		}
 		return true;
 	},
@@ -655,9 +662,7 @@ module.exports = kind(
 	*/
 	ariaObservers: [
 		{path: ['accessibilityReadAll', 'accessibilityRole', 'showing'], method: function () {
-			this.startJob('alert', function () {
-				this.setAriaAttribute('role', this.accessibilityReadAll && this.showing ? 'alert' : this.accessibilityRole);
-			}, 100);
+			this.setAriaAttribute('role', this.accessibilityReadAll && this.showing ? 'alert' : this.accessibilityRole);
 		}}
 	]
 });

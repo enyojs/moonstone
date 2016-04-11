@@ -20,7 +20,8 @@ var
 	Scrim = require('../Scrim'),
 	Button = require('../Button'),
 	IconButton = require('../IconButton'),
-	HistorySupport = require('../HistorySupport');
+	HistorySupport = require('../HistorySupport'),
+	options = require('enyo/options');
 
 /**
 * {@link module:moonstone/Popup~Popup} is an {@link module:enyo/Popup~Popup} that appears at the bottom of the
@@ -391,7 +392,13 @@ module.exports = kind(
 			var current = Spotlight.getCurrent();
 			if (!current || !current.isDescendantOf(this)) {
 				if (Spotlight.isSpottable(this)) {
-					Spotlight.spot(this);
+					if (options.accessibility){
+						this.startJob('delayedSpot', function () {
+							Spotlight.spot(this);
+						},100);
+					} else {
+						Spotlight.spot(this);
+					}
 				}
 				// If we're not spottable, just unspot whatever was previously spotted
 				else {
@@ -592,9 +599,7 @@ module.exports = kind(
 	*/
 	ariaObservers: [
 		{path: ['accessibilityReadAll', 'accessibilityRole', 'showing'], method: function () {
-			this.startJob('alert', function () {
-				this.setAriaAttribute('role', this.accessibilityReadAll && this.showing ? 'alert' : this.accessibilityRole);
-			}, 100);
+			this.setAriaAttribute('role', this.accessibilityReadAll && this.showing ? 'alert' : this.accessibilityRole);
 		}}
 	]
 });
