@@ -1,0 +1,56 @@
+/* Labeled Text Item */
+.moon-labeledtextitem {
+	//// Locally scoped LESS variables ////
+	// Vertically shift the text element to position it closer to the header than the line-height naturally allows
+	@text-vertical-offset: 6px;
+
+	min-width: 336px;
+
+	// Header
+	.moon-labeledtextitem-header {
+		display: block;
+		box-sizing: border-box;
+		max-width: 100%;
+		position: relative;
+		vertical-align: top;
+	}
+
+	// Text
+	.moon-labeledtextitem-text {
+		font-family: @moon-expandable-value-font-family;
+		font-size: @moon-expandable-value-font-size;
+		font-weight: @moon-expandable-value-font-weight;
+		font-style: @moon-expandable-value-font-style;
+		line-height: @moon-body-line-height;
+		text-transform: none;
+		color: @moon-expandable-picker-text-color;
+		// The following two margin values must cancel each other out, so there is zero layout impact when `text` is empty.
+		margin-top: -@text-vertical-offset;
+		margin-bottom: @text-vertical-offset;
+
+		.enyo-locale-right-to-left & {
+			padding-left: 0;
+		}
+
+		.enyo-locale-non-latin & {
+			.enyo-locale-non-latin .moon-body-text;
+		}
+
+		.moon-neutral & {
+			color: inherit;
+		}
+	}
+
+	&.with-text {
+		.moon-labeledtextitem-text {
+			padding-bottom: 3px;
+		}
+	}
+
+	&.spotlight {
+		> .moon-labeledtextitem-header,
+		> .moon-labeledtextitem-text {
+			color: inherit;
+		}
+	}
+}

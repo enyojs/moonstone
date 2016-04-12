@@ -1,0 +1,46 @@
+/* Dialog.css */
+.moon-dialog {
+	padding-bottom: 0; // Override popup, so our optional components won't be stuck with too much padding
+
+	.moon-dialog-title-wrapper,
+	.moon-dialog-content,
+	.moon-dialog-client {
+		margin-bottom: @moon-popup-padding;
+	}
+
+	.moon-dialog-title-wrapper {
+		&.use-divider {
+			padding-bottom: 24px;
+			border-bottom-width: 1px;
+			border-bottom-style: solid;
+		}
+	}
+
+	.moon-dialog-title {
+		line-height: @moon-small-header-line-height;
+	}
+
+	// Client is the button area
+	.moon-dialog-client {
+		text-align: end;
+	}
+
+	&.reserve-close {
+		.padding-start-end(@moon-popup-padding, @moon-popup-padding);
+
+		.moon-popup-close {
+			top: @moon-popup-padding;
+			right: @moon-popup-padding;
+
+			.enyo-locale-right-to-left & {
+				right: initial;
+				left: @moon-popup-padding;
+			}
+		}
+
+		.moon-dialog-title-wrapper,
+		.moon-dialog-content {
+			.margin-start-end(0, (@moon-spotlight-outset + @moon-icon-button-small-size));
+		}
+	}
+}

@@ -1,0 +1,38 @@
+/* List Actions */
+.moon-list-actions {
+	.moon-icon-button {
+		margin: 0;
+	}
+}
+
+.moon-list-actions-popup {
+	& .moon-list-actions-popup-width {
+		width: 408px;
+	}
+
+	& .moon-list-actions-scroller {
+		.enyo-scroller,
+		.enyo-data-list {
+			height: 300px;
+		}
+	}
+
+	.list-actions-hunits(@property, @n) {
+		&:before,
+		&:after {
+			@{property}: (@moon-icon-button-small-size * (@n - 1 / 2)) + (@moon-grid-gutter-width * (@n - 1)) - (@moon-icon-margin / 2);
+		}
+	}
+
+	.generate-columns(@n, @i: 1) when (@i =< @n) {
+		&.left.list-actions-@{i}h {
+			.list-actions-hunits(right, @i);
+		}
+		&.right.list-actions-@{i}h {
+			.list-actions-hunits(left, @i);
+		}
+		.generate-columns(@n, (@i + 1));
+	}
+
+	.generate-columns(5);
+}

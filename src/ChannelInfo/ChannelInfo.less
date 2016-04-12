@@ -1,0 +1,67 @@
+.moon-video-player-channel-info {
+	white-space: normal;
+	padding-top: 18px;
+	padding-bottom: 18px;
+
+	> * {
+		display: inline-block;
+		padding-right: 18px;
+	}
+	&:only-child {
+		padding: 48px 0 60px 0;
+	}
+	.moon-marquee {
+		text-align: right;
+		font-family: @moon-font-family-small;
+		font-size: 40px;
+		font-kerning: normal;
+		vertical-align: bottom;
+		white-space: nowrap;
+	}
+	// Generic Text
+	.channel-info-text {
+		padding-left: 18px;
+		border: 1px none @moon-video-player-info-text-color;
+		border-left-style: solid;
+	}
+	// Badges
+	.channel-info-badges {
+		vertical-align: super;
+
+		> * {
+			margin: 3px 0 3px 18px;
+		}
+		.channel-info-text-icon {
+			font-family: @moon-font-family-bold;
+			font-size: @moon-video-player-info-text-size;
+			color: @moon-video-player-info-text-color;
+			text-align: center;
+			white-space: nowrap;
+			display: inline-block;
+		}
+		.redicon {
+			background-color: @moon-videoplayer-redicon-bg-color;
+			color: @moon-videoplayer-redicon-text-color;
+		}
+	}
+}
+.enyo-locale-right-to-left .moon-video-player-channel-info {
+	> * {
+		padding-right: 0;
+		padding-left: 18px;
+	}
+	.channel-info-text {
+		padding-right: 18px;
+		border-left-style: none;
+		border-right-style: solid;
+	}
+}
+.enyo-locale-non-latin .moon-video-player-channel-info {
+	.channel-info-number {
+		.enyo-locale-non-latin .moon-video-player-info-header .info-header-title;
+	}
+	.channel-info-text,
+	.channel-info-text-icon {
+		font-family: @moon-non-latin-font-family;
+	}
+}

@@ -1,0 +1,28 @@
+.moon-video-player-info-background {
+    display: inline-block;
+    white-space: nowrap;
+    box-sizing: border-box;
+    vertical-align: top;
+
+    &.left {
+        padding: 24px 30px 0 0;
+        width: (1500px - @moon-video-player-side-padding);
+    }
+    &.right {
+        padding-top: 48px;
+        text-align: right;
+        width: (420px - @moon-video-player-side-padding);
+    }
+
+    > * + * {
+        border-top: 1px solid @moon-video-player-info-text-color;
+    }
+
+    .moon-clock {
+        margin: 0;
+    }
+
+    .enyo-locale-right-to-left & {
+        direction: rtl;
+    }
+}

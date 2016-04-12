@@ -1,0 +1,117 @@
+.moon-tooltip {
+	z-index: 20;
+	-webkit-transform: translateZ(0);
+	transform: translateZ(0);
+	pointer-events: none;
+}
+
+.moon-tooltip-label {
+	.moon-small-button-text;
+	line-height: @moon-tooltip-label-height;
+	white-space: nowrap;
+	color: @moon-tooltip-text-color;
+	padding: 12px (@moon-button-h-padding + 2);
+	background-color: @moon-tooltip-bg-color;
+	border-radius: (@moon-tooltip-height / 2);
+
+	.moon-tooltip.right-arrow & { text-align: right; }
+	.moon-tooltip.left-arrow & {
+		text-align: left;
+		.enyo-locale-right-to-left & { text-align: right; }
+	}
+
+	.enyo-locale-non-latin & {
+		.enyo-locale-non-latin .moon-small-button-text;
+	}
+}
+
+.moon-tooltip-point {
+	position: absolute;
+	height: 30px;
+	width: 18px;
+	transform-origin: top left;
+	fill: @moon-tooltip-bg-color;
+}
+
+.moon-tooltip {
+	&.above {
+		&.left-arrow {
+			.moon-tooltip-point {
+				transform: translateY(100%) rotate(-90deg) scaleX(-1);
+				bottom: 0;
+			}
+			.moon-tooltip-label {
+				border-bottom-left-radius: 0;
+			}
+		}
+		&.right-arrow {
+			.moon-tooltip-point {
+				transform: translate(100%,100%) rotate(90deg);
+				bottom: 0;
+				right: 0;
+			}
+			.moon-tooltip-label {
+				border-bottom-right-radius: 0;
+			}
+		}
+	}
+	&.below {
+		&.left-arrow {
+			.moon-tooltip-point {
+				transform: rotate(-90deg);
+			}
+			.moon-tooltip-label {
+				border-top-left-radius: 0;
+			}
+		}
+		&.right-arrow {
+			.moon-tooltip-point {
+				transform: translateX(100%) rotate(-90deg) scaleY(-1);
+				right: 0;
+			}
+			.moon-tooltip-label {
+				border-top-right-radius: 0;
+			}
+		}
+	}
+	&.left-arrow {
+		&.top {
+			.moon-tooltip-point {
+				transform: translateY(100%) scale(-1);
+				bottom: 0;
+			}
+			.moon-tooltip-label {
+				border-bottom-left-radius: 0;
+			}
+		}
+		&.bottom {
+			.moon-tooltip-point {
+				transform: scaleX(-1);
+			}
+			.moon-tooltip-label {
+				border-top-left-radius: 0;
+			}
+		}
+	}
+	&.right-arrow {
+		&.top {
+			.moon-tooltip-point {
+				transform: translate(100%,100%) scaleY(-1);
+				bottom: 0;
+				right: 0;
+			}
+			.moon-tooltip-label {
+				border-bottom-right-radius: 0;
+			}
+		}
+		&.bottom {
+			.moon-tooltip-point {
+				transform: translateX(100%);
+				right: 0;
+			}
+			.moon-tooltip-label {
+				border-top-right-radius: 0;
+			}
+		}
+	}
+}

@@ -1,0 +1,53 @@
+.moon-video-player {
+	position: relative;
+	display: inline-block;
+	background-color: @moon-video-player-bg-color;
+
+	&.spotlight-5way-mode {
+		pointer-events: none;
+	}
+
+	.moon-video-player-container {
+		display: block;
+		margin: 0;
+		height: 100%;
+		width: 100%;
+	}
+
+	.moon-video-player-video {
+		position: absolute;
+		display: block;
+		margin: 0px auto;
+		height: 100%;
+		width: 100%;
+	}
+	.moon-spinner {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-top: (-@moon-spinner-size / 2);
+		margin-left: (-@moon-spinner-size / 2);
+	}
+
+	/* Fullscreen CSS */
+	.vendor-fullscreen({
+		position: static !important;
+		display: block !important;
+		margin: 0;
+
+		.moon-video-player-video {
+			position: static;
+		}
+	});
+
+	&:not(.enyo-fullscreen) {
+		margin: 0 @moon-spotlight-outset;
+	}
+
+	.moon-video-player-premium-placeholder-right .moon-icon-button {
+		.enyo-locale-right-to-left & {
+			-webkit-transform: scaleX(-1);
+			transform: scaleX(-1);
+		}
+	}
+}

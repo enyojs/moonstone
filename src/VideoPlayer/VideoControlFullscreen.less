@@ -1,0 +1,79 @@
+/* --- Fullscreen Video UI --- */
+.moon-video-player-fullscreen {
+	box-sizing: border-box;
+	background-color: @moon-video-player-fullscreen-bg-color;
+	transition: background-color 0.1s linear;
+	-webkit-transition: background-color 0.1s linear;
+	-moz-transition: background-color 0.1s linear;
+
+	&.scrim {
+		box-sizing: border-box;
+		background-color: fadeout(@moon-video-player-fullscreen-bg-color, 85%);
+	}
+
+	// --- Video Info Header (Top) ---
+	.moon-video-player-top {
+	    background-color: @moon-videoplayer-background-color;
+		color: #ffffff;
+		direction: ltr;
+		padding: 24px @moon-video-player-side-padding;
+
+		&.always {
+			display: block;
+		}
+	}
+
+	// --- Fullscreen Player Controls ---
+	.moon-video-player-bottom {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background-color: @moon-video-player-bottom-bg-color;
+		direction: ltr;
+	}
+
+	.moon-video-player-controls-frame {
+		padding: 24px @moon-video-player-side-padding;
+		background-color: @moon-video-player-controls-bg-color;
+
+		.moon-video-player-controls-frame-center {
+			position: relative;
+		}
+
+		.moon-video-player-controls-container {
+			height: @moon-icon-button-size;
+		}
+		.moon-video-player-more-controls {
+			border-left: 3px solid white;
+			padding-left: 6px;
+
+			.enyo-locale-right-to-left & {
+				border-left-style: none;
+				border-right: 3px solid white;
+				padding-left: 0;
+				padding-right: 6px;
+				direction: rtl;
+			}
+			> * {
+				vertical-align: middle;
+			}
+		}
+	}
+
+	.moon-video-player-control-buttons {
+		white-space: nowrap;
+		text-align: center;
+		direction: ltr;
+
+		.moon-icon-button {
+			margin: 0 18px;
+		}
+	}
+
+}
+
+.moon-video-player-premium-placeholder-left,
+.moon-video-player-premium-placeholder-right {
+	height: @moon-icon-button-size;
+}

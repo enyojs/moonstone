@@ -1,14 +1,15 @@
-.font-kerning {
-	-webkit-font-kerning: normal;
-	font-kerning: normal;
+// mixin classes for create the moontone text classes
+.moon-text-base (@font-size) {
+	font-family: @moon-font-family;
+	font-size: @font-size;
 }
 
-// mixin classes for create the moontone text classes
-.moon-text-base (@font-size, @font-color: @moon-text-color) {
+.moon-text-base (@font-size, @font-color) {
 	font-family: @moon-font-family;
 	font-size: @font-size;
 	color: @font-color;
 }
+
 /* Text definitions */
 
 .moon-header-font {
@@ -43,10 +44,14 @@
 .moon-super-header-text {
 	font-family: @moon-super-header-font-family;
 	font-size: @moon-super-header-font-size;
-	-webkit-font-kerning: normal;
+	.font-kerning;
 }
 .moon-sub-header-text {
 	.moon-text-base (@moon-sub-header-font-size);
+
+	.moon-small-header & {
+		font-size: @moon-small-header-sub-header-font-size;
+	}
 }
 .moon-header-sub-title-below {
 	font-family: @moon-sub-header-below-font-family;
@@ -82,12 +87,12 @@
 .moon-large-button-text {
 	font-family: @moon-button-font-family;
 	font-size: @moon-button-large-font-size;
-	-webkit-font-kerning:normal;
+	.font-kerning;
 }
 .moon-small-button-text {
 	font-family: @moon-button-font-family;
 	font-size: @moon-button-small-font-size;
-	-webkit-font-kerning:normal;
+	.font-kerning;
 }
 .moon-icon-text {
 	font-family: @moon-icon-font-family;
@@ -98,7 +103,7 @@
 .moon-dialog-title {
 	font-family: @moon-popup-header-font-family;
 	font-size: @moon-popup-header-font-size;
-	-webkit-font-kerning: normal;
+	.font-kerning;
 }
 .moon-dialog-sub-title {
 	font-size: @moon-popup-sub-header-font-size;
@@ -117,7 +122,7 @@
 	.moon,
 	.moon input,
 	.moon textarea,
-	.moon button,
+	.moon .moon-button,
 	.moon-large-text,
 	.moon-header-text,
 	.moon-header-font,
@@ -160,7 +165,8 @@
 	.moon-popup-header-text {
 		font-size: @moon-non-latin-popup-header-font-size;
 	}
-	.moon-sub-header-text {
+	.moon-sub-header-text,
+	.moon-small-header .moon-sub-header-text {
 		font-size: @moon-non-latin-sub-header-font-size;
 	}
 	.moon-super-header-text {

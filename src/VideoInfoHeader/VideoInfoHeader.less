@@ -1,0 +1,69 @@
+.moon-video-player-info-header {
+	padding-top: 18px;
+
+	&:only-child {
+		padding-top: 36px;
+	}
+	.info-header-image.enyo-image {
+		vertical-align: top;
+		margin: 9px 18px 0 0;
+	}
+	.info-header-text {
+		display: inline-block;
+		width: 1278px;
+		height: 100%;
+
+		&:only-child {
+			width: 100%;
+		}
+	}
+	.info-header-title {
+		font-family: @moon-font-family-bold;
+		font-size: 72px;
+		line-height: 72px;
+		padding: 0 0 36px 0;
+		white-space: nowrap;
+		.font-kerning;
+	}
+	.info-header-description {
+		font-family: @moon-font-family-small;
+		font-size: @moon-video-player-info-description-text-size;
+		color: @moon-gray;
+		white-space: normal;
+		-webkit-line-clamp: 3;
+		display: -webkit-inline-box;
+		overflow: hidden;
+		-webkit-box-orient: vertical;
+		max-height: 90px;
+	}
+	.info-header-client {
+		display: inline-block;
+		margin: 0 0 12px 18px;
+
+		> * {
+			display: inline-block;
+			margin: 0 6px;
+		}
+	}
+}
+
+.enyo-locale-right-to-left .moon-video-player-info-header {
+	.info-header-image.enyo-image {
+		margin-left: 18px;
+		margin-right: 0;
+	}
+	.info-header-client {
+		margin: 0 18px 12px 0;
+	}
+}
+.enyo-locale-non-latin .moon-video-player-info-header {
+	.info-header-title {
+		line-height: @moon-non-latin-header-text-line-height;
+		/* Clip the title box by just a bit to help it fit better */
+		height: 1.4em;
+	}
+	.info-header-description {
+		.enyo-locale-non-latin .moon-body-text;
+		color: @moon-white;
+	}
+}

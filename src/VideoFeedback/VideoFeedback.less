@@ -1,0 +1,52 @@
+/* Feedback area */
+.moon-video-player-feedback {
+	margin-right: @moon-video-player-icon-text-gutter-width;
+
+	.moon-video-feedback-text {
+		display: inline-block;
+		margin: 0;
+	}
+
+	.moon-icon.small {
+		background-position: center -3px;
+	}
+
+	.moon-icon.moon-video-feedback-icon-left,
+	.moon-icon.moon-video-feedback-icon-right {
+		display: inline-block;
+		width: @moon-video-feedback-icon-width;
+		margin: 0;
+		font-size: @moon-video-feedback-icon-font-size;
+		line-height: @moon-video-feedback-icon-line-height; /* use line-height to middle align the icon, the defaut 32px from moon-icon will make it too low */
+
+		&.moon-video-feedback-icon-only {
+			margin: 0;
+		}
+	}
+
+	.moon-icon.moon-video-feedback-icon-left {
+		margin-left: 0;
+		margin-right: @moon-video-player-icon-text-gutter-width;
+
+		&.moon-icon-pausejumpbackward {
+			width: @moon-video-feedback-icon-pausejumpbackward-width;
+		}
+	}
+
+	.moon-icon.moon-video-feedback-icon-right {
+		margin-left: @moon-video-player-icon-text-gutter-width;
+		margin-right: 0;
+
+		&.moon-icon-play {
+			font-size: @moon-video-feedback-icon-font-play-size;
+			width: @moon-video-feedback-icon-play-width;
+		}
+		&.moon-icon-pause {
+			font-size: @moon-video-feedback-icon-font-pause-size;
+			width: @moon-video-feedback-icon-pause-width;
+		}
+		&.moon-icon-pausejumpforward {
+			width: @moon-video-feedback-icon-pausejumpforward-width;
+		}
+	}
+}
