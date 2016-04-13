@@ -182,6 +182,14 @@ module.exports = kind(
 	accessibilityPreventScroll: true,
 
 	/**
+	* If a fullscreen control is spotted within the drawers while the handle container is open, the
+	* activator will get scrolled out of view without scrolling prevented.
+	*
+	* @private
+	*/
+	accessibilityPreventScroll: true,
+
+	/**
 	* @private
 	*/
 	handlers: {
