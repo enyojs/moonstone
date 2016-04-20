@@ -90,7 +90,8 @@ module.exports = kind(
 	handlers: {
 		onRequestScrollIntoView   : '_preventEventBubble',
 		ontransitionend           : 'animationEnd',
-		onSpotlightSelect         : 'handleSpotlightSelect'
+		onSpotlightSelect         : 'handleSpotlightSelect',
+		onSpotlightContainerEnter : 'onEnter'
 	},
 
 	/**
@@ -596,5 +597,14 @@ module.exports = kind(
 				this.setAriaAttribute('role', this.accessibilityReadAll && this.showing ? 'alert' : this.accessibilityRole);
 			}, 100);
 		}}
-	]
+	],
+
+	/**
+	* @private
+	*/
+	onEnter : function(oSender, oEvent){
+		if (oEvent.originator == this){
+			this.setAriaAttribute('role', this.accessibilityReadAll && this.showing ? 'alert' : this.accessibilityRole);
+		}
+	}
 });
