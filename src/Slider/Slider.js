@@ -629,9 +629,18 @@ module.exports = kind(
 	* @private
 	*/
 	updateButtonStatus: function () {
+		var disableLeft = this.disabled || this.value <= this.min,
+			disableRight = this.disabled || this.value >= this.max;
+
 		if (this.enableJumpIncrement) {
-			this.$.buttonLeft.set('disabled', this.disabled || this.value <= this.min);
-			this.$.buttonRight.set('disabled', this.disabled || this.value >= this.max);
+			// To avoid Spotlight's default disappear logic causing the focus to leave slider when
+			// both buttons are temporarily disabled, first enable the buttons together and then
+			// disable them together.
+			if (!disableLeft) this.$.buttonLeft.set('disabled', false);
+			if (!disableRight) this.$.buttonRight.set('disabled', false);
+
+			if (disableLeft) this.$.buttonLeft.set('disabled', true);
+			if (disableRight) this.$.buttonRight.set('disabled', true);
 		}
 	},
 
