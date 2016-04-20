@@ -646,8 +646,13 @@ module.exports = kind(
 	*/
 	updateButtonStatus: function () {
 		if (this.enableJumpIncrement) {
-			this.$.buttonLeft.set('disabled', this.disabled || this.value <= this.min);
-			this.$.buttonRight.set('disabled', this.disabled || this.value >= this.max);
+			if (this.$.buttonRight.get('disabled')) {
+				this.$.buttonRight.set('disabled', this.disabled || this.value >= this.max);
+				this.$.buttonLeft.set('disabled', this.disabled || this.value <= this.min);
+			} else {
+				this.$.buttonLeft.set('disabled', this.disabled || this.value <= this.min);
+				this.$.buttonRight.set('disabled', this.disabled || this.value >= this.max);
+			}
 		}
 	},
 
