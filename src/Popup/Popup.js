@@ -428,6 +428,7 @@ module.exports = kind(
 	* @public
 	*/
 	hide: function() {
+		this.set('_enableAlert', false);
 		Popup.prototype.hide.apply(this, arguments);
 		this.removeClass('showing');
 	},
@@ -591,11 +592,14 @@ module.exports = kind(
 	/**
 	* @private
 	*/
+	_enableAlert: false,
+
+	/**
+	* @private
+	*/
 	ariaObservers: [
-		{path: ['accessibilityReadAll', 'accessibilityRole', 'showing'], method: function () {
-			this.startJob('alert', function () {
-				this.setAriaAttribute('role', this.accessibilityReadAll && this.showing ? 'alert' : this.accessibilityRole);
-			}, 100);
+		{path: ['accessibilityReadAll', 'accessibilityRole', 'showing', '_enableAlert'], method: function () {
+			this.setAriaAttribute('role', this.accessibilityReadAll && (this._enableAlert || this.showing) ? 'alert' : this.accessibilityRole);
 		}}
 	],
 
@@ -604,7 +608,7 @@ module.exports = kind(
 	*/
 	onEnter : function(oSender, oEvent){
 		if (oEvent.originator == this){
-			this.setAriaAttribute('role', this.accessibilityReadAll && this.showing ? 'alert' : this.accessibilityRole);
+			this.set('_enableAlert', true);
 		}
 	}
 });
