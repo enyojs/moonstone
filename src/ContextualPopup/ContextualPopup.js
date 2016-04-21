@@ -26,6 +26,8 @@ var
 	Scrim = require('moonstone/Scrim'),
 	HistorySupport = require('../HistorySupport');
 
+var options = require('enyo/options');
+
 /**
 * Fires when the contextual popup is to be shown.
 *
@@ -656,9 +658,7 @@ module.exports = kind(
 	*/
 	ariaObservers: [
 		{path: ['accessibilityReadAll', 'accessibilityRole', 'showing'], method: function () {
-			this.startJob('alert', function () {
-				this.setAriaAttribute('role', this.accessibilityReadAll && this.showing ? 'alert' : this.accessibilityRole);
-			}, 100);
+			this.updateAriaRole();
 		}}
 	],
 
@@ -666,8 +666,15 @@ module.exports = kind(
 	* @private
 	*/
 	onEnter : function(oSender, oEvent){
-		if (oEvent.originator == this){
-			this.setAriaAttribute('role', this.accessibilityReadAll && this.showing ? 'alert' : this.accessibilityRole);
+		if (options.accessibility && oEvent.originator == this) {
+			this.updateAriaRole();
 		}
+	},
+
+	/**
+	* @private
+	*/
+	updateAriaRole: function() {
+		this.setAriaAttribute('role', this.accessibilityReadAll && this.showing ? 'alert' : this.accessibilityRole);
 	}
 });
