@@ -242,10 +242,13 @@ module.exports = kind(
 	* @private
 	*/
 	ariaObservers: [
-		{path: ['title', 'accessibilityLabel', 'accessibilityHint'], method: function () {
-			var content = this.title,
-				prefix = this.accessibilityLabel || content || null,
-				label = this.accessibilityHint && prefix && (prefix + ' ' + this.accessibilityHint) ||
+		{path: ['title', 'accessibilityLabel', 'accessibilityHint', 'accessibilityPreHint'], method: function () {
+			var prefix = this.accessibilityLabel || this.title || null,
+				label = this.accessibilityPreHint && prefix && this.accessibilityHint && (this.accessibilityPreHint + ' ' + prefix + ' ' + this.accessibilityHint) ||
+						this.accessibilityPreHint && prefix && (this.accessibilityPreHint + ' ' + prefix) ||
+						this.accessibilityPreHint && this.accessibilityHint && (this.accessibilityPreHint + ' ' + this.accessibilityHint) ||
+						this.accessibilityHint && prefix && (prefix + ' ' + this.accessibilityHint) ||
+						this.accessibilityPreHint ||
 						this.accessibilityHint ||
 						this.accessibilityLabel ||
 						prefix ||

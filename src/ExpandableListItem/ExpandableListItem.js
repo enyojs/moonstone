@@ -220,6 +220,7 @@ module.exports = kind(
 		// Accessibility
 		{from: 'accessibilityHint', to: '$.header.accessibilityHint'},
 		{from: 'accessibilityLabel', to: '$.header.accessibilityLabel'},
+		{from: 'accessibilityPreHint', to: '$.header.accessibilityPreHint'},
 		{from: 'accessibilityDisabled', to: '$.header.accessibilityDisabled'}
 	],
 
@@ -450,7 +451,7 @@ module.exports = kind(
 	* @private
 	*/
 	ariaObservers: [
-		{path: ['accessibilityLabel', 'accessibilityHint'], method: function () {
+		{path: ['accessibilityLabel', 'accessibilityHint', 'accessibilityPreHint'], method: function () {
 			this.setAriaAttribute('aria-label', null);
 		}}
 	]
