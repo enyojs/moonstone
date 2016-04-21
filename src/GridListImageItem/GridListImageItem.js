@@ -120,15 +120,15 @@ module.exports = kind(
 	* @private
 	*/
 	ariaObservers: [
-		{path: ['caption', 'subCaption', 'accessibilityHint', 'accessibilityLabel'], method: function () {
+		{path: ['content', 'caption', 'subCaption', 'accessibilityHint', 'accessibilityLabel', 'accessibilityPreHint', 'tabIndex'], method: function () {
 			var content = this.caption + ' ' + this.subCaption,
 				prefix = this.accessibilityLabel || content || null,
-				label = this.accessibilityHint && prefix && (prefix + ' ' + this.accessibilityHint) ||
-						this.accessibilityHint ||
+				label = this.accessibilityPreHint && prefix && this.accessibilityHint && (this.accessibilityPreHint + ' ' + prefix + ' ' + this.accessibilityHint) ||
+						this.accessibilityPreHint && prefix && (this.accessibilityPreHint + ' ' + prefix) ||
+						this.accessibilityHint && prefix && (prefix + ' ' + this.accessibilityHint) ||
 						this.accessibilityLabel ||
 						null;
-
-				this.setAriaAttribute('aria-label', label);
+			this.setAriaAttribute('aria-label', label);
 		}}
 	]
 });
