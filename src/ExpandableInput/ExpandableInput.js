@@ -278,12 +278,12 @@ module.exports = kind(
 	// Accessibility
 
 	/**
-	* @default $L('input field')
+	* @default $L('Input field')
 	* @type {String}
 	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityHint
 	* @public
 	*/
-	accessibilityHint: $L('input field'),
+	accessibilityHint: $L('Input field'),
 
 	/**
 	* @private

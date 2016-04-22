@@ -416,12 +416,12 @@ module.exports = kind(
 			this.set('accessibilityLive', this.focused || !this.spotted ? null : 'polite');
 			if (oInput) {
 				if (oInput instanceof RichText && oInput.hasNode()) {
-					text = (oInput.hasNode().innerText || oInput.getPlaceholder()) + ' ' + $L('input field');
+					text = (oInput.hasNode().innerText || oInput.getPlaceholder()) + ' ' + $L('Input field');
 				} else if (oInput.type == 'password' && oInput.getValue()) {
 					var character = (oInput.getValue().length > 1) ? $L('characters') : $L('character');
-					text = oInput.getValue().length + ' ' + character + ' ' + $L('input field');
+					text = oInput.getValue().length + ' ' + character + ' ' + $L('Input field');
 				} else {
-					text = (oInput.getValue() || oInput.getPlaceholder()) + ' ' + $L('input field');
+					text = (oInput.getValue() || oInput.getPlaceholder()) + ' ' + $L('Input field');
 				}
 			}
 			this.set('accessibilityLabel', this.spotted && !this.focused ? text : null);
