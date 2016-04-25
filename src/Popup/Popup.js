@@ -430,7 +430,6 @@ module.exports = kind(
 	* @public
 	*/
 	hide: function() {
-		this.set('_enableAlert', false);
 		Popup.prototype.hide.apply(this, arguments);
 		this.removeClass('showing');
 	},
@@ -595,7 +594,7 @@ module.exports = kind(
 	* @private
 	*/
 	ariaObservers: [
-		{path: ['accessibilityReadAll', 'accessibilityRole', 'showing', '_enableAlert'], method: function () {
+		{path: ['accessibilityReadAll', 'accessibilityRole', 'showing'], method: function () {
 			this.updateAriaRole();
 		}}
 	],
