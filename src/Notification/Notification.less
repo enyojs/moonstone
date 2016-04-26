@@ -1,38 +1,36 @@
-/* Popup.css */
+/* Notification.css */
+.moon {
+	.moon-notification {
+		padding: 24px 30px;
+	}
+}
+
 .moon-notification {
-	font-family: @moon-notification-font-family;
-	font-weight: @moon-notification-font-weight;
-	font-style: @moon-notification-font-style;
 	position: absolute;
 	left: 50%;
 	bottom: 0;
-	max-width: 70%;
-	padding: @moon-popup-padding;
+	min-width: 300px;
+	max-width: 840px;
 	box-sizing: border-box;
-	overflow: hidden;
-	padding: 27px;
+	text-align: center;
+	border-radius: @moon-notification-border-radius;
+	background-color: fade(@moon-neutral-bg-color, @moon-notification-background-opacity);
 	-webkit-transform: translate3d(-50%, 100%, 0);
 	-moz-transform:    translate3d(-50%, 100%, 0);
 	-ms-transform:     translate3d(-50%, 100%, 0);
 	transform:         translate3d(-50%, 100%, 0);
 
-	&.moon-neutral {
-		background-color: transparent;
-
-		&::before {
-			content: '';
-			display: block;
-			background-color: @moon-neutral-bg-color;
-			border: 6px solid @moon-black;
-			border-radius: 30px;
-			opacity: 0.85;
-			position: absolute;
-			top: 0;
-			right: 0;
-			bottom: 0;
-			left: 0;
-			z-index: -1;
-		}
+	&::before {
+		content: '';
+		display: block;
+		position: absolute;
+		border: @moon-notification-border-width solid fade(@moon-black, @moon-notification-border-opacity);
+		border-radius: (@moon-notification-border-radius + @moon-notification-border-width);
+		top: -@moon-notification-border-width;
+		right: -@moon-notification-border-width;
+		bottom: -@moon-notification-border-width;
+		left: -@moon-notification-border-width;
+		z-index: -1;
 	}
 
 	&.animate {
@@ -52,9 +50,27 @@
 	&.showing,
 	&.shown {
 		// Vertically move the full height of the notification box, plus an additional 168px
-		-webkit-transform: translate3d(-50%, 0, 0) translateY(-168px);
-		-moz-transform:    translate3d(-50%, 0, 0) translateY(-168px);
-		-ms-transform:     translate3d(-50%, 0, 0) translateY(-168px);
-		transform:         translate3d(-50%, 0, 0) translateY(-168px);
+		-webkit-transform: translate3d(-50%, 0, 0) translateY(-240px);
+		-moz-transform:    translate3d(-50%, 0, 0) translateY(-240px);
+		-ms-transform:     translate3d(-50%, 0, 0) translateY(-240px);
+		transform:         translate3d(-50%, 0, 0) translateY(-240px);
+	}
+
+	.moon-body-text {
+		font-family: @moon-notification-font-family;
+		font-weight: @moon-notification-font-weight;
+		font-style: @moon-notification-font-style;
+		font-size: @moon-notification-font-size;
+	}
+	.moon-body-text-control {
+		text-align: inherit;
+	}
+	.moon-body-text-spacing {
+		margin: 0;
+	}
+
+	// Applying the margin to the children allows for the case of no children without needing removing the margin
+	.client > * {
+		margin-top: 24px;
 	}
 }
