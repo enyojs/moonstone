@@ -17,6 +17,7 @@ var
 
 var
 	Button = require('../Button'),
+	BodyText = require('../BodyText'),
 	HistorySupport = require('../HistorySupport');
 
 /**
@@ -108,6 +109,15 @@ module.exports = kind(
 		animate: true,
 
 		/**
+		* The message that will be displayed in the notification's text area.
+		*
+		* @type {String}
+		* @default ''
+		* @public
+		*/
+		content: '',
+
+		/**
 		* When `true`, popups will animate on/off screen.
 		*
 		* @type {Boolean}
@@ -120,14 +130,18 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	// components: [
-	// 	{name: 'client', kind: Control, classes: 'enyo-fill'}
-	// ],
+	components: [
+		{name: 'message', kind: BodyText},
+		{name: 'client', kind: Control, classes: 'enyo-fill client moon-hspacing'}
+	],
 
-	// bindings: [
-	// 	{from: 'content', to: '$.client.content'},
-	// 	{from: 'allowHtml', to: '$.client.allowHtml'}
-	// ],
+	/**
+	* @private
+	*/
+	bindings: [
+		{from: 'content', to: '$.message.content'},
+		{from: 'allowHtml', to: '$.message.allowHtml'}
+	],
 
 	/**
 	* @private
@@ -261,6 +275,10 @@ module.exports = kind(
 			if (this.captureEvents) {
 				this.release();
 			}
+		}
+
+		if (!this.showing) {
+			Spotlight.unspot();
 		}
 	},
 
