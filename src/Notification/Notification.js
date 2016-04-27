@@ -1,8 +1,8 @@
 require('moonstone');
 
 /**
-* Contains the declaration for the {@link module:moonstone/Popup~Popup} kind.
-* @module moonstone/Popup
+* Contains the declaration for the {@link module:moonstone/Notification~Notification} kind.
+* @module moonstone/Notification
 */
 
 var
@@ -10,6 +10,7 @@ var
 	Control = require('enyo/Control'),
 	dispatcher = require('enyo/dispatcher'),
 	EnyoHistory = require('enyo/History'),
+	Popup = require('enyo/Popup'),
 	ShowingTransitionSupport = require('enyo/ShowingTransitionSupport');
 
 var
@@ -21,16 +22,15 @@ var
 	HistorySupport = require('../HistorySupport');
 
 /**
-* {@link module:moonstone/Popup~Popup} is an {@link module:enyo/Popup~Popup} that appears at the bottom of the
-* screen and takes up the full screen width.
+* {@link module:moonstone/Notification~Notification} is a toast-like minimal popup that comes up
+* from the bottom of the screen.
 *
-* @class Popup
-* @extends module:enyo/Popup~Popup
+* @class Notification
 * @ui
 * @public
 */
 module.exports = kind(
-	/** @lends module:moonstone/Popup~Popup.prototype */ {
+	/** @lends module:moonstone/Notification~Notification.prototype */ {
 
 	/**
 	* @private
@@ -40,7 +40,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	kind: Control,
+	kind: Popup,
 
 	/**
 	* @private
@@ -60,12 +60,17 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	// floating: true,
+	floating: true,
 
 	/**
 	* @private
 	*/
 	spotlight: 'container',
+
+	/**
+	* @private
+	*/
+	modal: true,
 
 	/**
 	* @private
@@ -82,7 +87,6 @@ module.exports = kind(
 	*/
 	handlers: {
 		onRequestScrollIntoView   : '_preventEventBubble',
-		// ontransitionend           : 'animationEnd',
 		onSpotlightSelect         : 'handleSpotlightSelect'
 	},
 
@@ -118,13 +122,25 @@ module.exports = kind(
 		content: '',
 
 		/**
-		* When `true`, popups will animate on/off screen.
+		* When `true`, the notification will animate on/off screen.
 		*
 		* @type {Boolean}
 		* @default true
 		* @public
 		*/
-		showHideDuration: 400
+		showHideDuration: 400,
+
+		/**
+		* If `true`, {@glossary Spotlight} (focus) cannot leave the area of the notification unless
+		* the notification is explicitly closed; if `false`, spotlight may be moved anywhere within
+		* the viewport.
+		*
+		* @type {Boolean}
+		* @default true
+		* @public
+		*/
+		spotlightModal: true,
+
 	},
 
 	/**
