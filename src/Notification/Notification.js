@@ -26,6 +26,7 @@ var
 * from the bottom of the screen.
 *
 * @class Notification
+* @extends module:enyo/Popup~Popup
 * @ui
 * @public
 */
@@ -122,10 +123,11 @@ module.exports = kind(
 		content: '',
 
 		/**
-		* When `true`, the notification will animate on/off screen.
+		* The duration, in miliseconds, that the notification takes to animate on and off screen.
+		* Setting to zero (0) forces the transition on/off screen to be instant.
 		*
-		* @type {Boolean}
-		* @default true
+		* @type {Number}
+		* @default 400
 		* @public
 		*/
 		showHideDuration: 400,
