@@ -23,7 +23,7 @@ var
 
 /**
 * {@link module:moonstone/Notification~Notification} is a toast-like minimal popup that comes up
-* from the bottom of the screen.
+* from the bottom of the screen. It requires a button to be provided and present to close it.
 *
 * @class Notification
 * @extends module:enyo/Popup~Popup
@@ -81,22 +81,23 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	allowDefault: true,
+	activator: null,
+
+	/**
+	* @private
+	*/
+	shownMethod: 'shown',
+
+	/**
+	* @private
+	*/
+	hiddenMethod: 'hidden',
 
 	/**
 	* @private
 	*/
 	handlers: {
-		onRequestScrollIntoView   : '_preventEventBubble',
-		onSpotlightSelect         : 'handleSpotlightSelect'
-	},
-
-	/**
-	* @private
-	*/
-	eventsToCapture: {
-		onSpotlightFocus: 'capturedFocus',
-		onkeydown: 'captureKeyDown'
+		onRequestScrollIntoView   : '_preventEventBubble'
 	},
 
 	/**
@@ -124,7 +125,9 @@ module.exports = kind(
 
 		/**
 		* The duration, in miliseconds, that the notification takes to animate on and off screen.
-		* Setting to zero (0) forces the transition on/off screen to be instant.
+		* Setting to zero (0) forces the transition on/off screen to be instant. However, if your
+		* desire is to have immediate transitions, it's more efficient to simply toggle
+		* [animate]{@link module:moonstone/Notification~Notification#animate}.
 		*
 		* @type {Number}
 		* @default 400
@@ -163,21 +166,6 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	activator: null,
-
-	/**
-	* @private
-	*/
-	shownMethod: 'shown',
-
-	/**
-	* @private
-	*/
-	hiddenMethod: 'hidden',
-
-	/**
-	* @private
-	*/
 	create: function () {
 		Control.prototype.create.apply(this, arguments);
 		this.animateChanged();
@@ -212,77 +200,6 @@ module.exports = kind(
 		this.showHideDurationChanged();
 		this.addRemoveClass('animate', this.animate);
 		this.showHideDurationChanged();
-	},
-
-	/**
-	* Sets `this.downEvent` on `onSpotlightSelect` event.
-	*
-	* @private
-	*/
-	handleSpotlightSelect: function(sender, event) {
-		this.downEvent = event;
-	},
-
-	/**
-	* If `this.downEvent` is set to a {@glossary Spotlight} event, skips normal popup
-	* `capturedTap()` code.
-	*
-	* @private
-	*/
-	capturedTap: function(sender, event) {
-		if (!this.downEvent || (this.downEvent.type != 'onSpotlightSelect')) {
-			Control.prototype.capturedTap.apply(this, arguments);
-		}
-	},
-
-	/**
-	* If the popup has no spottable children, an [Enter] key down will cause it to be hidden
-	* because Spotlight will try to spot the nearest or last control for a 5-way key down.
-	* Since there isn't a spottable child, a control outside the popup is focused which triggers
-	* `capturedFocus` which hides the Popup.
-	*
-	* @private
-	*/
-	captureKeyDown: function (sender, event) {
-		this.preventHide = (event.keyCode == 13 || event.keyCode == 16777221) && !Spotlight.isSpottable(this);
-	},
-
-	/**
-	* @private
-	*/
-	capturedFocus: function (sender, event) {
-		// While we're open, we hijack Spotlight focus events. In all cases, we want
-		// to prevent the default 5-way behavior (which is to focus on the control nearest
-		// to the pointer in the chosen direction)...
-		var last = Spotlight.getLastControl(),
-			cur = Spotlight.getCurrent(),
-			focusCapturedControl = event.originator;
-		// There are two cases where we want to focus back on ourselves...
-		// NOTE: The logic used here to detect these cases is highly dependent on certain
-		// nuances of how Spotlight currently tracks the "last" and "current" focus. It will
-		// probably need to be updated if / when Spotlight gets some love in this area.
-		if (
-			// Case 1: We were probably just opened in pointer mode. The pointer is outside
-			// the popup, which means a 5-way press will likely focus some control outside the
-			// popup, unless we prevent it by re-spotting ourselves.
-			//(last === this && !cur.isDescendantOf(this)) ||
-			(last === this && !focusCapturedControl.isDescendantOf(this)) ||
-			// Case 2: We were probably opened in 5-way mode and then the pointer was moved
-			// (likely due to incidental movement of the magic remote). It's possible that the
-			// user actually wants to exit the popup by focusing on something outside, but more
-			// likely that they have accidentally wiggled the remote and intend to be moving
-			// around within the popup -- so, again, we re-spot ourselves.
-			(last.isDescendantOf(this) && cur !== this)
-
-		) {
-			Spotlight.spot(this);
-		}
-		// In all other cases, the user probably means to exit the popup by moving out, so we
-		// close ourselves.
-		else if (!this.preventHide) {
-			this.hide();
-		}
-		return true;
 	},
 
 	showingTransitioningChanged: function () {
