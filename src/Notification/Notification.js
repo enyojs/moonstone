@@ -139,8 +139,7 @@ module.exports = kind(
 		* @default true
 		* @public
 		*/
-		spotlightModal: true,
-
+		spotlightModal: true
 	},
 
 	/**
