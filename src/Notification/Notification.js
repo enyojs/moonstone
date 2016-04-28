@@ -174,7 +174,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	render: function() {
+	render: function () {
 		this._initialized = true;
 		Popup.prototype.render.apply(this, arguments);
 	},
@@ -182,7 +182,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	showHideDurationChanged: function() {
+	showHideDurationChanged: function () {
 		var dur = (this.animate && this.showHideDuration) ? this.showHideDuration : 0;
 		this.set('showingDuration', dur);
 		this.set('hidingDuration', dur);
@@ -194,7 +194,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	animateChanged: function() {
+	animateChanged: function () {
 		this.showHideDurationChanged();
 		this.addRemoveClass('animate', this.animate);
 		this.showHideDurationChanged();
@@ -246,7 +246,6 @@ module.exports = kind(
 	hidden: function (sender, ev) {
 		this.respotActivator();
 
-		// debugger;
 		if (this._initialized && this.allowBackKey && !EnyoHistory.isProcessing()) {
 			EnyoHistory.drop();
 		}
@@ -257,7 +256,7 @@ module.exports = kind(
 	*
 	* @public
 	*/
-	showDirect: function() {
+	showDirect: function () {
 		var anim = this.animate;
 		if (anim) {
 			this.set('animate', false);
@@ -277,7 +276,7 @@ module.exports = kind(
 	*
 	* @public
 	*/
-	hideDirect: function() {
+	hideDirect: function () {
 		var anim = this.animate;
 		if (anim) {
 			this.set('animate', false);
@@ -301,7 +300,7 @@ module.exports = kind(
 	*
 	* @private
 	*/
-	respotActivator: function() {
+	respotActivator: function () {
 		var a = this.activator;
 		// We're about to spot something, so we first call release() to avoid capturing
 		// (and preventing) the resulting SpotlightFocus event.
@@ -322,7 +321,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	_preventEventBubble: function(sender, event) {
+	_preventEventBubble: function (sender, ev) {
 		return true;
 	},
 
