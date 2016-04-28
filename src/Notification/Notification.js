@@ -167,18 +167,16 @@ module.exports = kind(
 	* @private
 	*/
 	create: function () {
-		Control.prototype.create.apply(this, arguments);
+		Popup.prototype.create.apply(this, arguments);
 		this.animateChanged();
 	},
 
 	/**
-	* Renders {@link module:moonstone/Control~Control}, extending {@link module:enyo/Control~Control}
-	*
 	* @private
 	*/
 	render: function() {
 		this._initialized = true;
-		Control.prototype.render.apply(this, arguments);
+		Popup.prototype.render.apply(this, arguments);
 	},
 
 	/**
@@ -202,6 +200,9 @@ module.exports = kind(
 		this.showHideDurationChanged();
 	},
 
+	/**
+	* @private
+	*/
 	showingTransitioningChanged: function () {
 		if (this.showingTransitioning) {
 			// if we are currently animating the hide transition, release
@@ -225,6 +226,7 @@ module.exports = kind(
 		var current = this.activator;
 		if (!current || !current.isDescendantOf(this)) {
 			if (Spotlight.isSpottable(this)) {
+				Spotlight.setPointerMode(false);
 				Spotlight.spot(this);
 			}
 			// If we're not spottable, just unspot whatever was previously spotted
