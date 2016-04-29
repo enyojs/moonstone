@@ -195,7 +195,6 @@ module.exports = kind(
 	* @private
 	*/
 	animateChanged: function () {
-		this.showHideDurationChanged();
 		this.addRemoveClass('animate', this.animate);
 		this.showHideDurationChanged();
 	},
