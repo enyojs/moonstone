@@ -22,6 +22,8 @@ var
 	IconButton = require('../IconButton'),
 	HistorySupport = require('../HistorySupport');
 
+var options = require('enyo/options');
+
 /**
 * {@link module:moonstone/Popup~Popup} is an {@link module:enyo/Popup~Popup} that appears at the bottom of the
 * screen and takes up the full screen width.
@@ -85,7 +87,8 @@ module.exports = kind(
 	handlers: {
 		onRequestScrollIntoView   : '_preventEventBubble',
 		ontransitionend           : 'animationEnd',
-		onSpotlightSelect         : 'handleSpotlightSelect'
+		onSpotlightSelect         : 'handleSpotlightSelect',
+		onSpotlightContainerEnter : 'onEnter'
 	},
 
 	/**
@@ -612,9 +615,23 @@ module.exports = kind(
 	*/
 	ariaObservers: [
 		{path: ['accessibilityReadAll', 'accessibilityRole', 'showing'], method: function () {
-			this.startJob('alert', function () {
-				this.setAriaAttribute('role', this.accessibilityReadAll && this.showing ? 'alert' : this.accessibilityRole);
-			}, 100);
+			this.updateAriaRole();
 		}}
-	]
+	],
+
+	/**
+	* @private
+	*/
+	onEnter : function(oSender, oEvent) {
+		if (options.accessibility && oEvent.originator == this) {
+			this.updateAriaRole();
+		}
+	},
+
+	/**
+	* @private
+	*/
+	updateAriaRole: function() {
+		this.setAriaAttribute('role', this.accessibilityReadAll && this.showing ? 'alert' : this.accessibilityRole);
+	}
 });
