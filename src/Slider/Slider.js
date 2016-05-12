@@ -904,7 +904,8 @@ module.exports = kind(
 		this.throttleJob('sliderChange', function () {
 			this.doChange(data);
 			this.startJob('sliderChangePost', function () {
-				if (this.value !== value) this.doChange({value: this.value});
+				if (this.value !== value)
+					this.doChange({value: this.clampValue(this.min, this.max, this.value)});
 			}, this.changeDelayMS);
 		}, this.changeDelayMS);
 	},
