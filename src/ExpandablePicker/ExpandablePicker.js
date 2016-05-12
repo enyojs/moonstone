@@ -209,7 +209,7 @@ module.exports = kind(
 		{from: 'selected.content', to: 'selectedText'},
 
 		// Accessibility
-		{from: 'selected.accessibilityLabel', to: '$.header._accessibilityText'}
+		{from: 'accessibilityText', to: '$.header._accessibilityText'}
 	],
 
 	computed: {
@@ -241,7 +241,8 @@ module.exports = kind(
 	},
 
 	/**
-	*  'multiSelectCurrentValue()' can be overridden by subkinds, such as moon.DayPicker
+	*  'multiSelectCurrentValue()' can be overridden by subkinds, such as moon.DayPicker.
+	*  Returns label for selected items by concatenate content of each items.
 	*
 	* @protected
 	*/
@@ -258,6 +259,30 @@ module.exports = kind(
 			} else {
 				str = str + ', ' + controls[this.selectedIndex[i]].getContent();
 			}
+		}
+		if (!str) {
+			str = this.getNoneText();
+		}
+		return str;
+	},
+
+	/**
+	*  'multiSelectCurrentAccesibilityLabel()' can be overridden by subkinds, such as moon.DayPicker.
+	*  Returns accessibilityLabel for selected items by concatenate accessibilityLabel of each items.
+	*
+	* @protected
+	*/
+	multiSelectCurrentAccesibilityLabel: function () {
+		if (!this.multipleSelection) {
+			return;
+		}
+		var controls = this.getCheckboxControls(), control = null;
+		var str = '', content = '';
+		this.selectedIndex.sort();
+		for (var i=0; i < this.selectedIndex.length; i++) {
+			control = controls[this.selectedIndex[i]];
+			content = control.get('accessibilityLabel') || control.getContent();
+			str = !str ? content : str + ', ' + content;
 		}
 		if (!str) {
 			str = this.getNoneText();
@@ -343,6 +368,15 @@ module.exports = kind(
 			return sel.get('content');
 		}
 		return this.noneText;
+	},
+
+	/**
+	* Update header accessibilityLabel whenever currentValueText changed.
+	*
+	* @private
+	*/
+	currentValueTextChanged: function () {
+		this.set('accessibilityText', this.multiSelectCurrentAccesibilityLabel());
 	},
 
 	/**
