@@ -8,7 +8,8 @@ require('moonstone');
 var
 	kind = require('enyo/kind'),
 	Component = require('enyo/Component'),
-	Group = require('enyo/Group');
+	Group = require('enyo/Group'),
+	options = require('enyo/options');
 
 var
 	BodyText = require('../BodyText'),
@@ -209,7 +210,7 @@ module.exports = kind(
 		{from: 'selected.content', to: 'selectedText'},
 
 		// Accessibility
-		{from: 'accessibilityText', to: '$.header._accessibilityText'}
+		{from: '_accessibilityText', to: '$.header._accessibilityText'}
 	],
 
 	computed: {
@@ -255,9 +256,9 @@ module.exports = kind(
 		this.selectedIndex.sort();
 		for (var i=0; i < this.selectedIndex.length; i++) {
 			if (!str) {
-				str = controls[this.selectedIndex[i]].getContent();
+				str = controls[this.selectedIndex[i]].get('content');
 			} else {
-				str = str + ', ' + controls[this.selectedIndex[i]].getContent();
+				str = str + ', ' + controls[this.selectedIndex[i]].get('content');
 			}
 		}
 		if (!str) {
@@ -281,7 +282,7 @@ module.exports = kind(
 		this.selectedIndex.sort();
 		for (var i=0; i < this.selectedIndex.length; i++) {
 			control = controls[this.selectedIndex[i]];
-			content = control.get('accessibilityLabel') || control.getContent();
+			content = control.get('accessibilityLabel') || control.get('content');
 			str = !str ? content : str + ', ' + content;
 		}
 		if (!str) {
@@ -376,7 +377,20 @@ module.exports = kind(
 	* @private
 	*/
 	currentValueTextChanged: function () {
-		this.set('accessibilityText', this.multiSelectCurrentAccesibilityLabel());
+		if (!options.accessibility) return;
+
+		var multi = this.multipleSelection,
+			sel = this.get('selected'),
+			selIdx = this.get('selectedIndex'),
+			text = this.noneText;
+
+		if (multi && sel.length && selIdx.length) {
+			text = this.multiSelectCurrentAccesibilityLabel();
+		}
+		else if (!multi && sel && selIdx !== -1) {
+			text = sel.get('accessibilityLabel') || sel.get('content');
+		}
+		this.set('_accessibilityText', text);
 	},
 
 	/**
