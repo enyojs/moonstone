@@ -539,6 +539,16 @@ module.exports = kind(
 	/**
 	* @private
 	*/
+	calcPopupLabel: kind.inherit(function (sup) {
+		return function (val) {
+			val = (this.increment) ? this.calcIncrement(val) : val;
+			return sup.apply(this, arguments);
+		};
+	}),
+
+	/**
+	* @private
+	*/
 	updateValues: function (value) {
 		if (this.lockBar) {
 			this.setProgress(value);
