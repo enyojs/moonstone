@@ -101,7 +101,9 @@ module.exports = kind(
 	* @private
 	*/
 	handlers: {
-		onSpotlightFocused: 'focused'
+		onSpotlightFocused: 'focused',
+		onSpotlightKeyDown: 'pressed',
+		onSpotlightKeyUp: 'depressed'
 	},
 
 	/**
@@ -112,6 +114,22 @@ module.exports = kind(
 		if (inEvent.originator === this) {
 			this.bubble('onRequestScrollIntoView');
 		}
+	},
+
+	/**
+	* @private
+	*/
+	pressed: function (sender, ev) {
+		if (ev.keyCode === 13) {
+			this.addClass('pressed');
+		}
+	},
+
+	/**
+	* @private
+	*/
+	depressed: function (sender, ev) {
+		this.removeClass('pressed');
 	},
 
 	// Accessibility

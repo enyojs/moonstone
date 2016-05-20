@@ -62,6 +62,11 @@
 	&:not(.sized-image) {
 		padding-bottom: 96px;
 	}
+
+	&.pressed,
+	&:active {
+		outline: @moon-spotlight-border-color solid 3px;
+	}
 }
 
 .enyo-locale-non-latin .moon-gridlist-imageitem {
