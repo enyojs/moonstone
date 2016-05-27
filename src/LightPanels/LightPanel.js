@@ -195,11 +195,11 @@ module.exports = kind(
 
 			Spotlight.resume();
 			spotlightPlaceholder.spotlight = false;
-			if(window.PalmSystem && window.PalmSystem.isActivated && Spotlight.isMuted()){
+			if (window.PalmSystem && window.PalmSystem.isActivated && Spotlight.isMuted()) {
 				Spotlight.unmute('window.focus');
 				if (window.PalmSystem.cursor) {
-                    Spotlight.setPointerMode( window.PalmSystem.cursor.visibility );
-                }
+					Spotlight.setPointerMode(window.PalmSystem.cursor.visibility);
+				}
 			}
 			if (!Spotlight.isSpottable(this)) spotlightPlaceholder.spotlight = true;
 			if (!current || current === spotlightPlaceholder) {
