@@ -8,7 +8,8 @@ require('moonstone');
 var
 	kind = require('enyo/kind'),
 	Component = require('enyo/Component'),
-	Group = require('enyo/Group');
+	Group = require('enyo/Group'),
+	options = require('enyo/options');
 
 var
 	BodyText = require('../BodyText'),
@@ -209,7 +210,7 @@ module.exports = kind(
 		{from: 'selected.content', to: 'selectedText'},
 
 		// Accessibility
-		{from: 'selected.accessibilityLabel', to: '$.header._accessibilityText'}
+		{from: '_accessibilityText', to: '$.header._accessibilityText'}
 	],
 
 	computed: {
@@ -241,7 +242,8 @@ module.exports = kind(
 	},
 
 	/**
-	*  'multiSelectCurrentValue()' can be overridden by subkinds, such as moon.DayPicker
+	*  'multiSelectCurrentValue()' can be overridden by subkinds, such as moon.DayPicker.
+	*  Returns label for selected items by concatenate content of each items.
 	*
 	* @protected
 	*/
@@ -254,10 +256,34 @@ module.exports = kind(
 		this.selectedIndex.sort();
 		for (var i=0; i < this.selectedIndex.length; i++) {
 			if (!str) {
-				str = controls[this.selectedIndex[i]].getContent();
+				str = controls[this.selectedIndex[i]].get('content');
 			} else {
-				str = str + ', ' + controls[this.selectedIndex[i]].getContent();
+				str = str + ', ' + controls[this.selectedIndex[i]].get('content');
 			}
+		}
+		if (!str) {
+			str = this.getNoneText();
+		}
+		return str;
+	},
+
+	/**
+	*  'multiSelectCurrentAccesibilityLabel()' can be overridden by subkinds, such as moon.DayPicker.
+	*  Returns accessibilityLabel for selected items by concatenate accessibilityLabel of each items.
+	*
+	* @protected
+	*/
+	multiSelectCurrentAccesibilityLabel: function () {
+		if (!this.multipleSelection) {
+			return;
+		}
+		var controls = this.getCheckboxControls(), control = null;
+		var str = '', content = '';
+		this.selectedIndex.sort();
+		for (var i=0; i < this.selectedIndex.length; i++) {
+			control = controls[this.selectedIndex[i]];
+			content = control.get('accessibilityLabel') || control.get('content');
+			str = !str ? content : str + ', ' + content;
 		}
 		if (!str) {
 			str = this.getNoneText();
@@ -343,6 +369,28 @@ module.exports = kind(
 			return sel.get('content');
 		}
 		return this.noneText;
+	},
+
+	/**
+	* Update header accessibilityLabel whenever currentValueText changed.
+	*
+	* @private
+	*/
+	currentValueTextChanged: function () {
+		if (!options.accessibility) return;
+
+		var multi = this.multipleSelection,
+			sel = this.get('selected'),
+			selIdx = this.get('selectedIndex'),
+			text = this.noneText;
+
+		if (multi && sel.length && selIdx.length) {
+			text = this.multiSelectCurrentAccesibilityLabel();
+		}
+		else if (!multi && sel && selIdx !== -1) {
+			text = sel.get('accessibilityLabel') || sel.get('content');
+		}
+		this.set('_accessibilityText', text);
 	},
 
 	/**

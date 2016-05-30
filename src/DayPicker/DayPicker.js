@@ -225,6 +225,19 @@ module.exports = kind(
 	/**
 	* @private
 	*/
+	multiSelectCurrentAccesibilityLabel: kind.inherit(function (sup) {
+		return function() {
+			var str = this.getRepresentativeString();
+			if (str) {
+				return str;
+			}
+			return sup.apply(this, arguments);
+		};
+	}),
+
+	/**
+	* @private
+	*/
 	getRepresentativeString: function () {
 		var bWeekEndStart = false,
 			bWeekEndEnd = false,
