@@ -122,7 +122,7 @@ module.exports = kind(
 	* @private
 	*/
 	tools: [
-		{name: 'tooltip', kind: Tooltip, floating: false, position: 'right top'}
+		{name: 'tooltip', kind: Tooltip, floating: false, position: 'right top', accessibilityDisabled: true}
 	],
 
 	/**
