@@ -731,6 +731,7 @@ module.exports = kind(
 		if (this.tappable && !this.disabled) {
 			val = this.transformToVideo(this.calcKnobPosition(e));
 			this.sendSeekEvent(val);
+			this._updateKnobPosition(val);
 			return true;
 		}
 	},
