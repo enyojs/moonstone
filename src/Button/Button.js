@@ -291,5 +291,19 @@ module.exports = kind(
 		if (opacity == 'translucent' || opacity == 'transparent') {
 			this.addClass(opacity);
 		}
-	}
+	},
+
+	// Accessibility
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: ['content'], method: function () {
+			if (!this.accessibilityLabel) {
+				var content = this.content;
+				this.$.client.setAriaAttribute('aria-label', content);
+			}
+		}}
+	]
 });

@@ -238,6 +238,12 @@ module.exports = kind(
 	},
 
 	ariaObservers: [
+		{from: 'title', method: function () {
+			if (!this.accessibilityLabel) {
+				var content = this.getTitle();
+				this.$.title.set('accessibilityLabel', content);
+			}
+		}},
 		{from: 'generated', method: function () {
 			if (!this.generated) return;
 
