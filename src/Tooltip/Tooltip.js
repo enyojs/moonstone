@@ -102,7 +102,21 @@ var TooltipContent = kind({
 	*/
 	uppercaseChanged: function (was, is) {
 		this.contentChanged();
-	}
+	},
+
+	// Accessibility
+
+	/**
+	* @private
+	*/
+	ariaObservers: [
+		{path: ['content'], method: function () {
+			if (!this.accessibilityLabel) {
+				var content = this._content;
+				this.setAriaAttribute('aria-label', content);
+			}
+		}}
+	]
 });
 
 /**
