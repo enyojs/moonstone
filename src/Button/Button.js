@@ -300,7 +300,7 @@ module.exports = kind(
 	*/
 	ariaObservers: [
 		{path: ['content'], method: function () {
-			if (!this.accessibilityLabel) {
+			if (!this.accessibilityLabel && this.$.client) {
 				var content = this.content;
 				this.$.client.setAriaAttribute('aria-label', content);
 			}
