@@ -217,9 +217,13 @@ module.exports = kind(
 	*/
 	inputSpotBlurred: function (inSender, inEvent) {
 		var eventType;
+		var touchSupport, checkNode, mousePointerSupport;
 		if (this.open && Spotlight.getPointerMode()) {
 			eventType = Spotlight.getLastEvent().type;
-			if (eventType !== 'onSpotlightFocus' && eventType !== 'mouseover') {
+			checkNode = Spotlight.getLastEvent().originator.isDescendantOf(this);
+			touchSupport = (eventType === 'onSpotlightFocus' && !checkNode);
+			mousePointerSupport = (eventType !== 'onSpotlightFocus' && eventType !== 'mouseover');
+			if (mousePointerSupport || touchSupport) {
 				this.closeDrawerAndHighlightHeader();
 			}
 		}
@@ -238,8 +242,11 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	headerDown: function () {
+	headerDown: function (sender, ev) {
 		Spotlight.unfreeze();
+		if(event.type == 'touchstart') {
+			ev.preventDefault();
+		}
 	},
 
 	/**
