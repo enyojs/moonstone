@@ -210,6 +210,7 @@ var HourMinutePickerBase = kind(
 		IntegerPicker.prototype.create.apply(this, arguments);
 		// Create ilib Date object used for formatting hours
 		this.date = dateFactory();
+		this.ariaValue();
 	},
 
 	/**
