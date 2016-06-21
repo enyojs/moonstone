@@ -199,7 +199,7 @@ module.exports = kind(
 	* @private
 	*/
 	initComponents: function() {
-		this.createComponents(this.tools, {owner: this});
+		this.createComponents(this.tools, {owner: this, isChrome: true});
 		Popup.prototype.initComponents.apply(this, arguments);
 	},
 
