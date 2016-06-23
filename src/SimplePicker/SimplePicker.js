@@ -500,9 +500,10 @@ module.exports = kind(
 		// update slected content on button left/right and client
 		{path: 'selected', method: function () {
 			if (this.selected) {
-				this.$.buttonLeft.set('accessibilityLabel', this.selected.content);
-				this.$.buttonRight.set('accessibilityLabel', this.selected.content);
-				this.$.client.setAttribute('aria-valuetext', this.selected.content);
+				var label = this.selected.accessibilityLabel || this.selected.content;
+				this.$.buttonLeft.set('accessibilityLabel', label);
+				this.$.buttonRight.set('accessibilityLabel', label);
+				this.$.client.setAttribute('aria-valuetext', label);
 			}
 		}}
 	]
