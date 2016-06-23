@@ -507,7 +507,7 @@ if (platform.touch) {
 								NearestNeighbor.
 								getNearestPointerNeighbor(this, rDirection.toUpperCase(), oEndPoint.x, oEndPoint.y);
 				}
-				if (oControl !== oSpotControl) {
+				if (oControl != null && oControl !== oSpotControl) {
 					Spotlight.spot(oControl);
 				} else {
 					pageKeyCtr.sendPaginateEvent();
