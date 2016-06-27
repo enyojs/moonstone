@@ -6,7 +6,8 @@ require('moonstone');
 */
 
 var
-	kind = require('enyo/kind');
+	kind = require('enyo/kind'),
+	platform = require('enyo/platform');
 
 var
 	Spotlight = require('spotlight');
@@ -241,7 +242,7 @@ module.exports = kind(
 	*/
 	headerDown: function (sender, ev) {
 		Spotlight.unfreeze();
-		if(event.type == 'touchstart') {
+		if(platform.touch && event.type == 'touchstart') {
 			ev.preventDefault();
 		}
 	},
