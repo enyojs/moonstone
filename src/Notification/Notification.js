@@ -86,12 +86,12 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	shownMethod: 'shown',
+	showingMethod: 'beforeShow',
 
 	/**
 	* @private
 	*/
-	hiddenMethod: 'hidden',
+	hidingMethod: 'beforeHide',
 
 	/**
 	* @private
@@ -210,16 +210,12 @@ module.exports = kind(
 				this.release();
 			}
 		}
-
-		if (!this.showing) {
-			Spotlight.unspot();
-		}
 	},
 
 	/**
 	* @private
 	*/
-	shown: function (sender, ev) {
+	beforeShow: function (sender, ev) {
 		this.activator = Spotlight.getCurrent();
 
 		var current = this.activator;
@@ -242,7 +238,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	hidden: function (sender, ev) {
+	beforeHide: function (sender, ev) {
 		this.respotActivator();
 
 		if (this._initialized && this.allowBackKey && !EnyoHistory.isProcessing()) {
