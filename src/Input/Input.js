@@ -149,7 +149,8 @@ module.exports = kind(
 	* @private
 	*/
 	left: function () {
-		if (!this.hasNode() || this.node.selectionStart === 0) {
+		var start = this.rtl ? this.node.value.length : 0;
+		if (!this.hasNode() || this.node.selectionStart === start) {
 			return false;
 		}
 		return true;
@@ -159,7 +160,8 @@ module.exports = kind(
 	* @private
 	*/
 	right: function () {
-		if (!this.hasNode() || this.node.selectionStart == this.node.value.length) {
+		var end = this.rtl ? 0: this.node.value.length;
+		if (!this.hasNode() || this.node.selectionStart == end) {
 			return false;
 		}
 		return true;
