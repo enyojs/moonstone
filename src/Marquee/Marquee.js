@@ -740,6 +740,7 @@ var MarqueeItem = {
 			sup.apply(this, arguments);
 			this._marquee_invalidateMetrics();
 			this._marquee_calcDistance();
+			this._marquee_reset();
 		};
 	}),
 
