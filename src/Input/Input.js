@@ -161,7 +161,7 @@ module.exports = kind(
 	*/
 	right: function () {
 		var end = this.rtl ? 0 : this.node.value.length;
-		if (!this.hasNode() || this.node.selectionStart == end) {
+		if (!this.hasNode() || this.node.selectionStart === end) {
 			return false;
 		}
 		return true;
