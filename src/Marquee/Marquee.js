@@ -305,6 +305,17 @@ var MarqueeSupport = {
 	* @method
 	* @private
 	*/
+	reflow: kind.inherit(function (sup) {
+		return function () {
+			this.resetMarquee();
+			sup.apply(this, arguments);
+		};
+	}),
+
+	/**
+	* @method
+	* @private
+	*/
 	teardownRender: kind.inherit(function (sup) {
 		return function (caching) {
 			if (caching && this._marquee_active) {
@@ -740,7 +751,6 @@ var MarqueeItem = {
 			sup.apply(this, arguments);
 			this._marquee_invalidateMetrics();
 			this._marquee_calcDistance();
-			this._marquee_reset();
 		};
 	}),
 
