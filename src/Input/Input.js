@@ -160,8 +160,8 @@ module.exports = kind(
 	* @private
 	*/
 	right: function () {
-		var end = this.rtl ? 0: this.node.value.length;
-		if (!this.hasNode() || this.node.selectionStart == end) {
+		var end = this.rtl ? 0 : this.node.value.length;
+		if (!this.hasNode() || this.node.selectionStart === end) {
 			return false;
 		}
 		return true;
