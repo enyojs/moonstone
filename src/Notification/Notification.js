@@ -215,21 +215,6 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	showingChanged: kind.inherit(function (sup) {
-		return function (sender, ev) {
-			if (this.showing && this.showingTransitioning) {
-				// ENYO-3382: hide animation is not finished, call popup hide directly before show again
-				this.showing = !this.showing;
-				Popup.prototype.showingChanged.apply(this, arguments);
-				this.showing = !this.showing;
-			}
-			sup.apply(this, arguments);
-		};
-	}),
-
-	/**
-	* @private
-	*/
 	beforeShow: function (sender, ev) {
 		this.activator = Spotlight.getCurrent();
 
