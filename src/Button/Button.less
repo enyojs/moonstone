@@ -148,6 +148,15 @@
 		color: inherit;
 	}
 
+	&.translucent {
+		background-color: fade(@moon-button-background-color, @moon-button-translucent-opacity);
+	}
+
+	&.transparent {
+		color: @moon-neutral-button-bg-color;
+		background-color: transparent;
+	}
+
 	&[disabled] {
 		color: @moon-neutral-button-disabled-text-color;
 		background-color: @moon-neutral-button-disabled-bg-color;
