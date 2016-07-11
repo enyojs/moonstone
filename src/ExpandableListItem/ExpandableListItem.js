@@ -170,7 +170,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	spotlight: false,
+	spotlight: 'container',
 
 	/**
 	* @private
