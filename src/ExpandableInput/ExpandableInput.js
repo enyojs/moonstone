@@ -221,8 +221,13 @@ module.exports = kind(
 		var touchSupport, checkNode, mousePointerSupport;
 		if (this.open && Spotlight.getPointerMode()) {
 			eventType = Spotlight.getLastEvent().type;
-			checkNode = Spotlight.getLastEvent().originator.isDescendantOf(this);
-			touchSupport = (eventType === 'onSpotlightFocus' && !checkNode);
+			
+			//this is a guard code for touch support, to handle unnecessary events because of touch.
+			if(platform.touch) {
+				checkNode = Spotlight.getLastEvent().originator.isDescendantOf(this);
+				touchSupport = (eventType === 'onSpotlightFocus' && !checkNode);
+			}
+			
 			mousePointerSupport = (eventType !== 'onSpotlightFocus' && eventType !== 'mouseover');
 			if (mousePointerSupport || touchSupport) {
 				this.closeDrawerAndHighlightHeader();
@@ -245,7 +250,7 @@ module.exports = kind(
 	*/
 	headerDown: function (sender, ev) {
 		Spotlight.unfreeze();
-		if(platform.touch && event.type == 'touchstart') {
+		if(event.type == 'touchstart') {
 			ev.preventDefault();
 		}
 	},
