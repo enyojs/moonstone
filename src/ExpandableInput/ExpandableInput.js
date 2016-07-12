@@ -214,19 +214,20 @@ module.exports = kind(
 	* @private
 	*/
 	inputSpotBlurred: function (inSender, inEvent) {
-		var eventType;
-		var touchSupport, checkNode, mousePointerSupport;
+		var eventType, lastEvent;
+		var shouldCloseByTouch, eventFromDescendant, shouldCloseByPointer;
 		if (this.open && Spotlight.getPointerMode()) {
-			eventType = Spotlight.getLastEvent().type;
+			lastEvent = Spotlight.getLastEvent();
+			eventType = lastEvent.type;
 			
 			//this is a guard code for touch support, to handle unnecessary events because of touch.
-			if(platform.touch) {
-				checkNode = Spotlight.getLastEvent().originator.isDescendantOf(this);
-				touchSupport = (eventType === 'onSpotlightFocus' && !checkNode);
+			if (platform.touch) {
+				eventFromDescendant = lastEvent.originator.isDescendantOf(this);
+				shouldCloseByTouch = (eventType === 'onSpotlightFocus' && !eventFromDescendant);
 			}
 			
-			mousePointerSupport = (eventType !== 'onSpotlightFocus' && eventType !== 'mouseover');
-			if (mousePointerSupport || touchSupport) {
+			shouldCloseByPointer = (eventType !== 'onSpotlightFocus' && eventType !== 'mouseover');
+			if (shouldCloseByPointer || shouldCloseByTouch) {
 				this.closeDrawerAndHighlightHeader();
 			}
 		}
@@ -247,7 +248,7 @@ module.exports = kind(
 	*/
 	headerDown: function (sender, ev) {
 		Spotlight.unfreeze();
-		if(event.type == 'touchstart') {
+		if (event.type == 'touchstart') {
 			ev.preventDefault();
 		}
 	},
