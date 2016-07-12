@@ -16,6 +16,7 @@ var
 	Popup = require('../Popup'),
 	IconButton = require('../IconButton'),
 	BodyText = require('../BodyText'),
+	Divider = require('../Divider'),
 	HistorySupport = require('../HistorySupport'),
 	Marquee = require('../Marquee'),
 	MarqueeText = Marquee.Text,
@@ -77,10 +78,10 @@ module.exports = kind(
 		* Should the dialog use a divider line to separate the titles from the dialog body?
 		*
 		* @type {String}
-		* @default false
+		* @default true
 		* @public
 		*/
-		useDivider: false,
+		useDivider: true,
 
 		/**
 		* The message for the dialog. May either be a string or component configuration block.
@@ -152,12 +153,14 @@ module.exports = kind(
 	*/
 	tools: [
 		{name: 'closeButton', kind: IconButton, icon: 'closex', classes: 'moon-popup-close', ontap: 'closePopup', accessibilityLabel: $L('Close'), backgroundOpacity: 'transparent', showing: false},
-		{name: 'titleWrapper', classes: 'moon-dialog-title-wrapper', components: [
-			{name: 'title', kind: MarqueeText, classes: 'moon-popup-header-text moon-dialog-title'},
-			{name: 'subTitle', kind: Control, classes: 'moon-dialog-sub-title'}
+		{kind: Control, classes: 'moon-dialog-client-wrapper', components: [
+			{name: 'client', kind: Control, classes: 'moon-hspacing moon-dialog-client'},
+			{name: 'titleWrapper', classes: 'moon-dialog-title-wrapper', components: [
+				{name: 'title', kind: MarqueeText, classes: 'moon-popup-header-text moon-dialog-title'},
+				{name: 'subTitle', kind: Control, classes: 'moon-dialog-sub-title'}
+			]}
 		]},
 		{name: 'message'},
-		{name: 'client', kind: Control, classes: 'moon-hspacing moon-dialog-client'},
 		{name: 'spotlightDummy', kind: Control, spotlight: false}
 	],
 
