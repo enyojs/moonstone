@@ -16,7 +16,6 @@ var
 	Popup = require('../Popup'),
 	IconButton = require('../IconButton'),
 	BodyText = require('../BodyText'),
-	Divider = require('../Divider'),
 	HistorySupport = require('../HistorySupport'),
 	Marquee = require('../Marquee'),
 	MarqueeText = Marquee.Text,
