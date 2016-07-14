@@ -125,6 +125,16 @@ module.exports = kind(
 		animate: true,
 
 		/**
+		*
+		* When `true`, HTML tags are allowed in the control's content.
+		*
+		* @type {Boolean}
+		* @default true
+		* @public
+		*/
+		allowHtml: true,
+
+		/**
 		* The message that will be displayed in the notification's text area.
 		*
 		* @type {String}
