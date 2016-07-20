@@ -79,6 +79,11 @@ module.exports = kind(
 	/**
 	* @private
 	*/
+	spotlightRememberFocus: false,
+
+	/**
+	* @private
+	*/
 	allowDefault: true,
 
 	/**
@@ -374,8 +379,6 @@ module.exports = kind(
 					if (ev.originator === this) {
 						// Delay inherited until animationEnd
 						Popup.prototype.showingChanged.apply(this, args);
-						// Make all contained containers forget last focused child
-						this.waterfall('requestClearLastFocus', {type: 'requestClearLastFocus', originator: this});
 						this.animationEnd = util.nop;
 						this.isAnimatingHide = false;
 					}
