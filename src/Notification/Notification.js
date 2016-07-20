@@ -76,11 +76,6 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	spotlightRememberFocus: false,
-
-	/**
-	* @private
-	*/
 	activator: null,
 
 	/**
@@ -92,6 +87,11 @@ module.exports = kind(
 	* @private
 	*/
 	hidingMethod: 'beforeHide',
+
+	/**
+	* @private
+	*/
+	hiddenMethod: 'afterHide',
 
 	/**
 	* @private
@@ -251,6 +251,14 @@ module.exports = kind(
 		if (this._initialized && this.allowBackKey && !EnyoHistory.isProcessing()) {
 			EnyoHistory.drop();
 		}
+	},
+
+	/**
+	* @private
+	*/
+	afterHide: function (sender, ev) {
+		// Make all contained containers forget last focused child
+		this.waterfall('requestClearLastFocus', {type: 'requestClearLastFocus', originator: this});
 	},
 
 	/**
