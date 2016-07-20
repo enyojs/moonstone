@@ -21,6 +21,8 @@ var
 	BodyText = require('../BodyText'),
 	HistorySupport = require('../HistorySupport');
 
+var options = require('enyo/options');
+
 /**
 * {@link module:moonstone/Notification~Notification} is a toast-like minimal popup that comes up
 * from the bottom of the screen. It requires a button to be provided and present to close it.
@@ -417,9 +419,23 @@ module.exports = kind(
 	*/
 	ariaObservers: [
 		{path: ['accessibilityReadAll', 'accessibilityRole', 'showing'], method: function () {
-			this.startJob('alert', function () {
-				this.setAriaAttribute('role', this.accessibilityReadAll && this.showing ? 'alert' : this.accessibilityRole);
-			}, 100);
+			this.updateAriaRole();
 		}}
-	]
+	],
+
+	/**
+	* @private
+	*/
+	onEnter : function(oSender, oEvent) {
+		if (options.accessibility && oEvent.originator == this) {
+			this.updateAriaRole();
+		}
+	},
+
+	/**
+	* @private
+	*/
+	updateAriaRole: function() {
+		this.setAriaAttribute('role', this.accessibilityReadAll && this.showing ? 'alert' : this.accessibilityRole);
+	}
 });
