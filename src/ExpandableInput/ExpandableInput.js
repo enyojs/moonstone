@@ -6,7 +6,8 @@ require('moonstone');
 */
 
 var
-	kind = require('enyo/kind');
+	kind = require('enyo/kind'),
+	platform = require('enyo/platform');
 
 var
 	Spotlight = require('spotlight');
@@ -216,10 +217,20 @@ module.exports = kind(
 	* @private
 	*/
 	inputSpotBlurred: function (inSender, inEvent) {
-		var eventType;
+		var eventType, lastEvent;
+		var shouldCloseByTouch, eventFromDescendant, shouldCloseByPointer;
 		if (this.open && Spotlight.getPointerMode()) {
-			eventType = Spotlight.getLastEvent().type;
-			if (eventType !== 'onSpotlightFocus' && eventType !== 'mouseover') {
+			lastEvent = Spotlight.getLastEvent();
+			eventType = lastEvent.type;
+			
+			//this is a guard code for touch support, to handle unnecessary events because of touch.
+			if (platform.touch) {
+				eventFromDescendant = lastEvent.originator.isDescendantOf(this);
+				shouldCloseByTouch = (eventType === 'onSpotlightFocus' && !eventFromDescendant);
+			}
+			
+			shouldCloseByPointer = (eventType !== 'onSpotlightFocus' && eventType !== 'mouseover');
+			if (shouldCloseByPointer || shouldCloseByTouch) {
 				this.closeDrawerAndHighlightHeader();
 			}
 		}
@@ -238,8 +249,11 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	headerDown: function () {
+	headerDown: function (sender, ev) {
 		Spotlight.unfreeze();
+		if (event.type == 'touchstart') {
+			ev.preventDefault();
+		}
 	},
 
 	/**
