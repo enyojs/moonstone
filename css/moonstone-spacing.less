@@ -13,22 +13,23 @@
 	&.top > * {
 		vertical-align: top;
 	}
-	& > :first-child {
+	& > :not([style*="display:none"]):not([style*="display: none"]):first-of-type {
 		margin-left: 0;
 	}
-	.enyo-locale-right-to-left & > :first-child {
+	.enyo-locale-right-to-left & > :not([style*="display:none"]):not([style*="display: none"]):first-of-type {
 		margin-left: @moon-grid-gutter-width/2;
 		margin-right: 0;
 	}
-	& > :last-child {
+	& > :not([style*="display:none"]):not([style*="display: none"]):last-of-type {
 		margin-right: 0;
 	}
-	.enyo-locale-right-to-left & > :last-child {
+	.enyo-locale-right-to-left & > :not([style*="display:none"]):not([style*="display: none"]):last-of-type {
 		margin-right: @moon-grid-gutter-width/2;
 		margin-left: 0;
 	}
 	& > .moon-contextual-popup-decorator :first-child,
-	& > .moon-tooltip-decorator :first-child {
+	& > .moon-tooltip-decorator :first-child,
+	& > [style*="display:none"][style*="display: none"] {
 		margin: 0;
 	}
 }
