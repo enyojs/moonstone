@@ -13,21 +13,32 @@
 	&.top > * {
 		vertical-align: top;
 	}
-	& > :first-child,
-	& > :first-child.moon-contextual-popup-decorator :first-child {
+	& > :first-child {
 		margin-left: 0;
 	}
 	.enyo-locale-right-to-left & > :first-child {
 		margin-left: @moon-grid-gutter-width/2;
 		margin-right: 0;
 	}
-	& > :last-child,
-	& > :last-child.moon-contextual-popup-decorator :first-child {
+	& > :last-child {
 		margin-right: 0;
 	}
 	.enyo-locale-right-to-left & > :last-child {
 		margin-right: @moon-grid-gutter-width/2;
 		margin-left: 0;
+	}
+	& > .moon-contextual-popup-decorator :first-child,
+	& > .moon-tooltip-decorator :first-child {
+		margin: 0;
+	}
+}
+
+.moon-hspacing + .moon-hspacing {
+	margin-left: 0;
+}
+.moon-hspacing {
+	.moon-hspacing + .moon-hspacing {
+		margin-left: @moon-grid-gutter-width/2;
 	}
 }
 
