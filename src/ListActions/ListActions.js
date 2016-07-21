@@ -45,6 +45,43 @@ var ListActionActivationSupport = {
 	}
 };
 
+/*
+* This mixin support read categoty name before focused item label.
+* Category name have to assigned at accessibilityLabel property in each action element.
+*
+* @mixin ListActionCategoryAlertSupport
+* @private
+*/
+var ListActionCategoryAlertSupport = {
+
+	/**
+	* @private
+	*/
+	name: 'ListActionCategoryAlertSupport',
+
+	/**
+	* @private
+	*/
+	spotlight: "container",
+
+	/**
+	* @private
+	*/
+	handlers: {
+		onSpotlightContainerEnter: 'containerEnterHandler'
+	},
+
+	/**
+	* @private
+	*/
+	containerEnterHandler: function (sender, e) {
+		if(this.get('accessibilityAlert') !== true && this.get('accessibilityLabel').length > 0){
+			this.set('accessibilityAlert', true);
+			this.set('accessibilityAlert', false);
+		}
+	}
+};
+
 /**
 * {@link module:moonstone/ListActions~ListActionsPopup} is a
 * [control]{@link module:moonstone/ContextualPopup~ContextualPopup} used by
@@ -289,6 +326,9 @@ var ListActions = ContextualPopupDecorator.kind({
 		var mixins = listAction.mixins || [];
 		if (mixins.indexOf(ListActionActivationSupport) === -1) {
 			mixins.push(ListActionActivationSupport);
+		}
+		if (mixins.indexOf(ListActionCategoryAlertSupport) === -1) {
+			mixins.push(ListActionCategoryAlertSupport);
 		}
 		return mixins;
 	},
