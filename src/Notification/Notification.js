@@ -194,6 +194,14 @@ module.exports = kind(
 	/**
 	* @private
 	*/
+	destroy: function() {
+		this.showHideScrim(false);
+		Popup.prototype.destroy.apply(this, arguments);
+	},
+
+	/**
+	* @private
+	*/
 	render: function () {
 		this._initialized = true;
 		Popup.prototype.render.apply(this, arguments);
