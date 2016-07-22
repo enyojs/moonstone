@@ -93,6 +93,7 @@ var ListActionsPopup = ContextualPopup.kind(
 			var clientRect = this.getBoundingRect(this.node),
 				viewPortWidth = dom.getWindowWidth(),
 				offsetWidth = (clientRect.width - this.activatorOffset.width) / 2,
+				arrowWidth = ri.scale(30),
 				bounds = {top: null, left: null};
 
 			this.resetDirection();
@@ -106,10 +107,10 @@ var ListActionsPopup = ContextualPopup.kind(
 			} else {
 				if (this.rtl) {
 					this.addClass('right');
-					bounds.left = clientRect.left + clientRect.width / 2 - 30;
+					bounds.left = clientRect.left + clientRect.width / 2 - arrowWidth;
 				} else {
 					this.addClass('left');
-					bounds.left = clientRect.left - clientRect.width / 2 + 30;
+					bounds.left = clientRect.left - clientRect.width / 2 + arrowWidth;
 				}
 				this.setBounds(bounds);
 			}
