@@ -21,7 +21,8 @@ var
 	BodyText = require('../BodyText'),
 	HistorySupport = require('../HistorySupport');
 
-var options = require('enyo/options');
+var
+	options = require('enyo/options');
 
 /**
 * {@link module:moonstone/Notification~Notification} is a toast-like minimal popup that comes up
@@ -426,7 +427,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	onEnter : function(oSender, oEvent) {
+	onEnter: function (oSender, oEvent) {
 		if (options.accessibility && oEvent.originator == this) {
 			this.updateAriaRole();
 		}
@@ -435,7 +436,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	updateAriaRole: function() {
+	updateAriaRole: function () {
 		this.setAriaAttribute('role', this.accessibilityReadAll && this.showing ? 'alert' : this.accessibilityRole);
 	}
 });
