@@ -206,9 +206,9 @@ module.exports = kind(
 		var dur = (this.animate && this.showHideDuration) ? this.showHideDuration : 0;
 		this.set('showingDuration', dur);
 		this.set('hidingDuration', dur);
-		this.applyStyle('-webkit-transition-duration', dur + 'ms');
-		this.applyStyle('-moz-transition-duration', dur + 'ms');
-		this.applyStyle('transition-duration', dur + 'ms');
+		this.applyStyle('-webkit-transition', '-webkit-transform ' + dur + 'ms cubic-bezier(0,1.5,.75,1)');
+		this.applyStyle('-moz-transition', '-moz-transform ' + dur + 'ms cubic-bezier(0,1.5,.75,1)');
+		this.applyStyle('transition', 'transform ' + dur + 'ms cubic-bezier(0,1.5,.75,1)');
 	},
 
 	/**
