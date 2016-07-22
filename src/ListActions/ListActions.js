@@ -93,40 +93,26 @@ var ListActionsPopup = ContextualPopup.kind(
 			var clientRect = this.getBoundingRect(this.node),
 				viewPortWidth = dom.getWindowWidth(),
 				offsetWidth = (clientRect.width - this.activatorOffset.width) / 2,
-				popupMargin = ri.scale(24),
-				iconButtonWidth = this.activatorOffset.width + popupMargin,
-				bounds = {top: null, left: null},
-				c;
+				bounds = {top: null, left: null};
 
 			this.resetDirection();
 
 			if(this.activatorOffset.left < offsetWidth) {
 				// flip towards right-side
 				this.addClass('right');
-
-				// adjust arrow position
-				c = Math.round((this.activatorOffset.left - popupMargin) / iconButtonWidth);
-				this.addClass('list-actions-' + (c + 1) + 'h');
-
-				// anchor to the far left
-				bounds.left = popupMargin;
 			} else if(viewPortWidth - this.activatorOffset.right < offsetWidth) {
 				// flip towards left-side
 				this.addClass('left');
-
-				// adjust arrow position
-				c = Math.round((viewPortWidth - this.activatorOffset.right - popupMargin) / iconButtonWidth);
-				this.addClass('list-actions-' + (c + 1) + 'h');
-
-				// anchor to the far right
-				bounds.left = viewPortWidth - clientRect.width - popupMargin;
 			} else {
-				bounds.left = this.activatorOffset.left - offsetWidth;
+				if (this.rtl) {
+					this.addClass('right');
+					bounds.left = clientRect.left + clientRect.width / 2 - 30;
+				} else {
+					this.addClass('left');
+					bounds.left = clientRect.left - clientRect.width / 2 + 30;
+				}
+				this.setBounds(bounds);
 			}
-
-			bounds.top = this.activatorOffset.bottom;
-
-			this.setBounds(bounds);
 		}
 	}
 });
