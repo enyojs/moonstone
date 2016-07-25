@@ -16,7 +16,6 @@ module.exports = kind({
 	name: 'moon.NewDataList',
 	kind: NewDataList,
 	scrollControls: [{kind: ScrollControls}],
-	touch: false,
 	mixins: [Scrollable, VDRSpotlightSupport],
 	handlers: {
 		onSpotlightUp: 'guard5way',
