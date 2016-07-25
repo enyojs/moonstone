@@ -258,7 +258,11 @@ module.exports = kind(
 	*/
 	afterHide: function (sender, ev) {
 		// Make all contained containers forget last focused child
-		this.waterfall('requestClearLastFocus', {type: 'requestClearLastFocus', originator: this});
+		this.waterfall('onRequestSetLastFocusedChild', {
+			type: 'onRequestSetLastFocusedChild',
+			originator: this,
+			last: null
+		});
 	},
 
 	/**

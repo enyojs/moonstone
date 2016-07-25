@@ -375,7 +375,11 @@ module.exports = kind(
 						// Delay inherited until animationEnd
 						Popup.prototype.showingChanged.apply(this, args);
 						// Make all contained containers forget last focused child
-						this.waterfall('requestClearLastFocus', {type: 'requestClearLastFocus', originator: this});
+						this.waterfall('onRequestSetLastFocusedChild', {
+							type: 'onRequestSetLastFocusedChild',
+							originator: this,
+							last: null
+						});
 						this.animationEnd = util.nop;
 						this.isAnimatingHide = false;
 					}
