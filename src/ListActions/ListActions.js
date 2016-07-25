@@ -16,6 +16,9 @@ var
 	ContextualPopupDecorator = require('moonstone/ContextualPopupDecorator'),
 	IconButton = require('moonstone/IconButton');
 
+var
+	Spotlight = require('spotlight');
+
 /**
 * An internally-used support mixin added to a {@link module:moonstone/ListActions~ListActions}
 * menu, which decorates `activate` events with the menu's `action` property.
@@ -68,17 +71,29 @@ var ListActionCategoryAlertSupport = {
 	* @private
 	*/
 	handlers: {
-		onSpotlightContainerEnter: 'containerEnterHandler'
+		onSpotlightContainerEnter: 'containerEnterHandler',
+		onSpotlightFocused: 'decorateFocusedEvent'
 	},
 
 	/**
 	* @private
 	*/
 	containerEnterHandler: function (sender, e) {
-		if(this.get('accessibilityAlert') !== true && this.get('accessibilityLabel').length > 0){
+		var client = this.getClientControls(),
+			divider = client.length > 0 ? client[0] : null;
+		if(sender == this && this.get('accessibilityAlert') !== true && (this.get('accessibilityLabel') || divider)) {
+			// Fetch divider content and set accessibilityLabel
+			this.set('accessibilityLabel', this.get('accessibilityLabel') || divider.get('accessibilityLabel') || divider.content);
 			this.set('accessibilityAlert', true);
 			this.set('accessibilityAlert', false);
 		}
+	},
+
+	/**
+	* @private
+	*/
+	decorateFocusedEvent: function (sender, e) {
+		e.lastHandledContainer = this;
 	}
 };
 
@@ -109,6 +124,13 @@ var ListActionsPopup = ContextualPopup.kind(
 	* @see moonstone/ContextualPopup~ContextualPopup#showCloseButton
 	*/
 	showCloseButton: true,
+
+	/**
+	* @private
+	*/
+	handlers: {
+		onSpotlightFocused: 'modifyLastFocus'
+	},
 
 	/**
 	* @private
@@ -164,6 +186,15 @@ var ListActionsPopup = ContextualPopup.kind(
 			bounds.top = this.activatorOffset.bottom;
 
 			this.setBounds(bounds);
+		}
+	},
+
+	/**
+	* @private
+	*/
+	modifyLastFocus: function (sender, e) {
+		if (e.lastHandledContainer) {
+			Spotlight.Container.setLastFocusedChild(this, e.lastHandledContainer);
 		}
 	}
 });
