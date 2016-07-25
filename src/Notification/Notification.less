@@ -70,7 +70,10 @@
 	}
 
 	// Applying the margin to the children allows for the case of no children without needing removing the margin
-	.client > * {
-		margin-top: 24px;
+	.client {
+		overflow: hidden;
+		& > * {
+			margin-top: 24px;
+		}
 	}
 }
