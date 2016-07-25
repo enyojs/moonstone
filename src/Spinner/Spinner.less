@@ -135,6 +135,9 @@
 
 	> * {
 		display: inline-block;
+		.moon-neutral & {
+			color: @moon-spinner-text-color;
+		}
 	}
 	// Horizontally centered
 	&.center {
@@ -153,6 +156,9 @@
 	}
 	&.moon-spinner-transparent-background {
 		background-color: transparent;
+		.moon-neutral & > * {
+			color: @moon-spinner-transparent-text-color;
+		}
 	}
 	&.content {
 		padding: ((@moon-button-height - @moon-spinner-size) / 2);
