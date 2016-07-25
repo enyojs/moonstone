@@ -16,6 +16,9 @@ var
 	ContextualPopupDecorator = require('moonstone/ContextualPopupDecorator'),
 	IconButton = require('moonstone/IconButton');
 
+var
+	Spotlight = require('spotlight');
+
 /**
 * An internally-used support mixin added to a {@link module:moonstone/ListActions~ListActions}
 * menu, which decorates `activate` events with the menu's `action` property.
@@ -42,6 +45,55 @@ var ListActionActivationSupport = {
 	*/
 	activate: function (sender, e) {
 		e.action = this.action;
+	}
+};
+
+/*
+* This mixin support read categoty name before focused item label.
+* Category name have to assigned at accessibilityLabel property in each action element.
+*
+* @mixin ListActionCategoryAlertSupport
+* @private
+*/
+var ListActionCategoryAlertSupport = {
+
+	/**
+	* @private
+	*/
+	name: 'ListActionCategoryAlertSupport',
+
+	/**
+	* @private
+	*/
+	spotlight: "container",
+
+	/**
+	* @private
+	*/
+	handlers: {
+		onSpotlightContainerEnter: 'containerEnterHandler',
+		onSpotlightFocused: 'decorateFocusedEvent'
+	},
+
+	/**
+	* @private
+	*/
+	containerEnterHandler: function (sender, e) {
+		var client = this.getClientControls(),
+			divider = client.length > 0 ? client[0] : null;
+		if(sender == this && this.get('accessibilityAlert') !== true && (this.get('accessibilityLabel') || divider)) {
+			// Fetch divider content and set accessibilityLabel
+			this.set('accessibilityLabel', this.get('accessibilityLabel') || divider.get('accessibilityLabel') || divider.content);
+			this.set('accessibilityAlert', true);
+			this.set('accessibilityAlert', false);
+		}
+	},
+
+	/**
+	* @private
+	*/
+	decorateFocusedEvent: function (sender, e) {
+		e.lastHandledContainer = this;
 	}
 };
 
@@ -72,6 +124,13 @@ var ListActionsPopup = ContextualPopup.kind(
 	* @see moonstone/ContextualPopup~ContextualPopup#showCloseButton
 	*/
 	showCloseButton: true,
+
+	/**
+	* @private
+	*/
+	handlers: {
+		onSpotlightFocused: 'modifyLastFocus'
+	},
 
 	/**
 	* @private
@@ -127,6 +186,15 @@ var ListActionsPopup = ContextualPopup.kind(
 			bounds.top = this.activatorOffset.bottom;
 
 			this.setBounds(bounds);
+		}
+	},
+
+	/**
+	* @private
+	*/
+	modifyLastFocus: function (sender, e) {
+		if (e.lastHandledContainer) {
+			Spotlight.Container.setLastFocusedChild(this, e.lastHandledContainer);
 		}
 	}
 });
@@ -289,6 +357,9 @@ var ListActions = ContextualPopupDecorator.kind({
 		var mixins = listAction.mixins || [];
 		if (mixins.indexOf(ListActionActivationSupport) === -1) {
 			mixins.push(ListActionActivationSupport);
+		}
+		if (mixins.indexOf(ListActionCategoryAlertSupport) === -1) {
+			mixins.push(ListActionCategoryAlertSupport);
 		}
 		return mixins;
 	},
