@@ -569,14 +569,6 @@ module.exports = kind(
 	},
 
 	/**
-	* @private
-	*/
-	destroy: function() {
-		this.showHideScrim(false);
-		Popup.prototype.destroy.apply(this, arguments);
-	},
-
-	/**
 	* When `true`, the contents of the popup will be read when shown.
 	*
 	* @default true
