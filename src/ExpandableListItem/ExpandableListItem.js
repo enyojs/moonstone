@@ -175,6 +175,11 @@ module.exports = kind(
 	/**
 	* @private
 	*/
+	spotlightPreserveAcceleration: true,
+
+	/**
+	* @private
+	*/
 	defaultKind: Item,
 
 	/**
