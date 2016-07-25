@@ -1032,7 +1032,7 @@ var MoonScrollStrategy = module.exports = kind(
 	at5WayLimit: function (control, direction) {
 		// Find parent control which is having more than 1 children
 		var parent = Spotlight.getParent(control);
-		while (parent !== this && Spotlight.getChildren(parent).length <= 1) {
+		while (parent !== null && parent !== this.container && Spotlight.getChildren(parent).length <= 1) {
 			parent = Spotlight.getParent(parent);
 		}
 		return !Spotlight.NearestNeighbor.getNearestNeighbor(direction, control, {root: parent});
