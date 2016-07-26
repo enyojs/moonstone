@@ -16,7 +16,7 @@
   ],
   "main": "index.js",
   "moduleDir": "src",
-  "version": "2.6.4-rc.6",
+  "version": "2.6.4-rc.6.1",
   "description": "Moonstone UI library for TV user interfaces.",
   "repository": {
     "type": "git",
