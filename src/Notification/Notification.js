@@ -249,10 +249,12 @@ module.exports = kind(
 	* @private
 	*/
 	beforeHide: function (sender, ev) {
-		this.respotActivator();
+		if (this._initialized) {
+			this.respotActivator();
 
-		if (this._initialized && this.allowBackKey && !EnyoHistory.isProcessing()) {
-			EnyoHistory.drop();
+			if (this.allowBackKey && !EnyoHistory.isProcessing()) {
+				EnyoHistory.drop();
+			}
 		}
 	},
 
