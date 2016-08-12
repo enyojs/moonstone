@@ -208,7 +208,7 @@ module.exports = kind(
 	*/
 	multiSelectCurrentValue: function () {
 		var str = this.getRepresentativeString(),
-			comma = this.initCommaValue();
+			delimiter = this.initDelimiterValue();
 		if (str) {
 			return str;
 		}
@@ -217,7 +217,7 @@ module.exports = kind(
 			if (!str) {
 				str = this.days[this.selectedIndex[i]];
 			} else {
-				str = str + comma + ' ' + this.days[this.selectedIndex[i]];
+				str = str + delimiter + ' ' + this.days[this.selectedIndex[i]];
 			}
 		}
 
@@ -227,12 +227,12 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	initCommaValue: function() {
-		var comma = ',';
+	initDelimiterValue: function() {
+		var delimiter = ',';
 		if (window.PalmSystem && window.PalmSystem.locale === 'fa-IR') {
-			comma = '\u060c';
+			delimiter = '\u060c';
 		}
-		return comma;
+		return delimiter;
 	},
 
 	/**
