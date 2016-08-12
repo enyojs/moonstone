@@ -207,7 +207,8 @@ module.exports = kind(
 	* @private
 	*/
 	multiSelectCurrentValue: function () {
-		var str = this.getRepresentativeString();
+		var str = this.getRepresentativeString(),
+			delimiter = this.initDelimiterValue();
 		if (str) {
 			return str;
 		}
@@ -216,10 +217,22 @@ module.exports = kind(
 			if (!str) {
 				str = this.days[this.selectedIndex[i]];
 			} else {
-				str = str + ', ' + this.days[this.selectedIndex[i]];
+				str = str + delimiter + ' ' + this.days[this.selectedIndex[i]];
 			}
 		}
+
 		return str || this.getNoneText();
+	},
+
+	/**
+	* @private
+	*/
+	initDelimiterValue: function() {
+		var delimiter = ',';
+		if (window.PalmSystem && window.PalmSystem.locale === 'fa-IR') {
+			delimiter = '\u060c';
+		}
+		return delimiter;
 	},
 
 	/**
