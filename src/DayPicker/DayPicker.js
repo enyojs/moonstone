@@ -131,13 +131,6 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	tools: [
-		{kind: Signals, onlocalechange: 'handleLocaleChangeEvent'}
-	],
-
-	/**
-	* @private
-	*/
 	daysComponents: [
 		{content: 'Sunday'},
 		{content: 'Monday'},
@@ -160,7 +153,6 @@ module.exports = kind(
 		return function() {
 			// super initialization
 			sup.apply(this, arguments);
-			this.createChrome(this.tools);
 			this.initILib();
 			this.createComponents(this.daysComponents);
 		};
@@ -198,6 +190,7 @@ module.exports = kind(
 	*/
 	handleLocaleChangeEvent: function () {
 		this.destroyClientControls();
+		this.updateDelimiter();
 		this.initILib();
 		this.createComponents(this.daysComponents);
 		this.render();
@@ -216,7 +209,7 @@ module.exports = kind(
 			if (!str) {
 				str = this.days[this.selectedIndex[i]];
 			} else {
-				str = str + ', ' + this.days[this.selectedIndex[i]];
+				str = str + this.delimiter + this.days[this.selectedIndex[i]];
 			}
 		}
 		return str || this.getNoneText();
