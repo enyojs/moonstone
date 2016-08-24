@@ -7,9 +7,11 @@ require('moonstone');
 
 var
 	kind = require('enyo/kind'),
+	Signals = require('enyo/Signals'),
 	Component = require('enyo/Component'),
 	Group = require('enyo/Group'),
-	options = require('enyo/options');
+	options = require('enyo/options'),
+	ilib = require('enyo-ilib');
 
 var
 	BodyText = require('../BodyText'),
@@ -201,6 +203,18 @@ module.exports = kind(
 	/**
 	* @private
 	*/
+	delimiter: ', ',
+
+	/**
+	* @private
+	*/
+	tools: [
+		{kind: Signals, onlocalechange: 'handleLocaleChangeEvent'}
+	],
+
+	/**
+	* @private
+	*/
 	drawerComponents: [
 		{name: 'client', tag: null, kind: Group, onActivate: 'activated', highlander: true},
 		{name: 'helpText', kind: BodyText, canGenerate: false, classes: 'moon-expandable-picker-help-text'}
@@ -227,9 +241,10 @@ module.exports = kind(
 		}
 		// super initialization
 		ExpandableListItem.prototype.create.apply(this, arguments);
-
+		this.updateDelimiter();
 		this.selectedIndexChanged();
 		this.helpTextChanged();
+		this.createChrome(this.tools);
 	},
 
 	/**
@@ -258,13 +273,28 @@ module.exports = kind(
 			if (!str) {
 				str = controls[this.selectedIndex[i]].get('content');
 			} else {
-				str = str + ', ' + controls[this.selectedIndex[i]].get('content');
+				str = str + this.delimiter + controls[this.selectedIndex[i]].get('content');
 			}
 		}
 		if (!str) {
 			str = this.getNoneText();
 		}
 		return str;
+	},
+
+	/**
+	* @private
+	*/
+	updateDelimiter: function() {
+		this.delimiter =  (typeof ilib !== 'undefined' && ilib.getLocale() === 'fa-IR') ? '\u060c ' : ', ';
+	},
+
+	/**
+	* @private
+	*/
+	handleLocaleChangeEvent: function () {
+		this.updateDelimiter();
+		this.notify('currentValueText');
 	},
 
 	/**
