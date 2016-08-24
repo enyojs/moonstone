@@ -78,7 +78,10 @@ var DataListSpotlightSupport = {
 				child = this.childForIndex(inIndex);
 			}
 			subChild = inSubChild ? Spotlight.getChildren(child)[inSubChild] : child;
-			Spotlight.spot(subChild) || Spotlight.spot(this);
+			Spotlight.spot(subChild) || 
+				Spotlight.spot(this) || 
+				this.restoreStateOnRender && Spotlight.isPaused() && // For safe guard
+				this.bubble('onRequestSetLastFocusedChild', {type: 'onRequestSetLastFocusedChild', last: subChild});
 		} else {
 			this._indexToFocus = inIndex;
 			this._subChildToFocus = inSubChild;
