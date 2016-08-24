@@ -2,16 +2,17 @@
 .moon-notification {
 	position: absolute;
 	left: 50%;
+	bottom: 0;
 	min-width: 300px;
 	max-width: 978px;
 	box-sizing: border-box;
 	text-align: center;
 	border-radius: @moon-notification-border-radius;
 	background-color: fade(@moon-neutral-bg-color, @moon-notification-background-opacity);
-	-webkit-transform: translate3d(-50%, 1080px, 0);
-	-moz-transform:    translate3d(-50%, 1080px, 0);
-	-ms-transform:     translate3d(-50%, 1080px, 0);
-	transform:         translate3d(-50%, 1080px, 0);
+	-webkit-transform: translate3d(-50%, 100%, 0);
+	-moz-transform:    translate3d(-50%, 100%, 0);
+	-ms-transform:     translate3d(-50%, 100%, 0);
+	transform:         translate3d(-50%, 100%, 0);
 
 	.moon& {
 		padding: 24px 30px;
@@ -47,10 +48,10 @@
 	&.showing,
 	&.shown {
 		// Vertically move the full height of the notification box, plus an additional 168px
-		-webkit-transform: translateY(756px) translate3d(-50%, -50%, 0);
-		-moz-transform:    translateY(756px) translate3d(-50%, -50%, 0);
-		-ms-transform:     translateY(756px) translate3d(-50%, -50%, 0);
-		transform:         translateY(756px) translate3d(-50%, -50%, 0);
+		-webkit-transform: translateY(-324px) translate3d(-50%, 50%, 0);
+		-moz-transform:    translateY(-324px) translate3d(-50%, 50%, 0);
+		-ms-transform:     translateY(-324px) translate3d(-50%, 50%, 0);
+		transform:         translateY(-324px) translate3d(-50%, 50%, 0);
 	}
 
 	.moon-body-text {

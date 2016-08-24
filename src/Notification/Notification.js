@@ -125,7 +125,7 @@ module.exports = kind(
 		* @default true
 		* @public
 		*/
-		animate: true,
+		animate: false,
 
 		/**
 		*
