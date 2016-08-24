@@ -51,7 +51,7 @@
 
 	&.showing,
 	&.shown {
-		// Vertically move the full height of the notification box, plus an additional 168px
+		// Make vertical center always in 728px
 		-webkit-transform: translateY(-324px) translate3d(-50%, 50%, 0);
 		-moz-transform:    translateY(-324px) translate3d(-50%, 50%, 0);
 		-ms-transform:     translateY(-324px) translate3d(-50%, 50%, 0);
@@ -72,23 +72,21 @@
 	}
 	.moon-button {
 		min-width: 180px;
-		margin-left: 9px;	/* gap between buttons should be 9px per notification spec */
-		margin-right: 0px;
-		.enyo-locale-right-to-left & {
-			margin-left: 0px;
-			margin-right: 9px;
-		}
+		.margin-start-end(@moon-notification-button-gap, 0);
+	}
+	.moon-tooltip-decorator {
+		margin: 0;
 	}
 	.moon-hspacing {
 		& > :first-child,
-		& > :first-child.moon-contextual-popup-decorator :first-child {
+		& > :first-child.moon-tooltip-decorator :first-child {
 			margin-left: 0;
 		}
 		.enyo-locale-right-to-left & > :first-child {
 			margin-right: 0;
 		}
 		& > :last-child,
-		& > :last-child.moon-contextual-popup-decorator :first-child {
+		& > :last-child.moon-tooltip-decorator :first-child {
 			margin-right: 0;
 		}
 		.enyo-locale-right-to-left & > :last-child {
