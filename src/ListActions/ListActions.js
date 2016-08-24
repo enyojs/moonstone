@@ -183,6 +183,29 @@ var ListActionsPopup = ContextualPopup.kind(
 		if (e.lastHandledContainer) {
 			Spotlight.Container.setLastFocusedChild(this, e.lastHandledContainer);
 		}
+	},
+
+	/**
+	* @private
+	*/
+	reArrangePopup: function() {
+		var activatorNode = this.activator.hasNode(),
+			clientRect = this.getBoundingRect(this.node),
+			bounds = {top: null, left: null};
+
+		if (activatorNode) {
+			this.activatorOffset = this.getPageOffset(activatorNode);
+			this.resetDirection();
+
+			if (this.rtl) {
+				this.addClass('right');
+				bounds.left = this.activatorOffset.left;
+			} else {
+				this.addClass('left');
+				bounds.left = this.activatorOffset.left - clientRect.width + this.activatorOffset.width;
+			}
+			this.setBounds(bounds);
+		}
 	}
 });
 
@@ -378,6 +401,15 @@ var ListActions = ContextualPopupDecorator.kind({
 	popupHidden: function() {
 		ContextualPopupDecorator.prototype.popupHidden.apply(this,arguments);
 		this.bubble('onRequestUnmuteTooltip');
+	},
+
+	/**
+	* This method is for re-arranging popup when activator's position is changed.
+	*
+	* @public
+	*/
+	changeActivatorPosition: function() {
+		this.$.listActionsPopup.reArrangePopup();
 	}
 });
 
