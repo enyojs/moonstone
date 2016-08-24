@@ -1,16 +1,10 @@
 /* Notification.css */
-.moon {
-	.moon-notification {
-		padding: 24px 30px;
-	}
-}
-
 .moon-notification {
 	position: absolute;
 	left: 50%;
 	bottom: 0;
 	min-width: 300px;
-	max-width: 840px;
+	max-width: 978px;
 	box-sizing: border-box;
 	text-align: center;
 	border-radius: @moon-notification-border-radius;
@@ -21,12 +15,20 @@
 	-ms-transform:     translate3d(-50%, 100%, 0);
 	transform:         translate3d(-50%, 100%, 0);
 
+	&.wide {
+		max-width: 1227px; // 4 button case
+	}
+
+	.moon& {
+		padding: 24px 30px;
+	}
+
 	&::before {
 		content: '';
 		display: block;
 		position: absolute;
 		border: @moon-notification-border-width solid fade(@moon-black, @moon-notification-border-opacity);
-		border-radius: (@moon-notification-border-radius + @moon-notification-border-width);
+		border-radius: @moon-notification-border-radius;
 		top: -@moon-notification-border-width;
 		right: -@moon-notification-border-width;
 		bottom: -@moon-notification-border-width;
@@ -50,11 +52,11 @@
 
 	&.showing,
 	&.shown {
-		// Vertically move the full height of the notification box, plus an additional 168px
-		-webkit-transform: translate3d(-50%, 0, 0) translateY(-240px);
-		-moz-transform:    translate3d(-50%, 0, 0) translateY(-240px);
-		-ms-transform:     translate3d(-50%, 0, 0) translateY(-240px);
-		transform:         translate3d(-50%, 0, 0) translateY(-240px);
+		// Make vertical center always in 728px
+		-webkit-transform: translateY(-324px) translate3d(-50%, 50%, 0);
+		-moz-transform:    translateY(-324px) translate3d(-50%, 50%, 0);
+		-ms-transform:     translateY(-324px) translate3d(-50%, 50%, 0);
+		transform:         translateY(-324px) translate3d(-50%, 50%, 0);
 	}
 
 	.moon-body-text {
@@ -70,10 +72,31 @@
 	.moon-body-text-spacing {
 		margin: 0;
 	}
-
+	.moon-button {
+		min-width: 180px;
+		.margin-start-end(@moon-notification-button-gap, 0);
+	}
+	.moon-tooltip-decorator {
+		margin: 0;
+	}
+	.moon-hspacing {
+		& > :first-child,
+		& > :first-child.moon-tooltip-decorator :first-child {
+			margin-left: 0;
+		}
+		.enyo-locale-right-to-left & > :first-child {
+			margin-right: 0;
+		}
+		& > :last-child,
+		& > :last-child.moon-tooltip-decorator :first-child {
+			margin-right: 0;
+		}
+		.enyo-locale-right-to-left & > :last-child {
+			margin-left: 0;
+		}
+	}
 	// Applying the margin to the children allows for the case of no children without needing removing the margin
 	.client {
-		overflow: hidden;
 		& > * {
 			margin-top: 24px;
 		}

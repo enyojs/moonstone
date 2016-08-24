@@ -125,7 +125,7 @@ module.exports = kind(
 		* @default true
 		* @public
 		*/
-		animate: true,
+		animate: false,
 
 		/**
 		*
@@ -167,7 +167,16 @@ module.exports = kind(
 		* @default true
 		* @public
 		*/
-		spotlightModal: true
+		spotlightModal: true,
+
+		/**
+		* If `true`, use wide popup to secure enough space for 4 large buttons.
+		*
+		* @type {Boolean}
+		* @default false
+		* @public
+		*/
+		wide: false
 	},
 
 	/**
@@ -192,6 +201,7 @@ module.exports = kind(
 	create: function () {
 		Popup.prototype.create.apply(this, arguments);
 		this.animateChanged();
+		this.wideChanged();
 	},
 
 	/**
@@ -305,6 +315,13 @@ module.exports = kind(
 			this.getComputedStyleValue('display');
 			this.set('animate', anim);
 		}
+	},
+
+	/**
+	* @private
+	*/
+	wideChanged: function () {
+		this.addRemoveClass('wide', this.wide);
 	},
 
 	/**
