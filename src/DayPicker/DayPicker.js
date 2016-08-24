@@ -6,8 +6,7 @@
 require('moonstone');
 
 var
-	kind = require('enyo/kind'),
-	Signals = require('enyo/Signals');
+	kind = require('enyo/kind');
 
 var
 	ilib = require('enyo-ilib'),
