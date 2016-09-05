@@ -239,7 +239,6 @@ module.exports = kind(
 			// the cursor) don't cause Spotlight to unfreeze
 			Spotlight.spot(this, {focusType: 'point'});
 		}
-		Spotlight.freeze();
 		this.updateFocus(true);
 	},
 
@@ -247,7 +246,6 @@ module.exports = kind(
 	* @private
 	*/
 	blurHandler: function () {
-		Spotlight.unfreeze();
 		this.updateFocus(false);
 	},
 
@@ -290,7 +288,6 @@ module.exports = kind(
 	*/
 	spotlightBlurHandler: function (oSender, oEvent) {
 		this.set('spotted', false);
-		this.blur();
 	},
 
 	/**

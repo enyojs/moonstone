@@ -121,8 +121,8 @@ module.exports = kind(
 	* @private
 	*/
 	drawerComponents: [
-		{name: 'inputDecorator', kind: InputDecorator, onSpotlightBlur: 'inputSpotBlurred', onSpotlightFocus: 'inputFocus', onSpotlightDown: 'inputSpotDown', onkeyup: 'inputKeyUp', defaultSpotlightUp: 'drawer', components: [
-			{name: 'clientInput', kind: Input, onchange: 'doChange', dismissOnEnter: true}
+		{name: 'inputDecorator', kind: InputDecorator, onSpotlightFocus: 'inputFocus', onSpotlightDown: 'inputSpotDown', onkeyup: 'inputKeyUp', defaultSpotlightUp: 'drawer', components: [
+			{name: 'clientInput', kind: Input, onchange: 'doChange', onblur: 'blurHandler', dismissOnEnter: true}
 		]}
 	],
 
@@ -208,21 +208,8 @@ module.exports = kind(
 		}
 	},
 
-	/**
-	* Value should be submitted if user clicks outside control. We check for
-	* `onSpotlightFocus` and `mouseover` to avoid contracting the input on an event
-	* fired from itself.
-	*
-	* @private
-	*/
-	inputSpotBlurred: function (inSender, inEvent) {
-		var eventType;
-		if (this.open && Spotlight.getPointerMode()) {
-			eventType = Spotlight.getLastEvent().type;
-			if (eventType !== 'onSpotlightFocus' && eventType !== 'mouseover') {
-				this.closeDrawerAndHighlightHeader();
-			}
-		}
+	blurHandler: function (inSender, inEvent) {
+		this.closeDrawerAndHighlightHeader();
 	},
 
 	/**
