@@ -9,6 +9,7 @@ var
 	kind = require('enyo/kind'),
 	Control = require('enyo/Control'),
 	dispatcher = require('enyo/dispatcher'),
+	dom = require('enyo/dom'),
 	EnyoHistory = require('enyo/History'),
 	Popup = require('enyo/Popup'),
 	ShowingTransitionSupport = require('enyo/ShowingTransitionSupport');
@@ -85,6 +86,11 @@ module.exports = kind(
 	* @private
 	*/
 	showingMethod: 'beforeShow',
+
+	/**
+	* @private
+	*/
+	shownMethod: 'afterShow',
 
 	/**
 	* @private
@@ -176,7 +182,16 @@ module.exports = kind(
 		* @default false
 		* @public
 		*/
-		wide: false
+		wide: false,
+
+		/**
+		* If `true`, round numbers of absolute bounds to render text flawlessly.
+		*
+		* @type {Boolean}
+		* @default true
+		* @public
+		*/
+		autoPositionAdjustment: true
 	},
 
 	/**
@@ -252,6 +267,31 @@ module.exports = kind(
 
 		if (this.allowBackKey) {
 			this.pushBackHistory();
+		}
+	},
+
+	/**
+	* @private
+	*/
+	refineAbsoluteBounds: function () {
+		var b = this.getAbsoluteBounds(),
+			l = b ? b.left : 0,
+			t = b ? b.top : 0,
+			transforms = {};
+
+		if (l % 1 !== 0 || t % 1 !== 0) {
+			transforms.translateX = Math.round(l) + 'px';
+			transforms.translateY = Math.round(t) + 'px';
+			dom.transform(this, transforms);
+		}
+	},
+
+	/**
+	* @private
+	*/
+	afterShow: function (sender, ev) {
+		if (this.autoPositionAdjustment) {
+			this.refineAbsoluteBounds();
 		}
 	},
 

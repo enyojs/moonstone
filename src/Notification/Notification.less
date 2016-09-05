@@ -1,19 +1,16 @@
 /* Notification.css */
 .moon-notification {
 	position: absolute;
-	left: 50%;
-	bottom: 0;
 	min-width: 300px;
 	max-width: 978px;
 	box-sizing: border-box;
 	text-align: center;
 	border-radius: @moon-notification-border-radius;
 	background-color: fade(@moon-neutral-bg-color, @moon-notification-background-opacity);
-	-webkit-filter: blur(0);
-	-webkit-transform: translate3d(-50%, 100%, 0);
-	-moz-transform:    translate3d(-50%, 100%, 0);
-	-ms-transform:     translate3d(-50%, 100%, 0);
-	transform:         translate3d(-50%, 100%, 0);
+	-webkit-transform: translate3d(-50%, 0, 0) translateX(960px) translateY(1080px);
+	-moz-transform:    translate3d(-50%, 0, 0) translateX(960px) translateY(1080px);
+	-ms-transform:     translate3d(-50%, 0, 0) translateX(960px) translateY(1080px);
+	transform:         translate3d(-50%, 0, 0) translateX(960px) translateY(1080px);
 
 	&.wide {
 		max-width: 1227px; // 4 button case
@@ -52,11 +49,11 @@
 
 	&.showing,
 	&.shown {
-		// Make vertical center always in 728px
-		-webkit-transform: translateY(-324px) translate3d(-50%, 50%, 0);
-		-moz-transform:    translateY(-324px) translate3d(-50%, 50%, 0);
-		-ms-transform:     translateY(-324px) translate3d(-50%, 50%, 0);
-		transform:         translateY(-324px) translate3d(-50%, 50%, 0);
+		// Make vertical center always in 756px
+		-webkit-transform: translate3d(-50%, -50%, 0) translateX(960px) translateY(756px);
+		-moz-transform:    translate3d(-50%, -50%, 0) translateX(960px) translateY(756px);
+		-ms-transform:     translate3d(-50%, -50%, 0) translateX(960px) translateY(756px);
+		transform:         translate3d(-50%, -50%, 0) translateX(960px) translateY(756px);
 	}
 
 	.moon-body-text {
