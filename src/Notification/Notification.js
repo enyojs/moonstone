@@ -241,15 +241,15 @@ module.exports = kind(
 		this.applyStyle('height', null);
 
 		var b = this.getAbsoluteBounds(),
-			w = b ? Math.ceil(b.width) : 0,
-			h = b ? Math.ceil(b.height) : 0;
+			w = b ? b.width : 0,
+			h = b ? b.height : 0;
 
-		if (w % 2) {
-			this.applyStyle('width', (w + 1) + 'px');
+		if (w % 2 !== 0) {
+			this.applyStyle('width', Math.ceil(w) + (Math.ceil(w) % 2) + 'px');
 		}
 
-		if (h % 2) {
-			this.applyStyle('height', (h + 1) + 'px');
+		if (h % 2 !== 0) {
+			this.applyStyle('height', Math.ceil(h) + (Math.ceil(h) % 2) + 'px');
 		}
 	},
 
