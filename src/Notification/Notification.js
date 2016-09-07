@@ -176,7 +176,16 @@ module.exports = kind(
 		* @default false
 		* @public
 		*/
-		wide: false
+		wide: false,
+
+		/**
+		* If `true`, adjust size of control to even number after rendered by default.
+		*
+		* @type {Boolean}
+		* @default true
+		* @public
+		*/
+		evenSize: true
 	},
 
 	/**
@@ -210,6 +219,38 @@ module.exports = kind(
 	render: function () {
 		this._initialized = true;
 		Popup.prototype.render.apply(this, arguments);
+	},
+
+	/**
+	* @private
+	*/
+	rendered: function () {
+		Popup.prototype.rendered.apply(this, arguments);
+		if (this.evenSize) {
+			this.refreshSizeToEven();
+		}
+	},
+
+	/**
+	* Refresh size of control to even number to avoid UI blurring issue
+	*
+	* @public
+	*/
+	refreshSizeToEven: function () {
+		this.applyStyle('width', null);
+		this.applyStyle('height', null);
+
+		var b = this.getAbsoluteBounds(),
+			w = b ? b.width : 0,
+			h = b ? b.height : 0;
+
+		if (w % 2 !== 0) {
+			this.applyStyle('width', Math.ceil(w) + (Math.ceil(w) % 2) + 'px');
+		}
+
+		if (h % 2 !== 0) {
+			this.applyStyle('height', Math.ceil(h) + (Math.ceil(h) % 2) + 'px');
+		}
 	},
 
 	/**
