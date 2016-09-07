@@ -185,7 +185,7 @@ module.exports = kind(
 		* @default true
 		* @public
 		*/
-		autoSizeAdjustment: true
+		evenSize: true
 	},
 
 	/**
@@ -226,8 +226,8 @@ module.exports = kind(
 	*/
 	rendered: function () {
 		Popup.prototype.rendered.apply(this, arguments);
-		if (this.autoSizeAdjustment) {
-			this.refreshSize();
+		if (this.evenSize) {
+			this.refreshSizeToEven();
 		}
 	},
 
@@ -236,7 +236,7 @@ module.exports = kind(
 	*
 	* @public
 	*/
-	refreshSize: function () {
+	refreshSizeToEven: function () {
 		this.applyStyle('width', null);
 		this.applyStyle('height', null);
 
