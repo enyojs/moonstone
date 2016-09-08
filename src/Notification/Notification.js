@@ -7,10 +7,13 @@ require('moonstone');
 
 var
 	kind = require('enyo/kind'),
+	utils = require('enyo/utils'),
+	Component = require('enyo/Component'),
 	Control = require('enyo/Control'),
 	dispatcher = require('enyo/dispatcher'),
 	EnyoHistory = require('enyo/History'),
 	Popup = require('enyo/Popup'),
+	EnyoButton = require('enyo/Button'),
 	ShowingTransitionSupport = require('enyo/ShowingTransitionSupport');
 
 var
@@ -207,6 +210,59 @@ module.exports = kind(
 	/**
 	* @private
 	*/
+	buttonMixin: {
+		small: true,
+		getPopupRef: function () {
+			var container = this.container;
+			while(container && !(container instanceof Popup)) {
+				container = container.container;
+			}
+			return container;
+		},
+		contentChanged: function () {
+			Button.prototype.contentChanged.apply(this,arguments);
+			var popup = this.getPopupRef();
+			popup && popup.refreshSizeToEven();
+		},
+		showingChanged: function () {
+			Button.prototype.showingChanged.apply(this,arguments);
+			var popup = this.getPopupRef();
+			popup && popup.refreshSizeToEven();
+		},
+		destroy: function () {
+			var popup = this.getPopupRef();
+			popup && popup.refreshSizeToEven();
+			Button.prototype.destroy.apply(this,arguments);
+		}
+	},
+
+	/**
+	* @private
+	*/
+	_mixinProps: function (props, ext) {
+		var _this = this;
+		if (props.kind == Button) {
+			utils.mixin(props, ext, {ignore: true});
+		}
+		if (props.components) {
+			props.components = props.components.map(function (comp) {
+				return _this._mixinProps(comp, ext);
+			});
+		}
+		return props;
+	},
+
+	/**
+	* @private
+	*/
+	_createComponent: function (props, ext) {
+		props = this._mixinProps(props, this.buttonMixin);
+		return Component.prototype._createComponent.apply(this,arguments);
+	},
+
+	/**
+	* @private
+	*/
 	create: function () {
 		Popup.prototype.create.apply(this, arguments);
 		this.animateChanged();
@@ -224,11 +280,17 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	rendered: function () {
-		Popup.prototype.rendered.apply(this, arguments);
-		if (this.evenSize) {
-			this.refreshSizeToEven();
-		}
+	handleResize: function () {
+		this.inherited(arguments);
+		this.refreshSizeToEven();
+	},
+
+	/**
+	* @private
+	*/
+	contentChanged: function () {
+		Popup.prototype.contentChanged.apply(this,arguments);
+		this.refreshSizeToEven();
 	},
 
 	/**
@@ -237,9 +299,17 @@ module.exports = kind(
 	* @public
 	*/
 	refreshSizeToEven: function () {
+		if (!this.getAbsoluteShowing()) return;
 		this.applyStyle('width', null);
 		this.applyStyle('height', null);
 
+		this.startJob("adjustPosition", this._refreshSizeToEven, 50);
+	},
+
+	/**
+	* @private
+	*/
+	_refreshSizeToEven: function () {
 		var b = this.getAbsoluteBounds(),
 			w = b ? b.width : 0,
 			h = b ? b.height : 0;
@@ -313,6 +383,10 @@ module.exports = kind(
 	* @private
 	*/
 	afterHide: function (sender, ev) {
+		// Reset adjust position
+		this.applyStyle('width', null);
+		this.applyStyle('height', null);
+
 		// Make all contained containers forget last focused child
 		this.waterfall('onRequestSetLastFocusedChild', {
 			type: 'onRequestSetLastFocusedChild',
