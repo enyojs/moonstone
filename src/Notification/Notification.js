@@ -224,14 +224,6 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	destroy: function () {
-		this.stopJob("adjustPosition");
-		Popup.prototype.destroy.apply(this, arguments);
-	},
-
-	/**
-	* @private
-	*/
 	handleResize: function () {
 		this.inherited(arguments);
 		this.refreshSizeToEven();
@@ -257,7 +249,7 @@ module.exports = kind(
 		this.applyStyle('width', null);
 		this.applyStyle('height', null);
 
-		this.startJob("adjustPosition", this._refreshSizeToEven, 50);
+		this._refreshSizeToEven();
 	},
 
 	/**
