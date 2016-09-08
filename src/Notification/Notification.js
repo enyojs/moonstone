@@ -224,11 +224,17 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	rendered: function () {
-		Popup.prototype.rendered.apply(this, arguments);
-		if (this.evenSize) {
-			this.refreshSizeToEven();
-		}
+	handleResize: function () {
+		this.inherited(arguments);
+		this.refreshSizeToEven();
+	},
+
+	/**
+	* @private
+	*/
+	contentChanged: function () {
+		Popup.prototype.contentChanged.apply(this,arguments);
+		this.refreshSizeToEven();
 	},
 
 	/**
@@ -237,9 +243,19 @@ module.exports = kind(
 	* @public
 	*/
 	refreshSizeToEven: function () {
+		if (!this.evenSize || !this.getAbsoluteShowing()) return;
+		
+		// Reset adjust position
 		this.applyStyle('width', null);
 		this.applyStyle('height', null);
 
+		this.startJob("adjustPosition", this._refreshSizeToEven, 50);
+	},
+
+	/**
+	* @private
+	*/
+	_refreshSizeToEven: function () {
 		var b = this.getAbsoluteBounds(),
 			w = b ? b.width : 0,
 			h = b ? b.height : 0;
@@ -313,6 +329,10 @@ module.exports = kind(
 	* @private
 	*/
 	afterHide: function (sender, ev) {
+		// Reset adjust position
+		this.applyStyle('width', null);
+		this.applyStyle('height', null);
+
 		// Make all contained containers forget last focused child
 		this.waterfall('onRequestSetLastFocusedChild', {
 			type: 'onRequestSetLastFocusedChild',
