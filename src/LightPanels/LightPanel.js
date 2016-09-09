@@ -139,6 +139,7 @@ module.exports = kind(
 	* @public
 	*/
 	preTransition: function () {
+		Spotlight.setRecoverNoFocus(false);
 		LightPanel.prototype.preTransition.apply(this, arguments);
 
 		var current = Spotlight.getCurrent(),
@@ -194,7 +195,6 @@ module.exports = kind(
 				current = Spotlight.getCurrent();
 
 			Spotlight.resume();
-			Spotlight.setRecoverNoFocus(false);
 			spotlightPlaceholder.spotlight = false;
 			if (window.PalmSystem && window.PalmSystem.isActivated && Spotlight.isMuted()) {
 				Spotlight.unmute('window.focus');
