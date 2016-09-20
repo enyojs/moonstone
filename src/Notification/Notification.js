@@ -193,7 +193,7 @@ module.exports = kind(
 	*/
 	components: [
 		{name: 'message', kind: BodyText},
-		{name: 'client', kind: Control, classes: 'enyo-fill client moon-hspacing'}
+		{name: 'client', kind: Control, classes: 'client moon-hspacing'}
 	],
 
 	/**
