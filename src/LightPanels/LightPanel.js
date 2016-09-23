@@ -105,7 +105,7 @@ module.exports = kind(
 	components: [
 		{kind: Header, name: 'header', type: 'medium', marqueeOnRenderDelay: 1000},
 		{name: 'client', classes: 'client', spotlight: 'container'},
-		{name: 'spotlightPlaceholder', spotlight: false, style: 'width:0;height:0;'}
+		{name: 'spotlightPlaceholder', spotlight: false, accessibilityDisabled: true, skipLastFocusUpdate: true, style: 'width:0;height:0;'}
 	],
 
 	/**
@@ -201,8 +201,9 @@ module.exports = kind(
 					Spotlight.setPointerMode(window.PalmSystem.cursor.visibility);
 				}
 			}
-			if (!Spotlight.isSpottable(this)) spotlightPlaceholder.spotlight = true;
+			if (!Spotlight.isSpottable(this, true)) spotlightPlaceholder.spotlight = true;
 			if (!current || current === spotlightPlaceholder) {
+				Spotlight.spot(spotlightPlaceholder);
 				setTimeout(this.bindSafely(function () {
 					Spotlight.spot(this);
 				}), 0);
