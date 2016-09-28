@@ -66,7 +66,7 @@ var DataListSpotlightSupport = {
 	/**
 	* @private
 	*/
-	focusOnIndex: function (inIndex, inSubChild) {
+	focusOnIndex: function (inIndex, inSubChild, ext) {
 		var c = this.collection,
 			child,
 			subChild;
@@ -78,8 +78,8 @@ var DataListSpotlightSupport = {
 				child = this.childForIndex(inIndex);
 			}
 			subChild = inSubChild ? Spotlight.getChildren(child)[inSubChild] : child;
-			Spotlight.spot(subChild) || 
-				Spotlight.spot(this) || 
+			Spotlight.spot(subChild, ext) ||
+				Spotlight.spot(this, ext) ||
 				this.restoreStateOnRender && Spotlight.isPaused() && // For safe guard
 				this.bubble('onRequestSetLastFocusedChild', {type: 'onRequestSetLastFocusedChild', last: subChild});
 		} else {
@@ -445,6 +445,10 @@ var DataListSpotlightSupport = {
 			focusedItem = this.getItemFromChild(current);
 			this._indexToFocus = focusedItem.index;
 			this._subChildToFocus = focusedItem === current ? null : Spotlight.getChildren(focusedItem).indexOf(current);
+			// Remember additional key only when getKeyFromItem is given
+			if (this.primaryKey) {
+				this._focusedKey = (focusedItem.model && focusedItem.model.get(this.primaryKey)) || null;
+			}
 			return true;
 		}
 	},
@@ -456,6 +460,7 @@ var DataListSpotlightSupport = {
 		this._indexToFocus = -1;
 		this._maxVisibleIndex = -1;
 		this._subChildToFocus = null;
+		this._focusedKey = null;
 	},
 
 	/**
@@ -466,7 +471,7 @@ var DataListSpotlightSupport = {
 			maxVisibleIndex = this._maxVisibleIndex,
 			subChild = this._subChildToFocus,
 			c = this.collection,
-			callback;
+			callback, model, indexFromKey, bSkip = false;
 		if (c && c.length && (index > -1 || maxVisibleIndex > -1)) {
 			// If there's a valid maxVisibleIndex, we've saved a scroll position so we need to
 			// restore it and then update spotlight.
@@ -483,7 +488,21 @@ var DataListSpotlightSupport = {
 			}
 			// If we aren't restoring scroll position, we just need to update spotlight
 			else {
-				this.focusOnIndex(index, subChild);
+				// Restore focus based on key only when getIndexFromKey is given
+				if (this.primaryKey && this._focusedKey !== null) {
+					model = c.find(function (o) {
+						return o.get(this.primaryKey) == this._focusedKey;
+					}.bind(this));
+					indexFromKey = model && c.indexOf(model);
+					// If followFocusOnUpdate true, move focus to item that having the same key
+					if (this.followFocusOnUpdate) {
+						bSkip = !!model;
+						index = bSkip ? indexFromKey : index;
+					} else {
+						bSkip = indexFromKey === index;
+					}
+				}
+				this.focusOnIndex(index, subChild, {skipRead: bSkip});
 			}
 			this.clearState();
 		}
