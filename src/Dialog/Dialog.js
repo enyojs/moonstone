@@ -16,6 +16,7 @@ var
 	Popup = require('../Popup'),
 	IconButton = require('../IconButton'),
 	BodyText = require('../BodyText'),
+	Divider = require('../Divider'),
 	HistorySupport = require('../HistorySupport'),
 	Marquee = require('../Marquee'),
 	MarqueeText = Marquee.Text,
@@ -152,13 +153,14 @@ module.exports = kind(
 	*/
 	tools: [
 		{name: 'closeButton', kind: IconButton, icon: 'closex', classes: 'moon-popup-close', ontap: 'closePopup', accessibilityLabel: $L('Close'), backgroundOpacity: 'transparent', showing: false},
-		{kind: Control, classes: 'moon-dialog-client-wrapper', components: [
+		{kind: Control, components: [
 			{name: 'client', kind: Control, classes: 'moon-hspacing moon-dialog-client'},
 			{name: 'titleWrapper', classes: 'moon-dialog-title-wrapper', components: [
 				{name: 'title', kind: MarqueeText, classes: 'moon-popup-header-text moon-dialog-title'},
 				{name: 'subTitle', kind: Control, classes: 'moon-dialog-sub-title'}
 			]}
 		]},
+		{name: 'divider', kind: Divider, classes: 'moon-dialog-divider'},
 		{name: 'message'},
 		{name: 'spotlightDummy', kind: Control, spotlight: false}
 	],
@@ -193,12 +195,11 @@ module.exports = kind(
 	titleChanged: function () {
 		var title = this.get('title');
 		// Logic so we don't show the divider and an empty title
+		this.addRemoveClass('no-title', !title);
 		if (!title) {
 			this.$.title.hide();
-			this.$.titleWrapper.removeClass('use-divider');
 		} else {
 			this.$.title.show();
-			this.useDividerChanged();
 			this.$.title.set('content', this.get('uppercase') ? util.toUpperCase(title) : title );
 		}
 	},
@@ -235,7 +236,7 @@ module.exports = kind(
 	* @private
 	*/
 	useDividerChanged: function () {
-		this.$.titleWrapper.addRemoveClass('use-divider', this.get('useDivider'));
+		this.$.divider.set('showing', this.get('useDivider'));
 	},
 
 	/**
