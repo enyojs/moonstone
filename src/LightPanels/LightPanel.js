@@ -194,6 +194,7 @@ module.exports = kind(
 				current = Spotlight.getCurrent();
 
 			Spotlight.resume();
+			Spotlight.setRecoverNoFocus(false);
 			spotlightPlaceholder.spotlight = false;
 			if (window.PalmSystem && window.PalmSystem.isActivated && Spotlight.isMuted()) {
 				Spotlight.unmute('window.focus');
@@ -202,11 +203,13 @@ module.exports = kind(
 				}
 			}
 			if (!Spotlight.isSpottable(this)) spotlightPlaceholder.spotlight = true;
-			if (!current || current === spotlightPlaceholder) {
-				setTimeout(this.bindSafely(function () {
+
+			setTimeout(this.bindSafely(function () {
+				Spotlight.setRecoverNoFocus(true);
+				if (!current || current === spotlightPlaceholder) {
 					Spotlight.spot(this);
-				}), 0);
-			}
+				}
+			}), 0);
 		}
 	},
 
