@@ -5,18 +5,17 @@
 	.moon-dialog-content {
 		margin: 0;
 	}
-	.moon-dialog-client-wrapper {
-		min-height: 108px;
-	}
 	.moon-dialog-title-wrapper {
-		&.use-divider {
-			padding-bottom: 18px;
-			margin: 0 0 18px;
-			border-bottom-width: 3px;
-			border-bottom-style: solid;
+		min-height: 108px;
+		.no-title& {
+			min-height: 60px;
 		}
 	}
-
+	.moon-dialog-divider {
+		padding-bottom: 0;
+		border-bottom-width: 3px;
+		margin: 18px 0 18px;
+	}
 	.moon-dialog-title {
 		line-height: @moon-small-header-line-height;
 		margin-bottom: 6px;
@@ -25,6 +24,9 @@
 	// Client is the button area
 	.moon-dialog-client {
 		padding: 24px 0 0;
+		.no-title& {
+			padding: 0;
+		}
 		float: right;
 		> * {
 			margin-left: @moon-grid-gutter-width;
