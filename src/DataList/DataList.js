@@ -445,9 +445,11 @@ var DataListSpotlightSupport = {
 			focusedItem = this.getItemFromChild(current);
 			this._indexToFocus = focusedItem.index;
 			this._subChildToFocus = focusedItem === current ? null : Spotlight.getChildren(focusedItem).indexOf(current);
-			// Remember additional key only when getKeyFromItem is given
-			if (this.primaryKey) {
-				this._focusedKey = (focusedItem.model && focusedItem.model.get(this.primaryKey)) || null;
+			if (this.focusKey) {
+				this._focusKeyValue = (focusedItem.model && focusedItem.model.get(this.focusKey)) || null;
+			}
+			if (this.accessibilityKey) {
+				this._accessibilityKeyValue = (focusedItem.model && focusedItem.model.get(this.accessibilityKey)) || null;
 			}
 			return true;
 		}
@@ -460,7 +462,8 @@ var DataListSpotlightSupport = {
 		this._indexToFocus = -1;
 		this._maxVisibleIndex = -1;
 		this._subChildToFocus = null;
-		this._focusedKey = null;
+		this._focusKeyValue = null;
+		this._accessibilityKeyValue = null;
 	},
 
 	/**
@@ -471,7 +474,7 @@ var DataListSpotlightSupport = {
 			maxVisibleIndex = this._maxVisibleIndex,
 			subChild = this._subChildToFocus,
 			c = this.collection,
-			callback, model, indexFromKey, bSkip = false;
+			callback;
 		if (c && c.length && (index > -1 || maxVisibleIndex > -1)) {
 			// If there's a valid maxVisibleIndex, we've saved a scroll position so we need to
 			// restore it and then update spotlight.
@@ -488,20 +491,25 @@ var DataListSpotlightSupport = {
 			}
 			// If we aren't restoring scroll position, we just need to update spotlight
 			else {
-				// Restore focus based on key only when getIndexFromKey is given
-				if (this.primaryKey && this._focusedKey !== null) {
-					model = c.find(function (o) {
-						return o.get(this.primaryKey) == this._focusedKey;
+				// Follow focus on update
+				var bSkip = false;
+				if (this.focusKey && this._focusKeyValue !== null) {
+					// find model from focusKey
+					var fromRecord = c.find(function (o) {
+						return o.get(this.focusKey) == this._focusKeyValue;
 					}.bind(this));
-					indexFromKey = model && c.indexOf(model);
-					// If followFocusOnUpdate true, move focus to item that having the same key
-					if (this.followFocusOnUpdate) {
-						bSkip = !!model;
-						index = bSkip ? indexFromKey : index;
-					} else {
-						bSkip = indexFromKey === index;
+
+					if (fromRecord) {
+						index = c.indexOf(fromRecord);
 					}
 				}
+
+				// Skip accessibility readout when content is the same
+				var toRecord = c.at(index);
+				if (this.accessibilityKey && this._accessibilityKeyValue !== null && toRecord) {
+					bSkip = toRecord.get(this.accessibilityKey) === this._accessibilityKeyValue;
+				}
+
 				this.focusOnIndex(index, subChild, {skipRead: bSkip});
 			}
 			this.clearState();
