@@ -49,7 +49,27 @@ var DataListSpotlightSupport = {
 		* @default false
 		* @public
 		*/
-		restoreStateOnRender: false
+		restoreStateOnRender: false,
+
+		/**
+		* A name of a property that can be used as a unique key. When set, 
+		* DataLists will try to follow focus on restore state.
+		*
+		* @type {String}
+		* @default null
+		* @public
+		*/
+		focusKey: null,
+
+		/**
+		* A name of a property that can be used to decide whether to read or not
+		* to read after update list.
+		*
+		* @type {String}
+		* @default null
+		* @public
+		*/
+		accessibilityKey: null
 	},
 
 	/**
