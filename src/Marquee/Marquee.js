@@ -1017,6 +1017,9 @@ var MarqueeItem = {
 	*/
 	_marquee_addAnimationStyles: function (distance) {
 		if (!this.$.marqueeText) return;
+
+		clearTimeout(this._removeAnimationTimer);
+
 		var duration = this._marquee_calcDuration(distance);
 
 		this.$.marqueeText.addClass('animate-marquee');
@@ -1031,7 +1034,7 @@ var MarqueeItem = {
 		}
 
 		// Need this timeout for FF!
-		setTimeout(this.bindSafely(function () {
+		this._addAnimationTimer = setTimeout(this.bindSafely(function () {
 			if (options.accelerate) {
 				dom.transform(this.$.marqueeText, {translateX: this._marquee_adjustDistanceForRTL(distance) + 'px'});
 			} else {
@@ -1047,6 +1050,8 @@ var MarqueeItem = {
 		if (!this.$.marqueeText) {
 			return;
 		}
+		
+		clearTimeout(this._addAnimationTimer);
 
 		this.$.marqueeText.applyStyle('transition-duration', '0s');
 		this.$.marqueeText.applyStyle('-webkit-transition-duration', '0s');
@@ -1055,7 +1060,7 @@ var MarqueeItem = {
 		/**
 		* @private
 		*/
-		setTimeout(this.bindSafely(function () {
+		this._removeAnimationTimer = setTimeout(this.bindSafely(function () {
 			this.$.marqueeText.removeClass('animate-marquee');
 			if (options.accelerate) {
 				dom.transform(this.$.marqueeText, {translateX: null, translateZ: null});
