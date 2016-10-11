@@ -1,0 +1,104 @@
+/* Notification.css */
+.moon-notification {
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	min-width: 300px;
+	max-width: 978px;
+	box-sizing: border-box;
+	text-align: center;
+	border-radius: @moon-notification-border-radius;
+	background-color: fade(@moon-neutral-bg-color, @moon-notification-background-opacity);
+	-webkit-transform: translate3d(-50%, 100%, 0);
+	-moz-transform:    translate3d(-50%, 100%, 0);
+	-ms-transform:     translate3d(-50%, 100%, 0);
+	transform:         translate3d(-50%, 100%, 0);
+
+	&.wide {
+		max-width: 1227px; // 4 button case
+	}
+
+	.moon& {
+		padding: 24px 30px;
+	}
+
+	&::before {
+		content: '';
+		display: block;
+		position: absolute;
+		border: @moon-notification-border-width solid fade(@moon-black, @moon-notification-border-opacity);
+		border-radius: @moon-notification-out-border-radius;
+		top: -@moon-notification-border-width;
+		right: -@moon-notification-border-width;
+		bottom: -@moon-notification-border-width;
+		left: -@moon-notification-border-width;
+		z-index: -1;
+	}
+
+	&.animate {
+		-webkit-transition: -webkit-transform 0ms cubic-bezier(0,1.5,.75,1);
+		-moz-transition:       -moz-transform 0ms cubic-bezier(0,1.5,.75,1);
+		-ms-transition:         -ms-transform 0ms cubic-bezier(0,1.5,.75,1);
+		transition:                 transform 0ms cubic-bezier(0,1.5,.75,1);
+
+		&.hiding {
+			-webkit-transition-timing-function: cubic-bezier(0.47, 0, 0.745, 0.715);
+			-moz-transition-timing-function:    cubic-bezier(0.47, 0, 0.745, 0.715);
+			-ms-transition-timing-function:     cubic-bezier(0.47, 0, 0.745, 0.715);
+			transition-timing-function:         cubic-bezier(0.47, 0, 0.745, 0.715);
+		}
+	}
+
+	&.showing,
+	&.shown {
+		// Make vertical center always in 728px
+		-webkit-transform: translateY(-324px) translate3d(-50%, 50%, 0);
+		-moz-transform:    translateY(-324px) translate3d(-50%, 50%, 0);
+		-ms-transform:     translateY(-324px) translate3d(-50%, 50%, 0);
+		transform:         translateY(-324px) translate3d(-50%, 50%, 0);
+	}
+
+	.moon-body-text {
+		font-family: @moon-notification-font-family;
+		font-weight: @moon-notification-font-weight;
+		font-style: @moon-notification-font-style;
+		font-size: @moon-notification-font-size;
+		.moon-word-break;
+	}
+	.moon-body-text-control {
+		text-align: inherit;
+	}
+	.moon-body-text-spacing {
+		margin: 0;
+	}
+	.moon-button {
+		min-width: 180px;
+		.margin-start-end(@moon-notification-button-gap, 0);
+	}
+	.moon-tooltip-decorator {
+		margin: 0;
+	}
+	.moon-hspacing {
+		& > :first-child,
+		& > :first-child.moon-tooltip-decorator :first-child {
+			margin-left: 0;
+		}
+		.enyo-locale-right-to-left & > :first-child {
+			margin-right: 0;
+		}
+		& > :last-child,
+		& > :last-child.moon-tooltip-decorator :first-child {
+			margin-right: 0;
+		}
+		.enyo-locale-right-to-left & > :last-child {
+			margin-right: 9px;
+			margin-left: 0;
+		}
+	}
+	// Applying the margin to the children allows for the case of no children without needing removing the margin
+	.client {
+		& > * {
+			margin-top: 24px;
+		}
+	}
+}
