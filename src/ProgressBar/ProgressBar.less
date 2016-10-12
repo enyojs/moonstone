@@ -4,6 +4,18 @@
 	background-color: @moon-progress-bg-color;
 	direction: ltr;
 
+	.moon-neutral & {
+		background-color: @moon-neutral-progress-bar-bg-color;
+
+		.moon-progress-bg-bar {
+			background-color: @moon-neutral-progress-bg-bar-bg-color;
+		}
+
+		.moon-progress-bar-bar {
+			background-color: @moon-neutral-progress-bar-bar-bg-color;
+		}
+	}
+
 	.moon-progress-bg-bar,
 	.moon-progress-bar-bar {
 		position: absolute;
