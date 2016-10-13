@@ -226,7 +226,7 @@ var DataListSpotlightSupport = {
 	* @private
 	*/
 	_spotlightSelect: function (inEvent, inDirection) {
-		if (!this.spotlight) {
+		if (this.hasRendered) {
 			var pages = this.delegate.pagesByPosition(this),
 				spottableControl;
 
