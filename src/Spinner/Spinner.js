@@ -247,10 +247,7 @@ module.exports = kind(
 	* @see enyo/AccessibilitySupport~AccessibilitySupport#accessibilityLive
 	* @public
 	*/
-	accessibilityLive: 'off',
-
-	
-	loadingMessage: $L('Loading')
+	accessibilityLive: 'off'
 });
 
 /**
