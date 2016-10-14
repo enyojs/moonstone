@@ -251,11 +251,15 @@ module.exports = kind(
 });
 
 /**
+* Translated loading message.
+*
+* Usage in application.
+* ```
+* var Spinner = require('moonstone/Spinner');
+* this.$.spinner.set('accessibilityLabel', Spinner.LOADING_STRING);
+* ```
+*
 * @type {String}
-* @translated loading message
 * @public
-* @usage in application
-* @var Spinner = require('moonstone/Spinner');
-* @this.$.spinner.set('accessibilityLabel', Spinner.LOADING_STRING);
 */
 module.exports.LOADING_STRING = loadingString;
