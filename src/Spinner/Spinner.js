@@ -15,6 +15,10 @@ var
 	MarqueeText = Marquee.Text,
 	MarqueeSupport = Marquee.Support;
 
+var
+	$L = require('../i18n'),
+	loadingString = $L('Loading');
+
 /**
 * {@link module:moonstone/Spinner~Spinner} is a [control]{@link module:enyo/Control~Control} that shows a spinning animation
 * to indicate that activity is taking place. By default, the spinner is light-colored and
@@ -104,7 +108,7 @@ module.exports = kind(
 	* @private
 	*/
 	components: [
-		{name: 'decorator', kind: Control, classes: 'moon-spinner-ball-decorator spin-ball-animation', components: [
+		{name: 'decorator', kind: Control, classes: 'moon-spinner-ball-decorator spin-ball-animation', accessibilityDisabled: true, components: [
 			{kind: Control, classes: 'moon-spinner-ball moon-spinner-ball1'},
 			{kind: Control, classes: 'moon-spinner-ball moon-spinner-ball2'},
 			{kind: Control, classes: 'moon-spinner-ball moon-spinner-ball3'}
@@ -245,3 +249,17 @@ module.exports = kind(
 	*/
 	accessibilityLive: 'off'
 });
+
+/**
+* Translated loading message.
+*
+* Usage in application.
+* ```
+* var Spinner = require('moonstone/Spinner');
+* this.$.spinner.set('accessibilityLabel', Spinner.LOADING_STRING);
+* ```
+*
+* @type {String}
+* @public
+*/
+module.exports.LOADING_STRING = loadingString;
