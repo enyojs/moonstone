@@ -16,7 +16,8 @@ var
 	MarqueeSupport = Marquee.Support;
 
 var
-	$L = require('../i18n');
+	$L = require('../i18n'),
+	loadingString = $L('Loading');
 
 /**
 * {@link module:moonstone/Spinner~Spinner} is a [control]{@link module:enyo/Control~Control} that shows a spinning animation
@@ -248,11 +249,16 @@ module.exports = kind(
 	*/
 	accessibilityLive: 'off',
 
-	/**
-	* @default Loading
-	* @type {String}
-	* @translated loading message
-	* @public
-	*/
+	
 	loadingMessage: $L('Loading')
 });
+
+/**
+* @type {String}
+* @translated loading message
+* @public
+* @usage in application
+* @var Spinner = require('moonstone/Spinner');
+* @this.$.spinner.set('accessibilityLabel', Spinner.LOADING_STRING);
+*/
+module.exports.LOADING_STRING = loadingString;
