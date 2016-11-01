@@ -15,5 +15,6 @@ module.exports = utils.mixin({
 	accelerate: true,
 	renderOnShow: {
 		expandableListDrawer: true
-	}
+	},
+	brandTheme: null
 }, options, config);

@@ -3,9 +3,18 @@
 var
 	platform = require('enyo/platform'),
 	dispatcher = require('enyo/dispatcher'),
-	gesture = require('enyo/gesture');
+	gesture = require('enyo/gesture'),
+	dom = require('enyo/dom');
 
-exports = module.exports = require('./src/options');
+var
+	option = require('./src/options');
+
+// Support brand theme
+if (option.brandTheme) {
+	dom.addBodyClass('enyo-brand-theme-' + option.brandTheme);
+}
+
+exports = module.exports = option;
 exports.version = '2.6.4-rc.11';
 
 // Override the default holdpulse config to account for greater delays between keydown and keyup
