@@ -856,11 +856,12 @@ var MarqueeItem = {
 	* @private
 	*/
 	_marquee_requestMarquee: function (sender, ev) {
+		this._marquee_puppetMaster = ev.originator;
+		
 		if (!ev || !this.showing || this._marquee_fits) {
 			return;
 		}
 
-		this._marquee_puppetMaster = ev.originator;
 		ev.originator.addMarqueeItem(this);
 
 		this.marqueePause = ev.marqueePause || 1000;
