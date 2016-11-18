@@ -64,6 +64,11 @@
 		font-style: @moon-notification-font-style;
 		font-size: @moon-notification-font-size;
 		.moon-word-break;
+		.enyo-locale-ja &,
+		.enyo-locale-zh & {
+			word-wrap: normal;
+			word-break: normal;
+		}
 	}
 	.moon-body-text-spacing {
 		margin: 0;
