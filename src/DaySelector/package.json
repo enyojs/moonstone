@@ -1,0 +1,6 @@
+{
+	"main": "DaySelector.js",
+	"styles": [
+		"DaySelector.less"
+	]
+}
