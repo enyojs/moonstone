@@ -102,6 +102,11 @@ module.exports = kind(
 	/**
 	* @private
 	*/
+	spotlightPreserveAcceleration: true,
+
+	/**
+	* @private
+	*/
 	classes: 'moon-tooltip-decorator',
 
 	/**

@@ -78,6 +78,11 @@ module.exports = kind(
 	/**
 	* @private
 	*/
+	spotlightPreserveAcceleration: true,
+
+	/**
+	* @private
+	*/
 	handlers: {
 		onActivate: 'activated',
 		onShow: 'popupShown',
