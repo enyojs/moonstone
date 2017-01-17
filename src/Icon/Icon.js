@@ -51,6 +51,7 @@ var icons = {
 	rollbackward      : '&#983032;',  // \0EFFF8 undo
 	exitfullscreen    : '&#983033;',  // \0EFFF9 minimize
 	fullscreen        : '&#983034;',  // \0EFFFA maximize
+	arrowshrinkleft   : '&#983035;',  // \0EFFFB shrink_panel
 	arrowextend       : '&#983073;',  // \0F0021 arrow_left
 	arrowshrink       : '&#983074;',  // \0F0022 arrow_right
 	flag              : '&#983075;',  // \0F0023 flag
@@ -156,19 +157,12 @@ module.exports = kind(
 		* The following icon names are valid:
 		*
 		* `drawer`
-		* `arrowlargedown`
-		* `arrowlargeup`
-		* `arrowlargeleft`
-		* `arrowlargeright`
-		* `arrowsmallup`
-		* `arrowsmalldown`
-		* `arrowsmallleft`
-		* `arrowsmallright`
-		* `closex`
+		* `plus`
+		* `minus`
+		* `arrowhookleft`
+		* `arrowhookright`
+		* `ellipsis`
 		* `check`
-		* `search`
-		* `exitfullscreen`
-		* `fullscreen`
 		* `circle`
 		* `stop`
 		* `play`
@@ -183,8 +177,36 @@ module.exports = kind(
 		* `pausejumpbackward`
 		* `jumpforward`
 		* `jumpbackward`
+		* `denselist`
+		* `bulletlist`
+		* `list`
+		* `drawer`
+		* `arrowlargedown`
+		* `arrowlargeup`
+		* `arrowlargeleft`
+		* `arrowlargeright`
+		* `arrowsmallup`
+		* `arrowsmalldown`
+		* `arrowsmallleft`
+		* `arrowsmallright`
+		* `closex`
+		* `search`
+		* `rollforward`
+		* `rollbackward`
+		* `exitfullscreen`
+		* `fullscreen`
+		* `arrowshrinkleft`
 		* `arrowextend`
 		* `arrowshrink`
+		* `flag`
+		* `funnel`
+		* `trash`
+		* `star`
+		* `hollowstar`
+		* `halfstar`
+		* `gear`
+		* `plug`
+		* `lock`
 		*
 		* @type {String}
 		* @default ''
