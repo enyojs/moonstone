@@ -15,7 +15,6 @@ var
 var
 	Input = require('../Input'),
 	InputDecorator = require('../InputDecorator'),
-	StyleAnimator = require('../StyleAnimator'),
 	Marquee = require('../Marquee'),
 	MarqueeSupport = Marquee.Support,
 	MarqueeText = Marquee.Text;
@@ -309,8 +308,7 @@ module.exports = kind(
 		]},
 		{name: 'titleBelow', kind: MarqueeText, classes: 'moon-sub-header-text moon-header-title-below'},
 		{name: 'subTitleBelow', kind: MarqueeText, classes: 'moon-sub-header-text moon-header-sub-title-below'},
-		{name: 'client', kind: Control, classes: 'moon-hspacing moon-header-client'},
-		{name: 'animator', kind: StyleAnimator, onComplete: 'animationComplete'}
+		{name: 'client', kind: Control, classes: 'moon-hspacing moon-header-client'}
 	],
 
 	/**
@@ -741,15 +739,6 @@ module.exports = kind(
 	subTitleBelowChanged: function () {
 		this.$.subTitleBelow.set('content', this.subTitleBelow || '');
 	},
-
-	/**
-	* Placeholder
-	*
-	* @private
-	*/
-	// animationComplete: function (inSender, inEvent) {
-		// Do something?
-	// },
 
 	/**
 	* @private
