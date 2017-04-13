@@ -385,9 +385,6 @@ var MoonScrollStrategy = module.exports = kind(
 	* @private
 	*/
 	scrollMathStart: function () {
-		if (platform.touch) {
-			Spotlight.mute(this);
-		}
 		return TouchScrollStrategy.prototype.scrollMathStart.apply(this, arguments);
 	},
 
@@ -395,11 +392,7 @@ var MoonScrollStrategy = module.exports = kind(
 	* @private
 	*/
 	scrollMathStop: function () {
-		var r = TouchScrollStrategy.prototype.scrollMathStop.apply(this, arguments);
-		if (platform.touch) {
-			Spotlight.unmute(this);
-		}
-		return r;
+		return TouchScrollStrategy.prototype.scrollMathStop.apply(this, arguments);
 	},
 
 	/**
@@ -1222,7 +1215,7 @@ var MoonScrollStrategy = module.exports = kind(
 				// boundaries. We consider implicit direction because if the scroller
 				// is scrolling in two dimensions, there may be cases where (for
 				// example) an element reached via a vertical move happens to be
-				// the closest element to a horizontal boundary. 
+				// the closest element to a horizontal boundary.
 				if (direction === 'LEFT' || xDir === -1) {
 					hDir = 'LEFT';
 					hLimit = 0;
@@ -1256,7 +1249,7 @@ var MoonScrollStrategy = module.exports = kind(
 					vDir = 'DOWN';
 					vLimit = scrollBounds.maxTop;
 				}
-				
+
 				if (vDir && this.at5WayLimit(control, vDir)) {
 					pos = offsets.top;
 					size = offsets.height;
