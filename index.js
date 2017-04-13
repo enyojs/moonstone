@@ -15,7 +15,7 @@ if (option.brandTheme) {
 }
 
 exports = module.exports = option;
-exports.version = '2.6.4-rc.13';
+exports.version = '2.6.4-rc.13.3.s';
 
 // Override the default holdpulse config to account for greater delays between keydown and keyup
 // events in Moonstone with certain input devices.
