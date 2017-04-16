@@ -1,0 +1,6 @@
+{
+	"main": "BadgeOverlaySupport.js",
+	"styles": [
+		"BadgeOverlaySupport.less"
+	]
+}
