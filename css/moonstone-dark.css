@@ -1128,6 +1128,9 @@ html {
   padding: 0.5rem;
   position: relative;
 }
+.moon-res-hd .moon-item {
+  padding: 0.375rem;
+}
 .moon-item.spotlight {
   background-color: #cf0652;
   color: #ffffff;
