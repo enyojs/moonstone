@@ -1,0 +1,25 @@
+.moon-badge-overlay-support {
+	.moon-image-client {
+		color: #fff;
+		padding: 0;
+		background-color: rgba(0, 0, 0, 0.5);
+
+		.moon-icon.small {
+			font-size: (@moon-icon-size * 2);
+		}
+	}
+	&.top .moon-image-client {
+		bottom: initial;
+		top: 0;
+	}
+	&.right .moon-icon.small {
+		float: right;
+	}
+	.moon-image {
+		display: block;
+		margin: 0;
+	}
+	&.moon-badge-overlay-transparent .moon-image-client {
+		background-color: rgba(0, 0, 0, 0);
+	}
+}
