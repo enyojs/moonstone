@@ -61,7 +61,26 @@
 			this.positionMethod = v ? 'getScrollTop' : 'getScrollLeft';
 			this.sizeDimension = v ? 'clientHeight' : 'clientWidth';
 			this.addClass('enyo-' + this.axis + 'thumb');
+
+			// Pre-calculation of internal, resolution-specific metrics
+			this.cornerSize = moon.riScale(this.cornerSize);
+			this.minSize = moon.riScale(this.minSize);
 		},
+
+		/**
+		* @private
+		*/
+		rendered: enyo.inherit(function (sup) {
+			return function () {
+				sup.apply(this, arguments);
+
+				// Rounding to the nearest whole pixel in the dimension that will be transformed, to
+				// prevent rounding issues when transforms are applied.
+				var node = this.hasNode(),
+					rect = node && node.getBoundingClientRect();
+				if (rect) this.applyStyle(this.dimension, Math.round(rect[this.dimension]) + 'px');
+			};
+		}),
 
 		/**
 		* @private
