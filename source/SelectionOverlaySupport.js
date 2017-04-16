@@ -91,9 +91,8 @@
 		* @method
 		* @private
 		*/
-		create: enyo.inherit(function (sup) {
+		createOverlay: enyo.inherit(function (sup) {
 			return function () {
-				sup.apply(this, arguments);
 				this.createChrome(this._selectionScrim);
 				this.selectionOverlayHorizontalOffset = this.selectionOverlayHorizontalOffset === undefined ? 50 : this.selectionOverlayHorizontalOffset;
 				this.selectionOverlayVerticalOffset = this.selectionOverlayVerticalOffset === undefined ? 50 : this.selectionOverlayVerticalOffset;
@@ -117,7 +116,7 @@
 		* @private
 		*/
 		_selectionScrim: [
-			{classes: 'enyo-fit moon-selection-overlay-support-scrim', components: [
+			{name: 'selectionScrim', classes: 'enyo-fit moon-selection-overlay-support-scrim', components: [
 				{name:'selectionScrimIcon', kind: 'moon.Icon', small: false, icon: "check", spotlight: false}
 			]}
 		],
@@ -134,7 +133,17 @@
 		*/
 		selectionOverlayHorizontalOffsetChanged: function () {
 			this.$.selectionScrimIcon.applyStyle((this.rtl ? 'right' : 'left'), this.selectionOverlayHorizontalOffset + '%');
-		}
+		},
+
+		selectedChanged: enyo.inherit(function (sup) {
+			return function () {
+				sup.apply(this, arguments);
+				if (this.selected && !this.$.selectionScrim) {
+					this.createOverlay();
+					this.$.selectionScrim.render();
+				}
+			};
+		})
 	};
 
 })(enyo, this);
