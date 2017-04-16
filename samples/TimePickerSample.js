@@ -4,12 +4,15 @@ enyo.kind({
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: 'moon.Scroller', fit: true, components: [
-			{classes: "moon-7h", components: [
-				{kind: "moon.DatePicker", name:"datepicker", noneText: "Pick a Date", content: "Date", onChange: "datechanged"},
-				{kind: "moon.TimePicker", name:"timepicker", content: "Time", meridiemEnable: true, onChange: "timechanged"},
-				{kind: "moon.TimePicker", name:"disabledPicker", meridiemEnable: true, disabled: true, noneText: "Disabled Time Picker", content: "Disabled Time"},
-				{name: "localePicker", kind: "moon.ExpandablePicker", noneText: "No Locale Selected", content: "Choose Locale", onChange:"pickerHandler", components: [
+			{classes: "moon-7h moon-vspacing-s", components: [
+				{kind: "moon.DatePicker", name:"pickerDateLinked", noneText: "Pick a Date", content: "Linked Date", onChange: "dateChanged"},
+				{kind: "moon.TimePicker", name:"pickerTimeLinked", noneText: "Pick a Time", content: "Linked Time", meridiemEnable: true, onChange: "timeChanged"},
+				{kind: "moon.TimePicker", name: "pickerTime", noneText: "Pick a Time", content: "Time", meridiemEnable: true, onChange: "timeChanged"},
+				{kind: "moon.Button", name: "buttonReset", content: "Reset Time", small: true, ontap: "resetTapped"},
+				{kind: "moon.TimePicker", name:"pickerDisabled", meridiemEnable: true, disabled: true, noneText: "Disabled Time Picker", content: "Disabled Time"},
+				{kind: "moon.ExpandablePicker", name: "pickerLocale", noneText: "No Locale Selected", content: "Choose Locale", onChange:"pickerHandler", components: [
 					{content: "Use Default Locale", active: true},
+					{content: 'zh-TW'},
 					{content: 'jp-JP'},
 					{content: 'en-US'},
 					{content: 'ko-KR'},
@@ -32,13 +35,13 @@ enyo.kind({
 		{kind: "moon.BodyText", name: "result", content: "No change yet"}
 	],
 	bindings: [
-		{from:".value", to:".$.datepicker.value", oneWay:false},
-		{from:".value", to:".$.timepicker.value", oneWay:false}
+		{from:".value", to:".$.pickerDateLinked.value", oneWay:false},
+		{from:".value", to:".$.pickerTimeLinked.value", oneWay:false}
 	],
 	create: function(){
 		this.inherited(arguments);
 		if (!window.ilib) {
-			this.$.localePicker.hide();
+			this.$.pickerLocale.hide();
 			this.log("iLib not present -- hiding locale picker");
 		}
 		this.set("value", new Date("Mar 09 2014 01:59"));
@@ -46,21 +49,26 @@ enyo.kind({
 	pickerHandler: function(inSender, inEvent){
 		var opt = inEvent.selected.content,
 			val = (opt == "Use Default Locale") ? null : opt;
-		this.$.datepicker.setLocale(val);
-		this.$.timepicker.setLocale(val);
-		this.$.disabledPicker.setLocale(val);
+		this.$.pickerDateLinked.setLocale(val);
+		this.$.pickerTimeLinked.setLocale(val);
+		this.$.pickerTime.setLocale(val);
+		this.$.pickerDisabled.setLocale(val);
 		this.$.result.setContent("locale changed to " + opt);
 		return true;
 	},
-	timechanged: function(inSender, inEvent) {
+	timeChanged: function(inSender, inEvent) {
 		if (this.$.result && inEvent.value){
 			var timeArray = inEvent.value.toTimeString().split(":");
 			this.$.result.setContent(inEvent.name + " changed to " + timeArray[0] + ":" + timeArray[1]);
 		}
 	},
-	datechanged: function(inSender, inEvent) {
+	dateChanged: function(inSender, inEvent) {
 		if (this.$.result && inEvent.value){
 			this.$.result.setContent(inEvent.name + " changed to " + inEvent.value.toDateString());
 		}
+	},
+	resetTapped: function(inSender, inEvent) {
+		this.$.pickerTime.set("value", null);
+		return true;
 	}
 });
