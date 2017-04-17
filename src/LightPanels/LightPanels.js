@@ -6,10 +6,12 @@
 
 var
 	kind = require('enyo/kind'),
-	LightPanels = require('enyo/LightPanels');
+	LightPanels = require('enyo/LightPanels'),
+	options = require('enyo/options');
 
 var
-	LightPanel = require('./LightPanel');
+	LightPanel = require('./LightPanel'),
+	LightPanelsAccessibilitySupport = require('./LightPanelsAccessibilitySupport');
 
 /**
 * A lightweight panels implementation that has basic support for side-to-side transitions
@@ -33,6 +35,11 @@ module.exports = kind(
 	* @private
 	*/
 	kind: LightPanels,
+
+	/**
+	* @private
+	*/
+	mixins: options.accessibility ? [LightPanelsAccessibilitySupport] : null,
 
 	/**
 	* @private
