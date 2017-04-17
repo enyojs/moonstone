@@ -11,6 +11,9 @@ var
 var
 	LightPanel = require('./LightPanel');
 
+var
+	Spotlight = require('spotlight');
+
 /**
 * A lightweight panels implementation that has basic support for side-to-side transitions
 * between child components.
@@ -66,9 +69,16 @@ module.exports = kind(
 	updateSpottability: function (from, to) {
 		var panels = this.getPanels(),
 			panelPrev = panels[from],
-			panelNext = panels[to];
+			panelNext = panels[to],
+			current = Spotlight.getCurrent();
 
-		if (panelPrev) panelPrev.spotlightDisabled = true;
+		if (panelPrev) {
+			panelPrev.spotlightDisabled = true;
+			if (current && current.isDescendantOf(panelPrev)) {
+				Spotlight.unfreeze();
+				Spotlight.unspot();
+			}
+		}
 		if (panelNext) panelNext.spotlightDisabled = false;
 	},
 
