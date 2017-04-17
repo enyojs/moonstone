@@ -87,6 +87,15 @@ module.exports = kind(
 		{name: 'header', kind: Marquee.Text, classes: 'moon-labeledtextitem-header'},
 		{name: 'text', classes: 'moon-labeledtextitem-text'}
 	],
+	
+	/**
+	* @private
+	*/
+	textChanged: function (was, is) {
+		// ensure that when the content is updated in the text-child it will use the correct
+		// directionality, since that control does not have this check built-in
+		if (is && is.length) this.$.text.detectTextDirectionality(is);
+	},
 
 	/**
 	* @private
