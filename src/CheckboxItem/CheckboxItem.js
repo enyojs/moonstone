@@ -227,6 +227,11 @@ module.exports = kind(
 	/**
 	* @private
 	*/
+	detectTextDirectionality: function () {},
+
+	/**
+	* @private
+	*/
 	disabledChanged: function () {
 		Item.prototype.disabledChanged.apply(this, arguments);
 		this.$.input.set('disabled', this.disabled);
