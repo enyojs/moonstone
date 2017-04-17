@@ -76,6 +76,11 @@ module.exports = kind(
 
 	/**
 	* @private
+	*/
+	_comma: ',',
+
+	/**
+	* @private
 	* @lends module:moonstone/DayPicker~DayPicker.prototype
 	*/
 	published: {
@@ -182,6 +187,7 @@ module.exports = kind(
 			var daysOfWeek = df.getDaysOfWeek();
 			var days = sdf.getDaysOfWeek();
 
+			this._comma = (ilib.getLocale() == 'fa-IR') ? '\u060c': this._comma;
 			this.firstDayOfWeek = li.getFirstDayOfWeek();
 			this.weekEndStart = li.getWeekEndStart ? li.getWeekEndStart() : this.weekEndStart;
 			this.weekEndEnd = li.getWeekEndEnd ? li.getWeekEndEnd() : this.getWeekEndEnd;
@@ -220,7 +226,7 @@ module.exports = kind(
 			if (!str) {
 				str = this.days[this.selectedIndex[i]];
 			} else {
-				str = str + ', ' + this.days[this.selectedIndex[i]];
+				str = str + this._comma + this.days[this.selectedIndex[i]];
 			}
 		}
 		return str || this.getNoneText();
