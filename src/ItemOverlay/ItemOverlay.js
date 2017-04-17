@@ -92,8 +92,10 @@ var ItemOverlay = module.exports = kind(
 	/**
 	* @private
 	*/
-	autoHideChanged: function() {
-		this.addRemoveClass('auto-hide', this.get('autoHide'));
+	autoHideChanged: function(was, is) {
+		if (this.autoHide) {
+			this.set('showing', (was || this.spotFocused));
+		}
 	},
 
 
@@ -179,6 +181,42 @@ ItemOverlay.ItemOverlaySupport = {
 		{from: 'autoHideBeginning', to: '$.beginning.autoHide'},
 		{from: 'autoHideEnding', to: '$.ending.autoHide'}
 	],
+
+	handlers: {
+		onSpotlightFocused: 'spotFocused',
+		onSpotlightBlur: 'spotBlur',
+	},
+
+	/**
+	* @private
+	*/
+	overlayShowing: function(showing) {
+		if (this.autoHideBeginning) {
+			this.$.beginning.set('showing', showing);
+		}
+
+		if (this.autoHideEnding) {
+			this.$.ending.set('showing', showing);
+		}
+	},
+
+	/**
+	* @private
+	*/
+	spotFocused: function() {
+		this.overlayShowing(true);
+		this.resize();
+
+	},
+
+	/**
+	* @private
+	*/
+	spotBlur: function() {
+		this.overlayShowing(false);
+		this.resize();
+
+	},
 
 	/**
 	* @private
