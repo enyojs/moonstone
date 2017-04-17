@@ -87,7 +87,7 @@ module.exports = kind(
 		* @default 'Every Day'
 		* @public
 		*/
-		everyDayText: $L('Every Day'),
+		everyDayText: $L('Everyday'),
 
 		/**
 		* Text to be displayed when all of the weekdays are selected.
@@ -96,7 +96,7 @@ module.exports = kind(
 		* @default 'Every Weekday'
 		* @public
 		*/
-		everyWeekdayText: $L('Every Weekday'),
+		everyWeekdayText: $L('Weekday'),
 
 		/**
 		* Text to be displayed when all of the weekend days are selected.
@@ -105,7 +105,7 @@ module.exports = kind(
 		* @default 'Every Weekend'
 		* @public
 		*/
-		everyWeekendText: $L('Every Weekend'),
+		everyWeekendText: $L('Weekend'),
 
 		/**
 		* Text to be displayed if no item is currently selected.
