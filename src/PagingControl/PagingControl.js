@@ -8,14 +8,16 @@ require('moonstone');
 var
 	kind = require('enyo/kind'),
 	utils = require('enyo/utils'),
-	animation = require('enyo/animation');
+	animation = require('enyo/animation'),
+	options = require('enyo/options');
 
 var
 	Spotlight = require('spotlight'),
 	$L = require('../i18n');
 
 var
-	IconButton = require('../IconButton');
+	IconButton = require('../IconButton'),
+	PagingControlAccessibilitySupport = require('./PagingControlAccessibilitySupport');
 
 /**
 * Fires when page boundary is reached.
@@ -57,6 +59,11 @@ module.exports = kind(
 	* @private
 	*/
 	kind: IconButton,
+
+	/**
+	* @private
+	*/
+	mixins: options.accessibility ? [PagingControlAccessibilitySupport] : null,
 
 	/**
 	* @private
