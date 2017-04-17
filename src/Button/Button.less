@@ -77,6 +77,15 @@
 		min-width: @moon-button-large-min-width;
 	}
 
+	> .button-overlay {
+		position: absolute;
+		border-radius: @moon-button-border-radius;
+		top: -(@moon-button-border-width);
+		bottom: -(@moon-button-border-width);
+		left: -(@moon-button-border-width);
+		right: -(@moon-button-border-width);
+	}
+
 	&.small {
 		height: @moon-button-small-height;
 		min-width: @moon-button-small-height;
@@ -87,6 +96,14 @@
 
 		&.min-width {
 			min-width: @moon-button-small-min-width;
+		}
+
+		> .button-overlay {
+			border-radius: 0;
+			top: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
+			bottom: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
+			left: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
+			right: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
 		}
 
 		.moon-taparea(@moon-button-small-height);
