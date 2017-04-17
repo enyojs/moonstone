@@ -212,12 +212,12 @@
 				break;
 
 			case 'Slowrewind':
-				msg = params.playbackRate + 'x';
+				msg = params.playbackRate.split('-')[1] + 'x';
 				leftSrc = this.retriveImgOrIconPath(this._pauseBackImg);
 				break;
 
 			case 'Fastforward':
-				msg = Math.abs(params.playbackRate) + 'x';
+				msg = params.playbackRate + 'x';
 				rightSrc = this.retriveImgOrIconPath(this._fastForwardImg);
 				break;
 
@@ -259,27 +259,21 @@
 			}
 
 			// Don't show feedback if we are showing custom feedback already, unless this is a new custom message
-			if (!customMessage && this._showingFeedback) {
-				return;
-			}
-
+			if (!customMessage && this._showingFeedback) return;
+	
 			// Set content as _inMessage_
 			this.$.feedText.setContent( this.get('uppercase') ? enyo.toUpperCase(msg) : msg);
 
 			// Show output controls when video player is not preview mode
-			if (!preview) {
-				this.showFeedback();
-			}
+			if (!preview) this.showFeedback();
 
 			// Show icons as appropriate
 			this.updateIcons(leftSrc, rightSrc);
 
 			//* Don't set up hide timer if _inPersistShowing_ is true
-			if (persist) {
-				this.resetAutoTimer();
-			} else {
-				this.setAutoTimer();
-			}
+			if (persist) this.resetAutoTimer();
+			else this.setAutoTimer();
+
 			this.inPersistShowing = persist;
 		},
 
