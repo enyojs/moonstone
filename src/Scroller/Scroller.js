@@ -254,6 +254,11 @@ if (platform.touch && !platform.webos) {
 		/**
 		* @private
 		*/
+		spotlightRememberFocus: false,
+
+		/**
+		* @private
+		*/
 		handlePageUpDownKey: false,
 
 		/**
