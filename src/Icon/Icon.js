@@ -324,7 +324,7 @@ module.exports = kind(
 
 	/**
 	* @private
-	*/	
+	*/
 	ariaObservers: [
 		{path: ['content', 'accessibilityPreHint', 'accessibilityLabel', 'accessibilityHint', 'tabIndex'], method: function () {
 			var label = this.accessibilityPreHint && this.accessibilityLabel && this.accessibilityHint && ( this.accessibilityPreHint + ' ' + this.accessibilityLabel + ' ' + this.accessibilityHint) ||
