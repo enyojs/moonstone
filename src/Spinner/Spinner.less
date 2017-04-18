@@ -219,6 +219,14 @@
 		line-height: @moon-spinner-size;
 		margin: 0 2.6ex 0 0;
 	}
+
+	.moon-button & {
+		background-color: transparent;
+		position: static;
+
+		.margin-start-end(0, @moon-spotlight-outset);
+		.font-kerning(none);
+	}
 }
 .enyo-locale-right-to-left .moon-spinner {
 	// This allows for the spinner to spin in a counter-clockwise direction in RTL mode
