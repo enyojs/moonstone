@@ -10,6 +10,10 @@
 		}
 		&[checked] .moon-icon {
 			visibility: visible;
+
+			.moon-neutral & {
+				background-color: transparent;
+			}
 		}
 	}
 
@@ -21,9 +25,17 @@
 		border-radius: 15px;
 		color: transparent;
 		background-color: @moon-dark-gray;
+
+		.moon-neutral & {
+			background-color: @moon-white;
+		}
 	}
 	&[checked] .moon-icon {
 		color: @moon-white;
+
+		.moon-neutral & {
+			color: @moon-dark-gray;
+		}
 	}
 }
 
