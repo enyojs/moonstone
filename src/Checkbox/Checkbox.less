@@ -22,6 +22,8 @@
 		padding: 0;
 		width: 30px;
 		height: 30px;
+		line-height: 30px;
+		font-size: 60px;
 		border-radius: 15px;
 		color: transparent;
 		background-color: @moon-dark-gray;
@@ -31,7 +33,7 @@
 		}
 	}
 	&[checked] .moon-icon {
-		color: @moon-white;
+		color: @moon-gray;
 
 		.moon-neutral & {
 			color: @moon-dark-gray;
@@ -51,25 +53,22 @@
 		}
 	}
 
-	&.moon-toggle-item {
-		.moon-checkbox:not([checked]):not([disabled]) .moon-icon {
+	&.moon-toggle-item .moon-checkbox:not([disabled]) {
+		&[checked] .moon-icon {
 			color: @moon-checkbox-toggle-switch-color;
 		}
-
-		.moon-checkbox[checked]:not([disabled]) .moon-icon {
+		.moon-icon {
 			color: @moon-checkbox-toggle-switch-checked-color;
 		}
 	}
 
-	.moon-checkbox:not([disabled]) .moon-icon {
-		background-color: rgba(255,255,255,0.41);
-	}
-
-	.moon-checkbox:not([checked]):not([disabled]) .moon-icon {
-		color: transparent;
-	}
-
-	.moon-checkbox[checked]:not([disabled]) .moon-icon {
-		color: @moon-white;
+	.moon-checkbox:not([disabled]) {
+		.moon-icon {
+			background-color: rgba(255,255,255,0.41);
+			color: transparent;
+		}
+		&[checked] .moon-icon {
+			color: @moon-white;
+		}
 	}
 }
