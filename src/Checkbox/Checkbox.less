@@ -2,22 +2,77 @@
 .moon-checkbox {
 	cursor: pointer;
 
+	.moon-formcheckbox-item &,
+	.moon-toggle-item & {
+		.moon-icon {
+			visibility: hidden;
+			background-color: transparent;
+			width: @moon-icon-small-size;
+			height: @moon-icon-small-size;
+			font-size: (@moon-icon-small-size * 2);
+			line-height: @moon-icon-small-size;
+		}
+		&[checked] .moon-icon {
+			visibility: visible;
+
+			.moon-neutral & {
+				background-color: transparent;
+			}
+		}
+	}
+
 	.moon-icon {
-		visibility: hidden;
 		margin: 0;
 		padding: 0;
+		width: @moon-checkbox-icon-size;
+		height: @moon-checkbox-icon-size;
+		line-height: @moon-checkbox-icon-size;
+		font-size: (@moon-checkbox-icon-size * 2);
+		border-radius: (@moon-checkbox-icon-size / 2);
+		color: transparent;
+		background-color: @moon-checkbox-icon-bg-color;
+
+		.moon-neutral & {
+			background-color: @moon-spotlight-text-color;
+		}
 	}
 	&[checked] .moon-icon {
-		visibility: visible;
+		color: @moon-checkbox-checked-icon-color;
+
+		.moon-neutral & {
+			color: @moon-neutral-checkbox-checked-icon-color;
+		}
 	}
 }
 
 .spotlight {
 	.moon-checkbox[checked]:after {
-		color: @moon-white;
+		color: @moon-spotlight-text-color;
 	}
-	.moon-checkbox:not([checked]):not([disabled]) .moon-icon {
-		visibility: visible;
-		opacity: 0.3;
+
+	&.moon-formcheckbox-item,
+	&.moon-toggle-item {
+		.moon-checkbox:not([disabled]) .moon-icon {
+			background-color: transparent;
+		}
+	}
+
+	&.moon-toggle-item .moon-checkbox:not([disabled]) {
+		&[checked] .moon-icon {
+			color: @moon-checkbox-toggle-switch-checked-color;
+		}
+		.moon-icon {
+			color: @moon-checkbox-toggle-switch-color;
+		}
+	}
+
+	.moon-checkbox:not([disabled]) {
+		.moon-icon {
+			background-color: fade(@moon-white, 40%);
+			color: transparent;
+		}
+		&[checked] .moon-icon {
+			color: @moon-spotlight-text-color;
+		}
 	}
 }
