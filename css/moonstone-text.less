@@ -66,6 +66,7 @@
 	a:visited {color: @moon-spotlight-color; text-decoration:none;}
 	a:hover {color: @moon-spotlight-color; text-decoration:none;}
 	a:active {color: @moon-spotlight-color; text-decoration:none;}
+	.locale-japanese-line-break;
 }
 .moon-body-large-text {
 	font-size: @moon-body-font-size + 3;
@@ -119,6 +120,11 @@
 .moon-word-break {
 	word-wrap: break-word;
 	word-break: keep-all;
+}
+.locale-japanese-line-break {
+	.enyo-locale-ja & {
+		line-break: strict;
+	}
 }
 
 .enyo-locale-non-latin {

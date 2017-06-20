@@ -63,12 +63,12 @@
 		font-weight: @moon-notification-font-weight;
 		font-style: @moon-notification-font-style;
 		font-size: @moon-notification-font-size;
-		.moon-word-break;
-		.enyo-locale-ja &,
+		word-wrap: break-word;
 		.enyo-locale-zh & {
 			word-wrap: normal;
 			word-break: normal;
 		}
+		.locale-japanese-line-break;
 	}
 	.moon-body-text-spacing {
 		margin: 0;

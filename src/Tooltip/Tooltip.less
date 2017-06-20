@@ -8,11 +8,13 @@
 .moon-tooltip-label {
 	.moon-small-button-text;
 	line-height: @moon-tooltip-label-height;
-	white-space: nowrap;
 	color: @moon-tooltip-text-color;
 	padding: 12px (@moon-button-h-padding + 2);
 	background-color: @moon-tooltip-bg-color;
 	border-radius: (@moon-tooltip-height / 2);
+
+	word-wrap: break-word;
+	.locale-japanese-line-break;
 
 	.moon-tooltip.right-arrow & { text-align: right; }
 	.moon-tooltip.left-arrow & {
