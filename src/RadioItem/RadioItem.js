@@ -51,6 +51,7 @@ module.exports = kind(
 		SelectableItem.prototype.create.apply(this, arguments);
 		this.removeClass('moon-selectable-item');
 		this.addClass('moon-radio-item');
+		this.activeChanged();
 	},
 
 	/**
