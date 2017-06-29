@@ -344,12 +344,14 @@ module.exports = kind(
 			}
 		} else {
 			for (i=0;i<controls.length;i++) {
+				var type = typeof controls[i].selected === 'boolean' ? 'selected' : 'checked';
+
 				if(controls[i] === selected) {
-					controls[i].setSelected(true);
+					controls[i].set(type, true);
 					index = i;
-				} else if (controls[i].selected) {
+				} else if (controls[i].get(type)) {
 					controls[i].silence();
-					controls[i].setSelected(false);
+					controls[i].set(type, false);
 					controls[i].unsilence();
 				}
 			}
