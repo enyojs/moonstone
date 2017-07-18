@@ -125,20 +125,17 @@
 .moon-spinner {
 	min-height: @moon-spinner-size;
 	min-width: @moon-spinner-size;
-	line-height: @moon-spinner-size;
+	line-height: @moon-body-line-height;
 	position: relative;
 	display: inline-block;
 	color: @moon-spinner-text-color;
-	background-color: @moon-spinner-background-color;
-	border-radius: (@moon-button-height / 2);
-	margin: 0 @moon-spotlight-outset;
 
 	> * {
-		display: inline-block;
 		.moon-neutral & {
 			color: @moon-spinner-text-color;
 		}
 	}
+
 	// Horizontally centered
 	&.center {
 		margin: 0;
@@ -162,20 +159,18 @@
 	}
 	&.content {
 		padding: ((@moon-button-height - @moon-spinner-size) / 2);
-
-		.moon-spinner-client {
-			max-width: 399px;
-		}
 	}
 	&.running .moon-spinner-ball {
 		-webkit-animation-play-state: running;
 		animation-play-state: running;
 	}
 	.moon-spinner-ball-decorator {
+		border-radius: (@moon-spinner-size / 2);
 		position: relative;
 		width: @moon-spinner-size;
 		height: @moon-spinner-size;
-		float: left;
+		margin: 0 auto;
+		background-color: @moon-spinner-background-color;
 	}
 	.moon-spinner-ball {
 		position: absolute;
@@ -194,7 +189,7 @@
 		-webkit-transform-origin: center ((@moon-spinner-ball-disatance / @moon-spinner-ball-height) * -100);
 		transform-origin: center ((@moon-spinner-ball-disatance / @moon-spinner-ball-height) * -100);
 
-		&:after {
+		&::after {
 			content: @moon-icon-circle;
 			font-family: @moon-icon-font-family;
 		}
@@ -221,9 +216,13 @@
 		transform: rotateZ(360 - (@moon-spinner-ball-angle * 3));
 	}
 	.moon-spinner-client {
-		float: left;
-		line-height: @moon-spinner-size;
-		margin: 0 2.6ex 0 0;
+		font-size: 34px;
+		color: @moon-spinner-text-color;
+		line-height: @moon-body-line-height;
+		font-weight: bold;
+		margin-top: 14px;
+		max-width: 348px;
+		text-shadow: 0 1px 1px rgba(0,0,0,0.3);
 	}
 }
 .enyo-locale-right-to-left .moon-spinner {
@@ -231,14 +230,7 @@
 	// .moon-spinner-ball-decorator {
 	// 	-webkit-transform: scaleX(-1);
 	// }
-	.moon-spinner-ball-decorator {
-		float: right;
-	}
-	.moon-spinner-client {
-		float: right;
-		margin-left: 2.6ex;
-		margin-right: 0;
-	}
+
 	// Horizontally centered
 	&.center {
 		margin: 0;
