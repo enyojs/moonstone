@@ -781,6 +781,15 @@ module.exports = kind(
 	accessibilityDisabled: true,
 
 	/**
+	* When `true`, Read the content of `accessibilityLabel` when the content changes.
+	*
+	* @default true
+	* @type {Boolean}
+	* @public
+	*/
+	accessibilityLive: true,
+
+	/**
 	* ProgressBar isn't spottable so we'll make it focusable manually
 	*
 	* @private
@@ -808,6 +817,6 @@ module.exports = kind(
 					this.popup && this.popupContent ||
 					usePercent && this.calcPopupLabel(this.calcPercent(value)) ||
 					value;
-		this.setAriaAttribute('aria-valuetext', text);
+		this.set('accessibilityLabel', text);
 	}
 });
