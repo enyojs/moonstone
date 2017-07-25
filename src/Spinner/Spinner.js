@@ -145,7 +145,8 @@ module.exports = kind(
 				marqueeOnSpotlight: false,
 				marqueeOnHover: true,
 				marqueeOnRender: true,
-				marqueeOnRenderDelay: 1000
+				marqueeOnRenderDelay: 1000,
+				centered: true
 			});
 		}
 		this.createChrome(tools);
