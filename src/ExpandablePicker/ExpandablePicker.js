@@ -16,7 +16,8 @@ var
 var
 	BodyText = require('../BodyText'),
 	CheckboxItem = require('../CheckboxItem'),
-	ExpandableListItem = require('../ExpandableListItem');
+	ExpandableListItem = require('../ExpandableListItem'),
+	RadioItem = require('../RadioItem');
 
 /**
 * Fires when the currently selected item changes.
@@ -193,7 +194,7 @@ module.exports = kind(
 	/**
 	* @private
 	*/
-	defaultKind: CheckboxItem,
+	defaultKind: RadioItem,
 
 	/**
 	* @private
@@ -238,6 +239,7 @@ module.exports = kind(
 		if (this.multipleSelection) {
 			this.selected = (this.selected) ? this.selected : [];
 			this.selectedIndex = (this.selectedIndex != -1) ? this.selectedIndex : [];
+			this.defaultKind = CheckboxItem;
 		}
 		// super initialization
 		ExpandableListItem.prototype.create.apply(this, arguments);
@@ -342,12 +344,14 @@ module.exports = kind(
 			}
 		} else {
 			for (i=0;i<controls.length;i++) {
+				var type = typeof controls[i].selected === 'boolean' ? 'selected' : 'checked';
+
 				if(controls[i] === selected) {
-					controls[i].setChecked(true);
+					controls[i].set(type, true);
 					index = i;
-				} else if (controls[i].checked) {
+				} else if (controls[i].get(type)) {
 					controls[i].silence();
-					controls[i].setChecked(false);
+					controls[i].set(type, false);
 					controls[i].unsilence();
 				}
 			}

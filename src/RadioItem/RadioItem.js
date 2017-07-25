@@ -40,9 +40,26 @@ module.exports = kind(
 	/**
 	* @private
 	*/
+	handlers: {
+		onActivate: 'decorateActivateEvent'
+	},
+
+	/**
+	* @private
+	*/
 	create: function() {
 		SelectableItem.prototype.create.apply(this, arguments);
 		this.removeClass('moon-selectable-item');
 		this.addClass('moon-radio-item');
+		this.activeChanged();
+	},
+
+	/**
+	* @fires module:moonstone/RadioItem~RadioItem#onActivate
+	* @private
+	*/
+	decorateActivateEvent: function (sender, ev) {
+		ev.toggledControl = this;
+		ev.checked = this.selected;
 	}
 });
