@@ -1081,9 +1081,11 @@ module.exports = kind(
 			this.resetAccessibilityProperties();
 			this.setAriaAttribute('aria-valuetext', text);
 			if (this.enableJumpIncrement) {
-				this.$.slider.setAriaAttribute('aria-valuetext', text);
+				this.$.buttonLeft.setAriaAttribute('aria-controls', this.$.slider.id);
+				this.$.buttonRight.setAriaAttribute('aria-controls', this.$.slider.id);
 				this.$.buttonLeft.set('accessibilityLabel', String(text));
 				this.$.buttonRight.set('accessibilityLabel', String(text));
+				this.$.slider.setAriaAttribute('aria-valuetext', text);
 			}
 		}
 	}

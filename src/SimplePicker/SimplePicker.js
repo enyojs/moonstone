@@ -504,6 +504,8 @@ module.exports = kind(
 				this.$.buttonLeft.set('accessibilityLabel', label);
 				this.$.buttonRight.set('accessibilityLabel', label);
 				this.$.client.setAttribute('aria-valuetext', label);
+				this.$.buttonLeft.setAriaAttribute('aria-controls', this.$.client.id);
+				this.$.buttonRight.setAriaAttribute('aria-controls', this.$.client.id);
 			}
 		}}
 	]
