@@ -503,6 +503,8 @@ module.exports = kind(
 			if (this.selected) {
 				this.$.buttonLeft.set('accessibilityLabel', this.selected.content);
 				this.$.buttonRight.set('accessibilityLabel', this.selected.content);
+				this.$.buttonLeft.setAriaAttribute('aria-controls', this.$.client.id);
+				this.$.buttonRight.setAriaAttribute('aria-controls', this.$.client.id);
 				this.$.client.setAttribute('aria-valuetext', this.selected.content);
 			}
 		}}
