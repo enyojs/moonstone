@@ -255,10 +255,14 @@ module.exports = kind(
 		} else if (index <= 0) {
 			this.showNavButton(nextButton);
 			this.hideNavButton(prevButton);
+			this.$.buttonLeft.setAriaAttribute('aria-controls', null);
+			this.$.buttonRight.setAriaAttribute('aria-controls', null);
 		// If we are on the last item, hide the right button
 		} else if (index >= maxIndex) {
 			this.showNavButton(prevButton);
 			this.hideNavButton(nextButton);
+			this.$.buttonLeft.setAriaAttribute('aria-controls', null);
+			this.$.buttonRight.setAriaAttribute('aria-controls', null);
 		// Otherwise show both buttons
 		} else {
 			this.showNavButton(prevButton);
@@ -504,6 +508,8 @@ module.exports = kind(
 				this.$.buttonLeft.set('accessibilityLabel', label);
 				this.$.buttonRight.set('accessibilityLabel', label);
 				this.$.client.setAttribute('aria-valuetext', label);
+				this.$.buttonLeft.setAriaAttribute('aria-controls', this.$.client.id);
+				this.$.buttonRight.setAriaAttribute('aria-controls', this.$.client.id);
 			}
 		}}
 	]
