@@ -63,6 +63,6 @@ module.exports = kind(
 	},
 
 	initSelected: function() {
-		if(this.active) this.setSelected(this.active);
+		if (this.active) this.setSelected(this.active);
 	}
 });
