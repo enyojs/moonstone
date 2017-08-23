@@ -61,7 +61,7 @@ var Scrollable = {
 	create: kind.inherit(function (sup) {
 		return function () {
 			var opts = {
-				block: 'farthest',
+				block: 'nearest',
 				behavior: 'smooth'
 			};
 
