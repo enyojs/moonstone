@@ -51,6 +51,9 @@ module.exports = kind(
 		SelectableItem.prototype.create.apply(this, arguments);
 		this.removeClass('moon-selectable-item');
 		this.addClass('moon-radio-item');
+		if (this.active) {
+			this.activeChanged();
+		}
 	},
 
 	/**
@@ -60,9 +63,5 @@ module.exports = kind(
 	decorateActivateEvent: function (sender, ev) {
 		ev.toggledControl = this;
 		ev.checked = this.selected;
-	},
-
-	initSelected: function() {
-		if (this.active) this.setSelected(this.active);
 	}
 });
