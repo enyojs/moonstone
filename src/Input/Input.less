@@ -1,5 +1,8 @@
 /* Input.css */
 .moon-input {
+	line-height: 57px;
+	height: 57px;
+
 	padding: 0;
 	border: 0;
 	cursor: pointer;
@@ -58,27 +61,4 @@
 
 .enyo-locale-right-to-left .moon-input {
 	text-align: right;
-}
-
-.enyo-locale-non-latin {
-	// Languages with combining accent characters
-	&.enyo-locale-th, // Thai - Test Chars: ฟิ้ไััุุ
-	&.enyo-locale-ar, // Arabic
-	&.enyo-locale-fa, // Farsi
-	&.enyo-locale-ur, // Urdu
-	&.enyo-locale-ku, // Kurdish
-	&.enyo-locale-he, // Hebrew
-	&.enyo-locale-hi, // Hindi
-	&.enyo-locale-ta, // Tamil
-	&.enyo-locale-te, // Telugu
-	&.enyo-locale-kn, // Kannada
-	&.enyo-locale-ml, // Malayalam
-	&.enyo-locale-mr, // Marathi
-	&.enyo-locale-bn, // Bengali
-	&.enyo-locale-pa {// Panjabi
-		.moon-input-decorator .moon-input {
-			font-size: 24px;
-			line-height: 48px
-		}
-	}
 }
