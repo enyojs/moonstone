@@ -247,11 +247,6 @@ module.exports = kind(
 		this.selectedIndexChanged();
 		this.helpTextChanged();
 		this.createChrome(this.tools);
-
-		var controls = this.getCheckboxControls();
-		for (var i=0; i < controls.length; i++) {
-			if (controls[i].initSelected) controls[i].initSelected();
-		}
 	},
 
 	/**

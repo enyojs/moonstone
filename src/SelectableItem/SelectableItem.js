@@ -47,19 +47,19 @@ module.exports = kind(
 	* @private
 	*/
 	kind: Item,
-	
+
 	/**
 	* @private
 	*/
 	classes: 'moon-selectable-item',
-	
+
 	/**
 	* @private
 	*/
 	events: {
 		onActivate: ''
 	},
-	
+
 	/**
 	* @private
 	*/
@@ -95,7 +95,7 @@ module.exports = kind(
 		* @public
 		*/
 		active: false,
-		
+
 		/**
 		* If used as the base control within a {@link module:moonstone/DataList~DataList} or {@glossary subkind},
 		* this should be set to `false` so that selection support can be synchronized to the
@@ -107,7 +107,7 @@ module.exports = kind(
 		*/
 		handleTapEvent: true
 	},
-	
+
 	/**
 	* @method
 	* @private
@@ -140,7 +140,7 @@ module.exports = kind(
 		if (this.disabled) {
 			return true;
 		}
-		if (this.handleTapEvent) {
+		if (this.handleTapEvent && !(this.selected && this.active)) {
 			this.setActive(!this.getActive());
 			this.bubble('onchange');
 		}
@@ -185,7 +185,9 @@ module.exports = kind(
 		this.active = utils.isTrue(this.active);
 		this.setSelected(this.active);
 		this.resetMarquee();
-		this.bubble('onActivate');
+		if (this.active) {
+			this.bubble('onActivate');
+		}
 	},
 
 	// Accessibility
