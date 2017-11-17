@@ -422,19 +422,21 @@ module.exports = kind(
 
 		if (o5WayEvent && (!strategy.isPageControl || !strategy.isPageControl(lastControl))) {
 			this.startJob('scrollToBoundary', function () {
-				switch (o5WayEvent.type) {
-					case 'onSpotlightUp':
-						if (top > 0) strategy.scrollTo(left, 0, animate);
-						break;
-					case 'onSpotlightDown':
-						if (top < b.maxTop) strategy.scrollTo(left, b.maxTop, animate);
-						break;
-					case 'onSpotlightLeft':
-						if (left > 0) strategy.scrollTo(0, top, animate);
-						break;
-					case 'onSpotlightRight':
-							if (left < b.maxLeft) strategy.scrollTo(b.maxLeft, top, animate);
+				if (this.getAbsoluteShowing()) {
+					switch (o5WayEvent.type) {
+						case 'onSpotlightUp':
+							if (top > 0) strategy.scrollTo(left, 0, animate);
 							break;
+						case 'onSpotlightDown':
+							if (top < b.maxTop) strategy.scrollTo(left, b.maxTop, animate);
+							break;
+						case 'onSpotlightLeft':
+							if (left > 0) strategy.scrollTo(0, top, animate);
+							break;
+						case 'onSpotlightRight':
+								if (left < b.maxLeft) strategy.scrollTo(b.maxLeft, top, animate);
+								break;
+					}
 				}
 			}, this.scrollToBoundaryDelay);
 		}
